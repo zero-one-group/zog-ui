@@ -4,7 +4,7 @@ export interface SupProps {}
 export function Sup(props: SupProps) {
   return (
     <div>
-      <h1>Welcome to Sup!</h1>
+      <h1>This is Sup!</h1>
     </div>
   );
 }

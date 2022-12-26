@@ -4,7 +4,7 @@ export interface SimpleToggleProps {}
 export function SimpleToggle(props: SimpleToggleProps) {
   return (
     <div>
-      <h1>Welcome to SimpleToggle!</h1>
+      <h1>This is SimpleToggle!</h1>
     </div>
   );
 }

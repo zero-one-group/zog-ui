@@ -4,7 +4,7 @@ export interface ProgressBarProps {}
 export function ProgressBar(props: ProgressBarProps) {
   return (
     <div>
-      <h1>Welcome to ProgressBar!</h1>
+      <h1>This is ProgressBar!</h1>
     </div>
   );
 }

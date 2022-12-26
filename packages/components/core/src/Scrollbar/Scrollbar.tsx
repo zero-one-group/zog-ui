@@ -4,7 +4,7 @@ export interface ScrollbarProps {}
 export function Scrollbar(props: ScrollbarProps) {
   return (
     <div>
-      <h1>Welcome to Scrollbar!</h1>
+      <h1>This is Scrollbar!</h1>
     </div>
   );
 }

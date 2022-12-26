@@ -4,7 +4,7 @@ export interface PanelProps {}
 export function Panel(props: PanelProps) {
   return (
     <div>
-      <h1>Welcome to Panel!</h1>
+      <h1>This is Panel!</h1>
     </div>
   );
 }

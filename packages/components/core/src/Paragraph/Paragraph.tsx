@@ -4,7 +4,7 @@ export interface ParagraphProps {}
 export function Paragraph(props: ParagraphProps) {
   return (
     <div>
-      <h1>Welcome to Paragraph!</h1>
+      <h1>This is Paragraph!</h1>
     </div>
   );
 }

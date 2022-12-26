@@ -4,7 +4,7 @@ export interface TabsProps {}
 export function Tabs(props: TabsProps) {
   return (
     <div>
-      <h1>Welcome to Tabs!</h1>
+      <h1>This is Tabs!</h1>
     </div>
   );
 }

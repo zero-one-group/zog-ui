@@ -4,7 +4,7 @@ export interface TooltipProps {}
 export function Tooltip(props: TooltipProps) {
   return (
     <div>
-      <h1>Welcome to Tooltip!</h1>
+      <h1>This is Tooltip!</h1>
     </div>
   );
 }

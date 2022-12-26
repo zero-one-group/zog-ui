@@ -4,7 +4,7 @@ export interface SectionProps {}
 export function Section(props: SectionProps) {
   return (
     <div>
-      <h1>Welcome to Section!</h1>
+      <h1>This is Section!</h1>
     </div>
   );
 }

@@ -4,7 +4,7 @@ export interface LabelProps {}
 export function Label(props: LabelProps) {
   return (
     <div>
-      <h1>Welcome to Label!</h1>
+      <h1>This is Label!</h1>
     </div>
   );
 }

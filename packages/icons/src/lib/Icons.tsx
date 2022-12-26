@@ -6,7 +6,7 @@ export interface IconsProps {}
 export function Icons(props: IconsProps) {
   return (
     <div>
-      <h1>Welcome to Icons!</h1>
+      <h1>This is Icons!</h1>
     </div>
   );
 }

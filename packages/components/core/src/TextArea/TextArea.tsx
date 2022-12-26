@@ -4,7 +4,7 @@ export interface TextAreaProps {}
 export function TextArea(props: TextAreaProps) {
   return (
     <div>
-      <h1>Welcome to TextArea!</h1>
+      <h1>This is TextArea!</h1>
     </div>
   );
 }

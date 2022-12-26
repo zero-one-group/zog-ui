@@ -4,7 +4,7 @@ export interface TabLinkProps {}
 export function TabLink(props: TabLinkProps) {
   return (
     <div>
-      <h1>Welcome to TabLink!</h1>
+      <h1>This is TabLink!</h1>
     </div>
   );
 }

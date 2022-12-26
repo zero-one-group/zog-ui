@@ -3,7 +3,7 @@ import { create } from '@storybook/theming';
 const light = create({
   base: 'light',
 
-  colorPrimary: 'rgb(0, 90, 143)',
+  colorPrimary: '#007aff',
   colorSecondary: 'rgb(77, 172, 255)',
 
   // UI
@@ -31,10 +31,10 @@ const light = create({
   inputTextColor: '#1e293b',
   inputBorderRadius: 3,
 
-  // brandTitle: 'ZeroUI',
-  // brandUrl: 'https://zero-one-group.com',
+  brandUrl: '/?path=/docs/introduction--page',
   // brandImage: 'https://zero-one-group.com/images/brand-svg/logotype-dark.svg',
-  // brandTarget: '_self',
+  // brandTitle: 'Zero Design System',
+  brandTarget: '_self',
 });
 
 const dark = create({
@@ -68,10 +68,10 @@ const dark = create({
   inputTextColor: '#1e293b',
   inputBorderRadius: 3,
 
-  // brandTitle: 'ZeroUI',
-  // brandUrl: 'https://zero-one-group.com',
+  brandUrl: '/?path=/docs/introduction--page',
   // brandImage: 'https://zero-one-group.com/images/brand-svg/logotype-dark.svg',
-  // brandTarget: '_self',
+  // brandTitle: 'Zero Design System',
+  brandTarget: '_self',
 });
 
 export default { light, dark };

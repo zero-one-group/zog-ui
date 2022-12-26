@@ -4,7 +4,7 @@ export interface BadgeProps {}
 export function Badge(props: BadgeProps) {
   return (
     <div>
-      <h1>Welcome to Badge!</h1>
+      <h1>This is Badge!</h1>
     </div>
   );
 }

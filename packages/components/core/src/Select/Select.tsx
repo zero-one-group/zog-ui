@@ -4,7 +4,7 @@ export interface SelectProps {}
 export function Select(props: SelectProps) {
   return (
     <div>
-      <h1>Welcome to Select!</h1>
+      <h1>This is Select!</h1>
     </div>
   );
 }

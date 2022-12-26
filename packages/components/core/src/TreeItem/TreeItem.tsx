@@ -4,7 +4,7 @@ export interface TreeItemProps {}
 export function TreeItem(props: TreeItemProps) {
   return (
     <div>
-      <h1>Welcome to TreeItem!</h1>
+      <h1>This is TreeItem!</h1>
     </div>
   );
 }

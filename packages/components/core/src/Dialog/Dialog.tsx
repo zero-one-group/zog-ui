@@ -4,7 +4,7 @@ export interface DialogProps {}
 export function Dialog(props: DialogProps) {
   return (
     <div>
-      <h1>Welcome to Dialog!</h1>
+      <h1>This is Dialog!</h1>
     </div>
   );
 }

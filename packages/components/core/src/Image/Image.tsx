@@ -4,7 +4,7 @@ export interface ImageProps {}
 export function Image(props: ImageProps) {
   return (
     <div>
-      <h1>Welcome to Image!</h1>
+      <h1>This is Image!</h1>
     </div>
   );
 }

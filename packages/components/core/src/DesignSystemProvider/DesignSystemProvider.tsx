@@ -4,7 +4,7 @@ export interface DesignSystemProviderProps {}
 export function DesignSystemProvider(props: DesignSystemProviderProps) {
   return (
     <div>
-      <h1>Welcome to DesignSystemProvider!</h1>
+      <h1>This is DesignSystemProvider!</h1>
     </div>
   );
 }

@@ -4,7 +4,7 @@ export interface GridProps {}
 export function Grid(props: GridProps) {
   return (
     <div>
-      <h1>Welcome to Grid!</h1>
+      <h1>This is Grid!</h1>
     </div>
   );
 }

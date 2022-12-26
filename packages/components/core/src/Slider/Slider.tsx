@@ -4,7 +4,7 @@ export interface SliderProps {}
 export function Slider(props: SliderProps) {
   return (
     <div>
-      <h1>Welcome to Slider!</h1>
+      <h1>This is Slider!</h1>
     </div>
   );
 }

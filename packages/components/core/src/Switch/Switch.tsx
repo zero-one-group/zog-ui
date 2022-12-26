@@ -4,7 +4,7 @@ export interface SwitchProps {}
 export function Switch(props: SwitchProps) {
   return (
     <div>
-      <h1>Welcome to Switch!</h1>
+      <h1>This is Switch!</h1>
     </div>
   );
 }
