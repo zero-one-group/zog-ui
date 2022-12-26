@@ -36,3 +36,11 @@ pnpm exec nx generate @nrwl/react:component avatar --directory=avatar \
   --project=components-core --style=none --flat --pascalCaseDirectory \
   --pascalCaseFiles --no-interactive
 ```
+
+## Setup Storybook
+
+```sh
+pnpm exec nx generate @nrwl/storybook:configuration components-core \
+  --uiFramework=@storybook/react --bundler=vite --tsConfiguration \
+  --configureCypress=false --no-interactive
+```
