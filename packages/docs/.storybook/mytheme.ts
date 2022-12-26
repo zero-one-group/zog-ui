@@ -1,6 +1,6 @@
 import { create } from '@storybook/theming';
 
-let light = create({
+const light = create({
   base: 'light',
 
   colorPrimary: 'rgb(0, 90, 143)',
@@ -37,7 +37,7 @@ let light = create({
   // brandTarget: '_self',
 });
 
-let dark = create({
+const dark = create({
   base: 'dark',
 
   colorPrimary: 'rgb(77, 172, 255)',

@@ -9,6 +9,7 @@ export const parameters = {
   layout: 'padded',
   actions: { argTypesRegex: '^on[A-Z].*' },
   options: {
+    // eslint-disable-next-line
     storySort: (a: any, b: any) => a[1].id.localeCompare(b[1].id),
   },
   controls: {

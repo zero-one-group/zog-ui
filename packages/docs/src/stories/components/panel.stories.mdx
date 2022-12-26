@@ -1,0 +1,25 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { BADGE } from '@geometricpanda/storybook-addon-badges';
+import { within, userEvent } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
+import { Panel } from '@zero-ui/core';
+
+<Meta title="Components/Panel" component={[Panel]} argTypes={{}} />
+
+export const PanelStory = () => <Panel />;
+
+# Panel
+
+> WIP
+
+## Example Usage
+
+```jsx
+import { Panel } from '@zero-ui/core';
+```
+
+<Canvas columns={2} withSource="close">
+  <Story name="Panel">{PanelStory.bind()}</Story>
+</Canvas>
+
+<ArgsTable of={Panel} />
