@@ -8,5 +8,28 @@
       "import": "./index.mjs",
       "require": "./index.js"
     }
-  }
+  },
+  "homepage": "https://zero-one-group.com/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zero-one-group/zero-ui"
+  },
+  "bugs": {
+    "url": "https://github.com/zero-one-group/zero-ui/issues"
+  },
+  "peerDependencies": {
+    "react": ">=16.3 <= 18",
+    "react-dom": ">=16.3 <= 18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "react",
+    "react-ui",
+    "front-end",
+    "ui-libraries",
+    "ui-components",
+    "web"
+  ]
 }

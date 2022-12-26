@@ -21,10 +21,18 @@ pnpm exec nx generate @nrwl/js:library helpers --importPath=@zero-ui/helpers \
  --unitTestRunner=jest --bundler=esbuild --publishable --no-interactive
 ```
 
-## Generate UI Component
+## Generate React Library
 
 ```sh
-pnpm exec nx generate @nrwl/react:library core --importPath=@zero-ui/core --style=none \
-  --bundler=rollup --unitTestRunner=jest --pascalCaseFiles --publishable --no-interactive \
-  --directory=components
+pnpm exec nx generate @nrwl/react:library core --importPath=@zero-ui/core \
+  --style=none --bundler=rollup --unitTestRunner=jest --pascalCaseFiles \
+  --publishable --no-interactive --directory=components
+```
+
+## Generate React UI Component
+
+```sh
+pnpm exec nx generate @nrwl/react:component avatar --directory=avatar \
+  --project=components-core --style=none --flat --pascalCaseDirectory \
+  --pascalCaseFiles --no-interactive
 ```
