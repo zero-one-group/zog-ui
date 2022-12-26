@@ -1,0 +1,25 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@zero-ui/core": ["packages/components/core/src/index.ts"],
+      "@zero-ui/dropzone": ["packages/components/dropzone/src/index.ts"],
+      "@zero-ui/helpers": ["packages/helpers/src/index.ts"],
+      "@zero-ui/icons": ["packages/icons/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

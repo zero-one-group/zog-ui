@@ -1,0 +1,45 @@
+{
+  "name": "components-dropzone",
+  "sourceRoot": "packages/components/dropzone/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/components/dropzone/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    },
+    "build": {
+      "executor": "@nrwl/rollup:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/components/dropzone",
+        "tsConfig": "packages/components/dropzone/tsconfig.lib.json",
+        "project": "packages/components/dropzone/package.json",
+        "entryFile": "packages/components/dropzone/src/index.ts",
+        "external": ["react/jsx-runtime"],
+        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+        "compiler": "babel",
+        "assets": [
+          {
+            "glob": "packages/components/dropzone/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/components/dropzone/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}
