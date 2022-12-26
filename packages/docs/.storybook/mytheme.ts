@@ -14,7 +14,7 @@ const light = create({
 
   // Typography
   fontBase: 'Inter, "Open Sans", sans-serif',
-  fontCode: '"JetBrains Mono NL", Monaco, "Roboto Mono", Consolas, monospace',
+  fontCode: '"JetBrains Mono", Monaco, "Roboto Mono", Consolas, monospace',
 
   // Text colors
   textColor: 'rgb(16, 25, 35)',
@@ -51,7 +51,7 @@ const dark = create({
 
   // Typography
   fontBase: 'Inter, "Open Sans", sans-serif',
-  fontCode: '"JetBrains Mono NL", Monaco, "Roboto Mono", Consolas, monospace',
+  fontCode: '"JetBrains Mono", Monaco, "Roboto Mono", Consolas, monospace',
 
   // Text colors
   textColor: '#fff',

@@ -1,0 +1,25 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { BADGE } from '@geometricpanda/storybook-addon-badges';
+import { within, userEvent } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
+import { Menu } from '@zero-ui/core';
+
+<Meta title="Components/Menus/Menu" component={[Menu]} argTypes={{}} />
+
+export const MenuStory = () => <Menu />;
+
+# Menu
+
+> WIP
+
+## Example Usage
+
+```jsx
+import { Menu } from '@zero-ui/core';
+```
+
+<Canvas columns={2} withSource="close">
+  <Story name="Menu">{MenuStory.bind()}</Story>
+</Canvas>
+
+<ArgsTable of={Menu} />

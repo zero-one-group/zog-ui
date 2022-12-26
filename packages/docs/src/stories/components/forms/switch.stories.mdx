@@ -1,0 +1,25 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { BADGE } from '@geometricpanda/storybook-addon-badges';
+import { within, userEvent } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
+import { Switch } from '@zero-ui/core';
+
+<Meta title="Components/Forms/Switch" component={[Switch]} argTypes={{}} />
+
+export const SwitchStory = () => <Switch />;
+
+# Switch
+
+> WIP
+
+## Example Usage
+
+```jsx
+import { Switch } from '@zero-ui/core';
+```
+
+<Canvas columns={2} withSource="close">
+  <Story name="Switch">{SwitchStory.bind()}</Story>
+</Canvas>
+
+<ArgsTable of={Switch} />
