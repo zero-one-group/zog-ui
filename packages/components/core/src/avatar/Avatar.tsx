@@ -1,32 +1,12 @@
-import React from 'react';
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
 import { styled } from '@stitches/react';
 import { violet, blackA } from '@radix-ui/colors';
+// import { getInitialFromName } from '@zero-ui/helpers';
 
-/* eslint-disable-next-line */
-export interface AvatarProps {}
-
-const Avatar = (props: AvatarProps) => (
-  <Flex css={{ gap: 20 }}>
-    <AvatarRoot>
-      <AvatarImage
-        src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"
-        alt="Colm Tuite"
-      />
-      <AvatarFallback delayMs={600}>CT</AvatarFallback>
-    </AvatarRoot>
-    <AvatarRoot>
-      <AvatarImage
-        src="https://images.unsplash.com/photo-1511485977113-f34c92461ad9?ixlib=rb-1.2.1&w=128&h=128&dpr=2&q=80"
-        alt="Pedro Duarte"
-      />
-      <AvatarFallback delayMs={600}>JD</AvatarFallback>
-    </AvatarRoot>
-    <AvatarRoot>
-      <AvatarFallback>PD</AvatarFallback>
-    </AvatarRoot>
-  </Flex>
-);
+export interface AvatarProps {
+  src?: string;
+  alt?: string;
+}
 
 const AvatarRoot = styled(AvatarPrimitive.Root, {
   display: 'inline-flex',
@@ -61,6 +41,14 @@ const AvatarFallback = styled(AvatarPrimitive.Fallback, {
   fontWeight: 500,
 });
 
-const Flex = styled('div', { display: 'flex' });
+export function Avatar({ src, alt }: AvatarProps) {
+  // const initial = getInitialFromName(alt || 'Avatar');
+  return (
+    <AvatarRoot>
+      {src && <AvatarImage src={src} alt={alt} />}
+      <AvatarFallback delayMs={600}>JD</AvatarFallback>
+    </AvatarRoot>
+  );
+}
 
 export default Avatar;

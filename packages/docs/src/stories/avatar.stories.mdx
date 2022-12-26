@@ -1,0 +1,52 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { BADGE } from '@geometricpanda/storybook-addon-badges';
+import { within, userEvent } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
+import { Avatar } from '@zero-ui/core';
+
+<Meta
+  title="Components/Avatar"
+  component={[Avatar]}
+  argTypes={{
+    src: {
+      name: 'src',
+      type: { name: 'src', required: true },
+      defaultValue: 'https://avatars.githubusercontent.com/u/921834?v=4&s=200',
+      description: 'Image source URL',
+      control: { type: 'text' },
+    },
+    size: {
+      name: 'size',
+      type: { name: 'size', required: false },
+      defaultValue: 200,
+      description: 'Image size in pixels',
+      control: { type: 'number' },
+    },
+    alt: {
+      control: 'text',
+    },
+  }}
+/>
+
+export const AvatarStory = (args) => <Avatar {...args} />;
+
+# Avatar
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget consectetur tempor, nisl nunc egestas nisi.
+
+## Avatars
+
+```jsx
+import { Avatar } from '@zero-ui/core';
+```
+
+<Canvas columns={2} withSource="close">
+  <Story
+    name="Avatar"
+    args={{ src: 'https://avatars.githubusercontent.com/u/921834?v=4&s=200' }}
+  >
+    {AvatarStory.bind()}
+  </Story>
+</Canvas>
+
+<ArgsTable of={Avatar} />

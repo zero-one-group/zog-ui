@@ -40,7 +40,9 @@ pnpm exec nx generate @nrwl/react:component avatar --directory=avatar \
 ## Setup Storybook
 
 ```sh
-pnpm exec nx generate @nrwl/storybook:configuration components-core \
-  --uiFramework=@storybook/react --bundler=vite --tsConfiguration \
-  --configureCypress=false --no-interactive
+pnpm exec nx generate @nrwl/workspace:library docs --unitTestRunner=none --no-interactive
+
+pnpm exec nx generate @nrwl/storybook:configuration docs --bundler=webpack \
+  --uiFramework=@storybook/react --tsConfiguration --configureCypress=false \
+  --no-interactive
 ```

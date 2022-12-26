@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@zero-ui/core": ["packages/components/core/src/index.ts"],
+      "@zero-ui/docs": ["packages/docs/src/index.ts"],
       "@zero-ui/dropzone": ["packages/components/dropzone/src/index.ts"],
       "@zero-ui/helpers": ["packages/helpers/src/index.ts"],
       "@zero-ui/icons": ["packages/icons/src/index.ts"]
