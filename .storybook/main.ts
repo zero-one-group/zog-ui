@@ -13,11 +13,9 @@ export const rootMain: StorybookConfig = {
     builder: 'webpack5',
     disableTelemetry: true,
     enableCrashReports: false,
-    // lazyCompilation: true,
   },
   // webpackFinal: async (config, { configType }) => {
   //   // Make whatever fine-grained changes you need that should apply to all storybook configs
-
   //   // Return the altered config
   //   return config;
   // },

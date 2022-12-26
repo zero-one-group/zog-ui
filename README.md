@@ -46,3 +46,13 @@ pnpm exec nx generate @nrwl/storybook:configuration docs --bundler=webpack \
   --uiFramework=@storybook/react --tsConfiguration --configureCypress=false \
   --no-interactive
 ```
+
+## Publish NPM Package
+
+Get Granular Access Token, read the [documentation here](https://docs.npmjs.com/about-access-tokens#about-granular-access-tokens).
+
+```sh
+echo "//registry.npmjs.org/:_authToken=YOUR_GRANULAR_ACCESS_TOKEN" >> ~/.npmrc
+
+pnpm nx publish <PACKAGE_NAME> --ver=0.0.1 --tag=next
+```
