@@ -31,6 +31,26 @@
         ]
       }
     },
+    "build-swc": {
+      "executor": "@nrwl/rollup:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/components/core",
+        "tsConfig": "packages/components/core/tsconfig.lib.json",
+        "project": "packages/components/core/package.json",
+        "entryFile": "packages/components/core/src/index.ts",
+        "external": ["react/jsx-runtime"],
+        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+        "compiler": "swc",
+        "assets": [
+          {
+            "glob": "packages/components/core/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
+    },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
