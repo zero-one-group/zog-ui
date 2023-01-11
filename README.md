@@ -25,8 +25,8 @@ pnpm exec nx generate @nrwl/js:library helpers --importPath=@zero-ui/helpers \
 
 ```sh
 pnpm exec nx generate @nrwl/react:library core --importPath=@zero-ui/core \
-  --style=none --bundler=rollup --unitTestRunner=jest --pascalCaseFiles \
-  --publishable --no-interactive --directory=components
+  --style=none --bundler=rollup --compiler=swc --unitTestRunner=jest \
+  --pascalCaseFiles --publishable --no-interactive --directory=components
 ```
 
 ## Generate React UI Component
@@ -56,3 +56,13 @@ echo "//registry.npmjs.org/:_authToken=YOUR_GRANULAR_ACCESS_TOKEN" >> ~/.npmrc
 
 pnpm nx publish <PACKAGE_NAME> --ver=0.0.1 --tag=next
 ```
+
+## License
+
+This project is open-sourced software licensed under the [Apache License 2.0][choosealicense].
+
+Copyrights in this project are retained by their contributors.
+
+See the [license file](./LICENSE) for more information.
+
+[choosealicense]: https://choosealicense.com/licenses/apache-2.0/
