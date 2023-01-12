@@ -8,7 +8,10 @@
     "demo-nextjs": "(cd examples/nextjs && pnpm install && pnpm run dev)",
     "build": "nx run-many --target=build --projects=components-*,docs",
     "test": "nx run-many --target=test --projects=components-*",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint:affected": "nx affected --base=remotes/origin/main --target=lint",
+    "build:affected": "nx affected --base=remotes/origin/main --target=build",
+    "test:affected": "nx affected --base=remotes/origin/main --target=test"
   },
   "dependencies": {
     "@radix-ui/colors": "^0.1.8",
