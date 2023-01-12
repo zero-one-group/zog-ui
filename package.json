@@ -7,7 +7,8 @@
     "demo-react": "(cd examples/vite-react && pnpm install && pnpm run dev)",
     "demo-nextjs": "(cd examples/nextjs && pnpm install && pnpm run dev)",
     "build": "nx run-many --target=build --projects=components-*,docs",
-    "test": "nx run-many --target=test --projects=components-*"
+    "test": "nx run-many --target=test --projects=components-*",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@radix-ui/colors": "^0.1.8",
@@ -58,6 +59,8 @@
     "@babel/core": "7.12.13",
     "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "7.12.13",
+    "@commitlint/cli": "^17.4.1",
+    "@commitlint/config-conventional": "^17.4.0",
     "@geometricpanda/storybook-addon-badges": "^0.2.2",
     "@nrwl/devkit": "15.4.5",
     "@nrwl/esbuild": "15.4.5",
@@ -108,6 +111,7 @@
     "eslint-plugin-react": "7.31.11",
     "eslint-plugin-react-hooks": "4.6.0",
     "html-webpack-plugin": "^5.5.0",
+    "husky": "^8.0.3",
     "jest": "28.1.1",
     "jest-environment-jsdom": "28.1.1",
     "nx": "15.4.5",

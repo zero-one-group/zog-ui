@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+git fetch origin main
+
+pnpm lint:affected
+pnpm build:affected
+pnpm test:affected
