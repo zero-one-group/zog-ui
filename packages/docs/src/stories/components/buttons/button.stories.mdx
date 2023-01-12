@@ -8,7 +8,7 @@ import { Button } from '@zero-ui/core';
   title="Components/Buttons/Button"
   argTypes={{
     variant: {
-      options: ['dashed', 'default', 'outlined'],
+      options: ['dashed', 'default', 'outlined', 'circle', 'square'],
       control: { type: 'radio' },
     },
     size: {
@@ -16,12 +16,12 @@ import { Button } from '@zero-ui/core';
       control: { type: 'radio' },
     },
     disabled: { control: 'boolean' },
-    ghost: { control: 'boolean' }
+    ghost: { control: 'boolean' },
   }}
   component={[Button]}
 />
 
-export const ButtonStory = (args) => <Button {...args}>Sample Button</Button>;
+export const ButtonStory = (args) => <Button {...args}>{args.label}</Button>;
 
 # Button
 
@@ -39,6 +39,7 @@ import { Button } from '@zero-ui/core';
       colorScheme: 'default',
       variant: 'default',
       size: 'sm',
+      label: 'Simple Button',
     }}
     name="Button"
   >

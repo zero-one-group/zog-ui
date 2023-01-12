@@ -102,6 +102,16 @@ export const Button = styled('button', {
         borderStyle: 'dashed',
         backgroundColor: '$gray1',
       },
+      circle: {
+        borderRadius: '100%',
+        width: 'auto',
+        height: 'auto',
+      },
+      square: {
+        border: 'none',
+        width: 'auto',
+        height: 'auto',
+      },
     },
     disabled: {
       true: {
