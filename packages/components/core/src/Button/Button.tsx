@@ -27,307 +27,219 @@ export const Button = styled('button', {
   fontSize: '$2',
   fontWeight: 500,
   fontVariantNumeric: 'tabular-nums',
-
-  '&:disabled': {
-    backgroundColor: '$slate2',
-    boxShadow: 'inset 0 0 0 1px $colors$slate7',
-    color: '$slate8',
-    pointerEvents: 'none',
-  },
-
+  borderWidth: '1px',
+  borderRadius: '2px',
+  boxShadow: '0px 2px 0px rgba(0, 0, 0, 0.043)',
   variants: {
     size: {
-      '1': {
-        borderRadius: '$1',
-        height: '$5',
-        px: '$2',
-        fontSize: '$1',
-        lineHeight: '$sizes$5',
+      sm: {
+        padding: '0 7px',
+        fontSize: '14px',
+        lineHeight: '22px',
       },
-      '2': {
-        borderRadius: '$2',
-        height: '$6',
-        px: '$3',
-        fontSize: '$3',
-        lineHeight: '$sizes$6',
+      md: {
+        padding: '4px 15px',
+        fontSize: '14px',
+        lineHeight: '22px',
       },
-      '3': {
-        borderRadius: '$2',
-        height: '$7',
-        px: '$4',
-        fontSize: '$4',
-        lineHeight: '$sizes$7',
+      lg: {
+        padding: '6.4px 15px',
+        fontSize: '16px',
+        lineHeight: '24px',
+      },
+    },
+    colorScheme: {
+      default: {
+        color: '$gray12',
+        backgroundColor: '$gray1',
+        borderColor: '$gray11',
+        '&:hover': {
+          backgroundColor: '$gray1',
+        },
+        '&:active': {
+          backgroundColor: '$gray1',
+        },
+      },
+      primary: {
+        color: '$gray1',
+        backgroundColor: '$blue9',
+        '&:hover': {
+          backgroundColor: '$blue8',
+        },
+        '&:active': {
+          backgroundColor: '$blue11',
+        },
+      },
+      secondary: {
+        backgroundColor: '$gray1',
+        borderColor: '$gray8',
+        '&:hover': {
+          borderColor: '$blue8',
+          color: '$blue8',
+        },
+        '&:active': {
+          color: '$blue11',
+          borderColor: '$blue11',
+        },
+      },
+      danger: {
+        backgroundColor: '$red11',
+        color: '$gray1',
+        '&:hover': {
+          borderColor: '$red11',
+          backgroundColor: '$red9',
+        },
       },
     },
     variant: {
-      gray: {
-        backgroundColor: '$loContrast',
-        boxShadow: 'inset 0 0 0 1px $colors$slate7',
-        color: '$hiContrast',
-        '@hover': {
-          '&:hover': {
-            boxShadow: 'inset 0 0 0 1px $colors$slate8',
-          },
-        },
-        '&:active': {
-          backgroundColor: '$slate2',
-          boxShadow: 'inset 0 0 0 1px $colors$slate8',
-        },
-        '&:focus': {
-          boxShadow: 'inset 0 0 0 1px $colors$slate8, 0 0 0 1px $colors$slate8',
-        },
-        '&[data-radix-popover-trigger][data-state="open"], &[data-radix-dropdown-menu-trigger][data-state="open"]':
-          {
-            backgroundColor: '$slate4',
-            boxShadow: 'inset 0 0 0 1px $colors$slate8',
-          },
+      default: {
+        borderStyle: 'solid',
       },
-      blue: {
-        backgroundColor: '$blue2',
-        boxShadow: 'inset 0 0 0 1px $colors$blue7',
-        color: '$blue11',
-        '@hover': {
-          '&:hover': {
-            boxShadow: 'inset 0 0 0 1px $colors$blue8',
-          },
-        },
-        '&:active': {
-          backgroundColor: '$blue3',
-          boxShadow: 'inset 0 0 0 1px $colors$blue8',
-        },
-        '&:focus': {
-          boxShadow: 'inset 0 0 0 1px $colors$blue8, 0 0 0 1px $colors$blue8',
-        },
-        '&[data-radix-popover-trigger][data-state="open"], &[data-radix-dropdown-menu-trigger][data-state="open"]':
-          {
-            backgroundColor: '$blue4',
-            boxShadow: 'inset 0 0 0 1px $colors$blue8',
-          },
+      outlined: {
+        backgroundColor: '$gray1',
       },
-      green: {
-        backgroundColor: '$green2',
-        boxShadow: 'inset 0 0 0 1px $colors$green7',
-        color: '$green11',
-        '@hover': {
-          '&:hover': {
-            boxShadow: 'inset 0 0 0 1px $colors$green8',
-          },
-        },
-        '&:active': {
-          backgroundColor: '$green3',
-          boxShadow: 'inset 0 0 0 1px $colors$green8',
-        },
-        '&:focus': {
-          boxShadow: 'inset 0 0 0 1px $colors$green8, 0 0 0 1px $colors$green8',
-        },
-        '&[data-radix-popover-trigger][data-state="open"], &[data-radix-dropdown-menu-trigger][data-state="open"]':
-          {
-            backgroundColor: '$green4',
-            boxShadow: 'inset 0 0 0 1px $colors$green8',
-          },
+      dashed: {
+        borderStyle: 'dashed',
+        backgroundColor: '$gray1',
       },
-      red: {
-        backgroundColor: '$loContrast',
-        boxShadow: 'inset 0 0 0 1px $colors$slate7',
-        color: '$red11',
-        '@hover': {
-          '&:hover': {
-            boxShadow: 'inset 0 0 0 1px $colors$slate8',
-          },
-        },
-        '&:active': {
-          backgroundColor: '$red3',
-          boxShadow: 'inset 0 0 0 1px $colors$red8',
-        },
-        '&:focus': {
-          boxShadow: 'inset 0 0 0 1px $colors$red8, 0 0 0 1px $colors$red8',
-        },
-        '&[data-radix-popover-trigger][data-state="open"], &[data-radix-dropdown-menu-trigger][data-state="open"]':
-          {
-            backgroundColor: '$red4',
-            boxShadow: 'inset 0 0 0 1px $colors$red8',
-          },
+      circle: {
+        borderRadius: '100%',
+        width: 'auto',
+        height: 'auto',
       },
-      transparentWhite: {
-        backgroundColor: 'hsla(0,100%,100%,.2)',
-        color: 'white',
-        '@hover': {
-          '&:hover': {
-            backgroundColor: 'hsla(0,100%,100%,.25)',
-          },
-        },
-        '&:active': {
-          backgroundColor: 'hsla(0,100%,100%,.3)',
-        },
-        '&:focus': {
-          boxShadow:
-            'inset 0 0 0 1px hsla(0,100%,100%,.35), 0 0 0 1px hsla(0,100%,100%,.35)',
-        },
-      },
-      transparentBlack: {
-        backgroundColor: 'hsla(0,0%,0%,.2)',
-        color: 'black',
-        '@hover': {
-          '&:hover': {
-            backgroundColor: 'hsla(0,0%,0%,.25)',
-          },
-        },
-        '&:active': {
-          backgroundColor: 'hsla(0,0%,0%,.3)',
-        },
-        '&:focus': {
-          boxShadow:
-            'inset 0 0 0 1px hsla(0,0%,0%,.35), 0 0 0 1px hsla(0,0%,0%,.35)',
-        },
+      square: {
+        border: 'none',
+        width: 'auto',
+        height: 'auto',
       },
     },
-    state: {
-      active: {
-        backgroundColor: '$slate4',
-        boxShadow: 'inset 0 0 0 1px $colors$slate8',
-        color: '$slate11',
-        '@hover': {
-          '&:hover': {
-            backgroundColor: '$slate5',
-            boxShadow: 'inset 0 0 0 1px $colors$slate8',
-          },
+    disabled: {
+      true: {
+        backgroundColor: '$gray3',
+        borderColor: '$gray9',
+        color: '$gray9',
+        '&:hover': {
+          backgroundColor: '$gray3',
         },
         '&:active': {
-          backgroundColor: '$slate5',
-        },
-        '&:focus': {
-          boxShadow: 'inset 0 0 0 1px $colors$slate8, 0 0 0 1px $colors$slate8',
-        },
-      },
-      waiting: {
-        backgroundColor: '$slate4',
-        boxShadow: 'inset 0 0 0 1px $colors$slate8',
-        color: 'transparent',
-        pointerEvents: 'none',
-        '@hover': {
-          '&:hover': {
-            backgroundColor: '$slate5',
-            boxShadow: 'inset 0 0 0 1px $colors$slate8',
-          },
-        },
-        '&:active': {
-          backgroundColor: '$slate5',
-        },
-        '&:focus': {
-          boxShadow: 'inset 0 0 0 1px $colors$slate8',
+          backgroundColor: '$gray3',
         },
       },
     },
     ghost: {
       true: {
         backgroundColor: 'transparent',
-        boxShadow: 'none',
       },
     },
   },
   compoundVariants: [
     {
-      variant: 'gray',
-      ghost: 'true',
+      colorScheme: 'danger',
+      variant: 'outlined',
       css: {
-        backgroundColor: 'transparent',
-        color: '$hiContrast',
-        '@hover': {
-          '&:hover': {
-            backgroundColor: '$slateA3',
-            boxShadow: 'none',
-          },
+        color: '$red10',
+        border: '1px solid $red10',
+        backgroundColor: '$gary1',
+        '&:hover': {
+          backgroundColor: '$gary1',
         },
-        '&:active': {
-          backgroundColor: '$slateA4',
-        },
-        '&:focus': {
-          boxShadow:
-            'inset 0 0 0 1px $colors$slateA8, 0 0 0 1px $colors$slateA8',
-        },
-        '&[data-radix-popover-trigger][data-state="open"], &[data-radix-dropdown-menu-trigger][data-state="open"]':
-          {
-            backgroundColor: '$slateA4',
-            boxShadow: 'none',
-          },
       },
     },
     {
-      variant: 'blue',
-      ghost: 'true',
+      colorScheme: 'primary',
+      variant: 'outlined',
       css: {
-        backgroundColor: 'transparent',
-        '@hover': {
-          '&:hover': {
-            backgroundColor: '$blueA3',
-            boxShadow: 'none',
-          },
+        color: '$blue9',
+        backgroundColor: '$gary1',
+        border: '1px solid $blue9',
+        '&:hover': {
+          backgroundColor: '$gary1',
         },
-        '&:active': {
-          backgroundColor: '$blueA4',
-        },
-        '&:focus': {
-          boxShadow: 'inset 0 0 0 1px $colors$blueA8, 0 0 0 1px $colors$blueA8',
-        },
-        '&[data-radix-popover-trigger][data-state="open"], &[data-radix-dropdown-menu-trigger][data-state="open"]':
-          {
-            backgroundColor: '$blueA4',
-            boxShadow: 'none',
-          },
       },
     },
     {
-      variant: 'green',
-      ghost: 'true',
+      colorScheme: 'danger',
+      variant: 'dashed',
       css: {
-        backgroundColor: 'transparent',
-        '@hover': {
-          '&:hover': {
-            backgroundColor: '$greenA3',
-            boxShadow: 'none',
-          },
+        color: '$red10',
+        backgroundColor: '$gary1',
+        '&:hover': {
+          backgroundColor: '$gary1',
         },
-        '&:active': {
-          backgroundColor: '$greenA4',
-        },
-        '&:focus': {
-          boxShadow:
-            'inset 0 0 0 1px $colors$greenA8, 0 0 0 1px $colors$greenA8',
-        },
-        '&[data-radix-popover-trigger][data-state="open"], &[data-radix-dropdown-menu-trigger][data-state="open"]':
-          {
-            backgroundColor: '$greenA4',
-            boxShadow: 'none',
-          },
       },
     },
     {
-      variant: 'red',
-      ghost: 'true',
+      colorScheme: 'primary',
+      variant: 'dashed',
       css: {
-        backgroundColor: 'transparent',
-        '@hover': {
-          '&:hover': {
-            backgroundColor: '$redA3',
-            boxShadow: 'none',
-          },
+        color: '$blue9',
+        backgroundColor: '$gary1',
+        '&:hover': {
+          backgroundColor: '$gray1',
         },
         '&:active': {
-          backgroundColor: '$redA4',
+          backgroundColor: '$gary1',
         },
-        '&:focus': {
-          boxShadow: 'inset 0 0 0 1px $colors$redA8, 0 0 0 1px $colors$redA8',
+      },
+    },
+    {
+      colorScheme: 'primary',
+      disabled: true,
+      css: {
+        backgroundColor: '$gray3',
+        borderColor: '$gray9',
+        color: '$gray9',
+        '&:hover': {
+          backgroundColor: '$gray3',
         },
-        '&[data-radix-popover-trigger][data-state="open"], &[data-radix-dropdown-menu-trigger][data-state="open"]':
-          {
-            backgroundColor: '$redA4',
-            boxShadow: 'none',
-          },
+        '&:active': {
+          backgroundColor: '$gray3',
+        },
+      },
+    },
+    {
+      colorScheme: 'secondary',
+      disabled: true,
+      css: {
+        backgroundColor: '$gray3',
+        borderColor: '$gray9',
+        color: '$gray9',
+        '&:hover': {
+          backgroundColor: '$gray3',
+          borderColor: '$gray9',
+          color: '$gray9',
+        },
+        '&:active': {
+          backgroundColor: '$gray3',
+          borderColor: '$gray9',
+          color: '$gray9',
+        },
+      },
+    },
+    {
+      colorScheme: 'danger',
+      disabled: true,
+      css: {
+        backgroundColor: '$gray3',
+        borderColor: '$gray9',
+        color: '$gray9',
+        '&:hover': {
+          backgroundColor: '$gray3',
+          borderColor: '$gray9',
+          color: '$gray9',
+        },
+        '&:active': {
+          backgroundColor: '$gray3',
+          borderColor: '$gray9',
+          color: '$gray9',
+        },
       },
     },
   ],
+
   defaultVariants: {
-    size: '1',
-    variant: 'gray',
+    size: 'sm',
+    variant: 'default',
+    colorScheme: 'default',
   },
 });

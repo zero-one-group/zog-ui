@@ -4,9 +4,24 @@ import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { Button } from '@zero-ui/core';
 
-<Meta title="Components/Buttons/Button" component={[Button]} argTypes={{}} />
+<Meta
+  title="Components/Buttons/Button"
+  argTypes={{
+    variant: {
+      options: ['dashed', 'default', 'outlined', 'circle', 'square'],
+      control: { type: 'radio' },
+    },
+    size: {
+      options: ['sm', 'md', 'lg'],
+      control: { type: 'radio' },
+    },
+    disabled: { control: 'boolean' },
+    ghost: { control: 'boolean' },
+  }}
+  component={[Button]}
+/>
 
-export const ButtonStory = (args) => <Button {...args}>Sample Button</Button>;
+export const ButtonStory = (args) => <Button {...args}>{args.label}</Button>;
 
 # Button
 
@@ -19,7 +34,17 @@ import { Button } from '@zero-ui/core';
 ```
 
 <Canvas columns={2} withSource="close">
-  <Story name="Button">{ButtonStory.bind()}</Story>
+  <Story
+    args={{
+      colorScheme: 'default',
+      variant: 'default',
+      size: 'sm',
+      label: 'Simple Button',
+    }}
+    name="Button"
+  >
+    {ButtonStory.bind()}
+  </Story>
 </Canvas>
 
 <ArgsTable of={Button} />
