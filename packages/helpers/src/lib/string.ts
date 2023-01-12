@@ -1,4 +1,4 @@
-export function getInitialFromName(name: string = ''): string {
+export function getInitialFromName(name = ''): string {
   if (!name) {
     return '';
   }
