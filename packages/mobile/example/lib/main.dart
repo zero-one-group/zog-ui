@@ -10,6 +10,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const List<Widget> children = <Widget>[
+      Text('Tab 1'),
+      Text('Tab 2'),
+      Text('Tab 3')
+    ];
+
+    List<bool> isSelected = [false, false, false];
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -22,15 +30,73 @@ class MyApp extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ZeroButton.primary(
-                onPressed: () {},
-                text: 'Button',
+              ZeroButtonGroup.solid(
+                selectedItems: isSelected,
                 buttonSizeType: ButtonSizeType.small,
+                children: children,
               ),
-              ZeroButton.primary(
-                onPressed: () {},
-                text: 'Button',
+              const SizedBox(
+                height: 10,
+              ),
+              ZeroButtonGroup.outline(
+                buttonSizeType: ButtonSizeType.small,
+                selectedItems: isSelected,
+                children: children,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              ZeroButtonGroup.solid(
+                selectedItems: isSelected,
+                children: children,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              ZeroButtonGroup.outline(
+                selectedItems: isSelected,
+                children: children,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              ZeroButtonGroup.solid(
+                selectedItems: isSelected,
                 buttonSizeType: ButtonSizeType.large,
+                children: children,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              ZeroButtonGroup.outline(
+                buttonSizeType: ButtonSizeType.large,
+                selectedItems: isSelected,
+                children: children,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              ZeroButtonGroup.solid(
+                buttonSizeType: ButtonSizeType.large,
+                buttonRadiusType: ButtonRadiusType.rounded,
+                selectedItems: isSelected,
+                children: children,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              ZeroButtonGroup.text(
+                buttonSizeType: ButtonSizeType.large,
+                selectedItems: isSelected,
+                children: children,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              ZeroButtonGroup.underline(
+                buttonSizeType: ButtonSizeType.large,
+                selectedItems: isSelected,
+                children: children,
               ),
             ],
           ),

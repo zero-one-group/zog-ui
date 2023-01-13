@@ -46,10 +46,12 @@ class ZeroButton extends ElevatedButton {
           backgroundColor: backgroundColor,
           foregroundColor: foregroundColor,
           elevation: 0,
-          fixedSize: (width != null && height != null) ? Size(width, height) : null,
+          fixedSize:
+              (width != null && height != null) ? Size(width, height) : null,
           padding: _paddingSize(buttonSizeType),
           shape: RoundedRectangleBorder(
-            side: BorderSide(color: isDisabled ? foregroundColor : Colors.transparent),
+            side: BorderSide(
+                color: isDisabled ? foregroundColor : Colors.transparent),
             borderRadius: _buttonRadiusType(buttonRadiusType),
           ),
         ),
@@ -81,7 +83,8 @@ class ZeroButton extends ElevatedButton {
     FocusNode? focusNode,
     bool autofocus = false,
   }) {
-    final Color backgroundColor = isDisabled ? ZeroColors.disabled : ZeroColors.transparent;
+    final Color backgroundColor =
+        isDisabled ? ZeroColors.disabled : ZeroColors.transparent;
     foregroundColor = isDisabled ? ZeroColors.grey : foregroundColor;
     return ZeroButton(
       key: key,
@@ -92,7 +95,8 @@ class ZeroButton extends ElevatedButton {
           backgroundColor: backgroundColor,
           foregroundColor: foregroundColor,
           elevation: 0,
-          fixedSize: (width != null && height != null) ? Size(width, height) : null,
+          fixedSize:
+              (width != null && height != null) ? Size(width, height) : null,
           padding: _paddingSize(buttonSizeType),
           shape: RoundedRectangleBorder(
             side: BorderSide(color: foregroundColor),
@@ -169,24 +173,27 @@ class ZeroButton extends ElevatedButton {
   }) {
     final Color? foreground = foregroundColor;
     final Color? disabledForeground = disabledForegroundColor;
-    final MaterialStateProperty<Color?>? foregroundColorProp = (foreground == null && disabledForeground == null)
-        ? null
-        : MaterialStateProperty.resolveWith((Set<MaterialState> states) {
-            if (states.contains(MaterialState.disabled)) {
-              return foreground;
-            }
-            return disabledForeground;
-          });
-    final MaterialStateProperty<Color?>? backgroundColorProp = (backgroundColor == null && disabledBackgroundColor == null)
-        ? null
-        : disabledBackgroundColor == null
-            ? ButtonStyleButton.allOrNull<Color?>(backgroundColor)
+    final MaterialStateProperty<Color?>? foregroundColorProp =
+        (foreground == null && disabledForeground == null)
+            ? null
             : MaterialStateProperty.resolveWith((Set<MaterialState> states) {
                 if (states.contains(MaterialState.disabled)) {
-                  return backgroundColor;
+                  return foreground;
                 }
-                return disabledBackgroundColor;
+                return disabledForeground;
               });
+    final MaterialStateProperty<Color?>? backgroundColorProp =
+        (backgroundColor == null && disabledBackgroundColor == null)
+            ? null
+            : disabledBackgroundColor == null
+                ? ButtonStyleButton.allOrNull<Color?>(backgroundColor)
+                : MaterialStateProperty.resolveWith(
+                    (Set<MaterialState> states) {
+                    if (states.contains(MaterialState.disabled)) {
+                      return backgroundColor;
+                    }
+                    return disabledBackgroundColor;
+                  });
     final MaterialStateProperty<Color?>? overlayColor = (foreground == null)
         ? null
         : MaterialStateProperty.resolveWith((Set<MaterialState> states) {
