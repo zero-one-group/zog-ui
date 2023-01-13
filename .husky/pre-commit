@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+
+
+if pnpm nx format:check ;
+  then  
+    echo "Format Checking Success" && exit 0; 
+  else  
+    echo "Format Checking Fail: Please run pnpm nx format" && exit 1; 
+fi
