@@ -22,15 +22,77 @@ class MyApp extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ZeroButton.primary(
+              ZeroButton(
                 onPressed: () {},
-                text: 'Button',
-                buttonSizeType: ButtonSizeType.small,
+                style: ZeroButtonStyle.secondaryStyle(),
+                child: const Text('fda'),
               ),
               ZeroButton.primary(
+                text: 'Button Primary',
                 onPressed: () {},
-                text: 'Button',
-                buttonSizeType: ButtonSizeType.large,
+                buttonRadiusType: ZeroButtonRadiusType.rounded,
+              ),
+              ZeroButton.secondary(
+                text: 'Button Secondary',
+                onPressed: () {},
+                buttonRadiusType: ZeroButtonRadiusType.rounded,
+              ),
+              ZeroButton.disabled(
+                text: 'Button Disabled',
+                buttonRadiusType: ZeroButtonRadiusType.rounded,
+              ),
+              ZeroButtonLIcon.primary(
+                text: 'Button L-Icon Primary',
+                onPressed: () {},
+                buttonRadiusType: ZeroButtonRadiusType.rounded,
+                icon: const Icon(Icons.search),
+              ),
+              ZeroButtonLIcon.secondary(
+                text: 'Button L-Icon Primary',
+                onPressed: () {},
+                buttonRadiusType: ZeroButtonRadiusType.rounded,
+                icon: const Icon(Icons.search),
+              ),
+              ZeroButtonLIcon.disabled(
+                text: 'Button L-Icon Primary',
+                buttonRadiusType: ZeroButtonRadiusType.rounded,
+                icon: const Icon(Icons.search),
+              ),
+              ZeroButtonRLIcon.primary(
+                text: 'Button LR-Icon Primary',
+                onPressed: () {},
+                buttonRadiusType: ZeroButtonRadiusType.rounded,
+                prefixIcon: const Icon(Icons.search),
+                suffixIcon: const Icon(Icons.search),
+              ),
+              ZeroButtonRLIcon.secondary(
+                text: 'Button LR-Icon Primary',
+                onPressed: () {},
+                buttonRadiusType: ZeroButtonRadiusType.rounded,
+                prefixIcon: const Icon(Icons.search),
+                suffixIcon: const Icon(Icons.search),
+              ),
+              ZeroButtonRLIcon.disabled(
+                text: 'Button LR-Icon Primary',
+                buttonRadiusType: ZeroButtonRadiusType.rounded,
+                prefixIcon: const Icon(Icons.search),
+                suffixIcon: const Icon(Icons.search),
+              ),
+              ZeroButtonIcon.primary(
+                onPressed: () {},
+                icon: const Icon(Icons.search),
+              ),
+              ZeroButtonIcon.secondary(
+                onPressed: () {},
+                icon: const Icon(Icons.search),
+              ),
+              ZeroButtonIcon.disabled(
+                icon: const Icon(Icons.search),
+              ),
+              ZeroButtonIcon(
+                onPressed: () {},
+                style: ZeroButtonStyle.secondaryStyle(),
+                child: const Icon(Icons.abc, color: Colors.black),
               ),
             ],
           ),
