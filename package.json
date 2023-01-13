@@ -65,6 +65,7 @@
     "@nrwl/jest": "15.4.5",
     "@nrwl/js": "15.4.5",
     "@nrwl/linter": "15.4.5",
+    "@nrwl/nx-cloud": "^15.0.2",
     "@nrwl/react": "15.4.5",
     "@nrwl/rollup": "15.4.5",
     "@nrwl/storybook": "15.4.5",
