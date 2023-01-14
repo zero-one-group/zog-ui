@@ -1,16 +1,13 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
-import { BADGE } from '@geometricpanda/storybook-addon-badges';
-import { within, userEvent } from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
-import { Box } from '@zero-ui/core';
+import { Box, BoxProps } from '@zero-ui/core';
 
 <Meta title="Components/Layouts/Box" component={[Box]} argTypes={{}} />
 
-export const BoxStory = () => <Box />;
+export const BoxStory = (args) => <Box {...args}>{args.children}</Box>;
 
 # Box
 
-> WIP
+Box is a basic component that used in the most of Zero UI components. Box doesn't have a special props, you can easily customize and extends Box component with `css` prop or `as` prop.
 
 ## Example Usage
 
@@ -19,7 +16,19 @@ import { Box } from '@zero-ui/core';
 ```
 
 <Canvas columns={2} withSource="close">
-  <Story name="Box">{BoxStory.bind()}</Story>
+  <Story
+    name="Box"
+    args={{
+      children: 'Box',
+      css: {
+        backgroundColor: '$gray4',
+        padding: '$4',
+        borderRadius: '$2',
+      },
+    }}
+  >
+    {BoxStory.bind()}
+  </Story>
 </Canvas>
 
-<ArgsTable of={Box} />
+<ArgsTable story="Box" />
