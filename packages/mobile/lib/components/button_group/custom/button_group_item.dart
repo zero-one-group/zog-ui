@@ -55,14 +55,16 @@ class ButtonGroupItem extends StatelessWidget {
               padding: const EdgeInsets.only(right: 6),
               child: Icon(
                 icon,
-                color: textColor,
+                color: isSelected ? selectedColor : textColor,
                 size: fontSize,
               ),
             ),
           Text(
             label,
             textAlign: TextAlign.center,
-            style: TextStyle(color: textColor, fontSize: fontSize),
+            style: TextStyle(
+                color: isSelected ? selectedColor : textColor,
+                fontSize: fontSize),
           ),
         ],
       ),

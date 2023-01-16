@@ -69,7 +69,9 @@ class ZeroButtonIcon extends ElevatedButton {
       foregroundColor: ZeroColors.primary8,
       animatingColor: ZeroColors.primary3,
       elevation: 0,
-      fixedSize: (width != null) ? Size(width, height ?? defaultButtonHeight(buttonSizeType)) : null,
+      fixedSize: (width != null)
+          ? Size(width, height ?? defaultButtonHeight(buttonSizeType))
+          : null,
       padding: paddingSize(buttonSizeType),
       shape: RoundedRectangleBorder(
         borderRadius: buttonRadiusSize(buttonRadiusType),
@@ -115,7 +117,9 @@ class ZeroButtonIcon extends ElevatedButton {
               autofocus: autofocus,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: icon.color == null ? Icon(icon.icon, color: ZeroColors.white) : icon,
+                child: icon.color == null
+                    ? Icon(icon.icon, color: ZeroColors.white)
+                    : icon,
               ),
             ),
           );
@@ -168,7 +172,9 @@ class ZeroButtonIcon extends ElevatedButton {
       foregroundColor: ZeroColors.transparentWhite,
       animatingColor: ZeroColors.primary3,
       elevation: 0,
-      fixedSize: (width != null) ? Size(width, height ?? defaultButtonHeight(buttonSizeType)) : null,
+      fixedSize: (width != null)
+          ? Size(width, height ?? defaultButtonHeight(buttonSizeType))
+          : null,
       padding: paddingSize(buttonSizeType),
       shape: RoundedRectangleBorder(
         side: BorderSide(color: borderColor, width: 1),
@@ -212,7 +218,9 @@ class ZeroButtonIcon extends ElevatedButton {
               autofocus: autofocus,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: icon.color == null ? Icon(icon.icon, color: ZeroColors.neutral10) : icon,
+                child: icon.color == null
+                    ? Icon(icon.icon, color: ZeroColors.neutral10)
+                    : icon,
               ),
             ),
           );
@@ -242,7 +250,9 @@ class ZeroButtonIcon extends ElevatedButton {
       backgroundColor: ZeroColors.neutral3,
       foregroundColor: ZeroColors.transparentWhite,
       elevation: 0,
-      fixedSize: (width != null) ? Size(width, height ?? defaultButtonHeight(buttonSizeType)) : null,
+      fixedSize: (width != null)
+          ? Size(width, height ?? defaultButtonHeight(buttonSizeType))
+          : null,
       padding: paddingSize(buttonSizeType),
       shape: RoundedRectangleBorder(
         side: const BorderSide(color: ZeroColors.neutral5),

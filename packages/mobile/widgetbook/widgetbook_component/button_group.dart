@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
+import 'package:zero_ui_mobile/components/button_group/zero_button_group.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 WidgetbookComponent buttonGroupWidgetbookComponent = WidgetbookComponent(
@@ -29,15 +30,15 @@ WidgetbookComponent buttonGroupWidgetbookComponent = WidgetbookComponent(
             buttonSizeType: context.knobs.options(label: 'Size', options: [
               const Option(
                 label: 'Large',
-                value: ButtonSizeType.large,
+                value: ZeroButtonSizeType.large,
               ),
               const Option(
                 label: 'Medium',
-                value: ButtonSizeType.medium,
+                value: ZeroButtonSizeType.medium,
               ),
               const Option(
                 label: 'Small',
-                value: ButtonSizeType.small,
+                value: ZeroButtonSizeType.small,
               ),
             ]),
             buttonGroupType: context.knobs.options(label: 'Type', options: [
@@ -61,15 +62,15 @@ WidgetbookComponent buttonGroupWidgetbookComponent = WidgetbookComponent(
             buttonRadiusType: context.knobs.options(label: 'Radius', options: [
               const Option(
                 label: 'Rectangle',
-                value: ButtonRadiusType.rectangle,
+                value: ZeroButtonRadiusType.rectangle,
               ),
               const Option(
                 label: 'Curved',
-                value: ButtonRadiusType.curved,
+                value: ZeroButtonRadiusType.curved,
               ),
               const Option(
                 label: 'Rounded',
-                value: ButtonRadiusType.rounded,
+                value: ZeroButtonRadiusType.rounded,
               ),
             ]),
           );
@@ -90,15 +91,15 @@ WidgetbookComponent buttonGroupWidgetbookComponent = WidgetbookComponent(
             buttonSizeType: context.knobs.options(label: 'Size', options: [
               const Option(
                 label: 'Large',
-                value: ButtonSizeType.large,
+                value: ZeroButtonSizeType.large,
               ),
               const Option(
                 label: 'Medium',
-                value: ButtonSizeType.medium,
+                value: ZeroButtonSizeType.medium,
               ),
               const Option(
                 label: 'Small',
-                value: ButtonSizeType.small,
+                value: ZeroButtonSizeType.small,
               ),
             ]),
             buttonGroupType: context.knobs.options(label: 'Type', options: [
@@ -122,15 +123,15 @@ WidgetbookComponent buttonGroupWidgetbookComponent = WidgetbookComponent(
             buttonRadiusType: context.knobs.options(label: 'Radius', options: [
               const Option(
                 label: 'Rectangle',
-                value: ButtonRadiusType.rectangle,
+                value: ZeroButtonRadiusType.rectangle,
               ),
               const Option(
                 label: 'Curved',
-                value: ButtonRadiusType.curved,
+                value: ZeroButtonRadiusType.curved,
               ),
               const Option(
                 label: 'Rounded',
-                value: ButtonRadiusType.rounded,
+                value: ZeroButtonRadiusType.rounded,
               ),
             ]),
           );
@@ -153,15 +154,15 @@ WidgetbookComponent buttonGroupWidgetbookComponent = WidgetbookComponent(
             buttonSizeType: context.knobs.options(label: 'Size', options: [
               const Option(
                 label: 'Large',
-                value: ButtonSizeType.large,
+                value: ZeroButtonSizeType.large,
               ),
               const Option(
                 label: 'Medium',
-                value: ButtonSizeType.medium,
+                value: ZeroButtonSizeType.medium,
               ),
               const Option(
                 label: 'Small',
-                value: ButtonSizeType.small,
+                value: ZeroButtonSizeType.small,
               ),
             ]),
             buttonGroupType: context.knobs.options(label: 'Type', options: [
@@ -185,15 +186,15 @@ WidgetbookComponent buttonGroupWidgetbookComponent = WidgetbookComponent(
             buttonRadiusType: context.knobs.options(label: 'Radius', options: [
               const Option(
                 label: 'Rectangle',
-                value: ButtonRadiusType.rectangle,
+                value: ZeroButtonRadiusType.rectangle,
               ),
               const Option(
                 label: 'Curved',
-                value: ButtonRadiusType.curved,
+                value: ZeroButtonRadiusType.curved,
               ),
               const Option(
                 label: 'Rounded',
-                value: ButtonRadiusType.rounded,
+                value: ZeroButtonRadiusType.rounded,
               ),
             ]),
           );

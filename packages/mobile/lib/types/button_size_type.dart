@@ -8,22 +8,22 @@ enum ZeroButtonSizeType {
 
   EdgeInsets get padding {
     switch (this) {
-      case ButtonSizeType.small:
+      case small:
         return const EdgeInsets.symmetric(horizontal: 12, vertical: 4);
-      case ButtonSizeType.medium:
+      case medium:
         return const EdgeInsets.symmetric(horizontal: 20, vertical: 6);
-      case ButtonSizeType.large:
+      case large:
         return const EdgeInsets.symmetric(horizontal: 24, vertical: 8);
     }
   }
 
   double get fontSize {
     switch (this) {
-      case ButtonSizeType.small:
+      case small:
         return 12.0;
-      case ButtonSizeType.medium:
+      case medium:
         return 14.0;
-      case ButtonSizeType.large:
+      case large:
         return 16.0;
     }
   }

@@ -11,30 +11,30 @@ enum ButtonGroupType {
   Color get fillColor {
     switch (this) {
       case solid:
-        return ZeroColors.primary;
+        return ZeroColors.primary6;
       case outline:
-        return ZeroColors.primary.withAlpha(50);
+        return ZeroColors.primary3;
       case text:
         return ZeroColors.transparent;
       case underline:
         return ZeroColors.transparent;
       default:
-        return ZeroColors.primary;
+        return ZeroColors.primary6;
     }
   }
 
   Color get selectedFillColor {
     switch (this) {
       case solid:
-        return ZeroColors.white.withAlpha(50);
+        return ZeroColors.primary5;
       case outline:
-        return ZeroColors.primary.withAlpha(50);
+        return ZeroColors.primary5;
       case text:
-        return ZeroColors.grey.withAlpha(50);
+        return ZeroColors.neutral5;
       case underline:
-        return ZeroColors.grey.withAlpha(50);
+        return ZeroColors.transparent;
       default:
-        return ZeroColors.primary;
+        return ZeroColors.primary1;
     }
   }
 
@@ -43,13 +43,13 @@ enum ButtonGroupType {
       case solid:
         return ZeroColors.white;
       case outline:
-        return ZeroColors.dark;
+        return ZeroColors.black;
       case text:
-        return ZeroColors.dark;
+        return ZeroColors.black;
       case underline:
-        return ZeroColors.dark;
+        return ZeroColors.black;
       default:
-        return ZeroColors.primary;
+        return ZeroColors.primary6;
     }
   }
 
@@ -58,11 +58,11 @@ enum ButtonGroupType {
       case solid:
         return ZeroColors.transparent;
       case outline:
-        return ZeroColors.primary;
+        return ZeroColors.primary6;
       case text:
-        return ZeroColors.dark;
+        return ZeroColors.black;
       case underline:
-        return ZeroColors.dark;
+        return ZeroColors.black;
       default:
         return ZeroColors.white;
     }
@@ -73,11 +73,11 @@ enum ButtonGroupType {
       case solid:
         return ZeroColors.white;
       case outline:
-        return ZeroColors.primary;
+        return ZeroColors.primary6;
       case text:
-        return ZeroColors.dark;
+        return ZeroColors.black;
       case underline:
-        return ZeroColors.primary;
+        return ZeroColors.primary6;
       default:
         return ZeroColors.white;
     }

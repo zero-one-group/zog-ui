@@ -30,10 +30,10 @@ class ZeroButtonGroup extends StatefulWidget {
   // final bool vertical; // TODO: Enable vertical mode
 
   /// Large, Medium, Small
-  final ButtonSizeType buttonSizeType;
+  final ZeroButtonSizeType buttonSizeType;
 
   /// Rectangle, Curved, Rounded
-  final ButtonRadiusType buttonRadiusType;
+  final ZeroButtonRadiusType buttonRadiusType;
 
   /// Default (Solid), Outline, Text, Underline
   final ButtonGroupType buttonGroupType;
@@ -50,8 +50,8 @@ class ZeroButtonGroup extends StatefulWidget {
       this.icons,
       this.selectIcon,
       this.withIcon = false,
-      this.buttonSizeType = ButtonSizeType.medium,
-      this.buttonRadiusType = ButtonRadiusType.curved,
+      this.buttonSizeType = ZeroButtonSizeType.medium,
+      this.buttonRadiusType = ZeroButtonRadiusType.curved,
       this.buttonItemType = ButtonItemType.labelsOnly,
       this.buttonGroupType = ButtonGroupType.solid})
       : assert(
@@ -67,8 +67,8 @@ class ZeroButtonGroup extends StatefulWidget {
     IconData? selectIcon,
     bool withIcon = false,
     ButtonGroupType buttonGroupType = ButtonGroupType.solid,
-    ButtonSizeType buttonSizeType = ButtonSizeType.medium,
-    ButtonRadiusType buttonRadiusType = ButtonRadiusType.curved,
+    ZeroButtonSizeType buttonSizeType = ZeroButtonSizeType.medium,
+    ZeroButtonRadiusType buttonRadiusType = ZeroButtonRadiusType.curved,
   }) {
     assert(labels.length >= 2, 'Labels should contain at least 2 elements');
     assert(labels.length == isSelected.length,
@@ -98,8 +98,8 @@ class ZeroButtonGroup extends StatefulWidget {
     required List<IconData> icons,
     required List<bool> isSelected,
     ButtonGroupType buttonGroupType = ButtonGroupType.solid,
-    ButtonSizeType buttonSizeType = ButtonSizeType.medium,
-    buttonRadiusType = ButtonRadiusType.curved,
+    ZeroButtonSizeType buttonSizeType = ZeroButtonSizeType.medium,
+    buttonRadiusType = ZeroButtonRadiusType.curved,
   }) {
     assert(
         icons.length >= 2, 'Labels or icons must contain at least 2 elements');
@@ -123,8 +123,8 @@ class ZeroButtonGroup extends StatefulWidget {
     required List<IconData> icons,
     required List<bool> isSelected,
     ButtonGroupType buttonGroupType = ButtonGroupType.solid,
-    ButtonSizeType buttonSizeType = ButtonSizeType.medium,
-    buttonRadiusType = ButtonRadiusType.curved,
+    ZeroButtonSizeType buttonSizeType = ZeroButtonSizeType.medium,
+    buttonRadiusType = ZeroButtonRadiusType.curved,
   }) {
     assert(icons.length >= 2, 'Icons must contain at least 2 elements');
     assert(icons.length == isSelected.length,
@@ -245,13 +245,13 @@ class _ZeroButtonGroupState extends State<ZeroButtonGroup> {
   }
 
   /// Set BorderRadius based on its type and its
-  BorderRadius _getBorderRadius(ButtonRadiusType buttonRadiusType) {
+  BorderRadius _getBorderRadius(ZeroButtonRadiusType buttonRadiusType) {
     switch (buttonRadiusType) {
-      case ButtonRadiusType.rectangle:
+      case ZeroButtonRadiusType.rectangle:
         return widget.buttonRadiusType.borderRadius;
-      case ButtonRadiusType.curved:
+      case ZeroButtonRadiusType.curved:
         return widget.buttonRadiusType.borderRadius;
-      case ButtonRadiusType.rounded:
+      case ZeroButtonRadiusType.rounded:
         return widget.buttonRadiusType.borderRadius;
       default:
         return widget.buttonSizeType.borderRadius;

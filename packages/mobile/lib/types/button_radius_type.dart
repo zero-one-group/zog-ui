@@ -8,11 +8,11 @@ enum ZeroButtonRadiusType {
 
   BorderRadius get borderRadius {
     switch (this) {
-      case ButtonRadiusType.rectangle:
+      case rectangle:
         return const BorderRadius.all(Radius.circular(0));
-      case ButtonRadiusType.curved:
+      case curved:
         return const BorderRadius.all(Radius.circular(8));
-      case ButtonRadiusType.rounded:
+      case rounded:
         return const BorderRadius.all(Radius.circular(24));
     }
   }

@@ -113,10 +113,12 @@ class ZeroButtonStyle {
       surfaceTintColor: surfaceTintColor ?? ZeroColors.primary3,
       elevation: elevation ?? 0,
       textStyle: textStyle,
-      padding: padding ?? paddingSize(buttonSizeType ?? ZeroButtonSizeType.medium),
+      padding:
+          padding ?? paddingSize(buttonSizeType ?? ZeroButtonSizeType.medium),
       shape: shape ??
           RoundedRectangleBorder(
-            borderRadius: buttonRadiusSize(buttonRadiusType ?? ZeroButtonRadiusType.rectangle),
+            borderRadius: buttonRadiusSize(
+                buttonRadiusType ?? ZeroButtonRadiusType.rectangle),
           ),
       visualDensity: visualDensity,
       tapTargetSize: tapTargetSize,
@@ -163,10 +165,12 @@ class ZeroButtonStyle {
       surfaceTintColor: surfaceTintColor ?? ZeroColors.primary3,
       elevation: elevation ?? 0,
       textStyle: textStyle,
-      padding: padding ?? paddingSize(buttonSizeType ?? ZeroButtonSizeType.medium),
+      padding:
+          padding ?? paddingSize(buttonSizeType ?? ZeroButtonSizeType.medium),
       shape: shape ??
           RoundedRectangleBorder(
-            borderRadius: buttonRadiusSize(buttonRadiusType ?? ZeroButtonRadiusType.rectangle),
+            borderRadius: buttonRadiusSize(
+                buttonRadiusType ?? ZeroButtonRadiusType.rectangle),
             side: const BorderSide(color: ZeroColors.neutral5, width: 1),
           ),
       visualDensity: visualDensity,
@@ -186,8 +190,10 @@ class ZeroButtonStyle {
     return ZeroButtonStyle(
       foregroundColor: foregroundColor ?? other.foregroundColor,
       backgroundColor: backgroundColor ?? other.backgroundColor,
-      disabledForegroundColor: disabledForegroundColor ?? other.disabledForegroundColor,
-      disabledBackgroundColor: disabledBackgroundColor ?? other.disabledBackgroundColor,
+      disabledForegroundColor:
+          disabledForegroundColor ?? other.disabledForegroundColor,
+      disabledBackgroundColor:
+          disabledBackgroundColor ?? other.disabledBackgroundColor,
       shadowColor: shadowColor ?? other.shadowColor,
       surfaceTintColor: surfaceTintColor ?? other.surfaceTintColor,
       elevation: elevation ?? other.elevation,
