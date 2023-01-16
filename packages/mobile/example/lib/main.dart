@@ -10,12 +10,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const List<Widget> children = <Widget>[
-      Text('Tab 1'),
-      Text('Tab 2'),
-      Text('Tab 3')
-    ];
-
+    const List<String> labels = ['Tab 1', 'Tab 2', 'Teb 3'];
     List<bool> isSelected = [false, false, false];
 
     return MaterialApp(

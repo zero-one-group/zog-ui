@@ -10,6 +10,18 @@
             "type": "dart"
         },
         {
+            "name": "widgetbook",
+            "request": "launch",
+            "type": "dart",
+            "program":  "widgetbook/main.dart",
+            "args": [
+                "-t",
+                "widgetbook/main.dart",
+                "-d",
+                "chrome",
+            ]
+        },
+        {
             "name": "mobile (profile mode)",
             "request": "launch",
             "type": "dart",
@@ -25,13 +37,6 @@
             "name": "example",
             "cwd": "example",
             "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "widgetbook",
-            "cwd": "widgetbook",
-            "request": "launch",
-            "program": "main.dart",
             "type": "dart"
         },
         {
