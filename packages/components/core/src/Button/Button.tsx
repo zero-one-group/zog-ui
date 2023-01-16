@@ -36,16 +36,19 @@ export const Button = styled('button', {
         padding: '0 7px',
         fontSize: '14px',
         lineHeight: '22px',
+        height: '$4',
       },
       md: {
         padding: '4px 15px',
         fontSize: '14px',
         lineHeight: '22px',
+        height: '$6',
       },
       lg: {
         padding: '6.4px 15px',
         fontSize: '16px',
         lineHeight: '24px',
+        height: '$7',
       },
     },
     colorScheme: {
