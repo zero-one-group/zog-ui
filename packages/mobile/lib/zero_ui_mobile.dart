@@ -14,4 +14,5 @@ export './components/button/zero_button_icon.dart';
 
 // types
 export './types/button_radius_type.dart';
+export './types/button_group_type.dart';
 export './types/button_size_type.dart';

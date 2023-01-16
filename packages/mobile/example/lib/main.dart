@@ -10,6 +10,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const List<Widget> children = <Widget>[
+      Text('Tab 1'),
+      Text('Tab 2'),
+      Text('Tab 3')
+    ];
+
+    List<bool> isSelected = [false, false, false];
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
