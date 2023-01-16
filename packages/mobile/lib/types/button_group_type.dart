@@ -32,7 +32,7 @@ enum ButtonGroupType {
       case text:
         return ZeroColors.grey.withAlpha(50);
       case underline:
-        return ZeroColors.transparent;
+        return ZeroColors.grey.withAlpha(50);
       default:
         return ZeroColors.primary;
     }

@@ -54,6 +54,19 @@ enum ZeroButtonSizeType {
     }
   }
 
+  double get bottomBorderWidth {
+    switch (this) {
+      case small:
+        return 1;
+      case medium:
+        return 2;
+      case large:
+        return 3;
+      default:
+        return 2;
+    }
+  }
+
   BorderRadius get borderRadius {
     switch (this) {
       case small:
