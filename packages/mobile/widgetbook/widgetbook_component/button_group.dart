@@ -9,7 +9,7 @@ WidgetbookComponent buttonGroupWidgetbookComponent = WidgetbookComponent(
     WidgetbookUseCase(
         name: 'Labels Only',
         builder: (context) {
-          const List<String> labels = ['Tab Tab Long Text', 'Tab 2', 'Tab 3'];
+          const List<String> labels = ['Tab Long Text 1', 'Tab 2', 'Tab 3'];
 
           List<bool> isSelected = [false, false, false];
           return ZeroButtonGroup.labelsOnly(
