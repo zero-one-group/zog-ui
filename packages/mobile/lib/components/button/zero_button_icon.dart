@@ -8,25 +8,8 @@ import 'button_animating.dart';
 
 /// ZeroButton created based on [ElevatedButton] and [TextButton] with some customizations
 /// how to use this widget is almost the same as [ElevatedButton], [TextButton], [OutlinedButton]
-///
-/// [ZeroButton] has 3 types:
-/// - [ZeroButton.primary] is the default button type
-/// - [ZeroButton.secondary] is the secondary button type
-/// - [ZeroButton.disabled] is the disabled button type
-///
-/// [ZeroButton] has 2 size types:
-/// - [ZeroButtonSizeType.small] is the small button size type
-/// - [ZeroButtonSizeType.medium] is the medium button size type
-/// - [ZeroButtonSizeType.large] is the large button size type
-///
-/// [ZeroButton] has 2 radius types:
-/// - [ZeroButtonRadiusType.rounded] is the rounded button radius type
-/// - [ZeroButtonRadiusType.rectangle] is the rectangle button radius type
-///
-/// this button is customizable with [ZeroButtonStyle] or [ZeroButton.styleFrom({...}).toButtonStyle()] which is based on [ButtonStyle]
-
-class ZeroButton extends ElevatedButton {
-  ZeroButton({
+class ZeroButtonIcon extends ElevatedButton {
+  ZeroButtonIcon({
     super.key,
     required super.onPressed,
     super.onLongPress,
@@ -44,33 +27,26 @@ class ZeroButton extends ElevatedButton {
 
   static Widget primary({
     Key? key,
+    required Icon icon,
 
-    /// [text] is the text that will be displayed on the button
-    /// this value will be used as text value for [Text] widget inside [ZeroButton]
-    required String text,
-
-    /// [textStyle] is the style for [Text] widget inside [ZeroButton]
-    /// if this value is null, the default style will be used
-    TextStyle? textStyle,
-
-    /// [backgroundColor] is the background color for [ZeroButton]
+    /// [backgroundColor] is the background color for [ZeroButtonIcon]
     /// if this value is null, the default background color will be used
     /// the default background color is [ZeroColors.primary6]
     Color backgroundColor = ZeroColors.primary6,
 
-    /// [width] is the width for [ZeroButton]
+    /// [width] is the width for [ZeroButtonIcon]
     /// if this value is null, widget will be sized to fit its contents
     double? width,
 
-    /// [height] is the height for [ZeroButton]
+    /// [height] is the height for [ZeroButtonIcon]
     /// if this value is null, the default height get from [defaultButtonHeight] which is the value based on [buttonSizeType]
     double? height,
     ZeroButtonSizeType buttonSizeType = ZeroButtonSizeType.medium,
 
-    /// [buttonRadiusType] is the type of radius for [ZeroButton]
-    /// [ZeroButtonRadiusType.rectangle] is the type of radius for [ZeroButton] that has rectangle shape
-    /// [ZeroButtonRadiusType.rounded] is the type of radius for [ZeroButton] that has rounded shape
-    /// [ZeroButtonRadiusType.curved] is the type of radius for [ZeroButton] that has curved shape
+    /// [buttonRadiusType] is the type of radius for [ZeroButtonIcon]
+    /// [ZeroButtonRadiusType.rectangle] is the type of radius for [ZeroButtonIcon] that has rectangle shape
+    /// [ZeroButtonRadiusType.rounded] is the type of radius for [ZeroButtonIcon] that has rounded shape
+    /// [ZeroButtonRadiusType.curved] is the type of radius for [ZeroButtonIcon] that has curved shape
     ZeroButtonRadiusType buttonRadiusType = ZeroButtonRadiusType.rectangle,
 
     /// [isDisabled] is the flag to determine if the button is disabled or not
@@ -78,11 +54,11 @@ class ZeroButton extends ElevatedButton {
     required VoidCallback onPressed,
     VoidCallback? onLongPress,
 
-    /// [ZeroButtonStyle] is the style for [ZeroButton]
+    /// [ZeroButtonStyle] is the style for [ZeroButtonIcon]
     /// if this value is null, the default style will be used
     /// which is defined in [primaryDefaultStyle]
     ///
-    /// [style] used for customizing [ZeroButton]
+    /// [style] used for customizing [ZeroButtonIcon]
     ZeroButtonStyle? style,
     FocusNode? focusNode,
     bool autofocus = false,
@@ -104,18 +80,17 @@ class ZeroButton extends ElevatedButton {
     /// combine customizations from [style] with default style [primaryDefaultStyle]
     style = style?.merge(primaryDefaultStyle) ?? primaryDefaultStyle;
 
-    /// [updateAnimating] is the callback function to update the state of [ZeroButton]
-    /// this function will be called when [ZeroButton] is pressed
+    /// [updateAnimating] is the callback function to update the state of [ZeroButtonIcon]
+    /// this function will be called when [ZeroButtonIcon] is pressed
     /// this function will be called from [_ButtonAnimating] widget
     late Function updateAnimating;
 
-    /// [animatingColor] is the color that will be used for [ZeroButton] when it is pressed
+    /// [animatingColor] is the color that will be used for [ZeroButtonIcon] when it is pressed
     /// this value will be used as [backgroundColor] for [_ButtonAnimating] widget
     Color animatingColor = style.animatingColor ?? ZeroColors.transparent;
     return isDisabled
         ? disabled(
-            text: text,
-            textStyle: textStyle,
+            icon: icon,
             width: width,
             height: height,
             buttonSizeType: buttonSizeType,
@@ -128,7 +103,7 @@ class ZeroButton extends ElevatedButton {
             buttonRadiusType: buttonRadiusType,
             height: height ?? defaultButtonHeight(buttonSizeType),
             animatingColor: animatingColor,
-            child: ZeroButton(
+            child: ZeroButtonIcon(
               key: key,
               onPressed: () {
                 updateAnimating();
@@ -140,14 +115,7 @@ class ZeroButton extends ElevatedButton {
               autofocus: autofocus,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  text,
-                  style: textStyle ??
-                      TextStyle(
-                        fontSize: fontSize(buttonSizeType),
-                        color: ZeroColors.white,
-                      ),
-                ),
+                child: icon.color == null ? Icon(icon.icon, color: ZeroColors.white) : icon,
               ),
             ),
           );
@@ -155,36 +123,29 @@ class ZeroButton extends ElevatedButton {
 
   static Widget secondary({
     Key? key,
+    required Icon icon,
 
-    /// [text] is the text that will be displayed on the button
-    /// this value will be used as text value for [Text] widget inside [ZeroButton]
-    required String text,
-
-    /// [textStyle] is the style for [Text] widget inside [ZeroButton]
-    /// if this value is null, the default style will be used
-    TextStyle? textStyle,
-
-    /// [backgroundColor] is the background color for [ZeroButton]
+    /// [backgroundColor] is the background color for [ZeroButtonIcon]
     /// if this value is null, the default background color will be used
     /// the default background color is [ZeroColors.primary6]
     Color backgroundColor = ZeroColors.white,
 
-    /// [borderColor] is the border color for [ZeroButton]
+    /// [borderColor] is the border color for [ZeroButtonIcon]
     Color borderColor = ZeroColors.neutral5,
 
-    /// [width] is the width for [ZeroButton]
+    /// [width] is the width for [ZeroButtonIcon]
     /// if this value is null, widget will be sized to fit its contents
     double? width,
 
-    /// [height] is the height for [ZeroButton]
+    /// [height] is the height for [ZeroButtonIcon]
     /// if this value is null, the default height get from [defaultButtonHeight] which is the value based on [buttonSizeType]
     double? height,
     ZeroButtonSizeType buttonSizeType = ZeroButtonSizeType.medium,
 
-    /// [buttonRadiusType] is the type of radius for [ZeroButton]
-    /// [ZeroButtonRadiusType.rectangle] is the type of radius for [ZeroButton] that has rectangle shape
-    /// [ZeroButtonRadiusType.rounded] is the type of radius for [ZeroButton] that has rounded shape
-    /// [ZeroButtonRadiusType.curved] is the type of radius for [ZeroButton] that has curved shape
+    /// [buttonRadiusType] is the type of radius for [ZeroButtonIcon]
+    /// [ZeroButtonRadiusType.rectangle] is the type of radius for [ZeroButtonIcon] that has rectangle shape
+    /// [ZeroButtonRadiusType.rounded] is the type of radius for [ZeroButtonIcon] that has rounded shape
+    /// [ZeroButtonRadiusType.curved] is the type of radius for [ZeroButtonIcon] that has curved shape
     ZeroButtonRadiusType buttonRadiusType = ZeroButtonRadiusType.rectangle,
 
     /// [isDisabled] is the flag to determine if the button is disabled or not
@@ -192,11 +153,11 @@ class ZeroButton extends ElevatedButton {
     required VoidCallback onPressed,
     VoidCallback? onLongPress,
 
-    /// [ZeroButtonStyle] is the style for [ZeroButton]
+    /// [ZeroButtonStyle] is the style for [ZeroButtonIcon]
     /// if this value is null, the default style will be used
     /// which is defined in [secondaryDefaultStyle]
     ///
-    /// [style] used for customizing [ZeroButton]
+    /// [style] used for customizing [ZeroButtonIcon]
     ZeroButtonStyle? style,
     FocusNode? focusNode,
     bool autofocus = false,
@@ -219,15 +180,14 @@ class ZeroButton extends ElevatedButton {
     /// combine customizations from [style] with default style [secondaryDefaultStyle]
     style = style?.merge(secondaryDefaultStyle) ?? secondaryDefaultStyle;
 
-    /// [updateAnimating] is the callback function to update the state of [ZeroButton]
+    /// [updateAnimating] is the callback function to update the state of [ZeroButtonIcon]
     late Function updateAnimating;
 
-    /// [animatingColor] is the color that will be used for [ZeroButton] when it is pressed
+    /// [animatingColor] is the color that will be used for [ZeroButtonIcon] when it is pressed
     Color animatingColor = style.animatingColor ?? ZeroColors.transparent;
     return isDisabled
         ? disabled(
-            text: text,
-            textStyle: textStyle,
+            icon: icon,
             width: width,
             height: height,
             buttonSizeType: buttonSizeType,
@@ -240,7 +200,7 @@ class ZeroButton extends ElevatedButton {
             buttonRadiusType: buttonRadiusType,
             height: height ?? defaultButtonHeight(buttonSizeType),
             animatingColor: animatingColor,
-            child: ZeroButton(
+            child: ZeroButtonIcon(
               key: key,
               onPressed: () {
                 updateAnimating();
@@ -252,14 +212,7 @@ class ZeroButton extends ElevatedButton {
               autofocus: autofocus,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  text,
-                  style: textStyle ??
-                      TextStyle(
-                        fontSize: fontSize(buttonSizeType),
-                        color: ZeroColors.neutral10,
-                      ),
-                ),
+                child: icon.color == null ? Icon(icon.icon, color: ZeroColors.neutral10) : icon,
               ),
             ),
           );
@@ -267,35 +220,23 @@ class ZeroButton extends ElevatedButton {
 
   static Widget disabled({
     Key? key,
+    required Icon icon,
 
-    /// [text] is the text that will be displayed on the button
-    required String text,
-
-    /// [textStyle] is the style for [Text] widget inside [ZeroButton]
-    TextStyle? textStyle,
-
-    /// [width] is the width for [ZeroButton]
+    /// [width] is the width for [ZeroButtonIcon]
     /// if this value is null, widget will be sized to fit its contents
     double? width,
 
-    /// [height] is the height for [ZeroButton]
+    /// [height] is the height for [ZeroButtonIcon]
     /// if this value is null, the default height get from [defaultButtonHeight] which is the value based on [buttonSizeType]
     double? height,
     ZeroButtonSizeType buttonSizeType = ZeroButtonSizeType.medium,
 
-    /// [buttonRadiusType] is the type of radius for [ZeroButton]
-    /// [ZeroButtonRadiusType.rectangle] is the type of radius for [ZeroButton] that has rectangle shape
-    /// [ZeroButtonRadiusType.rounded] is the type of radius for [ZeroButton] that has rounded shape
-    /// [ZeroButtonRadiusType.curved] is the type of radius for [ZeroButton] that has curved shape
+    /// [buttonRadiusType] is the type of radius for [ZeroButtonIcon]
+    /// [ZeroButtonRadiusType.rectangle] is the type of radius for [ZeroButtonIcon] that has rectangle shape
+    /// [ZeroButtonRadiusType.rounded] is the type of radius for [ZeroButtonIcon] that has rounded shape
+    /// [ZeroButtonRadiusType.curved] is the type of radius for [ZeroButtonIcon] that has curved shape
     ZeroButtonRadiusType buttonRadiusType = ZeroButtonRadiusType.rectangle,
   }) {
-    /// [textStyle] is the style for [Text] widget inside [ZeroButton]
-    /// if this value is null, the default style will be used
-    textStyle ??= TextStyle(
-      fontSize: fontSize(buttonSizeType),
-      color: ZeroColors.neutral7,
-    );
-
     /// [disabledDefaultStyle] is the default style for [ZeroButton.disabled]
     final ZeroButtonStyle disabledDefaultStyle = ZeroButtonStyle(
       backgroundColor: ZeroColors.neutral3,
@@ -309,10 +250,10 @@ class ZeroButton extends ElevatedButton {
       ),
     );
 
-    /// [style] is the style for [ZeroButton]
+    /// [style] is the style for [ZeroButtonIcon]
     ZeroButtonStyle style = disabledDefaultStyle;
 
-    /// [animatingColor] is the color that will be used for [ZeroButton] when it is pressed
+    /// [animatingColor] is the color that will be used for [ZeroButtonIcon] when it is pressed
     Color animatingColor = style.animatingColor ?? ZeroColors.transparent;
     return ButtonAnimating(
       callback: (void Function() update) {
@@ -321,7 +262,7 @@ class ZeroButton extends ElevatedButton {
       buttonRadiusType: buttonRadiusType,
       height: height ?? defaultButtonHeight(buttonSizeType),
       animatingColor: animatingColor,
-      child: ZeroButton(
+      child: ZeroButtonIcon(
         key: key,
         onPressed: () {
           // do nothing
@@ -329,18 +270,20 @@ class ZeroButton extends ElevatedButton {
         style: style,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(
-            text,
-            style: textStyle,
-          ),
+          child: icon.color == null
+              ? Icon(
+                  icon.icon,
+                  color: ZeroColors.neutral7,
+                )
+              : icon,
         ),
       ),
     );
   }
 
-  /// ZeroButtonStyle is the style for [ZeroButton]
+  /// ZeroButtonStyle is the style for [ZeroButtonIcon]
   /// styleFrom is the function to create [ButtonStyle] from [ZeroButtonStyle]
-  /// [ZeroButtonStyle] is the style for [ZeroButton]
+  /// [ZeroButtonStyle] is the style for [ZeroButtonIcon]
   static ZeroButtonStyle styleFrom({
     Color? foregroundColor,
     Color? backgroundColor,
