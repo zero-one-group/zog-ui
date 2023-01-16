@@ -134,7 +134,7 @@ class ZeroButtonIcon extends ElevatedButton {
     /// the default background color is [ZeroColors.primary6]
     Color backgroundColor = ZeroColors.white,
 
-    /// [borderColor] is the border color for [ZeroButtonIcon]
+    /// [selectedBorderColor] is the border color for [ZeroButtonIcon]
     Color borderColor = ZeroColors.neutral5,
 
     /// [width] is the width for [ZeroButtonIcon]

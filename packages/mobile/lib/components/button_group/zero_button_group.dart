@@ -205,7 +205,7 @@ class _ZeroButtonGroupState extends State<ZeroButtonGroup> {
             });
           },
           borderRadius: _getBorderRadius(widget.buttonRadiusType),
-          selectedBorderColor: widget.buttonGroupType.borderBorderColor,
+          selectedBorderColor: widget.buttonGroupType.selectedBorderColor,
           selectedColor: widget.buttonGroupType.selectedColor,
           fillColor: widget.buttonGroupType.selectedFillColor,
           color: widget.buttonGroupType.color,

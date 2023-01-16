@@ -13,7 +13,7 @@ enum ButtonGroupType {
       case solid:
         return ZeroColors.primary6;
       case outline:
-        return ZeroColors.primary3;
+        return ZeroColors.transparent;
       case text:
         return ZeroColors.transparent;
       case underline:
@@ -28,7 +28,7 @@ enum ButtonGroupType {
       case solid:
         return ZeroColors.primary5;
       case outline:
-        return ZeroColors.primary5;
+        return ZeroColors.primary2;
       case text:
         return ZeroColors.neutral5;
       case underline:
@@ -53,7 +53,7 @@ enum ButtonGroupType {
     }
   }
 
-  Color get borderBorderColor {
+  Color get selectedBorderColor {
     switch (this) {
       case solid:
         return ZeroColors.transparent;

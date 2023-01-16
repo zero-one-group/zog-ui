@@ -173,7 +173,7 @@ class ZeroButtonRLIcon extends ElevatedButton {
     /// the default background color is [ZeroColors.primary6]
     Color backgroundColor = ZeroColors.white,
 
-    /// [borderColor] is the border color for [ZeroButtonRLIcon]
+    /// [selectedBorderColor] is the border color for [ZeroButtonRLIcon]
     Color borderColor = ZeroColors.neutral5,
 
     /// [width] is the width for [ZeroButtonRLIcon]
