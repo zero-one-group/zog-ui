@@ -4,6 +4,18 @@ enum ZeroButtonRadiusType {
   rectangle,
   curved,
   rounded,
+  ;
+
+  BorderRadius get borderRadius {
+    switch (this) {
+      case rectangle:
+        return const BorderRadius.all(Radius.circular(0));
+      case curved:
+        return const BorderRadius.all(Radius.circular(8));
+      case rounded:
+        return const BorderRadius.all(Radius.circular(24));
+    }
+  }
 }
 
 /// [_buttonRadiusType] is the function to get [BorderRadius] from [ZeroButtonRadiusType

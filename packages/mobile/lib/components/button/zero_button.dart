@@ -93,7 +93,9 @@ class ZeroButton extends ElevatedButton {
       foregroundColor: ZeroColors.primary8,
       animatingColor: ZeroColors.primary3,
       elevation: 0,
-      fixedSize: (width != null) ? Size(width, height ?? defaultButtonHeight(buttonSizeType)) : null,
+      fixedSize: (width != null)
+          ? Size(width, height ?? defaultButtonHeight(buttonSizeType))
+          : null,
       padding: paddingSize(buttonSizeType),
       shape: RoundedRectangleBorder(
         borderRadius: buttonRadiusSize(buttonRadiusType),
@@ -169,7 +171,7 @@ class ZeroButton extends ElevatedButton {
     /// the default background color is [ZeroColors.primary6]
     Color backgroundColor = ZeroColors.white,
 
-    /// [borderColor] is the border color for [ZeroButton]
+    /// [selectedBorderColor] is the border color for [ZeroButton]
     Color borderColor = ZeroColors.neutral5,
 
     /// [width] is the width for [ZeroButton]
@@ -207,7 +209,9 @@ class ZeroButton extends ElevatedButton {
       foregroundColor: ZeroColors.transparentWhite,
       animatingColor: ZeroColors.primary3,
       elevation: 0,
-      fixedSize: (width != null) ? Size(width, height ?? defaultButtonHeight(buttonSizeType)) : null,
+      fixedSize: (width != null)
+          ? Size(width, height ?? defaultButtonHeight(buttonSizeType))
+          : null,
       padding: paddingSize(buttonSizeType),
       shape: RoundedRectangleBorder(
         side: BorderSide(color: borderColor, width: 1),
@@ -301,7 +305,9 @@ class ZeroButton extends ElevatedButton {
       backgroundColor: ZeroColors.neutral3,
       foregroundColor: ZeroColors.transparentWhite,
       elevation: 0,
-      fixedSize: (width != null) ? Size(width, height ?? defaultButtonHeight(buttonSizeType)) : null,
+      fixedSize: (width != null)
+          ? Size(width, height ?? defaultButtonHeight(buttonSizeType))
+          : null,
       padding: paddingSize(buttonSizeType),
       shape: RoundedRectangleBorder(
         side: const BorderSide(color: ZeroColors.neutral5),

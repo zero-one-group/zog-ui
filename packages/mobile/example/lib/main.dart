@@ -10,6 +10,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const List<String> labels = ['Tab 1', 'Tab 2', 'Tab 3'];
+    List<bool> isSelected = [false, false, false];
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
