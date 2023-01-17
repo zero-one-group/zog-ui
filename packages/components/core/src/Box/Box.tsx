@@ -1,4 +1,4 @@
-import { ElementType, forwardRef, ReactElement } from 'react';
+import { ComponentProps, ElementType, forwardRef, ReactElement } from 'react';
 import { styled } from '../stitches.config';
 import { PolymorphicComponentPropsWithRef, PolymorphicRef } from '../types';
 
@@ -7,8 +7,10 @@ const StyledBox = styled('div', {
   fontFamily: '$untitled',
 });
 
-export type BoxProps<T extends ElementType> =
-  PolymorphicComponentPropsWithRef<T>;
+export type BoxProps<T extends ElementType> = PolymorphicComponentPropsWithRef<
+  T,
+  ComponentProps<typeof StyledBox>
+>;
 
 export type BoxComponent = <T extends ElementType = typeof StyledBox>(
   props: BoxProps<T>

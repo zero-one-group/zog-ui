@@ -24,3 +24,5 @@ export type PolymorphicComponentPropsWithRef<
   T extends ElementType,
   Props = unknown
 > = PolymorphicComponentProps<T, Props> & { ref?: PolymorphicRef<T> };
+
+export type MergeProps<T, P> = Omit<T, keyof P> & P;
