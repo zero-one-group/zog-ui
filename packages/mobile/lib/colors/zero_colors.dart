@@ -23,6 +23,18 @@ class ZeroColors {
   static const Color primary9 = Color(0xFF003A8C);
   static const Color primary10 = Color(0xFF002766);
 
+  // Sunrise Yellow
+  static const Color sunriseYellow1 = Color(0xFFFEFFE6);
+  static const Color sunriseYellow2 = Color(0xFFFFFFB8);
+  static const Color sunriseYellow3 = Color(0xFFFFFB8F);
+  static const Color sunriseYellow4 = Color(0xFFFFF566);
+  static const Color sunriseYellow5 = Color(0xFFFFEC3D);
+  static const Color sunriseYellow6 = Color(0xFFFADB14);
+  static const Color sunriseYellow7 = Color(0xFFD4B106);
+  static const Color sunriseYellow8 = Color(0xFFAD8B00);
+  static const Color sunriseYellow9 = Color(0xFF876800);
+  static const Color sunriseYellow10 = Color(0xFF614700);
+
   // Neutral Colors
   static const Color neutral1 = Color(0xFFFFFFFF);
   static const Color neutral2 = Color(0xFFFAFAFA);

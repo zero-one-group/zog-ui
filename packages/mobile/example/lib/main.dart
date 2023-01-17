@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
@@ -5,9 +7,15 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool? checkValue;
   @override
   Widget build(BuildContext context) {
     const List<String> labels = ['Tab 1', 'Tab 2', 'Tab 3'];
@@ -27,13 +35,21 @@ class MyApp extends StatelessWidget {
             children: [
               ZeroButton(
                 onPressed: () {},
-                style: ZeroButtonStyle.secondaryStyle(),
-                child: const Text('fda'),
+                style: ZeroButtonStyle.secondaryStyle(
+                  buttonRadiusType: ZeroButtonRadiusType.rounded,
+                ),
+                child: const Text(
+                  'Button With Ripple Effect',
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
-              ZeroButton.primary(
+              ZeroButton.secondary(
                 text: 'Button Primary',
                 onPressed: () {},
                 buttonRadiusType: ZeroButtonRadiusType.rounded,
+                style: ZeroButtonStyle(
+                  foregroundColor: Colors.red,
+                ),
               ),
               ZeroButton.secondary(
                 text: 'Button Secondary',
@@ -96,6 +112,34 @@ class MyApp extends StatelessWidget {
                 onPressed: () {},
                 style: ZeroButtonStyle.secondaryStyle(),
                 child: const Icon(Icons.abc, color: Colors.black),
+              ),
+              // Checkbox(
+              //   tristate: true,
+              //   value: checkValue,
+              //   onChanged: (val) {
+              //     setState(() {
+              //       checkValue = val;
+              //     });
+              //   },
+              // ),
+
+              ZeroRating(
+                itemCount: 5,
+                spacing: 5,
+                minValue: 3,
+                initialValue: 3,
+                allowHalfRating: true,
+                sizeType: ZeroSizeType.large,
+                isDisabled: false,
+                onRatingUpdate: (val) {},
+              ),
+              const SizedBox(height: 20),
+              ZeroRatingCustom(
+                spacing: 1,
+                initialValue: 3,
+                isDisabled: false,
+                activeColor: ZeroColors.warning,
+                onRatingUpdate: (val) {},
               ),
             ],
           ),

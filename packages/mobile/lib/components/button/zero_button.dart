@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/colors/zero_colors.dart';
-import 'package:zero_ui_mobile/types/button_size_type.dart';
+import 'package:zero_ui_mobile/types/size_type.dart';
 
 import '../../types/button_radius_type.dart';
 import './zero_button_style.dart';
@@ -15,9 +15,9 @@ import 'button_animating.dart';
 /// - [ZeroButton.disabled] is the disabled button type
 ///
 /// [ZeroButton] has 2 size types:
-/// - [ZeroButtonSizeType.small] is the small button size type
-/// - [ZeroButtonSizeType.medium] is the medium button size type
-/// - [ZeroButtonSizeType.large] is the large button size type
+/// - [ZeroSizeType.small] is the small button size type
+/// - [ZeroSizeType.medium] is the medium button size type
+/// - [ZeroSizeType.large] is the large button size type
 ///
 /// [ZeroButton] has 2 radius types:
 /// - [ZeroButtonRadiusType.rounded] is the rounded button radius type
@@ -65,7 +65,7 @@ class ZeroButton extends ElevatedButton {
     /// [height] is the height for [ZeroButton]
     /// if this value is null, the default height get from [defaultButtonHeight] which is the value based on [buttonSizeType]
     double? height,
-    ZeroButtonSizeType buttonSizeType = ZeroButtonSizeType.medium,
+    ZeroSizeType buttonSizeType = ZeroSizeType.medium,
 
     /// [buttonRadiusType] is the type of radius for [ZeroButton]
     /// [ZeroButtonRadiusType.rectangle] is the type of radius for [ZeroButton] that has rectangle shape
@@ -93,9 +93,7 @@ class ZeroButton extends ElevatedButton {
       foregroundColor: ZeroColors.primary8,
       animatingColor: ZeroColors.primary3,
       elevation: 0,
-      fixedSize: (width != null)
-          ? Size(width, height ?? defaultButtonHeight(buttonSizeType))
-          : null,
+      fixedSize: (width != null) ? Size(width, height ?? defaultButtonHeight(buttonSizeType)) : null,
       padding: paddingSize(buttonSizeType),
       shape: RoundedRectangleBorder(
         borderRadius: buttonRadiusSize(buttonRadiusType),
@@ -181,7 +179,7 @@ class ZeroButton extends ElevatedButton {
     /// [height] is the height for [ZeroButton]
     /// if this value is null, the default height get from [defaultButtonHeight] which is the value based on [buttonSizeType]
     double? height,
-    ZeroButtonSizeType buttonSizeType = ZeroButtonSizeType.medium,
+    ZeroSizeType buttonSizeType = ZeroSizeType.medium,
 
     /// [buttonRadiusType] is the type of radius for [ZeroButton]
     /// [ZeroButtonRadiusType.rectangle] is the type of radius for [ZeroButton] that has rectangle shape
@@ -209,9 +207,7 @@ class ZeroButton extends ElevatedButton {
       foregroundColor: ZeroColors.transparentWhite,
       animatingColor: ZeroColors.primary3,
       elevation: 0,
-      fixedSize: (width != null)
-          ? Size(width, height ?? defaultButtonHeight(buttonSizeType))
-          : null,
+      fixedSize: (width != null) ? Size(width, height ?? defaultButtonHeight(buttonSizeType)) : null,
       padding: paddingSize(buttonSizeType),
       shape: RoundedRectangleBorder(
         side: BorderSide(color: borderColor, width: 1),
@@ -285,7 +281,7 @@ class ZeroButton extends ElevatedButton {
     /// [height] is the height for [ZeroButton]
     /// if this value is null, the default height get from [defaultButtonHeight] which is the value based on [buttonSizeType]
     double? height,
-    ZeroButtonSizeType buttonSizeType = ZeroButtonSizeType.medium,
+    ZeroSizeType buttonSizeType = ZeroSizeType.medium,
 
     /// [buttonRadiusType] is the type of radius for [ZeroButton]
     /// [ZeroButtonRadiusType.rectangle] is the type of radius for [ZeroButton] that has rectangle shape
@@ -305,9 +301,7 @@ class ZeroButton extends ElevatedButton {
       backgroundColor: ZeroColors.neutral3,
       foregroundColor: ZeroColors.transparentWhite,
       elevation: 0,
-      fixedSize: (width != null)
-          ? Size(width, height ?? defaultButtonHeight(buttonSizeType))
-          : null,
+      fixedSize: (width != null) ? Size(width, height ?? defaultButtonHeight(buttonSizeType)) : null,
       padding: paddingSize(buttonSizeType),
       shape: RoundedRectangleBorder(
         side: const BorderSide(color: ZeroColors.neutral5),

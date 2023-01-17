@@ -3,6 +3,7 @@ import 'package:widgetbook/widgetbook.dart';
 
 import 'widgetbook_component/button.dart';
 import 'widgetbook_component/button_group.dart';
+import 'widgetbook_component/rating.dart';
 
 class HotReload extends StatelessWidget {
   const HotReload({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class HotReload extends StatelessWidget {
       categories: [
         WidgetbookCategory(
           name: 'Inputs',
-          widgets: [buttonWidgetbookComponenet, buttonGroupWidgetbookComponent],
+          widgets: [buttonWidgetbookComponenet, buttonGroupWidgetbookComponent, ratingWidgetbookComponenet],
         ),
       ],
       appInfo: AppInfo(name: 'Widgetbook'),

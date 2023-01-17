@@ -3,7 +3,7 @@ import 'package:zero_ui_mobile/components/button_group/custom/button_group_item.
 import 'package:zero_ui_mobile/components/button_group/custom/underline_button_group.dart';
 import 'package:zero_ui_mobile/types/button_group_type.dart';
 import 'package:zero_ui_mobile/types/button_radius_type.dart';
-import 'package:zero_ui_mobile/types/button_size_type.dart';
+import 'package:zero_ui_mobile/types/size_type.dart';
 
 enum ButtonItemType { labelsOnly, labelsAndIcons, iconsOnly }
 
@@ -30,7 +30,7 @@ class ZeroButtonGroup extends StatefulWidget {
   // final bool vertical; // TODO: Enable vertical mode
 
   /// Large, Medium, Small
-  final ZeroButtonSizeType buttonSizeType;
+  final ZeroSizeType buttonSizeType;
 
   /// Rectangle, Curved, Rounded
   final ZeroButtonRadiusType buttonRadiusType;
@@ -50,7 +50,7 @@ class ZeroButtonGroup extends StatefulWidget {
       this.icons,
       this.selectIcon,
       this.withIcon = false,
-      this.buttonSizeType = ZeroButtonSizeType.medium,
+      this.buttonSizeType = ZeroSizeType.medium,
       this.buttonRadiusType = ZeroButtonRadiusType.curved,
       this.buttonItemType = ButtonItemType.labelsOnly,
       this.buttonGroupType = ButtonGroupType.solid})
@@ -67,16 +67,14 @@ class ZeroButtonGroup extends StatefulWidget {
     IconData? selectIcon,
     bool withIcon = false,
     ButtonGroupType buttonGroupType = ButtonGroupType.solid,
-    ZeroButtonSizeType buttonSizeType = ZeroButtonSizeType.medium,
+    ZeroSizeType buttonSizeType = ZeroSizeType.medium,
     ZeroButtonRadiusType buttonRadiusType = ZeroButtonRadiusType.curved,
   }) {
     assert(labels.length >= 2, 'Labels should contain at least 2 elements');
-    assert(labels.length == isSelected.length,
-        'selectedItems must contain the same number of elements as label\'s');
+    assert(labels.length == isSelected.length, 'selectedItems must contain the same number of elements as label\'s');
 
     if (withIcon) {
-      assert(selectIcon != null,
-          'Having withIcon true requires you to provide selectIcon');
+      assert(selectIcon != null, 'Having withIcon true requires you to provide selectIcon');
     }
 
     return ZeroButtonGroup(
@@ -98,11 +96,10 @@ class ZeroButtonGroup extends StatefulWidget {
     required List<IconData> icons,
     required List<bool> isSelected,
     ButtonGroupType buttonGroupType = ButtonGroupType.solid,
-    ZeroButtonSizeType buttonSizeType = ZeroButtonSizeType.medium,
+    ZeroSizeType buttonSizeType = ZeroSizeType.medium,
     buttonRadiusType = ZeroButtonRadiusType.curved,
   }) {
-    assert(
-        icons.length >= 2, 'Labels or icons must contain at least 2 elements');
+    assert(icons.length >= 2, 'Labels or icons must contain at least 2 elements');
     assert(icons.length == labels.length && icons.length == isSelected.length,
         'selectedItems must contain the same number of elements as icons\'s and label\'s');
 
@@ -123,12 +120,11 @@ class ZeroButtonGroup extends StatefulWidget {
     required List<IconData> icons,
     required List<bool> isSelected,
     ButtonGroupType buttonGroupType = ButtonGroupType.solid,
-    ZeroButtonSizeType buttonSizeType = ZeroButtonSizeType.medium,
+    ZeroSizeType buttonSizeType = ZeroSizeType.medium,
     buttonRadiusType = ZeroButtonRadiusType.curved,
   }) {
     assert(icons.length >= 2, 'Icons must contain at least 2 elements');
-    assert(icons.length == isSelected.length,
-        'selectedItems must contain the same number of elements as icon\'s');
+    assert(icons.length == isSelected.length, 'selectedItems must contain the same number of elements as icon\'s');
 
     return ZeroButtonGroup(
       icons: icons,
@@ -192,9 +188,8 @@ class _ZeroButtonGroupState extends State<ZeroButtonGroup> {
       return Container(
         padding: EdgeInsets.zero,
         height: widget.buttonSizeType.height,
-        decoration: BoxDecoration(
-            color: widget.buttonGroupType.fillColor,
-            borderRadius: _getBorderRadius(widget.buttonRadiusType)),
+        decoration:
+            BoxDecoration(color: widget.buttonGroupType.fillColor, borderRadius: _getBorderRadius(widget.buttonRadiusType)),
         child: ToggleButtons(
           direction: Axis.horizontal,
           onPressed: (int index) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/colors/zero_colors.dart';
-import 'package:zero_ui_mobile/types/button_size_type.dart';
+import 'package:zero_ui_mobile/types/size_type.dart';
 
 import '../../types/button_radius_type.dart';
 import './zero_button_style.dart';
@@ -49,7 +49,7 @@ class ZeroButtonLIcon extends ElevatedButton {
     /// [height] is the height for [ZeroButtonLIcon]
     /// if this value is null, the default height get from [defaultButtonHeight] which is the value based on [buttonSizeType]
     double? height,
-    ZeroButtonSizeType buttonSizeType = ZeroButtonSizeType.medium,
+    ZeroSizeType buttonSizeType = ZeroSizeType.medium,
 
     /// [buttonRadiusType] is the type of radius for [ZeroButtonLIcon]
     /// [ZeroButtonRadiusType.rectangle] is the type of radius for [ZeroButtonLIcon] that has rectangle shape
@@ -77,9 +77,7 @@ class ZeroButtonLIcon extends ElevatedButton {
       foregroundColor: ZeroColors.primary8,
       animatingColor: ZeroColors.primary3,
       elevation: 0,
-      fixedSize: (width != null)
-          ? Size(width, height ?? defaultButtonHeight(buttonSizeType))
-          : null,
+      fixedSize: (width != null) ? Size(width, height ?? defaultButtonHeight(buttonSizeType)) : null,
       padding: paddingSize(buttonSizeType),
       shape: RoundedRectangleBorder(
         borderRadius: buttonRadiusSize(buttonRadiusType),
@@ -179,7 +177,7 @@ class ZeroButtonLIcon extends ElevatedButton {
     /// [height] is the height for [ZeroButtonLIcon]
     /// if this value is null, the default height get from [defaultButtonHeight] which is the value based on [buttonSizeType]
     double? height,
-    ZeroButtonSizeType buttonSizeType = ZeroButtonSizeType.medium,
+    ZeroSizeType buttonSizeType = ZeroSizeType.medium,
 
     /// [buttonRadiusType] is the type of radius for [ZeroButtonLIcon]
     /// [ZeroButtonRadiusType.rectangle] is the type of radius for [ZeroButtonLIcon] that has rectangle shape
@@ -207,9 +205,7 @@ class ZeroButtonLIcon extends ElevatedButton {
       foregroundColor: ZeroColors.transparentWhite,
       animatingColor: ZeroColors.primary3,
       elevation: 0,
-      fixedSize: (width != null)
-          ? Size(width, height ?? defaultButtonHeight(buttonSizeType))
-          : null,
+      fixedSize: (width != null) ? Size(width, height ?? defaultButtonHeight(buttonSizeType)) : null,
       padding: paddingSize(buttonSizeType),
       shape: RoundedRectangleBorder(
         side: BorderSide(color: borderColor, width: 1),
@@ -298,7 +294,7 @@ class ZeroButtonLIcon extends ElevatedButton {
     /// [height] is the height for [ZeroButtonLIcon]
     /// if this value is null, the default height get from [defaultButtonHeight] which is the value based on [buttonSizeType]
     double? height,
-    ZeroButtonSizeType buttonSizeType = ZeroButtonSizeType.medium,
+    ZeroSizeType buttonSizeType = ZeroSizeType.medium,
 
     /// [buttonRadiusType] is the type of radius for [ZeroButtonLIcon]
     /// [ZeroButtonRadiusType.rectangle] is the type of radius for [ZeroButtonLIcon] that has rectangle shape
@@ -318,9 +314,7 @@ class ZeroButtonLIcon extends ElevatedButton {
       backgroundColor: ZeroColors.neutral3,
       foregroundColor: ZeroColors.transparentWhite,
       elevation: 0,
-      fixedSize: (width != null)
-          ? Size(width, height ?? defaultButtonHeight(buttonSizeType))
-          : null,
+      fixedSize: (width != null) ? Size(width, height ?? defaultButtonHeight(buttonSizeType)) : null,
       padding: paddingSize(buttonSizeType),
       shape: RoundedRectangleBorder(
         side: const BorderSide(color: ZeroColors.neutral5),
