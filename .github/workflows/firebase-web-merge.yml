@@ -21,7 +21,7 @@ jobs:
           version: 7.23.0
 
       - uses: actions/checkout@v3
-      - run: pnpm install && pnpm exec nx build docs --skips-nx-cache
+      - run: pnpm install && pnpm exec nx build docs --skip-nx-cache
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
