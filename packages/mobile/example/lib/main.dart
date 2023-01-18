@@ -33,23 +33,10 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ZeroButton(
-                onPressed: () {},
-                style: ZeroButtonStyle.secondaryStyle(
-                  buttonRadiusType: ZeroButtonRadiusType.rounded,
-                ),
-                child: const Text(
-                  'Button With Ripple Effect',
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
-              ZeroButton.secondary(
+              ZeroButton.primary(
                 text: 'Button Primary',
                 onPressed: () {},
                 buttonRadiusType: ZeroButtonRadiusType.rounded,
-                style: ZeroButtonStyle(
-                  foregroundColor: Colors.red,
-                ),
               ),
               ZeroButton.secondary(
                 text: 'Button Secondary',
@@ -108,10 +95,9 @@ class _MyAppState extends State<MyApp> {
               ZeroButtonIcon.disabled(
                 icon: const Icon(Icons.search),
               ),
-              ZeroButtonIcon(
-                onPressed: () {},
-                style: ZeroButtonStyle.secondaryStyle(),
-                child: const Icon(Icons.abc, color: Colors.black),
+              ZeroButtonIcon.disabled(
+                icon: Icon(Icons.search),
+                buttonSizeType: ZeroSizeType.small,
               ),
               // Checkbox(
               //   tristate: true,

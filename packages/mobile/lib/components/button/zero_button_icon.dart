@@ -114,7 +114,7 @@ class ZeroButtonIcon extends ElevatedButton {
               focusNode: focusNode,
               autofocus: autofocus,
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: icon.color == null ? Icon(icon.icon, color: ZeroColors.white) : icon,
               ),
             ),
@@ -165,7 +165,7 @@ class ZeroButtonIcon extends ElevatedButton {
     /// [secondaryDefaultStyle] is the default style for [ZeroButton.secondary]
     final ZeroButtonStyle secondaryDefaultStyle = ZeroButtonStyle(
       backgroundColor: backgroundColor,
-      foregroundColor: ZeroColors.transparentWhite,
+      foregroundColor: ZeroColors.neutral6,
       animatingColor: ZeroColors.primary3,
       elevation: 0,
       fixedSize: (width != null) ? Size(width, height ?? defaultButtonHeight(buttonSizeType)) : null,
@@ -211,7 +211,7 @@ class ZeroButtonIcon extends ElevatedButton {
               focusNode: focusNode,
               autofocus: autofocus,
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: icon.color == null ? Icon(icon.icon, color: ZeroColors.neutral10) : icon,
               ),
             ),
@@ -269,7 +269,7 @@ class ZeroButtonIcon extends ElevatedButton {
         },
         style: style,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: icon.color == null
               ? Icon(
                   icon.icon,

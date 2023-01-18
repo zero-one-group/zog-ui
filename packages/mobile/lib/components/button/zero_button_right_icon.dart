@@ -202,7 +202,7 @@ class ZeroButtonRIcon extends ElevatedButton {
     /// [secondaryDefaultStyle] is the default style for [ZeroButton.secondary]
     final ZeroButtonStyle secondaryDefaultStyle = ZeroButtonStyle(
       backgroundColor: backgroundColor,
-      foregroundColor: ZeroColors.transparentWhite,
+      foregroundColor: ZeroColors.neutral6,
       animatingColor: ZeroColors.primary3,
       elevation: 0,
       fixedSize: (width != null) ? Size(width, height ?? defaultButtonHeight(buttonSizeType)) : null,
