@@ -1,0 +1,44 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { Divider, DividerProps } from '@zero-ui/core';
+
+<Meta
+  title="Components/Layouts/Divider"
+  argTypes={{
+    border: {
+      options: ['solid', 'dashed'],
+      control: { type: 'radio' },
+    },
+    orientation: {
+      options: ['left', 'center', 'right'],
+      control: { type: 'radio' },
+    },
+  }}
+  component={[Divider]}
+/>
+
+export const DividerStory = (args) => <Divider {...args}></Divider>;
+
+# Divider
+
+Divider just line. we can have text inside the line with variants like text in middle, left, and right
+
+## Example Usage
+
+```jsx
+import { Divider } from '@zero-ui/core';
+```
+
+<Canvas columns={2} withSource="close">
+  <Story
+    name="Divider"
+    args={{
+      border: 'solid',
+      children: 'Sample Text',
+      orientation: 'center',
+    }}
+  >
+    {DividerStory.bind()}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Divider" />
