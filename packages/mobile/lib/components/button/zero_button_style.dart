@@ -113,7 +113,7 @@ class ZeroButtonStyle {
       surfaceTintColor: surfaceTintColor ?? ZeroColors.primary3,
       elevation: elevation ?? 0,
       textStyle: textStyle,
-      padding: padding ?? paddingSize(buttonSizeType ?? ZeroSizeType.medium),
+      padding: padding ?? buttonSizeType?.padding,
       shape: shape ??
           RoundedRectangleBorder(
             borderRadius: buttonRadiusSize(buttonRadiusType ?? ZeroButtonRadiusType.rectangle),
@@ -163,7 +163,7 @@ class ZeroButtonStyle {
       surfaceTintColor: surfaceTintColor ?? ZeroColors.primary3,
       elevation: elevation ?? 0,
       textStyle: textStyle,
-      padding: padding ?? paddingSize(buttonSizeType ?? ZeroSizeType.medium),
+      padding: padding ?? buttonSizeType?.padding,
       shape: shape ??
           RoundedRectangleBorder(
             borderRadius: buttonRadiusSize(buttonRadiusType ?? ZeroButtonRadiusType.rectangle),
