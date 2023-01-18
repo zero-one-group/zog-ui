@@ -6,7 +6,7 @@ export * from './ControlGroup';
 export * from './DesignSystemProvider';
 export * from './Dialog';
 export * from './DropdownMenu';
-export * from './Flex';
+export * from './Space';
 export * from './Grid';
 export * from './Heading';
 export * from './IconButton';

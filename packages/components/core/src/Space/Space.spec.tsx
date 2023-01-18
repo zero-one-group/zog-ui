@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import Flex from './Flex';
+import { Space } from './Space';
 
-describe('Flex', () => {
+describe('Space', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Flex />);
+    const { baseElement } = render(<Space />);
     expect(baseElement).toBeTruthy();
   });
 });
