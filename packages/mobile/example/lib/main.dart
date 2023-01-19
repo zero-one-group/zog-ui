@@ -112,7 +112,7 @@ class _MyAppState extends State<MyApp> {
               ZeroRating(
                 itemCount: 5,
                 spacing: 5,
-                minValue: 3,
+                minValue: 1,
                 initialValue: 3,
                 allowHalfRating: true,
                 sizeType: ZeroSizeType.large,

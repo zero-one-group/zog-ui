@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:zero_ui_mobile/assets/assets.dart';
 import 'package:zero_ui_mobile/types/size_type.dart';
 
 import '../../colors/zero_colors.dart';
@@ -163,14 +164,14 @@ class _ZeroRatingState extends State<ZeroRating> {
         mainAxisSize: MainAxisSize.min,
         children: [
           SvgPicture.asset(
-            'assets/icons/star_half.svg',
+            Assets.icons.starHalf,
             package: 'zero_ui_mobile',
             color: activeColor,
             width: _ratingSize(widget.sizeType),
             height: _ratingSize(widget.sizeType),
           ),
           SvgPicture.asset(
-            'assets/icons/star_outlined_half.svg',
+            Assets.icons.starOutlinedHalf,
             package: 'zero_ui_mobile',
             color: inactiveColor,
             width: _ratingSize(widget.sizeType),
@@ -189,7 +190,7 @@ class _ZeroRatingState extends State<ZeroRating> {
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: widget.spacing),
         child: SvgPicture.asset(
-          'assets/icons/star.svg',
+          Assets.icons.star,
           package: 'zero_ui_mobile',
           color: index < value ? activeColor : inactiveColor,
           width: _ratingSize(widget.sizeType),
@@ -207,7 +208,7 @@ class _ZeroRatingState extends State<ZeroRating> {
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: widget.spacing),
         child: SvgPicture.asset(
-          'assets/icons/star_outlined.svg',
+          Assets.icons.starOutlined,
           package: 'zero_ui_mobile',
           color: index < value ? activeColor : inactiveColor,
           width: _ratingSize(widget.sizeType),

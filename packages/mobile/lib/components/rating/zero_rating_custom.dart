@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:zero_ui_mobile/assets/assets.dart';
 import 'package:zero_ui_mobile/types/size_type.dart';
 
 import '../../colors/zero_colors.dart';
@@ -88,12 +89,13 @@ class _ZeroRatingCustomState extends State<ZeroRatingCustom> {
     activeColor = widget.isDisabled ? widget.activeColor.withOpacity(0.5) : widget.activeColor;
     inactiveColor = widget.isDisabled ? widget.inactiveColor.withOpacity(0.5) : widget.inactiveColor;
     assets.addAll([
-      'assets/icons/rating_custom1.svg',
-      'assets/icons/rating_custom2.svg',
-      'assets/icons/rating_custom3.svg',
-      'assets/icons/rating_custom4.svg',
-      'assets/icons/rating_custom5.svg',
+      Assets.icons.ratingCustom1,
+      Assets.icons.ratingCustom2,
+      Assets.icons.ratingCustom3,
+      Assets.icons.ratingCustom4,
+      Assets.icons.ratingCustom5,
     ]);
+    Assets.icons;
   }
 
   @override
