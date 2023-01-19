@@ -6,11 +6,11 @@ import { Text } from '@zero-ui/core';
 
 <Meta title="Components/Typography/Text" component={[Text]} argTypes={{}} />
 
-export const TextStory = () => <Text />;
+export const TextStory = (args) => <Text {...args} />;
 
 # Text
 
-> WIP
+Basic text writing, usually used as a body text.
 
 ## Example Usage
 
@@ -19,7 +19,15 @@ import { Text } from '@zero-ui/core';
 ```
 
 <Canvas columns={2} withSource="close">
-  <Story name="Text">{TextStory.bind()}</Story>
+  <Story
+    name="Text"
+    args={{
+      children:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin non lectus eu nunc bibendum laoreet a sit amet augue.',
+    }}
+  >
+    {TextStory.bind()}
+  </Story>
 </Canvas>
 
 <ArgsTable of={Text} />
