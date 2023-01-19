@@ -22,6 +22,7 @@ class ZeroRating extends StatefulWidget {
     this.inactiveColor = ZeroColors.neutral6,
     this.isDisabled = false,
     this.sizeType = ZeroSizeType.medium,
+    this.ratingWidget,
   })  : assert(itemCount > 0),
         assert(initialValue >= minValue),
         assert(initialValue <= itemCount),
@@ -76,6 +77,9 @@ class ZeroRating extends StatefulWidget {
   /// The size of the rating is determined by the [sizeType].
   /// There are 3 sizes available: [ZeroSizeType.small], [ZeroSizeType.medium], and [ZeroSizeType.large].
   final ZeroSizeType sizeType;
+
+  /// for customizing the icons of the rating.
+  final RatingWidget? ratingWidget;
 
   @override
   State<ZeroRating> createState() => _ZeroRatingState();
@@ -159,26 +163,29 @@ class _ZeroRatingState extends State<ZeroRating> {
   Widget _starHalf() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: widget.spacing),
-      padding: const EdgeInsets.symmetric(horizontal: 0.4),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SvgPicture.asset(
-            Assets.icons.starHalf,
-            package: 'zero_ui_mobile',
-            color: activeColor,
-            width: _ratingSize(widget.sizeType),
-            height: _ratingSize(widget.sizeType),
+      child: widget.ratingWidget?.half ??
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 0.4),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SvgPicture.asset(
+                  Assets.icons.starHalf,
+                  package: 'zero_ui_mobile',
+                  color: activeColor,
+                  width: _ratingSize(widget.sizeType),
+                  height: _ratingSize(widget.sizeType),
+                ),
+                SvgPicture.asset(
+                  Assets.icons.starOutlinedHalf,
+                  package: 'zero_ui_mobile',
+                  color: inactiveColor,
+                  width: _ratingSize(widget.sizeType),
+                  height: _ratingSize(widget.sizeType),
+                ),
+              ],
+            ),
           ),
-          SvgPicture.asset(
-            Assets.icons.starOutlinedHalf,
-            package: 'zero_ui_mobile',
-            color: inactiveColor,
-            width: _ratingSize(widget.sizeType),
-            height: _ratingSize(widget.sizeType),
-          ),
-        ],
-      ),
     );
   }
 
@@ -189,13 +196,14 @@ class _ZeroRatingState extends State<ZeroRating> {
       onTap: () => _onRatingTap(index),
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: widget.spacing),
-        child: SvgPicture.asset(
-          Assets.icons.star,
-          package: 'zero_ui_mobile',
-          color: index < value ? activeColor : inactiveColor,
-          width: _ratingSize(widget.sizeType),
-          height: _ratingSize(widget.sizeType),
-        ),
+        child: widget.ratingWidget?.full ??
+            SvgPicture.asset(
+              Assets.icons.star,
+              package: 'zero_ui_mobile',
+              color: index < value ? activeColor : inactiveColor,
+              width: _ratingSize(widget.sizeType),
+              height: _ratingSize(widget.sizeType),
+            ),
       ),
     );
   }
@@ -207,13 +215,14 @@ class _ZeroRatingState extends State<ZeroRating> {
       onTap: () => _onRatingTap(index),
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: widget.spacing),
-        child: SvgPicture.asset(
-          Assets.icons.starOutlined,
-          package: 'zero_ui_mobile',
-          color: index < value ? activeColor : inactiveColor,
-          width: _ratingSize(widget.sizeType),
-          height: _ratingSize(widget.sizeType),
-        ),
+        child: widget.ratingWidget?.empty ??
+            SvgPicture.asset(
+              Assets.icons.starOutlined,
+              package: 'zero_ui_mobile',
+              color: index < value ? activeColor : inactiveColor,
+              width: _ratingSize(widget.sizeType),
+              height: _ratingSize(widget.sizeType),
+            ),
       ),
     );
   }
@@ -268,4 +277,16 @@ double _ratingSize(ZeroSizeType size) {
     case ZeroSizeType.large:
       return 26.0;
   }
+}
+
+class RatingWidget {
+  final Widget full;
+  final Widget half;
+  final Widget empty;
+
+  RatingWidget({
+    required this.full,
+    required this.half,
+    required this.empty,
+  });
 }

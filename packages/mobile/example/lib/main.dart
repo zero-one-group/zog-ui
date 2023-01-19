@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:zero_ui_mobile/assets/assets.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 void main() {
@@ -33,72 +34,6 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ZeroButton.primary(
-                text: 'Button Primary',
-                onPressed: () {},
-                buttonRadiusType: ZeroButtonRadiusType.rounded,
-              ),
-              ZeroButton.secondary(
-                text: 'Button Secondary',
-                onPressed: () {},
-                buttonRadiusType: ZeroButtonRadiusType.rounded,
-              ),
-              ZeroButton.disabled(
-                text: 'Button Disabled',
-                buttonRadiusType: ZeroButtonRadiusType.rounded,
-              ),
-              ZeroButtonLIcon.primary(
-                text: 'Button L-Icon Primary',
-                onPressed: () {},
-                buttonRadiusType: ZeroButtonRadiusType.rounded,
-                icon: const Icon(Icons.search),
-              ),
-              ZeroButtonLIcon.secondary(
-                text: 'Button L-Icon Primary',
-                onPressed: () {},
-                buttonRadiusType: ZeroButtonRadiusType.rounded,
-                icon: const Icon(Icons.search),
-              ),
-              ZeroButtonLIcon.disabled(
-                text: 'Button L-Icon Primary',
-                buttonRadiusType: ZeroButtonRadiusType.rounded,
-                icon: const Icon(Icons.search),
-              ),
-              ZeroButtonRLIcon.primary(
-                text: 'Button LR-Icon Primary',
-                onPressed: () {},
-                buttonRadiusType: ZeroButtonRadiusType.rounded,
-                prefixIcon: const Icon(Icons.search),
-                suffixIcon: const Icon(Icons.search),
-              ),
-              ZeroButtonRLIcon.secondary(
-                text: 'Button LR-Icon Primary',
-                onPressed: () {},
-                buttonRadiusType: ZeroButtonRadiusType.rounded,
-                prefixIcon: const Icon(Icons.search),
-                suffixIcon: const Icon(Icons.search),
-              ),
-              ZeroButtonRLIcon.disabled(
-                text: 'Button LR-Icon Primary',
-                buttonRadiusType: ZeroButtonRadiusType.rounded,
-                prefixIcon: const Icon(Icons.search),
-                suffixIcon: const Icon(Icons.search),
-              ),
-              ZeroButtonIcon.primary(
-                onPressed: () {},
-                icon: const Icon(Icons.search),
-              ),
-              ZeroButtonIcon.secondary(
-                onPressed: () {},
-                icon: const Icon(Icons.search),
-              ),
-              ZeroButtonIcon.disabled(
-                icon: const Icon(Icons.search),
-              ),
-              ZeroButtonIcon.disabled(
-                icon: Icon(Icons.search),
-                buttonSizeType: ZeroSizeType.small,
-              ),
               // Checkbox(
               //   tristate: true,
               //   value: checkValue,
@@ -117,15 +52,33 @@ class _MyAppState extends State<MyApp> {
                 allowHalfRating: true,
                 sizeType: ZeroSizeType.large,
                 isDisabled: false,
+                ratingWidget: RatingWidget(
+                  full: const Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                  ),
+                  half: const Icon(
+                    Icons.star,
+                    color: Colors.yellow,
+                  ),
+                  empty: const Icon(
+                    Icons.star,
+                    color: Colors.black12,
+                  ),
+                ),
                 onRatingUpdate: (val) {},
               ),
               const SizedBox(height: 20),
               ZeroRatingCustom(
-                spacing: 1,
-                initialValue: 3,
+                spacing: 4,
+                initialValue: 1,
                 isDisabled: false,
-                activeColor: ZeroColors.warning,
-                onRatingUpdate: (val) {},
+                activeColor: ZeroColors.sunriseYellow6,
+                inactiveColor: ZeroColors.neutral5,
+                sizeType: ZeroSizeType.small,
+                onRatingUpdate: (val) {
+                  log(val.toString());
+                },
               ),
             ],
           ),

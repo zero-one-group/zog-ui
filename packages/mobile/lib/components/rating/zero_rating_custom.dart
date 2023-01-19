@@ -6,17 +6,47 @@ import 'package:zero_ui_mobile/types/size_type.dart';
 import '../../colors/zero_colors.dart';
 
 class ZeroRatingCustom extends StatefulWidget {
-  const ZeroRatingCustom({
+  ZeroRatingCustom({
     super.key,
     this.spacing = 0,
     this.initialValue = 1,
     this.onRatingUpdate,
-    this.activeColor = ZeroColors.sunriseYellow6,
-    this.inactiveColor = ZeroColors.neutral6,
+    this.activeColor,
+    this.inactiveColor,
     this.isDisabled = false,
     this.sizeType = ZeroSizeType.medium,
+    List<Widget> listItems = const [],
   })  : assert(initialValue >= 0),
-        assert(initialValue <= 5);
+        assert(initialValue <= 5),
+        listItems = listItems.isEmpty
+            ? [
+                SvgPicture.asset(
+                  Assets.icons.ratingCustom1,
+                  width: _ratingSize(sizeType),
+                  height: _ratingSize(sizeType),
+                ),
+                SvgPicture.asset(
+                  Assets.icons.ratingCustom2,
+                  width: _ratingSize(sizeType),
+                  height: _ratingSize(sizeType),
+                ),
+                SvgPicture.asset(
+                  Assets.icons.ratingCustom3,
+                  width: _ratingSize(sizeType),
+                  height: _ratingSize(sizeType),
+                ),
+                SvgPicture.asset(
+                  Assets.icons.ratingCustom4,
+                  width: _ratingSize(sizeType),
+                  height: _ratingSize(sizeType),
+                ),
+                SvgPicture.asset(
+                  Assets.icons.ratingCustom5,
+                  width: _ratingSize(sizeType),
+                  height: _ratingSize(sizeType),
+                ),
+              ]
+            : listItems;
 
   /// The spacing between the items in the rating.
   /// The default value is 0.
@@ -34,11 +64,11 @@ class ZeroRatingCustom extends StatefulWidget {
 
   /// The color of the active items in the rating.
   /// The default value is [ZeroColors.sunriseYellow6].
-  final Color activeColor;
+  final Color? activeColor;
 
   /// The color of the inactive items in the rating.
   /// The default value is [ZeroColors.neutral6].
-  final Color inactiveColor;
+  final Color? inactiveColor;
 
   /// Whether to disable the rating.
   /// The default value is false.
@@ -50,6 +80,9 @@ class ZeroRatingCustom extends StatefulWidget {
   /// The size of the rating will be adjusted according to the [sizeType].
   /// There are 3 sizes available: [ZeroSizeType.small], [ZeroSizeType.medium], and [ZeroSizeType.large].
   final ZeroSizeType sizeType;
+
+  /// [listItems] is used to define the items ([icons, image, or svg]) in the rating.
+  final List<Widget> listItems;
 
   @override
   State<ZeroRatingCustom> createState() => _ZeroRatingCustomState();
@@ -78,31 +111,19 @@ class _ZeroRatingCustomState extends State<ZeroRatingCustom> {
   /// The size of a single item is calculated by dividing the size of the rating widget by the number of items in the rating.
   double _singleItemSize = 0;
 
-  /// [assets] is list of assets for rating.
-  /// default value will be defined in [initState].
-  final List<String> assets = [];
+  /// [index] is used to save the index of the item that is currently being dragged.
+  int index = 0;
 
   @override
   void initState() {
     super.initState();
     value = widget.initialValue;
-    activeColor = widget.isDisabled ? widget.activeColor.withOpacity(0.5) : widget.activeColor;
-    inactiveColor = widget.isDisabled ? widget.inactiveColor.withOpacity(0.5) : widget.inactiveColor;
-    assets.addAll([
-      Assets.icons.ratingCustom1,
-      Assets.icons.ratingCustom2,
-      Assets.icons.ratingCustom3,
-      Assets.icons.ratingCustom4,
-      Assets.icons.ratingCustom5,
-    ]);
-    Assets.icons;
+    index = widget.initialValue.toInt() - 1;
   }
 
   @override
   void didUpdateWidget(covariant ZeroRatingCustom oldWidget) {
     super.didUpdateWidget(oldWidget);
-    activeColor = widget.isDisabled ? widget.activeColor.withOpacity(0.5) : widget.activeColor;
-    inactiveColor = widget.isDisabled ? widget.inactiveColor.withOpacity(0.5) : widget.inactiveColor;
   }
 
   @override
@@ -114,41 +135,58 @@ class _ZeroRatingCustomState extends State<ZeroRatingCustom> {
       child: GestureDetector(
         onHorizontalDragStart: (details) {
           _widgetSize = _widgetKey.currentContext?.size ?? Size.zero;
-          _singleItemSize = _widgetSize.width / assets.length;
+          _singleItemSize = _widgetSize.width / widget.listItems.length;
         },
         onHorizontalDragUpdate: (details) {
           if (widget.isDisabled) return;
           widget.onRatingUpdate?.call(_onRatingDrag(details));
           setState(() {
-            value = _onRatingDrag(details);
+            index = _onRatingDrag(details).floor() - 1;
           });
         },
         child: Row(
           key: _widgetKey,
           mainAxisSize: MainAxisSize.min,
-          children: assets.map((asset) {
-            return InkWell(
-              overlayColor: MaterialStateProperty.all(Colors.transparent),
-              onTap: () {
-                if (!widget.isDisabled) {
-                  setState(() {
-                    value = assets.indexOf(asset) + 1;
-                  });
-                  widget.onRatingUpdate?.call(value);
-                }
-              },
-              child: Container(
-                margin: EdgeInsets.symmetric(horizontal: widget.spacing),
-                child: SvgPicture.asset(
-                  asset,
-                  package: 'zero_ui_mobile',
-                  color: value == assets.indexOf(asset) + 1 ? activeColor : inactiveColor,
-                  width: _ratingSize(widget.sizeType),
-                  height: _ratingSize(widget.sizeType),
+          children: [
+            for (int i = 0; i < widget.listItems.length; i++)
+              InkWell(
+                overlayColor: MaterialStateProperty.all(Colors.transparent),
+                onTap: () {
+                  if (!widget.isDisabled) {
+                    setState(() {
+                      index = i;
+                    });
+                    widget.onRatingUpdate?.call(value);
+                  }
+                },
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: widget.spacing),
+                  child: index == i
+                      ? !widget.isDisabled
+                          ? widget.activeColor == null
+                              ? widget.listItems[i]
+                              : ColorFiltered(
+                                  colorFilter: ColorFilter.mode(activeColor, BlendMode.srcIn),
+                                  child: widget.listItems[i],
+                                )
+                          : ColorFiltered(
+                              colorFilter: const ColorFilter.mode(Colors.black26, BlendMode.srcIn),
+                              child: widget.listItems[i],
+                            )
+                      : !widget.isDisabled
+                          ? widget.inactiveColor == null
+                              ? widget.listItems[i]
+                              : ColorFiltered(
+                                  colorFilter: ColorFilter.mode(inactiveColor, BlendMode.srcIn),
+                                  child: widget.listItems[i],
+                                )
+                          : ColorFiltered(
+                              colorFilter: const ColorFilter.mode(Colors.black26, BlendMode.srcIn),
+                              child: widget.listItems[i],
+                            ),
                 ),
-              ),
-            );
-          }).toList(),
+              )
+          ],
         ),
       ),
     );
@@ -170,7 +208,7 @@ class _ZeroRatingCustomState extends State<ZeroRatingCustom> {
       newValue = rawValue.round().toDouble();
     }
 
-    if (newValue > assets.length) newValue = assets.length.toDouble();
+    if (newValue > widget.listItems.length) newValue = widget.listItems.length.toDouble();
     if (newValue < 1) newValue = 1;
 
     return newValue;
