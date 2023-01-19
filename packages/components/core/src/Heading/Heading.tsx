@@ -1,7 +1,7 @@
+import type Stitches from '@stitches/react';
 import { ComponentProps, ElementType, forwardRef, ReactElement } from 'react';
 import { styled } from '../stitches.config';
 import { PolymorphicComponentPropsWithRef, PolymorphicRef } from '../types';
-import type Stitches from '@stitches/react';
 
 const headingElements = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] as const;
 
