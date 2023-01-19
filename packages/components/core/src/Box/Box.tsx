@@ -18,15 +18,13 @@ export type BoxComponent = <T extends ElementType = typeof StyledBox>(
 
 export const Box: BoxComponent = forwardRef(
   <T extends ElementType = typeof StyledBox>(
-    { as, children, ...props }: BoxProps<T>,
+    { children, ...props }: BoxProps<T>,
     ref?: PolymorphicRef<T>
   ) => {
-    const Component = as || StyledBox;
-
     return (
-      <Component ref={ref} {...props}>
+      <StyledBox ref={ref} {...props}>
         {children}
-      </Component>
+      </StyledBox>
     );
   }
 );
