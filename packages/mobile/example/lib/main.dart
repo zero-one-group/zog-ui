@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/assets/assets.dart';
+import 'package:zero_ui_mobile/components/textfield/zero_textfield.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 void main() {
@@ -19,18 +20,13 @@ class _MyAppState extends State<MyApp> {
   bool? checkValue;
   @override
   Widget build(BuildContext context) {
-    const List<String> labels = ['Tab 1', 'Tab 2', 'Tab 3'];
-    List<bool> isSelected = [false, false, false];
-
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-        body: SizedBox(
-          width: double.infinity,
-          height: double.infinity,
+        body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -134,6 +130,13 @@ class _MyAppState extends State<MyApp> {
               //     log(val.toString());
               //   },
               // ),
+              const Padding(
+                padding: EdgeInsets.all(10),
+                child: ZeroTextField(
+                  labelText: 'Name',
+                  hintText: 'Input',
+                ),
+              )
             ],
           ),
         ),
