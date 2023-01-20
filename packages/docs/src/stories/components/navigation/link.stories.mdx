@@ -3,14 +3,15 @@ import { BADGE } from '@geometricpanda/storybook-addon-badges';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { Link } from '@zero-ui/core';
+import { HomeOutlined } from '@ant-design/icons';
 
 <Meta title="Components/Navigation/Link" component={[Link]} argTypes={{}} />
 
-export const LinkStory = () => <Link />;
+export const LinkStory = (args) => <Link {...args}>{args.children}</Link>;
 
 # Link
 
-> WIP
+Link is Component for `anchor`
 
 ## Example Usage
 
@@ -19,7 +20,18 @@ import { Link } from '@zero-ui/core';
 ```
 
 <Canvas columns={2} withSource="close">
-  <Story name="Link">{LinkStory.bind()}</Story>
+  <Story
+    args={{
+      active: true,
+      leftIcon: true,
+      as: 'a',
+      children: 'Link',
+      icon: <HomeOutlined />,
+    }}
+    name="Link"
+  >
+    {LinkStory.bind()}
+  </Story>
 </Canvas>
 
 <ArgsTable of={Link} />
