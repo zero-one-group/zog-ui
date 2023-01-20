@@ -44,42 +44,96 @@ class _MyAppState extends State<MyApp> {
               //   },
               // ),
 
-              ZeroRating(
-                itemCount: 5,
-                spacing: 5,
-                minValue: 1,
-                initialValue: 3,
-                allowHalfRating: true,
-                sizeType: ZeroSizeType.large,
+              ZeroButton.text(
+                text: 'Button Text',
+                onPressed: () {},
+                buttonRadiusType: ZeroButtonRadiusType.curved,
+                buttonSizeType: ZeroSizeType.large,
                 isDisabled: false,
-                ratingWidget: RatingWidget(
-                  full: const Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                  ),
-                  half: const Icon(
-                    Icons.star,
-                    color: Colors.yellow,
-                  ),
-                  empty: const Icon(
-                    Icons.star,
-                    color: Colors.black12,
-                  ),
-                ),
-                onRatingUpdate: (val) {},
+                width: 180,
+                height: 60,
               ),
-              const SizedBox(height: 20),
-              ZeroRatingCustom(
-                spacing: 4,
-                initialValue: 1,
+
+              ZeroButtonIcon.text(
+                icon: const Icon(Icons.search),
+                onPressed: () {},
+                buttonRadiusType: ZeroButtonRadiusType.curved,
+                buttonSizeType: ZeroSizeType.large,
+                isDisabled: true,
+                width: 180,
+                height: 60,
+              ),
+
+              ZeroButtonLIcon.text(
+                icon: const Icon(Icons.search),
+                onPressed: () {},
+                buttonRadiusType: ZeroButtonRadiusType.rounded,
+                buttonSizeType: ZeroSizeType.large,
+                isDisabled: true,
+                width: 180,
+                height: 60,
+                text: 'Button Text',
+              ),
+
+              ZeroButtonRIcon.text(
+                icon: const Icon(Icons.search),
+                onPressed: () {},
+                buttonRadiusType: ZeroButtonRadiusType.rounded,
+                buttonSizeType: ZeroSizeType.large,
                 isDisabled: false,
-                activeColor: ZeroColors.sunriseYellow6,
-                inactiveColor: ZeroColors.neutral5,
-                sizeType: ZeroSizeType.small,
-                onRatingUpdate: (val) {
-                  log(val.toString());
-                },
+                width: 180,
+                height: 60,
+                text: 'Button Text',
               ),
+
+              ZeroButtonRLIcon.text(
+                prefixIcon: const Icon(Icons.search),
+                suffixIcon: const Icon(Icons.search),
+                onPressed: () {},
+                buttonRadiusType: ZeroButtonRadiusType.rounded,
+                buttonSizeType: ZeroSizeType.large,
+                isDisabled: false,
+                width: 250,
+                height: 60,
+                text: 'Button Text',
+              ),
+
+              // ZeroRating(
+              //   itemCount: 5,
+              //   spacing: 5,
+              //   minValue: 1,
+              //   initialValue: 3,
+              //   allowHalfRating: true,
+              //   sizeType: ZeroSizeType.large,
+              //   isDisabled: false,
+              //   ratingWidget: RatingWidget(
+              //     full: const Icon(
+              //       Icons.star,
+              //       color: Colors.amber,
+              //     ),
+              //     half: const Icon(
+              //       Icons.star,
+              //       color: Colors.yellow,
+              //     ),
+              //     empty: const Icon(
+              //       Icons.star,
+              //       color: Colors.black12,
+              //     ),
+              //   ),
+              //   onRatingUpdate: (val) {},
+              // ),
+              // const SizedBox(height: 20),
+              // ZeroRatingCustom(
+              //   spacing: 4,
+              //   initialValue: 1,
+              //   isDisabled: false,
+              //   activeColor: ZeroColors.sunriseYellow6,
+              //   inactiveColor: ZeroColors.neutral5,
+              //   sizeType: ZeroSizeType.small,
+              //   onRatingUpdate: (val) {
+              //     log(val.toString());
+              //   },
+              // ),
             ],
           ),
         ),
