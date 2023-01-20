@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/types/button_size_type.dart';
+import 'package:zero_ui_mobile/types/size_type.dart';
 
 class ButtonGroupItem extends StatelessWidget {
   final String label;
@@ -62,9 +62,7 @@ class ButtonGroupItem extends StatelessWidget {
           Text(
             label,
             textAlign: TextAlign.center,
-            style: TextStyle(
-                color: isSelected ? selectedColor : textColor,
-                fontSize: fontSize),
+            style: TextStyle(color: isSelected ? selectedColor : textColor, fontSize: fontSize),
           ),
         ],
       ),

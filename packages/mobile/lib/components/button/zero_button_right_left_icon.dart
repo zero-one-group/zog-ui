@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/colors/zero_colors.dart';
-import 'package:zero_ui_mobile/types/button_size_type.dart';
+import 'package:zero_ui_mobile/types/size_type.dart';
 
 import '../../types/button_radius_type.dart';
 import './zero_button_style.dart';
@@ -50,7 +50,7 @@ class ZeroButtonRLIcon extends ElevatedButton {
     /// [height] is the height for [ZeroButtonRLIcon]
     /// if this value is null, the default height get from [defaultButtonHeight] which is the value based on [buttonSizeType]
     double? height,
-    ZeroButtonSizeType buttonSizeType = ZeroButtonSizeType.medium,
+    ZeroSizeType buttonSizeType = ZeroSizeType.medium,
 
     /// [buttonRadiusType] is the type of radius for [ZeroButtonRLIcon]
     /// [ZeroButtonRadiusType.rectangle] is the type of radius for [ZeroButtonRLIcon] that has rectangle shape
@@ -78,10 +78,8 @@ class ZeroButtonRLIcon extends ElevatedButton {
       foregroundColor: ZeroColors.primary8,
       animatingColor: ZeroColors.primary3,
       elevation: 0,
-      fixedSize: (width != null)
-          ? Size(width, height ?? defaultButtonHeight(buttonSizeType))
-          : null,
-      padding: paddingSize(buttonSizeType),
+      fixedSize: (width != null) ? Size(width, height ?? buttonSizeType.defaultButtonHeight) : null,
+      padding: buttonSizeType.padding,
       shape: RoundedRectangleBorder(
         borderRadius: buttonRadiusSize(buttonRadiusType),
       ),
@@ -115,7 +113,7 @@ class ZeroButtonRLIcon extends ElevatedButton {
               updateAnimating = update;
             },
             buttonRadiusType: buttonRadiusType,
-            height: height ?? defaultButtonHeight(buttonSizeType),
+            height: height ?? buttonSizeType.defaultButtonHeight,
             animatingColor: animatingColor,
             child: ZeroButtonRLIcon(
               key: key,
@@ -132,22 +130,18 @@ class ZeroButtonRLIcon extends ElevatedButton {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    prefixIcon.color == null
-                        ? Icon(prefixIcon.icon, color: ZeroColors.white)
-                        : prefixIcon,
+                    prefixIcon.color == null ? Icon(prefixIcon.icon, color: ZeroColors.white) : prefixIcon,
                     const SizedBox(width: 8),
                     Text(
                       text,
                       style: textStyle ??
                           TextStyle(
-                            fontSize: fontSize(buttonSizeType),
+                            fontSize: buttonSizeType.fontSize,
                             color: ZeroColors.white,
                           ),
                     ),
                     const SizedBox(width: 8),
-                    suffixIcon.color == null
-                        ? Icon(suffixIcon.icon, color: ZeroColors.white)
-                        : prefixIcon,
+                    suffixIcon.color == null ? Icon(suffixIcon.icon, color: ZeroColors.white) : prefixIcon,
                   ],
                 ),
               ),
@@ -183,7 +177,7 @@ class ZeroButtonRLIcon extends ElevatedButton {
     /// [height] is the height for [ZeroButtonRLIcon]
     /// if this value is null, the default height get from [defaultButtonHeight] which is the value based on [buttonSizeType]
     double? height,
-    ZeroButtonSizeType buttonSizeType = ZeroButtonSizeType.medium,
+    ZeroSizeType buttonSizeType = ZeroSizeType.medium,
 
     /// [buttonRadiusType] is the type of radius for [ZeroButtonRLIcon]
     /// [ZeroButtonRadiusType.rectangle] is the type of radius for [ZeroButtonRLIcon] that has rectangle shape
@@ -208,13 +202,11 @@ class ZeroButtonRLIcon extends ElevatedButton {
     /// [secondaryDefaultStyle] is the default style for [ZeroButton.secondary]
     final ZeroButtonStyle secondaryDefaultStyle = ZeroButtonStyle(
       backgroundColor: backgroundColor,
-      foregroundColor: ZeroColors.transparentWhite,
+      foregroundColor: ZeroColors.neutral6,
       animatingColor: ZeroColors.primary3,
       elevation: 0,
-      fixedSize: (width != null)
-          ? Size(width, height ?? defaultButtonHeight(buttonSizeType))
-          : null,
-      padding: paddingSize(buttonSizeType),
+      fixedSize: (width != null) ? Size(width, height ?? buttonSizeType.defaultButtonHeight) : null,
+      padding: buttonSizeType.padding,
       shape: RoundedRectangleBorder(
         side: BorderSide(color: borderColor, width: 1),
         borderRadius: buttonRadiusSize(buttonRadiusType),
@@ -246,7 +238,7 @@ class ZeroButtonRLIcon extends ElevatedButton {
               updateAnimating = update;
             },
             buttonRadiusType: buttonRadiusType,
-            height: height ?? defaultButtonHeight(buttonSizeType),
+            height: height ?? buttonSizeType.defaultButtonHeight,
             animatingColor: animatingColor,
             child: ZeroButtonRLIcon(
               key: key,
@@ -263,22 +255,18 @@ class ZeroButtonRLIcon extends ElevatedButton {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    prefixIcon.color == null
-                        ? Icon(prefixIcon.icon, color: ZeroColors.neutral7)
-                        : prefixIcon,
+                    prefixIcon.color == null ? Icon(prefixIcon.icon, color: ZeroColors.neutral7) : prefixIcon,
                     const SizedBox(width: 8),
                     Text(
                       text,
                       style: textStyle ??
                           TextStyle(
-                            fontSize: fontSize(buttonSizeType),
+                            fontSize: buttonSizeType.fontSize,
                             color: ZeroColors.neutral10,
                           ),
                     ),
                     const SizedBox(width: 8),
-                    suffixIcon.color == null
-                        ? Icon(suffixIcon.icon, color: ZeroColors.neutral7)
-                        : prefixIcon,
+                    suffixIcon.color == null ? Icon(suffixIcon.icon, color: ZeroColors.neutral7) : prefixIcon,
                   ],
                 ),
               ),
@@ -304,7 +292,7 @@ class ZeroButtonRLIcon extends ElevatedButton {
     /// [height] is the height for [ZeroButtonRLIcon]
     /// if this value is null, the default height get from [defaultButtonHeight] which is the value based on [buttonSizeType]
     double? height,
-    ZeroButtonSizeType buttonSizeType = ZeroButtonSizeType.medium,
+    ZeroSizeType buttonSizeType = ZeroSizeType.medium,
 
     /// [buttonRadiusType] is the type of radius for [ZeroButtonRLIcon]
     /// [ZeroButtonRadiusType.rectangle] is the type of radius for [ZeroButtonRLIcon] that has rectangle shape
@@ -315,7 +303,7 @@ class ZeroButtonRLIcon extends ElevatedButton {
     /// [textStyle] is the style for [Text] widget inside [ZeroButtonRLIcon]
     /// if this value is null, the default style will be used
     textStyle ??= TextStyle(
-      fontSize: fontSize(buttonSizeType),
+      fontSize: buttonSizeType.fontSize,
       color: ZeroColors.neutral7,
     );
 
@@ -324,10 +312,8 @@ class ZeroButtonRLIcon extends ElevatedButton {
       backgroundColor: ZeroColors.neutral3,
       foregroundColor: ZeroColors.transparentWhite,
       elevation: 0,
-      fixedSize: (width != null)
-          ? Size(width, height ?? defaultButtonHeight(buttonSizeType))
-          : null,
-      padding: paddingSize(buttonSizeType),
+      fixedSize: (width != null) ? Size(width, height ?? buttonSizeType.defaultButtonHeight) : null,
+      padding: buttonSizeType.padding,
       shape: RoundedRectangleBorder(
         side: const BorderSide(color: ZeroColors.neutral5),
         borderRadius: buttonRadiusSize(buttonRadiusType),
@@ -344,7 +330,7 @@ class ZeroButtonRLIcon extends ElevatedButton {
         // do nothing
       },
       buttonRadiusType: buttonRadiusType,
-      height: height ?? defaultButtonHeight(buttonSizeType),
+      height: height ?? buttonSizeType.defaultButtonHeight,
       animatingColor: animatingColor,
       child: ZeroButtonRLIcon(
         key: key,
@@ -357,18 +343,14 @@ class ZeroButtonRLIcon extends ElevatedButton {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              prefixIcon.color == null
-                  ? Icon(prefixIcon.icon, color: ZeroColors.neutral7)
-                  : prefixIcon,
+              prefixIcon.color == null ? Icon(prefixIcon.icon, color: ZeroColors.neutral7) : prefixIcon,
               const SizedBox(width: 8),
               Text(
                 text,
                 style: textStyle,
               ),
               const SizedBox(width: 8),
-              suffixIcon.color == null
-                  ? Icon(suffixIcon.icon, color: ZeroColors.neutral7)
-                  : prefixIcon,
+              suffixIcon.color == null ? Icon(suffixIcon.icon, color: ZeroColors.neutral7) : prefixIcon,
             ],
           ),
         ),

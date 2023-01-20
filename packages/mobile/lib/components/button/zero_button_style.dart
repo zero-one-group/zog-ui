@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../colors/zero_colors.dart';
 import '../../types/button_radius_type.dart';
-import '../../types/button_size_type.dart';
+import '../../types/size_type.dart';
 
 /// [_ZeroButtonStyle] is the class that will be used to style [ZeroButton], [ZeroButtonRightIcon], [ZeroButtonLeftIcon], [ZeroButtonRightLeftIcon], [ZeroButtonIcon]
 class ZeroButtonStyle {
@@ -80,7 +80,7 @@ class ZeroButtonStyle {
 
   /// [primaryStyle] is the function that will be used to create [ZeroButtonStyle] with primary color
   static ZeroButtonStyle primaryStyle({
-    ZeroButtonSizeType? buttonSizeType,
+    ZeroSizeType? buttonSizeType,
     ZeroButtonRadiusType? buttonRadiusType,
     Color? foregroundColor,
     Color? backgroundColor,
@@ -113,12 +113,10 @@ class ZeroButtonStyle {
       surfaceTintColor: surfaceTintColor ?? ZeroColors.primary3,
       elevation: elevation ?? 0,
       textStyle: textStyle,
-      padding:
-          padding ?? paddingSize(buttonSizeType ?? ZeroButtonSizeType.medium),
+      padding: padding ?? buttonSizeType?.padding,
       shape: shape ??
           RoundedRectangleBorder(
-            borderRadius: buttonRadiusSize(
-                buttonRadiusType ?? ZeroButtonRadiusType.rectangle),
+            borderRadius: buttonRadiusSize(buttonRadiusType ?? ZeroButtonRadiusType.rectangle),
           ),
       visualDensity: visualDensity,
       tapTargetSize: tapTargetSize,
@@ -132,7 +130,7 @@ class ZeroButtonStyle {
 
   /// [secondaryStyle] is the function that will be used to create [ZeroButtonStyle] with secondary color
   static ZeroButtonStyle secondaryStyle({
-    ZeroButtonSizeType? buttonSizeType,
+    ZeroSizeType? buttonSizeType,
     ZeroButtonRadiusType? buttonRadiusType,
     Color? foregroundColor,
     Color? backgroundColor,
@@ -165,12 +163,10 @@ class ZeroButtonStyle {
       surfaceTintColor: surfaceTintColor ?? ZeroColors.primary3,
       elevation: elevation ?? 0,
       textStyle: textStyle,
-      padding:
-          padding ?? paddingSize(buttonSizeType ?? ZeroButtonSizeType.medium),
+      padding: padding ?? buttonSizeType?.padding,
       shape: shape ??
           RoundedRectangleBorder(
-            borderRadius: buttonRadiusSize(
-                buttonRadiusType ?? ZeroButtonRadiusType.rectangle),
+            borderRadius: buttonRadiusSize(buttonRadiusType ?? ZeroButtonRadiusType.rectangle),
             side: const BorderSide(color: ZeroColors.neutral5, width: 1),
           ),
       visualDensity: visualDensity,
@@ -190,10 +186,8 @@ class ZeroButtonStyle {
     return ZeroButtonStyle(
       foregroundColor: foregroundColor ?? other.foregroundColor,
       backgroundColor: backgroundColor ?? other.backgroundColor,
-      disabledForegroundColor:
-          disabledForegroundColor ?? other.disabledForegroundColor,
-      disabledBackgroundColor:
-          disabledBackgroundColor ?? other.disabledBackgroundColor,
+      disabledForegroundColor: disabledForegroundColor ?? other.disabledForegroundColor,
+      disabledBackgroundColor: disabledBackgroundColor ?? other.disabledBackgroundColor,
       shadowColor: shadowColor ?? other.shadowColor,
       surfaceTintColor: surfaceTintColor ?? other.surfaceTintColor,
       elevation: elevation ?? other.elevation,

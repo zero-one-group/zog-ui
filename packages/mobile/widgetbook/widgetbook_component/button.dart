@@ -281,10 +281,10 @@ List<Option<Icon>> icons = [
       )),
 ];
 
-List<Option<ZeroButtonSizeType>> buttonSizeTypes = [
-  const Option(label: 'Medium', value: ZeroButtonSizeType.medium),
-  const Option(label: 'Small', value: ZeroButtonSizeType.small),
-  const Option(label: 'Large', value: ZeroButtonSizeType.large),
+List<Option<ZeroSizeType>> buttonSizeTypes = [
+  const Option(label: 'Small', value: ZeroSizeType.small),
+  const Option(label: 'Medium', value: ZeroSizeType.medium),
+  const Option(label: 'Large', value: ZeroSizeType.large),
 ];
 
 List<Option<ZeroButtonRadiusType>> buttonRadiusTypes = [
