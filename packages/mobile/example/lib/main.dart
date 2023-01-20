@@ -76,12 +76,74 @@ class _MyAppState extends State<MyApp> {
                   log(val.toString());
                 },
               ),
-              const Padding(
-                padding: EdgeInsets.all(10),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField(
-                  labelText: 'Name',
+                  labelText: 'Label',
                   hintText: 'Input',
                 ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.underline(
+                  labelText: 'Label',
+                  hintText: 'Input',
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.fill(
+                  labelText: 'Label',
+                  hintText: 'Input',
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.outline(
+                    labelText: 'Label',
+                    hintText: 'Input',
+                    errorText: 'Error Text'),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.fill(
+                    labelText: 'Label',
+                    hintText: 'Input',
+                    errorText: 'Error Text'),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.underline(
+                    labelText: 'Label',
+                    hintText: 'Input',
+                    errorText: 'Error Text'),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.outline(
+                    labelText: 'Label', hintText: 'Input', enabled: false),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.fill(
+                    labelText: 'Label', hintText: 'Input', enabled: false),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.underline(
+                    labelText: 'Label', hintText: 'Input', enabled: false),
               )
             ],
           ),

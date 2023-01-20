@@ -7,7 +7,7 @@ WidgetbookComponent textFieldWidgetbookComponent = WidgetbookComponent(
     WidgetbookUseCase(
         name: 'Labels Only',
         builder: (context) {
-          return const ZeroTextField(hintText: 'Input');
+          return ZeroTextField.outline(hintText: '');
         }),
   ],
 );

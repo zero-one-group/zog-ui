@@ -49,4 +49,15 @@ class ZeroColors {
   static const Color neutral11 = Color(0xFF1F1F1F);
   static const Color neutral12 = Color(0xFF141414);
   static const Color neutral13 = Color(0xFF000000);
+
+  static const Color dustRed1 = Color(0xFFfff1f0);
+  static const Color dustRed2 = Color(0xFFffccc7);
+  static const Color dustRed3 = Color(0xFFffa39e);
+  static const Color dustRed4 = Color(0xFFff7875);
+  static const Color dustRed5 = Color(0xFFff4d4f);
+  static const Color dustRed6 = Color(0xFFf5222d);
+  static const Color dustRed7 = Color(0xFFcf1322);
+  static const Color dustRed8 = Color(0xFFa8071a);
+  static const Color dustRed9 = Color(0xFF820014);
+  static const Color dustRed10 = Color(0xFF5c0011);
 }
