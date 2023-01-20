@@ -50,6 +50,28 @@ WidgetbookComponent buttonWidgetbookComponenet = WidgetbookComponent(
       ),
     ),
     WidgetbookUseCase(
+      name: 'Text',
+      builder: (context) => ZeroButton.text(
+        buttonSizeType: context.knobs.options(
+          options: buttonSizeTypes,
+          label: 'Button Size Type',
+        ),
+        buttonRadiusType: context.knobs.options(
+          options: buttonRadiusTypes,
+          label: 'Button Radius Type',
+        ),
+        isDisabled: context.knobs.boolean(
+          label: 'Is Disabled',
+          initialValue: false,
+        ),
+        text: context.knobs.text(
+          label: 'Text',
+          initialValue: 'Button',
+        ),
+        onPressed: () {},
+      ),
+    ),
+    WidgetbookUseCase(
       name: 'L-Icon Primary',
       builder: (context) => ZeroButtonLIcon.primary(
         icon: context.knobs.options(label: 'Icon', options: icons),
@@ -96,6 +118,29 @@ WidgetbookComponent buttonWidgetbookComponenet = WidgetbookComponent(
       ),
     ),
     WidgetbookUseCase(
+      name: 'L-Icon Text',
+      builder: (context) => ZeroButtonLIcon.text(
+        icon: context.knobs.options(label: 'Icon', options: icons),
+        buttonSizeType: context.knobs.options(
+          options: buttonSizeTypes,
+          label: 'Button Size Type',
+        ),
+        buttonRadiusType: context.knobs.options(
+          options: buttonRadiusTypes,
+          label: 'Button Radius Type',
+        ),
+        isDisabled: context.knobs.boolean(
+          label: 'Is Disabled',
+          initialValue: false,
+        ),
+        text: context.knobs.text(
+          label: 'Text',
+          initialValue: 'Button',
+        ),
+        onPressed: () {},
+      ),
+    ),
+    WidgetbookUseCase(
       name: 'R-Icon Primary',
       builder: (context) => ZeroButtonRIcon.primary(
         icon: context.knobs.options(label: 'Icon', options: icons),
@@ -121,6 +166,29 @@ WidgetbookComponent buttonWidgetbookComponenet = WidgetbookComponent(
     WidgetbookUseCase(
       name: 'R-Icon Secondary',
       builder: (context) => ZeroButtonRIcon.secondary(
+        icon: context.knobs.options(label: 'Icon', options: icons),
+        buttonSizeType: context.knobs.options(
+          options: buttonSizeTypes,
+          label: 'Button Size Type',
+        ),
+        buttonRadiusType: context.knobs.options(
+          options: buttonRadiusTypes,
+          label: 'Button Radius Type',
+        ),
+        isDisabled: context.knobs.boolean(
+          label: 'Is Disabled',
+          initialValue: false,
+        ),
+        text: context.knobs.text(
+          label: 'Text',
+          initialValue: 'Button',
+        ),
+        onPressed: () {},
+      ),
+    ),
+    WidgetbookUseCase(
+      name: 'R-Icon Text',
+      builder: (context) => ZeroButtonRIcon.text(
         icon: context.knobs.options(label: 'Icon', options: icons),
         buttonSizeType: context.knobs.options(
           options: buttonSizeTypes,
@@ -190,6 +258,30 @@ WidgetbookComponent buttonWidgetbookComponenet = WidgetbookComponent(
       ),
     ),
     WidgetbookUseCase(
+      name: 'RL-Icon Text',
+      builder: (context) => ZeroButtonRLIcon.text(
+        prefixIcon: context.knobs.options(label: 'Icon', options: icons),
+        suffixIcon: context.knobs.options(label: 'Icon', options: icons),
+        buttonSizeType: context.knobs.options(
+          options: buttonSizeTypes,
+          label: 'Button Size Type',
+        ),
+        buttonRadiusType: context.knobs.options(
+          options: buttonRadiusTypes,
+          label: 'Button Radius Type',
+        ),
+        isDisabled: context.knobs.boolean(
+          label: 'Is Disabled',
+          initialValue: false,
+        ),
+        text: context.knobs.text(
+          label: 'Text',
+          initialValue: 'Button',
+        ),
+        onPressed: () {},
+      ),
+    ),
+    WidgetbookUseCase(
       name: 'Icon Primary',
       builder: (context) => ZeroButtonIcon.primary(
         icon: context.knobs.options(label: 'Icon', options: icons),
@@ -211,6 +303,25 @@ WidgetbookComponent buttonWidgetbookComponenet = WidgetbookComponent(
     WidgetbookUseCase(
       name: 'Icon Secondary',
       builder: (context) => ZeroButtonIcon.secondary(
+        icon: context.knobs.options(label: 'Icon', options: icons),
+        buttonSizeType: context.knobs.options(
+          options: buttonSizeTypes,
+          label: 'Button Size Type',
+        ),
+        buttonRadiusType: context.knobs.options(
+          options: buttonRadiusTypes,
+          label: 'Button Radius Type',
+        ),
+        isDisabled: context.knobs.boolean(
+          label: 'Is Disabled',
+          initialValue: false,
+        ),
+        onPressed: () {},
+      ),
+    ),
+    WidgetbookUseCase(
+      name: 'Icon Text',
+      builder: (context) => ZeroButtonIcon.text(
         icon: context.knobs.options(label: 'Icon', options: icons),
         buttonSizeType: context.knobs.options(
           options: buttonSizeTypes,
