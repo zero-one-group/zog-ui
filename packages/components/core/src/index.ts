@@ -14,6 +14,7 @@ export * from './Image';
 export * from './Kbd';
 export * from './Label';
 export * from './Link';
+export * from './Breadcrumb';
 export * from './Menu';
 export * from './Overlay';
 export * from './Panel';
