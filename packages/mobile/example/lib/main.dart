@@ -1,8 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/assets/assets.dart';
 import 'package:zero_ui_mobile/components/textfield/zero_textfield.dart';
+import 'package:zero_ui_mobile/components/textfield/zero_textfield_multiline.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 void main() {
@@ -28,7 +28,6 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         body: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // Checkbox(
               //   tristate: true,
@@ -79,7 +78,7 @@ class _MyAppState extends State<MyApp> {
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField(
+                child: ZeroTextField.outline(
                   labelText: 'Label',
                   hintText: 'Input',
                 ),
@@ -144,7 +143,129 @@ class _MyAppState extends State<MyApp> {
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.underline(
                     labelText: 'Label', hintText: 'Input', enabled: false),
-              )
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.outline(
+                  labelText: 'Label',
+                  hintText: 'Input',
+                  errorText: 'Error Text',
+                  helperText: 'Support Text',
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.outline(
+                  labelText: 'Label',
+                  hintText: 'Input',
+                  prefixIcon: const Icon(Icons.search),
+                  suffixIcon: const Icon(Icons.delete_forever),
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.outline(
+                  labelText: 'Label',
+                  hintText: 'Input',
+                  helperText: 'Support Text',
+                  prefixIcon: const Icon(Icons.search),
+                  suffixIcon: const Icon(Icons.delete_forever),
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.fill(
+                  labelText: 'Label',
+                  hintText: 'Input',
+                  helperText: 'Support Text',
+                  prefixIcon: const Icon(Icons.search),
+                  suffixIcon: const Icon(Icons.delete_forever),
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.underline(
+                  labelText: 'Label',
+                  hintText: 'Input',
+                  helperText: 'Support Text',
+                  prefixIcon: const Icon(Icons.search),
+                  suffixIcon: const Icon(Icons.delete_forever),
+                ),
+              ),
+
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.outline(
+                  labelText: 'Label Large',
+                  hintText: 'Input Large',
+                  helperText: 'Support Text Large',
+                  textfielSizeType: TextfieldSizeType.large,
+                  prefixIcon: const Icon(Icons.search),
+                  suffixIcon: const Icon(Icons.delete_forever),
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.outline(
+                  labelText: 'Label Small',
+                  hintText: 'Input Small',
+                  helperText: 'Support Text Small',
+                  textfielSizeType: TextfieldSizeType.small,
+                  prefixIcon: const Icon(Icons.search),
+                  suffixIcon: const Icon(Icons.delete_forever),
+                ),
+              ),
+
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.rounded(
+                  labelText: 'Label',
+                  hintText: 'Input',
+                  helperText: 'Support Text',
+                  prefixIcon: const Icon(Icons.search),
+                  suffixIcon: const Icon(Icons.delete_forever),
+                ),
+              ),
+
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextFieldMultiline.outline(
+                  labelText: 'Label',
+                  hintText: 'Input',
+                  helperText: 'Support Text',
+                  suffix: const Icon(Icons.delete_forever),
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextFieldMultiline.fill(
+                  labelText: 'Label',
+                  hintText: 'Input',
+                  helperText: 'Support Text',
+                  suffix: const Icon(Icons.delete_forever),
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextFieldMultiline.underline(
+                  labelText: 'Label',
+                  hintText: 'Input',
+                  helperText: 'Support Text',
+                  suffix: IconButton(
+                      icon: const Icon(Icons.delete_forever), onPressed: () {}),
+                ),
+              ),
             ],
           ),
         ),
