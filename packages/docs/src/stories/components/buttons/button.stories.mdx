@@ -21,7 +21,7 @@ import { Button } from '@zero-ui/core';
   component={[Button]}
 />
 
-export const ButtonStory = (args) => <Button {...args}>{args.label}</Button>;
+export const ButtonStory = (args) => <Button {...args}>{args.children}</Button>;
 
 # Button
 
@@ -39,7 +39,7 @@ import { Button } from '@zero-ui/core';
       colorScheme: 'default',
       variant: 'default',
       size: 'sm',
-      label: 'Simple Button',
+      children: 'Simple Button',
     }}
     name="Button"
   >
