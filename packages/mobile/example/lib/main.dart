@@ -129,8 +129,8 @@ class _MyAppState extends State<MyApp> {
               //     log(val.toString());
               //   },
               // ),
-              const Padding(
-                padding: EdgeInsets.all(10),
+              Padding(
+                padding: const EdgeInsets.all(10),
                 child: ZeroTextField(
                   labelText: 'Label',
                   hintText: 'Input',
