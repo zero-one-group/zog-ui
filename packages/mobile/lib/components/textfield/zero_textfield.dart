@@ -61,7 +61,7 @@ class ZeroTextField extends TextFormField {
       this.prefix,
       this.suffix,
       this.decoration,
-      super.autovalidateMode = AutovalidateMode.onEditingComplete,
+      super.autovalidateMode = AutovalidateMode.onUserInteraction,
       super.enabled,
       super.onChanged,
       super.onEditingComplete,
