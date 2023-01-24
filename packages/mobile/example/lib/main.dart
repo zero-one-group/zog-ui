@@ -1,13 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:zero_ui_mobile/components/textfield/zero_textfield.dart';
 import 'package:zero_ui_mobile/components/textfield/zero_textfield_multiline.dart';
-=======
-import 'package:zero_ui_mobile/assets/assets.dart';
-import 'package:zero_ui_mobile/components/textfield/zero_textfield.dart';
->>>>>>> ee858ba (feat: added textfield variants)
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 void main() {
@@ -85,7 +80,6 @@ class _MyAppState extends State<MyApp> {
                 height: 60,
                 text: 'Button Text',
               ),
-<<<<<<< HEAD
 
               ZeroButtonRLIcon.text(
                 prefixIcon: const Icon(Icons.search),
@@ -138,12 +132,6 @@ class _MyAppState extends State<MyApp> {
               const Padding(
                 padding: EdgeInsets.all(10),
                 child: ZeroTextField(
-=======
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.outline(
->>>>>>> ccc11ec (feat: added textfield variants)
                   labelText: 'Label',
                   hintText: 'Input',
                 ),
