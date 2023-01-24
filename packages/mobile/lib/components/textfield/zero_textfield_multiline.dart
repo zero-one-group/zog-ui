@@ -21,7 +21,7 @@ class ZeroTextFieldMultiline extends ZeroTextField {
       TextfieldSizeType textfieldSizeType = TextfieldSizeType.multiline,
       super.suffix,
       InputDecoration? decoration,
-      super.autovalidateMode = AutovalidateMode.onEditingComplete,
+      super.autovalidateMode = AutovalidateMode.onUserInteraction,
       super.enabled,
       super.onChanged,
       super.onEditingComplete,
