@@ -1,25 +1,171 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
-import { BADGE } from '@geometricpanda/storybook-addon-badges';
-import { within, userEvent } from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
-import { DropdownMenu } from '@zero-ui/core';
+import { DropdownMenu, Grid } from '@zero-ui/core';
+import {
+  RightOutlined,
+  CheckOutlined,
+  BarsOutlined,
+  UserOutlined,
+  SettingOutlined,
+} from '@ant-design/icons';
+import { useState } from 'react';
 
-<Meta title="Components/Menus/DropdownMenu" component={[DropdownMenu]} argTypes={{}} />
-
-export const DropdownMenuStory = () => <DropdownMenu />;
+<Meta
+  title="Components/Menus/DropdownMenu"
+  component={[DropdownMenu]}
+  argTypes={{}}
+/>
 
 # DropdownMenu
 
-> WIP
+Used to display menu to the users. Build on top of [Radix UI Dropdown Menu](https://www.radix-ui.com/docs/primitives/components/dropdown-menu). You can check API documentation for this component in [Radix UI Primitives Web Documentations](https://www.radix-ui.com/docs/primitives/components/dropdown-menu#api-reference)
 
 ## Example Usage
 
-```jsx
+```tsx
 import { DropdownMenu } from '@zero-ui/core';
 ```
 
 <Canvas columns={2} withSource="close">
-  <Story name="DropdownMenu">{DropdownMenuStory.bind()}</Story>
+  <Story name="Basic">
+    {() => {
+      const [isShowBarChecked, setIsShowBarChecked] = useState(false);
+      const [isShowHeader, setIsShowHeader] = useState(false);
+      const [sidebarOption, setSidebarOption] = useState('open');
+      return (
+        <DropdownMenu>
+          <DropdownMenu.Trigger size="md">
+            Trigger Dropdown
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Portal>
+            <DropdownMenu.Content>
+              <DropdownMenu.Item>Item</DropdownMenu.Item>
+              <DropdownMenu.Separator />
+              <DropdownMenu.CheckboxItem
+                checked={isShowBarChecked}
+                onCheckedChange={setIsShowBarChecked}
+              >
+                <DropdownMenu.ItemIndicator>
+                  <CheckOutlined />
+                </DropdownMenu.ItemIndicator>
+                <DropdownMenu.LeftSlot>
+                  <BarsOutlined />
+                </DropdownMenu.LeftSlot> Show Bar
+              </DropdownMenu.CheckboxItem>
+              <DropdownMenu.CheckboxItem
+                checked={isShowHeader}
+                onCheckedChange={setIsShowHeader}
+              >
+                <DropdownMenu.ItemIndicator>
+                  <CheckOutlined />
+                </DropdownMenu.ItemIndicator>
+                Show Header
+              </DropdownMenu.CheckboxItem>
+              <DropdownMenu.Separator />
+              <DropdownMenu.Label>Sidebar Options</DropdownMenu.Label>
+              <DropdownMenu.RadioGroup
+                value={sidebarOption}
+                onValueChange={setSidebarOption}
+              >
+                <DropdownMenu.RadioItem value="open">
+                  <DropdownMenu.ItemIndicator>
+                    &bull;
+                  </DropdownMenu.ItemIndicator>
+                  Open
+                </DropdownMenu.RadioItem>
+                <DropdownMenu.RadioItem value="closed">
+                  <DropdownMenu.ItemIndicator>
+                    &bull;
+                  </DropdownMenu.ItemIndicator>
+                  Closed
+                </DropdownMenu.RadioItem>
+              </DropdownMenu.RadioGroup>
+              <DropdownMenu.Arrow />
+            </DropdownMenu.Content>
+          </DropdownMenu.Portal>
+        </DropdownMenu>
+      );
+    }}
+  </Story>
+  <Story name="WithSubGroup">
+    {() => {
+      const [isShowBarChecked, setIsShowBarChecked] = useState(false);
+      const [isShowHeader, setIsShowHeader] = useState(false);
+      const [sidebarOption, setSidebarOption] = useState('open');
+      return (
+        <DropdownMenu>
+          <DropdownMenu.Trigger size="md">
+            Trigger Sub Group Dropdown
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Portal>
+            <DropdownMenu.Content>
+              <DropdownMenu.Item>Item</DropdownMenu.Item>
+              <DropdownMenu.Separator />
+              <DropdownMenu.CheckboxItem
+                checked={isShowBarChecked}
+                onCheckedChange={setIsShowBarChecked}
+              >
+                <DropdownMenu.ItemIndicator>
+                  <CheckOutlined />
+                </DropdownMenu.ItemIndicator>
+                <DropdownMenu.LeftSlot>
+                  <BarsOutlined />
+                </DropdownMenu.LeftSlot> Show Bar
+              </DropdownMenu.CheckboxItem>
+              <DropdownMenu.CheckboxItem
+                checked={isShowHeader}
+                onCheckedChange={setIsShowHeader}
+              >
+                <DropdownMenu.ItemIndicator>
+                  <CheckOutlined />
+                </DropdownMenu.ItemIndicator>
+                Show Header
+              </DropdownMenu.CheckboxItem>
+              <DropdownMenu.Separator />
+              <DropdownMenu.Label>Sidebar Options</DropdownMenu.Label>
+              <DropdownMenu.RadioGroup
+                value={sidebarOption}
+                onValueChange={setSidebarOption}
+              >
+                <DropdownMenu.RadioItem value="open">
+                  <DropdownMenu.ItemIndicator>
+                    &bull;
+                  </DropdownMenu.ItemIndicator>
+                  Open
+                </DropdownMenu.RadioItem>
+                <DropdownMenu.RadioItem value="closed">
+                  <DropdownMenu.ItemIndicator>
+                    &bull;
+                  </DropdownMenu.ItemIndicator>
+                  Closed
+                </DropdownMenu.RadioItem>
+              </DropdownMenu.RadioGroup>
+              <DropdownMenu.Sub>
+                <DropdownMenu.SubTrigger>
+                  Advanced Options
+                </DropdownMenu.SubTrigger>
+                <DropdownMenu.Portal>
+                  <DropdownMenu.SubContent sideOffset={5}>
+                    <DropdownMenu.Item>Item</DropdownMenu.Item>
+                    <DropdownMenu.Item>
+                      <DropdownMenu.LeftSlot>
+                        <UserOutlined />
+                      </DropdownMenu.LeftSlot>{' '}
+                      Profile
+                    </DropdownMenu.Item>
+                    <DropdownMenu.Item>
+                      <DropdownMenu.LeftSlot>
+                        <SettingOutlined />
+                      </DropdownMenu.LeftSlot>{' '}
+                      Settings
+                    </DropdownMenu.Item>
+                  </DropdownMenu.SubContent>
+                </DropdownMenu.Portal>
+              </DropdownMenu.Sub>
+              <DropdownMenu.Arrow />
+            </DropdownMenu.Content>
+          </DropdownMenu.Portal>
+        </DropdownMenu>
+      );
+    }}
+  </Story>
 </Canvas>
-
-<ArgsTable of={DropdownMenu} />
