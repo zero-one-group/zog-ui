@@ -19,6 +19,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool? checkValue;
+  String optionValue = '';
   @override
   Widget build(BuildContext context) {
     List<String> items = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
@@ -49,6 +50,40 @@ class _MyAppState extends State<MyApp> {
                 isDisabled: false,
                 width: 180,
                 height: 60,
+              ),
+
+              ZeroCheckbox(
+                tristate: true,
+                value: true,
+                onChanged: (val) {
+                  log(val.toString());
+                },
+                size: ZeroSizeType.medium,
+                isDisabled: true,
+              ),
+
+              ZeroRadioGroup(
+                value: '1',
+                groupValue: optionValue,
+                onChanged: (value) {
+                  log(value.toString());
+                  setState(() {
+                    optionValue = value.toString();
+                  });
+                },
+                activeColor: ZeroColors.danger,
+                isDisabled: true,
+                size: ZeroSizeType.large,
+              ),
+              Radio(
+                value: '2',
+                groupValue: optionValue,
+                onChanged: (value) {
+                  log(value.toString());
+                  setState(() {
+                    optionValue = value.toString();
+                  });
+                },
               ),
 
               ZeroButtonIcon.text(
