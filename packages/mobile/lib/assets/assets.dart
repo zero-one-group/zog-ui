@@ -13,4 +13,6 @@ class _Icons {
   String get ratingCustom3 => 'assets/icons/rating_custom3.svg';
   String get ratingCustom4 => 'assets/icons/rating_custom4.svg';
   String get ratingCustom5 => 'assets/icons/rating_custom5.svg';
+
+  String get errorDefault => 'assets/icons/error_default.svg';
 }

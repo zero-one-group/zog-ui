@@ -18,7 +18,8 @@ class HotReload extends StatelessWidget {
           widgets: [
             buttonWidgetbookComponenet,
             buttonGroupWidgetbookComponent,
-            ratingWidgetbookComponenet
+            ratingWidgetbookComponenet,
+            textFieldWidgetbookComponent
           ],
         ),
       ],

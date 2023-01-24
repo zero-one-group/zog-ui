@@ -37,6 +37,9 @@ flutter:
     - packages/zero_ui_mobile/assets/icons/rating_custom3.svg
     - packages/zero_ui_mobile/assets/icons/rating_custom4.svg
     - packages/zero_ui_mobile/assets/icons/rating_custom5.svg
+    - packages/zero_ui_mobile/assets/icons/error_default.svg
+    - packages/zero_ui_mobile/assets/icons/clear_default.svg
+    - packages/zero_ui_mobile/assets/icons/arrow_down_default.svg
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   #
