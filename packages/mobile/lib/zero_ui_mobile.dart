@@ -19,3 +19,4 @@ export './components/rating/zero_rating_custom.dart';
 export './types/button_radius_type.dart';
 export './types/button_group_type.dart';
 export 'types/size_type.dart';
+export 'types/textfield/size_type.dart';
