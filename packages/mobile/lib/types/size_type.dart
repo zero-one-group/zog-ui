@@ -28,6 +28,17 @@ enum ZeroSizeType {
     }
   }
 
+  double get iconSize {
+    switch (this) {
+      case small:
+        return 16.0;
+      case medium:
+        return 22.0;
+      case large:
+        return 28.0;
+    }
+  }
+
   double get height {
     switch (this) {
       case small:
