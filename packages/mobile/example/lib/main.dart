@@ -1,8 +1,13 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:zero_ui_mobile/components/textfield/zero_textfield.dart';
 import 'package:zero_ui_mobile/components/textfield/zero_textfield_multiline.dart';
+=======
+import 'package:zero_ui_mobile/assets/assets.dart';
+import 'package:zero_ui_mobile/components/textfield/zero_textfield.dart';
+>>>>>>> ee858ba (feat: added textfield variants)
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 void main() {
