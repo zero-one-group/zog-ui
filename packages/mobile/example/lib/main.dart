@@ -46,7 +46,7 @@ class _MyAppState extends State<MyApp> {
                 text: 'Button Text',
                 onPressed: () {},
                 buttonRadiusType: ZeroButtonRadiusType.curved,
-                buttonSizeType: ZeroSizeType.large,
+                buttonSizeType: ZeroSizeType.small,
                 isDisabled: false,
                 width: 180,
                 height: 60,
@@ -90,20 +90,17 @@ class _MyAppState extends State<MyApp> {
                 icon: const Icon(Icons.search),
                 onPressed: () {},
                 buttonRadiusType: ZeroButtonRadiusType.curved,
-                buttonSizeType: ZeroSizeType.large,
-                isDisabled: true,
-                width: 180,
-                height: 60,
+                buttonSizeType: ZeroSizeType.medium,
+                isDisabled: false,
               ),
 
               ZeroButtonLIcon.text(
                 icon: const Icon(Icons.search),
                 onPressed: () {},
                 buttonRadiusType: ZeroButtonRadiusType.rounded,
-                buttonSizeType: ZeroSizeType.large,
+                buttonSizeType: ZeroSizeType.small,
                 isDisabled: true,
-                width: 180,
-                height: 60,
+                height: 50,
                 text: 'Button Text',
               ),
 
@@ -113,7 +110,6 @@ class _MyAppState extends State<MyApp> {
                 buttonRadiusType: ZeroButtonRadiusType.rounded,
                 buttonSizeType: ZeroSizeType.large,
                 isDisabled: false,
-                width: 180,
                 height: 60,
                 text: 'Button Text',
               ),
@@ -174,16 +170,14 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.underline(
                   labelText: 'Label',
                   hintText: 'Input',
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.fill(
                   labelText: 'Label',
                   hintText: 'Input',
@@ -193,50 +187,31 @@ class _MyAppState extends State<MyApp> {
                 height: 10,
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.outline(
-                    labelText: 'Label',
-                    hintText: 'Input',
-                    errorText: 'Error Text'),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.outline(labelText: 'Label', hintText: 'Input', errorText: 'Error Text'),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.fill(
-                    labelText: 'Label',
-                    hintText: 'Input',
-                    errorText: 'Error Text'),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.fill(labelText: 'Label', hintText: 'Input', errorText: 'Error Text'),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.underline(
-                    labelText: 'Label',
-                    hintText: 'Input',
-                    errorText: 'Error Text'),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.underline(labelText: 'Label', hintText: 'Input', errorText: 'Error Text'),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.outline(
-                    labelText: 'Label', hintText: 'Input', enabled: false),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.outline(labelText: 'Label', hintText: 'Input', enabled: false),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.fill(
-                    labelText: 'Label', hintText: 'Input', enabled: false),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.fill(labelText: 'Label', hintText: 'Input', enabled: false),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.underline(
-                    labelText: 'Label', hintText: 'Input', enabled: false),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.underline(labelText: 'Label', hintText: 'Input', enabled: false),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.outline(
                   labelText: 'Label',
                   hintText: 'Input',
@@ -245,8 +220,7 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.outline(
                   labelText: 'Label',
                   hintText: 'Input',
@@ -255,8 +229,7 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.outline(
                   labelText: 'Label',
                   hintText: 'Input',
@@ -266,8 +239,7 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.fill(
                   labelText: 'Label',
                   hintText: 'Input',
@@ -277,8 +249,7 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.underline(
                   labelText: 'Label',
                   hintText: 'Input',
@@ -289,8 +260,7 @@ class _MyAppState extends State<MyApp> {
               ),
 
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.outline(
                   labelText: 'Label Large',
                   hintText: 'Input Large',
@@ -301,8 +271,7 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.outline(
                   labelText: 'Label Small',
                   hintText: 'Input Small',
@@ -314,8 +283,7 @@ class _MyAppState extends State<MyApp> {
               ),
 
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.rounded(
                   labelText: 'Label',
                   hintText: 'Input',
@@ -326,8 +294,7 @@ class _MyAppState extends State<MyApp> {
               ),
 
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextFieldMultiline.outline(
                   labelText: 'Label',
                   hintText: 'Input',
@@ -336,8 +303,7 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextFieldMultiline.fill(
                   labelText: 'Label',
                   hintText: 'Input',
@@ -346,14 +312,12 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextFieldMultiline.underline(
                   labelText: 'Label',
                   hintText: 'Input',
                   helperText: 'Support Text',
-                  suffix: IconButton(
-                      icon: const Icon(Icons.delete_forever), onPressed: () {}),
+                  suffix: IconButton(icon: const Icon(Icons.delete_forever), onPressed: () {}),
                 ),
               ),
               Padding(

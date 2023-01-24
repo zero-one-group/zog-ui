@@ -128,12 +128,11 @@ class ZeroButtonLIcon extends ElevatedButton {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    icon.color == null
-                        ? Icon(
-                            icon.icon as IconData,
-                            color: ZeroColors.white,
-                          )
-                        : icon,
+                    Icon(
+                      icon.icon,
+                      color: icon.color ?? ZeroColors.white,
+                      size: buttonSizeType.iconSize,
+                    ),
                     const SizedBox(width: 8),
                     Text(
                       text,
@@ -255,12 +254,11 @@ class ZeroButtonLIcon extends ElevatedButton {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    icon.color == null
-                        ? Icon(
-                            icon.icon as IconData,
-                            color: ZeroColors.neutral10,
-                          )
-                        : icon,
+                    Icon(
+                      icon.icon,
+                      color: icon.color ?? ZeroColors.neutral10,
+                      size: buttonSizeType.iconSize,
+                    ),
                     const SizedBox(width: 8),
                     Text(
                       text,
@@ -373,12 +371,11 @@ class ZeroButtonLIcon extends ElevatedButton {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    icon.color == null
-                        ? Icon(
-                            icon.icon as IconData,
-                            color: ZeroColors.neutral10,
-                          )
-                        : icon,
+                    Icon(
+                      icon.icon,
+                      color: icon.color ?? ZeroColors.neutral10,
+                      size: buttonSizeType.iconSize,
+                    ),
                     const SizedBox(width: 8),
                     Text(
                       text,
@@ -467,12 +464,11 @@ class ZeroButtonLIcon extends ElevatedButton {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              icon.color == null
-                  ? Icon(
-                      icon.icon as IconData,
-                      color: textStyle.color,
-                    )
-                  : icon,
+              Icon(
+                icon.icon,
+                color: icon.color ?? textStyle.color,
+                size: buttonSizeType.iconSize,
+              ),
               const SizedBox(width: 8),
               Text(
                 text,
