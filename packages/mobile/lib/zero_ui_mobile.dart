@@ -14,6 +14,8 @@ export './components/button/zero_button_icon.dart';
 export './components/button_group/zero_button_group.dart';
 export './components/rating/zero_rating.dart';
 export './components/rating/zero_rating_custom.dart';
+export './components/checkbox/zero_checkbox.dart';
+export './components/radio_group/zero_radio_group.dart';
 
 // types
 export './types/button_radius_type.dart';
