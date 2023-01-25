@@ -70,16 +70,12 @@ import { Layout } from '@zero-ui/core';
 <Canvas columns={2} withSource="close">
   <Story
     name="Basic Layout"
-    args={{
-      as: 'section',
-    }}
   >
     {LayoutStoryWithoutSider.bind()}
   </Story>
   <Story
     name="Sider Layout"
     args={{
-      as: 'section',
       hasSider: true,
     }}
   >
