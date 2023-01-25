@@ -62,6 +62,20 @@ class _MyAppState extends State<MyApp> {
                 isDisabled: true,
               ),
 
+              // ZeroRadio.custom(
+              //   value: '1',
+              //   groupValue: optionValue,
+              //   onChanged: (value) {
+              //     log(value.toString());
+              //     setState(() {
+              //       optionValue = value.toString();
+              //     });
+              //   },
+              //   activeColor: ZeroColors.success,
+              //   isDisabled: false,
+              //   size: ZeroSizeType.medium,
+              // ),
+
               ZeroRadioGroup(
                 value: '1',
                 groupValue: optionValue,
@@ -71,11 +85,27 @@ class _MyAppState extends State<MyApp> {
                     optionValue = value.toString();
                   });
                 },
-                activeColor: ZeroColors.danger,
-                isDisabled: true,
-                size: ZeroSizeType.large,
+                activeColor: ZeroColors.primary9,
+                isDisabled: false,
+                size: ZeroSizeType.medium,
+                customSelected: true,
               ),
+              const SizedBox(height: 10),
+              ZeroRadioGroup(
+                value: '2',
+                groupValue: optionValue,
+                onChanged: (value) {
+                  log(value.toString());
+                  setState(() {
+                    optionValue = value.toString();
+                  });
+                },
+                isDisabled: false,
+                size: ZeroSizeType.medium,
+              ),
+
               Radio(
+                fillColor: MaterialStateProperty.all(ZeroColors.danger),
                 value: '2',
                 groupValue: optionValue,
                 onChanged: (value) {
@@ -151,17 +181,21 @@ class _MyAppState extends State<MyApp> {
               //   onRatingUpdate: (val) {},
               // ),
               // const SizedBox(height: 20),
-              // ZeroRatingCustom(
-              //   spacing: 4,
-              //   initialValue: 1,
-              //   isDisabled: false,
-              //   activeColor: ZeroColors.sunriseYellow6,
-              //   inactiveColor: ZeroColors.neutral5,
-              //   sizeType: ZeroSizeType.small,
-              //   onRatingUpdate: (val) {
-              //     log(val.toString());
-              //   },
-              // ),
+              ZeroRatingCustom(
+                spacing: 4,
+                initialValue: 1,
+                isDisabled: false,
+                inactiveColor: ZeroColors.neutral7,
+                sizeType: ZeroSizeType.small,
+                onRatingUpdate: (val) {
+                  log(val.toString());
+                },
+                listItems: const [
+                  Icon(Icons.star, color: ZeroColors.danger),
+                  Icon(Icons.place, color: ZeroColors.sunriseYellow6),
+                  Icon(Icons.flag, color: ZeroColors.success),
+                ],
+              ),
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: ZeroTextField(
