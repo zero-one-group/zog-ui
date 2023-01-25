@@ -36,6 +36,10 @@ export './components/tooltip/zero_tooltip.dart';
 export './components/tooltip/zero_tooltip_style.dart';
 export './components/dropdowns/zero_dropdown.dart';
 
+// badge
+export './components/badge/zero_badge.dart';
+export './components/badge/options.dart';
+
 // types
 export './types/button_radius_type.dart';
 export './types/button_group_type.dart';
