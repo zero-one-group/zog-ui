@@ -11,10 +11,18 @@ export './components/button/zero_button_right_icon.dart';
 export './components/button/zero_button_left_icon.dart';
 export './components/button/zero_button_right_left_icon.dart';
 export './components/button/zero_button_icon.dart';
+
+// button group
 export './components/button_group/zero_button_group.dart';
+
+// ranting
 export './components/rating/zero_rating.dart';
 export './components/rating/zero_rating_custom.dart';
 export './components/dropdowns/zero_dropdown.dart';
+
+// badge
+export './components/badge/zero_badge.dart';
+export './components/badge/options.dart';
 
 // types
 export './types/button_radius_type.dart';
