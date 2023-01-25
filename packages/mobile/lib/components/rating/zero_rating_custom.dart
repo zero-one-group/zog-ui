@@ -24,26 +24,31 @@ class ZeroRatingCustom extends StatefulWidget {
                   Assets.icons.ratingCustom1,
                   width: _ratingSize(sizeType),
                   height: _ratingSize(sizeType),
+                  package: 'zero_ui_mobile',
                 ),
                 SvgPicture.asset(
                   Assets.icons.ratingCustom2,
                   width: _ratingSize(sizeType),
                   height: _ratingSize(sizeType),
+                  package: 'zero_ui_mobile',
                 ),
                 SvgPicture.asset(
                   Assets.icons.ratingCustom3,
                   width: _ratingSize(sizeType),
                   height: _ratingSize(sizeType),
+                  package: 'zero_ui_mobile',
                 ),
                 SvgPicture.asset(
                   Assets.icons.ratingCustom4,
                   width: _ratingSize(sizeType),
                   height: _ratingSize(sizeType),
+                  package: 'zero_ui_mobile',
                 ),
                 SvgPicture.asset(
                   Assets.icons.ratingCustom5,
                   width: _ratingSize(sizeType),
                   height: _ratingSize(sizeType),
+                  package: 'zero_ui_mobile',
                 ),
               ]
             : listItems;
@@ -89,12 +94,6 @@ class ZeroRatingCustom extends StatefulWidget {
 }
 
 class _ZeroRatingCustomState extends State<ZeroRatingCustom> {
-  /// [activeColor] defaults to [ZeroColors.sunriseYellow6] and then will be defined by [widget.activeColor] when state is initialized.
-  Color activeColor = ZeroColors.sunriseYellow6;
-
-  /// [inactiveColor] defaults to [ZeroColors.neutral6] and then will be defined by [widget.inactiveColor] when state is initialized.
-  Color inactiveColor = ZeroColors.neutral6;
-
   /// [value] defaults to [widget.initialValue] and then will be defined by [_onRatingDrag] and [_onRatingTap] when state is initialized.
   double value = 0;
 
@@ -166,7 +165,7 @@ class _ZeroRatingCustomState extends State<ZeroRatingCustom> {
                           ? widget.activeColor == null
                               ? widget.listItems[i]
                               : ColorFiltered(
-                                  colorFilter: ColorFilter.mode(activeColor, BlendMode.srcIn),
+                                  colorFilter: ColorFilter.mode(widget.activeColor!, BlendMode.srcIn),
                                   child: widget.listItems[i],
                                 )
                           : ColorFiltered(
@@ -177,7 +176,7 @@ class _ZeroRatingCustomState extends State<ZeroRatingCustom> {
                           ? widget.inactiveColor == null
                               ? widget.listItems[i]
                               : ColorFiltered(
-                                  colorFilter: ColorFilter.mode(inactiveColor, BlendMode.srcIn),
+                                  colorFilter: ColorFilter.mode(widget.inactiveColor!, BlendMode.srcIn),
                                   child: widget.listItems[i],
                                 )
                           : ColorFiltered(
