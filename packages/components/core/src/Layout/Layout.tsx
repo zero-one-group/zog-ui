@@ -1,16 +1,13 @@
 import { ComponentProps, ElementType, forwardRef } from 'react';
+import { Space } from '../Space';
 import { styled } from '../stitches.config';
 import type {
   PolymorphicComponentPropsWithRef,
-  PolymorphicRef,
+  PolymorphicRef
 } from '../types';
 
-const StyledLayout = styled('section', {
-  display: 'flex',
-  boxSizing: 'border-box',
+const StyledLayout = styled(Space, {
   flexDirection: 'column',
-  flex: 'auto',
-  fontFamily: '$untitled',
   variants: {
     hasSider: {
       true: {
@@ -25,11 +22,11 @@ export type LayoutProps<T extends ElementType> =
 
 export const Layout = forwardRef(
   <T extends ElementType = typeof StyledLayout>(
-    { as, children, hasSider, ...props }: LayoutProps<T>,
+    { children, hasSider, ...props }: LayoutProps<T>,
     ref?: PolymorphicRef<T>
   ) => {
     return (
-      <StyledLayout as={as} ref={ref} hasSider={hasSider} {...props}>
+      <StyledLayout ref={ref} hasSider={hasSider} {...props}>
         {children}
       </StyledLayout>
     );
