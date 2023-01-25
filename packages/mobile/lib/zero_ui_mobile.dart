@@ -25,6 +25,7 @@ export './components/badge/zero_badge.dart';
 export './components/badge/options.dart';
 export './components/checkbox/zero_checkbox.dart';
 export 'components/radio_group/zero_radio_group.dart';
+export './components/dropdowns/zero_dropdown.dart';
 
 // types
 export './types/button_radius_type.dart';
