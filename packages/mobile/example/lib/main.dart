@@ -5,6 +5,7 @@ import 'package:zero_ui_mobile/components/textfield/zero_textfield.dart';
 import 'package:zero_ui_mobile/components/textfield/zero_textfield_multiline.dart';
 import 'package:zero_ui_mobile/types/textfield/input_decoration_type.dart';
 import 'package:zero_ui_mobile/position/tooltip_position.dart';
+import 'package:zero_ui_mobile/types/textfield/input_decoration_type.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 void main() {
@@ -34,6 +35,7 @@ class _MyAppState extends State<MyApp> {
     List<String> labels = ['Search', 'Alarm', 'Calendar'];
     List<IconData> icons = [Icons.search, Icons.alarm, Icons.calendar_month];
     List<bool> isSelected = [false, false, false];
+    List<String> items = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(

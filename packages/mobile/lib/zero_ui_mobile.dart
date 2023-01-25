@@ -34,6 +34,7 @@ export './components/textfield/zero_textfield_multiline.dart';
 // export './components/slider/zero_slider.dart';
 export './components/tooltip/zero_tooltip.dart';
 export './components/tooltip/zero_tooltip_style.dart';
+export './components/dropdowns/zero_dropdown.dart';
 
 // types
 export './types/button_radius_type.dart';
