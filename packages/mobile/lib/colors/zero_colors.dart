@@ -50,6 +50,7 @@ class ZeroColors {
   static const Color neutral12 = Color(0xFF141414);
   static const Color neutral13 = Color(0xFF000000);
 
+  // Dust Red
   static const Color dustRed1 = Color(0xFFfff1f0);
   static const Color dustRed2 = Color(0xFFffccc7);
   static const Color dustRed3 = Color(0xFFffa39e);
@@ -60,4 +61,28 @@ class ZeroColors {
   static const Color dustRed8 = Color(0xFFa8071a);
   static const Color dustRed9 = Color(0xFF820014);
   static const Color dustRed10 = Color(0xFF5c0011);
+
+  // Polar Green
+  static const Color polarGreen1 = Color(0xFFF6FFED);
+  static const Color polarGreen2 = Color(0xFFD9F7BE);
+  static const Color polarGreen3 = Color(0xFFB7EB8F);
+  static const Color polarGreen4 = Color(0xFF95DE64);
+  static const Color polarGreen5 = Color(0xFF73D13D);
+  static const Color polarGreen6 = Color(0xFF52C41A);
+  static const Color polarGreen7 = Color(0xFF389E0D);
+  static const Color polarGreen8 = Color(0xFF237804);
+  static const Color polarGreen9 = Color(0xFF135200);
+  static const Color polarGreen10 = Color(0xFF092B00);
+
+  // Sunset Orange
+  static const Color sunsetOrange1 = Color(0xFFFFF7E6);
+  static const Color sunsetOrange2 = Color(0xFFFFE7BA);
+  static const Color sunsetOrange3 = Color(0xFFFFD591);
+  static const Color sunsetOrange4 = Color(0xFFFFC069);
+  static const Color sunsetOrange5 = Color(0xFFFFA940);
+  static const Color sunsetOrange6 = Color(0xFFFA8C16);
+  static const Color sunsetOrange7 = Color(0xFFD46B08);
+  static const Color sunsetOrange8 = Color(0xFFAD4E00);
+  static const Color sunsetOrange9 = Color(0xFF873800);
+  static const Color sunsetOrange10 = Color(0xFF612500);
 }
