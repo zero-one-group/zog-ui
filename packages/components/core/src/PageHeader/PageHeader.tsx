@@ -1,8 +1,9 @@
-import { ComponentProps, ReactElement, ReactNode } from 'react';
-import { styled } from '../stitches.config';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { Breadcrumb, BreadcrumbProps } from '../Breadcrumb';
+import { ComponentProps, ReactElement, ReactNode } from 'react';
 import { Avatar } from '../Avatar';
+import { Breadcrumb, BreadcrumbProps } from '../Breadcrumb';
+import { Space } from '../Space';
+import { styled } from '../stitches.config';
 
 const StyledPageHeader = styled('div', {
   boxSizing: 'border-box',
@@ -10,17 +11,8 @@ const StyledPageHeader = styled('div', {
   padding: '16px 24px',
 });
 
-const StyledHeading = styled('div', {
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  flexWrap: 'wrap',
-  gap: '$1',
+const StyledHeading = styled(Space, {
   minHeight: 32,
-});
-const StyledHeadingLeft = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
 });
 const StyledHeadingTitle = styled('span', {
   fontSize: '$4',
@@ -89,26 +81,32 @@ export const PageHeader: PageHeaderComponent = ({
   ...props
 }) => (
   <StyledPageHeader {...props}>
-    {breadcrumb && <Breadcrumb {...breadcrumb} />}
+    {breadcrumb ? <Breadcrumb {...breadcrumb} /> : null}
     <StyledHeading
+      justify="space-between"
+      align="center"
+      wrap="wrap"
+      gap="$1"
       css={{
         mt: breadcrumb ? '$2' : undefined,
       }}
     >
-      <StyledHeadingLeft>
-        {onBack && (
+      <Space align="center">
+        {onBack ? (
           <StyledPageHeaderBack>
             <StyledPageHeaderBackButton role="button" onClick={onBack}>
               {backIcon ?? <ArrowLeftOutlined />}
             </StyledPageHeaderBackButton>
           </StyledPageHeaderBack>
-        )}
-        {avatar && <StyledPageHeaderAvatar size="3" {...avatar} />}
+        ) : null}
+        {avatar ? <StyledPageHeaderAvatar size="3" {...avatar} /> : null}
         <StyledHeadingTitle>{title}</StyledHeadingTitle>
         <StyledHeadingSubtitle>{subtitle}</StyledHeadingSubtitle>
-      </StyledHeadingLeft>
-      {extra && <StyledHeadingExtra>{extra}</StyledHeadingExtra>}
+      </Space>
+      {extra ? <StyledHeadingExtra>{extra}</StyledHeadingExtra> : null}
     </StyledHeading>
-    {children && <StyledPageHeaderContent>{children}</StyledPageHeaderContent>}
+    {children ? (
+      <StyledPageHeaderContent>{children}</StyledPageHeaderContent>
+    ) : null}
   </StyledPageHeader>
 );
