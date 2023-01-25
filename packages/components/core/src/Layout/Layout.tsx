@@ -3,7 +3,7 @@ import { Space } from '../Space';
 import { styled } from '../stitches.config';
 import type {
   PolymorphicComponentPropsWithRef,
-  PolymorphicRef
+  PolymorphicRef,
 } from '../types';
 
 const StyledLayout = styled(Space, {
