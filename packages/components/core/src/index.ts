@@ -20,6 +20,7 @@ export * from './Menu';
 export * from './Overlay';
 export * from './PageHeader';
 export * from './Panel';
+export * from './Pagination';
 export * from './Paragraph';
 export * from './Popover';
 export * from './ProgressBar';
