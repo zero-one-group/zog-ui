@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:zero_ui_mobile/assets/assets.dart';
 import 'package:zero_ui_mobile/types/textfield/input_decoration_type.dart';
 import 'package:zero_ui_mobile/types/textfield/size_type.dart';
 
@@ -13,7 +11,7 @@ import 'package:zero_ui_mobile/types/textfield/size_type.dart';
 ///   1.  [ZeroTextField.outline] which uses [OutlineInputBorder] under the hood.
 ///   2.  [ZeroTextField.fill] which uses [UnderlineInputBorder] under the hood with `fillColor` provided.
 ///   3.  [ZeroTextField.underline] which uses [UnderlineInputBorder] under the hood.
-class ZeroTextField extends TextFormField {
+class ZeroTextField extends StatelessWidget {
   final String? labelText;
   final String? helperText;
   final String? hintText;
@@ -22,9 +20,6 @@ class ZeroTextField extends TextFormField {
   final TextStyle? labelStyle;
   final TextStyle? errorStyle;
   final TextStyle? helperStyle;
-
-  /// If set, this will be merged with the default [InputDecoration] defined in the default ZeroOne design system
-  final InputDecoration? decoration;
 
   /// If set, this will override `prefixIcon` that is defined in [InputDecoration]
   final Widget? prefixIcon;
@@ -45,6 +40,24 @@ class ZeroTextField extends TextFormField {
   /// [TextField]'s size; large or small. Default value: [TextfieldSizeType.small]
   final TextfieldSizeType textfieldSizeType;
 
+  /// If set, this will be merged with the default [InputDecoration] defined in the default ZeroOne design system
+  InputDecoration? _decoration;
+
+  InputDecoration? get decoration => _decoration;
+
+  final AutovalidateMode? autovalidateMode;
+  final bool? enabled;
+  final Function(String)? onChanged;
+  final Function()? onEditingComplete;
+  final TextEditingController? controller;
+  final FocusNode? focusNode;
+  final TextInputType? keyboardType;
+  final String? Function(String?)? validator;
+  final TextInputAction? textInputAction;
+  final int? maxLines;
+  final int? minLines;
+  final TextAlignVertical? textAlignVertical;
+
   ZeroTextField(
       {super.key,
       this.hintText,
@@ -60,98 +73,56 @@ class ZeroTextField extends TextFormField {
       this.suffixIcon,
       this.prefix,
       this.suffix,
-      this.decoration,
-      super.autovalidateMode = AutovalidateMode.onUserInteraction,
-      super.enabled,
-      super.onChanged,
-      super.onEditingComplete,
-      super.controller,
-      super.focusNode,
-      super.keyboardType,
-      super.validator,
-      super.textInputAction = TextInputAction.next,
-      super.minLines,
-      super.maxLines,
-      TextAlignVertical? textAlignVertical})
-      : super(
-            textAlignVertical: textAlignVertical ?? TextAlignVertical.center,
-            decoration: decoration != null
-                ? decoration.copyWith(
-                    helperText: helperText,
-                    hintText: hintText,
-                    labelText: labelText,
-                    hintStyle: inputDecorationType
-                        .textStyle(enabled ?? true)
-                        .merge(labelStyle),
-                    helperStyle: helperStyle,
-                    floatingLabelAlignment: FloatingLabelAlignment.start,
-                    floatingLabelBehavior: FloatingLabelBehavior.auto,
-                    floatingLabelStyle: inputDecorationType.floatingLabelStyle(
-                        enabled: enabled ?? true, error: errorText != null),
-                    alignLabelWithHint: false,
-                    labelStyle: inputDecorationType
-                        .textStyle(enabled ?? true)
-                        .merge(labelStyle),
-                    isDense: textfieldSizeType.isDense,
-                    contentPadding: textfieldSizeType.contentPadding,
-                    focusColor: inputDecorationType.focusedColor,
-                    fillColor: inputDecorationType.fillColor(
-                        enabled: enabled ?? true, error: errorText != null),
-                    filled: inputDecorationType.filled,
-                    focusedBorder:
-                        inputDecorationType.focusedBorder(textfieldSizeType),
-                    border: inputDecorationType.border(textfieldSizeType),
-                    disabledBorder:
-                        inputDecorationType.disabledBorder(textfieldSizeType),
-                    errorText: errorText,
-                    errorBorder:
-                        inputDecorationType.errorBorder(textfieldSizeType),
-                    focusedErrorBorder:
-                        inputDecorationType.errorBorder(textfieldSizeType),
-                    errorStyle: errorStyle,
-                    prefixIcon: prefixIcon,
-                    suffixIcon: textfieldSizeType.suffixIcon(suffixIcon,
-                        error: errorText != null),
-                  )
-                : InputDecoration(
-                    helperText: helperText,
-                    hintText: hintText,
-                    labelText: labelText,
-                    labelStyle: inputDecorationType
-                        .textStyle(enabled ?? true)
-                        .merge(labelStyle),
-                    hintStyle: inputDecorationType
-                        .textStyle(enabled ?? true)
-                        .merge(labelStyle),
-                    helperStyle: helperStyle,
-                    floatingLabelAlignment: FloatingLabelAlignment.start,
-                    floatingLabelBehavior: FloatingLabelBehavior.auto,
-                    floatingLabelStyle: inputDecorationType.floatingLabelStyle(
-                        enabled: enabled ?? true, error: errorText != null),
-                    alignLabelWithHint: true,
-                    isDense: textfieldSizeType.isDense,
-                    contentPadding: textfieldSizeType.contentPadding,
-                    focusColor: inputDecorationType.focusedColor,
-                    fillColor: inputDecorationType.fillColor(
-                        enabled: enabled ?? true, error: errorText != null),
-                    filled: inputDecorationType.filled,
-                    focusedBorder:
-                        inputDecorationType.focusedBorder(textfieldSizeType),
-                    border: inputDecorationType.border(textfieldSizeType),
-                    disabledBorder:
-                        inputDecorationType.disabledBorder(textfieldSizeType),
-                    errorText: errorText,
-                    errorBorder:
-                        inputDecorationType.errorBorder(textfieldSizeType),
-                    focusedErrorBorder:
-                        inputDecorationType.errorBorder(textfieldSizeType),
-                    errorStyle: errorStyle,
-                    prefixIcon: prefixIcon,
-                    prefix: prefix,
-                    suffixIcon: textfieldSizeType.suffixIcon(suffixIcon,
-                        error: errorText != null),
-                    suffix: suffix,
-                  ));
+      InputDecoration? decoration,
+      this.autovalidateMode = AutovalidateMode.onUserInteraction,
+      this.enabled,
+      this.onChanged,
+      this.onEditingComplete,
+      this.controller,
+      this.focusNode,
+      this.keyboardType,
+      this.validator,
+      this.textInputAction = TextInputAction.next,
+      this.minLines,
+      this.maxLines,
+      this.textAlignVertical})
+      : _decoration = decoration ??
+            InputDecoration(
+              helperText: helperText,
+              hintText: hintText,
+              labelText: labelText,
+              hintStyle: inputDecorationType
+                  .textStyle(enabled ?? true)
+                  .merge(labelStyle),
+              helperStyle: helperStyle,
+              floatingLabelAlignment: FloatingLabelAlignment.start,
+              floatingLabelBehavior: FloatingLabelBehavior.auto,
+              floatingLabelStyle: inputDecorationType.floatingLabelStyle(
+                  enabled: enabled ?? true, error: errorText != null),
+              alignLabelWithHint: false,
+              labelStyle: inputDecorationType
+                  .textStyle(enabled ?? true)
+                  .merge(labelStyle),
+              isDense: textfieldSizeType.isDense,
+              contentPadding: textfieldSizeType.contentPadding,
+              focusColor: inputDecorationType.focusedColor,
+              fillColor: inputDecorationType.fillColor(
+                  enabled: enabled ?? true, error: errorText != null),
+              filled: inputDecorationType.filled,
+              focusedBorder:
+                  inputDecorationType.focusedBorder(textfieldSizeType),
+              border: inputDecorationType.border(textfieldSizeType),
+              disabledBorder:
+                  inputDecorationType.disabledBorder(textfieldSizeType),
+              errorText: errorText,
+              errorBorder: inputDecorationType.errorBorder(textfieldSizeType),
+              focusedErrorBorder:
+                  inputDecorationType.errorBorder(textfieldSizeType),
+              errorStyle: errorStyle,
+              prefixIcon: prefixIcon,
+              suffixIcon: textfieldSizeType.suffixIcon(suffixIcon,
+                  error: errorText != null),
+            );
 
   /// This already uses [OutlineInputBorder] under the hood with the properties defined in the standard ZeroOne design guideline.
   factory ZeroTextField.outline({
@@ -329,4 +300,11 @@ class ZeroTextField extends TextFormField {
         prefix: prefix,
         suffix: suffix,
       );
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+        textAlignVertical: textAlignVertical ?? TextAlignVertical.center,
+        decoration: decoration);
+  }
 }

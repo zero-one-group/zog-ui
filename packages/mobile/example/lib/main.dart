@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/components/textfield/zero_textfield.dart';
 import 'package:zero_ui_mobile/components/textfield/zero_textfield_multiline.dart';
+import 'package:zero_ui_mobile/types/textfield/input_decoration_type.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 void main() {
@@ -20,6 +21,7 @@ class _MyAppState extends State<MyApp> {
   bool? checkValue;
   @override
   Widget build(BuildContext context) {
+    List<String> items = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -319,6 +321,20 @@ class _MyAppState extends State<MyApp> {
                       icon: const Icon(Icons.delete_forever), onPressed: () {}),
                 ),
               ),
+              Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  child: ZeroDropdown<String>.outline(
+                    labelText: 'Label Text',
+                    hintText: 'Hint Text',
+                    helperText: 'Helper Text',
+                    errorText: 'Error Text',
+                    items: items
+                        .map((String e) =>
+                            DropdownMenuItem<String>(value: e, child: Text(e)))
+                        .toList(),
+                    onChanged: (value) {},
+                  )),
             ],
           ),
         ),
