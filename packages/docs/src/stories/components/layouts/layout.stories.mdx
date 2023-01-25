@@ -6,6 +6,57 @@ import { Layout, Box } from '@zero-ui/core';
 
 <Meta title="Components/Layouts/Layout" component={[Layout]} argTypes={{}} />
 
+export const LayoutStoryWithoutSider = (args) => (
+  <Layout {...args}>
+    <Box
+      css={{
+        backgroundColor: '$blue4',
+        padding: '$4',
+      }}
+    >
+      Header
+    </Box>
+    <Box
+      css={{
+        backgroundColor: '$blue6',
+        padding: '$4',
+      }}
+    >
+      Content
+    </Box>
+    <Box
+      css={{
+        backgroundColor: '$blue4',
+        padding: '$4',
+      }}
+    >
+      Footer
+    </Box>
+  </Layout>
+);
+
+export const LayoutStoryWithSider = (args) => (
+  <Layout {...args}>
+    <Box
+      css={{
+        backgroundColor: '$blue5',
+        padding: '$4',
+      }}
+    >
+      Sider
+    </Box>
+    <Box
+      css={{
+        backgroundColor: '$blue6',
+        padding: '$4',
+        flex: 'auto',
+      }}
+    >
+      Content
+    </Box>
+  </Layout>
+);
+
 # Layout
 
 Wrapper component for handling the overall layout of a page.
@@ -17,116 +68,20 @@ import { Layout } from '@zero-ui/core';
 ```
 
 <Canvas columns={2} withSource="close">
-  <Story name="Basic Layout">
-    {() => (
-      <Layout>
-        <Box
-          css={{
-            backgroundColor: '$blue4',
-            padding: '$4',
-          }}
-        >
-          Header
-        </Box>
-        <Box
-          css={{
-            backgroundColor: '$blue6',
-            padding: '$4',
-          }}
-        >
-          Content
-        </Box>
-        <Box
-          css={{
-            backgroundColor: '$blue4',
-            padding: '$4',
-          }}
-        >
-          Footer
-        </Box>
-      </Layout>
-    )}
+  <Story
+    name="Basic Layout"
+    args={{
+      as: 'section',
+    }}
+  >
+    {LayoutStoryWithoutSider.bind()}
   </Story>
-  <Story name="Sider Layout">
-    {() => (
-      <>
-        <Layout>
-          <Box
-            css={{
-              backgroundColor: '$blue4',
-              padding: '$4',
-            }}
-          >
-            Header
-          </Box>
-          <Layout hasSider>
-            <Box
-              css={{
-                backgroundColor: '$blue5',
-                padding: '$4',
-                width: '200px',
-              }}
-            >
-              Sider
-            </Box>
-            <Box
-              css={{
-                backgroundColor: '$blue6',
-                padding: '$4',
-                flex: 'auto',
-              }}
-            >
-              Content
-            </Box>
-          </Layout>
-          <Box
-            css={{
-              backgroundColor: '$blue4',
-              padding: '$4',
-            }}
-          >
-            Footer
-          </Box>
-        </Layout>
-        <Layout css={{ mt: '$4' }}>
-          <Box
-            css={{
-              backgroundColor: '$blue4',
-              padding: '$4',
-            }}
-          >
-            Header
-          </Box>
-          <Layout hasSider>
-            <Box
-              css={{
-                backgroundColor: '$blue6',
-                padding: '$4',
-                flex: 'auto',
-              }}
-            >
-              Content
-            </Box>
-            <Box
-              css={{
-                backgroundColor: '$blue5',
-                padding: '$4',
-                width: '200px',
-              }}
-            >
-              Sider
-            </Box>
-          </Layout>
-          <Box
-            css={{
-              backgroundColor: '$blue4',
-              padding: '$4',
-            }}
-          >
-            Footer
-          </Box>
-        </Layout>
-      </>
-    )}
+  <Story
+    name="Sider Layout"
+    args={{
+      hasSider: true,
+    }}
+  >
+    {LayoutStoryWithSider.bind()}
   </Story>
 </Canvas>
