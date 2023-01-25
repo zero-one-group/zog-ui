@@ -18,6 +18,7 @@ export * from './Breadcrumb';
 export * from './Menu';
 export * from './Overlay';
 export * from './Panel';
+export * from './Pagination';
 export * from './Paragraph';
 export * from './Popover';
 export * from './ProgressBar';
