@@ -22,7 +22,14 @@ class _MyAppState extends State<MyApp> {
   String optionValue = '';
   @override
   Widget build(BuildContext context) {
-    List<String> items = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
+    List<String> items = [
+      'Item 1',
+      'Item 2',
+      'Item 3',
+      'Item 4',
+      'Item 5',
+      'Item 6'
+    ];
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -357,15 +364,12 @@ class _MyAppState extends State<MyApp> {
               Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                  child: ZeroDropdown<String>.outline(
+                  child: ZeroDropdown<String>.fill(
                     labelText: 'Label Text',
                     hintText: 'Hint Text',
+                    value: items.first,
                     helperText: 'Helper Text',
-                    errorText: 'Error Text',
-                    items: items
-                        .map((String e) =>
-                            DropdownMenuItem<String>(value: e, child: Text(e)))
-                        .toList(),
+                    items: items,
                     onChanged: (value) {},
                   )),
             ],
