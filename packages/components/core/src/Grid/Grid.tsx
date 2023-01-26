@@ -1,8 +1,8 @@
+import type Stitches from '@stitches/react';
 import { CSSProperties } from '@stitches/react';
 import { forwardRef } from 'react';
 import { Box, BoxProps } from '../Box';
 import { MergeProps } from '../types';
-import type Stitches from '@stitches/react';
 
 export interface GridOptions {
   /**
@@ -50,16 +50,6 @@ export interface GridOptions {
    * @type CSSProperties['columnGap']
    */
   columnGap?: CSSProperties['columnGap'];
-  /**
-   * Shorthand prop for `gridColumn
-   * @type CSSProperties['gridColumn']
-   */
-  column?: CSSProperties['gridColumn'];
-  /**
-   * Shorthand prop for `gridRow
-   * @type CSSProperties['gridRow']
-   */
-  row?: CSSProperties['gridRow'];
 }
 
 export type GridProps = Omit<MergeProps<BoxProps<'div'>, GridOptions>, 'as'>;
@@ -71,10 +61,8 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       autoColumns,
       autoFlow,
       autoRows,
-      column,
       columnGap,
       gap,
-      row,
       rowGap,
       templateAreas,
       templateColumns,
@@ -88,10 +76,8 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       gridAutoColumns: autoColumns,
       gridAutoFlow: autoFlow,
       gridAutoRows: autoRows,
-      gridColumn: column,
       columnGap,
       gap,
-      gridRow: row,
       rowGap,
       gridTemplateAreas: templateAreas,
       gridTemplateColumns: templateColumns,
