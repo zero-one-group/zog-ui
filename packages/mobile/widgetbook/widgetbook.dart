@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 
+import 'widgetbook_component/badge.dart';
 import 'widgetbook_component/button.dart';
 import 'widgetbook_component/button_group.dart';
 import 'widgetbook_component/checkbox.dart';
@@ -23,7 +24,8 @@ class HotReload extends StatelessWidget {
             ratingWidgetbookComponenet,
             textFieldWidgetbookComponent,
             checkboxWidgetbookComponenet,
-            radioGroupWidgetbookComponenet
+            radioGroupWidgetbookComponenet,
+            badgeWidgetbookComponent,
           ],
         ),
       ],
