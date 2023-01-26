@@ -18,6 +18,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool? checkValue;
+  String optionValue = '';
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -43,30 +44,91 @@ class _MyAppState extends State<MyApp> {
                 text: 'Button Text',
                 onPressed: () {},
                 buttonRadiusType: ZeroButtonRadiusType.curved,
-                buttonSizeType: ZeroSizeType.large,
+                buttonSizeType: ZeroSizeType.small,
                 isDisabled: false,
                 width: 180,
                 height: 60,
+              ),
+
+              ZeroCheckbox(
+                tristate: true,
+                value: true,
+                onChanged: (val) {
+                  log(val.toString());
+                },
+                size: ZeroSizeType.medium,
+                isDisabled: true,
+              ),
+
+              // ZeroRadio.custom(
+              //   value: '1',
+              //   groupValue: optionValue,
+              //   onChanged: (value) {
+              //     log(value.toString());
+              //     setState(() {
+              //       optionValue = value.toString();
+              //     });
+              //   },
+              //   activeColor: ZeroColors.success,
+              //   isDisabled: false,
+              //   size: ZeroSizeType.medium,
+              // ),
+
+              ZeroRadioGroup(
+                value: '1',
+                groupValue: optionValue,
+                onChanged: (value) {
+                  log(value.toString());
+                  setState(() {
+                    optionValue = value.toString();
+                  });
+                },
+                activeColor: ZeroColors.primary9,
+                isDisabled: false,
+                size: ZeroSizeType.medium,
+                customSelected: true,
+              ),
+              const SizedBox(height: 10),
+              ZeroRadioGroup(
+                value: '2',
+                groupValue: optionValue,
+                onChanged: (value) {
+                  log(value.toString());
+                  setState(() {
+                    optionValue = value.toString();
+                  });
+                },
+                isDisabled: false,
+                size: ZeroSizeType.medium,
+              ),
+
+              Radio(
+                fillColor: MaterialStateProperty.all(ZeroColors.danger),
+                value: '2',
+                groupValue: optionValue,
+                onChanged: (value) {
+                  log(value.toString());
+                  setState(() {
+                    optionValue = value.toString();
+                  });
+                },
               ),
 
               ZeroButtonIcon.text(
                 icon: const Icon(Icons.search),
                 onPressed: () {},
                 buttonRadiusType: ZeroButtonRadiusType.curved,
-                buttonSizeType: ZeroSizeType.large,
-                isDisabled: true,
-                width: 180,
-                height: 60,
+                buttonSizeType: ZeroSizeType.medium,
+                isDisabled: false,
               ),
 
               ZeroButtonLIcon.text(
                 icon: const Icon(Icons.search),
                 onPressed: () {},
                 buttonRadiusType: ZeroButtonRadiusType.rounded,
-                buttonSizeType: ZeroSizeType.large,
+                buttonSizeType: ZeroSizeType.small,
                 isDisabled: true,
-                width: 180,
-                height: 60,
+                height: 50,
                 text: 'Button Text',
               ),
 
@@ -76,7 +138,6 @@ class _MyAppState extends State<MyApp> {
                 buttonRadiusType: ZeroButtonRadiusType.rounded,
                 buttonSizeType: ZeroSizeType.large,
                 isDisabled: false,
-                width: 180,
                 height: 60,
                 text: 'Button Text',
               ),
@@ -118,17 +179,21 @@ class _MyAppState extends State<MyApp> {
               //   onRatingUpdate: (val) {},
               // ),
               // const SizedBox(height: 20),
-              // ZeroRatingCustom(
-              //   spacing: 4,
-              //   initialValue: 1,
-              //   isDisabled: false,
-              //   activeColor: ZeroColors.sunriseYellow6,
-              //   inactiveColor: ZeroColors.neutral5,
-              //   sizeType: ZeroSizeType.small,
-              //   onRatingUpdate: (val) {
-              //     log(val.toString());
-              //   },
-              // ),
+              ZeroRatingCustom(
+                spacing: 4,
+                initialValue: 1,
+                isDisabled: false,
+                inactiveColor: ZeroColors.neutral7,
+                sizeType: ZeroSizeType.small,
+                onRatingUpdate: (val) {
+                  log(val.toString());
+                },
+                listItems: const [
+                  Icon(Icons.star, color: ZeroColors.danger),
+                  Icon(Icons.place, color: ZeroColors.sunriseYellow6),
+                  Icon(Icons.flag, color: ZeroColors.success),
+                ],
+              ),
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: ZeroTextField(
@@ -137,16 +202,14 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.underline(
                   labelText: 'Label',
                   hintText: 'Input',
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.fill(
                   labelText: 'Label',
                   hintText: 'Input',
@@ -156,50 +219,31 @@ class _MyAppState extends State<MyApp> {
                 height: 10,
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.outline(
-                    labelText: 'Label',
-                    hintText: 'Input',
-                    errorText: 'Error Text'),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.outline(labelText: 'Label', hintText: 'Input', errorText: 'Error Text'),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.fill(
-                    labelText: 'Label',
-                    hintText: 'Input',
-                    errorText: 'Error Text'),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.fill(labelText: 'Label', hintText: 'Input', errorText: 'Error Text'),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.underline(
-                    labelText: 'Label',
-                    hintText: 'Input',
-                    errorText: 'Error Text'),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.underline(labelText: 'Label', hintText: 'Input', errorText: 'Error Text'),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.outline(
-                    labelText: 'Label', hintText: 'Input', enabled: false),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.outline(labelText: 'Label', hintText: 'Input', enabled: false),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.fill(
-                    labelText: 'Label', hintText: 'Input', enabled: false),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.fill(labelText: 'Label', hintText: 'Input', enabled: false),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.underline(
-                    labelText: 'Label', hintText: 'Input', enabled: false),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.underline(labelText: 'Label', hintText: 'Input', enabled: false),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.outline(
                   labelText: 'Label',
                   hintText: 'Input',
@@ -208,8 +252,7 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.outline(
                   labelText: 'Label',
                   hintText: 'Input',
@@ -218,8 +261,7 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.outline(
                   labelText: 'Label',
                   hintText: 'Input',
@@ -229,8 +271,7 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.fill(
                   labelText: 'Label',
                   hintText: 'Input',
@@ -240,8 +281,7 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.underline(
                   labelText: 'Label',
                   hintText: 'Input',
@@ -252,8 +292,7 @@ class _MyAppState extends State<MyApp> {
               ),
 
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.outline(
                   labelText: 'Label Large',
                   hintText: 'Input Large',
@@ -264,8 +303,7 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.outline(
                   labelText: 'Label Small',
                   hintText: 'Input Small',
@@ -277,8 +315,7 @@ class _MyAppState extends State<MyApp> {
               ),
 
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.rounded(
                   labelText: 'Label',
                   hintText: 'Input',
@@ -289,8 +326,7 @@ class _MyAppState extends State<MyApp> {
               ),
 
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextFieldMultiline.outline(
                   labelText: 'Label',
                   hintText: 'Input',
@@ -299,8 +335,7 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextFieldMultiline.fill(
                   labelText: 'Label',
                   hintText: 'Input',
@@ -309,14 +344,12 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextFieldMultiline.underline(
                   labelText: 'Label',
                   hintText: 'Input',
                   helperText: 'Support Text',
-                  suffix: IconButton(
-                      icon: const Icon(Icons.delete_forever), onPressed: () {}),
+                  suffix: IconButton(icon: const Icon(Icons.delete_forever), onPressed: () {}),
                 ),
               ),
             ],

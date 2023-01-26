@@ -115,7 +115,11 @@ class ZeroButtonIcon extends ElevatedButton {
               autofocus: autofocus,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: icon.color == null ? Icon(icon.icon, color: ZeroColors.white) : icon,
+                child: Icon(
+                  icon.icon,
+                  color: icon.color ?? ZeroColors.white,
+                  size: buttonSizeType.iconSize,
+                ),
               ),
             ),
           );
@@ -212,7 +216,11 @@ class ZeroButtonIcon extends ElevatedButton {
               autofocus: autofocus,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: icon.color == null ? Icon(icon.icon, color: ZeroColors.neutral10) : icon,
+                child: Icon(
+                  icon.icon,
+                  color: icon.color ?? ZeroColors.neutral10,
+                  size: buttonSizeType.iconSize,
+                ),
               ),
             ),
           );
@@ -301,7 +309,11 @@ class ZeroButtonIcon extends ElevatedButton {
               autofocus: autofocus,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: icon.color == null ? Icon(icon.icon, color: ZeroColors.neutral10) : icon,
+                child: Icon(
+                  icon.icon,
+                  color: icon.color ?? ZeroColors.neutral10,
+                  size: buttonSizeType.iconSize,
+                ),
               ),
             ),
           );
@@ -363,12 +375,11 @@ class ZeroButtonIcon extends ElevatedButton {
         style: style,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: icon.color == null
-              ? Icon(
-                  icon.icon,
-                  color: ZeroColors.neutral7,
-                )
-              : icon,
+          child: Icon(
+            icon.icon,
+            color: icon.color ?? ZeroColors.neutral7,
+            size: buttonSizeType.iconSize,
+          ),
         ),
       ),
     );

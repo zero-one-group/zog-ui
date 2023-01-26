@@ -137,12 +137,11 @@ class ZeroButtonRIcon extends ElevatedButton {
                           ),
                     ),
                     const SizedBox(width: 8),
-                    icon.color == null
-                        ? Icon(
-                            icon.icon as IconData,
-                            color: ZeroColors.white,
-                          )
-                        : icon,
+                    Icon(
+                      icon.icon,
+                      color: icon.color ?? ZeroColors.white,
+                      size: buttonSizeType.iconSize,
+                    ),
                   ],
                 ),
               ),
@@ -264,12 +263,11 @@ class ZeroButtonRIcon extends ElevatedButton {
                           ),
                     ),
                     const SizedBox(width: 8),
-                    icon.color == null
-                        ? Icon(
-                            icon.icon as IconData,
-                            color: ZeroColors.neutral10,
-                          )
-                        : icon,
+                    Icon(
+                      icon.icon,
+                      color: icon.color ?? ZeroColors.neutral10,
+                      size: buttonSizeType.iconSize,
+                    ),
                   ],
                 ),
               ),
@@ -383,12 +381,11 @@ class ZeroButtonRIcon extends ElevatedButton {
                           ),
                     ),
                     const SizedBox(width: 8),
-                    icon.color == null
-                        ? Icon(
-                            icon.icon as IconData,
-                            color: ZeroColors.neutral10,
-                          )
-                        : icon,
+                    Icon(
+                      icon.icon,
+                      color: icon.color ?? ZeroColors.neutral10,
+                      size: buttonSizeType.iconSize,
+                    ),
                   ],
                 ),
               ),
@@ -473,12 +470,11 @@ class ZeroButtonRIcon extends ElevatedButton {
                 style: textStyle,
               ),
               const SizedBox(width: 8),
-              icon.color == null
-                  ? Icon(
-                      icon.icon as IconData,
-                      color: textStyle.color,
-                    )
-                  : icon,
+              Icon(
+                icon.icon,
+                color: icon.color ?? textStyle.color,
+                size: buttonSizeType.iconSize,
+              ),
             ],
           ),
         ),

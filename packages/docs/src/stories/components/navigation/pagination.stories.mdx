@@ -1,0 +1,46 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { BADGE } from '@geometricpanda/storybook-addon-badges';
+import { within, userEvent } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
+import { Pagination } from '@zero-ui/core';
+import { DoubleRightOutlined, DoubleLeftOutlined } from '@ant-design/icons';
+
+<Meta
+  title="Components/Navigation/Pagination"
+  component={[Pagination]}
+  argTypes={{
+    simple: { control: 'boolean' },
+    showTotal: { control: 'boolean' },
+  }}
+/>
+
+export const PaginationStory = (args) => <Pagination {...args} />;
+
+# Pagination
+
+Pagination is a component to navigate each page. usually, use when we have enormous data and want to separate the data before we are showing
+
+## Example Usage
+
+```tsx
+import { Pagination } from '@zero-ui/core';
+```
+
+<Canvas columns={2} withSource="close">
+  <Story
+    args={{
+      currentPage: 6,
+      pageSize: 10,
+      siblingCount: 3,
+      totalCount: 100,
+      onChange: () => null,
+      nextIcon: <DoubleRightOutlined />,
+      previousIcon: <DoubleLeftOutlined />,
+    }}
+    name="Pagination"
+  >
+    {PaginationStory.bind()}
+  </Story>
+</Canvas>
+
+<ArgsTable of={Pagination} />

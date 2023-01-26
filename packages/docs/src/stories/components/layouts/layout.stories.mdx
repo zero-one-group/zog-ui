@@ -1,0 +1,82 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { BADGE } from '@geometricpanda/storybook-addon-badges';
+import { within, userEvent } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
+import { Layout, Box } from '@zero-ui/core';
+
+<Meta title="Components/Layouts/Layout" component={[Layout]} argTypes={{}} />
+
+export const LayoutStoryWithoutSider = (args) => (
+  <Layout {...args}>
+    <Box
+      css={{
+        backgroundColor: '$blue4',
+        padding: '$4',
+      }}
+    >
+      Header
+    </Box>
+    <Box
+      css={{
+        backgroundColor: '$blue6',
+        padding: '$4',
+      }}
+    >
+      Content
+    </Box>
+    <Box
+      css={{
+        backgroundColor: '$blue4',
+        padding: '$4',
+      }}
+    >
+      Footer
+    </Box>
+  </Layout>
+);
+
+export const LayoutStoryWithSider = (args) => (
+  <Layout {...args}>
+    <Box
+      css={{
+        backgroundColor: '$blue5',
+        padding: '$4',
+      }}
+    >
+      Sider
+    </Box>
+    <Box
+      css={{
+        backgroundColor: '$blue6',
+        padding: '$4',
+        flex: 'auto',
+      }}
+    >
+      Content
+    </Box>
+  </Layout>
+);
+
+# Layout
+
+Wrapper component for handling the overall layout of a page.
+
+## Example Usage
+
+```tsx
+import { Layout } from '@zero-ui/core';
+```
+
+<Canvas columns={2} withSource="close">
+  <Story name="Basic Layout">{LayoutStoryWithoutSider.bind()}</Story>
+  <Story
+    name="Sider Layout"
+    args={{
+      hasSider: true,
+    }}
+  >
+    {LayoutStoryWithSider.bind()}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Sider Layout" />

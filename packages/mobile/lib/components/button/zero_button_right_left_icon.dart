@@ -130,7 +130,11 @@ class ZeroButtonRLIcon extends ElevatedButton {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    prefixIcon.color == null ? Icon(prefixIcon.icon, color: ZeroColors.white) : prefixIcon,
+                    Icon(
+                      prefixIcon.icon,
+                      color: prefixIcon.color ?? ZeroColors.white,
+                      size: buttonSizeType.iconSize,
+                    ),
                     const SizedBox(width: 8),
                     Text(
                       text,
@@ -141,7 +145,11 @@ class ZeroButtonRLIcon extends ElevatedButton {
                           ),
                     ),
                     const SizedBox(width: 8),
-                    suffixIcon.color == null ? Icon(suffixIcon.icon, color: ZeroColors.white) : prefixIcon,
+                    Icon(
+                      suffixIcon.icon,
+                      color: suffixIcon.color ?? ZeroColors.white,
+                      size: buttonSizeType.iconSize,
+                    ),
                   ],
                 ),
               ),
@@ -255,7 +263,11 @@ class ZeroButtonRLIcon extends ElevatedButton {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    prefixIcon.color == null ? Icon(prefixIcon.icon, color: ZeroColors.neutral7) : prefixIcon,
+                    Icon(
+                      prefixIcon.icon,
+                      color: prefixIcon.color ?? ZeroColors.neutral7,
+                      size: buttonSizeType.iconSize,
+                    ),
                     const SizedBox(width: 8),
                     Text(
                       text,
@@ -266,7 +278,11 @@ class ZeroButtonRLIcon extends ElevatedButton {
                           ),
                     ),
                     const SizedBox(width: 8),
-                    suffixIcon.color == null ? Icon(suffixIcon.icon, color: ZeroColors.neutral7) : prefixIcon,
+                    Icon(
+                      suffixIcon.icon,
+                      color: suffixIcon.color ?? ZeroColors.neutral7,
+                      size: buttonSizeType.iconSize,
+                    ),
                   ],
                 ),
               ),
@@ -337,12 +353,6 @@ class ZeroButtonRLIcon extends ElevatedButton {
     /// if [style] is not null, merge [style] with [secondaryDefaultStyle]
     /// combine customizations from [style] with default style [secondaryDefaultStyle]
     style = style?.merge(secondaryDefaultStyle) ?? secondaryDefaultStyle;
-
-    /// [updateAnimating] is the callback function to update the state of [ZeroButtonRLIcon]
-    late Function updateAnimating;
-
-    /// [animatingColor] is the color that will be used for [ZeroButtonRLIcon] when it is pressed
-    Color animatingColor = style.animatingColor ?? ZeroColors.transparent;
     return isDisabled
         ? disabled(
             text: text,
@@ -378,7 +388,11 @@ class ZeroButtonRLIcon extends ElevatedButton {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    prefixIcon.color == null ? Icon(prefixIcon.icon, color: ZeroColors.neutral7) : prefixIcon,
+                    Icon(
+                      prefixIcon.icon,
+                      color: prefixIcon.color ?? ZeroColors.neutral7,
+                      size: buttonSizeType.iconSize,
+                    ),
                     const SizedBox(width: 8),
                     Text(
                       text,
@@ -389,7 +403,11 @@ class ZeroButtonRLIcon extends ElevatedButton {
                           ),
                     ),
                     const SizedBox(width: 8),
-                    suffixIcon.color == null ? Icon(suffixIcon.icon, color: ZeroColors.neutral7) : prefixIcon,
+                    Icon(
+                      suffixIcon.icon,
+                      color: suffixIcon.color ?? ZeroColors.neutral7,
+                      size: buttonSizeType.iconSize,
+                    ),
                   ],
                 ),
               ),
@@ -470,14 +488,22 @@ class ZeroButtonRLIcon extends ElevatedButton {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              prefixIcon.color == null ? Icon(prefixIcon.icon, color: ZeroColors.neutral7) : prefixIcon,
+              Icon(
+                prefixIcon.icon,
+                color: prefixIcon.color ?? ZeroColors.neutral7,
+                size: buttonSizeType.iconSize,
+              ),
               const SizedBox(width: 8),
               Text(
                 text,
                 style: textStyle,
               ),
               const SizedBox(width: 8),
-              suffixIcon.color == null ? Icon(suffixIcon.icon, color: ZeroColors.neutral7) : prefixIcon,
+              Icon(
+                suffixIcon.icon,
+                color: suffixIcon.color ?? ZeroColors.neutral7,
+                size: buttonSizeType.iconSize,
+              ),
             ],
           ),
         ),

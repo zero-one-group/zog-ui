@@ -18,6 +18,8 @@ export './components/button_group/zero_button_group.dart';
 // ranting
 export './components/rating/zero_rating.dart';
 export './components/rating/zero_rating_custom.dart';
+export './components/checkbox/zero_checkbox.dart';
+export 'components/radio_group/zero_radio_group.dart';
 
 // badge
 export './components/badge/zero_badge.dart';
