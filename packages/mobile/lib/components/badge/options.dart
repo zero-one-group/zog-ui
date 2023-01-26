@@ -1,4 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
+import '../../zero_ui_mobile.dart';
 
 /// [ZeroBadge] component position options
 ///
@@ -14,26 +16,8 @@ enum ZeroBadgePosition {
   bottomLeft,
 
   /// Identify the badge with the bottom right
-  bottomRight,
-}
+  bottomRight;
 
-/// List of types on the badge
-///
-/// This enum is used in the [ZeroBadge] component
-enum ZeroBadgeType {
-  /// the text in the badge will be displayed in its entirety without being cut off
-  standard,
-
-  /// Use to display badges such as a counter or number.
-  /// This type can only display a maximum of 3 chars
-  number,
-
-  /// Only displays the dot indicator on the badge
-  dot,
-}
-
-/// Utility extension to get some value from [ZeroBadgePosition]
-extension ZeroBadgePositionX on ZeroBadgePosition {
   /// Calculation of the top position on the badge
   ///
   /// If [ZeroBadgePosition] is top, it will `return 0`, otherwise it will `return null`
