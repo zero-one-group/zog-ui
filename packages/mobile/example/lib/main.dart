@@ -203,173 +203,56 @@ class _MyAppState extends State<MyApp> {
                   Icon(Icons.flag, color: ZeroColors.success),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: ZeroTextField(
-                  labelText: 'Label',
-                  hintText: 'Input',
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.underline(
-                  labelText: 'Label',
-                  hintText: 'Input',
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.fill(
-                  labelText: 'Label',
-                  hintText: 'Input',
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.outline(labelText: 'Label', hintText: 'Input', errorText: 'Error Text'),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.fill(labelText: 'Label', hintText: 'Input', errorText: 'Error Text'),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.underline(labelText: 'Label', hintText: 'Input', errorText: 'Error Text'),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.outline(labelText: 'Label', hintText: 'Input', enabled: false),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.fill(labelText: 'Label', hintText: 'Input', enabled: false),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.underline(labelText: 'Label', hintText: 'Input', enabled: false),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.outline(
-                  labelText: 'Label',
-                  hintText: 'Input',
-                  errorText: 'Error Text',
-                  helperText: 'Support Text',
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.outline(
-                  labelText: 'Label',
-                  hintText: 'Input',
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: const Icon(Icons.delete_forever),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.outline(
-                  labelText: 'Label',
-                  hintText: 'Input',
-                  helperText: 'Support Text',
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: const Icon(Icons.delete_forever),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.fill(
-                  labelText: 'Label',
-                  hintText: 'Input',
-                  helperText: 'Support Text',
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: const Icon(Icons.delete_forever),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.underline(
-                  labelText: 'Label',
-                  hintText: 'Input',
-                  helperText: 'Support Text',
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: const Icon(Icons.delete_forever),
-                ),
-              ),
 
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.outline(
-                  labelText: 'Label Large',
-                  hintText: 'Input Large',
-                  helperText: 'Support Text Large',
-                  textfielSizeType: TextfieldSizeType.large,
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: const Icon(Icons.delete_forever),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.outline(
-                  labelText: 'Label Small',
-                  hintText: 'Input Small',
-                  helperText: 'Support Text Small',
-                  textfielSizeType: TextfieldSizeType.small,
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: const Icon(Icons.delete_forever),
-                ),
-              ),
-
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.rounded(
-                  labelText: 'Label',
-                  hintText: 'Input',
-                  helperText: 'Support Text',
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: const Icon(Icons.delete_forever),
-                ),
-              ),
-
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextFieldMultiline.outline(
-                  labelText: 'Label',
-                  hintText: 'Input',
-                  helperText: 'Support Text',
-                  suffix: const Icon(Icons.delete_forever),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextFieldMultiline.fill(
-                  labelText: 'Label',
-                  hintText: 'Input',
-                  helperText: 'Support Text',
-                  suffix: const Icon(Icons.delete_forever),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextFieldMultiline.underline(
-                  labelText: 'Label',
-                  hintText: 'Input',
-                  helperText: 'Support Text',
-                  suffix: IconButton(icon: const Icon(Icons.delete_forever), onPressed: () {}),
-                ),
-              ),
               Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                  child: ZeroDropdown<String>.fill(
+                  child: ZeroDropdown<String>(
                     labelText: 'Label Text',
                     hintText: 'Hint Text',
                     value: items.first,
-                    helperText: 'Helper Text',
                     items: items,
+                    suffixIcon: const Padding(
+                      padding: EdgeInsets.only(right: 16.0),
+                      child: Icon(Icons.search),
+                    ),
+                    inputDecorationType: InputDecorationType.outline,
+                    onChanged: (value) {},
+                  )),
+              Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  child: ZeroDropdown<String>(
+                    labelText: 'Label Text',
+                    hintText: 'Hint Text',
+                    value: items.first,
+                    items: items,
+                    inputDecorationType: InputDecorationType.underline,
+                    onChanged: (value) {},
+                  )),
+              Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  child: ZeroDropdown<String>(
+                    labelText: 'Label Text',
+                    hintText: 'Hint Text',
+                    value: items.first,
+                    items: items,
+                    inputDecorationType: InputDecorationType.outline,
+                    onChanged: (value) {},
+                  )),
+              Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  child: ZeroDropdown<String>.multiple(
+                    labelText: 'Label Text',
+                    hintText: 'Hint Text',
+                    value: items.first,
+                    items: items,
+                    inputDecorationType: InputDecorationType.outline,
+                    selectedItemsStyle: SelectedItemsStyle.chipInverted,
+                    enableMultipleItems: true,
+                    multipleItemsVariant: MultipleItemsVariant.checkboxes,
                     onChanged: (value) {},
                   )),
             ],

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:zero_ui_mobile/assets/assets.dart';
 import 'package:zero_ui_mobile/colors/zero_colors.dart';
 import 'package:zero_ui_mobile/types/textfield/size_type.dart';
 
