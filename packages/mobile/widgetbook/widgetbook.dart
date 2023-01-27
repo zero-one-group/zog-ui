@@ -9,6 +9,7 @@ import 'widgetbook_component/dropdown.dart';
 import 'widgetbook_component/radio_group.dart';
 import 'widgetbook_component/rating.dart';
 import 'widgetbook_component/textfield.dart';
+import 'widgetbook_component/tooltip.dart';
 
 class HotReload extends StatelessWidget {
   const HotReload({Key? key}) : super(key: key);
@@ -26,8 +27,8 @@ class HotReload extends StatelessWidget {
             textFieldWidgetbookComponent,
             checkboxWidgetbookComponenet,
             radioGroupWidgetbookComponenet,
-            dropdownWidgetbookComponent,
-            badgeWidgetbookComponent
+            badgeWidgetbookComponent,
+            tooltipWidgetbookComponenet,
           ],
         ),
       ],
