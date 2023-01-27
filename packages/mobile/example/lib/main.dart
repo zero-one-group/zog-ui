@@ -31,6 +31,9 @@ class _MyAppState extends State<MyApp> {
       'Item 5',
       'Item 6'
     ];
+    List<String> labels = ['Search', 'Alarm', 'Calendar'];
+    List<IconData> icons = [Icons.search, Icons.alarm, Icons.calendar_month];
+    List<bool> isSelected = [false, false, false];
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -268,6 +271,29 @@ class _MyAppState extends State<MyApp> {
                     multipleItemsVariant: MultipleItemsVariant.checkboxes,
                     onChanged: (value) {},
                   )),
+              ZeroButtonGroup.labelsWithIcons(
+                labels: labels,
+                icons: icons,
+                buttonSizeType: ZeroSizeType.large,
+                isSelected: isSelected,
+              ),
+              ZeroButtonGroup.labelsWithIcons(
+                labels: labels,
+                buttonSizeType: ZeroSizeType.large,
+                icons: icons,
+                vertical: true,
+                isSelected: isSelected,
+              ),
+              ZeroButtonGroup.iconsOnly(
+                icons: icons,
+                isSelected: isSelected,
+              ),
+              ZeroButtonGroup.iconsOnly(
+                icons: icons,
+                vertical: true,
+                isSelected: isSelected,
+                square: true,
+              )
             ],
           ),
         ),
