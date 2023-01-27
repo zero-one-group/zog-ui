@@ -62,7 +62,9 @@ class ButtonGroupItem extends StatelessWidget {
           Text(
             label,
             textAlign: TextAlign.center,
-            style: TextStyle(color: isSelected ? selectedColor : textColor, fontSize: fontSize),
+            style: TextStyle(
+                color: isSelected ? selectedColor : textColor,
+                fontSize: fontSize),
           ),
         ],
       ),

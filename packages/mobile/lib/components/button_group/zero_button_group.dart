@@ -27,7 +27,7 @@ class ZeroButtonGroup extends StatefulWidget {
   /// Required only when [withIcon] is true.
   final IconData? selectIcon;
 
-  // final bool vertical; // TODO: Enable vertical mode
+  final bool? vertical;
 
   /// Large, Medium, Small
   final ZeroSizeType buttonSizeType;
@@ -41,6 +41,12 @@ class ZeroButtonGroup extends StatefulWidget {
   /// Labels only, Icons only, Labels with Icons
   final ButtonItemType buttonItemType;
 
+  /// Defaults to false which means it shapes rectangle, not sqare
+  final bool? square;
+
+  // Defaults to `false`, if set true, it supports multiple items select
+  final bool? multipleSelect;
+
   // TODO: Provide `TextStyle` field instead of only fontSize and color
 
   const ZeroButtonGroup(
@@ -53,6 +59,9 @@ class ZeroButtonGroup extends StatefulWidget {
       this.buttonSizeType = ZeroSizeType.medium,
       this.buttonRadiusType = ZeroButtonRadiusType.curved,
       this.buttonItemType = ButtonItemType.labelsOnly,
+      this.square,
+      this.vertical,
+      this.multipleSelect,
       this.buttonGroupType = ButtonGroupType.solid})
       : assert(
           labels != null || icons != null,
@@ -68,13 +77,17 @@ class ZeroButtonGroup extends StatefulWidget {
     bool withIcon = false,
     ButtonGroupType buttonGroupType = ButtonGroupType.solid,
     ZeroSizeType buttonSizeType = ZeroSizeType.medium,
+    bool vertical = false,
+    bool multipleSelect = false,
     ZeroButtonRadiusType buttonRadiusType = ZeroButtonRadiusType.curved,
   }) {
     assert(labels.length >= 2, 'Labels should contain at least 2 elements');
-    assert(labels.length == isSelected.length, 'selectedItems must contain the same number of elements as label\'s');
+    assert(labels.length == isSelected.length,
+        'selectedItems must contain the same number of elements as label\'s');
 
     if (withIcon) {
-      assert(selectIcon != null, 'Having withIcon true requires you to provide selectIcon');
+      assert(selectIcon != null,
+          'Having withIcon true requires you to provide selectIcon');
     }
 
     return ZeroButtonGroup(
@@ -84,7 +97,9 @@ class ZeroButtonGroup extends StatefulWidget {
       selectIcon: selectIcon,
       buttonGroupType: buttonGroupType,
       buttonSizeType: buttonSizeType,
+      vertical: vertical,
       buttonRadiusType: buttonRadiusType,
+      multipleSelect: multipleSelect,
       buttonItemType: ButtonItemType.labelsOnly,
     );
   }
@@ -97,9 +112,12 @@ class ZeroButtonGroup extends StatefulWidget {
     required List<bool> isSelected,
     ButtonGroupType buttonGroupType = ButtonGroupType.solid,
     ZeroSizeType buttonSizeType = ZeroSizeType.medium,
+    bool vertical = false,
+    bool multipleSelect = false,
     buttonRadiusType = ZeroButtonRadiusType.curved,
   }) {
-    assert(icons.length >= 2, 'Labels or icons must contain at least 2 elements');
+    assert(
+        icons.length >= 2, 'Labels or icons must contain at least 2 elements');
     assert(icons.length == labels.length && icons.length == isSelected.length,
         'selectedItems must contain the same number of elements as icons\'s and label\'s');
 
@@ -110,6 +128,8 @@ class ZeroButtonGroup extends StatefulWidget {
       buttonGroupType: buttonGroupType,
       buttonSizeType: buttonSizeType,
       buttonRadiusType: buttonRadiusType,
+      vertical: vertical,
+      multipleSelect: multipleSelect,
       buttonItemType: ButtonItemType.labelsAndIcons,
     );
   }
@@ -119,12 +139,16 @@ class ZeroButtonGroup extends StatefulWidget {
     Key? key,
     required List<IconData> icons,
     required List<bool> isSelected,
+    bool square = false,
     ButtonGroupType buttonGroupType = ButtonGroupType.solid,
     ZeroSizeType buttonSizeType = ZeroSizeType.medium,
+    bool vertical = false,
+    bool multipleSelect = false,
     buttonRadiusType = ZeroButtonRadiusType.curved,
   }) {
     assert(icons.length >= 2, 'Icons must contain at least 2 elements');
-    assert(icons.length == isSelected.length, 'selectedItems must contain the same number of elements as icon\'s');
+    assert(icons.length == isSelected.length,
+        'selectedItems must contain the same number of elements as icon\'s');
 
     return ZeroButtonGroup(
       icons: icons,
@@ -132,6 +156,9 @@ class ZeroButtonGroup extends StatefulWidget {
       buttonGroupType: buttonGroupType,
       buttonSizeType: buttonSizeType,
       buttonRadiusType: buttonRadiusType,
+      vertical: vertical,
+      multipleSelect: multipleSelect,
+      square: square,
       buttonItemType: ButtonItemType.iconsOnly,
     );
   }
@@ -165,7 +192,10 @@ class _ZeroButtonGroupState extends State<ZeroButtonGroup> {
         break;
       case ButtonItemType.iconsOnly:
         for (IconData icon in widget.icons!) {
-          children.add(Icon(icon));
+          children.add(Icon(
+            icon,
+            size: widget.buttonSizeType.fontSize,
+          ));
         }
         break;
       case ButtonItemType.labelsAndIcons:
@@ -187,15 +217,19 @@ class _ZeroButtonGroupState extends State<ZeroButtonGroup> {
     if (widget.buttonGroupType != ButtonGroupType.underline) {
       return Container(
         padding: EdgeInsets.zero,
-        height: widget.buttonSizeType.height,
-        decoration:
-            BoxDecoration(color: widget.buttonGroupType.fillColor, borderRadius: _getBorderRadius(widget.buttonRadiusType)),
+        decoration: BoxDecoration(
+            color: widget.buttonGroupType.fillColor,
+            borderRadius: _getBorderRadius(widget.buttonRadiusType)),
         child: ToggleButtons(
-          direction: Axis.horizontal,
+          direction: widget.vertical ?? false ? Axis.vertical : Axis.horizontal,
           onPressed: (int index) {
             setState(() {
-              for (int i = 0; i < widget.isSelected.length; i++) {
-                widget.isSelected[i] = i == index;
+              if (widget.multipleSelect ?? false) {
+                widget.isSelected[index] = !widget.isSelected[index];
+              } else {
+                for (int i = 0; i < widget.isSelected.length; i++) {
+                  widget.isSelected[i] = i == index;
+                }
               }
             });
           },
@@ -207,7 +241,9 @@ class _ZeroButtonGroupState extends State<ZeroButtonGroup> {
           borderWidth: widget.buttonGroupType.borderWidth,
           constraints: BoxConstraints(
             minHeight: widget.buttonSizeType.height,
-            minWidth: widget.buttonSizeType.width,
+            minWidth: widget.square ?? false
+                ? widget.buttonSizeType.height
+                : widget.buttonSizeType.width,
           ),
           renderBorder: widget.buttonGroupType.renderBorder,
           isSelected: widget.isSelected,

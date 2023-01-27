@@ -22,6 +22,9 @@ class _MyAppState extends State<MyApp> {
   String optionValue = '';
   @override
   Widget build(BuildContext context) {
+    List<String> labels = ['Search', 'Alarm', 'Calendar'];
+    List<IconData> icons = [Icons.search, Icons.alarm, Icons.calendar_month];
+    List<bool> isSelected = [false, false, false];
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -207,164 +210,29 @@ class _MyAppState extends State<MyApp> {
                   Icon(Icons.flag, color: ZeroColors.success),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: ZeroTextField(
-                  labelText: 'Label',
-                  hintText: 'Input',
-                ),
+              ZeroButtonGroup.labelsWithIcons(
+                labels: labels,
+                icons: icons,
+                buttonSizeType: ZeroSizeType.large,
+                isSelected: isSelected,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.underline(
-                  labelText: 'Label',
-                  hintText: 'Input',
-                ),
+              ZeroButtonGroup.labelsWithIcons(
+                labels: labels,
+                buttonSizeType: ZeroSizeType.large,
+                icons: icons,
+                vertical: true,
+                isSelected: isSelected,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.fill(
-                  labelText: 'Label',
-                  hintText: 'Input',
-                ),
+              ZeroButtonGroup.iconsOnly(
+                icons: icons,
+                isSelected: isSelected,
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.outline(labelText: 'Label', hintText: 'Input', errorText: 'Error Text'),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.fill(labelText: 'Label', hintText: 'Input', errorText: 'Error Text'),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.underline(labelText: 'Label', hintText: 'Input', errorText: 'Error Text'),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.outline(labelText: 'Label', hintText: 'Input', enabled: false),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.fill(labelText: 'Label', hintText: 'Input', enabled: false),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.underline(labelText: 'Label', hintText: 'Input', enabled: false),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.outline(
-                  labelText: 'Label',
-                  hintText: 'Input',
-                  errorText: 'Error Text',
-                  helperText: 'Support Text',
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.outline(
-                  labelText: 'Label',
-                  hintText: 'Input',
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: const Icon(Icons.delete_forever),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.outline(
-                  labelText: 'Label',
-                  hintText: 'Input',
-                  helperText: 'Support Text',
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: const Icon(Icons.delete_forever),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.fill(
-                  labelText: 'Label',
-                  hintText: 'Input',
-                  helperText: 'Support Text',
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: const Icon(Icons.delete_forever),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.underline(
-                  labelText: 'Label',
-                  hintText: 'Input',
-                  helperText: 'Support Text',
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: const Icon(Icons.delete_forever),
-                ),
-              ),
-
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.outline(
-                  labelText: 'Label Large',
-                  hintText: 'Input Large',
-                  helperText: 'Support Text Large',
-                  textfielSizeType: TextfieldSizeType.large,
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: const Icon(Icons.delete_forever),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.outline(
-                  labelText: 'Label Small',
-                  hintText: 'Input Small',
-                  helperText: 'Support Text Small',
-                  textfielSizeType: TextfieldSizeType.small,
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: const Icon(Icons.delete_forever),
-                ),
-              ),
-
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.rounded(
-                  labelText: 'Label',
-                  hintText: 'Input',
-                  helperText: 'Support Text',
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: const Icon(Icons.delete_forever),
-                ),
-              ),
-
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextFieldMultiline.outline(
-                  labelText: 'Label',
-                  hintText: 'Input',
-                  helperText: 'Support Text',
-                  suffix: const Icon(Icons.delete_forever),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextFieldMultiline.fill(
-                  labelText: 'Label',
-                  hintText: 'Input',
-                  helperText: 'Support Text',
-                  suffix: const Icon(Icons.delete_forever),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextFieldMultiline.underline(
-                  labelText: 'Label',
-                  hintText: 'Input',
-                  helperText: 'Support Text',
-                  suffix: IconButton(icon: const Icon(Icons.delete_forever), onPressed: () {}),
-                ),
-              ),
+              ZeroButtonGroup.iconsOnly(
+                icons: icons,
+                vertical: true,
+                isSelected: isSelected,
+                square: true,
+              )
             ],
           ),
         ),
