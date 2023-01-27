@@ -3,6 +3,7 @@ export * from './Badge';
 export * from './Box';
 export * from './Breadcrumb';
 export * from './Button';
+export * from './Checkbox';
 export * from './ControlGroup';
 export * from './DesignSystemProvider';
 export * from './Dialog';
