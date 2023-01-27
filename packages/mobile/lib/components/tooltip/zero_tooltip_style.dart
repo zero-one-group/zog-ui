@@ -2,32 +2,42 @@ import 'package:flutter/material.dart';
 
 import '../../position/tooltip_position.dart';
 
+/// [ZeroTooltipVariant] is used to define the shape of the tooltip.
+/// there are 3 variants:
+/// 1. [ZeroTooltipVariant.rectangle] - the tooltip is a rectangle
+/// 2. [ZeroTooltipVariant.rounded] - the tooltip is a circle/rounded
+/// 3. [ZeroTooltipVariant.custom] - the tooltip is a rectangle with arrow
 enum ZeroTooltipVariant {
   rectangle,
   rounded,
   custom;
 
+  /// [toPainter] is used to convert the [ZeroTooltipVariant] to [CustomPainter]
+  /// the [backgroundColor] is the background color of the tooltip
+  /// the [borderColor] is the border color of the tooltip
+  /// the [position] is the position of the tooltip
+  /// this function is used in [ZeroTooltip] widget
   CustomPainter toPainter({
-    Color backgaroundColor = Colors.black54,
+    Color backgroundColor = Colors.black54,
     Color borderColor = Colors.transparent,
     ZeroTooltipPosition position = ZeroTooltipPosition.top,
   }) {
     switch (this) {
       case ZeroTooltipVariant.rectangle:
         return ZeroTooltipRectangleVariant(
-          backgaroundColor: backgaroundColor,
+          backgroundColor: backgroundColor,
           borderColor: borderColor,
           position: position,
         );
       case ZeroTooltipVariant.rounded:
         return ZeroTooltipRoundedVariant(
-          backgaroundColor: backgaroundColor,
+          backgroundColor: backgroundColor,
           borderColor: borderColor,
           position: position,
         );
       case ZeroTooltipVariant.custom:
         return ZeroTooltipCustomVariant(
-          backgaroundColor: backgaroundColor,
+          backgroundColor: backgroundColor,
           borderColor: borderColor,
           position: position,
         );
@@ -35,14 +45,16 @@ enum ZeroTooltipVariant {
   }
 }
 
+/// [ZeroTooltipRectangleVariant] is used to draw the rectangle tooltip
+/// this class to create [ZeroTooltipVariant.rectangle] tooltip shape
 class ZeroTooltipRectangleVariant extends CustomPainter {
-  final Color backgaroundColor;
+  final Color backgroundColor;
   final Color borderColor;
   final ZeroTooltipPosition position;
   final ZeroTooltipVariant variant;
   const ZeroTooltipRectangleVariant({
     this.variant = ZeroTooltipVariant.rectangle,
-    this.backgaroundColor = Colors.black54,
+    this.backgroundColor = Colors.black54,
     this.borderColor = Colors.transparent,
     this.position = ZeroTooltipPosition.top,
   });
@@ -50,7 +62,7 @@ class ZeroTooltipRectangleVariant extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint fillPaint = Paint()
-      ..color = backgaroundColor
+      ..color = backgroundColor
       ..strokeWidth = 1
       ..style = PaintingStyle.fill;
     final Paint borderPaint = Paint()
@@ -93,14 +105,16 @@ class ZeroTooltipRectangleVariant extends CustomPainter {
   bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
 
+/// [ZeroTooltipCustomariant] is used to draw the custom tooltip
+/// this class to create [ZeroTooltipVariant.custom] tooltip shape
 class ZeroTooltipCustomVariant extends CustomPainter {
-  final Color backgaroundColor;
+  final Color backgroundColor;
   final Color borderColor;
   final ZeroTooltipPosition position;
   final ZeroTooltipVariant variant;
   const ZeroTooltipCustomVariant({
     this.variant = ZeroTooltipVariant.rectangle,
-    this.backgaroundColor = Colors.black54,
+    this.backgroundColor = Colors.black54,
     this.borderColor = Colors.transparent,
     this.position = ZeroTooltipPosition.top,
   });
@@ -108,7 +122,7 @@ class ZeroTooltipCustomVariant extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint fillPaint = Paint()
-      ..color = backgaroundColor
+      ..color = backgroundColor
       ..strokeWidth = 1
       ..style = PaintingStyle.fill;
     final Paint borderPaint = Paint()
@@ -189,14 +203,16 @@ class ZeroTooltipCustomVariant extends CustomPainter {
   bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
 
+/// [ZeroTooltipRoundedVariant] is used to draw the rounded tooltip
+/// this class to create [ZeroTooltipVariant.rounded] tooltip shape
 class ZeroTooltipRoundedVariant extends CustomPainter {
-  final Color backgaroundColor;
+  final Color backgroundColor;
   final Color borderColor;
   final ZeroTooltipPosition position;
   final ZeroTooltipVariant variant;
   const ZeroTooltipRoundedVariant({
     this.variant = ZeroTooltipVariant.rectangle,
-    this.backgaroundColor = Colors.black54,
+    this.backgroundColor = Colors.black54,
     this.borderColor = Colors.transparent,
     this.position = ZeroTooltipPosition.top,
   });
@@ -204,7 +220,7 @@ class ZeroTooltipRoundedVariant extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint fillPaint = Paint()
-      ..color = backgaroundColor
+      ..color = backgroundColor
       ..strokeWidth = 1
       ..style = PaintingStyle.fill;
     final Paint borderPaint = Paint()
