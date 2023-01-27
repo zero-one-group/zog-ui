@@ -41,7 +41,7 @@ class ZeroTextField extends StatelessWidget {
   final TextfieldSizeType textfieldSizeType;
 
   /// If set, this will be merged with the default [InputDecoration] defined in the default ZeroOne design system
-  InputDecoration? _decoration;
+  final InputDecoration? _decoration;
 
   InputDecoration? get decoration => _decoration;
 
