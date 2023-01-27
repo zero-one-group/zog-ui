@@ -45,7 +45,7 @@ export './components/textfield/zero_textfield_multiline.dart';
 // tooltip
 // export './components/slider/zero_slider.dart';
 export './components/tooltip/zero_tooltip.dart';
-export './components/tooltip/zero_tooltip_style.dart';
+// export './components/tooltip/zero_tooltip_style.dart';
 
 // dropdown
 export './components/dropdowns/zero_dropdown.dart';
