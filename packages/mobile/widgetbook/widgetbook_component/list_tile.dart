@@ -136,13 +136,20 @@ WidgetbookComponent listTileWidgetbookComponenet = WidgetbookComponent(
             rightIcon: context.knobs
                 .options(label: 'Right Icon', options: _rightIcons),
             style: ZeroListTileStyle(
-              backgroundColor: Colors.pink.withOpacity(0.5),
-              dividerColor: Colors.blue,
-              selectedColor: Colors.yellow,
-              subTitleTextStyle:
-                  const TextStyle(color: Colors.white, fontSize: 14),
-              titleTextStyle:
-                  const TextStyle(color: Colors.white, fontSize: 16),
+              backgroundColor: context.knobs
+                  .options(label: 'Background Color', options: _colors),
+              dividerColor: context.knobs
+                  .options(label: 'Divider Color', options: _colors),
+              selectedColor: context.knobs
+                  .options(label: 'Selected Color', options: _colors),
+              subTitleTextStyle: TextStyle(
+                  color: context.knobs
+                      .options(label: 'Text Color', options: _textColors),
+                  fontSize: 14),
+              titleTextStyle: TextStyle(
+                  color: context.knobs
+                      .options(label: 'Text Color', options: _textColors),
+                  fontSize: 16),
             ),
             onTap: () {},
           ),
@@ -174,8 +181,16 @@ List<Option<ZeroListTileSizeType>> _sizeTypes = [
   const Option(label: 'Small', value: ZeroListTileSizeType.small),
 ];
 
-List<Option<ZeroButtonRadiusType>> buttonRadiusTypes = [
-  const Option(label: 'Rectangle', value: ZeroButtonRadiusType.rectangle),
-  const Option(label: 'Curved', value: ZeroButtonRadiusType.curved),
-  const Option(label: 'Rounded', value: ZeroButtonRadiusType.rounded),
+List<Option<Color>> _colors = [
+  const Option(label: 'Dust Red', value: ZeroColors.dustRed6),
+  const Option(label: 'Primary', value: ZeroColors.primary6),
+  const Option(label: 'Sunrise Yellow', value: ZeroColors.sunriseYellow6),
+  const Option(label: 'Sunset Orange', value: ZeroColors.sunsetOrange6),
+  const Option(label: 'Black', value: ZeroColors.black),
+  const Option(label: 'White', value: ZeroColors.white),
+];
+
+List<Option<Color>> _textColors = [
+  const Option(label: 'Black', value: ZeroColors.black),
+  const Option(label: 'White', value: ZeroColors.white),
 ];

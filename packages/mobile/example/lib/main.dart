@@ -289,7 +289,21 @@ class _MyAppState extends State<MyApp> {
                 vertical: true,
                 isSelected: isSelected,
                 square: true,
-              )
+              ),
+              const SizedBox(height: 32),
+              const ZeroBadge(
+                type: ZeroBadgeType.dot,
+                child: Icon(Icons.ac_unit),
+              ),
+              const SizedBox(height: 32),
+              ZeroListTile(
+                title: 'Title Text',
+                subtitle: 'Subtitle Text',
+                rightIcon: const Icon(Icons.navigate_next),
+                leftIcon: const Icon(Icons.air),
+                onTap: () {},
+              ),
+              const SizedBox(height: 32),
             ],
           ),
         ),
