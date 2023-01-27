@@ -1,0 +1,29 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { BADGE } from '@geometricpanda/storybook-addon-badges';
+import { within, userEvent } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
+import { AutoComplete } from '@zero-ui/core';
+
+<Meta
+  title="Components/Forms/AutoComplete"
+  component={[AutoComplete]}
+  argTypes={{}}
+/>
+
+export const AutoCompleteStory = () => <AutoComplete />;
+
+# AutoComplete
+
+> WIP
+
+## Example Usage
+
+```jsx
+import { AutoComplete } from '@zero-ui/core';
+```
+
+<Canvas columns={2} withSource="close">
+  <Story name="AutoComplete">{AutoCompleteStory.bind()}</Story>
+</Canvas>
+
+<ArgsTable of={AutoComplete} />
