@@ -3,7 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/components/textfield/zero_textfield.dart';
 import 'package:zero_ui_mobile/components/textfield/zero_textfield_multiline.dart';
+import 'package:zero_ui_mobile/types/textfield/input_decoration_type.dart';
 import 'package:zero_ui_mobile/position/tooltip_position.dart';
+import 'package:zero_ui_mobile/types/textfield/input_decoration_type.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 void main() {
@@ -22,6 +24,14 @@ class _MyAppState extends State<MyApp> {
   String optionValue = '';
   @override
   Widget build(BuildContext context) {
+    List<String> items = [
+      'Item 1',
+      'Item 2',
+      'Item 3',
+      'Item 4',
+      'Item 5',
+      'Item 6'
+    ];
     List<String> labels = ['Search', 'Alarm', 'Calendar'];
     List<IconData> icons = [Icons.search, Icons.alarm, Icons.calendar_month];
     List<bool> isSelected = [false, false, false];
@@ -210,6 +220,58 @@ class _MyAppState extends State<MyApp> {
                   Icon(Icons.flag, color: ZeroColors.success),
                 ],
               ),
+
+              Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  child: ZeroDropdown<String>(
+                    labelText: 'Label Text',
+                    hintText: 'Hint Text',
+                    value: items.first,
+                    items: items,
+                    suffixIcon: const Padding(
+                      padding: EdgeInsets.only(right: 16.0),
+                      child: Icon(Icons.search),
+                    ),
+                    inputDecorationType: InputDecorationType.outline,
+                    onChanged: (value) {},
+                  )),
+              Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  child: ZeroDropdown<String>(
+                    labelText: 'Label Text',
+                    hintText: 'Hint Text',
+                    value: items.first,
+                    items: items,
+                    inputDecorationType: InputDecorationType.underline,
+                    onChanged: (value) {},
+                  )),
+              Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  child: ZeroDropdown<String>(
+                    labelText: 'Label Text',
+                    hintText: 'Hint Text',
+                    value: items.first,
+                    items: items,
+                    inputDecorationType: InputDecorationType.outline,
+                    onChanged: (value) {},
+                  )),
+              Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  child: ZeroDropdown<String>.multiple(
+                    labelText: 'Label Text',
+                    hintText: 'Hint Text',
+                    value: items.first,
+                    items: items,
+                    inputDecorationType: InputDecorationType.outline,
+                    selectedItemsStyle: SelectedItemsStyle.chipInverted,
+                    enableMultipleItems: true,
+                    multipleItemsVariant: MultipleItemsVariant.checkboxes,
+                    onChanged: (value) {},
+                  )),
               ZeroButtonGroup.labelsWithIcons(
                 labels: labels,
                 icons: icons,
