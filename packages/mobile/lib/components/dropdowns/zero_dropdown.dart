@@ -233,17 +233,17 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
 
   @override
   void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     decoration = _getDecoration(widget.inputDecorationType);
 
     if (widget.value != null) {
       _selectedItems.add(widget.value as T);
     }
 
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return DropdownButtonFormField2(
       decoration: decoration,
       isExpanded: false,
