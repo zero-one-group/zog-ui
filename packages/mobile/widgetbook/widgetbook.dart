@@ -6,6 +6,7 @@ import 'widgetbook_component/button.dart';
 import 'widgetbook_component/button_group.dart';
 import 'widgetbook_component/checkbox.dart';
 import 'widgetbook_component/dropdown.dart';
+import 'widgetbook_component/list_tile.dart';
 import 'widgetbook_component/radio_group.dart';
 import 'widgetbook_component/rating.dart';
 import 'widgetbook_component/textfield.dart';
@@ -29,10 +30,12 @@ class HotReload extends StatelessWidget {
             radioGroupWidgetbookComponenet,
             badgeWidgetbookComponent,
             tooltipWidgetbookComponenet,
+            listTileWidgetbookComponenet,
+            dropdownWidgetbookComponent,
           ],
         ),
       ],
-      appInfo: AppInfo(name: 'Widgetbook'),
+      appInfo: AppInfo(name: 'Zero UI'),
       themes: [
         WidgetbookTheme(
           name: 'Light',
