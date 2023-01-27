@@ -36,7 +36,6 @@ export './components/checkbox/zero_checkbox.dart';
 
 // radio
 export './components/radio_group/zero_radio_group.dart';
-export './components/dropdowns/zero_dropdown.dart';
 
 // text field
 export './components/textfield/zero_textfield.dart';
@@ -46,13 +45,6 @@ export './components/textfield/zero_textfield_multiline.dart';
 export './components/slider/zero_slider.dart';
 export './components/tooltip/zero_tooltip.dart';
 export './components/tooltip/zero_tooltip_style.dart';
-
-// dropdown
-export './components/dropdowns/zero_dropdown.dart';
-
-// badge
-export './components/badge/zero_badge.dart';
-export './components/badge/options.dart';
 
 // list
 export './components/list/list_tile.dart';
