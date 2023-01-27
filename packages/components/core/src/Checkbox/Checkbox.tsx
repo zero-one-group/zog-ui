@@ -1,5 +1,5 @@
-import { ReactElement } from 'react';
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
+import { ReactElement } from 'react';
 import { styled } from '../stitches.config';
 
 const StyledCheckboxLabel = styled('label', {
@@ -33,10 +33,6 @@ const StyledCheckboxIndicator = styled(CheckboxPrimitive.Indicator, {
 });
 
 type CheckboxOwnProps = {
-  onCheckedChange?: (checked: CheckboxPrimitive.CheckedState) => void;
-  checked?: CheckboxPrimitive.CheckedState;
-  defaultChecked?: CheckboxPrimitive.CheckedState;
-  disabled?: boolean;
   colorScheme?: string;
   boxSize?: string | number;
 };
