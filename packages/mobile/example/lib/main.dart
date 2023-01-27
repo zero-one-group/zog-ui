@@ -35,7 +35,6 @@ class _MyAppState extends State<MyApp> {
     List<String> labels = ['Search', 'Alarm', 'Calendar'];
     List<IconData> icons = [Icons.search, Icons.alarm, Icons.calendar_month];
     List<bool> isSelected = [false, false, false];
-    List<String> items = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
