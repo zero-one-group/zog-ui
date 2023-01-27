@@ -21,18 +21,12 @@ enum ZeroBadgePosition {
   /// Calculation of the top position on the badge
   ///
   /// If [ZeroBadgePosition] is top, it will `return 0`, otherwise it will `return null`
-  double? get top =>
-      this == ZeroBadgePosition.topLeft || this == ZeroBadgePosition.topRight
-          ? 0
-          : null;
+  double? get top => this == topLeft || this == topRight ? 0 : null;
 
   /// Calculation of the bottom position on the badge
   ///
   /// If [ZeroBadgePosition] is bottom, it will `return 0`, otherwise it will `return null`
-  double? get bottom => this == ZeroBadgePosition.bottomLeft ||
-          this == ZeroBadgePosition.bottomRight
-      ? 0
-      : null;
+  double? get bottom => this == bottomLeft || this == bottomRight ? 0 : null;
 
   /// Calculation of the left position on the badge
   ///
@@ -48,8 +42,7 @@ enum ZeroBadgePosition {
   /// Returns:
   ///   A double value.
   double? left({required double childSize, required ZeroBadgeType type}) {
-    if (this == ZeroBadgePosition.topLeft ||
-        this == ZeroBadgePosition.bottomLeft) {
+    if (this == topLeft || this == bottomLeft) {
       // Check if type is standard return [childSize]
       return type == ZeroBadgeType.standard ? childSize : 0;
     }
@@ -71,8 +64,7 @@ enum ZeroBadgePosition {
   /// Returns:
   ///   The return value is a double? (nullable double)
   double? right({required double childSize, required ZeroBadgeType type}) {
-    if (this == ZeroBadgePosition.topRight ||
-        this == ZeroBadgePosition.bottomRight) {
+    if (this == topRight || this == bottomRight) {
       // Check if type is standard return [childSize]
       return type == ZeroBadgeType.standard ? childSize : 0;
     }

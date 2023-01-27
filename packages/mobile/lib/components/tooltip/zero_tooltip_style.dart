@@ -23,19 +23,19 @@ enum ZeroTooltipVariant {
     ZeroTooltipPosition position = ZeroTooltipPosition.top,
   }) {
     switch (this) {
-      case ZeroTooltipVariant.rectangle:
+      case rectangle:
         return ZeroTooltipRectangleVariant(
           backgroundColor: backgroundColor,
           borderColor: borderColor,
           position: position,
         );
-      case ZeroTooltipVariant.rounded:
+      case rounded:
         return ZeroTooltipRoundedVariant(
           backgroundColor: backgroundColor,
           borderColor: borderColor,
           position: position,
         );
-      case ZeroTooltipVariant.custom:
+      case custom:
         return ZeroTooltipCustomVariant(
           backgroundColor: backgroundColor,
           borderColor: borderColor,

@@ -9,9 +9,9 @@ enum ZeroListTileSizeType {
   EdgeInsetsGeometry contentPadding() {
     // TODO: identify content padding base on Theme
     switch (this) {
-      case ZeroListTileSizeType.small:
+      case small:
         return const EdgeInsets.symmetric(vertical: 8, horizontal: 16);
-      case ZeroListTileSizeType.large:
+      case large:
         return const EdgeInsets.symmetric(vertical: 12, horizontal: 16);
     }
   }
@@ -20,9 +20,9 @@ enum ZeroListTileSizeType {
   double fontSize() {
     // TODO: identify font size base on Theme
     switch (this) {
-      case ZeroListTileSizeType.small:
+      case small:
         return 14;
-      case ZeroListTileSizeType.large:
+      case large:
         return 16;
     }
   }
