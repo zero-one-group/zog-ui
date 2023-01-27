@@ -7,10 +7,24 @@ import { AutoComplete } from '@zero-ui/core';
 <Meta
   title="Components/Forms/AutoComplete"
   component={[AutoComplete]}
-  argTypes={{}}
+  argTypes={{
+    options: {
+      control: { type: 'object' },
+    },
+  }}
 />
 
-export const AutoCompleteStory = () => <AutoComplete />;
+export const AutoCompleteStory = (args) => (
+  <AutoComplete
+    css={{
+      width: '200px',
+      px: '$2',
+      py: '$1',
+      fontSize: '12px',
+    }}
+    {...args}
+  />
+);
 
 # AutoComplete
 
@@ -23,7 +37,17 @@ import { AutoComplete } from '@zero-ui/core';
 ```
 
 <Canvas columns={2} withSource="close">
-  <Story name="AutoComplete">{AutoCompleteStory.bind()}</Story>
+  <Story
+    name="AutoComplete"
+    args={{
+      options: ['Angular', 'React', 'Vue', 'Svelte', 'Solid', 'Qwik'],
+      onValueChange: (value) => {
+        console.log(value);
+      },
+    }}
+  >
+    {AutoCompleteStory.bind()}
+  </Story>
 </Canvas>
 
 <ArgsTable of={AutoComplete} />
