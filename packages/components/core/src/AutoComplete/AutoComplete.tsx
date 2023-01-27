@@ -162,7 +162,7 @@ export const AutoComplete: AutoCompleteComponent = ({
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (typeof onValueChanges === 'function') {
+    if (typeof onValuesChange === 'function') {
       onValuesChange(event.target.value);
     }
 
@@ -211,8 +211,12 @@ export const AutoComplete: AutoCompleteComponent = ({
             <StyledListBoxItem
               role="listitem"
               key={`${option}-${idx}`}
-              onClick={(e) => handleItemClick(e, option)}
-              onMouseEnter={(e) => handleHovered(e, idx)}
+              onClick={(e: React.MouseEvent<HTMLDivElement>) =>
+                handleItemClick(e, option)
+              }
+              onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) =>
+                handleHovered(e, idx)
+              }
               hovered={idx === hovered}
             >
               {option}
