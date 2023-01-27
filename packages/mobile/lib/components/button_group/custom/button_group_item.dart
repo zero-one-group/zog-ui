@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/types/size_type.dart';
 
 class ButtonGroupItem extends StatelessWidget {
   final String label;

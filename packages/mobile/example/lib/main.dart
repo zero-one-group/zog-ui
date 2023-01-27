@@ -1,11 +1,6 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/components/textfield/zero_textfield.dart';
-import 'package:zero_ui_mobile/components/textfield/zero_textfield_multiline.dart';
-import 'package:zero_ui_mobile/types/textfield/input_decoration_type.dart';
-import 'package:zero_ui_mobile/position/tooltip_position.dart';
-import 'package:zero_ui_mobile/types/textfield/input_decoration_type.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 void main() {
@@ -172,12 +167,12 @@ class _MyAppState extends State<MyApp> {
                 type: ZeroTooltipType.dark,
                 position: ZeroTooltipPosition.bottom,
                 variant: ZeroTooltipVariant.rounded,
+                text: 'text',
                 child: Container(
                   height: 50,
                   width: 80,
                   color: Colors.red,
                 ),
-                text: 'text',
               ),
 
               // ZeroRating(

@@ -60,7 +60,11 @@ export './components/list/list_tile.dart';
 export './types/button_radius_type.dart';
 export './types/button_group_type.dart';
 export './types/textfield/size_type.dart';
+export './types/textfield/input_decoration_type.dart';
 export './types/badge_type.dart';
 export './types/size_type.dart';
 export './types/tooltip_type.dart';
 export './types/list_tile_size.dart';
+
+// positions
+export './position/tooltip_position.dart';

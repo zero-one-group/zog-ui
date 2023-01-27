@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
-import 'package:zero_ui_mobile/position/tooltip_position.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 WidgetbookComponent tooltipWidgetbookComponenet = WidgetbookComponent(
@@ -32,41 +31,6 @@ WidgetbookComponent tooltipWidgetbookComponenet = WidgetbookComponent(
     ),
   ],
 );
-
-List<Option<Color>> _colorOptions = [
-  const Option(
-    label: 'Sunrise Yellow 6',
-    value: ZeroColors.sunriseYellow6,
-  ),
-  const Option(
-    label: 'Neutral 6',
-    value: ZeroColors.neutral6,
-  ),
-  const Option(
-    label: 'Neutral 10',
-    value: ZeroColors.neutral10,
-  ),
-  const Option(
-    label: 'Sunrise Yellow 10',
-    value: ZeroColors.sunriseYellow10,
-  ),
-  const Option(
-    label: 'Primary 6',
-    value: ZeroColors.primary6,
-  ),
-  const Option(
-    label: 'Danger',
-    value: ZeroColors.danger,
-  ),
-  const Option(
-    label: 'Info',
-    value: ZeroColors.info,
-  ),
-  const Option(
-    label: 'Warning',
-    value: ZeroColors.warning,
-  ),
-];
 
 List<Option<ZeroTooltipType>> _types = [
   const Option(label: 'Dark', value: ZeroTooltipType.dark),

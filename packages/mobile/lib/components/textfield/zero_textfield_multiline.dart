@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/components/textfield/zero_textfield.dart';
-import 'package:zero_ui_mobile/types/textfield/input_decoration_type.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 /// Another variant of [ZeroTextField] which has multiline decoration enabled out of the box.
@@ -36,7 +34,7 @@ class ZeroTextFieldMultiline extends ZeroTextField {
             textAlignVertical: TextAlignVertical.top,
             keyboardType: TextInputType.multiline,
             textfieldSizeType: TextfieldSizeType.multiline,
-            textInputAction: TextInputAction.none,
+            textInputAction: TextInputAction.newline,
             decoration: decoration?.copyWith(
               contentPadding: textfieldSizeType.contentPadding,
             ));
