@@ -74,8 +74,7 @@ enum InputDecorationType {
       case underline:
         return const BorderRadius.all(Radius.zero);
       case fill:
-        return const BorderRadius.only(
-            topLeft: Radius.circular(8), topRight: Radius.circular(8));
+        return const BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8));
     }
   }
 
@@ -96,20 +95,16 @@ enum InputDecorationType {
     switch (this) {
       case outline:
         return OutlineInputBorder(
-            borderSide: BorderSide(color: borderColor, width: borderWidth),
-            borderRadius: borderRadius(sizeType));
+            borderSide: BorderSide(color: borderColor, width: borderWidth), borderRadius: borderRadius(sizeType));
       case round:
         return OutlineInputBorder(
-            borderSide: BorderSide(color: borderColor, width: borderWidth),
-            borderRadius: borderRadius(sizeType));
+            borderSide: BorderSide(color: borderColor, width: borderWidth), borderRadius: borderRadius(sizeType));
       case underline:
         return UnderlineInputBorder(
-            borderSide: BorderSide(color: borderColor, width: borderWidth),
-            borderRadius: borderRadius(sizeType));
+            borderSide: BorderSide(color: borderColor, width: borderWidth), borderRadius: borderRadius(sizeType));
       case fill:
         return UnderlineInputBorder(
-            borderSide: BorderSide(color: borderColor, width: borderWidth),
-            borderRadius: borderRadius(sizeType));
+            borderSide: BorderSide(color: borderColor, width: borderWidth), borderRadius: borderRadius(sizeType));
     }
   }
 
@@ -156,23 +151,16 @@ enum InputDecorationType {
     switch (this) {
       case outline:
         return OutlineInputBorder(
-            borderSide:
-                BorderSide(color: focusedBordeColor, width: borderWidth),
-            borderRadius: borderRadius(sizeType));
+            borderSide: BorderSide(color: focusedBordeColor, width: borderWidth), borderRadius: borderRadius(sizeType));
       case round:
         return OutlineInputBorder(
-            borderSide:
-                BorderSide(color: focusedBordeColor, width: borderWidth),
-            borderRadius: borderRadius(sizeType));
+            borderSide: BorderSide(color: focusedBordeColor, width: borderWidth), borderRadius: borderRadius(sizeType));
       case underline:
         return UnderlineInputBorder(
-            borderSide:
-                BorderSide(color: focusedBordeColor, width: borderWidth),
-            borderRadius: borderRadius(sizeType));
+            borderSide: BorderSide(color: focusedBordeColor, width: borderWidth), borderRadius: borderRadius(sizeType));
       case fill:
         return UnderlineInputBorder(
-            borderSide: BorderSide(color: focusedBordeColor, width: 1),
-            borderRadius: borderRadius(sizeType));
+            borderSide: BorderSide(color: focusedBordeColor, width: 1), borderRadius: borderRadius(sizeType));
     }
   }
 
@@ -180,24 +168,16 @@ enum InputDecorationType {
     switch (this) {
       case outline:
         return OutlineInputBorder(
-            borderSide:
-                BorderSide(color: ZeroColors.neutral5, width: borderWidth),
-            borderRadius: borderRadius(sizeType));
+            borderSide: BorderSide(color: ZeroColors.neutral5, width: borderWidth), borderRadius: borderRadius(sizeType));
       case round:
         return OutlineInputBorder(
-            borderSide:
-                BorderSide(color: ZeroColors.neutral5, width: borderWidth),
-            borderRadius: borderRadius(sizeType));
+            borderSide: BorderSide(color: ZeroColors.neutral5, width: borderWidth), borderRadius: borderRadius(sizeType));
       case underline:
         return UnderlineInputBorder(
-            borderSide:
-                BorderSide(color: ZeroColors.neutral5, width: borderWidth),
-            borderRadius: borderRadius(sizeType));
+            borderSide: BorderSide(color: ZeroColors.neutral5, width: borderWidth), borderRadius: borderRadius(sizeType));
       case fill:
         return UnderlineInputBorder(
-            borderSide:
-                BorderSide(color: ZeroColors.neutral7, width: borderWidth),
-            borderRadius: borderRadius(sizeType));
+            borderSide: BorderSide(color: ZeroColors.neutral7, width: borderWidth), borderRadius: borderRadius(sizeType));
     }
   }
 
@@ -205,20 +185,16 @@ enum InputDecorationType {
     switch (this) {
       case outline:
         return OutlineInputBorder(
-            borderSide: const BorderSide(color: ZeroColors.dustRed7, width: 0),
-            borderRadius: borderRadius(sizeType));
+            borderSide: const BorderSide(color: ZeroColors.dustRed7, width: 0), borderRadius: borderRadius(sizeType));
       case round:
         return OutlineInputBorder(
-            borderSide: const BorderSide(color: ZeroColors.dustRed7, width: 0),
-            borderRadius: borderRadius(sizeType));
+            borderSide: const BorderSide(color: ZeroColors.dustRed7, width: 0), borderRadius: borderRadius(sizeType));
       case underline:
         return UnderlineInputBorder(
-            borderSide: const BorderSide(color: ZeroColors.dustRed7, width: 0),
-            borderRadius: borderRadius(sizeType));
+            borderSide: const BorderSide(color: ZeroColors.dustRed7, width: 0), borderRadius: borderRadius(sizeType));
       case fill:
         return UnderlineInputBorder(
-            borderSide: const BorderSide(color: ZeroColors.dustRed7, width: 0),
-            borderRadius: borderRadius(sizeType));
+            borderSide: const BorderSide(color: ZeroColors.dustRed7, width: 0), borderRadius: borderRadius(sizeType));
     }
   }
 
@@ -237,8 +213,7 @@ enum InputDecorationType {
   }
 
   TextStyle floatingLabelStyle({required bool enabled, required bool error}) {
-    Color fontColor =
-        !enabled ? ZeroColors.neutral7 : floatingLabelColor(error);
+    Color fontColor = !enabled ? ZeroColors.neutral7 : floatingLabelColor(error);
 
     switch (this) {
       case outline:
