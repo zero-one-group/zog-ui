@@ -5,10 +5,7 @@ import 'widgetbook_component/badge.dart';
 import 'widgetbook_component/button.dart';
 import 'widgetbook_component/button_group.dart';
 import 'widgetbook_component/checkbox.dart';
-<<<<<<< HEAD
 import 'widgetbook_component/dropdown.dart';
-=======
->>>>>>> main
 import 'widgetbook_component/radio_group.dart';
 import 'widgetbook_component/rating.dart';
 import 'widgetbook_component/textfield.dart';
