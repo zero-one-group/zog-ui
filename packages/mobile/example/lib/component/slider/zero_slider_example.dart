@@ -20,58 +20,37 @@ class _ZeroSliderExampleState extends State<ZeroSliderExample> {
         title: const Text('Zero Slider Example'),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(height: 20),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: ZeroSlider(),
-                  ),
-                ],
-              ),
-              Tooltip(
-                message: 'data',
-                child: const Text('data'),
-              ),
-              const SizedBox(height: 20),
-              ZeroTooltip(
-                type: ZeroTooltipType.dark,
-                text: '90',
-                onCreated: (controller) {
-                  // controller(true);
-                },
-                showDuration: const Duration(seconds: 1),
-                position: ZeroTooltipPosition.top,
-                child: Container(
-                  width: 200,
-                  color: Colors.amber,
-                  child: const Text('data rusak sekali'),
-                ),
-                variant: ZeroTooltipVariant.rectangle,
-              ),
-              const SizedBox(height: 20),
-              RangeSlider(
-                min: 1,
-                max: 100,
-                values: RangeValues(10, 50),
-                onChanged: (val) {},
-              ),
-              Slider(
-                min: 1,
-                secondaryTrackValue: 50,
-                value: _value,
-                max: 100,
-                onChanged: (val) {
-                  setState(() {
-                    _value = val;
-                  });
-                },
-              ),
-            ],
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Tooltip(
+              message: 'Tooltip',
+              child: const Text('Tooltip'),
+            ),
+            // const SizedBox(height: 20),
+            const Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ZeroSlider(),
+            ),
+            const SizedBox(height: 20),
+            RangeSlider(
+              min: 1,
+              max: 100,
+              values: RangeValues(10, 50),
+              onChanged: (val) {},
+            ),
+            Slider(
+              min: 1,
+              secondaryTrackValue: 50,
+              value: _value,
+              max: 100,
+              onChanged: (val) {
+                setState(() {
+                  _value = val;
+                });
+              },
+            ),
+          ],
         ),
       ),
     );

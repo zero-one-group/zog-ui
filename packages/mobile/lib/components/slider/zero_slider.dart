@@ -66,7 +66,7 @@ class _ZeroSliderState extends State<ZeroSlider> {
             top: 0,
             left: _distance,
             child: ZeroTooltip(
-              backgaroundColor: Colors.amber.withOpacity(0.8),
+              backgroundColor: Colors.amber.withOpacity(0.8),
               variant: ZeroTooltipVariant.rounded,
               onCreated: (controller) {
                 _tooltipController = controller;
