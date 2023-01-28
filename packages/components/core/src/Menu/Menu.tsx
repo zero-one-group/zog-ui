@@ -1,36 +1,8 @@
 import { CaretDownOutlined } from '@ant-design/icons';
-import RadixMenu from '@radix-ui/react-navigation-menu';
+import * as RadixMenu from '@radix-ui/react-navigation-menu';
 import { ComponentProps, forwardRef } from 'react';
 import { keyframes, styled } from '../stitches.config';
 import { RemoveAsProps } from '../types';
-
-export type MenuChildItems = {
-  List?: RemoveAsProps<typeof StyledMenuList>;
-  Item?: typeof RadixMenu.Item;
-  Trigger?: RemoveAsProps<ComponentProps<typeof StyledMenuTrigger>>;
-  Link?: RemoveAsProps<ComponentProps<typeof StyledMenuLink>>;
-  Content?: RemoveAsProps<ComponentProps<typeof StyledMenuContent>>;
-  Indicator?: RemoveAsProps<ComponentProps<typeof StyledMenuIndicator>>;
-  Viewport?: RemoveAsProps<ComponentProps<typeof StyledMenuViewport>>;
-  ContentList?: RemoveAsProps<ComponentProps<typeof StyledMenuContentList>>;
-  ContentListItemHeading?: RemoveAsProps<
-    ComponentProps<typeof StyledMenuContentListItemHeading>
-  >;
-  ContentListItemText?: RemoveAsProps<
-    ComponentProps<typeof StyledMenuContentListItemText>
-  >;
-  Callout?: RemoveAsProps<ComponentProps<typeof StyledMenuCallout>>;
-  CalloutHeading?: RemoveAsProps<
-    ComponentProps<typeof StyledMenuCalloutHeading>
-  >;
-  CalloutText?: RemoveAsProps<ComponentProps<typeof StyledMenuCalloutText>>;
-  ViewportPosition?: RemoveAsProps<
-    ComponentProps<typeof StyledMenuViewportPosition>
-  >;
-  CaretDownIcon?: RemoveAsProps<ComponentProps<typeof StyledMenuCaretDownIcon>>;
-  Arrow?: RemoveAsProps<ComponentProps<typeof StyledMenuArrow>>;
-  ContentListItem?: typeof MenuContentListItem;
-};
 
 const enterFromRight = keyframes({
   from: { transform: 'translateX(200px)', opacity: 0 },
@@ -90,10 +62,12 @@ const StyledMenuList = styled(RadixMenu.List, {
   listStyle: 'none',
   boxShadow: '0 2px 10px $$shadowBlack',
   margin: 0,
+  fontFamily: '$untitled',
 });
 
 const StyledMenuTrigger = styled(RadixMenu.Trigger, {
   all: 'unset',
+  fontFamily: '$untitled',
   $$shadowViolet: '$colors$violet7',
   padding: '8px 12px',
   outline: 'none',
@@ -181,6 +155,10 @@ const StyledMenuContentList = styled('ul', {
   listStyle: 'none',
   variants: {
     layout: {
+      single: {
+        width: 500,
+        gridTemplateColumns: '1fr',
+      },
       one: {
         '@media only screen and (min-width: 600px)': {
           width: 500,
@@ -202,6 +180,7 @@ const StyledMenuContentList = styled('ul', {
 });
 
 const StyledMenuContentListItemLink = styled('a', {
+  fontFamily: '$untitled',
   $$shadowViolet: '$colors$violet7',
   display: 'block',
   outline: 'none',
@@ -224,41 +203,10 @@ const StyledMenuContentListItemHeading = styled('div', {
 
 const StyledMenuContentListItemText = styled('p', {
   all: 'unset',
+  fontFamily: '$untitled',
   color: '$mauve11',
   lineHeight: 1.4,
   fontWeight: 'initial',
-});
-
-const StyledMenuCallout = styled('a', {
-  $$shadowViolet: '$colors$violet7',
-  display: 'flex',
-  justifyContent: 'flex-end',
-  flexDirection: 'column',
-  width: '100%',
-  height: '100%',
-  background: 'linear-gradient(135deg, $purple9 0%, $indigo9 100%);',
-  borderRadius: 6,
-  padding: 25,
-  textDecoration: 'none',
-  outline: 'none',
-  userSelect: 'none',
-  '&:focus': { boxShadow: '0 0 0 2px $$shadowViolet' },
-});
-
-const StyledMenuCalloutHeading = styled('div', {
-  color: 'white',
-  fontSize: 18,
-  fontWeight: 500,
-  lineHeight: 1.2,
-  marginTop: 16,
-  marginBottom: 7,
-});
-
-const StyledMenuCalloutText = styled('p', {
-  all: 'unset',
-  color: '$mauve4',
-  fontSize: 14,
-  lineHeight: 1.3,
 });
 
 const StyledMenuViewportPosition = styled('div', {
@@ -308,32 +256,31 @@ const MenuContentListItem = forwardRef<
     <li>
       <StyledMenuLink asChild>
         <StyledMenuContentListItemLink {...props} ref={ref}>
-          {title}
+          <StyledMenuContentListItemHeading>
+            {title}
+          </StyledMenuContentListItemHeading>
+          <StyledMenuContentListItemText>
+            {children}
+          </StyledMenuContentListItemText>
         </StyledMenuContentListItemLink>
-        <StyledMenuContentListItemHeading>
-          {children}
-        </StyledMenuContentListItemHeading>
       </StyledMenuLink>
     </li>
   );
 });
 
-export const Menu: typeof MenuForwardRef & MenuChildItems = MenuForwardRef;
-
-Menu.List = StyledMenuList;
-Menu.Trigger = StyledMenuTrigger;
-Menu.Link = StyledMenuLink;
-Menu.Content = StyledMenuContent;
-Menu.Indicator = StyledMenuIndicator;
-Menu.Viewport = StyledMenuViewport;
-Menu.ContentList = StyledMenuContentList;
-Menu.ContentListItem = MenuContentListItem;
-Menu.ContentListItemHeading = StyledMenuContentListItemHeading;
-Menu.ContentListItemText = StyledMenuContentListItemText;
-Menu.Callout = StyledMenuCallout;
-Menu.CalloutHeading = StyledMenuCalloutHeading;
-Menu.CalloutText = StyledMenuCalloutText;
-Menu.ViewportPosition = StyledMenuViewportPosition;
-Menu.CaretDownIcon = StyledMenuCaretDownIcon;
-Menu.Arrow = StyledMenuArrow;
-Menu.Item = RadixMenu.Item;
+export const Menu = Object.assign(MenuForwardRef, {
+  List: StyledMenuList,
+  Trigger: StyledMenuTrigger,
+  Link: StyledMenuLink,
+  Content: StyledMenuContent,
+  Indicator: StyledMenuIndicator,
+  Viewport: StyledMenuViewport,
+  ContentList: StyledMenuContentList,
+  ContentListItem: MenuContentListItem,
+  ContentListItemHeading: StyledMenuContentListItemHeading,
+  ContentListItemText: StyledMenuContentListItemText,
+  ViewportPosition: StyledMenuViewportPosition,
+  CaretDownIcon: StyledMenuCaretDownIcon,
+  Arrow: StyledMenuArrow,
+  Item: RadixMenu.Item,
+});

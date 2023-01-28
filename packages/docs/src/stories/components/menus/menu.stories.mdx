@@ -1,25 +1,112 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
-import { BADGE } from '@geometricpanda/storybook-addon-badges';
-import { within, userEvent } from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
-import { Menu } from '@zero-ui/core';
+import { Menu, Grid } from '@zero-ui/core';
+import {
+  RightOutlined,
+  CheckOutlined,
+  BarsOutlined,
+  UserOutlined,
+  SettingOutlined,
+} from '@ant-design/icons';
+import { useState } from 'react';
 
 <Meta title="Components/Menus/Menu" component={[Menu]} argTypes={{}} />
 
-export const MenuStory = () => <Menu />;
-
 # Menu
 
-> WIP
+Used to display navigation menu to users. Usually used in header component.
 
 ## Example Usage
 
-```jsx
+```tsx
 import { Menu } from '@zero-ui/core';
 ```
 
 <Canvas columns={2} withSource="close">
-  <Story name="Menu">{MenuStory.bind()}</Story>
+  <Story name="Menu">
+    {() => {
+      return (
+        <Menu>
+          <Menu.List>
+            <Menu.Item>
+              <Menu.Trigger>
+                Overview <Menu.CaretDownIcon aria-hidden />
+              </Menu.Trigger>
+              <Menu.Content>
+                <Menu.ContentList layout="two">
+                  <Menu.ContentListItem
+                    title="Introduction"
+                    href="/docs/primitives/overview/introduction"
+                  >
+                    Build high-quality, accessible design systems and web apps.
+                  </Menu.ContentListItem>
+                  <Menu.ContentListItem
+                    title="Getting started"
+                    href="/docs/primitives/overview/getting-started"
+                  >
+                    A quick tutorial to get you up and running with Radix
+                    Primitives.
+                  </Menu.ContentListItem>
+                  <Menu.ContentListItem
+                    title="Styling"
+                    href="/docs/primitives/overview/styling"
+                  >
+                    Unstyled and compatible with any styling solution.
+                  </Menu.ContentListItem>
+                  <Menu.ContentListItem
+                    title="Animation"
+                    href="/docs/primitives/overview/animation"
+                  >
+                    Use CSS keyframes or any animation library of your choice.
+                  </Menu.ContentListItem>
+                  <Menu.ContentListItem
+                    title="Accessibility"
+                    href="/docs/primitives/overview/accessibility"
+                  >
+                    Tested in a range of browsers and assistive technologies.
+                  </Menu.ContentListItem>
+                  <Menu.ContentListItem
+                    title="Releases"
+                    href="/docs/primitives/overview/releases"
+                  >
+                    Radix Primitives releases and their changelogs.
+                  </Menu.ContentListItem>
+                </Menu.ContentList>
+              </Menu.Content>
+            </Menu.Item>
+            <Menu.Item>
+              <Menu.Trigger>
+                Services <Menu.CaretDownIcon aria-hidden />
+              </Menu.Trigger>
+              <Menu.Content>
+                <Menu.ContentList layout="single">
+                  <Menu.ContentListItem
+                    title="Introduction"
+                    href="/docs/primitives/overview/introduction"
+                  >
+                    Build high-quality, accessible design systems and web apps.
+                  </Menu.ContentListItem>
+                  <Menu.ContentListItem
+                    title="Getting started"
+                    href="/docs/primitives/overview/getting-started"
+                  >
+                    A quick tutorial to get you up and running with Radix
+                    Primitives.
+                  </Menu.ContentListItem>
+                </Menu.ContentList>
+              </Menu.Content>
+            </Menu.Item>
+            <Menu.Item>
+              <Menu.Link href="https://github.com/radix-ui">Github</Menu.Link>
+            </Menu.Item>
+            <Menu.Indicator>
+              <Menu.Arrow />
+            </Menu.Indicator>
+          </Menu.List>
+          <Menu.ViewportPosition>
+            <Menu.Viewport />
+          </Menu.ViewportPosition>
+        </Menu>
+      );
+    }}
+  </Story>
 </Canvas>
-
-<ArgsTable of={Menu} />
