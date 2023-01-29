@@ -137,6 +137,14 @@ export const Button = styled('button', {
   },
   compoundVariants: [
     {
+      size: 'md',
+      variant: 'circle',
+      css: {
+        padding: '19px 15px',
+        height: '$5',
+      },
+    },
+    {
       colorScheme: 'danger',
       variant: 'outlined',
       css: {
