@@ -1,0 +1,43 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { BADGE } from '@geometricpanda/storybook-addon-badges';
+import { within, userEvent } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
+import { StepItemDot } from '@zero-ui/core';
+import { MinusCircleFilled } from '@ant-design/icons';
+
+<Meta
+  title="Components/Navigation/StepItem"
+  component={[StepItemDot]}
+  argTypes={{}}
+/>
+
+export const StepItemDotStory = (args) => <StepItemDot {...args} />;
+
+# StepItemDot
+
+StepItemDot
+
+## Example Usage
+
+```tsx
+import { StepItemDot } from '@zero-ui/core';
+```
+
+<Canvas columns={2} withSource="close">
+  <Story
+    args={{
+      orientation: 'vertical',
+      label: 'Finished',
+      description: 'This is a description.',
+      state: 'stepCompleted',
+      step: 1,
+      size: 'sm',
+      icon: <MinusCircleFilled size={5} />,
+    }}
+    name="StepItemDot"
+  >
+    {StepItemDotStory.bind()}
+  </Story>
+</Canvas>
+
+<ArgsTable of={StepItemDot} />
