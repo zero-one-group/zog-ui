@@ -189,7 +189,7 @@ export const AutoComplete: AutoCompleteComponent = ({
     event: React.MouseEvent<HTMLDivElement>,
     value: AutoCompleteItem
   ) => {
-    setValue(_value);
+    setValue(value);
     setListBoxOpened(false);
   };
 
