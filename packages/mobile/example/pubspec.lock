@@ -61,7 +61,8 @@ packages:
     dependency: transitive
     description:
       name: dropdown_button2
-      url: "https://pub.dartlang.org"
+      sha256: "580bfe26a91e822a95d96e227ac02c1e14a7d5eea32501d0fbc6fe8d5c5606e5"
+      url: "https://pub.dev"
     source: hosted
     version: "1.9.2"
   fake_async:
@@ -317,4 +318,4 @@ packages:
     version: "0.0.1"
 sdks:
   dart: ">=2.18.1 <4.0.0"
-  flutter: ">=2.11.0-0.1.pre"
+  flutter: ">=3.0.0"

@@ -1,10 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 import 'package:zero_ui_mobile_example/component/button/zero_button_example.dart';
 import 'package:zero_ui_mobile_example/component/rating/zero_rating_example.dart';
-import 'package:zero_ui_mobile_example/component/slider/overlay.dart';
+import 'package:zero_ui_mobile_example/component/tooltip/zero_tooltip_example.dart';
 
 import 'component/slider/zero_slider_example.dart';
 import 'component/textfield/zero_textfield_example.dart';
@@ -92,11 +90,11 @@ class Examples extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const OverlayApp(),
+                  builder: (context) => const ZeroTooltipExample(),
                 ),
               );
             },
-            text: 'Zero Slider Example',
+            text: 'Zero Tooltip Example',
           ),
         ],
       ),

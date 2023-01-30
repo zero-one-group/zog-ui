@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/components/tooltip/zero_tooltip_style.dart';
-import 'package:zero_ui_mobile/position/tooltip_position.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 class ZeroSliderExample extends StatefulWidget {
@@ -11,7 +9,9 @@ class ZeroSliderExample extends StatefulWidget {
 }
 
 class _ZeroSliderExampleState extends State<ZeroSliderExample> {
-  double _value = 1;
+  double _value = 10;
+
+  RangeValues _rangeValues = const RangeValues(10, 30);
 
   @override
   Widget build(BuildContext context) {
@@ -21,25 +21,49 @@ class _ZeroSliderExampleState extends State<ZeroSliderExample> {
       ),
       body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Tooltip(
-              message: 'Tooltip',
-              child: const Text('Tooltip'),
+            SizedBox(
+              width: 200,
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: ZeroSlider(
+                  activeColor: Colors.black,
+                  tickInterval: 25,
+                  tickBehavior: true,
+                  initialValue: 50,
+                  size: ZeroSliderSize.large,
+                  isDisabled: true,
+                ),
+              ),
             ),
-            // const SizedBox(height: 20),
-            const Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ZeroSlider(),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ZeroRangeSlider(
+                initialvalues: const ZeroRangeValues(40, 55),
+                tickInterval: 10,
+                tickBehavior: true,
+                showTicks: false,
+                size: ZeroSliderSize.large,
+                isDisabled: true,
+              ),
             ),
             const SizedBox(height: 20),
             RangeSlider(
               min: 1,
               max: 100,
-              values: RangeValues(10, 50),
-              onChanged: (val) {},
+              values: _rangeValues,
+              onChanged: (val) {
+                setState(() {
+                  _rangeValues = val;
+                });
+              },
             ),
             Slider(
+              activeColor: Colors.amber,
+              thumbColor: Colors.black,
               min: 1,
               secondaryTrackValue: 50,
               value: _value,

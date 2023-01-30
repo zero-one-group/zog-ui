@@ -8,7 +8,6 @@ export './styles/typography.dart';
 export './assets/assets.dart';
 
 // components
-
 // button
 export './components/button/zero_button.dart';
 export './components/button/zero_button_style.dart';
@@ -41,8 +40,11 @@ export './components/radio_group/zero_radio_group.dart';
 export './components/textfield/zero_textfield.dart';
 export './components/textfield/zero_textfield_multiline.dart';
 
-// tooltip
+// slider
 export './components/slider/zero_slider.dart';
+export './components/slider/zero_range_slider.dart';
+
+// tooltip
 export './components/tooltip/zero_tooltip.dart';
 export './components/tooltip/zero_tooltip_style.dart';
 
@@ -64,3 +66,9 @@ export './types/list_tile_size.dart';
 
 // positions
 export './position/tooltip_position.dart';
+
+// model
+export './model/zero_range_values.dart';
+
+// size
+export './size/zero_slider_size.dart';
