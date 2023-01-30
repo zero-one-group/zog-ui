@@ -38,12 +38,18 @@ import { AutoComplete } from '@zero-ui/core';
 
 <Canvas columns={2} withSource="close">
   <Story
-    name="AutoComplete"
+    name="Uncontrolled"
     args={{
       options: ['Angular', 'React', 'Vue', 'Svelte', 'Solid', 'Qwik'],
-      onValueChange: (value) => {
-        console.log(value);
-      },
+    }}
+  >
+    {AutoCompleteStory.bind()}
+  </Story>
+  <Story
+    name="Controlled"
+    args={{
+      options: ['Angular', 'React', 'Vue', 'Svelte', 'Solid', 'Qwik'],
+      value: '',
     }}
   >
     {AutoCompleteStory.bind()}

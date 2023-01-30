@@ -57,18 +57,18 @@ export type AutoCompleteItem = string;
 
 export interface AutoCompleteProps
   extends ComponentProps<typeof StyledAutoComplete> {
-  options: AutoCompleteItem[];
-  onValuesChange?: (value: AutoCompleteItem) => void;
+  options?: AutoCompleteItem[];
 }
 
 export type AutoCompleteComponent = (props: AutoCompleteProps) => ReactElement;
 
 export const AutoComplete: AutoCompleteComponent = ({
+  value,
   options,
   onFocus,
   onClick,
   onKeyDown,
-  onValuesChange,
+  onChange,
   ...props
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -76,13 +76,21 @@ export const AutoComplete: AutoCompleteComponent = ({
 
   const [listBoxOpened, setListBoxOpened] = useState<boolean>(false);
   const [hovered, setHovered] = useState<number>(-1);
-  const [value, setValue] = useState<string>('');
+  const [_value, setValue] = useState<string>(value ? (value as string) : '');
 
-  const filteredData = options.filter((option) =>
-    option.toLowerCase().trim().includes(value.toLowerCase().trim())
-  );
+  const filteredData = options
+    ? options.filter((option) =>
+        option.toLowerCase().trim().includes(_value.toLowerCase().trim())
+      )
+    : [];
 
   const shouldListBoxOpened = listBoxOpened && filteredData.length > 0;
+
+  useEffect(() => {
+    if (typeof value === 'string') {
+      setValue(value);
+    }
+  }, [value]);
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
@@ -112,25 +120,21 @@ export const AutoComplete: AutoCompleteComponent = ({
   };
 
   const handleInputFocus = (event: React.FocusEvent<HTMLInputElement>) => {
-    if (typeof onFocus === 'function') {
-      onFocus(event);
-    }
+    typeof onFocus === 'function' && onFocus(event);
+
     setListBoxOpened(true);
   };
 
   const handleInputClick = (
     event: React.MouseEvent<HTMLInputElement, MouseEvent>
   ) => {
-    if (typeof onClick === 'function') {
-      onClick(event);
-    }
+    typeof onClick === 'function' && onClick(event);
+
     setListBoxOpened(true);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (typeof onKeyDown === 'function') {
-      onKeyDown(event);
-    }
+    typeof onKeyDown === 'function' && onKeyDown(event);
 
     switch (event.key) {
       case 'ArrowUp': {
@@ -162,16 +166,16 @@ export const AutoComplete: AutoCompleteComponent = ({
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (typeof onValuesChange === 'function') {
-      onValuesChange(event.target.value);
-    }
-
     if (!shouldListBoxOpened) {
       setListBoxOpened(true);
     }
 
-    setValue(event.target.value);
-    setHovered(-1);
+    if (typeof value === 'string') {
+      typeof onChange === 'function' && onChange(event);
+    } else {
+      setValue(event.target.value);
+      setHovered(-1);
+    }
   };
 
   const handleHovered = (
@@ -185,7 +189,7 @@ export const AutoComplete: AutoCompleteComponent = ({
     event: React.MouseEvent<HTMLDivElement>,
     value: AutoCompleteItem
   ) => {
-    setValue(value);
+    setValue(_value);
     setListBoxOpened(false);
   };
 
@@ -196,7 +200,7 @@ export const AutoComplete: AutoCompleteComponent = ({
         type="text"
         autoComplete="off"
         autoCorrect="off"
-        value={value}
+        value={_value}
         onChange={handleChange}
         onFocus={handleInputFocus}
         onClick={handleInputClick}
