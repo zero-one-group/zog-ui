@@ -1,7 +1,8 @@
 library zero_ui_mobile;
 
-// colors
+// styles
 export './colors/zero_colors.dart';
+export './styles/typography.dart';
 
 // assets
 export './assets/assets.dart';
@@ -55,6 +56,9 @@ export './components/badge/options.dart';
 
 // list
 export './components/list/list_tile.dart';
+
+// text
+export './components/text/zero_text.dart';
 
 // types
 export './types/button_radius_type.dart';
