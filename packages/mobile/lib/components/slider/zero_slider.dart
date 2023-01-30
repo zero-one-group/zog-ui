@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../colors/zero_colors.dart';
-import '../../size/zero_slider_size.dart';
-import '../tooltip/zero_tooltip.dart';
-import '../tooltip/zero_tooltip_style.dart';
+import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 /// A slider component that allows users to select a value from a range of values.
 /// [ZeroSlider] is a stateful widget that requires a [State] object to function.
@@ -66,7 +62,7 @@ class ZeroSlider extends StatefulWidget {
 
   ZeroSlider({
     super.key,
-    this.activeColor = ZeroColors.primary6,
+    this.activeColor = ZeroColors.primary,
     Color? inactiveColor,
     Color? thumbColor,
     this.tickBehavior = false,
@@ -78,7 +74,7 @@ class ZeroSlider extends StatefulWidget {
     this.isDisabled = false,
   })  : thumbColor = thumbColor ?? activeColor,
         inactiveColor = inactiveColor ?? activeColor.withOpacity(0.3),
-        tickColor = ZeroColors.neutral8,
+        tickColor = ZeroColors.neutral[8],
         assert(tickInterval % 5 == 0),
         assert(100 % tickInterval == 0),
         assert(initialValue >= 0 && initialValue <= 100);
@@ -107,9 +103,13 @@ class _ZeroSliderState extends State<ZeroSlider> {
     /// the nearest tick interval is calculated by the percentage of the distance from the left side of the slider
     /// to the maximum width of the slider widget
     if (widget.tickBehavior) {
-      final percentage = (details.localPosition.dx - _horizontalMargin) / (_widgetKey.currentContext?.size?.width ?? 0) * 100;
-      final nearestTick = (percentage / widget.tickInterval).round() * widget.tickInterval;
-      newDistance = nearestTick / 100 * (_widgetKey.currentContext?.size?.width ?? 0);
+      final percentage = (details.localPosition.dx - _horizontalMargin) /
+          (_widgetKey.currentContext?.size?.width ?? 0) *
+          100;
+      final nearestTick =
+          (percentage / widget.tickInterval).round() * widget.tickInterval;
+      newDistance =
+          nearestTick / 100 * (_widgetKey.currentContext?.size?.width ?? 0);
     }
 
     /// make sure the distance is not less then 0
@@ -123,7 +123,9 @@ class _ZeroSliderState extends State<ZeroSlider> {
 
     setState(() {
       _distance = newDistance;
-      _percentage = (_distance ?? 0) / (_widgetKey.currentContext?.size?.width ?? 0) * 100;
+      _percentage = (_distance ?? 0) /
+          (_widgetKey.currentContext?.size?.width ?? 0) *
+          100;
     });
   }
 
@@ -173,12 +175,15 @@ class _ZeroSliderState extends State<ZeroSlider> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Padding(
-          padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: _horizontalMargin),
+          padding: EdgeInsets.symmetric(
+              vertical: 16.0, horizontal: _horizontalMargin),
           child: Container(
             key: _widgetKey,
             width: constraints.maxWidth,
             height: widget.size.lineWidth,
-            color: widget.isDisabled ? ZeroColors.neutral4 : widget.inactiveColor,
+            color: widget.isDisabled
+                ? ZeroColors.neutral[4]
+                : widget.inactiveColor,
           ),
         );
       },
@@ -186,13 +191,15 @@ class _ZeroSliderState extends State<ZeroSlider> {
   }
 
   Widget _activeLine(double maxWidth) {
-    double distance = _distance == null ? (widget.initialValue / 100 * maxWidth) : _distance!;
+    double distance =
+        _distance == null ? (widget.initialValue / 100 * maxWidth) : _distance!;
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: _horizontalMargin),
+      padding:
+          EdgeInsets.symmetric(vertical: 16.0, horizontal: _horizontalMargin),
       child: Container(
         width: distance,
         height: widget.size.lineWidth,
-        color: widget.isDisabled ? ZeroColors.neutral6 : widget.activeColor,
+        color: widget.isDisabled ? ZeroColors.neutral : widget.activeColor,
       ),
     );
   }
@@ -207,7 +214,9 @@ class _ZeroSliderState extends State<ZeroSlider> {
           for (int i = 0; i < 100; i += widget.tickInterval)
             Container(
               margin: EdgeInsets.only(
-                left: (maxWidth - _horizontalMargin * 2) / (100 / widget.tickInterval) - widget.size.lineWidth,
+                left: (maxWidth - _horizontalMargin * 2) /
+                        (100 / widget.tickInterval) -
+                    widget.size.lineWidth,
               ),
               height: widget.size.lineWidth,
               width: widget.size.lineWidth,
@@ -222,12 +231,13 @@ class _ZeroSliderState extends State<ZeroSlider> {
   }
 
   Widget _thumb(double maxWidth) {
-    final double distance = _distance == null ? (widget.initialValue / 100 * maxWidth) : _distance!;
+    final double distance =
+        _distance == null ? (widget.initialValue / 100 * maxWidth) : _distance!;
     return Positioned(
       left: distance - widget.size.lineWidth,
       child: ZeroTooltip(
         backgroundColor: widget.activeColor,
-        borderColor: ZeroColors.neutral1.withOpacity(0.2),
+        borderColor: ZeroColors.neutral[1].withOpacity(0.2),
         variant: widget.tooltipVariant,
         onCreated: (controller) {
           _tooltipController = controller;
@@ -235,7 +245,9 @@ class _ZeroSliderState extends State<ZeroSlider> {
         text: _percentage.toStringAsFixed(0),
         child: InkWell(
           borderRadius: BorderRadius.circular(20),
-          highlightColor: widget.isDisabled ? ZeroColors.neutral7.withOpacity(0.3) : widget.thumbColor.withOpacity(0.2),
+          highlightColor: widget.isDisabled
+              ? ZeroColors.neutral[7].withOpacity(0.3)
+              : widget.thumbColor.withOpacity(0.2),
           splashColor: Colors.transparent,
           onTap: () {
             // do nothing
@@ -246,7 +258,8 @@ class _ZeroSliderState extends State<ZeroSlider> {
             width: widget.size.thumbSize,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: widget.isDisabled ? ZeroColors.neutral7 : widget.thumbColor,
+              color:
+                  widget.isDisabled ? ZeroColors.neutral[7] : widget.thumbColor,
             ),
           ),
         ),

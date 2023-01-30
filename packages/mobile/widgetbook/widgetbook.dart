@@ -12,8 +12,8 @@ import 'widgetbook_component/dropdown.dart';
 import 'widgetbook_component/list_tile.dart';
 import 'widgetbook_component/radio_group.dart';
 import 'widgetbook_component/rating.dart';
-import 'widgetbook_component/text.dart';
 import 'widgetbook_component/slider.dart';
+import 'widgetbook_component/text.dart';
 import 'widgetbook_component/textfield.dart';
 import 'widgetbook_component/tooltip.dart';
 
@@ -34,7 +34,7 @@ class HotReload extends StatelessWidget {
         WidgetbookCategory(
           name: 'Component',
           folders: [
-            WidgetbookFolder(name: 'Input', widgets: [
+            WidgetbookFolder(name: 'Form', widgets: [
               textFieldWidgetbookComponent,
               radioGroupWidgetbookComponent,
               dropdownWidgetbookComponent,
