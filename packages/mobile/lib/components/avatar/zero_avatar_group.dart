@@ -77,7 +77,7 @@ class _MoreAvatar extends StatelessWidget {
           Padding(
             padding:
                 EdgeInsets.symmetric(horizontal: AvatarSize.m.avatarRadius / 3),
-            child: Text('+300',
+            child: Text('+$moreNumber',
                 maxLines: 1,
                 textAlign: TextAlign.center,
                 style: TextStyle(
