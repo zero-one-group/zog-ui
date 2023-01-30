@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/colors/zero_colors.dart';
-import 'package:zero_ui_mobile/components/avatar/zero_avatar.dart';
-import 'package:zero_ui_mobile/types/avatar_size.dart';
-import 'package:zero_ui_mobile/extensions/num_extensions.dart';
+import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 /// The overlapping distance between icons
 const double overlappingWidth = 10.0;
@@ -66,7 +63,7 @@ class _MoreAvatar extends StatelessWidget {
       height: AvatarSize.m.avatarDiameter,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AvatarSize.m.avatarRadius),
-          color: ZeroColors.neutral6 // TODO: Make coloring according to theme
+          color: ZeroColors.neutral // TODO: Make coloring according to theme
           ),
       constraints: BoxConstraints(
         minWidth: AvatarSize.m.avatarDiameter,

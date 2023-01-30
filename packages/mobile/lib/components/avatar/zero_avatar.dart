@@ -1,9 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/colors/zero_colors.dart';
-import 'package:zero_ui_mobile/components/avatar/zero_avatar_group.dart';
-import 'package:zero_ui_mobile/types/avatar_size.dart';
+import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 enum SourceType {
   url,

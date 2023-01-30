@@ -1,7 +1,7 @@
 import 'package:widgetbook/widgetbook.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
-WidgetbookComponent radioGroupWidgetbookComponenet = WidgetbookComponent(
+WidgetbookComponent radioGroupWidgetbookComponent = WidgetbookComponent(
   name: 'Radio Group',
   useCases: [
     WidgetbookUseCase(

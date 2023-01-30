@@ -248,9 +248,9 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
           ? const SizedBox.shrink()
           : null, // If suffixIcon provided, then hide the default icon
       dropdownPadding: EdgeInsets.zero,
-      buttonHighlightColor: ZeroColors.primary1,
-      itemHighlightColor: ZeroColors.primary1,
-      selectedItemHighlightColor: ZeroColors.primary7,
+      buttonHighlightColor: ZeroColors.primary[1],
+      itemHighlightColor: ZeroColors.primary[1],
+      selectedItemHighlightColor: ZeroColors.primary[7],
       buttonHeight: widget.itemHeight,
       items: widget.items.map((item) {
         return DropdownMenuItem<T>(
@@ -342,7 +342,7 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
 
     return decoration?.copyWith(
         filled: widget.selectedItemsStyle.isDropdownFilled,
-        fillColor: ZeroColors.primary1);
+        fillColor: ZeroColors.primary[1]);
   }
 
   void _updateSelectedItems(
@@ -383,7 +383,7 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
-                          color: ZeroColors.primary1, // TODO: make themeable
+                          color: ZeroColors.primary[1], // TODO: make themeable
                           borderRadius: BorderRadius.circular(
                               widget.textfieldSizeType.roundedRadius)),
                       child: Text(
@@ -442,7 +442,7 @@ class _MenuItem<T> extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       color: isSelected
-          ? ZeroColors.primary1
+          ? ZeroColors.primary[1]
           : Colors.white, // TODO: Make more theme-able
       height: double.infinity,
       child: Row(

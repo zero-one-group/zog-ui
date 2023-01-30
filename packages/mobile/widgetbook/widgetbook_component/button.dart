@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
-WidgetbookComponent buttonWidgetbookComponenet = WidgetbookComponent(
+WidgetbookComponent buttonWidgetbookComponent = WidgetbookComponent(
   name: 'Button',
   useCases: [
     WidgetbookUseCase(

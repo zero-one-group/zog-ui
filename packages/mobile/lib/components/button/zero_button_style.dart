@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../colors/zero_colors.dart';
-import '../../types/button_radius_type.dart';
-import '../../types/size_type.dart';
+import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 /// [_ZeroButtonStyle] is the class that will be used to style [ZeroButton], [ZeroButtonRightIcon], [ZeroButtonLeftIcon], [ZeroButtonRightLeftIcon], [ZeroButtonIcon]
 class ZeroButtonStyle {
@@ -105,18 +102,19 @@ class ZeroButtonStyle {
     Color? animatingColor,
   }) {
     return ZeroButtonStyle(
-      backgroundColor: backgroundColor ?? ZeroColors.primary6,
-      foregroundColor: foregroundColor ?? ZeroColors.primary8,
+      backgroundColor: backgroundColor ?? ZeroColors.primary,
+      foregroundColor: foregroundColor ?? ZeroColors.primary[8],
       disabledBackgroundColor: disabledBackgroundColor,
       disabledForegroundColor: disabledForegroundColor,
       shadowColor: shadowColor,
-      surfaceTintColor: surfaceTintColor ?? ZeroColors.primary3,
+      surfaceTintColor: surfaceTintColor ?? ZeroColors.primary[3],
       elevation: elevation ?? 0,
       textStyle: textStyle,
       padding: padding ?? buttonSizeType?.padding,
       shape: shape ??
           RoundedRectangleBorder(
-            borderRadius: buttonRadiusSize(buttonRadiusType ?? ZeroButtonRadiusType.rectangle),
+            borderRadius: buttonRadiusSize(
+                buttonRadiusType ?? ZeroButtonRadiusType.rectangle),
           ),
       visualDensity: visualDensity,
       tapTargetSize: tapTargetSize,
@@ -124,7 +122,7 @@ class ZeroButtonStyle {
       enableFeedback: enableFeedback,
       alignment: alignment,
       splashFactory: splashFactory,
-      animatingColor: animatingColor ?? ZeroColors.primary3,
+      animatingColor: animatingColor ?? ZeroColors.primary[3],
     );
   }
 
@@ -156,18 +154,19 @@ class ZeroButtonStyle {
   }) {
     return ZeroButtonStyle(
       backgroundColor: backgroundColor ?? ZeroColors.white,
-      foregroundColor: foregroundColor ?? ZeroColors.neutral10,
+      foregroundColor: foregroundColor ?? ZeroColors.neutral[10],
       disabledBackgroundColor: disabledBackgroundColor,
       disabledForegroundColor: disabledForegroundColor,
       shadowColor: shadowColor,
-      surfaceTintColor: surfaceTintColor ?? ZeroColors.primary3,
+      surfaceTintColor: surfaceTintColor ?? ZeroColors.primary[3],
       elevation: elevation ?? 0,
       textStyle: textStyle,
       padding: padding ?? buttonSizeType?.padding,
       shape: shape ??
           RoundedRectangleBorder(
-            borderRadius: buttonRadiusSize(buttonRadiusType ?? ZeroButtonRadiusType.rectangle),
-            side: const BorderSide(color: ZeroColors.neutral5, width: 1),
+            borderRadius: buttonRadiusSize(
+                buttonRadiusType ?? ZeroButtonRadiusType.rectangle),
+            side: BorderSide(color: ZeroColors.neutral[5], width: 1),
           ),
       visualDensity: visualDensity,
       tapTargetSize: tapTargetSize,
@@ -175,7 +174,7 @@ class ZeroButtonStyle {
       enableFeedback: enableFeedback,
       alignment: alignment,
       splashFactory: splashFactory,
-      animatingColor: animatingColor ?? ZeroColors.primary3,
+      animatingColor: animatingColor ?? ZeroColors.primary[3],
     );
   }
 
@@ -186,8 +185,10 @@ class ZeroButtonStyle {
     return ZeroButtonStyle(
       foregroundColor: foregroundColor ?? other.foregroundColor,
       backgroundColor: backgroundColor ?? other.backgroundColor,
-      disabledForegroundColor: disabledForegroundColor ?? other.disabledForegroundColor,
-      disabledBackgroundColor: disabledBackgroundColor ?? other.disabledBackgroundColor,
+      disabledForegroundColor:
+          disabledForegroundColor ?? other.disabledForegroundColor,
+      disabledBackgroundColor:
+          disabledBackgroundColor ?? other.disabledBackgroundColor,
       shadowColor: shadowColor ?? other.shadowColor,
       surfaceTintColor: surfaceTintColor ?? other.surfaceTintColor,
       elevation: elevation ?? other.elevation,

@@ -1,7 +1,7 @@
 import 'package:widgetbook/widgetbook.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
-WidgetbookComponent checkboxWidgetbookComponenet = WidgetbookComponent(
+WidgetbookComponent checkboxWidgetbookComponent = WidgetbookComponent(
   name: 'Checkbox',
   useCases: [
     WidgetbookUseCase(

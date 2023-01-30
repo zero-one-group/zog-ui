@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/colors/zero_colors.dart';
+import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 /// The typography applied to a [ZeroThemeData].
 ///
@@ -235,6 +235,20 @@ class ZeroTypography with Diagnosticable {
         fontSizeFactor: fontSizeFactor,
         fontSizeDelta: fontSizeDelta,
       ),
+    );
+  }
+
+  TextTheme toTextTheme() {
+    return TextTheme(
+      bodyText1: body1,
+      bodyText2: body2,
+      subtitle1: subtitle1,
+      subtitle2: subtitle2,
+      button: button,
+      caption: caption,
+      overline: overline,
+      headline5: heading5,
+      headline6: heading6,
     );
   }
 

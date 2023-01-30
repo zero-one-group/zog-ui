@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/colors/zero_colors.dart';
-import 'package:zero_ui_mobile/types/list_tile_size.dart';
+import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 import 'list_tile_left_icon.dart';
 import 'list_tile_right_icon.dart';
-import 'list_tile_style.dart';
 
 class ZeroListTile extends StatelessWidget {
   const ZeroListTile({
@@ -58,28 +56,42 @@ class ZeroListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Get perferences style from params and combine with global themes
-    // TODO: get fallback style base on theme
-    final selectedColor = style?.selectedColor ?? ZeroColors.primary1;
-    final backgroundColor = selected ? selectedColor : style?.backgroundColor;
-    final dividerColor = style?.dividerColor ?? ZeroColors.neutral5;
+    final theme = context.theme;
+    final listTileStyle = context.theme.listTileStyle.merge(style);
+    final fallbackStyle = ZeroListTileStyle.fallback();
+    final selectedColor =
+        listTileStyle.selectedColor ?? theme.primaryColor.lightest;
+    final backgroundColor =
+        selected ? selectedColor : listTileStyle.backgroundColor;
+    final dividerColor = listTileStyle.dividerColor ?? theme.dividerColor;
 
-    // TODO: get disabled color from theme ZeroTheme
-    const disabledColor = ZeroColors.neutral7;
+    final isSmall = size == ZeroListTileSizeType.small;
 
-    final titleStyle = style?.titleTextStyle ??
-        TextStyle(
-          fontSize: size.fontSize(),
-          color: disabled ? disabledColor : ZeroColors.neutral10,
-        );
+    // title text style with merge from fallback style
+    final titleStyle = (isSmall
+                ? fallbackStyle.smallTitleTextStyle
+                    ?.merge(listTileStyle.smallTitleTextStyle)
+                : fallbackStyle.titleTextStyle
+                    ?.merge(listTileStyle.titleTextStyle))
+            ?.copyWith(
+          color: disabled ? theme.disabledColor : null,
+        ) ??
+        const TextStyle();
 
-    final subtitleStyle = style?.subTitleTextStyle ??
-        TextStyle(
-          fontSize: size.fontSize() - 2,
-          color: disabled
-              ? disabledColor.withOpacity(0.8)
-              : Colors.black.withOpacity(0.6),
-        );
+    // Subtitle text style with merge from fallback style
+    final subTitleStyle = (isSmall
+                ? fallbackStyle.smallSubTitleTextStyle
+                    ?.merge(listTileStyle.smallSubTitleTextStyle)
+                : fallbackStyle.subTitleTextStyle
+                    ?.merge(listTileStyle.subTitleTextStyle))
+            ?.copyWith(
+          color: disabled ? theme.disabledColor.withOpacity(0.8) : null,
+        ) ??
+        const TextStyle();
+
+    final contentPadding = isSmall
+        ? listTileStyle.smallContentPadding
+        : listTileStyle.contentPadding;
 
     return InkWell(
       onTap: disabled ? null : onTap,
@@ -91,7 +103,7 @@ class ZeroListTile extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Padding(
-                padding: size.contentPadding(),
+                padding: contentPadding ?? EdgeInsets.zero,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -107,7 +119,7 @@ class ZeroListTile extends StatelessWidget {
                           ),
                           if (subtitle != null)
                             DefaultTextStyle(
-                              style: subtitleStyle,
+                              style: subTitleStyle,
                               child: Text(subtitle ?? ''),
                             ),
                         ],

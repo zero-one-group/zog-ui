@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
-import 'package:zero_ui_mobile/components/avatar/zero_avatar.dart';
-import 'package:zero_ui_mobile/components/avatar/zero_avatar_group.dart';
-import 'package:zero_ui_mobile/types/avatar_size.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 const String sampleUrl1 = 'https://shorturl.at/bgKVW';
@@ -95,9 +92,9 @@ WidgetbookComponent avatarWidgetbookComponent = WidgetbookComponent(
                 .nullableBoolean(label: 'With Badge', initialValue: false),
             backgroundColor: context.knobs
                 .options(label: 'Avatar Background Color', options: [
-              const Option(
+              Option(
                 label: 'Primary 7',
-                value: ZeroColors.primary7,
+                value: ZeroColors.primary[7],
               ),
               const Option(
                 label: 'White',
@@ -107,19 +104,19 @@ WidgetbookComponent avatarWidgetbookComponent = WidgetbookComponent(
                 label: 'Black',
                 value: ZeroColors.black,
               ),
-              const Option(
+              Option(
                 label: 'Neutral 7',
-                value: ZeroColors.neutral7,
+                value: ZeroColors.neutral[7],
               ),
             ]),
             badgeColor: context.knobs.options(label: 'Badge Color', options: [
-              const Option(
+              Option(
                 label: 'Primary 7',
-                value: ZeroColors.primary7,
+                value: ZeroColors.primary[7],
               ),
-              const Option(
+              Option(
                 label: 'Sunrise Yellow 7',
-                value: ZeroColors.sunriseYellow7,
+                value: ZeroColors.sunriseYellow[7],
               ),
               const Option(
                 label: 'Success',

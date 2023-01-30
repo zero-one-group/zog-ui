@@ -26,9 +26,9 @@ class ListTileRightIcon extends StatelessWidget {
     // If child is null return empty widget
     if (child == null) return const SizedBox.shrink();
 
-    // TODO: integrate theme icon base on theme
-    final color =
-        disabled ? ZeroColors.neutral6 : Theme.of(context).iconTheme.color;
+    final theme = context.theme;
+
+    final color = disabled ? theme.disabledColor : theme.iconTheme.color;
 
     // set default color/theme if child is [Icon] widget
     return IconTheme(

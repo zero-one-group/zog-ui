@@ -41,21 +41,21 @@ WidgetbookComponent badgeWidgetbookComponent = WidgetbookComponent(
 );
 
 List<Option<Color>> _colorOptions = [
-  const Option(
+  Option(
     label: 'Primary 7',
-    value: ZeroColors.primary7,
+    value: ZeroColors.primary[7],
   ),
-  const Option(
+  Option(
     label: 'Dust Red 7',
-    value: ZeroColors.dustRed7,
+    value: ZeroColors.dustRed[7],
   ),
-  const Option(
+  Option(
     label: 'Polar Green 7',
-    value: ZeroColors.polarGreen7,
+    value: ZeroColors.polarGreen[7],
   ),
-  const Option(
+  Option(
     label: 'Sunset Orange 7',
-    value: ZeroColors.sunsetOrange7,
+    value: ZeroColors.sunsetOrange[7],
   ),
 ];
 

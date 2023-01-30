@@ -1,13 +1,19 @@
 library zero_ui_mobile;
 
 // styles
-export './colors/zero_colors.dart';
+export './styles/colors.dart';
 export './styles/typography.dart';
+export './styles/theme.dart';
+export './styles/color_accent.dart';
+
+// component
+export './styles/component/list_tile_style.dart';
 
 // assets
 export './assets/assets.dart';
 
 // components
+export './components/app.dart';
 
 // button
 export './components/button/zero_button.dart';
@@ -60,6 +66,10 @@ export './components/list/list_tile.dart';
 // text
 export './components/text/zero_text.dart';
 
+// avatar
+export './components/avatar/zero_avatar.dart';
+export './components/avatar/zero_avatar_group.dart';
+
 // types
 export './types/button_radius_type.dart';
 export './types/button_group_type.dart';
@@ -69,6 +79,10 @@ export './types/badge_type.dart';
 export './types/size_type.dart';
 export './types/tooltip_type.dart';
 export './types/list_tile_size.dart';
+export './types/avatar_size.dart';
 
 // positions
 export './position/tooltip_position.dart';
+
+// utils
+export './utils/extensions.dart';

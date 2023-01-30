@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../colors/zero_colors.dart';
-import '../../types/size_type.dart';
+import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 /// [ZeroRadioGroup] is a custom radio button that can be used to select one option from a set.
 /// this widget is based on zero ui design system
@@ -22,8 +20,8 @@ class ZeroRadioGroup extends StatefulWidget {
     required this.value,
     required this.groupValue,
     required this.onChanged,
-    this.activeColor = ZeroColors.primary6,
-    this.inactiveColor = ZeroColors.neutral6,
+    this.activeColor = ZeroColors.primary,
+    this.inactiveColor = ZeroColors.neutral,
     this.size = ZeroSizeType.medium,
     this.isDisabled = false,
     this.customSelected = false,
@@ -81,7 +79,7 @@ Widget _customSelectedCircleColor({
       borderRadius: BorderRadius.circular(50),
       border: Border.all(
         color: widget.isDisabled
-            ? ZeroColors.neutral6
+            ? ZeroColors.neutral
             : selected
                 ? widget.activeColor
                 : widget.inactiveColor,
@@ -106,7 +104,7 @@ Stack _defaultSelectedCircleColor({
           borderRadius: BorderRadius.circular(50),
           border: Border.all(
             color: widget.isDisabled
-                ? ZeroColors.neutral6
+                ? ZeroColors.neutral
                 : selected
                     ? widget.activeColor
                     : widget.inactiveColor,
@@ -121,7 +119,7 @@ Stack _defaultSelectedCircleColor({
               height: _size(widget.size),
               decoration: BoxDecoration(
                 color: widget.isDisabled
-                    ? ZeroColors.neutral6
+                    ? ZeroColors.neutral
                     : selected
                         ? widget.activeColor
                         : widget.inactiveColor,

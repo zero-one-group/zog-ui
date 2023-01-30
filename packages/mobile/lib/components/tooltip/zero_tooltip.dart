@@ -9,8 +9,8 @@ import '../../types/tooltip_type.dart';
 /// this widget created based on zero ui design system
 ///
 /// there are 2 types of tooltip:
-/// 1. [ZeroTooltipType.light] - the tooltip is has a light background [ZeroColors.neutral2] and dark text [ZeroColors.neutral10]
-/// 2. [ZeroTooltipType.dark] - the tooltip is has a dark background [ZeroColors.neutral10] and light text [ZeroColors.neutral2]
+/// 1. [ZeroTooltipType.light] - the tooltip is has a light background [ZeroColors.neutral2] and dark text [ZeroColors.neutral[10]]
+/// 2. [ZeroTooltipType.dark] - the tooltip is has a dark background [ZeroColors.neutral[10]] and light text [ZeroColors.neutral2]
 ///
 /// also there are 3 variants of tooltip:
 /// 1. [ZeroTooltipVariant.rectangle] - the tooltip is a rectangle
@@ -137,8 +137,12 @@ class _ZeroTooltipState extends State<ZeroTooltip> {
           height: 35,
           top: widget.position == ZeroTooltipPosition.top ? -45 : null,
           bottom: widget.position == ZeroTooltipPosition.bottom ? -45 : null,
-          left: widget.position == ZeroTooltipPosition.right ? _positionLeft : null,
-          right: widget.position == ZeroTooltipPosition.left ? _positionRight : null,
+          left: widget.position == ZeroTooltipPosition.right
+              ? _positionLeft
+              : null,
+          right: widget.position == ZeroTooltipPosition.left
+              ? _positionRight
+              : null,
           child: _showTooltip
               ? CustomPaint(
                   painter: widget.variant.toPainter(
@@ -149,7 +153,8 @@ class _ZeroTooltipState extends State<ZeroTooltip> {
                   child: Padding(
                     padding: widget.variant == ZeroTooltipVariant.rounded
                         ? const EdgeInsets.symmetric(horizontal: 0, vertical: 8)
-                        : const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                        : const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 8),
                     child: Center(
                       child: widget.variant == ZeroTooltipVariant.rounded
                           ? SizedBox(
@@ -157,14 +162,16 @@ class _ZeroTooltipState extends State<ZeroTooltip> {
                               child: Text(
                                 widget.text,
                                 key: _widgetTextKey,
-                                style: widget.textStyle ?? TextStyle(color: widget.textColor),
+                                style: widget.textStyle ??
+                                    TextStyle(color: widget.textColor),
                                 textAlign: TextAlign.center,
                               ),
                             )
                           : Text(
                               widget.text,
                               key: _widgetTextKey,
-                              style: widget.textStyle ?? TextStyle(color: widget.textColor),
+                              style: widget.textStyle ??
+                                  TextStyle(color: widget.textColor),
                               textAlign: TextAlign.center,
                             ),
                     ),
