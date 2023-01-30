@@ -140,9 +140,8 @@ class ZeroAvatar extends StatelessWidget {
   /// Default values:
   ///   size = [AvatarSize.l]
   ///   withBadge = false
-  factory ZeroAvatar.initial(
+  factory ZeroAvatar.initial(String fullName,
           {Key? key,
-          required String fullName,
           AvatarSize? size,
           bool? withBadge,
           Color? badgeColor,

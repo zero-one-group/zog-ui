@@ -14,7 +14,7 @@ List<ZeroAvatar> avatars = [
     size: AvatarSize.xs,
   ),
   ZeroAvatar.initial(
-    fullName: 'Muhammad R Kahfi',
+    'Muhammad R Kahfi',
     size: AvatarSize.xs,
   ),
   ZeroAvatar.url(
@@ -22,7 +22,7 @@ List<ZeroAvatar> avatars = [
     size: AvatarSize.xs,
   ),
   ZeroAvatar.initial(
-    fullName: 'Wisnu',
+    'Wisnu',
     size: AvatarSize.xs,
   ),
   ZeroAvatar.url(
@@ -30,7 +30,7 @@ List<ZeroAvatar> avatars = [
     size: AvatarSize.xs,
   ),
   ZeroAvatar.initial(
-    fullName: 'Zuhlhijaya Zulhijaya',
+    'Zuhlhijaya Zulhijaya',
     size: AvatarSize.xs,
   ),
   ZeroAvatar.url(
@@ -38,7 +38,7 @@ List<ZeroAvatar> avatars = [
     size: AvatarSize.xs,
   ),
   ZeroAvatar.initial(
-    fullName: 'Zuhlhijaya Zulhijaya',
+    'Zuhlhijaya Zulhijaya',
     size: AvatarSize.xs,
   ),
 ];

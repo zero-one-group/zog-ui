@@ -428,7 +428,7 @@ class _MyAppState extends State<MyApp> {
             width: 10,
           ),
           ZeroAvatar.initial(
-            fullName: 'Muhammad Rijalul Kahfi',
+            'Muhammad Rijalul Kahfi',
             size: AvatarSize.xxl,
             withBadge: true,
           ),
@@ -453,22 +453,13 @@ class _MyAppState extends State<MyApp> {
       ),
       SizedBox(
           width: MediaQuery.of(context).size.width,
-          height: 100,
-          child: ZeroAvatarGroup(moreNumber: 10, avatars: [
+          child: ZeroAvatarGroup(moreNumber: 1000, avatars: [
             ZeroAvatar.url(
               'https://shorturl.at/dknSY',
               size: AvatarSize.xs,
             ),
             ZeroAvatar.initial(
-              fullName: 'Muhammad R Kahfi',
-              size: AvatarSize.xs,
-            ),
-            ZeroAvatar.url(
-              'https://shorturl.at/dknSY',
-              size: AvatarSize.xs,
-            ),
-            ZeroAvatar.initial(
-              fullName: 'Muhammad R Kahfi',
+              'Muhammad R Kahfi',
               size: AvatarSize.xs,
             ),
             ZeroAvatar.url(
@@ -476,7 +467,15 @@ class _MyAppState extends State<MyApp> {
               size: AvatarSize.xs,
             ),
             ZeroAvatar.initial(
-              fullName: 'Muhammad R Kahfi',
+              'Muhammad R Kahfi',
+              size: AvatarSize.xs,
+            ),
+            ZeroAvatar.url(
+              'https://shorturl.at/dknSY',
+              size: AvatarSize.xs,
+            ),
+            ZeroAvatar.initial(
+              'Muhammad R Kahfi',
               size: AvatarSize.xs,
             ),
           ])),

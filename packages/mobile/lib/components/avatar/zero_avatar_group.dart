@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/colors/zero_colors.dart';
 import 'package:zero_ui_mobile/components/avatar/zero_avatar.dart';
 import 'package:zero_ui_mobile/types/avatar_size.dart';
+import 'package:zero_ui_mobile/extensions/num_extensions.dart';
 
 /// The overlapping distance between icons
 const double overlappingWidth = 10.0;
@@ -77,7 +78,7 @@ class _MoreAvatar extends StatelessWidget {
           Padding(
             padding:
                 EdgeInsets.symmetric(horizontal: AvatarSize.m.avatarRadius / 3),
-            child: Text('+$moreNumber',
+            child: Text('+${moreNumber.kmbFormat}',
                 maxLines: 1,
                 textAlign: TextAlign.center,
                 style: TextStyle(
