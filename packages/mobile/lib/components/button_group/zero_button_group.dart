@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zero_ui_mobile/colors/zero_colors.dart';
 import 'package:zero_ui_mobile/components/button_group/custom/button_group_item.dart';
 import 'package:zero_ui_mobile/components/button_group/custom/underline_button_group.dart';
 import 'package:zero_ui_mobile/types/button_group_type.dart';
@@ -215,41 +216,36 @@ class _ZeroButtonGroupState extends State<ZeroButtonGroup> {
     }
 
     if (widget.buttonGroupType != ButtonGroupType.underline) {
-      return Container(
-        padding: EdgeInsets.zero,
-        decoration: BoxDecoration(
-            color: widget.buttonGroupType.fillColor,
-            borderRadius: _getBorderRadius(widget.buttonRadiusType)),
-        child: ToggleButtons(
-          direction: widget.vertical ?? false ? Axis.vertical : Axis.horizontal,
-          onPressed: (int index) {
-            setState(() {
-              if (widget.multipleSelect ?? false) {
-                widget.isSelected[index] = !widget.isSelected[index];
-              } else {
-                for (int i = 0; i < widget.isSelected.length; i++) {
-                  widget.isSelected[i] = i == index;
-                }
+      return ToggleButtons(
+        focusColor: ZeroColors.primary7,
+        direction: widget.vertical ?? false ? Axis.vertical : Axis.horizontal,
+        onPressed: (int index) {
+          setState(() {
+            if (widget.multipleSelect ?? false) {
+              widget.isSelected[index] = !widget.isSelected[index];
+            } else {
+              for (int i = 0; i < widget.isSelected.length; i++) {
+                widget.isSelected[i] = i == index;
               }
-            });
-          },
-          borderRadius: _getBorderRadius(widget.buttonRadiusType),
-          selectedBorderColor: widget.buttonGroupType.selectedBorderColor,
-          selectedColor: widget.buttonGroupType.selectedColor,
-          fillColor: widget.buttonGroupType.selectedFillColor,
-          color: widget.buttonGroupType.color,
-          borderWidth: widget.buttonGroupType.borderWidth,
-          constraints: BoxConstraints(
-            minHeight: widget.buttonSizeType.height,
-            minWidth: widget.square ?? false
-                ? widget.buttonSizeType.height
-                : widget.buttonSizeType.width,
-          ),
-          renderBorder: widget.buttonGroupType.renderBorder,
-          isSelected: widget.isSelected,
-          textStyle: TextStyle(fontSize: widget.buttonSizeType.fontSize),
-          children: children,
+            }
+          });
+        },
+        borderRadius: _getBorderRadius(widget.buttonRadiusType),
+        selectedBorderColor: widget.buttonGroupType.selectedBorderColor,
+        selectedColor: widget.buttonGroupType.selectedColor,
+        fillColor: widget.buttonGroupType.selectedFillColor,
+        color: widget.buttonGroupType.color,
+        borderWidth: widget.buttonGroupType.borderWidth,
+        constraints: BoxConstraints(
+          minHeight: widget.buttonSizeType.height,
+          minWidth: widget.square ?? false
+              ? widget.buttonSizeType.height
+              : widget.buttonSizeType.width,
         ),
+        renderBorder: widget.buttonGroupType.renderBorder,
+        isSelected: widget.isSelected,
+        textStyle: TextStyle(fontSize: widget.buttonSizeType.fontSize),
+        children: children,
       );
     }
 
