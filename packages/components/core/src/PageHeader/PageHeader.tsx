@@ -56,18 +56,20 @@ const StyledPageHeaderContent = styled('div', {
 type PageHeaderOwnProps = {
   title?: ReactNode;
   subtitle?: ReactNode;
+  /** Extra Heading, placed on right */
   extra?: ReactNode;
   onBack?: () => void;
   backIcon?: ReactNode;
+  /** BreadcrumbProps, See Breadcrumb component */
   breadcrumb?: BreadcrumbProps;
+  /** AvatarProps, See Avatar component */
   avatar?: ComponentProps<typeof Avatar>;
 };
 
-export type PageHeaderProps = ComponentProps<typeof StyledPageHeader>;
+export type PageHeaderProps = PageHeaderOwnProps &
+  ComponentProps<typeof StyledPageHeader>;
 
-export type PageHeaderComponent = (
-  props: PageHeaderOwnProps & PageHeaderProps
-) => ReactElement;
+export type PageHeaderComponent = (props: PageHeaderProps) => ReactElement;
 
 export const PageHeader: PageHeaderComponent = ({
   children,
