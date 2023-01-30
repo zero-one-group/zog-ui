@@ -61,17 +61,32 @@ class _MoreAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-      backgroundColor:
-          ZeroColors.neutral6, // TODO: Make coloring more theme-able
-      radius: AvatarSize.m.avatarRadius,
-      child: Padding(
-        padding: const EdgeInsets.only(left: overlappingWidth),
-        child: Text('+$moreNumber',
-            style: TextStyle(
-                color: ZeroColors.white,
-                fontSize: AvatarSize.m.fontSize,
-                fontWeight: FontWeight.w500)),
+    return Container(
+      height: AvatarSize.m.avatarDiameter,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(AvatarSize.m.avatarRadius),
+          color: ZeroColors.neutral6 // TODO: Make coloring according to theme
+          ),
+      constraints: BoxConstraints(
+        minWidth: AvatarSize.m.avatarDiameter,
+        maxHeight: AvatarSize.m.avatarDiameter,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding:
+                EdgeInsets.symmetric(horizontal: AvatarSize.m.avatarRadius / 3),
+            child: Text('+300',
+                maxLines: 1,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: ZeroColors.white,
+                  fontSize: AvatarSize.m.fontSize,
+                  fontWeight: FontWeight.w500,
+                )),
+          ),
+        ],
       ),
     );
   }

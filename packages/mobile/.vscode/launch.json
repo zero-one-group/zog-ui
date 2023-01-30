@@ -19,6 +19,8 @@
                 "widgetbook/main.dart",
                 "-d",
                 "chrome",
+                "--web-renderer",
+                "html"
             ]
         },
         {

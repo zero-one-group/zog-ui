@@ -36,8 +36,8 @@ enum AvatarSize {
   double get badgeRadius => avatarRadius / 3;
 
   /// The total width and heigth of [SizedBox] wrapping the [CircleAvatar].
-  /// This is basically the avatarRadius plus the padding
+  /// This is basically the `avatarRadius` plus the padding
   double get areaWidth => avatarDiameter + (avatarDiameter / 18);
 
-  double get fontSize => avatarDiameter / 3;
+  double get fontSize => (avatarDiameter / 3) + (avatarRadius / 6);
 }

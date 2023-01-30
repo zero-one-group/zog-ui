@@ -5,9 +5,14 @@ import 'package:zero_ui_mobile/colors/zero_colors.dart';
 import 'package:zero_ui_mobile/components/avatar/zero_avatar_group.dart';
 import 'package:zero_ui_mobile/types/avatar_size.dart';
 
-enum SourceType { url, file, asset, noSource }
+enum SourceType {
+  url,
+  file,
+  asset,
+  noSource // Only apply when `initials` of `AvatarVariant` is chosen
+}
 
-enum AvatarVariant { image, avatar, initials }
+enum AvatarVariant { image, initials }
 
 class ZeroAvatar extends StatelessWidget {
   final String? url;
@@ -61,11 +66,13 @@ class ZeroAvatar extends StatelessWidget {
       this.backgroundColor,
       this.initialStyle});
 
-  factory ZeroAvatar.url(
+  /// Create avatar from URL
+  /// Default values:
+  ///   size = [AvatarSize.l]
+  ///   withBadge = false
+  factory ZeroAvatar.url(String url,
           {Key? key,
-          required String url,
           AvatarSize? size,
-          AvatarVariant? variant,
           bool? withBadge,
           Color? badgeColor,
           Color? backgroundColor,
@@ -81,9 +88,14 @@ class ZeroAvatar extends StatelessWidget {
         backgroundColor: backgroundColor,
         badgeChild: badgeChild,
       );
-  factory ZeroAvatar.file({
+
+  /// Create avatar from [File]
+  /// Default values:
+  ///   size = [AvatarSize.l]
+  ///   withBadge = false
+  factory ZeroAvatar.file(
+    String file, {
     Key? key,
-    required String file,
     AvatarSize? size,
     bool? withBadge,
     Color? badgeColor,
@@ -101,6 +113,10 @@ class ZeroAvatar extends StatelessWidget {
         variant: AvatarVariant.image,
       );
 
+  /// Create avatar from asset
+  /// Default values:
+  ///   size = [AvatarSize.l]
+  ///   withBadge = false
   factory ZeroAvatar.asset(
           {Key? key,
           required String asset,
@@ -119,6 +135,11 @@ class ZeroAvatar extends StatelessWidget {
         badgeChild: badgeChild,
         variant: AvatarVariant.image,
       );
+
+  /// Create avatar from full name text that only shows its initial
+  /// Default values:
+  ///   size = [AvatarSize.l]
+  ///   withBadge = false
   factory ZeroAvatar.initial(
           {Key? key,
           required String fullName,
@@ -187,39 +208,33 @@ class ZeroAvatar extends StatelessWidget {
           border: Border.all(width: 1, color: Colors.white)),
       child: Stack(
         children: [
-          if (variant == AvatarVariant.image)
-            CircleAvatar(
-              backgroundColor: backgroundColor,
-              backgroundImage: backgroundImage,
-              radius: size.avatarRadius,
-            ),
-          if (variant == AvatarVariant.initials)
-            CircleAvatar(
-              backgroundColor: backgroundColor,
-              radius: size.avatarRadius,
-              child: Text(_getinitials(fullName!),
-                  style: TextStyle(
-                          color: initialColor,
-                          fontSize: size.fontSize,
-                          fontWeight: FontWeight.w500)
-                      .merge(initialStyle)),
-            ),
+          variant == AvatarVariant.image
+              ? CircleAvatar(
+                  backgroundColor: backgroundColor,
+                  backgroundImage: backgroundImage,
+                  radius: size.avatarRadius,
+                )
+              : CircleAvatar(
+                  backgroundColor: backgroundColor,
+                  radius: size.avatarRadius,
+                  child: Text(_getinitials(fullName!),
+                      style: TextStyle(
+                              color: initialColor,
+                              fontSize: size.fontSize,
+                              fontWeight: FontWeight.w500)
+                          .merge(initialStyle)),
+                ),
           if (withBadge)
             Align(
               alignment: Alignment.bottomRight,
               child: badgeChild ??
-                  Container(
-                    width: size.badgeDiameter + size.badgeRadius / 3,
-                    height: size.badgeDiameter + size.badgeRadius / 3,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                          width: size.badgeRadius / 3,
-                          color: Colors.white,
-                        ),
-                        color: badgeColor ??
-                            ZeroColors
-                                .primary7, // TODO: Make coloring themeable
-                        borderRadius: BorderRadius.circular(size.areaWidth)),
+                  CircleAvatar(
+                    backgroundColor: ZeroColors.white,
+                    radius: size.badgeRadius,
+                    child: CircleAvatar(
+                      backgroundColor: badgeColor,
+                      radius: size.badgeRadius - (size.badgeRadius / 3),
+                    ),
                   ),
             )
         ],

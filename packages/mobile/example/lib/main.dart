@@ -270,29 +270,6 @@ class _MyAppState extends State<MyApp> {
                   multipleItemsVariant: MultipleItemsVariant.checkboxes,
                   onChanged: (value) {},
                 )),
-            ZeroButtonGroup.labelsWithIcons(
-              labels: labels,
-              icons: icons,
-              buttonSizeType: ZeroSizeType.large,
-              isSelected: isSelected,
-            ),
-            ZeroButtonGroup.labelsWithIcons(
-              labels: labels,
-              buttonSizeType: ZeroSizeType.large,
-              icons: icons,
-              vertical: true,
-              isSelected: isSelected,
-            ),
-            ZeroButtonGroup.iconsOnly(
-              icons: icons,
-              isSelected: isSelected,
-            ),
-            ZeroButtonGroup.iconsOnly(
-              icons: icons,
-              vertical: true,
-              isSelected: isSelected,
-              square: true,
-            ),
             const SizedBox(height: 32),
             const ZeroBadge(
               type: ZeroBadgeType.dot,
