@@ -20,61 +20,84 @@ class _ZeroSliderExampleState extends State<ZeroSliderExample> {
         title: const Text('Zero Slider Example'),
       ),
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 200,
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: ZeroSlider(
-                  activeColor: Colors.black,
-                  tickInterval: 25,
-                  tickBehavior: true,
-                  initialValue: 50,
-                  size: ZeroSliderSize.large,
-                  isDisabled: true,
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ZeroRangeSlider(
-                initialvalues: const ZeroRangeValues(40, 55),
-                tickInterval: 10,
-                tickBehavior: true,
-                showTicks: false,
+        child: Container(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ZeroSlider(
+                activeColor: Colors.black,
+                tickInterval: 25,
+                tickBehavior: false,
+                initialValue: 50,
                 size: ZeroSliderSize.large,
+                isDisabled: false,
+              ),
+              const SizedBox(height: 20),
+              ZeroSlider(
+                tickInterval: 25,
+                showTicks: true,
+              ),
+              const SizedBox(height: 20),
+              ZeroSlider(
+                tickInterval: 25,
+                tickBehavior: true,
+                showTicks: true,
+              ),
+              const SizedBox(height: 20),
+              ZeroSlider(
+                tickInterval: 25,
+                tickBehavior: true,
+                showTicks: true,
+                size: ZeroSliderSize.small,
+              ),
+              const SizedBox(height: 20),
+              ZeroSlider(
+                activeColor: ZeroColors.danger,
+                thumbColor: ZeroColors.polarGreen6,
+                inactiveColor: ZeroColors.sunriseYellow6.withOpacity(.3),
+                tickInterval: 25,
+                tickBehavior: false,
+                size: ZeroSliderSize.large,
+                isDisabled: false,
+              ),
+              const SizedBox(height: 20),
+              ZeroSlider(
+                tickInterval: 25,
+                tickBehavior: false,
+                size: ZeroSliderSize.large,
+                isDisabled: false,
+                tooltipVariant: ZeroTooltipVariant.custom,
+              ),
+              const SizedBox(height: 20),
+              ZeroSlider(isDisabled: true),
+              const SizedBox(height: 20),
+
+              // Range Slider
+              ZeroRangeSlider(
+                initialvalues: const ZeroRangeValues(40, 55),
+              ),
+              const SizedBox(height: 20),
+              ZeroRangeSlider(
+                initialvalues: const ZeroRangeValues(40, 55),
+                showTicks: true,
+                tickBehavior: true,
+              ),
+              const SizedBox(height: 20),
+              ZeroRangeSlider(
+                initialvalues: const ZeroRangeValues(40, 55),
+                showTicks: true,
+                tickBehavior: true,
+                size: ZeroSliderSize.small,
+              ),
+              const SizedBox(height: 20),
+              ZeroRangeSlider(
+                initialvalues: const ZeroRangeValues(40, 80),
                 isDisabled: true,
               ),
-            ),
-            const SizedBox(height: 20),
-            RangeSlider(
-              min: 1,
-              max: 100,
-              values: _rangeValues,
-              onChanged: (val) {
-                setState(() {
-                  _rangeValues = val;
-                });
-              },
-            ),
-            Slider(
-              activeColor: Colors.amber,
-              thumbColor: Colors.black,
-              min: 1,
-              secondaryTrackValue: 50,
-              value: _value,
-              max: 100,
-              onChanged: (val) {
-                setState(() {
-                  _value = val;
-                });
-              },
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
