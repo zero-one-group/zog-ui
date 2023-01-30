@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../../colors/zero_colors.dart';
@@ -50,7 +52,9 @@ class _ZeroRangeSliderState extends State<ZeroRangeSlider> {
   final GlobalKey _widgetKey = GlobalKey();
 
   double? _distanceStart;
+  double _distanceStartFinal = -.1;
   double? _distanceEnd;
+  double _distanceEndFinal = -.2;
   double _thumbStartPercentage = 0.0;
   double _thumbEndPercentage = 0.0;
   final double _horizontalMargin = 16.0;
@@ -62,24 +66,52 @@ class _ZeroRangeSliderState extends State<ZeroRangeSlider> {
     return (percentage / 100 * (_widgetKey.currentContext?.size?.width ?? 0));
   }
 
-  _onTapSlider(TapDownDetails details) {
-    if (_distanceStart != null && details.globalPosition.dx < _distanceStart!) {
-      _onThumbSliderUpdate(details, _ZeroThumb.start);
-    } else if (_distanceEnd != null && details.globalPosition.dx > _distanceEnd!) {
-      _onThumbSliderUpdate(details, _ZeroThumb.end);
+  void _initializeValuesByDefault() {
+    if (_distanceStartFinal == -.1) {
+      _distanceStartFinal = _percentageToDistance(widget.initialvalues.start);
+    }
+    if (_distanceEndFinal == -.2) {
+      _distanceEndFinal = _percentageToDistance(widget.initialvalues.end);
     }
   }
 
-  _onThumbSliderUpdate(dynamic details, _ZeroThumb thumb) {
+  void _onTapSlider(TapDownDetails details) {
+    _initializeValuesByDefault();
+    if (details.localPosition.dx < _distanceStartFinal) {
+      _distanceStartFinal = details.localPosition.dx - _horizontalMargin;
+      setState(() {
+        _distanceStart = _distanceStartFinal;
+        _thumbStartPercentage =
+            (_distanceStart ?? widget.initialvalues.start) / (_widgetKey.currentContext?.size?.width ?? 0) * 100;
+      });
+    } else if (details.localPosition.dx > _distanceEndFinal) {
+      _distanceEndFinal = details.localPosition.dx - _horizontalMargin;
+      setState(() {
+        _distanceEnd = _distanceEndFinal;
+        _thumbEndPercentage = (_distanceEnd ?? _percentageToDistance(widget.initialvalues.end)) /
+            (_widgetKey.currentContext?.size?.width ?? 0) *
+            100;
+      });
+    }
+  }
+
+  void _onThumbSliderUpdate(dynamic details, _ZeroThumb thumb) {
+    _initializeValuesByDefault();
+
     /// -20 is the padding of the container
     /// this for calibrate the point when dragging
-    double newDistance = details.globalPosition.dx - 20;
+    double newDistance = details.localPosition.dx - _horizontalMargin;
+    if (thumb == _ZeroThumb.start) {
+      newDistance = newDistance + _distanceStartFinal;
+    } else if (thumb == _ZeroThumb.end) {
+      newDistance = newDistance + _distanceEndFinal;
+    }
 
     /// when [tickBehavior] is true, the slider will snap to the nearest tick interval
     /// the nearest tick interval is calculated by the percentage of the distance from the left side of the slider
     /// to the maximum width of the slider widget
     if (widget.tickBehavior) {
-      final percentage = (details.globalPosition.dx - 20) / (_widgetKey.currentContext?.size?.width ?? 0) * 100;
+      final percentage = (details.localPosition.dx) / (_widgetKey.currentContext?.size?.width ?? 0) * 100;
       final nearestTick = (percentage / widget.tickInterval).round() * widget.tickInterval;
       newDistance = nearestTick / 100 * (_widgetKey.currentContext?.size?.width ?? 0);
     }
@@ -95,16 +127,19 @@ class _ZeroRangeSliderState extends State<ZeroRangeSlider> {
 
     setState(() {
       if (thumb == _ZeroThumb.start) {
-        _distanceStart = newDistance > (_distanceEnd ?? _percentageToDistance(widget.initialvalues.start))
-            ? (_distanceEnd ?? _percentageToDistance(widget.initialvalues.start))
+        _distanceStart = newDistance > (_distanceEnd ?? _percentageToDistance(widget.initialvalues.end))
+            ? (_distanceEnd ?? _percentageToDistance(widget.initialvalues.end))
             : newDistance;
-        _thumbStartPercentage =
-            (_distanceStart ?? widget.initialvalues.start) / (_widgetKey.currentContext?.size?.width ?? 0) * 100;
+        _thumbStartPercentage = _distanceStart == null
+            ? widget.initialvalues.start.toDouble()
+            : _distanceStart! / (_widgetKey.currentContext?.size?.width ?? 0) * 100;
       } else if (thumb == _ZeroThumb.end) {
-        _distanceEnd = newDistance < (_distanceStart ?? _percentageToDistance(widget.initialvalues.end))
-            ? (_distanceStart ?? _percentageToDistance(widget.initialvalues.end))
+        _distanceEnd = newDistance < (_distanceStart ?? _percentageToDistance(widget.initialvalues.start))
+            ? (_distanceStart ?? _percentageToDistance(widget.initialvalues.start))
             : newDistance;
-        _thumbEndPercentage = (_distanceEnd ?? 0) / (_widgetKey.currentContext?.size?.width ?? 0) * 100;
+        _thumbEndPercentage = _distanceEnd == null
+            ? widget.initialvalues.end.toDouble()
+            : _distanceEnd! / (_widgetKey.currentContext?.size?.width ?? 0) * 100;
       }
     });
   }
@@ -207,6 +242,7 @@ class _ZeroRangeSliderState extends State<ZeroRangeSlider> {
           onHorizontalDragEnd: (details) {
             if (widget.isDisabled) return;
             _thumbStartTooltipController(false);
+            _distanceStartFinal = _distanceStart!;
           },
           onHorizontalDragUpdate: (details) {
             if (widget.isDisabled) return;
@@ -251,6 +287,7 @@ class _ZeroRangeSliderState extends State<ZeroRangeSlider> {
           onHorizontalDragEnd: (details) {
             if (widget.isDisabled) return;
             _thumbEndTooltipController(false);
+            _distanceEndFinal = _distanceEnd!;
           },
           onHorizontalDragUpdate: (details) {
             if (widget.isDisabled) return;

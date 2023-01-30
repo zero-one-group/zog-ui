@@ -20,15 +20,6 @@ enum ZeroSliderSize {
     }
   }
 
-  double get margin {
-    switch (this) {
-      case small:
-        return 2;
-      case large:
-        return 4;
-    }
-  }
-
   double get thumbMargin {
     switch (this) {
       case small:

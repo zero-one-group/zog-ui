@@ -50,15 +50,15 @@ class _ZeroSliderState extends State<ZeroSlider> {
   late Function _tooltipController;
 
   _onSliderUpdate(dynamic details) {
-    /// -20 is the padding of the container
+    /// 15 is the padding of the container
     /// this for calibrate the point when dragging
-    double newDistance = details.globalPosition.dx - 20;
+    double newDistance = details.localPosition.dx - _horizontalMargin;
 
     /// when [tickBehavior] is true, the slider will snap to the nearest tick interval
     /// the nearest tick interval is calculated by the percentage of the distance from the left side of the slider
     /// to the maximum width of the slider widget
     if (widget.tickBehavior) {
-      final percentage = (details.globalPosition.dx - 20) / (_widgetKey.currentContext?.size?.width ?? 0) * 100;
+      final percentage = (details.localPosition.dx - _horizontalMargin) / (_widgetKey.currentContext?.size?.width ?? 0) * 100;
       final nearestTick = (percentage / widget.tickInterval).round() * widget.tickInterval;
       newDistance = nearestTick / 100 * (_widgetKey.currentContext?.size?.width ?? 0);
     }

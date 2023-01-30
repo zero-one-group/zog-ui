@@ -7,7 +7,36 @@ WidgetbookComponent sliderWidgetbookComponenet = WidgetbookComponent(
   useCases: [
     WidgetbookUseCase(
       name: 'Slider',
-      builder: (context) => MyWidget(),
+      builder: (context) => Center(
+        child: ZeroSlider(
+          // activeColor: context.knobs.options(
+          //   label: 'Active Color',
+          //   options: _colorOptions,
+          // ),
+          tickBehavior: context.knobs.boolean(label: 'Tick Behavior'),
+          showTicks: context.knobs.boolean(label: 'Show Ticks'),
+          tickInterval: context.knobs
+              .number(
+                label: 'Tick Interval',
+                initialValue: 10,
+              )
+              .toInt(),
+          size: context.knobs.options(label: 'Size', options: _sizeTypes),
+          tooltipVariant: context.knobs.options(
+            label: 'Tooltip Variant',
+            options: _tooltipVariants,
+          ),
+          isDisabled: context.knobs.boolean(label: 'IsDisabled'),
+        ),
+      ),
+    ),
+    WidgetbookUseCase(
+      name: 'Range Slider',
+      builder: (context) => LayoutBuilder(builder: (context, constraints) {
+        return Center(
+          child: ZeroRangeSlider(),
+        );
+      }),
     ),
   ],
 );
@@ -56,18 +85,3 @@ List<Option<Color>> _colorOptions = [
     value: ZeroColors.warning,
   ),
 ];
-
-class MyWidget extends StatefulWidget {
-  const MyWidget({super.key});
-
-  @override
-  State<MyWidget> createState() => _MyWidgetState();
-}
-
-class _MyWidgetState extends State<MyWidget> {
-  double value = 0.0;
-  @override
-  Widget build(BuildContext context) {
-    return ZeroSlider();
-  }
-}

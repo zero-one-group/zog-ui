@@ -26,13 +26,19 @@ class _ZeroSliderExampleState extends State<ZeroSliderExample> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ZeroSlider(
-                activeColor: Colors.black,
-                tickInterval: 25,
-                tickBehavior: false,
-                initialValue: 50,
-                size: ZeroSliderSize.large,
-                isDisabled: false,
+              Align(
+                alignment: Alignment.centerRight,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: ZeroSlider(
+                    activeColor: Colors.black,
+                    tickInterval: 25,
+                    tickBehavior: false,
+                    initialValue: 50,
+                    size: ZeroSliderSize.large,
+                    isDisabled: false,
+                  ),
+                ),
               ),
               const SizedBox(height: 20),
               ZeroSlider(
@@ -71,12 +77,20 @@ class _ZeroSliderExampleState extends State<ZeroSliderExample> {
                 tooltipVariant: ZeroTooltipVariant.custom,
               ),
               const SizedBox(height: 20),
-              ZeroSlider(isDisabled: true),
+              ZeroSlider(
+                isDisabled: true,
+                initialValue: 33,
+              ),
               const SizedBox(height: 20),
 
               // Range Slider
-              ZeroRangeSlider(
-                initialvalues: const ZeroRangeValues(40, 55),
+              Container(
+                padding: const EdgeInsets.all(20.0),
+                width: 600,
+                child: ZeroRangeSlider(
+                  initialvalues: const ZeroRangeValues(40, 60),
+                  size: ZeroSliderSize.large,
+                ),
               ),
               const SizedBox(height: 20),
               ZeroRangeSlider(
