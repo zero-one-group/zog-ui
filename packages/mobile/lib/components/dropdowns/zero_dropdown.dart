@@ -147,7 +147,7 @@ class ZeroDropdown<T> extends StatefulWidget {
     Widget Function(T)? menuItemBuilder,
     Widget Function(T)? selectedMenuItemBuilder,
     InputDecorationType inputDecorationType = InputDecorationType.outline,
-    TextfieldSizeType textfieldSizeType = TextfieldSizeType.small,
+    TextfieldSizeType? textfieldSizeType,
   }) =>
       ZeroDropdown._(
         key: key,
@@ -163,8 +163,8 @@ class ZeroDropdown<T> extends StatefulWidget {
         errorStyle: errorStyle,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
-        itemHeight: itemHeight ?? TextfieldSizeType.small.height,
-        textfieldSizeType: textfieldSizeType,
+        itemHeight: itemHeight,
+        textfieldSizeType: textfieldSizeType ?? TextfieldSizeType.large,
         enableMultipleItems: false,
         menuItemBuilder: menuItemBuilder,
         selectedMenuItemBuilder: selectedMenuItemBuilder,
@@ -251,7 +251,7 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
       buttonHighlightColor: ZeroColors.primary[1],
       itemHighlightColor: ZeroColors.primary[1],
       selectedItemHighlightColor: ZeroColors.primary[7],
-      buttonHeight: widget.itemHeight,
+      buttonHeight: widget.itemHeight ?? widget.textfieldSizeType.height,
       items: widget.items.map((item) {
         return DropdownMenuItem<T>(
           value: item,
@@ -307,7 +307,10 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
           suffixIcon: widget.suffixIcon,
           prefixIcon: widget.prefixIcon,
         ).decoration;
-        break;
+        return decoration?.copyWith(
+            filled: widget.selectedItemsStyle.isDropdownFilled,
+            fillColor: ZeroColors.primary[1]);
+
       case InputDecorationType.round:
         decoration = ZeroTextField.rounded(
           labelText: widget.labelText,
@@ -317,7 +320,11 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
           suffixIcon: widget.suffixIcon,
           prefixIcon: widget.prefixIcon,
         ).decoration;
-        break;
+
+        return decoration?.copyWith(
+            filled: widget.selectedItemsStyle.isDropdownFilled,
+            fillColor: ZeroColors.primary[1]);
+
       case InputDecorationType.fill:
         decoration = ZeroTextField.fill(
           labelText: widget.labelText,
@@ -327,7 +334,9 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
           suffixIcon: widget.suffixIcon,
           prefixIcon: widget.prefixIcon,
         ).decoration;
-        break;
+
+        return decoration;
+
       case InputDecorationType.underline:
         decoration = ZeroTextField.underline(
           labelText: widget.labelText,
@@ -337,12 +346,11 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
           suffixIcon: widget.suffixIcon,
           prefixIcon: widget.prefixIcon,
         ).decoration;
-        break;
-    }
 
-    return decoration?.copyWith(
-        filled: widget.selectedItemsStyle.isDropdownFilled,
-        fillColor: ZeroColors.primary[1]);
+        return decoration?.copyWith(
+            filled: widget.selectedItemsStyle.isDropdownFilled,
+            fillColor: ZeroColors.primary[1]);
+    }
   }
 
   void _updateSelectedItems(
