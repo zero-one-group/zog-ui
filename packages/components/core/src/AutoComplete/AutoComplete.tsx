@@ -279,7 +279,7 @@ export const AutoComplete: AutoCompleteComponent = ({
             <StyledScrollAreaViewport>
               {filteredData.map((option, idx) => (
                 <StyledListBoxItem
-                  ref={(el) => (listItemsRef.current[idx] = el)}
+                  ref={(el: HTMLDivElement) => (listItemsRef.current[idx] = el)}
                   role="listitem"
                   key={`${option}-${idx}`}
                   onClick={(e: React.MouseEvent<HTMLDivElement>) =>
