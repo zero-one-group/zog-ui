@@ -15,10 +15,6 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    List<String> items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6'];
-    List<String> labels = ['Search', 'Alarm', 'Calendar'];
-    List<IconData> icons = [Icons.search, Icons.alarm, Icons.calendar_month];
-    List<bool> isSelected = [false, false, false];
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(

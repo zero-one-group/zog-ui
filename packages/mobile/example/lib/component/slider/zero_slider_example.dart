@@ -86,10 +86,12 @@ class _ZeroSliderExampleState extends State<ZeroSliderExample> {
               // Range Slider
               Container(
                 padding: const EdgeInsets.all(20.0),
-                width: 600,
+                width: 300,
                 child: ZeroRangeSlider(
                   initialvalues: const ZeroRangeValues(40, 60),
-                  size: ZeroSliderSize.large,
+                  size: ZeroSliderSize.small,
+                  isDisabled: false,
+                  tickInterval: 5,
                 ),
               ),
               const SizedBox(height: 20),
@@ -97,6 +99,7 @@ class _ZeroSliderExampleState extends State<ZeroSliderExample> {
                 initialvalues: const ZeroRangeValues(40, 55),
                 showTicks: true,
                 tickBehavior: true,
+                tickInterval: 5,
               ),
               const SizedBox(height: 20),
               ZeroRangeSlider(

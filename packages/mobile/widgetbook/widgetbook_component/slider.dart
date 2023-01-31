@@ -9,10 +9,10 @@ WidgetbookComponent sliderWidgetbookComponenet = WidgetbookComponent(
       name: 'Slider',
       builder: (context) => Center(
         child: ZeroSlider(
-          // activeColor: context.knobs.options(
-          //   label: 'Active Color',
-          //   options: _colorOptions,
-          // ),
+          activeColor: context.knobs.options(
+            label: 'Active Color',
+            options: _colorOptions,
+          ),
           tickBehavior: context.knobs.boolean(label: 'Tick Behavior'),
           showTicks: context.knobs.boolean(label: 'Show Ticks'),
           tickInterval: context.knobs
@@ -34,7 +34,26 @@ WidgetbookComponent sliderWidgetbookComponenet = WidgetbookComponent(
       name: 'Range Slider',
       builder: (context) => LayoutBuilder(builder: (context, constraints) {
         return Center(
-          child: ZeroRangeSlider(),
+          child: ZeroRangeSlider(
+            activeColor: context.knobs.options(
+              label: 'Active Color',
+              options: _colorOptions,
+            ),
+            tickBehavior: context.knobs.boolean(label: 'Tick Behavior'),
+            showTicks: context.knobs.boolean(label: 'Show Ticks'),
+            tickInterval: context.knobs
+                .number(
+                  label: 'Tick Interval',
+                  initialValue: 10,
+                )
+                .toInt(),
+            size: context.knobs.options(label: 'Size', options: _sizeTypes),
+            tooltipVariant: context.knobs.options(
+              label: 'Tooltip Variant',
+              options: _tooltipVariants,
+            ),
+            isDisabled: context.knobs.boolean(label: 'IsDisabled'),
+          ),
         );
       }),
     ),
@@ -42,8 +61,8 @@ WidgetbookComponent sliderWidgetbookComponenet = WidgetbookComponent(
 );
 
 List<Option<ZeroSliderSize>> _sizeTypes = [
-  const Option(label: 'Small', value: ZeroSliderSize.small),
   const Option(label: 'Large', value: ZeroSliderSize.large),
+  const Option(label: 'Small', value: ZeroSliderSize.small),
 ];
 
 List<Option<ZeroTooltipVariant>> _tooltipVariants = [
@@ -52,6 +71,10 @@ List<Option<ZeroTooltipVariant>> _tooltipVariants = [
   const Option(label: 'Custom', value: ZeroTooltipVariant.custom),
 ];
 List<Option<Color>> _colorOptions = [
+  const Option(
+    label: 'Primary 6',
+    value: ZeroColors.primary6,
+  ),
   const Option(
     label: 'Sunrise Yellow 6',
     value: ZeroColors.sunriseYellow6,
@@ -67,10 +90,6 @@ List<Option<Color>> _colorOptions = [
   const Option(
     label: 'Sunrise Yellow 10',
     value: ZeroColors.sunriseYellow10,
-  ),
-  const Option(
-    label: 'Primary 6',
-    value: ZeroColors.primary6,
   ),
   const Option(
     label: 'Danger',

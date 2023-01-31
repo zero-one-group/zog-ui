@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 import '../../colors/zero_colors.dart';
@@ -75,23 +73,55 @@ class _ZeroRangeSliderState extends State<ZeroRangeSlider> {
     }
   }
 
+  Future<void> _onSliderTapTooltip(_ZeroThumb thumb) async {
+    await Future.delayed(const Duration(milliseconds: 100), () {
+      if (thumb == _ZeroThumb.start) {
+        _thumbStartTooltipController(true);
+        Future.delayed(const Duration(milliseconds: 750), () {
+          _thumbStartTooltipController(false);
+        });
+      } else if (thumb == _ZeroThumb.end) {
+        _thumbEndTooltipController(true);
+        Future.delayed(const Duration(milliseconds: 750), () {
+          _thumbEndTooltipController(false);
+        });
+      }
+    });
+  }
+
   void _onTapSlider(TapDownDetails details) {
     _initializeValuesByDefault();
     if (details.localPosition.dx < _distanceStartFinal) {
       _distanceStartFinal = details.localPosition.dx - _horizontalMargin;
+
+      if (widget.tickBehavior) {
+        final percentage = (details.localPosition.dx) / (_widgetKey.currentContext?.size?.width ?? 0) * 100;
+        final nearestTick = (percentage / widget.tickInterval).floor() * widget.tickInterval;
+        _distanceStartFinal = nearestTick / 100 * (_widgetKey.currentContext?.size?.width ?? 0);
+      }
+
       setState(() {
         _distanceStart = _distanceStartFinal;
         _thumbStartPercentage =
             (_distanceStart ?? widget.initialvalues.start) / (_widgetKey.currentContext?.size?.width ?? 0) * 100;
       });
+      _onSliderTapTooltip(_ZeroThumb.start);
     } else if (details.localPosition.dx > _distanceEndFinal) {
       _distanceEndFinal = details.localPosition.dx - _horizontalMargin;
+
+      if (widget.tickBehavior) {
+        final percentage = (details.localPosition.dx) / (_widgetKey.currentContext?.size?.width ?? 0) * 100;
+        final nearestTick = (percentage / widget.tickInterval).round() * widget.tickInterval;
+        _distanceEndFinal = nearestTick / 100 * (_widgetKey.currentContext?.size?.width ?? 0);
+      }
+
       setState(() {
         _distanceEnd = _distanceEndFinal;
         _thumbEndPercentage = (_distanceEnd ?? _percentageToDistance(widget.initialvalues.end)) /
             (_widgetKey.currentContext?.size?.width ?? 0) *
             100;
       });
+      _onSliderTapTooltip(_ZeroThumb.end);
     }
   }
 
@@ -114,6 +144,7 @@ class _ZeroRangeSliderState extends State<ZeroRangeSlider> {
       final percentage = (details.localPosition.dx) / (_widgetKey.currentContext?.size?.width ?? 0) * 100;
       final nearestTick = (percentage / widget.tickInterval).round() * widget.tickInterval;
       newDistance = nearestTick / 100 * (_widgetKey.currentContext?.size?.width ?? 0);
+      newDistance = thumb == _ZeroThumb.start ? newDistance + _distanceStartFinal : newDistance + _distanceEndFinal;
     }
 
     /// make sure the distance is not less then 0
