@@ -35,7 +35,7 @@ export './components/dropdowns/zero_dropdown.dart';
 
 // badge
 export './components/badge/zero_badge.dart';
-export './components/badge/options.dart';
+export 'position/badge_potision.dart';
 
 // checkbox
 export './components/checkbox/zero_checkbox.dart';
@@ -58,7 +58,6 @@ export './components/dropdowns/zero_dropdown.dart';
 
 // badge
 export './components/badge/zero_badge.dart';
-export './components/badge/options.dart';
 
 // list
 export './components/list/list_tile.dart';
@@ -83,7 +82,8 @@ export './types/avatar_size.dart';
 
 // positions
 export './position/tooltip_position.dart';
+export './position/badge_potision.dart';
 
 // utils
-export 'utils/extensions/theme_extensions.dart';
-export 'utils/extensions/num_extensions.dart';
+export './utils/extensions/theme_extensions.dart';
+export './utils/extensions/num_extensions.dart';
