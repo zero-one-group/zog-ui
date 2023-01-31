@@ -9,10 +9,6 @@ class ZeroSliderExample extends StatefulWidget {
 }
 
 class _ZeroSliderExampleState extends State<ZeroSliderExample> {
-  double _value = 10;
-
-  RangeValues _rangeValues = const RangeValues(10, 30);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,8 +57,8 @@ class _ZeroSliderExampleState extends State<ZeroSliderExample> {
               const SizedBox(height: 20),
               ZeroSlider(
                 activeColor: ZeroColors.danger,
-                thumbColor: ZeroColors.polarGreen6,
-                inactiveColor: ZeroColors.sunriseYellow6.withOpacity(.3),
+                thumbColor: ZeroColors.polarGreen,
+                inactiveColor: ZeroColors.sunriseYellow.withOpacity(.3),
                 tickInterval: 25,
                 tickBehavior: false,
                 size: ZeroSliderSize.large,

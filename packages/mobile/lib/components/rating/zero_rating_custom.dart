@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:zero_ui_mobile/assets/assets.dart';
-import 'package:zero_ui_mobile/types/size_type.dart';
-
-import '../../colors/zero_colors.dart';
+import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 class ZeroRatingCustom extends StatefulWidget {
   ZeroRatingCustom({
@@ -68,11 +65,11 @@ class ZeroRatingCustom extends StatefulWidget {
   final Function(double)? onRatingUpdate;
 
   /// The color of the active items in the rating.
-  /// The default value is [ZeroColors.sunriseYellow6].
+  /// The default value is [ZeroColors.sunriseYellow[6]].
   final Color? activeColor;
 
   /// The color of the inactive items in the rating.
-  /// The default value is [ZeroColors.neutral6].
+  /// The default value is [ZeroColors.neutral].
   final Color? inactiveColor;
 
   /// Whether to disable the rating.
@@ -165,22 +162,26 @@ class _ZeroRatingCustomState extends State<ZeroRatingCustom> {
                           ? widget.activeColor == null
                               ? widget.listItems[i]
                               : ColorFiltered(
-                                  colorFilter: ColorFilter.mode(widget.activeColor!, BlendMode.srcIn),
+                                  colorFilter: ColorFilter.mode(
+                                      widget.activeColor!, BlendMode.srcIn),
                                   child: widget.listItems[i],
                                 )
                           : ColorFiltered(
-                              colorFilter: const ColorFilter.mode(Colors.black26, BlendMode.srcIn),
+                              colorFilter: const ColorFilter.mode(
+                                  Colors.black26, BlendMode.srcIn),
                               child: widget.listItems[i],
                             )
                       : !widget.isDisabled
                           ? widget.inactiveColor == null
                               ? widget.listItems[i]
                               : ColorFiltered(
-                                  colorFilter: ColorFilter.mode(widget.inactiveColor!, BlendMode.srcIn),
+                                  colorFilter: ColorFilter.mode(
+                                      widget.inactiveColor!, BlendMode.srcIn),
                                   child: widget.listItems[i],
                                 )
                           : ColorFiltered(
-                              colorFilter: const ColorFilter.mode(Colors.black26, BlendMode.srcIn),
+                              colorFilter: const ColorFilter.mode(
+                                  Colors.black26, BlendMode.srcIn),
                               child: widget.listItems[i],
                             ),
                 ),
@@ -207,7 +208,9 @@ class _ZeroRatingCustomState extends State<ZeroRatingCustom> {
       newValue = rawValue.round().toDouble();
     }
 
-    if (newValue > widget.listItems.length) newValue = widget.listItems.length.toDouble();
+    if (newValue > widget.listItems.length) {
+      newValue = widget.listItems.length.toDouble();
+    }
     if (newValue < 1) newValue = 1;
 
     return newValue;

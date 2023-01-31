@@ -156,31 +156,31 @@ class ZeroButtonExample extends StatelessWidget {
                 ZeroButton.primary(
                   text: 'Button Color Red',
                   onPressed: () {},
-                  backgroundColor: Colors.red,
+                  style: const ZeroButtonStyle(backgroundColor: Colors.red),
                 ),
                 ZeroButton.primary(
                   text: 'Button Color Green',
                   onPressed: () {},
-                  backgroundColor: Colors.green,
+                  style: const ZeroButtonStyle(backgroundColor: Colors.green),
                 ),
                 ZeroButton.primary(
                   text: 'Button Color Orange',
                   onPressed: () {},
-                  backgroundColor: Colors.orange,
+                  style: const ZeroButtonStyle(backgroundColor: Colors.orange),
                 ),
 
                 /// custom style
                 ZeroButton.primary(
                   text: 'Button Custom Style',
                   onPressed: () {},
-                  style: ZeroButtonStyle(
+                  style: const ZeroButtonStyle(
                     backgroundColor: Colors.black,
                     disabledBackgroundColor: Colors.grey,
-                    padding: const EdgeInsets.symmetric(
+                    padding: EdgeInsets.symmetric(
                       horizontal: 60,
                       vertical: 10,
                     ),
-                    shape: const RoundedRectangleBorder(
+                    shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(10),
                         topRight: Radius.circular(10),
@@ -189,22 +189,6 @@ class ZeroButtonExample extends StatelessWidget {
                       ),
                     ),
                   ),
-                ),
-                ZeroButton(
-                  onPressed: () {},
-                  style: ZeroButtonStyle.primaryStyle(
-                    backgroundColor: Colors.grey,
-                    foregroundColor: Colors.white,
-                    buttonRadiusType: ZeroButtonRadiusType.rounded,
-                  ),
-                  child: const Text('Button Custom Style based on primary style'),
-                ),
-                ZeroButton(
-                  onPressed: () {},
-                  style: ZeroButtonStyle.secondaryStyle(
-                    foregroundColor: Colors.red,
-                  ),
-                  child: const Text('Button Custom Style based on secondary style'),
                 ),
               ],
             ),

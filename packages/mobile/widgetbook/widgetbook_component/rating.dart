@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
-import 'package:zero_ui_mobile/colors/zero_colors.dart';
-import 'package:zero_ui_mobile/components/rating/zero_rating.dart';
-import 'package:zero_ui_mobile/components/rating/zero_rating_custom.dart';
-import 'package:zero_ui_mobile/types/size_type.dart';
+import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
-WidgetbookComponent ratingWidgetbookComponenet = WidgetbookComponent(
+WidgetbookComponent ratingWidgetbookComponent = WidgetbookComponent(
   name: 'Rating',
   useCases: [
     WidgetbookUseCase(
@@ -96,25 +93,25 @@ WidgetbookComponent ratingWidgetbookComponenet = WidgetbookComponent(
 );
 
 List<Option<Color>> _colorOptions = [
-  const Option(
+  Option(
     label: 'Sunrise Yellow 6',
-    value: ZeroColors.sunriseYellow6,
+    value: ZeroColors.sunriseYellow[6],
   ),
   const Option(
     label: 'Neutral 6',
-    value: ZeroColors.neutral6,
+    value: ZeroColors.neutral,
   ),
-  const Option(
+  Option(
     label: 'Neutral 10',
-    value: ZeroColors.neutral10,
+    value: ZeroColors.neutral[10],
   ),
-  const Option(
+  Option(
     label: 'Sunrise Yellow 10',
-    value: ZeroColors.sunriseYellow10,
+    value: ZeroColors.sunriseYellow[10],
   ),
-  const Option(
+  Option(
     label: 'Primary 6',
-    value: ZeroColors.primary6,
+    value: ZeroColors.primary[6],
   ),
   const Option(
     label: 'Danger',

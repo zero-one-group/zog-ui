@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:zero_ui_mobile/assets/assets.dart';
-import 'package:zero_ui_mobile/colors/zero_colors.dart';
+import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 enum TextfieldSizeType {
   small,
@@ -46,7 +45,7 @@ enum TextfieldSizeType {
     if (error && suffixIcon == null) {
       return IconButton(
           icon: SvgPicture.asset(Assets.icons.errorDefault,
-              package: 'zero_ui_mobile', color: ZeroColors.dustRed7),
+              package: 'zero_ui_mobile', color: ZeroColors.dustRed[7]),
           onPressed: null);
     }
 

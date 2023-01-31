@@ -1,32 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/components/avatar/zero_avatar.dart';
-import 'package:zero_ui_mobile/components/avatar/zero_avatar_group.dart';
-import 'package:zero_ui_mobile/types/avatar_size.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 import 'package:zero_ui_mobile_example/component/button/zero_button_example.dart';
 import 'package:zero_ui_mobile_example/component/rating/zero_rating_example.dart';
 import 'package:zero_ui_mobile_example/component/tooltip/zero_tooltip_example.dart';
 
+import 'component/avatar/avatar_example.dart';
 import 'component/slider/zero_slider_example.dart';
 import 'component/textfield/zero_textfield_example.dart';
 
 void main() {
-  runApp(MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyApp()));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return ZeroApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      theme: ZeroThemeData(
+        brightness: Brightness.light,
+        primaryColor: ZeroColors.lime.toAccentColor(),
       ),
       home: const Scaffold(
         body: SafeArea(
@@ -100,36 +94,18 @@ class Examples extends StatelessWidget {
             },
             text: 'Zero Tooltip Example',
           ),
+          ZeroButton.primary(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const ZeroAvatarExample(),
+                ),
+              );
+            },
+            text: 'Zero Avatar Example',
+          ),
         ],
       ),
-      SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: ZeroAvatarGroup(moreNumber: 1000, avatars: [
-            ZeroAvatar.url(
-              'https://shorturl.at/dknSY',
-              size: AvatarSize.xs,
-            ),
-            ZeroAvatar.initial(
-              'Muhammad R Kahfi',
-              size: AvatarSize.xs,
-            ),
-            ZeroAvatar.url(
-              'https://shorturl.at/dknSY',
-              size: AvatarSize.xs,
-            ),
-            ZeroAvatar.initial(
-              'Muhammad R Kahfi',
-              size: AvatarSize.xs,
-            ),
-            ZeroAvatar.url(
-              'https://shorturl.at/dknSY',
-              size: AvatarSize.xs,
-            ),
-            ZeroAvatar.initial(
-              'Muhammad R Kahfi',
-              size: AvatarSize.xs,
-            ),
-          ])),
-    ])));
+    );
   }
 }

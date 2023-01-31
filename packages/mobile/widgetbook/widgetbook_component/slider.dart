@@ -73,23 +73,23 @@ List<Option<ZeroTooltipVariant>> _tooltipVariants = [
 List<Option<Color>> _colorOptions = [
   const Option(
     label: 'Primary 6',
-    value: ZeroColors.primary6,
+    value: ZeroColors.primary,
   ),
   const Option(
     label: 'Sunrise Yellow 6',
-    value: ZeroColors.sunriseYellow6,
+    value: ZeroColors.sunriseYellow,
   ),
   const Option(
     label: 'Neutral 6',
-    value: ZeroColors.neutral6,
+    value: ZeroColors.neutral,
   ),
-  const Option(
+  Option(
     label: 'Neutral 10',
-    value: ZeroColors.neutral10,
+    value: ZeroColors.neutral[10],
   ),
-  const Option(
+  Option(
     label: 'Sunrise Yellow 10',
-    value: ZeroColors.sunriseYellow10,
+    value: ZeroColors.sunriseYellow[10],
   ),
   const Option(
     label: 'Danger',

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../colors/zero_colors.dart';
-import '../../types/button_radius_type.dart';
+import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 /// [_ButtonAnimating] is the widget that will be used to animate [ZeroButton] when it is pressed
 /// this widget to add extra function when [ZeroButton] is pressed
@@ -56,7 +54,8 @@ class _ButtonAnimatingState extends State<ButtonAnimating> {
       duration: const Duration(milliseconds: 200),
       decoration: BoxDecoration(
         border: Border.all(
-          color: isPressing ? widget.animatingColor : ZeroColors.transparentWhite,
+          color:
+              isPressing ? widget.animatingColor : ZeroColors.transparentWhite,
           width: 3,
         ),
         borderRadius: _buttonRadiusType(widget.buttonRadiusType),

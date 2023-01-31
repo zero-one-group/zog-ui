@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../colors/zero_colors.dart';
-import '../../size/zero_slider_size.dart';
-import '../tooltip/zero_tooltip.dart';
-import '../tooltip/zero_tooltip_style.dart';
-import '../../model/zero_range_values.dart';
+import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 enum _ZeroThumb { start, end }
 
@@ -61,7 +56,7 @@ class ZeroRangeSlider extends StatefulWidget {
 
   ZeroRangeSlider({
     super.key,
-    this.activeColor = ZeroColors.primary6,
+    this.activeColor = ZeroColors.primary,
     Color? inactiveColor,
     Color? thumbColor,
     this.tickBehavior = false,
@@ -73,7 +68,7 @@ class ZeroRangeSlider extends StatefulWidget {
     this.isDisabled = false,
   })  : thumbColor = thumbColor ?? activeColor,
         inactiveColor = inactiveColor ?? activeColor.withOpacity(0.3),
-        tickColor = ZeroColors.neutral8,
+        tickColor = ZeroColors.neutral[8],
         assert(tickInterval % 5 == 0),
         assert(100 % tickInterval == 0),
         assert(initialvalues.start >= 0 && initialvalues.start <= 100),
@@ -141,31 +136,41 @@ class _ZeroRangeSliderState extends State<ZeroRangeSlider> {
       _distanceStartFinal = details.localPosition.dx - _horizontalMargin;
 
       if (widget.tickBehavior) {
-        final percentage = (details.localPosition.dx) / (_widgetKey.currentContext?.size?.width ?? 0) * 100;
-        final nearestTick = (percentage / widget.tickInterval).floor() * widget.tickInterval;
-        _distanceStartFinal = nearestTick / 100 * (_widgetKey.currentContext?.size?.width ?? 0);
+        final percentage = (details.localPosition.dx) /
+            (_widgetKey.currentContext?.size?.width ?? 0) *
+            100;
+        final nearestTick =
+            (percentage / widget.tickInterval).floor() * widget.tickInterval;
+        _distanceStartFinal =
+            nearestTick / 100 * (_widgetKey.currentContext?.size?.width ?? 0);
       }
 
       setState(() {
         _distanceStart = _distanceStartFinal;
-        _thumbStartPercentage =
-            (_distanceStart ?? widget.initialvalues.start) / (_widgetKey.currentContext?.size?.width ?? 0) * 100;
+        _thumbStartPercentage = (_distanceStart ?? widget.initialvalues.start) /
+            (_widgetKey.currentContext?.size?.width ?? 0) *
+            100;
       });
       _onSliderTapTooltip(_ZeroThumb.start);
     } else if (details.localPosition.dx > _distanceEndFinal) {
       _distanceEndFinal = details.localPosition.dx - _horizontalMargin;
 
       if (widget.tickBehavior) {
-        final percentage = (details.localPosition.dx) / (_widgetKey.currentContext?.size?.width ?? 0) * 100;
-        final nearestTick = (percentage / widget.tickInterval).round() * widget.tickInterval;
-        _distanceEndFinal = nearestTick / 100 * (_widgetKey.currentContext?.size?.width ?? 0);
+        final percentage = (details.localPosition.dx) /
+            (_widgetKey.currentContext?.size?.width ?? 0) *
+            100;
+        final nearestTick =
+            (percentage / widget.tickInterval).round() * widget.tickInterval;
+        _distanceEndFinal =
+            nearestTick / 100 * (_widgetKey.currentContext?.size?.width ?? 0);
       }
 
       setState(() {
         _distanceEnd = _distanceEndFinal;
-        _thumbEndPercentage = (_distanceEnd ?? _percentageToDistance(widget.initialvalues.end)) /
-            (_widgetKey.currentContext?.size?.width ?? 0) *
-            100;
+        _thumbEndPercentage =
+            (_distanceEnd ?? _percentageToDistance(widget.initialvalues.end)) /
+                (_widgetKey.currentContext?.size?.width ?? 0) *
+                100;
       });
       _onSliderTapTooltip(_ZeroThumb.end);
     }
@@ -187,10 +192,16 @@ class _ZeroRangeSliderState extends State<ZeroRangeSlider> {
     /// the nearest tick interval is calculated by the percentage of the distance from the left side of the slider
     /// to the maximum width of the slider widget
     if (widget.tickBehavior) {
-      final percentage = (details.localPosition.dx) / (_widgetKey.currentContext?.size?.width ?? 0) * 100;
-      final nearestTick = (percentage / widget.tickInterval).round() * widget.tickInterval;
-      newDistance = nearestTick / 100 * (_widgetKey.currentContext?.size?.width ?? 0);
-      newDistance = thumb == _ZeroThumb.start ? newDistance + _distanceStartFinal : newDistance + _distanceEndFinal;
+      final percentage = (details.localPosition.dx) /
+          (_widgetKey.currentContext?.size?.width ?? 0) *
+          100;
+      final nearestTick =
+          (percentage / widget.tickInterval).round() * widget.tickInterval;
+      newDistance =
+          nearestTick / 100 * (_widgetKey.currentContext?.size?.width ?? 0);
+      newDistance = thumb == _ZeroThumb.start
+          ? newDistance + _distanceStartFinal
+          : newDistance + _distanceEndFinal;
     }
 
     /// make sure the distance is not less then 0
@@ -204,19 +215,28 @@ class _ZeroRangeSliderState extends State<ZeroRangeSlider> {
 
     setState(() {
       if (thumb == _ZeroThumb.start) {
-        _distanceStart = newDistance > (_distanceEnd ?? _percentageToDistance(widget.initialvalues.end))
+        _distanceStart = newDistance >
+                (_distanceEnd ??
+                    _percentageToDistance(widget.initialvalues.end))
             ? (_distanceEnd ?? _percentageToDistance(widget.initialvalues.end))
             : newDistance;
         _thumbStartPercentage = _distanceStart == null
             ? widget.initialvalues.start.toDouble()
-            : _distanceStart! / (_widgetKey.currentContext?.size?.width ?? 0) * 100;
+            : _distanceStart! /
+                (_widgetKey.currentContext?.size?.width ?? 0) *
+                100;
       } else if (thumb == _ZeroThumb.end) {
-        _distanceEnd = newDistance < (_distanceStart ?? _percentageToDistance(widget.initialvalues.start))
-            ? (_distanceStart ?? _percentageToDistance(widget.initialvalues.start))
+        _distanceEnd = newDistance <
+                (_distanceStart ??
+                    _percentageToDistance(widget.initialvalues.start))
+            ? (_distanceStart ??
+                _percentageToDistance(widget.initialvalues.start))
             : newDistance;
         _thumbEndPercentage = _distanceEnd == null
             ? widget.initialvalues.end.toDouble()
-            : _distanceEnd! / (_widgetKey.currentContext?.size?.width ?? 0) * 100;
+            : _distanceEnd! /
+                (_widgetKey.currentContext?.size?.width ?? 0) *
+                100;
       }
     });
   }
@@ -253,12 +273,15 @@ class _ZeroRangeSliderState extends State<ZeroRangeSlider> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Padding(
-          padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: _horizontalMargin),
+          padding: EdgeInsets.symmetric(
+              vertical: 16.0, horizontal: _horizontalMargin),
           child: Container(
             key: _widgetKey,
             width: constraints.maxWidth,
             height: widget.size.lineWidth,
-            color: widget.isDisabled ? ZeroColors.neutral4 : widget.inactiveColor,
+            color: widget.isDisabled
+                ? ZeroColors.neutral[4]
+                : widget.inactiveColor,
           ),
         );
       },
@@ -266,15 +289,20 @@ class _ZeroRangeSliderState extends State<ZeroRangeSlider> {
   }
 
   Widget _activeLine(double maxWidth) {
-    double distanceStart = _distanceStart == null ? (widget.initialvalues.start / 100 * maxWidth) : _distanceStart!;
-    double distanceEnd = _distanceEnd == null ? (widget.initialvalues.end / 100 * maxWidth) : _distanceEnd!;
+    double distanceStart = _distanceStart == null
+        ? (widget.initialvalues.start / 100 * maxWidth)
+        : _distanceStart!;
+    double distanceEnd = _distanceEnd == null
+        ? (widget.initialvalues.end / 100 * maxWidth)
+        : _distanceEnd!;
     return Container(
       margin: EdgeInsets.only(left: distanceStart),
-      padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: _horizontalMargin),
+      padding:
+          EdgeInsets.symmetric(vertical: 16.0, horizontal: _horizontalMargin),
       child: Container(
         width: distanceEnd - distanceStart,
         height: widget.size.lineWidth,
-        color: widget.isDisabled ? ZeroColors.neutral6 : widget.activeColor,
+        color: widget.isDisabled ? ZeroColors.neutral : widget.activeColor,
       ),
     );
   }
@@ -289,7 +317,9 @@ class _ZeroRangeSliderState extends State<ZeroRangeSlider> {
           for (int i = 0; i < 100; i += widget.tickInterval)
             Container(
               margin: EdgeInsets.only(
-                left: (maxWidth - _horizontalMargin * 2) / (100 / widget.tickInterval) - widget.size.lineWidth,
+                left: (maxWidth - _horizontalMargin * 2) /
+                        (100 / widget.tickInterval) -
+                    widget.size.lineWidth,
               ),
               height: widget.size.lineWidth,
               width: widget.size.lineWidth,
@@ -304,12 +334,14 @@ class _ZeroRangeSliderState extends State<ZeroRangeSlider> {
   }
 
   Widget _thumbStart(double maxWidth) {
-    final double distance = _distanceStart == null ? (widget.initialvalues.start / 100 * maxWidth) : _distanceStart!;
+    final double distance = _distanceStart == null
+        ? (widget.initialvalues.start / 100 * maxWidth)
+        : _distanceStart!;
     return Positioned(
       left: (distance - widget.size.lineWidth),
       child: ZeroTooltip(
         backgroundColor: widget.activeColor,
-        borderColor: ZeroColors.neutral1.withOpacity(0.2),
+        borderColor: ZeroColors.neutral[1].withOpacity(0.2),
         variant: widget.tooltipVariant,
         onCreated: (controller) {
           _thumbStartTooltipController = controller;
@@ -328,7 +360,9 @@ class _ZeroRangeSliderState extends State<ZeroRangeSlider> {
           },
           child: InkWell(
             borderRadius: BorderRadius.circular(20),
-            highlightColor: widget.isDisabled ? ZeroColors.neutral7.withOpacity(0.2) : widget.thumbColor.withOpacity(0.2),
+            highlightColor: widget.isDisabled
+                ? ZeroColors.neutral[7].withOpacity(0.2)
+                : widget.thumbColor.withOpacity(0.2),
             splashColor: Colors.transparent,
             onTap: () {
               // do nothing
@@ -339,7 +373,9 @@ class _ZeroRangeSliderState extends State<ZeroRangeSlider> {
               width: widget.size.thumbSize,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: widget.isDisabled ? ZeroColors.neutral7 : widget.thumbColor,
+                color: widget.isDisabled
+                    ? ZeroColors.neutral[7]
+                    : widget.thumbColor,
               ),
             ),
           ),
@@ -349,12 +385,14 @@ class _ZeroRangeSliderState extends State<ZeroRangeSlider> {
   }
 
   Widget _thumbEnd(double maxWidth) {
-    final double distance = _distanceEnd == null ? (widget.initialvalues.end / 100 * maxWidth) : _distanceEnd!;
+    final double distance = _distanceEnd == null
+        ? (widget.initialvalues.end / 100 * maxWidth)
+        : _distanceEnd!;
     return Positioned(
       left: (distance - widget.size.lineWidth),
       child: ZeroTooltip(
         backgroundColor: widget.activeColor,
-        borderColor: ZeroColors.neutral1.withOpacity(0.2),
+        borderColor: ZeroColors.neutral[1].withOpacity(0.2),
         variant: widget.tooltipVariant,
         onCreated: (controller) {
           _thumbEndTooltipController = controller;
@@ -373,7 +411,9 @@ class _ZeroRangeSliderState extends State<ZeroRangeSlider> {
           },
           child: InkWell(
             borderRadius: BorderRadius.circular(20),
-            highlightColor: widget.isDisabled ? ZeroColors.neutral7.withOpacity(0.2) : widget.thumbColor.withOpacity(0.2),
+            highlightColor: widget.isDisabled
+                ? ZeroColors.neutral[7].withOpacity(0.2)
+                : widget.thumbColor.withOpacity(0.2),
             splashColor: Colors.transparent,
             onTap: () {
               // do nothing
@@ -384,7 +424,9 @@ class _ZeroRangeSliderState extends State<ZeroRangeSlider> {
               width: widget.size.thumbSize,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: widget.isDisabled ? ZeroColors.neutral7 : widget.thumbColor,
+                color: widget.isDisabled
+                    ? ZeroColors.neutral[7]
+                    : widget.thumbColor,
               ),
             ),
           ),
