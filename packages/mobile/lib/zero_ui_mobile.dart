@@ -6,8 +6,9 @@ export './styles/typography.dart';
 export './styles/theme.dart';
 export './styles/color_accent.dart';
 
-// component
+// component styles
 export './styles/component/list_tile_style.dart';
+export './styles/component/zero_button_style.dart';
 
 // assets
 export './assets/assets.dart';
@@ -17,7 +18,6 @@ export './components/app.dart';
 
 // button
 export './components/button/zero_button.dart';
-export './components/button/zero_button_style.dart';
 export './components/button/zero_button_right_icon.dart';
 export './components/button/zero_button_left_icon.dart';
 export './components/button/zero_button_right_left_icon.dart';
@@ -85,4 +85,5 @@ export './types/avatar_size.dart';
 export './position/tooltip_position.dart';
 
 // utils
-export './utils/extensions.dart';
+export 'utils/extensions/theme_extensions.dart';
+export 'utils/extensions/num_extensions.dart';

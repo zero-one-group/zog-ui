@@ -2,340 +2,376 @@ import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
+import '../utils.dart';
+
 WidgetbookComponent buttonWidgetbookComponent = WidgetbookComponent(
   name: 'Button',
   useCases: [
     WidgetbookUseCase(
       name: 'Primary',
-      builder: (context) => ZeroButton.primary(
-        buttonSizeType: context.knobs.options(
-          options: buttonSizeTypes,
-          label: 'Button Size Type',
+      builder: (context) => PreviewWidget(
+        child: ZeroButton.primary(
+          buttonSizeType: context.knobs.options(
+            options: buttonSizeTypes,
+            label: 'Button Size Type',
+          ),
+          buttonRadiusType: context.knobs.options(
+            options: buttonRadiusTypes,
+            label: 'Button Radius Type',
+          ),
+          isDisabled: context.knobs.boolean(
+            label: 'Is Disabled',
+            initialValue: false,
+          ),
+          text: context.knobs.text(
+            label: 'Text',
+            initialValue: 'Button',
+          ),
+          onPressed: () {},
         ),
-        buttonRadiusType: context.knobs.options(
-          options: buttonRadiusTypes,
-          label: 'Button Radius Type',
-        ),
-        isDisabled: context.knobs.boolean(
-          label: 'Is Disabled',
-          initialValue: false,
-        ),
-        text: context.knobs.text(
-          label: 'Text',
-          initialValue: 'Button',
-        ),
-        onPressed: () {},
       ),
     ),
     WidgetbookUseCase(
       name: 'Secondary',
-      builder: (context) => ZeroButton.secondary(
-        buttonSizeType: context.knobs.options(
-          options: buttonSizeTypes,
-          label: 'Button Size Type',
+      builder: (context) => PreviewWidget(
+        child: ZeroButton.secondary(
+          buttonSizeType: context.knobs.options(
+            options: buttonSizeTypes,
+            label: 'Button Size Type',
+          ),
+          buttonRadiusType: context.knobs.options(
+            options: buttonRadiusTypes,
+            label: 'Button Radius Type',
+          ),
+          isDisabled: context.knobs.boolean(
+            label: 'Is Disabled',
+            initialValue: false,
+          ),
+          text: context.knobs.text(
+            label: 'Text',
+            initialValue: 'Button',
+          ),
+          onPressed: () {},
         ),
-        buttonRadiusType: context.knobs.options(
-          options: buttonRadiusTypes,
-          label: 'Button Radius Type',
-        ),
-        isDisabled: context.knobs.boolean(
-          label: 'Is Disabled',
-          initialValue: false,
-        ),
-        text: context.knobs.text(
-          label: 'Text',
-          initialValue: 'Button',
-        ),
-        onPressed: () {},
       ),
     ),
     WidgetbookUseCase(
       name: 'Text',
-      builder: (context) => ZeroButton.text(
-        buttonSizeType: context.knobs.options(
-          options: buttonSizeTypes,
-          label: 'Button Size Type',
+      builder: (context) => PreviewWidget(
+        child: ZeroButton.text(
+          buttonSizeType: context.knobs.options(
+            options: buttonSizeTypes,
+            label: 'Button Size Type',
+          ),
+          buttonRadiusType: context.knobs.options(
+            options: buttonRadiusTypes,
+            label: 'Button Radius Type',
+          ),
+          isDisabled: context.knobs.boolean(
+            label: 'Is Disabled',
+            initialValue: false,
+          ),
+          text: context.knobs.text(
+            label: 'Text',
+            initialValue: 'Button',
+          ),
+          onPressed: () {},
         ),
-        buttonRadiusType: context.knobs.options(
-          options: buttonRadiusTypes,
-          label: 'Button Radius Type',
-        ),
-        isDisabled: context.knobs.boolean(
-          label: 'Is Disabled',
-          initialValue: false,
-        ),
-        text: context.knobs.text(
-          label: 'Text',
-          initialValue: 'Button',
-        ),
-        onPressed: () {},
       ),
     ),
     WidgetbookUseCase(
       name: 'L-Icon Primary',
-      builder: (context) => ZeroButtonLIcon.primary(
-        icon: context.knobs.options(label: 'Icon', options: icons),
-        buttonSizeType: context.knobs.options(
-          options: buttonSizeTypes,
-          label: 'Button Size Type',
+      builder: (context) => PreviewWidget(
+        child: ZeroButtonLIcon.primary(
+          icon: context.knobs.options(label: 'Icon', options: icons),
+          buttonSizeType: context.knobs.options(
+            options: buttonSizeTypes,
+            label: 'Button Size Type',
+          ),
+          buttonRadiusType: context.knobs.options(
+            options: buttonRadiusTypes,
+            label: 'Button Radius Type',
+          ),
+          isDisabled: context.knobs.boolean(
+            label: 'Is Disabled',
+            initialValue: false,
+          ),
+          text: context.knobs.text(
+            label: 'Text',
+            initialValue: 'Button',
+          ),
+          onPressed: () {},
         ),
-        buttonRadiusType: context.knobs.options(
-          options: buttonRadiusTypes,
-          label: 'Button Radius Type',
-        ),
-        isDisabled: context.knobs.boolean(
-          label: 'Is Disabled',
-          initialValue: false,
-        ),
-        text: context.knobs.text(
-          label: 'Text',
-          initialValue: 'Button',
-        ),
-        onPressed: () {},
       ),
     ),
     WidgetbookUseCase(
       name: 'L-Icon Secondary',
-      builder: (context) => ZeroButtonLIcon.secondary(
-        icon: context.knobs.options(label: 'Icon', options: icons),
-        buttonSizeType: context.knobs.options(
-          options: buttonSizeTypes,
-          label: 'Button Size Type',
+      builder: (context) => PreviewWidget(
+        child: ZeroButtonLIcon.secondary(
+          icon: context.knobs.options(label: 'Icon', options: icons),
+          buttonSizeType: context.knobs.options(
+            options: buttonSizeTypes,
+            label: 'Button Size Type',
+          ),
+          buttonRadiusType: context.knobs.options(
+            options: buttonRadiusTypes,
+            label: 'Button Radius Type',
+          ),
+          isDisabled: context.knobs.boolean(
+            label: 'Is Disabled',
+            initialValue: false,
+          ),
+          text: context.knobs.text(
+            label: 'Text',
+            initialValue: 'Button',
+          ),
+          onPressed: () {},
         ),
-        buttonRadiusType: context.knobs.options(
-          options: buttonRadiusTypes,
-          label: 'Button Radius Type',
-        ),
-        isDisabled: context.knobs.boolean(
-          label: 'Is Disabled',
-          initialValue: false,
-        ),
-        text: context.knobs.text(
-          label: 'Text',
-          initialValue: 'Button',
-        ),
-        onPressed: () {},
       ),
     ),
     WidgetbookUseCase(
       name: 'L-Icon Text',
-      builder: (context) => ZeroButtonLIcon.text(
-        icon: context.knobs.options(label: 'Icon', options: icons),
-        buttonSizeType: context.knobs.options(
-          options: buttonSizeTypes,
-          label: 'Button Size Type',
+      builder: (context) => PreviewWidget(
+        child: ZeroButtonLIcon.text(
+          icon: context.knobs.options(label: 'Icon', options: icons),
+          buttonSizeType: context.knobs.options(
+            options: buttonSizeTypes,
+            label: 'Button Size Type',
+          ),
+          buttonRadiusType: context.knobs.options(
+            options: buttonRadiusTypes,
+            label: 'Button Radius Type',
+          ),
+          isDisabled: context.knobs.boolean(
+            label: 'Is Disabled',
+            initialValue: false,
+          ),
+          text: context.knobs.text(
+            label: 'Text',
+            initialValue: 'Button',
+          ),
+          onPressed: () {},
         ),
-        buttonRadiusType: context.knobs.options(
-          options: buttonRadiusTypes,
-          label: 'Button Radius Type',
-        ),
-        isDisabled: context.knobs.boolean(
-          label: 'Is Disabled',
-          initialValue: false,
-        ),
-        text: context.knobs.text(
-          label: 'Text',
-          initialValue: 'Button',
-        ),
-        onPressed: () {},
       ),
     ),
     WidgetbookUseCase(
       name: 'R-Icon Primary',
-      builder: (context) => ZeroButtonRIcon.primary(
-        icon: context.knobs.options(label: 'Icon', options: icons),
-        buttonSizeType: context.knobs.options(
-          options: buttonSizeTypes,
-          label: 'Button Size Type',
+      builder: (context) => PreviewWidget(
+        child: ZeroButtonRIcon.primary(
+          icon: context.knobs.options(label: 'Icon', options: icons),
+          buttonSizeType: context.knobs.options(
+            options: buttonSizeTypes,
+            label: 'Button Size Type',
+          ),
+          buttonRadiusType: context.knobs.options(
+            options: buttonRadiusTypes,
+            label: 'Button Radius Type',
+          ),
+          isDisabled: context.knobs.boolean(
+            label: 'Is Disabled',
+            initialValue: false,
+          ),
+          text: context.knobs.text(
+            label: 'Text',
+            initialValue: 'Button',
+          ),
+          onPressed: () {},
         ),
-        buttonRadiusType: context.knobs.options(
-          options: buttonRadiusTypes,
-          label: 'Button Radius Type',
-        ),
-        isDisabled: context.knobs.boolean(
-          label: 'Is Disabled',
-          initialValue: false,
-        ),
-        text: context.knobs.text(
-          label: 'Text',
-          initialValue: 'Button',
-        ),
-        onPressed: () {},
       ),
     ),
     WidgetbookUseCase(
       name: 'R-Icon Secondary',
-      builder: (context) => ZeroButtonRIcon.secondary(
-        icon: context.knobs.options(label: 'Icon', options: icons),
-        buttonSizeType: context.knobs.options(
-          options: buttonSizeTypes,
-          label: 'Button Size Type',
+      builder: (context) => PreviewWidget(
+        child: ZeroButtonRIcon.secondary(
+          icon: context.knobs.options(label: 'Icon', options: icons),
+          buttonSizeType: context.knobs.options(
+            options: buttonSizeTypes,
+            label: 'Button Size Type',
+          ),
+          buttonRadiusType: context.knobs.options(
+            options: buttonRadiusTypes,
+            label: 'Button Radius Type',
+          ),
+          isDisabled: context.knobs.boolean(
+            label: 'Is Disabled',
+            initialValue: false,
+          ),
+          text: context.knobs.text(
+            label: 'Text',
+            initialValue: 'Button',
+          ),
+          onPressed: () {},
         ),
-        buttonRadiusType: context.knobs.options(
-          options: buttonRadiusTypes,
-          label: 'Button Radius Type',
-        ),
-        isDisabled: context.knobs.boolean(
-          label: 'Is Disabled',
-          initialValue: false,
-        ),
-        text: context.knobs.text(
-          label: 'Text',
-          initialValue: 'Button',
-        ),
-        onPressed: () {},
       ),
     ),
     WidgetbookUseCase(
       name: 'R-Icon Text',
-      builder: (context) => ZeroButtonRIcon.text(
-        icon: context.knobs.options(label: 'Icon', options: icons),
-        buttonSizeType: context.knobs.options(
-          options: buttonSizeTypes,
-          label: 'Button Size Type',
+      builder: (context) => PreviewWidget(
+        child: ZeroButtonRIcon.text(
+          icon: context.knobs.options(label: 'Icon', options: icons),
+          buttonSizeType: context.knobs.options(
+            options: buttonSizeTypes,
+            label: 'Button Size Type',
+          ),
+          buttonRadiusType: context.knobs.options(
+            options: buttonRadiusTypes,
+            label: 'Button Radius Type',
+          ),
+          isDisabled: context.knobs.boolean(
+            label: 'Is Disabled',
+            initialValue: false,
+          ),
+          text: context.knobs.text(
+            label: 'Text',
+            initialValue: 'Button',
+          ),
+          onPressed: () {},
         ),
-        buttonRadiusType: context.knobs.options(
-          options: buttonRadiusTypes,
-          label: 'Button Radius Type',
-        ),
-        isDisabled: context.knobs.boolean(
-          label: 'Is Disabled',
-          initialValue: false,
-        ),
-        text: context.knobs.text(
-          label: 'Text',
-          initialValue: 'Button',
-        ),
-        onPressed: () {},
       ),
     ),
     WidgetbookUseCase(
       name: 'RL-Icon Primary',
-      builder: (context) => ZeroButtonRLIcon.primary(
-        prefixIcon: context.knobs.options(label: 'Icon', options: icons),
-        suffixIcon: context.knobs.options(label: 'Icon', options: icons),
-        buttonSizeType: context.knobs.options(
-          options: buttonSizeTypes,
-          label: 'Button Size Type',
+      builder: (context) => PreviewWidget(
+        child: ZeroButtonRLIcon.primary(
+          prefixIcon: context.knobs.options(label: 'Icon', options: icons),
+          suffixIcon: context.knobs.options(label: 'Icon', options: icons),
+          buttonSizeType: context.knobs.options(
+            options: buttonSizeTypes,
+            label: 'Button Size Type',
+          ),
+          buttonRadiusType: context.knobs.options(
+            options: buttonRadiusTypes,
+            label: 'Button Radius Type',
+          ),
+          isDisabled: context.knobs.boolean(
+            label: 'Is Disabled',
+            initialValue: false,
+          ),
+          text: context.knobs.text(
+            label: 'Text',
+            initialValue: 'Button',
+          ),
+          onPressed: () {},
         ),
-        buttonRadiusType: context.knobs.options(
-          options: buttonRadiusTypes,
-          label: 'Button Radius Type',
-        ),
-        isDisabled: context.knobs.boolean(
-          label: 'Is Disabled',
-          initialValue: false,
-        ),
-        text: context.knobs.text(
-          label: 'Text',
-          initialValue: 'Button',
-        ),
-        onPressed: () {},
       ),
     ),
     WidgetbookUseCase(
       name: 'RL-Icon Secondary',
-      builder: (context) => ZeroButtonRLIcon.secondary(
-        prefixIcon: context.knobs.options(label: 'Icon', options: icons),
-        suffixIcon: context.knobs.options(label: 'Icon', options: icons),
-        buttonSizeType: context.knobs.options(
-          options: buttonSizeTypes,
-          label: 'Button Size Type',
+      builder: (context) => PreviewWidget(
+        child: Scaffold(
+          body: Center(
+            child: ZeroButtonRLIcon.secondary(
+              prefixIcon: context.knobs.options(label: 'Icon', options: icons),
+              suffixIcon: context.knobs.options(label: 'Icon', options: icons),
+              buttonSizeType: context.knobs.options(
+                options: buttonSizeTypes,
+                label: 'Button Size Type',
+              ),
+              buttonRadiusType: context.knobs.options(
+                options: buttonRadiusTypes,
+                label: 'Button Radius Type',
+              ),
+              isDisabled: context.knobs.boolean(
+                label: 'Is Disabled',
+                initialValue: false,
+              ),
+              text: context.knobs.text(
+                label: 'Text',
+                initialValue: 'Button',
+              ),
+              onPressed: () {},
+            ),
+          ),
         ),
-        buttonRadiusType: context.knobs.options(
-          options: buttonRadiusTypes,
-          label: 'Button Radius Type',
-        ),
-        isDisabled: context.knobs.boolean(
-          label: 'Is Disabled',
-          initialValue: false,
-        ),
-        text: context.knobs.text(
-          label: 'Text',
-          initialValue: 'Button',
-        ),
-        onPressed: () {},
       ),
     ),
     WidgetbookUseCase(
       name: 'RL-Icon Text',
-      builder: (context) => ZeroButtonRLIcon.text(
-        prefixIcon: context.knobs.options(label: 'Icon', options: icons),
-        suffixIcon: context.knobs.options(label: 'Icon', options: icons),
-        buttonSizeType: context.knobs.options(
-          options: buttonSizeTypes,
-          label: 'Button Size Type',
+      builder: (context) => PreviewWidget(
+        child: ZeroButtonRLIcon.text(
+          prefixIcon: context.knobs.options(label: 'Icon', options: icons),
+          suffixIcon: context.knobs.options(label: 'Icon', options: icons),
+          buttonSizeType: context.knobs.options(
+            options: buttonSizeTypes,
+            label: 'Button Size Type',
+          ),
+          buttonRadiusType: context.knobs.options(
+            options: buttonRadiusTypes,
+            label: 'Button Radius Type',
+          ),
+          isDisabled: context.knobs.boolean(
+            label: 'Is Disabled',
+            initialValue: false,
+          ),
+          text: context.knobs.text(
+            label: 'Text',
+            initialValue: 'Button',
+          ),
+          onPressed: () {},
         ),
-        buttonRadiusType: context.knobs.options(
-          options: buttonRadiusTypes,
-          label: 'Button Radius Type',
-        ),
-        isDisabled: context.knobs.boolean(
-          label: 'Is Disabled',
-          initialValue: false,
-        ),
-        text: context.knobs.text(
-          label: 'Text',
-          initialValue: 'Button',
-        ),
-        onPressed: () {},
       ),
     ),
     WidgetbookUseCase(
       name: 'Icon Primary',
-      builder: (context) => ZeroButtonIcon.primary(
-        icon: context.knobs.options(label: 'Icon', options: icons),
-        buttonSizeType: context.knobs.options(
-          options: buttonSizeTypes,
-          label: 'Button Size Type',
+      builder: (context) => PreviewWidget(
+        child: ZeroButtonIcon.primary(
+          icon: context.knobs.options(label: 'Icon', options: icons),
+          buttonSizeType: context.knobs.options(
+            options: buttonSizeTypes,
+            label: 'Button Size Type',
+          ),
+          buttonRadiusType: context.knobs.options(
+            options: buttonRadiusTypes,
+            label: 'Button Radius Type',
+          ),
+          isDisabled: context.knobs.boolean(
+            label: 'Is Disabled',
+            initialValue: false,
+          ),
+          onPressed: () {},
         ),
-        buttonRadiusType: context.knobs.options(
-          options: buttonRadiusTypes,
-          label: 'Button Radius Type',
-        ),
-        isDisabled: context.knobs.boolean(
-          label: 'Is Disabled',
-          initialValue: false,
-        ),
-        onPressed: () {},
       ),
     ),
     WidgetbookUseCase(
       name: 'Icon Secondary',
-      builder: (context) => ZeroButtonIcon.secondary(
-        icon: context.knobs.options(label: 'Icon', options: icons),
-        buttonSizeType: context.knobs.options(
-          options: buttonSizeTypes,
-          label: 'Button Size Type',
+      builder: (context) => PreviewWidget(
+        child: ZeroButtonIcon.secondary(
+          icon: context.knobs.options(label: 'Icon', options: icons),
+          buttonSizeType: context.knobs.options(
+            options: buttonSizeTypes,
+            label: 'Button Size Type',
+          ),
+          buttonRadiusType: context.knobs.options(
+            options: buttonRadiusTypes,
+            label: 'Button Radius Type',
+          ),
+          isDisabled: context.knobs.boolean(
+            label: 'Is Disabled',
+            initialValue: false,
+          ),
+          onPressed: () {},
         ),
-        buttonRadiusType: context.knobs.options(
-          options: buttonRadiusTypes,
-          label: 'Button Radius Type',
-        ),
-        isDisabled: context.knobs.boolean(
-          label: 'Is Disabled',
-          initialValue: false,
-        ),
-        onPressed: () {},
       ),
     ),
     WidgetbookUseCase(
       name: 'Icon Text',
-      builder: (context) => ZeroButtonIcon.text(
-        icon: context.knobs.options(label: 'Icon', options: icons),
-        buttonSizeType: context.knobs.options(
-          options: buttonSizeTypes,
-          label: 'Button Size Type',
+      builder: (context) => PreviewWidget(
+        child: ZeroButtonIcon.text(
+          icon: context.knobs.options(label: 'Icon', options: icons),
+          buttonSizeType: context.knobs.options(
+            options: buttonSizeTypes,
+            label: 'Button Size Type',
+          ),
+          buttonRadiusType: context.knobs.options(
+            options: buttonRadiusTypes,
+            label: 'Button Radius Type',
+          ),
+          isDisabled: context.knobs.boolean(
+            label: 'Is Disabled',
+            initialValue: false,
+          ),
+          onPressed: () {},
         ),
-        buttonRadiusType: context.knobs.options(
-          options: buttonRadiusTypes,
-          label: 'Button Radius Type',
-        ),
-        isDisabled: context.knobs.boolean(
-          label: 'Is Disabled',
-          initialValue: false,
-        ),
-        onPressed: () {},
       ),
     ),
   ],

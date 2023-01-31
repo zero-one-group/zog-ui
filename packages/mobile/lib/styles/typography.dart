@@ -141,15 +141,16 @@ class ZeroTypography with Diagnosticable {
   /// Copy this with a new [ZeroTypography]
   ZeroTypography merge(ZeroTypography? typography) {
     if (typography == null) return this;
-    return ZeroTypography.raw(
-      heading5: typography.heading5 ?? heading5,
-      heading6: typography.heading6 ?? heading6,
-      subtitle1: typography.subtitle1 ?? subtitle1,
-      subtitle2: typography.subtitle2 ?? subtitle2,
-      body1: typography.body1 ?? body1,
-      body2: typography.body2 ?? body2,
-      overline: typography.overline ?? overline,
-      caption: typography.caption ?? caption,
+
+    return copyWith(
+      heading5: typography.heading5,
+      heading6: typography.heading6,
+      subtitle1: typography.subtitle1,
+      subtitle2: typography.subtitle2,
+      body1: typography.body1,
+      body2: typography.body2,
+      overline: typography.overline,
+      caption: typography.caption,
     );
   }
 
@@ -249,6 +250,30 @@ class ZeroTypography with Diagnosticable {
       overline: overline,
       headline5: heading5,
       headline6: heading6,
+    );
+  }
+
+  ZeroTypography copyWith({
+    TextStyle? heading5,
+    TextStyle? heading6,
+    TextStyle? subtitle1,
+    TextStyle? subtitle2,
+    TextStyle? body1,
+    TextStyle? body2,
+    TextStyle? button,
+    TextStyle? caption,
+    TextStyle? overline,
+  }) {
+    return ZeroTypography.raw(
+      heading5: heading5 ?? this.heading5,
+      heading6: heading6 ?? this.heading6,
+      subtitle1: subtitle1 ?? this.subtitle1,
+      subtitle2: subtitle2 ?? this.subtitle2,
+      body1: body1 ?? this.body1,
+      body2: body2 ?? this.body2,
+      button: button ?? this.button,
+      caption: caption ?? this.caption,
+      overline: overline ?? this.overline,
     );
   }
 

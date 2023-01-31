@@ -6,17 +6,13 @@ import 'button_animating.dart';
 /// ZeroButton created based on [ElevatedButton] and [TextButton] with some customizations
 /// how to use this widget is almost the same as [ElevatedButton], [TextButton], [OutlinedButton]
 class ZeroButtonLIcon extends ElevatedButton {
-  ZeroButtonLIcon({
+  ZeroButtonLIcon._({
     super.key,
     required super.onPressed,
     super.onLongPress,
-    super.onHover,
-    super.onFocusChange,
     required ZeroButtonStyle style,
     super.focusNode,
     super.autofocus = false,
-    super.clipBehavior = Clip.none,
-    super.statesController,
     required super.child,
   }) : super(
           style: style.toButtonStyle(),
@@ -33,11 +29,6 @@ class ZeroButtonLIcon extends ElevatedButton {
     /// [textStyle] is the style for [Text] widget inside [ZeroButtonLIcon]
     /// if this value is null, the default style will be used
     TextStyle? textStyle,
-
-    /// [backgroundColor] is the background color for [ZeroButtonLIcon]
-    /// if this value is null, the default background color will be used
-    /// the default background color is [ZeroColors.primary]
-    Color backgroundColor = ZeroColors.primary,
 
     /// [width] is the width for [ZeroButtonLIcon]
     /// if this value is null, widget will be sized to fit its contents
@@ -68,84 +59,92 @@ class ZeroButtonLIcon extends ElevatedButton {
     FocusNode? focusNode,
     bool autofocus = false,
   }) {
-    /// [primaryDefaultStyle] is the default style for [ZeroButton.primary]
-    final ZeroButtonStyle primaryDefaultStyle = ZeroButtonStyle(
-      backgroundColor: backgroundColor,
-      foregroundColor: ZeroColors.primary[8],
-      animatingColor: ZeroColors.primary[3],
-      elevation: 0,
-      fixedSize: (width != null)
-          ? Size(width, height ?? buttonSizeType.defaultButtonHeight)
-          : null,
-      padding: buttonSizeType.padding,
-      shape: RoundedRectangleBorder(
-        borderRadius: buttonRadiusSize(buttonRadiusType),
-      ),
-    );
+    return Builder(builder: (context) {
+      final theme = context.theme;
+      final buttonStyle = theme.primaryButtonStyle;
 
-    /// if [style] is not null, merge [style] with [primaryDefaultStyle]
-    /// combine customizations from [style] with default style [primaryDefaultStyle]
-    style = style?.merge(primaryDefaultStyle) ?? primaryDefaultStyle;
+      /// [primaryDefaultStyle] is the default style for [ZeroButton.primary]
+      final ZeroButtonStyle primaryDefaultStyle = buttonStyle.merge(
+        ZeroButtonStyle(
+          backgroundColor: buttonStyle.backgroundColor ?? theme.primaryColor,
+          elevation: 0,
+          fixedSize: (width != null)
+              ? Size(width, height ?? buttonSizeType.defaultButtonHeight)
+              : null,
+          padding: buttonSizeType.padding,
+          shape: RoundedRectangleBorder(
+            borderRadius: buttonRadiusSize(buttonRadiusType),
+          ),
+        ),
+      );
 
-    /// [updateAnimating] is the callback function to update the state of [ZeroButtonLIcon]
-    /// this function will be called when [ZeroButtonLIcon] is pressed
-    /// this function will be called from [_ButtonAnimating] widget
-    late Function updateAnimating;
+      /// if [style] is not null, merge [style] with [primaryDefaultStyle]
+      /// combine customizations from [style] with default style [primaryDefaultStyle]
+      final adaptiveStyle = primaryDefaultStyle.merge(style);
 
-    /// [animatingColor] is the color that will be used for [ZeroButtonLIcon] when it is pressed
-    /// this value will be used as [backgroundColor] for [_ButtonAnimating] widget
-    Color animatingColor = style.animatingColor ?? ZeroColors.transparent;
-    return isDisabled
-        ? disabled(
-            text: text,
-            icon: icon,
-            textStyle: textStyle,
-            width: width,
-            height: height,
-            buttonSizeType: buttonSizeType,
-            buttonRadiusType: buttonRadiusType,
-          )
-        : ButtonAnimating(
-            callback: (void Function() update) {
-              updateAnimating = update;
-            },
-            buttonRadiusType: buttonRadiusType,
-            height: height ?? buttonSizeType.defaultButtonHeight,
-            animatingColor: animatingColor,
-            child: ZeroButtonLIcon(
-              key: key,
-              onPressed: () {
-                updateAnimating();
-                onPressed();
+      /// [updateAnimating] is the callback function to update the state of [ZeroButtonLIcon]
+      /// this function will be called when [ZeroButtonLIcon] is pressed
+      /// this function will be called from [_ButtonAnimating] widget
+      late Function updateAnimating;
+
+      /// [animatingColor] is the color that will be used for [ZeroButtonLIcon] when it is pressed
+      /// this value will be used as [backgroundColor] for [_ButtonAnimating] widget
+      final animatingColor = buttonStyle.animatingColor ??
+          adaptiveStyle.animatingColor ??
+          ZeroColors.transparent;
+
+      return isDisabled
+          ? disabled(
+              text: text,
+              icon: icon,
+              textStyle: textStyle,
+              width: width,
+              height: height,
+              buttonSizeType: buttonSizeType,
+              buttonRadiusType: buttonRadiusType,
+            )
+          : ButtonAnimating(
+              callback: (update) {
+                updateAnimating = update;
               },
-              onLongPress: onLongPress,
-              style: style,
-              focusNode: focusNode,
-              autofocus: autofocus,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      icon.icon,
-                      color: icon.color ?? ZeroColors.white,
-                      size: buttonSizeType.iconSize,
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      text,
-                      style: textStyle ??
-                          TextStyle(
-                            fontSize: buttonSizeType.fontSize,
-                            color: ZeroColors.white,
-                          ),
-                    ),
-                  ],
+              buttonRadiusType: buttonRadiusType,
+              height: height ?? buttonSizeType.defaultButtonHeight,
+              animatingColor: animatingColor,
+              child: ZeroButtonLIcon._(
+                key: key,
+                onPressed: () {
+                  updateAnimating();
+                  onPressed();
+                },
+                onLongPress: onLongPress,
+                style: adaptiveStyle,
+                focusNode: focusNode,
+                autofocus: autofocus,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        icon.icon,
+                        color: icon.color ?? ZeroColors.white,
+                        size: buttonSizeType.iconSize,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        text,
+                        style: textStyle ??
+                            TextStyle(
+                              fontSize: buttonSizeType.fontSize,
+                              color: ZeroColors.white,
+                            ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
+            );
+    });
   }
 
   static Widget secondary({
@@ -159,11 +158,6 @@ class ZeroButtonLIcon extends ElevatedButton {
     /// [textStyle] is the style for [Text] widget inside [ZeroButtonLIcon]
     /// if this value is null, the default style will be used
     TextStyle? textStyle,
-
-    /// [backgroundColor] is the background color for [ZeroButtonLIcon]
-    /// if this value is null, the default background color will be used
-    /// the default background color is [ZeroColors.primary[6]]
-    Color backgroundColor = ZeroColors.white,
 
     /// [selectedBorderColor] is the border color for [ZeroButtonLIcon]
     Color? borderColor,
@@ -197,84 +191,98 @@ class ZeroButtonLIcon extends ElevatedButton {
     FocusNode? focusNode,
     bool autofocus = false,
   }) {
-    /// [secondaryDefaultStyle] is the default style for [ZeroButton.secondary]
-    final ZeroButtonStyle secondaryDefaultStyle = ZeroButtonStyle(
-      backgroundColor: backgroundColor,
-      foregroundColor: ZeroColors.neutral,
-      animatingColor: ZeroColors.primary[3],
-      elevation: 0,
-      fixedSize: (width != null)
-          ? Size(width, height ?? buttonSizeType.defaultButtonHeight)
-          : null,
-      padding: buttonSizeType.padding,
-      shape: RoundedRectangleBorder(
-        side:
-            BorderSide(color: borderColor ??= ZeroColors.neutral[5], width: 1),
-        borderRadius: buttonRadiusSize(buttonRadiusType),
-      ),
-    );
+    return Builder(builder: (context) {
+      final theme = context.theme;
+      final buttonStyle = theme.secondaryButtonStyle;
+      final adaptiveBorderColor = borderColor ?? theme.dividerColor;
 
-    /// if [style] is not null, merge [style] with [secondaryDefaultStyle]
-    /// combine customizations from [style] with default style [secondaryDefaultStyle]
-    style = style?.merge(secondaryDefaultStyle) ?? secondaryDefaultStyle;
+      /// [secondaryDefaultStyle] is the default style for [ZeroButton.secondary]
+      final ZeroButtonStyle secondaryDefaultStyle = buttonStyle.merge(
+        ZeroButtonStyle(
+          backgroundColor: buttonStyle.backgroundColor,
+          foregroundColor:
+              buttonStyle.foregroundColor ?? theme.disabledBackgroundColor,
+          animatingColor:
+              buttonStyle.animatingColor ?? theme.primaryColor.lighter,
+          elevation: 0,
+          fixedSize: (width != null)
+              ? Size(width, height ?? buttonSizeType.defaultButtonHeight)
+              : null,
+          padding: buttonSizeType.padding,
+          shape: RoundedRectangleBorder(
+            side: BorderSide(
+              color: adaptiveBorderColor,
+              width: 1,
+            ),
+            borderRadius: buttonRadiusSize(buttonRadiusType),
+          ),
+        ),
+      );
 
-    /// [updateAnimating] is the callback function to update the state of [ZeroButtonLIcon]
-    late Function updateAnimating;
+      /// if [style] is not null, merge [style] with [secondaryDefaultStyle]
+      /// combine customizations from [style] with default style [secondaryDefaultStyle]
+      final adaptiveStyle = secondaryDefaultStyle.merge(style);
 
-    /// [animatingColor] is the color that will be used for [ZeroButtonLIcon] when it is pressed
-    Color animatingColor = style.animatingColor ?? ZeroColors.transparent;
+      /// [updateAnimating] is the callback function to update the state of [ZeroButtonLIcon]
+      late Function updateAnimating;
 
-    return isDisabled
-        ? disabled(
-            text: text,
-            icon: icon,
-            textStyle: textStyle,
-            width: width,
-            height: height,
-            buttonSizeType: buttonSizeType,
-            buttonRadiusType: buttonRadiusType,
-          )
-        : ButtonAnimating(
-            callback: (void Function() update) {
-              updateAnimating = update;
-            },
-            buttonRadiusType: buttonRadiusType,
-            height: height ?? buttonSizeType.defaultButtonHeight,
-            animatingColor: animatingColor,
-            child: ZeroButtonLIcon(
-              key: key,
-              onPressed: () {
-                updateAnimating();
-                onPressed();
+      /// [animatingColor] is the color that will be used for [ZeroButtonLIcon] when it is pressed
+      final animatingColor = style?.animatingColor ??
+          buttonStyle.animatingColor ??
+          Colors.transparent;
+
+      return isDisabled
+          ? disabled(
+              text: text,
+              icon: icon,
+              textStyle: textStyle,
+              width: width,
+              height: height,
+              buttonSizeType: buttonSizeType,
+              buttonRadiusType: buttonRadiusType,
+            )
+          : ButtonAnimating(
+              callback: (void Function() update) {
+                updateAnimating = update;
               },
-              onLongPress: onLongPress,
-              style: style,
-              focusNode: focusNode,
-              autofocus: autofocus,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      icon.icon,
-                      color: icon.color ?? ZeroColors.neutral[10],
-                      size: buttonSizeType.iconSize,
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      text,
-                      style: textStyle ??
-                          TextStyle(
-                            fontSize: buttonSizeType.fontSize,
-                            color: ZeroColors.neutral[10],
-                          ),
-                    ),
-                  ],
+              buttonRadiusType: buttonRadiusType,
+              height: height ?? buttonSizeType.defaultButtonHeight,
+              animatingColor: animatingColor,
+              child: ZeroButtonLIcon._(
+                key: key,
+                onPressed: () {
+                  updateAnimating();
+                  onPressed();
+                },
+                onLongPress: onLongPress,
+                style: adaptiveStyle,
+                focusNode: focusNode,
+                autofocus: autofocus,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        icon.icon,
+                        color: icon.color ?? theme.solidTextColor,
+                        size: buttonSizeType.iconSize,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        text,
+                        style: textStyle ??
+                            TextStyle(
+                              fontSize: buttonSizeType.fontSize,
+                              color: icon.color ?? theme.solidTextColor,
+                            ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
+            );
+    });
   }
 
   static Widget text({
@@ -288,11 +296,6 @@ class ZeroButtonLIcon extends ElevatedButton {
     /// [textStyle] is the style for [Text] widget inside [ZeroButtonLIcon]
     /// if this value is null, the default style will be used
     TextStyle? textStyle,
-
-    /// [backgroundColor] is the background color for [ZeroButtonLIcon]
-    /// if this value is null, the default background color will be used
-    /// the default background color is [ZeroColors.transparentWhite]
-    Color backgroundColor = ZeroColors.transparentWhite,
 
     /// [width] is the width for [ZeroButtonLIcon]
     /// if this value is null, widget will be sized to fit its contents
@@ -323,79 +326,83 @@ class ZeroButtonLIcon extends ElevatedButton {
     FocusNode? focusNode,
     bool autofocus = false,
   }) {
-    /// [secondaryDefaultStyle] is the default style for [ZeroButton.secondary]
-    final ZeroButtonStyle secondaryDefaultStyle = ZeroButtonStyle(
-      backgroundColor: backgroundColor,
-      foregroundColor: ZeroColors.neutral,
-      elevation: 0,
-      fixedSize: (width != null)
-          ? Size(width, height ?? buttonSizeType.defaultButtonHeight)
-          : null,
-      padding: buttonSizeType.padding,
-      shape: RoundedRectangleBorder(
-        borderRadius: buttonRadiusSize(buttonRadiusType),
-      ),
-    );
+    return Builder(builder: (context) {
+      final theme = context.theme;
+      final buttonStyle = theme.secondaryButtonStyle;
 
-    /// if [style] is not null, merge [style] with [secondaryDefaultStyle]
-    /// combine customizations from [style] with default style [secondaryDefaultStyle]
-    style = style?.merge(secondaryDefaultStyle) ?? secondaryDefaultStyle;
+      /// [secondaryDefaultStyle] is the default style for [ZeroButton.secondary]
+      final ZeroButtonStyle secondaryDefaultStyle = buttonStyle.merge(
+        ZeroButtonStyle(
+          foregroundColor: buttonStyle.foregroundColor ?? ZeroColors.neutral,
+          elevation: 0,
+          fixedSize: (width != null)
+              ? Size(width, height ?? buttonSizeType.defaultButtonHeight)
+              : null,
+          padding: buttonSizeType.padding,
+          shape: RoundedRectangleBorder(
+            borderRadius: buttonRadiusSize(buttonRadiusType),
+          ),
+        ),
+      );
 
-    return isDisabled
-        ? disabled(
-            text: text,
-            icon: icon,
-            textStyle: textStyle,
-            width: width,
-            height: height,
-            buttonSizeType: buttonSizeType,
-            buttonRadiusType: buttonRadiusType,
-            style: ZeroButtonStyle(
-              backgroundColor: ZeroColors.neutral[3],
-              foregroundColor: ZeroColors.transparentWhite,
-              elevation: 0,
-              fixedSize: (width != null)
-                  ? Size(width, height ?? buttonSizeType.defaultButtonHeight)
-                  : null,
-              padding: buttonSizeType.padding,
-              shape: RoundedRectangleBorder(
-                borderRadius: buttonRadiusSize(buttonRadiusType),
-              ),
-            ),
-          )
-        : SizedBox(
-            height: height ?? buttonSizeType.defaultButtonHeight,
-            child: ZeroButtonLIcon(
-              key: key,
-              onPressed: onPressed,
-              onLongPress: onLongPress,
-              style: style,
-              focusNode: focusNode,
-              autofocus: autofocus,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      icon.icon,
-                      color: icon.color ?? ZeroColors.neutral[10],
-                      size: buttonSizeType.iconSize,
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      text,
-                      style: textStyle ??
-                          TextStyle(
-                            fontSize: buttonSizeType.fontSize,
-                            color: ZeroColors.neutral[10],
-                          ),
-                    ),
-                  ],
+      /// if [style] is not null, merge [style] with [secondaryDefaultStyle]
+      /// combine customizations from [style] with default style [secondaryDefaultStyle]
+      final adaptiveStyle = secondaryDefaultStyle.merge(style);
+
+      return isDisabled
+          ? disabled(
+              text: text,
+              icon: icon,
+              textStyle: textStyle,
+              width: width,
+              height: height,
+              buttonSizeType: buttonSizeType,
+              buttonRadiusType: buttonRadiusType,
+              style: ZeroButtonStyle(
+                elevation: 0,
+                fixedSize: (width != null)
+                    ? Size(width, height ?? buttonSizeType.defaultButtonHeight)
+                    : null,
+                padding: buttonSizeType.padding,
+                shape: RoundedRectangleBorder(
+                  borderRadius: buttonRadiusSize(buttonRadiusType),
                 ),
               ),
-            ),
-          );
+            )
+          : SizedBox(
+              height: height ?? buttonSizeType.defaultButtonHeight,
+              child: ZeroButtonLIcon._(
+                key: key,
+                onPressed: onPressed,
+                onLongPress: onLongPress,
+                style: adaptiveStyle,
+                focusNode: focusNode,
+                autofocus: autofocus,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        icon.icon,
+                        color: icon.color ?? theme.solidTextColor,
+                        size: buttonSizeType.iconSize,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        text,
+                        style: textStyle ??
+                            TextStyle(
+                              fontSize: buttonSizeType.fontSize,
+                              color: icon.color ?? theme.solidTextColor,
+                            ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+    });
   }
 
   static Widget disabled({
@@ -427,66 +434,72 @@ class ZeroButtonLIcon extends ElevatedButton {
     /// if this value is null, the default style will be used
     ZeroButtonStyle? style,
   }) {
-    /// [textStyle] is the style for [Text] widget inside [ZeroButtonLIcon]
-    /// if this value is null, the default style will be used
-    textStyle ??= TextStyle(
-      fontSize: buttonSizeType.fontSize,
-      color: ZeroColors.neutral[7],
-    );
+    return Builder(builder: (context) {
+      final theme = context.theme;
 
-    /// [disabledDefaultStyle] is the default style for [ZeroButton.disabled]
-    final ZeroButtonStyle disabledDefaultStyle = ZeroButtonStyle(
-      backgroundColor: ZeroColors.neutral[3],
-      foregroundColor: ZeroColors.transparentWhite,
-      elevation: 0,
-      fixedSize: (width != null)
-          ? Size(width, height ?? buttonSizeType.defaultButtonHeight)
-          : null,
-      padding: buttonSizeType.padding,
-      shape: RoundedRectangleBorder(
-        side: BorderSide(color: ZeroColors.neutral[5]),
-        borderRadius: buttonRadiusSize(buttonRadiusType),
-      ),
-    );
+      /// [disabledDefaultStyle] is the default style for [ZeroButton.disabled]
+      final ZeroButtonStyle disabledDefaultStyle = ZeroButtonStyle(
+        backgroundColor: theme.disabledBackgroundColor,
+        foregroundColor: ZeroColors.transparentWhite,
+        elevation: 0,
+        fixedSize: (width != null)
+            ? Size(width, height ?? buttonSizeType.defaultButtonHeight)
+            : null,
+        padding: buttonSizeType.padding,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(
+            color: theme.disabledColor.withOpacity(0.5),
+            width: 1,
+          ),
+          borderRadius: buttonRadiusSize(buttonRadiusType),
+        ),
+      );
 
-    /// [style] is the style for [ZeroButtonLIcon]
-    style = style?.merge(disabledDefaultStyle) ?? disabledDefaultStyle;
+      /// [style] is the style for [ZeroButtonLIcon]
+      final adaptiveButtonStyle = disabledDefaultStyle.merge(style);
 
-    /// [animatingColor] is the color that will be used for [ZeroButtonLIcon] when it is pressed
-    Color animatingColor = style.animatingColor ?? ZeroColors.transparent;
-    return ButtonAnimating(
-      callback: (void Function() update) {
-        // do nothing
-      },
-      buttonRadiusType: buttonRadiusType,
-      height: height ?? buttonSizeType.defaultButtonHeight,
-      animatingColor: animatingColor,
-      child: ZeroButtonLIcon(
-        key: key,
-        onPressed: () {
+      /// [animatingColor] is the color that will be used for [ZeroButtonLIcon] when it is pressed
+      final animatingColor =
+          adaptiveButtonStyle.animatingColor ?? ZeroColors.transparent;
+
+      return ButtonAnimating(
+        callback: (void Function() update) {
           // do nothing
         },
-        style: style,
-        child: Padding(
-          padding: const EdgeInsets.only(right: 8.0),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                icon.icon,
-                color: icon.color ?? textStyle.color,
-                size: buttonSizeType.iconSize,
-              ),
-              const SizedBox(width: 8),
-              Text(
-                text,
-                style: textStyle,
-              ),
-            ],
+        buttonRadiusType: buttonRadiusType,
+        height: height ?? buttonSizeType.defaultButtonHeight,
+        animatingColor: animatingColor,
+        child: ZeroButtonLIcon._(
+          key: key,
+          onPressed: () {
+            // do nothing
+          },
+          style: adaptiveButtonStyle,
+          child: Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  icon.icon,
+                  color: icon.color ?? theme.disabledColor,
+                  size: buttonSizeType.iconSize,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  text,
+                  style: textStyle?.copyWith(color: theme.disabledColor) ??
+                      TextStyle(
+                        fontSize: buttonSizeType.fontSize,
+                        color: theme.disabledColor,
+                      ),
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   /// ZeroButtonStyle is the style for [ZeroButtonLIcon]

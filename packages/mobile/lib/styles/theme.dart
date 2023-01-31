@@ -68,6 +68,8 @@ class _ZeroTheme extends InheritedTheme {
 class ZeroThemeData with Diagnosticable {
   final ZeroTypography typography;
   final AccentColor primaryColor;
+  final String? fontFamily;
+
   // Base Color
   final Color disabledColor;
   final Color disabledBackgroundColor;
@@ -77,17 +79,23 @@ class ZeroThemeData with Diagnosticable {
   final Color cardColor;
   final Color errorColor;
   final Color dividerColor;
+  final Color solidTextColor;
+  final Color regularTextColor;
 
   // Component Styles
   final ZeroListTileStyle listTileStyle;
+  final ZeroButtonStyle primaryButtonStyle;
+  final ZeroButtonStyle secondaryButtonStyle;
 
   final Brightness brightness;
   final IconThemeData iconTheme;
-  final String? fontFamily;
 
   const ZeroThemeData.raw({
     required this.typography,
     required this.primaryColor,
+    this.fontFamily,
+
+    // Base color
     required this.disabledColor,
     required this.uncheckedColor,
     required this.checkedColor,
@@ -98,8 +106,13 @@ class ZeroThemeData with Diagnosticable {
     required this.disabledBackgroundColor,
     required this.errorColor,
     required this.dividerColor,
-    this.fontFamily,
+    required this.solidTextColor,
+    required this.regularTextColor,
+
+    // Component Style
     required this.listTileStyle,
+    required this.primaryButtonStyle,
+    required this.secondaryButtonStyle,
   });
 
   factory ZeroThemeData({
@@ -115,8 +128,12 @@ class ZeroThemeData with Diagnosticable {
     Color? disabledBackgroundColor,
     Color? errorColor,
     Color? dividerColor,
+    Color? solidTextColor,
+    Color? regularTextColor,
     IconThemeData? iconTheme,
     ZeroListTileStyle? listTileStyle,
+    ZeroButtonStyle? primaryButtonStyle,
+    ZeroButtonStyle? secondaryButtonStyle,
   }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
@@ -135,10 +152,12 @@ class ZeroThemeData with Diagnosticable {
     cardColor ??= isLight ? ZeroColors.white : ZeroColors.neutral[9];
     errorColor ??= ZeroColors.danger;
     dividerColor ??= ZeroColors.neutral[5];
+    solidTextColor ??= isLight ? ZeroColors.neutral[10] : ZeroColors.neutral[5];
+    regularTextColor ??=
+        isLight ? ZeroColors.neutral[7] : ZeroColors.neutral[6];
 
-    typography = ZeroTypography.fromBrightness(brightness: brightness)
-        .merge(typography)
-        .apply(fontFamily: fontFamily);
+    typography ??=
+        ZeroTypography.fromBrightness(color: solidTextColor).merge(typography);
 
     iconTheme ??= isLight
         ? const IconThemeData(color: ZeroColors.black, size: 24.0)
@@ -148,6 +167,22 @@ class ZeroThemeData with Diagnosticable {
     final listTileFallback = ZeroListTileStyle.fallback(
       dividerColor: dividerColor,
       selectedColor: primaryColor.lightest,
+    );
+
+    final primaryButtonStyleFallback = ZeroButtonStyle.primaryStyle(
+      backgroundColor: primaryColor,
+      foregroundColor: primaryColor.darker,
+      surfaceTintColor: primaryColor.lighter,
+      animatingColor: primaryColor.lighter,
+      textStyle: typography.button?.copyWith(color: ZeroColors.white),
+    );
+
+    final secondaryButtonStyleFallback = ZeroButtonStyle.secondaryStyle(
+      backgroundColor: cardColor,
+      foregroundColor: solidTextColor,
+      surfaceTintColor: primaryColor.lighter,
+      animatingColor: primaryColor.lighter,
+      textStyle: typography.button?.copyWith(color: solidTextColor),
     );
 
     return ZeroThemeData.raw(
@@ -163,8 +198,13 @@ class ZeroThemeData with Diagnosticable {
       errorColor: errorColor,
       disabledBackgroundColor: disabledBackgroundColor,
       dividerColor: dividerColor,
+      solidTextColor: solidTextColor,
+      regularTextColor: regularTextColor,
       fontFamily: fontFamily,
       listTileStyle: listTileFallback.merge(listTileStyle),
+      primaryButtonStyle: primaryButtonStyleFallback.merge(primaryButtonStyle),
+      secondaryButtonStyle:
+          secondaryButtonStyleFallback.merge(secondaryButtonStyle),
     );
   }
 
@@ -184,14 +224,21 @@ class ZeroThemeData with Diagnosticable {
           Color.lerp(a.disabledBackgroundColor, b.disabledBackgroundColor, t)!,
       errorColor: Color.lerp(a.errorColor, b.errorColor, t)!,
       dividerColor: Color.lerp(a.dividerColor, b.dividerColor, t)!,
+      solidTextColor: Color.lerp(a.solidTextColor, b.solidTextColor, t)!,
+      regularTextColor: Color.lerp(a.regularTextColor, b.regularTextColor, t)!,
       listTileStyle:
           ZeroListTileStyle.lerp(a.listTileStyle, b.listTileStyle, t),
+      primaryButtonStyle:
+          ZeroButtonStyle.lerp(a.primaryButtonStyle, b.primaryButtonStyle, t),
+      secondaryButtonStyle: ZeroButtonStyle.lerp(
+          a.secondaryButtonStyle, b.secondaryButtonStyle, t),
     );
   }
 
   ZeroThemeData copyWith({
     Brightness? brightness,
     ZeroTypography? typography,
+    String? fontFamily,
     AccentColor? primaryColor,
     Color? inactiveBackgroundColor,
     Color? disabledColor,
@@ -202,13 +249,17 @@ class ZeroThemeData with Diagnosticable {
     Color? disabledBackgroundColor,
     Color? errorColor,
     Color? dividerColor,
+    Color? solidTextColor,
+    Color? regularTextColor,
     IconThemeData? iconTheme,
     ZeroListTileStyle? listTileStyle,
-    String? fontFamily,
+    ZeroButtonStyle? primaryButtonStyle,
+    ZeroButtonStyle? secondaryButtonStyle,
   }) {
     return ZeroThemeData.raw(
       brightness: brightness ?? this.brightness,
       typography: typography ?? this.typography,
+      fontFamily: fontFamily ?? this.fontFamily,
       primaryColor: primaryColor ?? this.primaryColor,
       uncheckedColor: uncheckedColor ?? this.uncheckedColor,
       checkedColor: checkedColor ?? this.checkedColor,
@@ -221,8 +272,11 @@ class ZeroThemeData with Diagnosticable {
       disabledBackgroundColor:
           disabledBackgroundColor ?? this.disabledBackgroundColor,
       dividerColor: dividerColor ?? this.dividerColor,
+      solidTextColor: solidTextColor ?? this.solidTextColor,
+      regularTextColor: regularTextColor ?? this.regularTextColor,
       listTileStyle: listTileStyle ?? this.listTileStyle,
-      fontFamily: fontFamily ?? this.fontFamily,
+      primaryButtonStyle: primaryButtonStyle ?? this.primaryButtonStyle,
+      secondaryButtonStyle: secondaryButtonStyle ?? this.secondaryButtonStyle,
     );
   }
 
@@ -238,6 +292,12 @@ class ZeroThemeData with Diagnosticable {
       errorColor: errorColor,
       dividerColor: dividerColor,
       textTheme: typography.toTextTheme(),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: primaryButtonStyle.toButtonStyle(),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: secondaryButtonStyle.toButtonStyle(),
+      ),
     );
   }
 
