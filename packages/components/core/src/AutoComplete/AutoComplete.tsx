@@ -1,3 +1,4 @@
+import * as ScrollArea from '@radix-ui/react-scroll-area';
 import React, {
   ComponentProps,
   ReactElement,
@@ -5,7 +6,6 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Box } from '../Box';
 import { keyframes, styled } from '../stitches.config';
 
 const slideUpAndFade = keyframes({
@@ -15,28 +15,30 @@ const slideUpAndFade = keyframes({
 
 const StyledAutoComplete = styled('input', {});
 
-const StyledListBoxWrapper = styled(Box, {
+const StyledListBoxWrapper = styled('div', {
   position: 'relative',
   display: 'inline-block',
+  boxSizing: 'border-box',
 });
 
-const StyledListBox = styled(Box, {
+const StyledListBox = styled('div', {
   position: 'absolute',
   top: 'calc(100% + .3rem)',
   width: '100%',
-  p: '$1',
   borderRadius: '$1',
   background: 'White',
   animationDuration: '400ms',
   animationTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
   willChange: 'transform, opacity',
   border: '1px solid $gray10',
+  boxSizing: 'border-box',
+
   '&[data-state="open"]': {
     animationName: slideUpAndFade,
   },
 });
 
-const StyledListBoxItem = styled(Box, {
+const StyledListBoxItem = styled('div', {
   cursor: 'pointer',
   overflow: 'hidden',
   whiteSpace: 'nowrap',
@@ -44,6 +46,7 @@ const StyledListBoxItem = styled(Box, {
   borderRadius: '$1',
   py: '$1',
   px: '$2',
+  boxSizing: 'border-box',
   variants: {
     hovered: {
       true: {
@@ -53,16 +56,72 @@ const StyledListBoxItem = styled(Box, {
   },
 });
 
+const SCROLLBAR_WIDTH = 4;
+
+const StyledScrollAreaRoot = styled(ScrollArea.Root, {
+  height: 'auto',
+  overflow: 'hidden',
+  variants: {
+    scrollable: {
+      true: {
+        height: '200px',
+      },
+    },
+  },
+});
+
+const StyledScrollAreaViewport = styled(ScrollArea.Viewport, {
+  width: '100%',
+  height: '100%',
+  borderRadius: 'inherit',
+});
+
+const StyledScrollAreaScrollbar = styled(ScrollArea.Scrollbar, {
+  display: 'flex',
+  userSelect: 'none',
+  touchAction: 'none',
+  background: '$grayA4',
+  padding: 2,
+  transition: 'background 160ms ease-out',
+  '&:hover': { background: '$grayA4' },
+  '&[data-orientation="vertical"]': { width: SCROLLBAR_WIDTH },
+});
+
+const StyledScrollAreaThumb = styled(ScrollArea.Thumb, {
+  flex: 1,
+  background: '$blue6',
+  borderRadius: SCROLLBAR_WIDTH,
+  position: 'relative',
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '100%',
+    height: '100%',
+    minWidth: 44,
+    minHeight: 44,
+  },
+});
+
 export type AutoCompleteItem = string;
 
 export interface AutoCompleteProps
   extends ComponentProps<typeof StyledAutoComplete> {
   options?: AutoCompleteItem[];
+  itemsToShow?: number;
 }
 
 export type AutoCompleteComponent = (props: AutoCompleteProps) => ReactElement;
 
+export type WrapWithScrollAreaProps = {
+  shouldListScroll: boolean;
+  children: React.ReactNode;
+};
+
 export const AutoComplete: AutoCompleteComponent = ({
+  itemsToShow = 10,
   value,
   options,
   onFocus,
@@ -73,6 +132,7 @@ export const AutoComplete: AutoCompleteComponent = ({
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const listBoxRef = useRef<HTMLDivElement>(null);
+  const listItemsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   const [listBoxOpened, setListBoxOpened] = useState<boolean>(false);
   const [hovered, setHovered] = useState<number>(-1);
@@ -140,12 +200,14 @@ export const AutoComplete: AutoCompleteComponent = ({
       case 'ArrowUp': {
         event.preventDefault();
         handlePrevious();
+        listItemsRef.current[hovered]?.scrollIntoView(false);
         break;
       }
 
       case 'ArrowDown': {
         event.preventDefault();
         handleNext();
+        listItemsRef.current[hovered]?.scrollIntoView(true);
         break;
       }
 
@@ -193,6 +255,8 @@ export const AutoComplete: AutoCompleteComponent = ({
     setListBoxOpened(false);
   };
 
+  const shouldListScroll = filteredData.length > itemsToShow;
+
   return (
     <StyledListBoxWrapper role="combobox">
       <StyledAutoComplete
@@ -211,21 +275,29 @@ export const AutoComplete: AutoCompleteComponent = ({
       />
       {shouldListBoxOpened ? (
         <StyledListBox data-state="open" role="list" ref={listBoxRef}>
-          {filteredData.map((option, idx) => (
-            <StyledListBoxItem
-              role="listitem"
-              key={`${option}-${idx}`}
-              onClick={(e: React.MouseEvent<HTMLDivElement>) =>
-                handleItemClick(e, option)
-              }
-              onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) =>
-                handleHovered(e, idx)
-              }
-              hovered={idx === hovered}
-            >
-              {option}
-            </StyledListBoxItem>
-          ))}
+          <StyledScrollAreaRoot scrollable={shouldListScroll}>
+            <StyledScrollAreaViewport>
+              {filteredData.map((option, idx) => (
+                <StyledListBoxItem
+                  ref={(el) => (listItemsRef.current[idx] = el)}
+                  role="listitem"
+                  key={`${option}-${idx}`}
+                  onClick={(e: React.MouseEvent<HTMLDivElement>) =>
+                    handleItemClick(e, option)
+                  }
+                  onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) =>
+                    handleHovered(e, idx)
+                  }
+                  hovered={idx === hovered}
+                >
+                  {option}
+                </StyledListBoxItem>
+              ))}
+            </StyledScrollAreaViewport>
+            <StyledScrollAreaScrollbar orientation="vertical">
+              <StyledScrollAreaThumb />
+            </StyledScrollAreaScrollbar>
+          </StyledScrollAreaRoot>
         </StyledListBox>
       ) : null}
     </StyledListBoxWrapper>
