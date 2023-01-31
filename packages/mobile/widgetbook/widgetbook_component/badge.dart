@@ -2,38 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
+import '../utils.dart';
+
 WidgetbookComponent badgeWidgetbookComponent = WidgetbookComponent(
   name: 'Badge',
   useCases: [
     WidgetbookUseCase(
       name: 'Default',
-      builder: (context) => Scaffold(
-        body: Center(
-          child: Container(
-            alignment: Alignment.center,
-            width: 200,
-            height: 200,
-            child: ZeroBadge(
-              badgeColor: context.knobs.options(
-                label: 'Badge Color',
-                options: _colorOptions,
-              ),
-              badgeText: context.knobs.text(label: 'Badge Text'),
-              position: context.knobs.options(
-                label: 'Position',
-                options: _positionOptions,
-              ),
-              type: context.knobs.options(
-                label: 'Type',
-                options: _typeOptions,
-              ),
-              badgeTextColor: context.knobs.options(
-                label: 'Badge Text Color',
-                options: _textColorOptions,
-              ),
-              child: const Icon(Icons.mail),
-            ),
+      builder: (context) => PreviewWidget(
+        child: ZeroBadge(
+          badgeColor: context.knobs.options(
+            label: 'Badge Color',
+            options: _colorOptions,
           ),
+          badgeText: context.knobs.text(label: 'Badge Text'),
+          position: context.knobs.options(
+            label: 'Position',
+            options: _positionOptions,
+          ),
+          type: context.knobs.options(
+            label: 'Type',
+            options: _typeOptions,
+          ),
+          badgeTextColor: context.knobs.options(
+            label: 'Badge Text Color',
+            options: _textColorOptions,
+          ),
+          child: const Icon(Icons.mail),
         ),
       ),
     ),

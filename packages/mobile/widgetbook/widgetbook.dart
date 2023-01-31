@@ -31,18 +31,24 @@ class HotReload extends StatelessWidget {
           ],
         ),
         WidgetbookCategory(
-          name: 'Inputs',
+          name: 'Component',
+          folders: [
+            WidgetbookFolder(name: 'Input', widgets: [
+              textFieldWidgetbookComponent,
+              radioGroupWidgetbookComponent,
+              dropdownWidgetbookComponent,
+              checkboxWidgetbookComponent,
+            ]),
+            WidgetbookFolder(name: 'Button', widgets: [
+              buttonWidgetbookComponent,
+              buttonGroupWidgetbookComponent,
+            ]),
+          ],
           widgets: [
-            buttonWidgetbookComponent,
-            buttonGroupWidgetbookComponent,
             ratingWidgetbookComponent,
-            textFieldWidgetbookComponent,
-            checkboxWidgetbookComponent,
-            radioGroupWidgetbookComponent,
             badgeWidgetbookComponent,
             tooltipWidgetbookComponent,
             listTileWidgetbookComponent,
-            dropdownWidgetbookComponent,
             textWidgetbookComponent,
             avatarWidgetbookComponent
           ],

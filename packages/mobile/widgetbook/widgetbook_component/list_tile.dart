@@ -2,177 +2,138 @@ import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
+import '../utils.dart';
+
 WidgetbookComponent listTileWidgetbookComponent = WidgetbookComponent(
   name: 'List Tile',
   useCases: [
     WidgetbookUseCase(
       name: 'Default',
-      builder: (context) => ZeroApp(
-        theme: ZeroThemeData(),
-        home: Scaffold(
-          body: Center(
-            child: ZeroListTile(
-              title: 'List Item',
-              selected: context.knobs.boolean(label: 'Selected'),
-              size: context.knobs.options(label: 'Size', options: _sizeTypes),
-              withDivider: context.knobs.boolean(label: 'With Divider'),
-              onTap: () {},
-            ),
-          ),
+      builder: (context) => PreviewWidget(
+        child: ZeroListTile(
+          title: 'List Item',
+          selected: context.knobs.boolean(label: 'Selected'),
+          size: context.knobs.options(label: 'Size', options: _sizeTypes),
+          withDivider: context.knobs.boolean(label: 'With Divider'),
+          onTap: () {},
         ),
       ),
     ),
     WidgetbookUseCase(
       name: 'With Subtitle',
-      builder: (context) => ZeroApp(
-        theme: ZeroThemeData(),
-        home: Scaffold(
-          body: Center(
-            child: ZeroListTile(
-              title:
-                  context.knobs.text(label: 'Title', initialValue: 'List Item'),
-              subtitle: context.knobs
-                  .text(label: 'Subtitle', initialValue: 'Secondary '),
-              selected: context.knobs.boolean(label: 'Selected'),
-              size: context.knobs.options(label: 'Size', options: _sizeTypes),
-              withDivider: context.knobs.boolean(label: 'With Divider'),
-              onTap: () {},
-            ),
-          ),
+      builder: (context) => PreviewWidget(
+        child: ZeroListTile(
+          title: context.knobs.text(label: 'Title', initialValue: 'List Item'),
+          subtitle:
+              context.knobs.text(label: 'Subtitle', initialValue: 'Secondary '),
+          selected: context.knobs.boolean(label: 'Selected'),
+          size: context.knobs.options(label: 'Size', options: _sizeTypes),
+          withDivider: context.knobs.boolean(label: 'With Divider'),
+          onTap: () {},
         ),
       ),
     ),
     WidgetbookUseCase(
       name: 'Left Icon',
-      builder: (context) => ZeroApp(
-        theme: ZeroThemeData(),
-        home: Scaffold(
-          body: Center(
-            child: ZeroListTile(
-              title:
-                  context.knobs.text(label: 'Title', initialValue: 'List Item'),
-              subtitle: context.knobs
-                  .text(label: 'Subtitle', initialValue: 'Secondary '),
-              selected: context.knobs.boolean(label: 'Selected'),
-              size: context.knobs.options(label: 'Size', options: _sizeTypes),
-              withDivider: context.knobs.boolean(label: 'With Divider'),
-              leftIcon: context.knobs
-                  .options(label: 'Left Icon', options: _leftIcons),
-              onTap: () {},
-            ),
-          ),
+      builder: (context) => PreviewWidget(
+        child: ZeroListTile(
+          title: context.knobs.text(label: 'Title', initialValue: 'List Item'),
+          subtitle:
+              context.knobs.text(label: 'Subtitle', initialValue: 'Secondary '),
+          selected: context.knobs.boolean(label: 'Selected'),
+          size: context.knobs.options(label: 'Size', options: _sizeTypes),
+          withDivider: context.knobs.boolean(label: 'With Divider'),
+          leftIcon:
+              context.knobs.options(label: 'Left Icon', options: _leftIcons),
+          onTap: () {},
         ),
       ),
     ),
     WidgetbookUseCase(
       name: 'Right Icon',
-      builder: (context) => ZeroApp(
-        theme: ZeroThemeData(),
-        home: Scaffold(
-          body: Center(
-            child: ZeroListTile(
-              title:
-                  context.knobs.text(label: 'Title', initialValue: 'List Item'),
-              subtitle: context.knobs
-                  .text(label: 'Subtitle', initialValue: 'Secondary '),
-              selected: context.knobs.boolean(label: 'Selected'),
-              size: context.knobs.options(label: 'Size', options: _sizeTypes),
-              withDivider: context.knobs.boolean(label: 'With Divider'),
-              rightIcon: context.knobs
-                  .options(label: 'Right Icon', options: _rightIcons),
-              onTap: () {},
-            ),
-          ),
+      builder: (context) => PreviewWidget(
+        child: ZeroListTile(
+          title: context.knobs.text(label: 'Title', initialValue: 'List Item'),
+          subtitle:
+              context.knobs.text(label: 'Subtitle', initialValue: 'Secondary '),
+          selected: context.knobs.boolean(label: 'Selected'),
+          size: context.knobs.options(label: 'Size', options: _sizeTypes),
+          withDivider: context.knobs.boolean(label: 'With Divider'),
+          rightIcon:
+              context.knobs.options(label: 'Right Icon', options: _rightIcons),
+          onTap: () {},
         ),
       ),
     ),
     WidgetbookUseCase(
       name: 'Left & Right Icon',
-      builder: (context) => ZeroApp(
-        theme: ZeroThemeData(),
-        home: Scaffold(
-          body: Center(
-            child: ZeroListTile(
-              title:
-                  context.knobs.text(label: 'Title', initialValue: 'List Item'),
-              subtitle: context.knobs
-                  .text(label: 'Subtitle', initialValue: 'Secondary '),
-              selected: context.knobs.boolean(label: 'Selected'),
-              size: context.knobs.options(label: 'Size', options: _sizeTypes),
-              withDivider: context.knobs.boolean(label: 'With Divider'),
-              leftIcon: context.knobs
-                  .options(label: 'Left Icon', options: _leftIcons),
-              rightIcon: context.knobs
-                  .options(label: 'Right Icon', options: _rightIcons),
-              onTap: () {},
-            ),
-          ),
+      builder: (context) => PreviewWidget(
+        child: ZeroListTile(
+          title: context.knobs.text(label: 'Title', initialValue: 'List Item'),
+          subtitle:
+              context.knobs.text(label: 'Subtitle', initialValue: 'Secondary '),
+          selected: context.knobs.boolean(label: 'Selected'),
+          size: context.knobs.options(label: 'Size', options: _sizeTypes),
+          withDivider: context.knobs.boolean(label: 'With Divider'),
+          leftIcon:
+              context.knobs.options(label: 'Left Icon', options: _leftIcons),
+          rightIcon:
+              context.knobs.options(label: 'Right Icon', options: _rightIcons),
+          onTap: () {},
         ),
       ),
     ),
     WidgetbookUseCase(
       name: 'Disabled',
-      builder: (context) => ZeroApp(
-        theme: ZeroThemeData(),
-        home: Scaffold(
-          body: Center(
-            child: ZeroListTile(
-              title:
-                  context.knobs.text(label: 'Title', initialValue: 'List Item'),
-              subtitle: context.knobs
-                  .text(label: 'Subtitle', initialValue: 'Secondary '),
-              selected: context.knobs.boolean(label: 'Selected'),
-              size: context.knobs.options(label: 'Size', options: _sizeTypes),
-              withDivider: context.knobs.boolean(label: 'With Divider'),
-              leftIcon: context.knobs
-                  .options(label: 'Left Icon', options: _leftIcons),
-              rightIcon: context.knobs
-                  .options(label: 'Right Icon', options: _rightIcons),
-              disabled:
-                  context.knobs.boolean(label: 'Disabled', initialValue: true),
-              onTap: () {},
-            ),
-          ),
+      builder: (context) => PreviewWidget(
+        child: ZeroListTile(
+          title: context.knobs.text(label: 'Title', initialValue: 'List Item'),
+          subtitle:
+              context.knobs.text(label: 'Subtitle', initialValue: 'Secondary '),
+          selected: context.knobs.boolean(label: 'Selected'),
+          size: context.knobs.options(label: 'Size', options: _sizeTypes),
+          withDivider: context.knobs.boolean(label: 'With Divider'),
+          leftIcon:
+              context.knobs.options(label: 'Left Icon', options: _leftIcons),
+          rightIcon:
+              context.knobs.options(label: 'Right Icon', options: _rightIcons),
+          disabled:
+              context.knobs.boolean(label: 'Disabled', initialValue: true),
+          onTap: () {},
         ),
       ),
     ),
     WidgetbookUseCase(
       name: 'Custom Style',
-      builder: (context) => ZeroApp(
-        theme: ZeroThemeData(),
-        home: Scaffold(
-          body: Center(
-            child: ZeroListTile(
-              title:
-                  context.knobs.text(label: 'Title', initialValue: 'List Item'),
-              subtitle: context.knobs
-                  .text(label: 'Subtitle', initialValue: 'Secondary '),
-              selected: context.knobs.boolean(label: 'Selected'),
-              size: context.knobs.options(label: 'Size', options: _sizeTypes),
-              withDivider: context.knobs.boolean(label: 'With Divider'),
-              leftIcon: context.knobs
-                  .options(label: 'Left Icon', options: _leftIcons),
-              rightIcon: context.knobs
-                  .options(label: 'Right Icon', options: _rightIcons),
-              style: ZeroListTileStyle(
-                backgroundColor: context.knobs
-                    .options(label: 'Background Color', options: _colors),
-                dividerColor: context.knobs
-                    .options(label: 'Divider Color', options: _colors),
-                selectedColor: context.knobs
-                    .options(label: 'Selected Color', options: _colors),
-                subTitleTextStyle: TextStyle(
-                    color: context.knobs
-                        .options(label: 'Text Color', options: _textColors),
-                    fontSize: 14),
-                titleTextStyle: TextStyle(
-                    color: context.knobs
-                        .options(label: 'Text Color', options: _textColors),
-                    fontSize: 16),
-              ),
-              onTap: () {},
-            ),
+      builder: (context) => PreviewWidget(
+        child: ZeroListTile(
+          title: context.knobs.text(label: 'Title', initialValue: 'List Item'),
+          subtitle:
+              context.knobs.text(label: 'Subtitle', initialValue: 'Secondary '),
+          selected: context.knobs.boolean(label: 'Selected'),
+          size: context.knobs.options(label: 'Size', options: _sizeTypes),
+          withDivider: context.knobs.boolean(label: 'With Divider'),
+          leftIcon:
+              context.knobs.options(label: 'Left Icon', options: _leftIcons),
+          rightIcon:
+              context.knobs.options(label: 'Right Icon', options: _rightIcons),
+          style: ZeroListTileStyle(
+            backgroundColor: context.knobs
+                .options(label: 'Background Color', options: _colors),
+            dividerColor:
+                context.knobs.options(label: 'Divider Color', options: _colors),
+            selectedColor: context.knobs
+                .options(label: 'Selected Color', options: _colors),
+            subTitleTextStyle: TextStyle(
+                color: context.knobs
+                    .options(label: 'Text Color', options: _textColors),
+                fontSize: 14),
+            titleTextStyle: TextStyle(
+                color: context.knobs
+                    .options(label: 'Text Color', options: _textColors),
+                fontSize: 16),
           ),
+          onTap: () {},
         ),
       ),
     ),
