@@ -55,12 +55,6 @@ export './components/slider/zero_range_slider.dart';
 export './components/tooltip/zero_tooltip.dart';
 export './components/tooltip/zero_tooltip_style.dart';
 
-// dropdown
-export './components/dropdowns/zero_dropdown.dart';
-
-// badge
-export './components/badge/zero_badge.dart';
-
 // list
 export './components/list/list_tile.dart';
 
@@ -86,10 +80,6 @@ export './types/avatar_size.dart';
 export './position/tooltip_position.dart';
 export './position/badge_potision.dart';
 
-// utils
-export './utils/extensions/theme_extensions.dart';
-export './utils/extensions/num_extensions.dart';
-
 // model
 export './model/zero_range_values.dart';
 
@@ -97,5 +87,5 @@ export './model/zero_range_values.dart';
 export './size/zero_slider_size.dart';
 
 // utils
-export 'utils/extensions/theme_extensions.dart';
-export 'utils/extensions/num_extensions.dart';
+export './utils/extensions/theme_extensions.dart';
+export './utils/extensions/num_extensions.dart';
