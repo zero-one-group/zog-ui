@@ -8,6 +8,7 @@ import 'widgetbook_component/button.dart';
 import 'widgetbook_component/button_group.dart';
 import 'widgetbook_component/checkbox.dart';
 import 'widgetbook_component/colors.dart';
+import 'widgetbook_component/divider.dart';
 import 'widgetbook_component/dropdown.dart';
 import 'widgetbook_component/list_tile.dart';
 import 'widgetbook_component/radio_group.dart';
@@ -52,7 +53,8 @@ class HotReload extends StatelessWidget {
             listTileWidgetbookComponent,
             textWidgetbookComponent,
             sliderWidgetbookComponenet,
-            avatarWidgetbookComponent
+            avatarWidgetbookComponent,
+            dividerWidgetbookComponent,
           ],
         ),
       ],

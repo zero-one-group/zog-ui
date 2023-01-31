@@ -86,6 +86,7 @@ class ZeroThemeData with Diagnosticable {
   final ZeroListTileStyle listTileStyle;
   final ZeroButtonStyle primaryButtonStyle;
   final ZeroButtonStyle secondaryButtonStyle;
+  final ZeroDividerStyle dividerStyle;
 
   final Brightness brightness;
   final IconThemeData iconTheme;
@@ -113,6 +114,7 @@ class ZeroThemeData with Diagnosticable {
     required this.listTileStyle,
     required this.primaryButtonStyle,
     required this.secondaryButtonStyle,
+    required this.dividerStyle,
   });
 
   factory ZeroThemeData({
@@ -134,6 +136,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroListTileStyle? listTileStyle,
     ZeroButtonStyle? primaryButtonStyle,
     ZeroButtonStyle? secondaryButtonStyle,
+    ZeroDividerStyle? dividerStyle,
   }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
@@ -185,6 +188,8 @@ class ZeroThemeData with Diagnosticable {
       textStyle: typography.button?.copyWith(color: solidTextColor),
     );
 
+    final dividerStyleFallback = ZeroDividerStyle.fallback(color: dividerColor);
+
     return ZeroThemeData.raw(
       brightness: brightness,
       primaryColor: primaryColor,
@@ -205,6 +210,7 @@ class ZeroThemeData with Diagnosticable {
       primaryButtonStyle: primaryButtonStyleFallback.merge(primaryButtonStyle),
       secondaryButtonStyle:
           secondaryButtonStyleFallback.merge(secondaryButtonStyle),
+      dividerStyle: dividerStyleFallback.merge(dividerStyle),
     );
   }
 
@@ -232,6 +238,7 @@ class ZeroThemeData with Diagnosticable {
           ZeroButtonStyle.lerp(a.primaryButtonStyle, b.primaryButtonStyle, t),
       secondaryButtonStyle: ZeroButtonStyle.lerp(
           a.secondaryButtonStyle, b.secondaryButtonStyle, t),
+      dividerStyle: ZeroDividerStyle.lerp(a.dividerStyle, b.dividerStyle, t),
     );
   }
 
@@ -255,6 +262,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroListTileStyle? listTileStyle,
     ZeroButtonStyle? primaryButtonStyle,
     ZeroButtonStyle? secondaryButtonStyle,
+    ZeroDividerStyle? dividerStyle,
   }) {
     return ZeroThemeData.raw(
       brightness: brightness ?? this.brightness,
@@ -277,6 +285,7 @@ class ZeroThemeData with Diagnosticable {
       listTileStyle: listTileStyle ?? this.listTileStyle,
       primaryButtonStyle: primaryButtonStyle ?? this.primaryButtonStyle,
       secondaryButtonStyle: secondaryButtonStyle ?? this.secondaryButtonStyle,
+      dividerStyle: dividerStyle ?? this.dividerStyle,
     );
   }
 
@@ -318,6 +327,7 @@ class ZeroThemeData with Diagnosticable {
           },
         ),
       ).copyWith(error: errorColor),
+      dividerTheme: dividerStyle.toDividerTheme(),
     );
   }
 

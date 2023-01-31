@@ -9,6 +9,7 @@ export './styles/color_accent.dart';
 // component styles
 export './styles/component/list_tile_style.dart';
 export './styles/component/zero_button_style.dart';
+export './styles/component/divider_style.dart';
 
 // assets
 export './assets/assets.dart';
@@ -63,6 +64,9 @@ export './components/text/zero_text.dart';
 // avatar
 export './components/avatar/zero_avatar.dart';
 export './components/avatar/zero_avatar_group.dart';
+
+// divider
+export './components/divider/divider.dart';
 
 // types
 export './types/button_radius_type.dart';
