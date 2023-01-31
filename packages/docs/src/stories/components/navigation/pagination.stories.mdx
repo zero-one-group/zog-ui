@@ -11,6 +11,8 @@ import { DoubleRightOutlined, DoubleLeftOutlined } from '@ant-design/icons';
   argTypes={{
     simple: { control: 'boolean' },
     showTotal: { control: 'boolean' },
+    showSizeChange: { control: 'boolean' },
+    showQuickJumper: { control: 'boolean' },
   }}
 />
 
@@ -24,6 +26,25 @@ Pagination is a component to navigate each page. usually, use when we have enorm
 
 ```tsx
 import { Pagination } from '@zero-ui/core';
+```
+
+## Example Pagination
+
+```tsx
+export const ExamplePagination = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  return (
+    <Pagination
+      totalCount={1000}
+      pageSize={10}
+      siblingCount={2}
+      currentPage={currentPage}
+      onChangePage={(page: number) => setCurrentPage(page)}
+      showSizeChange={true}
+      listCustomSizePage={[10, 20, 50, 100]}
+    />
+  );
+};
 ```
 
 <Canvas columns={2} withSource="close">

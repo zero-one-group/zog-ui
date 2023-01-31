@@ -1,11 +1,16 @@
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { Box } from '../Box';
 import { Button } from '../Button';
 import { Space } from '../Space';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-import { DOTS, usePagination, usePaginationProps } from './use-pagination';
 import { styled } from '../stitches.config';
-import { Box } from '../Box';
+import { DOTS, usePagination, usePaginationProps } from './use-pagination';
 
-import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react';
+import {
+  ComponentPropsWithoutRef,
+  ElementType,
+  ReactNode,
+  useState,
+} from 'react';
 
 export type PaginationProps = ComponentPropsWithoutRef<ElementType> &
   usePaginationProps & {
@@ -13,7 +18,10 @@ export type PaginationProps = ComponentPropsWithoutRef<ElementType> &
     nextIcon?: ReactNode;
     simple?: boolean;
     showTotal?: boolean;
-    onChange: (currentPage: number) => void;
+    showSizeChange?: boolean;
+    showQuickJumper?: boolean;
+    onChangePage: (currentPage: number) => void;
+    listCustomSizePage?: number[];
   };
 
 const ItemPagination = styled(Button, {
@@ -28,7 +36,18 @@ const ItemPagination = styled(Button, {
     },
   },
 });
-
+const SizeChanger = styled('select', {
+  width: '100px',
+  height: '37px',
+  fontSize: '16px',
+  padding: '0px 7px',
+});
+const QuickJumper = styled('input', {
+  width: '50px',
+  height: '37px',
+  fontSize: '16px',
+  padding: '0px 7px',
+});
 export const Pagination = ({
   currentPage,
   totalCount,
@@ -36,15 +55,20 @@ export const Pagination = ({
   pageSize,
   previousIcon,
   nextIcon,
-  onChange,
+  onChangePage,
   showTotal,
+  showSizeChange,
+  onChangePagePageSize,
+  listCustomSizePage,
+  showQuickJumper,
   ...props
 }: PaginationProps) => {
+  const [customPageSize, setCustomPageSize] = useState(pageSize);
   const paginationRange = usePagination({
     currentPage,
     totalCount,
     siblingCount,
-    pageSize,
+    pageSize: customPageSize,
   });
 
   const lastPage = paginationRange
@@ -53,13 +77,13 @@ export const Pagination = ({
 
   const onPrevious = () => {
     if (currentPage !== 1) {
-      onChange(currentPage - 1);
+      onChangePage(currentPage - 1);
     }
   };
 
   const onNext = () => {
     if (currentPage !== lastPage) {
-      onChange(currentPage + 1);
+      onChangePage(currentPage + 1);
     }
   };
 
@@ -93,7 +117,7 @@ export const Pagination = ({
           return (
             <ItemPagination
               simple={props.simple}
-              onClick={() => onChange(Number(item))}
+              onClick={() => onChangePage(Number(item))}
               colorScheme={item === currentPage ? 'primary' : 'secondary'}
               size="lg"
               variant="outlined"
@@ -112,6 +136,29 @@ export const Pagination = ({
       >
         {nextIcon ? nextIcon : <RightOutlined />}
       </ItemPagination>
+      {showSizeChange ? (
+        <SizeChanger
+          onChange={(pageSize) => {
+            setCustomPageSize(Number(pageSize.target.value));
+          }}
+        >
+          {listCustomSizePage ? (
+            listCustomSizePage.map((item) => (
+              <option value={item}>{item}/page</option>
+            ))
+          ) : (
+            <option value="10">10/page</option>
+          )}
+        </SizeChanger>
+      ) : null}
+      {showQuickJumper ? (
+        <>
+          <p>Goto</p>
+          <QuickJumper
+            onChange={(page) => onChangePage(Number(page.target.value))}
+          />
+        </>
+      ) : null}
     </Space>
   );
 };
