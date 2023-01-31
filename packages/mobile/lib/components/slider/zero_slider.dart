@@ -5,17 +5,63 @@ import '../../size/zero_slider_size.dart';
 import '../tooltip/zero_tooltip.dart';
 import '../tooltip/zero_tooltip_style.dart';
 
+/// A slider component that allows users to select a value from a range of values.
+/// [ZeroSlider] is a stateful widget that requires a [State] object to function.
+/// this slider have a special feature that allows you to show ticks on the slider
+/// and also the thumb can be snapped to the ticks.
+/// and also you can show a tooltip when the user is dragging the thumb.
+///
+/// the slider has 2 sizes:
+/// 1. [ZeroSliderSize.large] - is the default size of the slider
+/// 2. [ZeroSliderSize.small] - is the small size of the slider
+
 class ZeroSlider extends StatefulWidget {
+  /// [activeColor] is the color of the active line of the slider
+  /// the default color is [ZeroColors.primary6]
   final Color activeColor;
+
+  /// [inactiveColor] is the color of the inactive line of the slider
+  /// when this value is null, the color will be [activeColor] with opacity 0.3
   final Color inactiveColor;
+
+  /// [thumbColor] is the color of the thumb of the slider
+  /// when this value is null, the color will be [activeColor]
   final Color thumbColor;
+
+  /// [tickBehavior] is a boolean that indicates if the slider will snap to the ticks
   final bool tickBehavior;
+
+  /// [tickColor] is the color of the ticks
+  /// the default color is [ZeroColors.neutral8]
   final Color tickColor;
+
+  /// [showTicks] is a boolean that indicates if the slider will show ticks
   final bool showTicks;
+
+  /// [tickInterval] is the interval of the ticks
+  /// the default value is 10
+  /// the value must be divisible by 5
   final int tickInterval;
+
+  /// [initialValue] is the initial value of the slider
   final int initialValue;
+
+  /// [tooltipVariant] is the variant of the tooltip
+  /// the default value is [ZeroTooltipVariant.rounded]
+  /// the available variants are:
+  /// 1. [ZeroTooltipVariant.rounded] - is the default variant of the tooltip
+  /// 2. [ZeroTooltipVariant.custom] - is the custom variant of the tooltip
+  /// 3. [ZeroTooltipVariant.none] - is the variant of the tooltip that doesn't show the tooltip
   final ZeroTooltipVariant tooltipVariant;
+
+  /// [size] is the size of the slider
+  /// the default value is [ZeroSliderSize.large]
+  /// the available sizes are:
+  /// 1. [ZeroSliderSize.large] - is the default size of the slider
+  /// 2. [ZeroSliderSize.small] - is the small size of the slider
   final ZeroSliderSize size;
+
+  /// [isDisabled] is a boolean that indicates if the slider is disabled
   final bool isDisabled;
 
   ZeroSlider({
@@ -47,11 +93,14 @@ class _ZeroSliderState extends State<ZeroSlider> {
   double _percentage = 0.0;
   final double _horizontalMargin = 16.0;
 
+  /// this function is used to control the tooltip
+  /// when the user is dragging the thumb, the tooltip will show
   late Function _tooltipController;
 
-  _onSliderUpdate(dynamic details) {
-    /// 15 is the padding of the container
-    /// this for calibrate the point when dragging
+  /// this function is used to calculate the distance of the thumb from the left side of the slider
+  /// and also the percentage of the distance from the left side of the slider
+  /// [_onSliderUpdate] is called when the user is dragging the thumb
+  void _onSliderUpdate(dynamic details) {
     double newDistance = details.localPosition.dx - _horizontalMargin;
 
     /// when [tickBehavior] is true, the slider will snap to the nearest tick interval

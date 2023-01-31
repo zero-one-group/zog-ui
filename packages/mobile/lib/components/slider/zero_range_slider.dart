@@ -8,17 +8,55 @@ import '../../model/zero_range_values.dart';
 
 enum _ZeroThumb { start, end }
 
+/// A slider component that allows users to select a value from a range of values.
+/// [ZeroSlider] is a stateful widget that requires a [State] object to function.
+/// this slider have a special feature that allows you to show ticks on the slider
+/// and also the thumb can be snapped to the ticks.
+///
+/// the slider has 2 sizes:
+/// 1. [ZeroSliderSize.large] - is the default size of the slider
+/// 2. [ZeroSliderSize.small] - is the small size of the slider
 class ZeroRangeSlider extends StatefulWidget {
+  /// [activeColor] is the color of the active line of the slider
   final Color activeColor;
+
+  /// [inactiveColor] is the color of the inactive line of the slider
+  /// when this value is null, the color will be [activeColor] with opacity 0.3
+  /// the default color is [ZeroColors.primary6]
   final Color inactiveColor;
+
+  /// [thumbColor] is the color of the thumb of the slider
+  /// when this value is null, the color will be [activeColor]
+  /// the default color is [ZeroColors.primary6]
   final Color thumbColor;
+
+  /// [tickBehavior] is a boolean that indicates if the slider will snap to the ticks
+  /// the default value is false
   final bool tickBehavior;
+
+  /// [tickColor] is the color of the ticks
+  /// the default color is [ZeroColors.neutral8]
   final Color tickColor;
+
+  /// [showTicks] is a boolean that indicates if the slider will show ticks
   final bool showTicks;
+
+  /// [tickInterval] is the interval of the ticks
+  /// the default value is 10
   final int tickInterval;
+
+  /// [tooltipVariant] is the variant of the tooltip
+  /// the default value is [ZeroTooltipVariant.rounded]
   final ZeroTooltipVariant tooltipVariant;
+
+  /// [size] is the size of the slider
+  /// the default value is [ZeroSliderSize.large]
   final ZeroSliderSize size;
+
+  /// [initialvalues] is the initial values of the slider
   final ZeroRangeValues initialvalues;
+
+  /// [isDisabled] is a boolean that indicates if the slider is disabled
   final bool isDisabled;
 
   ZeroRangeSlider({
@@ -64,6 +102,8 @@ class _ZeroRangeSliderState extends State<ZeroRangeSlider> {
     return (percentage / 100 * (_widgetKey.currentContext?.size?.width ?? 0));
   }
 
+  /// [_initializeValuesByDefault] is used to initialize the values of the slider
+  /// when the user didn't set the values of the slider yet
   void _initializeValuesByDefault() {
     if (_distanceStartFinal == -.1) {
       _distanceStartFinal = _percentageToDistance(widget.initialvalues.start);
@@ -73,6 +113,11 @@ class _ZeroRangeSliderState extends State<ZeroRangeSlider> {
     }
   }
 
+  /// this function is used to show the tooltip of the thumb
+  /// when the user tap on line of the slider
+  /// the tooltip will be shown for 750 milliseconds
+  /// and then it will be hidden
+  /// this function used in [_onTapSlider]
   Future<void> _onSliderTapTooltip(_ZeroThumb thumb) async {
     await Future.delayed(const Duration(milliseconds: 100), () {
       if (thumb == _ZeroThumb.start) {
@@ -89,6 +134,7 @@ class _ZeroRangeSliderState extends State<ZeroRangeSlider> {
     });
   }
 
+  /// this function is used to slide the thumb to where the user tap on the line
   void _onTapSlider(TapDownDetails details) {
     _initializeValuesByDefault();
     if (details.localPosition.dx < _distanceStartFinal) {
