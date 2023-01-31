@@ -97,4 +97,5 @@ export './model/zero_range_values.dart';
 export './size/zero_slider_size.dart';
 
 // utils
-export './utils/extensions.dart';
+export 'utils/extensions/theme_extensions.dart';
+export 'utils/extensions/num_extensions.dart';
