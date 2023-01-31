@@ -289,7 +289,6 @@ class ZeroThemeData with Diagnosticable {
       scaffoldBackgroundColor: scaffoldBackgroundColor,
       useMaterial3: false,
       cardColor: cardColor,
-      errorColor: errorColor,
       dividerColor: dividerColor,
       textTheme: typography.toTextTheme(),
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -298,6 +297,27 @@ class ZeroThemeData with Diagnosticable {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: secondaryButtonStyle.toButtonStyle(),
       ),
+      colorScheme: ColorScheme.fromSwatch(
+        brightness: brightness,
+        cardColor: cardColor,
+        errorColor: errorColor,
+        backgroundColor: scaffoldBackgroundColor,
+        primarySwatch: MaterialColor(
+          primaryColor.value,
+          {
+            50: primaryColor.lightest,
+            100: primaryColor.lightest,
+            200: primaryColor.lighter,
+            300: primaryColor.lighter,
+            400: primaryColor.light,
+            500: primaryColor.normal,
+            600: primaryColor.dark,
+            700: primaryColor.darker,
+            800: primaryColor.darker,
+            900: primaryColor.darkest,
+          },
+        ),
+      ).copyWith(error: errorColor),
     );
   }
 
