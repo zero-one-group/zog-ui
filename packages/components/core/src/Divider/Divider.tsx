@@ -1,3 +1,4 @@
+import { ComponentPropsWithoutRef, ElementType } from 'react';
 import { styled } from '../stitches.config';
 
 const StyledSpan = styled('span');
@@ -49,8 +50,10 @@ const StyledDivider = styled('div', {
   },
 });
 
-export type DividerComponent = {
-  children: string;
+export type DividerComponent = ComponentPropsWithoutRef<ElementType> & {
+  children?: string;
+  border: 'solid' | 'dashed';
+  orientation: 'left' | 'center' | 'right';
 };
 
 export const Divider = ({ children, ...props }: DividerComponent) => {
