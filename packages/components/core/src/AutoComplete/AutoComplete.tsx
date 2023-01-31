@@ -6,6 +6,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import { Box } from '../Box';
 import { keyframes, styled } from '../stitches.config';
 
 const slideUpAndFade = keyframes({
@@ -15,13 +16,12 @@ const slideUpAndFade = keyframes({
 
 const StyledAutoComplete = styled('input', {});
 
-const StyledListBoxWrapper = styled('div', {
+const StyledListBoxWrapper = styled(Box, {
   position: 'relative',
   display: 'inline-block',
-  boxSizing: 'border-box',
 });
 
-const StyledListBox = styled('div', {
+const StyledListBox = styled(Box, {
   position: 'absolute',
   top: 'calc(100% + .3rem)',
   width: '100%',
@@ -31,14 +31,13 @@ const StyledListBox = styled('div', {
   animationTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
   willChange: 'transform, opacity',
   border: '1px solid $gray10',
-  boxSizing: 'border-box',
 
   '&[data-state="open"]': {
     animationName: slideUpAndFade,
   },
 });
 
-const StyledListBoxItem = styled('div', {
+const StyledListBoxItem = styled(Box, {
   cursor: 'pointer',
   overflow: 'hidden',
   whiteSpace: 'nowrap',
@@ -51,6 +50,7 @@ const StyledListBoxItem = styled('div', {
     hovered: {
       true: {
         background: '$blue3',
+        fontWeight: '600',
       },
     },
   },
