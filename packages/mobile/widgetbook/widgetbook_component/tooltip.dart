@@ -6,35 +6,27 @@ WidgetbookComponent tooltipWidgetbookComponenet = WidgetbookComponent(
   name: 'Tooltip',
   useCases: [
     WidgetbookUseCase(
-      name: 'toolstip',
-      builder: (context) => Tooltip(
-        message: context.knobs.text(
-          label: 'Text',
-          initialValue: 'Tooltip Text',
-        ),
-        child: const Text('Tooltip'),
-      ),
-    ),
-    WidgetbookUseCase(
       name: 'Tooltip',
-      builder: (context) => ZeroTooltip(
-        text: context.knobs.text(
-          label: 'Text',
-          initialValue: 'Tooltip Text',
+      builder: (context) => Center(
+        child: ZeroTooltip(
+          text: context.knobs.text(
+            label: 'Text',
+            initialValue: 'Tooltip Text',
+          ),
+          type: context.knobs.options(
+            label: 'Type',
+            options: _types,
+          ),
+          variant: context.knobs.options(
+            label: 'Variant',
+            options: _variants,
+          ),
+          position: context.knobs.options(
+            label: 'Position',
+            options: _positions,
+          ),
+          child: const Text('Tooltip'),
         ),
-        type: context.knobs.options(
-          label: 'Type',
-          options: _types,
-        ),
-        variant: context.knobs.options(
-          label: 'Variant',
-          options: _variants,
-        ),
-        position: context.knobs.options(
-          label: 'Position',
-          options: _positions,
-        ),
-        child: const Text('Tooltip'),
       ),
     ),
   ],

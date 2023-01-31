@@ -99,17 +99,6 @@ class _ZeroTooltipState extends State<ZeroTooltip> {
   /// this key is used for calculating the position of the tooltip in [_getChildSize]
   final GlobalKey _widgetKey = GlobalKey();
 
-  // /// [_widgetTextKey] is the key of the text for getting the size of text widget
-  // /// this key is used for special case when variant is [ZeroTooltipVariant.rounded]
-  // final GlobalKey _widgetTextKey = GlobalKey();
-
-  /// [_getChildSize] is a function that will get the size of the child widget
-  /// this function for calculating the position of the tooltip
-  /// when position of tooltip is [ZeroTooltipPosition.left] or [ZeroTooltipPosition.right]
-  // void _getChildSize() {
-  //   final double width = _widgetKey.currentContext?.size?.width ?? 0;
-  // }
-
   /// [showTooltip] is a function that will show the tooltip
   bool showTooltip(bool show) {
     _overlayEntry?.remove();
@@ -128,6 +117,7 @@ class _ZeroTooltipState extends State<ZeroTooltip> {
     Offset position = box.localToGlobal(Offset.zero);
     Size childSize = box.size;
 
+    OverlayState overlayState = Overlay.of(context, rootOverlay: true);
     _overlayEntry = OverlayEntry(
       builder: (BuildContext context) {
         return Stack(
@@ -194,7 +184,7 @@ class _ZeroTooltipState extends State<ZeroTooltip> {
         );
       },
     );
-    Overlay.of(context, debugRequiredFor: widget).insert(_overlayEntry!);
+    overlayState.insert(_overlayEntry!);
   }
 
   @override
@@ -207,14 +197,12 @@ class _ZeroTooltipState extends State<ZeroTooltip> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onLongPress: () {
-        // _getChildSize();
         showTooltip(true);
       },
       onLongPressEnd: (details) {
         showTooltip(false);
       },
       onTap: () {
-        // _getChildSize();
         if (_showTooltip == false) {
           Future.delayed(widget.showDuration, () {
             showTooltip(false);
