@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zero_ui_mobile_example/component/button/zero_button_example.dart';
+import 'package:zero_ui_mobile_example/component/rating/zero_rating_example.dart';
+import 'package:zero_ui_mobile_example/component/tooltip/zero_tooltip_example.dart';
 
 import 'component/avatar/avatar_example.dart';
-import 'component/button/zero_button_example.dart';
-import 'component/rating/zero_rating_example.dart';
 import 'component/slider/zero_slider_example.dart';
 import 'component/textfield/zero_textfield_example.dart';
-import 'component/tooltip/zero_tooltip_example.dart';
 
 void main() {
   runApp(const MyApp());
