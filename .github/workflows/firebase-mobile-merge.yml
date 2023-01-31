@@ -23,7 +23,7 @@ jobs:
         uses: flutter-actions/setup-flutter@v2
         with:
           channel: stable
-          version: 3.3.2
+          version: 3.7.0
 
       - name: Install dependencies & Build
         run: cd packages/mobile && flutter pub get && flutter build web -t widgetbook/main.dart

@@ -91,37 +91,27 @@ class ZeroTextField extends StatelessWidget {
               helperText: helperText,
               hintText: hintText,
               labelText: labelText,
-              hintStyle: inputDecorationType
-                  .textStyle(enabled ?? true)
-                  .merge(labelStyle),
+              hintStyle: inputDecorationType.textStyle(enabled ?? true).merge(labelStyle),
               helperStyle: helperStyle,
               floatingLabelAlignment: FloatingLabelAlignment.start,
               floatingLabelBehavior: FloatingLabelBehavior.auto,
-              floatingLabelStyle: inputDecorationType.floatingLabelStyle(
-                  enabled: enabled ?? true, error: errorText != null),
+              floatingLabelStyle: inputDecorationType.floatingLabelStyle(enabled: enabled ?? true, error: errorText != null),
               alignLabelWithHint: false,
-              labelStyle: inputDecorationType
-                  .textStyle(enabled ?? true)
-                  .merge(labelStyle),
+              labelStyle: inputDecorationType.textStyle(enabled ?? true).merge(labelStyle),
               isDense: textfieldSizeType.isDense,
               contentPadding: textfieldSizeType.contentPadding,
               focusColor: inputDecorationType.focusedColor,
-              fillColor: inputDecorationType.fillColor(
-                  enabled: enabled ?? true, error: errorText != null),
+              fillColor: inputDecorationType.fillColor(enabled: enabled ?? true, error: errorText != null),
               filled: inputDecorationType.filled,
-              focusedBorder:
-                  inputDecorationType.focusedBorder(textfieldSizeType),
+              focusedBorder: inputDecorationType.focusedBorder(textfieldSizeType),
               border: inputDecorationType.border(textfieldSizeType),
-              disabledBorder:
-                  inputDecorationType.disabledBorder(textfieldSizeType),
+              disabledBorder: inputDecorationType.disabledBorder(textfieldSizeType),
               errorText: errorText,
               errorBorder: inputDecorationType.errorBorder(textfieldSizeType),
-              focusedErrorBorder:
-                  inputDecorationType.errorBorder(textfieldSizeType),
+              focusedErrorBorder: inputDecorationType.errorBorder(textfieldSizeType),
               errorStyle: errorStyle,
               prefixIcon: prefixIcon,
-              suffixIcon: textfieldSizeType.suffixIcon(suffixIcon,
-                  error: errorText != null),
+              suffixIcon: textfieldSizeType.suffixIcon(suffixIcon, error: errorText != null),
             );
 
   /// This already uses [OutlineInputBorder] under the hood with the properties defined in the standard ZeroOne design guideline.
@@ -303,8 +293,6 @@ class ZeroTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-        textAlignVertical: textAlignVertical ?? TextAlignVertical.center,
-        decoration: decoration);
+    return TextFormField(textAlignVertical: textAlignVertical ?? TextAlignVertical.center, decoration: decoration);
   }
 }
