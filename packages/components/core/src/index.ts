@@ -1,3 +1,4 @@
+export * from './AutoComplete';
 export * from './Avatar';
 export * from './Badge';
 export * from './Box';
@@ -20,8 +21,8 @@ export * from './Link';
 export * from './Menu';
 export * from './Overlay';
 export * from './PageHeader';
-export * from './Panel';
 export * from './Pagination';
+export * from './Panel';
 export * from './Paragraph';
 export * from './Popover';
 export * from './ProgressBar';
