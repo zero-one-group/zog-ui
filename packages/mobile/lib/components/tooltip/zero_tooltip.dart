@@ -93,32 +93,110 @@ class ZeroTooltip extends StatefulWidget {
 
 class _ZeroTooltipState extends State<ZeroTooltip> {
   bool _showTooltip = false;
+  OverlayEntry? _overlayEntry;
 
   /// [_widgetKey] is the key of the widget for getting the size of child widget
   /// this key is used for calculating the position of the tooltip in [_getChildSize]
   final GlobalKey _widgetKey = GlobalKey();
 
-  /// [_widgetTextKey] is the key of the text for getting the size of text widget
-  /// this key is used for special case when variant is [ZeroTooltipVariant.rounded]
-  final GlobalKey _widgetTextKey = GlobalKey();
-  double _positionLeft = 45;
-  double _positionRight = 45;
-
-  /// [_getChildSize] is a function that will get the size of the child widget
-  /// this function for calculating the position of the tooltip
-  /// when position of tooltip is [ZeroTooltipPosition.left] or [ZeroTooltipPosition.right]
-  void _getChildSize() {
-    final double width = _widgetKey.currentContext?.size?.width ?? 0;
-    _positionLeft = width + 15;
-    _positionRight = width + 15;
-  }
-
   /// [showTooltip] is a function that will show the tooltip
   bool showTooltip(bool show) {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+    if (show) {
+      _createOverlayWidget();
+    }
     setState(() {
       _showTooltip = show;
     });
     return _showTooltip;
+  }
+
+  void _createOverlayWidget() {
+    RenderBox box = _widgetKey.currentContext!.findRenderObject() as RenderBox;
+    Offset position = box.localToGlobal(Offset.zero);
+    Size childSize = box.size;
+
+    OverlayState overlayState = Overlay.of(context, rootOverlay: true);
+    _overlayEntry = OverlayEntry(
+      builder: (BuildContext context) {
+        return Stack(
+          alignment: Alignment.center,
+          children: [
+            Positioned(
+              top: position.dy,
+              left: position.dx,
+              child: Stack(
+                alignment: Alignment.center,
+                clipBehavior: Clip.none,
+                children: [
+                  SizedBox(
+                    width: childSize.width,
+                    height: childSize.height,
+                  ),
+                  Positioned(
+                    bottom: widget.position == ZeroTooltipPosition.top
+                        ? childSize.height + 15
+                        : null,
+                    top: widget.position == ZeroTooltipPosition.bottom
+                        ? childSize.height + 15
+                        : null,
+                    left: widget.position == ZeroTooltipPosition.right
+                        ? childSize.width + 15
+                        : null,
+                    right: widget.position == ZeroTooltipPosition.left
+                        ? childSize.width + 15
+                        : null,
+                    child: CustomPaint(
+                      painter: widget.variant.toPainter(
+                        backgroundColor: widget.backgroundColor,
+                        position: widget.position,
+                        borderColor: widget.borderColor,
+                      ),
+                      child: Padding(
+                        padding: widget.variant == ZeroTooltipVariant.rounded
+                            ? const EdgeInsets.symmetric(
+                                horizontal: 0, vertical: 8)
+                            : const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 8),
+                        child: DefaultTextStyle(
+                          style: TextStyle(
+                            color: widget.textColor,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          child: Center(
+                            child: widget.variant == ZeroTooltipVariant.rounded
+                                ? SizedBox(
+                                    width: 35,
+                                    child: Text(
+                                      widget.text,
+                                      // key: _widgetTextKey,
+                                      style: widget.textStyle ??
+                                          TextStyle(color: widget.textColor),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  )
+                                : Text(
+                                    // key: _widgetTextKey,
+                                    widget.text,
+                                    style: widget.textStyle ??
+                                        TextStyle(color: widget.textColor),
+                                    textAlign: TextAlign.center,
+                                  ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
+    overlayState.insert(_overlayEntry!);
   }
 
   @override
@@ -129,79 +207,25 @@ class _ZeroTooltipState extends State<ZeroTooltip> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      clipBehavior: Clip.none,
-      alignment: Alignment.center,
-      children: [
-        Positioned(
-          height: 35,
-          top: widget.position == ZeroTooltipPosition.top ? -45 : null,
-          bottom: widget.position == ZeroTooltipPosition.bottom ? -45 : null,
-          left: widget.position == ZeroTooltipPosition.right
-              ? _positionLeft
-              : null,
-          right: widget.position == ZeroTooltipPosition.left
-              ? _positionRight
-              : null,
-          child: _showTooltip
-              ? CustomPaint(
-                  painter: widget.variant.toPainter(
-                    backgroundColor: widget.backgroundColor,
-                    position: widget.position,
-                    borderColor: widget.borderColor,
-                  ),
-                  child: Padding(
-                    padding: widget.variant == ZeroTooltipVariant.rounded
-                        ? const EdgeInsets.symmetric(horizontal: 0, vertical: 8)
-                        : const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 8),
-                    child: Center(
-                      child: widget.variant == ZeroTooltipVariant.rounded
-                          ? SizedBox(
-                              width: 35,
-                              child: Text(
-                                widget.text,
-                                key: _widgetTextKey,
-                                style: widget.textStyle ??
-                                    TextStyle(color: widget.textColor),
-                                textAlign: TextAlign.center,
-                              ),
-                            )
-                          : Text(
-                              widget.text,
-                              key: _widgetTextKey,
-                              style: widget.textStyle ??
-                                  TextStyle(color: widget.textColor),
-                              textAlign: TextAlign.center,
-                            ),
-                    ),
-                  ),
-                )
-              : Container(),
-        ),
-        GestureDetector(
-          onLongPress: () {
-            _getChildSize();
-            showTooltip(true);
-          },
-          onLongPressEnd: (details) {
+    return GestureDetector(
+      onLongPress: () {
+        showTooltip(true);
+      },
+      onLongPressEnd: (details) {
+        showTooltip(false);
+      },
+      onTap: () {
+        if (_showTooltip == false) {
+          Future.delayed(widget.showDuration, () {
             showTooltip(false);
-          },
-          onTap: () {
-            _getChildSize();
-            if (_showTooltip == false) {
-              Future.delayed(widget.showDuration, () {
-                showTooltip(false);
-              });
-              showTooltip(true);
-            }
-          },
-          child: Container(
-            key: _widgetKey,
-            child: widget.child,
-          ),
-        ),
-      ],
+          });
+          showTooltip(true);
+        }
+      },
+      child: Container(
+        key: _widgetKey,
+        child: widget.child,
+      ),
     );
   }
 }
