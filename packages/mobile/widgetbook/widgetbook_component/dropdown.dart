@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
-
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 List items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
@@ -24,14 +23,14 @@ List<Option<InputDecorationType>> decorationOptions = [
   ),
 ];
 
-List<Option<TextfieldSizeType>> sizeOptions = [
+List<Option<TextfieldSize>> sizeOptions = [
   const Option(
     label: 'Small',
-    value: TextfieldSizeType.small,
+    value: TextfieldSize.small,
   ),
   const Option(
     label: 'Large',
-    value: TextfieldSizeType.large,
+    value: TextfieldSize.large,
   ),
 ];
 
@@ -104,7 +103,7 @@ WidgetbookComponent dropdownWidgetbookComponent = WidgetbookComponent(
             inputDecorationType: context.knobs
                 .options(label: 'Decoration', options: decorationOptions),
             onChanged: (value) {},
-            textfieldSizeType:
+            textfieldSize:
                 context.knobs.options(label: 'Size', options: sizeOptions),
             suffixIcon: context.knobs
                 .options(label: 'Suffix Icon', options: suffixOptions),
@@ -129,7 +128,7 @@ WidgetbookComponent dropdownWidgetbookComponent = WidgetbookComponent(
                   .toString(),
               inputDecorationType: context.knobs
                   .options(label: 'Decoration', options: decorationOptions),
-              textfieldSizeType:
+              textfieldSize:
                   context.knobs.options(label: 'Size', options: sizeOptions),
               suffixIcon: context.knobs
                   .options(label: 'Suffix Icon', options: suffixOptions),

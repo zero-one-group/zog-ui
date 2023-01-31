@@ -16,7 +16,7 @@ class ZeroListTile extends StatelessWidget {
     this.selected = false,
     this.onTap,
     this.style,
-    this.size = ZeroListTileSizeType.large,
+    this.size = ZeroListTileSize.large,
   }) : super(key: key);
 
   /// The main text to be displayed in the [ZeroListTile]
@@ -52,7 +52,7 @@ class ZeroListTile extends StatelessWidget {
   final ZeroListTileStyle? style;
 
   /// Custom size
-  final ZeroListTileSizeType size;
+  final ZeroListTileSize size;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,7 @@ class ZeroListTile extends StatelessWidget {
         selected ? selectedColor : listTileStyle.backgroundColor;
     final dividerColor = listTileStyle.dividerColor ?? theme.dividerColor;
 
-    final isSmall = size == ZeroListTileSizeType.small;
+    final isSmall = size == ZeroListTileSize.small;
 
     // title text style with merge from fallback style
     final titleStyle = (isSmall

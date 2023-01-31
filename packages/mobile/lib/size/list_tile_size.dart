@@ -1,5 +1,5 @@
 /// Enum for [ZeroListTile] size types
-enum ZeroListTileSizeType {
+enum ZeroListTileSize {
   small,
   large;
 }

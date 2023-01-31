@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
-enum TextfieldSizeType {
+enum TextfieldSize {
   small,
   large,
   multiline,

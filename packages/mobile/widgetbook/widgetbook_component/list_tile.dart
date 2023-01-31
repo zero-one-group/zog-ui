@@ -157,9 +157,9 @@ List<Option<Icon>> _rightIcons = [
   const Option(label: 'Expand Less', value: Icon(Icons.expand_less)),
 ];
 
-List<Option<ZeroListTileSizeType>> _sizeTypes = [
-  const Option(label: 'Large', value: ZeroListTileSizeType.large),
-  const Option(label: 'Small', value: ZeroListTileSizeType.small),
+List<Option<ZeroListTileSize>> _sizeTypes = [
+  const Option(label: 'Large', value: ZeroListTileSize.large),
+  const Option(label: 'Small', value: ZeroListTileSize.small),
 ];
 
 List<Option<Color>> _colors = [
