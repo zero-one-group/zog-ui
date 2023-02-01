@@ -71,6 +71,8 @@ export './components/avatar/zero_avatar_group.dart';
 
 // divider
 export './components/divider/divider.dart';
+// time picker
+export './components/timepicker/zero_time_picker.dart';
 
 // chip
 export './components/chip/zero_chip_filled.dart';
