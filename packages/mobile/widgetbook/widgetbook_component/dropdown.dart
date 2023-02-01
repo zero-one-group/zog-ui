@@ -110,6 +110,27 @@ WidgetbookComponent dropdownWidgetbookComponent = WidgetbookComponent(
           ));
         }),
     WidgetbookUseCase(
+        name: 'Default (No Label)',
+        builder: (context) {
+          return Center(
+              child: ZeroDropdown(
+            items: items,
+            hintText: context.knobs
+                .text(
+                  label: 'Hint Text',
+                  initialValue: 'Hint ',
+                )
+                .toString(),
+            inputDecorationType: context.knobs
+                .options(label: 'Decoration', options: decorationOptions),
+            onChanged: (value) {},
+            textfieldSize:
+                context.knobs.options(label: 'Size', options: sizeOptions),
+            suffixIcon: context.knobs
+                .options(label: 'Suffix Icon', options: suffixOptions),
+          ));
+        }),
+    WidgetbookUseCase(
         name: 'Multiple',
         builder: (context) {
           return Center(
@@ -124,6 +145,34 @@ WidgetbookComponent dropdownWidgetbookComponent = WidgetbookComponent(
                   .text(
                     label: 'Label Text',
                     initialValue: 'Label Text',
+                  )
+                  .toString(),
+              inputDecorationType: context.knobs
+                  .options(label: 'Decoration', options: decorationOptions),
+              textfieldSize:
+                  context.knobs.options(label: 'Size', options: sizeOptions),
+              suffixIcon: context.knobs
+                  .options(label: 'Suffix Icon', options: suffixOptions),
+              multipleItemsVariant: context.knobs.options(
+                  label: 'Multiple Item Variant',
+                  options: multipleItemVariantOptions),
+              items: items,
+              onChanged: (value) {},
+              selectedItemsStyle: context.knobs.options(
+                  label: 'Selected Items Style',
+                  options: selectedItemsStyleOptions),
+            ),
+          );
+        }),
+    WidgetbookUseCase(
+        name: 'Multiple (No Label)',
+        builder: (context) {
+          return Center(
+            child: ZeroDropdown.multiple(
+              hintText: context.knobs
+                  .text(
+                    label: 'Hint Text',
+                    initialValue: 'Hint Text',
                   )
                   .toString(),
               inputDecorationType: context.knobs
