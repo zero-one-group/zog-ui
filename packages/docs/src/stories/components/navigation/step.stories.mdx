@@ -1,0 +1,256 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { BADGE } from '@geometricpanda/storybook-addon-badges';
+import { within, userEvent } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
+import {
+  Step,
+  StepItemBasic,
+  StepItemDot,
+  StepItemNavigation,
+} from '@zero-ui/core';
+import { UserOutlined } from '@ant-design/icons';
+
+<Meta title="Components/Navigation/Step" component={[Step]} argTypes={{}} />
+
+export const StepItemBasicVerticalStory = (args) => (
+  <Step {...args}>
+    <StepItemBasic
+      description="This is a description."
+      label="Finished"
+      orientation="vertical"
+      state="stepCompleted"
+      step={1}
+      size="sm"
+    />
+    <StepItemBasic
+      description="This is a description."
+      label="Error"
+      orientation="vertical"
+      state="stepError"
+      step={4}
+      size="sm"
+    />
+    <StepItemBasic
+      description="This is a description."
+      label="Finished"
+      orientation="vertical"
+      state="stepProgress"
+      step={2}
+      size="sm"
+    />
+    <StepItemBasic
+      description="This is a description."
+      label="Waiting"
+      orientation="vertical"
+      state="stepWaiting"
+      step={3}
+      size="sm"
+    />
+  </Step>
+);
+
+export const StepItemBasicHorizontalStory = (args) => (
+  <Step {...args}>
+    <StepItemBasic
+      description="This is a description."
+      label="Finished"
+      orientation="horizontal"
+      state="stepCompleted"
+      step={1}
+      size="lg"
+    />
+    <StepItemBasic
+      description="This is a description."
+      label="Finished"
+      orientation="horizontal"
+      state="stepProgress"
+      step={2}
+      size="lg"
+    />
+    <StepItemBasic
+      description="This is a description."
+      label="Waiting"
+      orientation="horizontal"
+      state="stepWaiting"
+      step={3}
+      size="lg"
+    />
+    <StepItemBasic
+      description="This is a description."
+      label="Error"
+      orientation="horizontal"
+      state="stepError"
+      step={4}
+      size="lg"
+    />
+  </Step>
+);
+export const StepItemDotHorizontalStory = (args) => (
+  <Step {...args}>
+    <StepItemDot
+      description="This is a description."
+      label="Finished"
+      orientation="horizontal"
+      state="stepCompleted"
+      step={1}
+      size="lg"
+    />
+    <StepItemDot
+      description="This is a description."
+      label="Finished"
+      orientation="horizontal"
+      state="stepProgress"
+      step={2}
+      size="lg"
+    />
+    <StepItemDot
+      description="This is a description."
+      label="Waiting"
+      orientation="horizontal"
+      state="stepWaiting"
+      step={3}
+      size="lg"
+    />
+    <StepItemDot
+      description="This is a description."
+      label="Error"
+      orientation="horizontal"
+      state="stepError"
+      step={4}
+      size="lg"
+    />
+  </Step>
+);
+export const StepItemDotVerticalStory = (args) => (
+  <Step {...args}>
+    <StepItemDot
+      description="This is a description."
+      label="Finished"
+      orientation="vertical"
+      state="stepCompleted"
+      step={1}
+      size="sm"
+    />
+    <StepItemDot
+      description="This is a description."
+      label="Error"
+      orientation="vertical"
+      state="stepError"
+      step={4}
+      size="sm"
+    />
+    <StepItemDot
+      description="This is a description."
+      label="Finished"
+      orientation="vertical"
+      state="stepProgress"
+      step={2}
+      size="sm"
+    />
+    <StepItemDot
+      description="This is a description."
+      label="Waiting"
+      orientation="vertical"
+      state="stepWaiting"
+      step={3}
+      size="sm"
+    />
+  </Step>
+);
+export const StepItemNavigationStory = (args) => (
+  <Step {...args}>
+    <StepItemNavigation
+      description="This is a description."
+      label="Finished"
+      state="stepCompleted"
+      step={1}
+      size="sm"
+    />
+    <StepItemNavigation
+      description="This is a description."
+      label="Error"
+      state="stepError"
+      step={4}
+      size="sm"
+    />
+    <StepItemNavigation
+      description="This is a description."
+      label="Finished"
+      state="stepProgress"
+      step={2}
+      size="sm"
+    />
+    <StepItemNavigation
+      description="This is a description."
+      label="Waiting"
+      state="stepWaiting"
+      step={3}
+      size="sm"
+    />
+  </Step>
+);
+
+# Step
+
+Step
+
+## Example Usage
+
+```jsx
+import { Step } from '@zero-ui/core';
+```
+
+<Canvas columns={2} withSource="close">
+  <Story
+    args={{
+      align: 'flex-start',
+      direction: 'column',
+      justify: 'flex-start',
+      align: 'center',
+      wrap: 'wrap',
+    }}
+    name="StepItemBasicVertical"
+  >
+    {StepItemBasicVerticalStory.bind()}
+  </Story>
+  <Story
+    args={{
+      direction: 'row',
+      wrap: 'wrap',
+      gap: 'xl',
+    }}
+    name="StepItemBasicHorizontal"
+  >
+    {StepItemBasicHorizontalStory.bind()}
+  </Story>
+  <Story
+    args={{
+      direction: 'row',
+      wrap: 'wrap',
+    }}
+    name="StepItemDotHorizontal"
+  >
+    {StepItemDotHorizontalStory.bind()}
+  </Story>
+  <Story
+    args={{
+      direction: 'column',
+      wrap: 'wrap',
+    }}
+    name="StepItemDotVertical"
+  >
+    {StepItemDotVerticalStory.bind()}
+  </Story>
+  <Story
+    args={{
+      direction: 'row',
+      wrap: 'wrap',
+      gap: 'xl',
+    }}
+    name="StepItemNavigation"
+  >
+    {StepItemNavigationStory.bind()}
+  </Story>
+</Canvas>
+
+<ArgsTable of={Step} />

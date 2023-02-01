@@ -1,4 +1,3 @@
-// import { styled } from '../stitches.config';
 import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react';
 import { Link } from '../Link';
 import { Space } from '../Space';

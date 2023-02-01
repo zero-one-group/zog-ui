@@ -39,6 +39,7 @@ export * from './Skeleton';
 export * from './Slider';
 export * from './Space';
 export * from './Status';
+export * from './Step';
 export * from './Sub';
 export * from './Sup';
 export * from './Switch';
