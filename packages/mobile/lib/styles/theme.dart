@@ -103,7 +103,10 @@ class ZeroThemeData with Diagnosticable {
 
   final bool useMaterial3;
 
-  final TimePickerThemeData? timePickerTheme;
+  const ZeroThemeData.raw({
+    required this.typography,
+    required this.primaryColor,
+    this.fontFamily,
 
     // Base color
     required this.disabledColor,
@@ -260,7 +263,13 @@ class ZeroThemeData with Diagnosticable {
       selectedColor: primaryColor.lightest,
     );
 
-    final primaryButtonStyleFallback = ZeroButtonStyle.primaryStyle();
+    final primaryButtonStyleFallback = ZeroButtonStyle.primaryStyle(
+      backgroundColor: primaryColor,
+      foregroundColor: primaryColor.darker,
+      surfaceTintColor: primaryColor.lighter,
+      animatingColor: primaryColor.lighter,
+      textStyle: typography.button?.copyWith(color: ZeroColors.white),
+    );
 
     final secondaryButtonStyleFallback = ZeroButtonStyle.secondaryStyle(
       backgroundColor: cardColor,
