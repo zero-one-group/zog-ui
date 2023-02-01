@@ -10,7 +10,7 @@ export type ZeroProviderComponent = (
   props: ZeroProviderProps
 ) => React.ReactElement;
 
-const ZeroProvider: ZeroProviderComponent = ({ theme, children }) => {
+export const ZeroProvider: ZeroProviderComponent = ({ theme, children }) => {
   const customTheme = theme ? createTheme(theme) : undefined;
 
   return <div className={customTheme}>{children}</div>;

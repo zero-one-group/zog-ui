@@ -1,0 +1,92 @@
+import { Meta } from '@storybook/addon-docs';
+import { ZeroProvider, Button } from '@zero-ui/core';
+
+<Meta
+  title="Foundations/Theme"
+  component={[ZeroProvider]}
+  argTypes={{
+    colorScheme: {
+      options: ['default', 'primary', 'danger', 'brand'],
+      control: { type: 'radio' },
+    },
+  }}
+/>
+
+export const ZeroProviderStory = ({ colorScheme, ...args }) => (
+  <>
+    <ZeroProvider {...args}>
+      <Button colorScheme={colorScheme} size="lg">
+        Themed Button
+      </Button>
+    </ZeroProvider>
+  </>
+);
+
+# Theme
+
+Zero UI allows you to customize the default design tokens to follow UI from business or brand requirements.
+
+## Example Usage
+
+```tsx
+import { ZeroProvider } from '@zero-ui/core';
+
+// App.tsx
+const brand = {
+  brand1: '#fff0f6',
+  brand2: '#ffd6e7',
+  brand3: '#ffadd2',
+  brand4: '#ff85c0',
+  brand5: '#f759ab',
+  brand6: '#eb2f96',
+  brand7: '#c41d7f',
+  brand8: '#9e1068',
+  brand9: '#780650',
+  brand10: '#520339',
+};
+
+return (
+  <ZeroProvider
+    theme={{
+      colors: {
+        ...brand,
+      },
+    }}
+  >
+    <Button colorScheme="brand" size="lg">
+      Button
+    </Button>
+  </ZeroProvider>
+);
+```
+
+export const brand = {
+  brand1: '#fff0f6',
+  brand2: '#ffd6e7',
+  brand3: '#ffadd2',
+  brand4: '#ff85c0',
+  brand5: '#f759ab',
+  brand6: '#eb2f96',
+  brand7: '#c41d7f',
+  brand8: '#9e1068',
+  brand9: '#780650',
+  brand10: '#520339',
+};
+
+<Canvas columns={2} withSource="close">
+  <Story
+    name="Theme"
+    args={{
+      theme: {
+        colors: {
+          ...brand,
+        },
+      },
+      colorScheme: 'brand',
+    }}
+  >
+    {ZeroProviderStory.bind()}
+  </Story>
+</Canvas>
+
+<ArgsTable of={ZeroProvider} />

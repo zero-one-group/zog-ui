@@ -1,6 +1,15 @@
+import { ComponentProps, useMemo } from 'react';
 import { styled } from '../stitches.config';
 
-export const Button = styled('button', {
+const getColorSchemeVariants = (colorScheme?: string) => {
+  return {
+    $$bgBtn: colorScheme ? `$colors-${colorScheme}6` : '$colors-gray1',
+    $$bgBtnHover: colorScheme ? `$colors-${colorScheme}5` : '$colors-gray1',
+    $$bgBtnActive: colorScheme ? `$colors-${colorScheme}7` : '$colors-gray1',
+  };
+};
+
+const StyledButton = styled('button', {
   // Reset
   all: 'unset',
   alignItems: 'center',
@@ -52,6 +61,16 @@ export const Button = styled('button', {
       },
     },
     colorScheme: {
+      theme: {
+        color: '$gray1',
+        backgroundColor: '$$bgBtn',
+        '&:hover': {
+          backgroundColor: '$$bgBtnHover',
+        },
+        '&:active': {
+          backgroundColor: '$$bgBtnActive',
+        },
+      },
       default: {
         color: '$gray12',
         backgroundColor: '$gray1',
@@ -65,24 +84,24 @@ export const Button = styled('button', {
       },
       primary: {
         color: '$gray1',
-        backgroundColor: '$blue9',
+        backgroundColor: '$primary6',
         '&:hover': {
-          backgroundColor: '$blue8',
+          backgroundColor: '$primary5',
         },
         '&:active': {
-          backgroundColor: '$blue11',
+          backgroundColor: '$primary7',
         },
       },
       secondary: {
         backgroundColor: '$gray1',
         borderColor: '$gray8',
         '&:hover': {
-          borderColor: '$blue8',
-          color: '$blue8',
+          borderColor: '$primary8',
+          color: '$primary8',
         },
         '&:active': {
-          color: '$blue11',
-          borderColor: '$blue11',
+          color: '$primary11',
+          borderColor: '$primary1',
         },
       },
       danger: {
@@ -149,12 +168,24 @@ export const Button = styled('button', {
       },
     },
     {
+      colorScheme: 'theme',
+      variant: 'outlined',
+      css: {
+        color: '$$bgBtn',
+        backgroundColor: '$gary1',
+        border: '1px solid $$bgBtn',
+        '&:hover': {
+          backgroundColor: '$gary1',
+        },
+      },
+    },
+    {
       colorScheme: 'primary',
       variant: 'outlined',
       css: {
-        color: '$blue9',
+        color: '$primary9',
         backgroundColor: '$gary1',
-        border: '1px solid $blue9',
+        border: '1px solid $primary',
         '&:hover': {
           backgroundColor: '$gary1',
         },
@@ -172,10 +203,24 @@ export const Button = styled('button', {
       },
     },
     {
+      colorScheme: 'theme',
+      variant: 'dashed',
+      css: {
+        color: '$$bgBtn',
+        backgroundColor: '$gary1',
+        '&:hover': {
+          backgroundColor: '$gray1',
+        },
+        '&:active': {
+          backgroundColor: '$gary1',
+        },
+      },
+    },
+    {
       colorScheme: 'primary',
       variant: 'dashed',
       css: {
-        color: '$blue9',
+        color: '$primary9',
         backgroundColor: '$gary1',
         '&:hover': {
           backgroundColor: '$gray1',
@@ -246,3 +291,30 @@ export const Button = styled('button', {
     colorScheme: 'default',
   },
 });
+
+const COLOR_SCHEME_VARIANTS = ['default', 'primary', 'secondary', 'danger'];
+
+export type ButtonProps = {
+  colorScheme?: string;
+} & ComponentProps<typeof StyledButton>;
+
+export const Button = ({ css, colorScheme, ...props }: ButtonProps) => {
+  const colorVariant = useMemo(() => {
+    return colorScheme && COLOR_SCHEME_VARIANTS.includes(colorScheme)
+      ? colorScheme
+      : 'theme';
+  }, [colorScheme]);
+
+  return (
+    <StyledButton
+      css={{
+        ...css,
+        ...getColorSchemeVariants(colorScheme),
+      }}
+      colorScheme={colorVariant}
+      {...props}
+    >
+      {props.children}
+    </StyledButton>
+  );
+};
