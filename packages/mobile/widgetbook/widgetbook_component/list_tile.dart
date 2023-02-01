@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
@@ -9,7 +10,7 @@ WidgetbookComponent listTileWidgetbookComponent = WidgetbookComponent(
   useCases: [
     WidgetbookUseCase(
       name: 'Default',
-      builder: (context) => PreviewWidget(
+      builder: (context) => _ListTilePreview(
         child: ZeroListTile(
           title: 'List Item',
           selected: context.knobs.boolean(label: 'Selected'),
@@ -21,7 +22,7 @@ WidgetbookComponent listTileWidgetbookComponent = WidgetbookComponent(
     ),
     WidgetbookUseCase(
       name: 'With Subtitle',
-      builder: (context) => PreviewWidget(
+      builder: (context) => _ListTilePreview(
         child: ZeroListTile(
           title: context.knobs.text(label: 'Title', initialValue: 'List Item'),
           subtitle:
@@ -35,7 +36,7 @@ WidgetbookComponent listTileWidgetbookComponent = WidgetbookComponent(
     ),
     WidgetbookUseCase(
       name: 'Left Icon',
-      builder: (context) => PreviewWidget(
+      builder: (context) => _ListTilePreview(
         child: ZeroListTile(
           title: context.knobs.text(label: 'Title', initialValue: 'List Item'),
           subtitle:
@@ -51,7 +52,7 @@ WidgetbookComponent listTileWidgetbookComponent = WidgetbookComponent(
     ),
     WidgetbookUseCase(
       name: 'Right Icon',
-      builder: (context) => PreviewWidget(
+      builder: (context) => _ListTilePreview(
         child: ZeroListTile(
           title: context.knobs.text(label: 'Title', initialValue: 'List Item'),
           subtitle:
@@ -67,7 +68,7 @@ WidgetbookComponent listTileWidgetbookComponent = WidgetbookComponent(
     ),
     WidgetbookUseCase(
       name: 'Left & Right Icon',
-      builder: (context) => PreviewWidget(
+      builder: (context) => _ListTilePreview(
         child: ZeroListTile(
           title: context.knobs.text(label: 'Title', initialValue: 'List Item'),
           subtitle:
@@ -85,7 +86,7 @@ WidgetbookComponent listTileWidgetbookComponent = WidgetbookComponent(
     ),
     WidgetbookUseCase(
       name: 'Disabled',
-      builder: (context) => PreviewWidget(
+      builder: (context) => _ListTilePreview(
         child: ZeroListTile(
           title: context.knobs.text(label: 'Title', initialValue: 'List Item'),
           subtitle:
@@ -105,7 +106,7 @@ WidgetbookComponent listTileWidgetbookComponent = WidgetbookComponent(
     ),
     WidgetbookUseCase(
       name: 'Custom Style',
-      builder: (context) => PreviewWidget(
+      builder: (context) => _ListTilePreview(
         child: ZeroListTile(
           title: context.knobs.text(label: 'Title', initialValue: 'List Item'),
           subtitle:
@@ -137,8 +138,52 @@ WidgetbookComponent listTileWidgetbookComponent = WidgetbookComponent(
         ),
       ),
     ),
+    WidgetbookUseCase(
+      name: 'Slidable',
+      builder: (context) => _ListTilePreview(
+        child: ZeroListTile(
+          title: context.knobs.text(label: 'Title', initialValue: 'List Item'),
+          subtitle:
+              context.knobs.text(label: 'Subtitle', initialValue: 'Secondary '),
+          selected: context.knobs.boolean(label: 'Selected'),
+          size: context.knobs.options(label: 'Size', options: _sizeTypes),
+          withDivider: context.knobs.boolean(label: 'With Divider'),
+          leftIcon:
+              context.knobs.options(label: 'Left Icon', options: _leftIcons),
+          rightIcon:
+              context.knobs.options(label: 'Right Icon', options: _rightIcons),
+          startSlideActions: context.knobs.options(
+            label: 'Start Slidable Actions',
+            options: _startActions,
+          ),
+          endSlideActions: context.knobs.options(
+            label: 'End Slidable Actions',
+            options: _endActions,
+          ),
+          onTap: () {},
+        ),
+      ),
+    ),
   ],
 );
+
+class _ListTilePreview extends StatelessWidget {
+  const _ListTilePreview({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return PreviewWidget(
+      child: LayoutBuilder(builder: (context, constraints) {
+        return ConstrainedBox(
+          constraints: constraints,
+          child: SingleChildScrollView(child: child),
+        );
+      }),
+    );
+  }
+}
 
 List<Option<Icon>> _leftIcons = [
   const Option(label: 'Search', value: Icon(Icons.search)),
@@ -174,4 +219,54 @@ List<Option<Color>> _colors = [
 List<Option<Color>> _textColors = [
   const Option(label: 'Black', value: ZeroColors.black),
   const Option(label: 'White', value: ZeroColors.white),
+];
+
+List<Option<List<ZeroListTileAction>>> _startActions = [
+  const Option(label: 'None', value: []),
+  const Option(label: 'Share', value: [
+    ZeroListTileAction(
+      label: 'Share',
+      icon: Icons.share,
+      backgroundColor: ZeroColors.primary,
+      foregroundColor: Colors.white,
+    )
+  ]),
+  Option(label: 'Share & Archive', value: [
+    const ZeroListTileAction(
+      label: 'Share',
+      icon: Icons.share,
+      backgroundColor: ZeroColors.primary,
+      foregroundColor: Colors.white,
+    ),
+    ZeroListTileAction(
+      label: 'Archive',
+      icon: Icons.archive,
+      backgroundColor: ZeroColors.primary[8],
+      foregroundColor: Colors.white,
+    )
+  ]),
+];
+
+List<Option<List<ZeroListTileAction>>> _endActions = [
+  const Option(label: 'None', value: []),
+  const Option(label: 'Delete', value: [
+    ZeroListTileAction(
+      label: 'Delete',
+      icon: CupertinoIcons.delete_solid,
+      backgroundColor: ZeroColors.danger,
+      foregroundColor: Colors.white,
+    )
+  ]),
+  const Option(label: 'Delete & More', value: [
+    ZeroListTileAction(
+      label: 'Delete',
+      icon: CupertinoIcons.delete_solid,
+      backgroundColor: ZeroColors.danger,
+      foregroundColor: Colors.white,
+    ),
+    ZeroListTileAction(
+      label: 'More',
+      icon: Icons.more_horiz,
+    ),
+  ]),
 ];

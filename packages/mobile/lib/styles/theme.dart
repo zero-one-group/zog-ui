@@ -326,7 +326,10 @@ class ZeroThemeData with Diagnosticable {
             900: primaryColor.darkest,
           },
         ),
-      ).copyWith(error: errorColor),
+      ).copyWith(
+        error: errorColor,
+        onPrimary: Colors.white,
+      ),
       dividerTheme: dividerStyle.toDividerTheme(),
     );
   }

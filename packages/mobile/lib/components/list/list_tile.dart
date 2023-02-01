@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 import 'list_tile_left_icon.dart';
@@ -17,6 +18,8 @@ class ZeroListTile extends StatelessWidget {
     this.onTap,
     this.style,
     this.size = ZeroListTileSize.large,
+    this.startSlideActions = const [],
+    this.endSlideActions = const [],
   }) : super(key: key);
 
   /// The main text to be displayed in the [ZeroListTile]
@@ -53,6 +56,16 @@ class ZeroListTile extends StatelessWidget {
 
   /// Custom size
   final ZeroListTileSize size;
+
+  /// Slidable actions when sliding to the right
+  ///
+  /// This action is to the left when it opens
+  final List<ZeroListTileAction> startSlideActions;
+
+  /// Slidable actions when sliding to the left
+  ///
+  /// This action is to the right when it opens
+  final List<ZeroListTileAction> endSlideActions;
 
   @override
   Widget build(BuildContext context) {
@@ -93,54 +106,92 @@ class ZeroListTile extends StatelessWidget {
         ? listTileStyle.smallContentPadding
         : listTileStyle.contentPadding;
 
-    return InkWell(
-      onTap: disabled ? null : onTap,
+    return Slidable(
+      enabled: startSlideActions.isNotEmpty || endSlideActions.isNotEmpty,
+      startActionPane: startSlideActions.isNotEmpty
+          ? ActionPane(
+              motion: const DrawerMotion(),
+              children: startSlideActions,
+            )
+          : null,
+      endActionPane: endSlideActions.isNotEmpty
+          ? ActionPane(
+              motion: const DrawerMotion(),
+              children: endSlideActions,
+            )
+          : null,
       child: DecoratedBox(
         decoration: BoxDecoration(color: backgroundColor),
-        child: SizedBox(
-          width: double.infinity,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: contentPadding ?? EdgeInsets.zero,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ListTileLeftIcon(disabled: disabled, child: leftIcon),
-                    Expanded(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          DefaultTextStyle(
-                            style: titleStyle,
-                            child: Text(title),
-                          ),
-                          if (subtitle != null)
+        child: InkWell(
+          onTap: disabled ? null : onTap,
+          child: SizedBox(
+            width: double.infinity,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: contentPadding ?? EdgeInsets.zero,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ListTileLeftIcon(disabled: disabled, child: leftIcon),
+                      Expanded(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
                             DefaultTextStyle(
-                              style: subTitleStyle,
-                              child: Text(subtitle ?? ''),
+                              style: titleStyle,
+                              child: Text(title),
                             ),
-                        ],
+                            if (subtitle != null)
+                              DefaultTextStyle(
+                                style: subTitleStyle,
+                                child: Text(subtitle ?? ''),
+                              ),
+                          ],
+                        ),
                       ),
-                    ),
-                    ListTileRightIcon(disabled: disabled, child: rightIcon),
-                  ],
+                      ListTileRightIcon(disabled: disabled, child: rightIcon),
+                    ],
+                  ),
                 ),
-              ),
-              // Buils divider of ListTile
-              // TODO: use Divider from ZeroDivider
-              if (withDivider)
-                Container(
-                  color: dividerColor,
-                  width: double.infinity,
-                  height: 1,
-                )
-            ],
+                // Buils divider of ListTile
+                if (withDivider)
+                  ZeroDivider.horizontal(
+                    variant: ZeroDividerVariant.fullWidth,
+                    style: ZeroDividerStyle(color: dividerColor),
+                  )
+              ],
+            ),
           ),
         ),
       ),
     );
   }
+}
+
+/// An action for [ZeroListTile] which can show an icon, a label, or both.
+class ZeroListTileAction extends SlidableAction {
+  /// Creates a [ZeroListTileAction].
+  ///
+  /// The [flex], [backgroundColor], [autoClose] and [spacing] arguments
+  /// must not be null.
+  ///
+  /// You must set either an [icon] or a [label].
+  ///
+  /// The [flex] argument must also be greater than 0.
+  const ZeroListTileAction({
+    super.key,
+    super.autoClose,
+    super.flex,
+    super.icon,
+    super.backgroundColor,
+    super.borderRadius,
+    super.foregroundColor,
+    required super.label,
+    super.onPressed,
+    super.padding,
+    super.spacing,
+  });
 }

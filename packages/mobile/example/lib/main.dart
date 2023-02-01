@@ -4,6 +4,7 @@ import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 import 'component/avatar/avatar_example.dart';
 import 'component/button/zero_button_example.dart';
 import 'component/divider/divider_example.dart';
+import 'component/listtile/listile_example.dart';
 import 'component/rating/zero_rating_example.dart';
 import 'component/slider/zero_slider_example.dart';
 import 'component/textfield/zero_textfield_example.dart';
@@ -13,20 +14,66 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final _colors = [
+    ZeroColors.lime,
+    ZeroColors.primary,
+    ZeroColors.geekBlue,
+    ZeroColors.dustRed,
+    ZeroColors.magenta,
+    ZeroColors.polarGreen,
+  ];
+
+  ShadedColor _selectedColor = ZeroColors.lime;
+
   @override
   Widget build(BuildContext context) {
     return ZeroApp(
       title: 'Flutter Demo',
       theme: ZeroThemeData(
         brightness: Brightness.light,
-        primaryColor: ZeroColors.lime.toAccentColor(),
+        primaryColor: _selectedColor.toAccentColor(),
       ),
-      home: const Scaffold(
+      home: Scaffold(
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Examples(),
+          child: Column(
+            children: [
+              DropdownButton<ShadedColor>(
+                  hint: Row(
+                    children: [
+                      const Text('Primary Color'),
+                      const SizedBox(width: 10),
+                      Container(width: 20, height: 20, color: _selectedColor)
+                    ],
+                  ),
+                  items: _colors
+                      .map(
+                        (e) => DropdownMenuItem(
+                          value: e,
+                          child: Container(color: e, height: 50),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: (v) {
+                    if (v != null) {
+                      setState(() {
+                        _selectedColor = v;
+                      });
+                    }
+                  }),
+              const Expanded(
+                child: SingleChildScrollView(
+                  child: Examples(),
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -114,6 +161,16 @@ class Examples extends StatelessWidget {
               );
             },
             text: 'Zero Divider Example',
+          ),
+          ZeroButton.primary(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const ZeroListTileExample(),
+                ),
+              );
+            },
+            text: 'Zero ListTile Example',
           ),
         ],
       ),
