@@ -46,7 +46,7 @@ class ZeroDropdown<T> extends StatefulWidget {
   /// If set, this will override `suffixIcon` that is defined in [InputDecoration]
   final Widget? suffixIcon;
 
-  /// [DropdownMenuItem]'s height, the default value is as per set on [TextfieldSizeType.small] height
+  /// [DropdownMenuItem]'s height, the default value is as per set on [TextfieldSize.small] height
   final double? itemHeight;
 
   /// Types that are also used on [ZeroTextField] to provide default styling parameters
@@ -56,8 +56,8 @@ class ZeroDropdown<T> extends StatefulWidget {
   /// Default value: [ZeroTextField.outline]
   final InputDecorationType inputDecorationType;
 
-  /// Default value: [TextfieldSizeType.small]
-  final TextfieldSizeType textfieldSizeType;
+  /// Default value: [TextfieldSize.small]
+  final TextfieldSize textfieldSize;
 
   /// List containing only all the values, not the [DropdownMenuItem]
   final List<T> items;
@@ -104,7 +104,7 @@ class ZeroDropdown<T> extends StatefulWidget {
       required this.items,
       this.menuItemBuilder,
       this.selectedMenuItemBuilder,
-      this.textfieldSizeType = TextfieldSizeType.small,
+      this.textfieldSize = TextfieldSize.small,
       this.selectedItems = const [],
       this.labelText,
       this.helperText,
@@ -147,7 +147,7 @@ class ZeroDropdown<T> extends StatefulWidget {
     Widget Function(T)? menuItemBuilder,
     Widget Function(T)? selectedMenuItemBuilder,
     InputDecorationType inputDecorationType = InputDecorationType.outline,
-    TextfieldSizeType? textfieldSizeType,
+    TextfieldSize? textfieldSize,
   }) =>
       ZeroDropdown._(
         key: key,
@@ -164,7 +164,7 @@ class ZeroDropdown<T> extends StatefulWidget {
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         itemHeight: itemHeight,
-        textfieldSizeType: textfieldSizeType ?? TextfieldSizeType.large,
+        textfieldSize: textfieldSize ?? TextfieldSize.large,
         enableMultipleItems: false,
         menuItemBuilder: menuItemBuilder,
         selectedMenuItemBuilder: selectedMenuItemBuilder,
@@ -192,7 +192,7 @@ class ZeroDropdown<T> extends StatefulWidget {
           bool? enableMultipleItems,
           InputDecorationType inputDecorationType = InputDecorationType.outline,
           MultipleItemsVariant? multipleItemsVariant,
-          TextfieldSizeType textfieldSizeType = TextfieldSizeType.small,
+          TextfieldSize textfieldSize = TextfieldSize.small,
           SelectedItemsStyle selectedItemsStyle = SelectedItemsStyle.text}) =>
       ZeroDropdown._(
         key: key,
@@ -208,9 +208,9 @@ class ZeroDropdown<T> extends StatefulWidget {
         errorStyle: errorStyle,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
-        itemHeight: itemHeight ?? textfieldSizeType.height,
+        itemHeight: itemHeight ?? textfieldSize.height,
         selectedItems: selectedItems,
-        textfieldSizeType: textfieldSizeType,
+        textfieldSize: textfieldSize,
         enableMultipleItems: true,
         menuItemBuilder: menuItemBuilder,
         selectedMenuItemBuilder: selectedMenuItemBuilder,
@@ -251,7 +251,7 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
       buttonHighlightColor: ZeroColors.primary[1],
       itemHighlightColor: ZeroColors.primary[1],
       selectedItemHighlightColor: ZeroColors.primary[7],
-      buttonHeight: widget.itemHeight ?? widget.textfieldSizeType.height,
+      buttonHeight: widget.itemHeight ?? widget.textfieldSize.height,
       items: widget.items.map((item) {
         return DropdownMenuItem<T>(
           value: item,
@@ -393,7 +393,7 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
                       decoration: BoxDecoration(
                           color: ZeroColors.primary[1], // TODO: make themeable
                           borderRadius: BorderRadius.circular(
-                              widget.textfieldSizeType.roundedRadius)),
+                              widget.textfieldSize.roundedRadius)),
                       child: Text(
                         value.toString(),
                       ),
@@ -410,7 +410,7 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
                       decoration: BoxDecoration(
                           color: ZeroColors.white, // TODO: make themeable
                           borderRadius: BorderRadius.circular(
-                              widget.textfieldSizeType.roundedRadius)),
+                              widget.textfieldSize.roundedRadius)),
                       child: Text(
                         value.toString(),
                       ),

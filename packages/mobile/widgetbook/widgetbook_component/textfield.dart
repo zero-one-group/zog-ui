@@ -31,11 +31,11 @@ WidgetbookComponent textFieldWidgetbookComponent = WidgetbookComponent(
               textfielSizeType: context.knobs.options(label: 'Size', options: [
                 const Option(
                   label: 'Small',
-                  value: TextfieldSizeType.small,
+                  value: TextfieldSize.small,
                 ),
                 const Option(
                   label: 'Large',
-                  value: TextfieldSizeType.large,
+                  value: TextfieldSize.large,
                 ),
               ]),
               prefixIcon: context.knobs.options(label: 'Prefix Icon', options: [
@@ -102,11 +102,11 @@ WidgetbookComponent textFieldWidgetbookComponent = WidgetbookComponent(
             textfielSizeType: context.knobs.options(label: 'Size', options: [
               const Option(
                 label: 'Small',
-                value: TextfieldSizeType.small,
+                value: TextfieldSize.small,
               ),
               const Option(
                 label: 'Large',
-                value: TextfieldSizeType.large,
+                value: TextfieldSize.large,
               ),
             ]),
             suffix: context.knobs.options(label: 'Suffix Widget', options: [
@@ -154,11 +154,11 @@ WidgetbookComponent textFieldWidgetbookComponent = WidgetbookComponent(
             textfielSizeType: context.knobs.options(label: 'Size', options: [
               const Option(
                 label: 'Small',
-                value: TextfieldSizeType.small,
+                value: TextfieldSize.small,
               ),
               const Option(
                 label: 'Large',
-                value: TextfieldSizeType.large,
+                value: TextfieldSize.large,
               ),
             ]),
             prefixIcon: context.knobs.options(label: 'Prefix Icon', options: [
@@ -224,11 +224,11 @@ WidgetbookComponent textFieldWidgetbookComponent = WidgetbookComponent(
             textfielSizeType: context.knobs.options(label: 'Size', options: [
               const Option(
                 label: 'Small',
-                value: TextfieldSizeType.small,
+                value: TextfieldSize.small,
               ),
               const Option(
                 label: 'Large',
-                value: TextfieldSizeType.large,
+                value: TextfieldSize.large,
               ),
             ]),
             suffix: context.knobs.options(label: 'Suffix Widget', options: [
@@ -276,11 +276,11 @@ WidgetbookComponent textFieldWidgetbookComponent = WidgetbookComponent(
             textfielSizeType: context.knobs.options(label: 'Size', options: [
               const Option(
                 label: 'Small',
-                value: TextfieldSizeType.small,
+                value: TextfieldSize.small,
               ),
               const Option(
                 label: 'Large',
-                value: TextfieldSizeType.large,
+                value: TextfieldSize.large,
               ),
             ]),
             prefixIcon: context.knobs.options(label: 'Prefix Icon', options: [
@@ -346,11 +346,11 @@ WidgetbookComponent textFieldWidgetbookComponent = WidgetbookComponent(
             textfielSizeType: context.knobs.options(label: 'Size', options: [
               const Option(
                 label: 'Small',
-                value: TextfieldSizeType.small,
+                value: TextfieldSize.small,
               ),
               const Option(
                 label: 'Large',
-                value: TextfieldSizeType.large,
+                value: TextfieldSize.large,
               ),
             ]),
             suffix: context.knobs.options(label: 'Suffix Widget', options: [

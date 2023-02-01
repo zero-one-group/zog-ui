@@ -241,15 +241,15 @@ class ZeroTypography with Diagnosticable {
 
   TextTheme toTextTheme() {
     return TextTheme(
-      bodyText1: body1,
-      bodyText2: body2,
-      subtitle1: subtitle1,
-      subtitle2: subtitle2,
-      button: button,
-      caption: caption,
-      overline: overline,
-      headline5: heading5,
-      headline6: heading6,
+      bodyLarge: body1,
+      bodyMedium: body2,
+      titleMedium: subtitle1,
+      titleSmall: subtitle2,
+      labelLarge: button,
+      bodySmall: caption,
+      labelSmall: overline,
+      headlineSmall: heading5,
+      titleLarge: heading6,
     );
   }
 

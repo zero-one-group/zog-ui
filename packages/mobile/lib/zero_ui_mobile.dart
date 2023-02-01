@@ -9,6 +9,7 @@ export './styles/color_accent.dart';
 // component styles
 export './styles/component/list_tile_style.dart';
 export './styles/component/zero_button_style.dart';
+export './styles/component/divider_style.dart';
 
 // assets
 export './assets/assets.dart';
@@ -35,7 +36,6 @@ export './components/dropdowns/zero_dropdown.dart';
 
 // badge
 export './components/badge/zero_badge.dart';
-export 'position/badge_potision.dart';
 
 // checkbox
 export './components/checkbox/zero_checkbox.dart';
@@ -65,16 +65,15 @@ export './components/text/zero_text.dart';
 export './components/avatar/zero_avatar.dart';
 export './components/avatar/zero_avatar_group.dart';
 
+// divider
+export './components/divider/divider.dart';
+
 // types
 export './types/button_radius_type.dart';
 export './types/button_group_type.dart';
-export './types/textfield/size_type.dart';
 export './types/textfield/input_decoration_type.dart';
 export './types/badge_type.dart';
-export './types/size_type.dart';
 export './types/tooltip_type.dart';
-export './types/list_tile_size.dart';
-export './types/avatar_size.dart';
 
 // positions
 export './position/tooltip_position.dart';
@@ -85,6 +84,10 @@ export './model/zero_range_values.dart';
 
 // size
 export './size/zero_slider_size.dart';
+export './size/avatar_size.dart';
+export './size/list_tile_size.dart';
+export './size/text_field_size.dart';
+export './size/size_type.dart';
 
 // utils
 export './utils/extensions/theme_extensions.dart';

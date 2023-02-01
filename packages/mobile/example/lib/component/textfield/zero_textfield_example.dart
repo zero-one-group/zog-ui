@@ -22,14 +22,16 @@ class ZeroTextfieldExample extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.underline(
                   labelText: 'Label',
                   hintText: 'Input',
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.fill(
                   labelText: 'Label',
                   hintText: 'Input',
@@ -39,31 +41,50 @@ class ZeroTextfieldExample extends StatelessWidget {
                 height: 10,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.outline(labelText: 'Label', hintText: 'Input', errorText: 'Error Text'),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.outline(
+                    labelText: 'Label',
+                    hintText: 'Input',
+                    errorText: 'Error Text'),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.fill(labelText: 'Label', hintText: 'Input', errorText: 'Error Text'),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.fill(
+                    labelText: 'Label',
+                    hintText: 'Input',
+                    errorText: 'Error Text'),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.underline(labelText: 'Label', hintText: 'Input', errorText: 'Error Text'),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.underline(
+                    labelText: 'Label',
+                    hintText: 'Input',
+                    errorText: 'Error Text'),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.outline(labelText: 'Label', hintText: 'Input', enabled: false),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.outline(
+                    labelText: 'Label', hintText: 'Input', enabled: false),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.fill(labelText: 'Label', hintText: 'Input', enabled: false),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.fill(
+                    labelText: 'Label', hintText: 'Input', enabled: false),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.underline(labelText: 'Label', hintText: 'Input', enabled: false),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ZeroTextField.underline(
+                    labelText: 'Label', hintText: 'Input', enabled: false),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.outline(
                   labelText: 'Label',
                   hintText: 'Input',
@@ -72,7 +93,8 @@ class ZeroTextfieldExample extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.outline(
                   labelText: 'Label',
                   hintText: 'Input',
@@ -81,7 +103,8 @@ class ZeroTextfieldExample extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.outline(
                   labelText: 'Label',
                   hintText: 'Input',
@@ -91,7 +114,8 @@ class ZeroTextfieldExample extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.fill(
                   labelText: 'Label',
                   hintText: 'Input',
@@ -101,7 +125,8 @@ class ZeroTextfieldExample extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.underline(
                   labelText: 'Label',
                   hintText: 'Input',
@@ -111,29 +136,32 @@ class ZeroTextfieldExample extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.outline(
                   labelText: 'Label Large',
                   hintText: 'Input Large',
                   helperText: 'Support Text Large',
-                  textfielSizeType: TextfieldSizeType.large,
+                  textfielSizeType: TextfieldSize.large,
                   prefixIcon: const Icon(Icons.search),
                   suffixIcon: const Icon(Icons.delete_forever),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.outline(
                   labelText: 'Label Small',
                   hintText: 'Input Small',
                   helperText: 'Support Text Small',
-                  textfielSizeType: TextfieldSizeType.small,
+                  textfielSizeType: TextfieldSize.small,
                   prefixIcon: const Icon(Icons.search),
                   suffixIcon: const Icon(Icons.delete_forever),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.rounded(
                   labelText: 'Label',
                   hintText: 'Input',
@@ -143,7 +171,8 @@ class ZeroTextfieldExample extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextFieldMultiline.outline(
                   labelText: 'Label',
                   hintText: 'Input',
@@ -152,7 +181,8 @@ class ZeroTextfieldExample extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextFieldMultiline.fill(
                   labelText: 'Label',
                   hintText: 'Input',
@@ -161,12 +191,14 @@ class ZeroTextfieldExample extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextFieldMultiline.underline(
                   labelText: 'Label',
                   hintText: 'Input',
                   helperText: 'Support Text',
-                  suffix: IconButton(icon: const Icon(Icons.delete_forever), onPressed: () {}),
+                  suffix: IconButton(
+                      icon: const Icon(Icons.delete_forever), onPressed: () {}),
                 ),
               ),
             ],

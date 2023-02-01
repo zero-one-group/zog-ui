@@ -64,7 +64,7 @@ enum InputDecorationType {
     }
   }
 
-  BorderRadius borderRadius(TextfieldSizeType sizeType) {
+  BorderRadius borderRadius(TextfieldSize sizeType) {
     switch (this) {
       case outline:
         return const BorderRadius.all(Radius.circular(8));
@@ -91,7 +91,7 @@ enum InputDecorationType {
     }
   }
 
-  InputBorder border(TextfieldSizeType sizeType) {
+  InputBorder border(TextfieldSize sizeType) {
     switch (this) {
       case outline:
         return OutlineInputBorder(
@@ -151,7 +151,7 @@ enum InputDecorationType {
     }
   }
 
-  InputBorder focusedBorder(TextfieldSizeType sizeType) {
+  InputBorder focusedBorder(TextfieldSize sizeType) {
     switch (this) {
       case outline:
         return OutlineInputBorder(
@@ -175,7 +175,7 @@ enum InputDecorationType {
     }
   }
 
-  InputBorder disabledBorder(TextfieldSizeType sizeType) {
+  InputBorder disabledBorder(TextfieldSize sizeType) {
     switch (this) {
       case outline:
         return OutlineInputBorder(
@@ -200,7 +200,7 @@ enum InputDecorationType {
     }
   }
 
-  InputBorder errorBorder(TextfieldSizeType sizeType) {
+  InputBorder errorBorder(TextfieldSize sizeType) {
     switch (this) {
       case outline:
         return OutlineInputBorder(
