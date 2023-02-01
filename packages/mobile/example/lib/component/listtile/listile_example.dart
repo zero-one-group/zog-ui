@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
@@ -65,6 +66,38 @@ class ZeroListTileExample extends StatelessWidget {
               subTitleTextStyle: TextStyle(color: Colors.white),
             ),
             onTap: () {},
+          ),
+          ZeroListTile(
+            title: 'List Tile Slidable',
+            subtitle: 'Subtitle text',
+            withDivider: true,
+            onTap: () {},
+            startSlideActions: [
+              ZeroListTileAction(
+                label: 'Share',
+                icon: Icons.share,
+                backgroundColor: context.theme.primaryColor.normal,
+                foregroundColor: Colors.white,
+              ),
+              ZeroListTileAction(
+                label: 'Archive',
+                icon: Icons.archive,
+                backgroundColor: context.theme.primaryColor.dark,
+                foregroundColor: Colors.white,
+              ),
+            ],
+            endSlideActions: [
+              ZeroListTileAction(
+                label: 'Delete',
+                icon: CupertinoIcons.delete_solid,
+                backgroundColor: context.theme.errorColor,
+                foregroundColor: Colors.white,
+              ),
+              const ZeroListTileAction(
+                label: 'More',
+                icon: Icons.more_horiz,
+              ),
+            ],
           ),
         ],
       ),
