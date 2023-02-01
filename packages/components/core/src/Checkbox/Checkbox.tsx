@@ -33,7 +33,9 @@ const StyledCheckboxIndicator = styled(CheckboxPrimitive.Indicator, {
 });
 
 type CheckboxOwnProps = {
+  /** Color of the checkbox, includes background checked and border when hovered */
   colorScheme?: string;
+  /** The size of fontSize and checkbox size */
   boxSize?: string | number;
 };
 
