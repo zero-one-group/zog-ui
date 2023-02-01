@@ -2,6 +2,14 @@ import { ComponentProps, useMemo } from 'react';
 import { styled } from '../stitches.config';
 
 const getColorSchemeVariants = (colorScheme?: string) => {
+  if (!colorScheme) {
+    return {
+      $$bgBtn: '$colors-gray1',
+      $$bgBtnHover: '$colors-gray1',
+      $$bgBtnActive: '$colors-gray1',
+    };
+  }
+
   return {
     $$bgBtn: colorScheme ? `$colors-${colorScheme}6` : '$colors-gray1',
     $$bgBtnHover: colorScheme ? `$colors-${colorScheme}5` : '$colors-gray1',
@@ -292,15 +300,24 @@ const StyledButton = styled('button', {
   },
 });
 
-const COLOR_SCHEME_VARIANTS = ['default', 'primary', 'secondary', 'danger'];
+const BUTTON_COLOR_SCHEME_VARIANTS = [
+  'default',
+  'primary',
+  'secondary',
+  'danger',
+];
 
 export type ButtonProps = {
   colorScheme?: string;
 } & ComponentProps<typeof StyledButton>;
 
-export const Button = ({ css, colorScheme, ...props }: ButtonProps) => {
+export const Button = ({
+  css,
+  colorScheme = 'default',
+  ...props
+}: ButtonProps) => {
   const colorVariant = useMemo(() => {
-    return colorScheme && COLOR_SCHEME_VARIANTS.includes(colorScheme)
+    return colorScheme && BUTTON_COLOR_SCHEME_VARIANTS.includes(colorScheme)
       ? colorScheme
       : 'theme';
   }, [colorScheme]);

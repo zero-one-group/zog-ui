@@ -1,12 +1,18 @@
 import { Meta } from '@storybook/addon-docs';
-import { ZeroProvider, Button } from '@zero-ui/core';
+import {
+  ZeroProvider,
+  Button,
+  Checkbox,
+  AutoComplete,
+  Space,
+} from '@zero-ui/core';
 
 <Meta
   title="Foundations/ZeroProvider"
   component={[ZeroProvider]}
   argTypes={{
     colorScheme: {
-      options: ['default', 'primary', 'danger', 'brand'],
+      options: ['default', 'brand'],
       control: { type: 'radio' },
     },
   }}
@@ -15,9 +21,20 @@ import { ZeroProvider, Button } from '@zero-ui/core';
 export const ZeroProviderStory = ({ colorScheme, ...args }) => (
   <>
     <ZeroProvider {...args}>
-      <Button colorScheme={colorScheme} size="lg">
-        Themed Button
-      </Button>
+      <div style={{ width: '200px' }}>
+        <Space direction="column">
+          <Button size="lg" colorScheme={colorScheme}>
+            Themed Button
+          </Button>
+          <Checkbox colorScheme={colorScheme} boxSize={'$3'}>
+            Label
+          </Checkbox>
+          <AutoComplete
+            colorScheme={colorScheme}
+            options={['Angular', 'React', 'Vue', 'Svelte', 'Solid', 'Qwik']}
+          />
+        </Space>
+      </div>
     </ZeroProvider>
   </>
 );
