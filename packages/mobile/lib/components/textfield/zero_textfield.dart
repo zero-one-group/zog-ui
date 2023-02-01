@@ -121,7 +121,8 @@ class ZeroTextField extends StatelessWidget {
                   error: errorText != null),
             );
 
-  /// This already uses [OutlineInputBorder] under the hood with the properties defined in the standard ZeroOne design guideline.
+  /// This already uses [OutlineInputBorder] under the hood with the properties
+  /// defined in the standard ZeroOne design guideline.
   factory ZeroTextField.outline({
     Key? key,
     String? hintText,
@@ -211,7 +212,8 @@ class ZeroTextField extends StatelessWidget {
         enabled: enabled,
       );
 
-  /// This already uses [UnderlineInputBorder] under the hood with fillColor set as per defined in the standard ZeroOne design guideline.
+  /// This already uses [UnderlineInputBorder] under the hood with fillColor set
+  /// as per defined in the standard ZeroOne design guideline.
   factory ZeroTextField.underline(
           {Key? key,
           String? hintText,
@@ -254,7 +256,8 @@ class ZeroTextField extends StatelessWidget {
         enabled: enabled,
       );
 
-  /// This already uses [UnderlineInputBorder] under the hood with fillColor set as per defined in the standard ZeroOne design guideline.
+  /// This already uses [UnderlineInputBorder] under the hood with fillColor set
+  /// as per defined in the standard ZeroOne design guideline.
   factory ZeroTextField.fill(
           {Key? key,
           String? hintText,
