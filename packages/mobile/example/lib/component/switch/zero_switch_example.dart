@@ -1,9 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/components/switch/zero_switch.dart';
-import 'package:zero_ui_mobile/components/switch/zero_switch_android.dart';
-import 'package:zero_ui_mobile/components/switch/zero_switch_ios.dart';
-import 'package:zero_ui_mobile/styles/colors.dart';
+import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 class ZeroSwitchExample extends StatefulWidget {
   const ZeroSwitchExample({super.key});
@@ -21,7 +17,7 @@ class _ZeroSwitchExampleState extends State<ZeroSwitchExample> {
         title: const Text('Zero Tooltip Example'),
       ),
       body: SafeArea(
-        child: Container(
+        child: Center(
           child: Column(
             children: [
               ZeroSwitch(

@@ -138,11 +138,11 @@ WidgetbookComponent switchWidgetbookComponent = WidgetbookComponent(
           ),
           activeThumbColor: context.knobs.options(
             label: 'Active Thumb Color',
-            options: _colorOptions.sublist(2),
+            options: _colorOptions.sublist(1),
           ),
           inactiveThumbColor: context.knobs.options(
             label: 'Inactive Thumb Color',
-            options: _colorOptions.sublist(2),
+            options: _colorOptions.sublist(1),
           ),
           onChanged: (value) {},
           isDisabled: context.knobs.boolean(label: 'Disabled'),

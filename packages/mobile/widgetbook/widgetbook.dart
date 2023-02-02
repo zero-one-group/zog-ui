@@ -56,6 +56,7 @@ class HotReload extends StatelessWidget {
             sliderWidgetbookComponenet,
             avatarWidgetbookComponent,
             dividerWidgetbookComponent,
+            switchWidgetbookComponent,
           ],
         ),
       ],
