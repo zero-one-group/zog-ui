@@ -1,43 +1,51 @@
 import 'package:widgetbook/widgetbook.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
+import '../utils.dart';
+
 WidgetbookComponent checkboxWidgetbookComponent = WidgetbookComponent(
   name: 'Checkbox',
   useCases: [
     WidgetbookUseCase(
       name: 'Selected',
-      builder: (context) => ZeroCheckbox(
-        size: context.knobs.options(
-          options: sizeTypes,
-          label: 'Size',
+      builder: (context) => PreviewWidget(
+        child: ZeroCheckbox(
+          size: context.knobs.options(
+            options: sizeTypes,
+            label: 'Size',
+          ),
+          onChanged: (bool? value) {},
+          value: true,
+          tristate: true,
         ),
-        onChanged: (bool? value) {},
-        value: true,
-        tristate: true,
       ),
     ),
     WidgetbookUseCase(
       name: 'Unselected',
-      builder: (context) => ZeroCheckbox(
-        size: context.knobs.options(
-          options: sizeTypes,
-          label: 'Size',
+      builder: (context) => PreviewWidget(
+        child: ZeroCheckbox(
+          size: context.knobs.options(
+            options: sizeTypes,
+            label: 'Size',
+          ),
+          onChanged: (bool? value) {},
+          value: false,
+          tristate: true,
         ),
-        onChanged: (bool? value) {},
-        value: false,
-        tristate: true,
       ),
     ),
     WidgetbookUseCase(
       name: 'Indeterminate',
-      builder: (context) => ZeroCheckbox(
-        size: context.knobs.options(
-          options: sizeTypes,
-          label: 'Size',
+      builder: (context) => PreviewWidget(
+        child: ZeroCheckbox(
+          size: context.knobs.options(
+            options: sizeTypes,
+            label: 'Size',
+          ),
+          onChanged: (bool? value) {},
+          value: null,
+          tristate: true,
         ),
-        onChanged: (bool? value) {},
-        value: null,
-        tristate: true,
       ),
     ),
   ],

@@ -1,0 +1,121 @@
+import { Meta } from '@storybook/addon-docs';
+import {
+  ZeroProvider,
+  Button,
+  Checkbox,
+  AutoComplete,
+  Space,
+  Pagination,
+} from '@zero-ui/core';
+
+<Meta
+  title="Foundations/ZeroProvider"
+  component={[ZeroProvider]}
+  argTypes={{
+    colorScheme: {
+      control: 'select',
+      options: ['amber', 'brand', 'pink', 'primary', 'sage'],
+    },
+  }}
+/>
+
+export const ZeroProviderStory = ({ colorScheme, ...args }) => (
+  <>
+    <ZeroProvider {...args}>
+      <div style={{ width: '200px' }}>
+        <Space direction="column">
+          <Button intent="primary" size="lg" colorScheme={colorScheme}>
+            Themed Button
+          </Button>
+          <Checkbox colorScheme={colorScheme} boxSize={'$3'}>
+            Label
+          </Checkbox>
+          <AutoComplete
+            colorScheme={colorScheme}
+            options={['Angular', 'React', 'Vue', 'Svelte', 'Solid', 'Qwik']}
+          />
+          <Pagination
+            colorScheme={colorScheme}
+            currentPage={6}
+            pageSize={10}
+            siblingCount={3}
+            totalCount={100}
+          />
+        </Space>
+      </div>
+    </ZeroProvider>
+  </>
+);
+
+# Theme
+
+Zero UI allows you to customize the default design tokens to follow UI from business or brand requirements.
+
+## Example Usage
+
+```tsx
+import { ZeroProvider } from '@zero-ui/core';
+
+// App.tsx
+const brand = {
+  brand1: 'hsl(292, 90.0%, 99.4%)',
+  brand2: 'hsl(300, 100%, 98.6%)',
+  brand3: 'hsl(299, 71.2%, 96.4%)',
+  brand4: 'hsl(299, 62.0%, 93.8%)',
+  brand5: 'hsl(298, 56.1%, 90.5%)',
+  brand6: 'hsl(296, 51.3%, 85.8%)',
+  brand7: 'hsl(295, 48.2%, 78.9%)',
+  brand8: 'hsl(292, 47.7%, 70.8%)',
+  brand9: 'hsl(292, 45.0%, 51.0%)',
+  brand10: 'hsl(292, 50.2%, 46.9%)',
+  brand11: 'hsl(292, 60.0%, 42.5%)',
+  brand12: 'hsl(291, 66.0%, 14.0%)',
+};
+
+return (
+  <ZeroProvider
+    theme={{
+      colors: {
+        ...brand,
+      },
+    }}
+  >
+    <Button colorScheme="brand" size="lg">
+      Button
+    </Button>
+  </ZeroProvider>
+);
+```
+
+export const brand = {
+  brand1: 'hsl(292, 90.0%, 99.4%)',
+  brand2: 'hsl(300, 100%, 98.6%)',
+  brand3: 'hsl(299, 71.2%, 96.4%)',
+  brand4: 'hsl(299, 62.0%, 93.8%)',
+  brand5: 'hsl(298, 56.1%, 90.5%)',
+  brand6: 'hsl(296, 51.3%, 85.8%)',
+  brand7: 'hsl(295, 48.2%, 78.9%)',
+  brand8: 'hsl(292, 47.7%, 70.8%)',
+  brand9: 'hsl(292, 45.0%, 51.0%)',
+  brand10: 'hsl(292, 50.2%, 46.9%)',
+  brand11: 'hsl(292, 60.0%, 42.5%)',
+  brand12: 'hsl(291, 66.0%, 14.0%)',
+};
+
+<Canvas columns={2} withSource="close">
+  <Story
+    name="Theme"
+    args={{
+      theme: {
+        colors: {
+          ...brand,
+        },
+      },
+      colorScheme: 'brand',
+    }}
+  >
+    {ZeroProviderStory.bind()}
+  </Story>
+</Canvas>
+
+<ArgsTable of={ZeroProvider} />

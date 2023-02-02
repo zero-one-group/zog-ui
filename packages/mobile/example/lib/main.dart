@@ -8,6 +8,7 @@ import 'component/divider/divider_example.dart';
 import 'component/listtile/listile_example.dart';
 import 'component/rating/zero_rating_example.dart';
 import 'component/slider/zero_slider_example.dart';
+import 'component/switch/zero_switch_example.dart';
 import 'component/textfield/zero_textfield_example.dart';
 import 'component/tooltip/zero_tooltip_example.dart';
 
@@ -182,6 +183,16 @@ class Examples extends StatelessWidget {
               );
             },
             text: 'Zero Chip Example',
+          ),
+          ZeroButton.primary(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const ZeroSwitchExample(),
+                ),
+              );
+            },
+            text: 'Zero Switch Example',
           ),
         ],
       ),

@@ -22,6 +22,7 @@ export type PaginationProps = ComponentPropsWithoutRef<ElementType> &
     showQuickJumper?: boolean;
     onChangePage: (currentPage: number) => void;
     listCustomSizePage?: number[];
+    colorScheme?: string;
   };
 
 const ItemPagination = styled(Button, {
@@ -57,6 +58,7 @@ export const Pagination = ({
   nextIcon,
   onChangePage,
   showTotal,
+  colorScheme,
   showSizeChange,
   onChangePagePageSize,
   listCustomSizePage,
@@ -102,10 +104,11 @@ export const Pagination = ({
       <ItemPagination
         simple={props.simple}
         onClick={onPrevious}
-        colorScheme="secondary"
+        intent="secondary"
         size="lg"
         variant="outlined"
         disabled={currentPage === 1}
+        colorScheme={colorScheme}
       >
         {previousIcon ? previousIcon : <LeftOutlined />}
       </ItemPagination>
@@ -117,10 +120,11 @@ export const Pagination = ({
           return (
             <ItemPagination
               simple={props.simple}
+              intent={item === currentPage ? 'primary' : 'secondary'}
               onClick={() => onChangePage(Number(item))}
-              colorScheme={item === currentPage ? 'primary' : 'secondary'}
               size="lg"
               variant="outlined"
+              colorScheme={colorScheme}
             >
               {item}
             </ItemPagination>
@@ -132,7 +136,8 @@ export const Pagination = ({
         size="lg"
         variant="outlined"
         disabled={currentPage === lastPage}
-        colorScheme="secondary"
+        intent="secondary"
+        colorScheme={colorScheme}
       >
         {nextIcon ? nextIcon : <RightOutlined />}
       </ItemPagination>

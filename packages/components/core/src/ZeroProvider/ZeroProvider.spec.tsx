@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import { TextArea } from './TextArea';
+import ZeroProvider from './ZeroProvider';
 
-describe('TextArea', () => {
+describe('ZeroProvider', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<TextArea />);
+    const { baseElement } = render(<ZeroProvider />);
     expect(baseElement).toBeTruthy();
   });
 });

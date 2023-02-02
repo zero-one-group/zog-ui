@@ -15,6 +15,7 @@ import 'widgetbook_component/list_tile.dart';
 import 'widgetbook_component/radio_group.dart';
 import 'widgetbook_component/rating.dart';
 import 'widgetbook_component/slider.dart';
+import 'widgetbook_component/switch.dart';
 import 'widgetbook_component/text.dart';
 import 'widgetbook_component/textfield.dart';
 import 'widgetbook_component/tooltip.dart';
@@ -41,6 +42,7 @@ class HotReload extends StatelessWidget {
               radioGroupWidgetbookComponent,
               dropdownWidgetbookComponent,
               checkboxWidgetbookComponent,
+              switchWidgetbookComponent,
             ]),
             WidgetbookFolder(name: 'Button', widgets: [
               buttonWidgetbookComponent,

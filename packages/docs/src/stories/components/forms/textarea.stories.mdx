@@ -4,9 +4,21 @@ import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { TextArea } from '@zero-ui/core';
 
-<Meta title="Components/Forms/TextArea" component={[TextArea]} argTypes={{}} />
+<Meta
+  title="Components/Forms/TextArea"
+  component={[TextArea]}
+  argTypes={{
+    size: {
+      options: ['sm', 'md', 'lg', 'fullWidth'],
+      control: { type: 'radio' },
+    },
+    disabled: {
+      control: 'boolean',
+    },
+  }}
+/>
 
-export const TextAreaStory = () => <TextArea />;
+export const TextAreaStory = (args) => <TextArea {...args} />;
 
 # TextArea
 
@@ -19,7 +31,15 @@ import { TextArea } from '@zero-ui/core';
 ```
 
 <Canvas columns={2} withSource="close">
-  <Story name="TextArea">{TextAreaStory.bind()}</Story>
+  <Story
+    args={{
+      defaultValue: '',
+      placeholder: 'placeholder',
+    }}
+    name="TextArea"
+  >
+    {TextAreaStory.bind()}
+  </Story>
 </Canvas>
 
 <ArgsTable of={TextArea} />

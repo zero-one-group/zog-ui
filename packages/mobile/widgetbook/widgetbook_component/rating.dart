@@ -2,90 +2,96 @@ import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
+import '../utils.dart';
+
 WidgetbookComponent ratingWidgetbookComponent = WidgetbookComponent(
   name: 'Rating',
   useCases: [
     WidgetbookUseCase(
       name: 'Star',
-      builder: (context) => ZeroRating(
-        itemCount: context.knobs
-            .number(
-              label: 'Item Count',
-              initialValue: 5,
-            )
-            .toInt(),
-        spacing: context.knobs
-            .number(
-              label: 'Spacing',
-              initialValue: 0,
-            )
-            .toDouble(),
-        initialValue: context.knobs
-            .number(
-              label: 'Initial Value',
-              initialValue: 1,
-            )
-            .toDouble(),
-        minValue: context.knobs
-            .number(
-              label: 'Min Value',
-              initialValue: 0,
-            )
-            .toDouble(),
-        allowHalfRating: context.knobs.boolean(
-          label: 'Allow Half Rating',
-          initialValue: true,
-        ),
-        onRatingUpdate: (value) {},
-        activeColor: context.knobs.options(
-          label: 'Active Color',
-          options: _colorOptions,
-        ),
-        inactiveColor: context.knobs.options(
-          label: 'Inactive Color',
-          options: _colorOptions,
-        ),
-        isDisabled: context.knobs.boolean(
-          label: 'Is Disabled',
-          initialValue: false,
-        ),
-        sizeType: context.knobs.options(
-          label: 'Size Type',
-          options: _sizeTypes,
+      builder: (context) => PreviewWidget(
+        child: ZeroRating(
+          itemCount: context.knobs
+              .number(
+                label: 'Item Count',
+                initialValue: 5,
+              )
+              .toInt(),
+          spacing: context.knobs
+              .number(
+                label: 'Spacing',
+                initialValue: 0,
+              )
+              .toDouble(),
+          initialValue: context.knobs
+              .number(
+                label: 'Initial Value',
+                initialValue: 1,
+              )
+              .toDouble(),
+          minValue: context.knobs
+              .number(
+                label: 'Min Value',
+                initialValue: 0,
+              )
+              .toDouble(),
+          allowHalfRating: context.knobs.boolean(
+            label: 'Allow Half Rating',
+            initialValue: true,
+          ),
+          onRatingUpdate: (value) {},
+          activeColor: context.knobs.options(
+            label: 'Active Color',
+            options: _colorOptions,
+          ),
+          inactiveColor: context.knobs.options(
+            label: 'Inactive Color',
+            options: _colorOptions,
+          ),
+          isDisabled: context.knobs.boolean(
+            label: 'Is Disabled',
+            initialValue: false,
+          ),
+          sizeType: context.knobs.options(
+            label: 'Size Type',
+            options: _sizeTypes,
+          ),
         ),
       ),
     ),
     WidgetbookUseCase(
       name: 'Custom',
-      builder: (context) => ZeroRatingCustom(
-        spacing: context.knobs
-            .number(
-              label: 'Spacing',
-              initialValue: 0,
-            )
-            .toDouble(),
-        initialValue: context.knobs
-            .number(
-              label: 'Initial Value',
-              initialValue: 1,
-            )
-            .toDouble(),
-        onRatingUpdate: (value) {},
-        activeColor: context.knobs.options(
-          label: 'Active Color',
-          options: _colorOptions,
-        ),
-        inactiveColor: context.knobs.options(
-          label: 'Inactive Color',
-          options: _colorOptions,
-        ),
-        isDisabled: context.knobs.boolean(
-          label: 'Is Disabled',
-          initialValue: false,
-        ),
-        sizeType: context.knobs.options(
-          label: 'Size Type',
-          options: _sizeTypes,
+      builder: (context) => PreviewWidget(
+        child: ZeroRatingCustom(
+          spacing: context.knobs
+              .number(
+                label: 'Spacing',
+                initialValue: 0,
+              )
+              .toDouble(),
+          initialValue: context.knobs
+              .number(
+                label: 'Initial Value',
+                initialValue: 1,
+              )
+              .toDouble(),
+          onRatingUpdate: (value) {},
+          activeColor: context.knobs.options(
+            label: 'Active Color',
+            options: _colorOptions,
+          ),
+          inactiveColor: context.knobs.options(
+            label: 'Inactive Color',
+            options: _colorOptions,
+          ),
+          isDisabled: context.knobs.boolean(
+            label: 'Is Disabled',
+            initialValue: false,
+          ),
+          sizeType: context.knobs.options(
+            label: 'Size Type',
+            options: _sizeTypes,
+          ),
         ),
       ),
     ),
