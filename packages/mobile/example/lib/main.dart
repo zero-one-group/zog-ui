@@ -3,6 +3,7 @@ import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 import 'component/avatar/avatar_example.dart';
 import 'component/button/zero_button_example.dart';
+import 'component/chip/chip_example.dart';
 import 'component/divider/divider_example.dart';
 import 'component/listtile/listile_example.dart';
 import 'component/rating/zero_rating_example.dart';
@@ -171,6 +172,16 @@ class Examples extends StatelessWidget {
               );
             },
             text: 'Zero ListTile Example',
+          ),
+          ZeroButton.primary(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const ZeroChipExample(),
+                ),
+              );
+            },
+            text: 'Zero Chip Example',
           ),
         ],
       ),
