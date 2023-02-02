@@ -1,9 +1,9 @@
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { Box } from '../Box';
 import { Button } from '../Button';
 import { Space } from '../Space';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-import { DOTS, usePagination, usePaginationProps } from './use-pagination';
 import { styled } from '../stitches.config';
-import { Box } from '../Box';
+import { DOTS, usePagination, usePaginationProps } from './use-pagination';
 
 import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react';
 
@@ -14,6 +14,7 @@ export type PaginationProps = ComponentPropsWithoutRef<ElementType> &
     simple?: boolean;
     showTotal?: boolean;
     onChange: (currentPage: number) => void;
+    colorScheme?: string;
   };
 
 const ItemPagination = styled(Button, {
@@ -38,6 +39,7 @@ export const Pagination = ({
   nextIcon,
   onChange,
   showTotal,
+  colorScheme,
   ...props
 }: PaginationProps) => {
   const paginationRange = usePagination({
@@ -78,10 +80,11 @@ export const Pagination = ({
       <ItemPagination
         simple={props.simple}
         onClick={onPrevious}
-        colorScheme="secondary"
+        type="secondary"
         size="lg"
         variant="outlined"
         disabled={currentPage === 1}
+        colorScheme={colorScheme}
       >
         {previousIcon ? previousIcon : <LeftOutlined />}
       </ItemPagination>
@@ -94,9 +97,10 @@ export const Pagination = ({
             <ItemPagination
               simple={props.simple}
               onClick={() => onChange(Number(item))}
-              colorScheme={item === currentPage ? 'primary' : 'secondary'}
+              type={item === currentPage ? 'primary' : 'secondary'}
               size="lg"
               variant="outlined"
+              colorScheme={colorScheme}
             >
               {item}
             </ItemPagination>
@@ -108,7 +112,8 @@ export const Pagination = ({
         size="lg"
         variant="outlined"
         disabled={currentPage === lastPage}
-        colorScheme="secondary"
+        type="secondary"
+        colorScheme={colorScheme}
       >
         {nextIcon ? nextIcon : <RightOutlined />}
       </ItemPagination>

@@ -100,7 +100,7 @@ const StyledButton = styled('button', {
         borderColor: '$gray8',
         '&:hover': {
           borderColor: '$$bgBtnHover',
-          color: '$primary8',
+          color: '$$bgBtnHover',
         },
         '&:active': {
           color: '$$bgBtnActive',
@@ -182,9 +182,9 @@ const StyledButton = styled('button', {
       styleType: 'primary',
       variant: 'outlined',
       css: {
-        color: '$primary9',
+        color: '$$bgBtn',
         backgroundColor: '$gary1',
-        border: '1px solid $primary9',
+        border: '1px solid $$bgBtn',
         '&:hover': {
           backgroundColor: '$gary1',
         },

@@ -5,6 +5,7 @@ import {
   Checkbox,
   AutoComplete,
   Space,
+  Pagination,
 } from '@zero-ui/core';
 
 <Meta
@@ -27,6 +28,13 @@ export const ZeroProviderStory = ({ colorScheme, ...args }) => (
           <AutoComplete
             colorScheme={colorScheme}
             options={['Angular', 'React', 'Vue', 'Svelte', 'Solid', 'Qwik']}
+          />
+          <Pagination
+            colorScheme={colorScheme}
+            currentPage={6}
+            pageSize={10}
+            siblingCount={3}
+            totalCount={100}
           />
         </Space>
       </div>
