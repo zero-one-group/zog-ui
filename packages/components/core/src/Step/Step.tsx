@@ -2,9 +2,17 @@ import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react';
 import { Space } from '../Space';
 import { styled } from '../stitches.config';
 
+const getColorSchemeVariants = (colorScheme?: string) => {
+  return {
+    $$bgStep: colorScheme ? `$colors-${colorScheme}9` : '$colors-primary9',
+  };
+};
+
 export type StepProps = ComponentPropsWithoutRef<ElementType> & {
   orientation: 'horizontal' | 'vertical';
+  colorScheme?: string;
 };
+
 export type StepItemProps = ComponentPropsWithoutRef<ElementType> & {
   orientation: 'vertical' | 'horizontal';
   label?: string;
@@ -14,7 +22,8 @@ export type StepItemProps = ComponentPropsWithoutRef<ElementType> & {
   icon?: ReactNode;
   size?: 'sm' | 'md' | 'lg';
 };
-export const Step = styled(Space, {
+
+export const StyledStep = styled(Space, {
   'div:last-child': {
     'hr:last-child': {
       borderLeft: '0px !important',
@@ -24,3 +33,16 @@ export const Step = styled(Space, {
     },
   },
 });
+
+export const Step = ({ colorScheme, ...props }: StepProps) => {
+  return (
+    <StyledStep
+      css={{
+        ...getColorSchemeVariants(colorScheme),
+      }}
+      {...props}
+    >
+      {props.children}
+    </StyledStep>
+  );
+};

@@ -9,6 +9,12 @@ import React, {
 import { Box } from '../Box';
 import { keyframes, styled } from '../stitches.config';
 
+const getItemColorSchemeVariants = (colorScheme?: string) => {
+  return {
+    $$bgList: colorScheme ? `$colors-${colorScheme}4` : '$colors-primary4',
+  };
+};
+
 const slideUpAndFade = keyframes({
   '0%': { opacity: 0, transform: 'translateY(2px)' },
   '100%': { opacity: 1, transform: 'translateY(0)' },
@@ -49,7 +55,7 @@ const StyledListBoxItem = styled(Box, {
   variants: {
     hovered: {
       true: {
-        background: '$blue3',
+        background: '$$bgList',
         fontWeight: '600',
       },
     },
@@ -111,6 +117,7 @@ export interface AutoCompleteProps
   extends ComponentProps<typeof StyledAutoComplete> {
   options?: AutoCompleteItem[];
   itemsToShow?: number;
+  colorScheme?: string;
 }
 
 export type AutoCompleteComponent = (props: AutoCompleteProps) => ReactElement;
@@ -122,6 +129,7 @@ export type WrapWithScrollAreaProps = {
 
 export const AutoComplete: AutoCompleteComponent = ({
   itemsToShow = 10,
+  colorScheme,
   value,
   options,
   onFocus,
@@ -279,6 +287,9 @@ export const AutoComplete: AutoCompleteComponent = ({
             <StyledScrollAreaViewport>
               {filteredData.map((option, idx) => (
                 <StyledListBoxItem
+                  css={{
+                    ...getItemColorSchemeVariants(colorScheme),
+                  }}
                   ref={(el: HTMLDivElement) => (listItemsRef.current[idx] = el)}
                   role="listitem"
                   key={`${option}-${idx}`}

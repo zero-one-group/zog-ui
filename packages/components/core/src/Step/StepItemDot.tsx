@@ -8,7 +8,7 @@ const StyledStepItemDot = styled(Space, {
   span: {
     height: '8px',
     width: '8px',
-    backgroundColor: '$blue9',
+    backgroundColor: '$$bgStep',
     borderRadius: '50%',
     display: 'inline-block',
   },
@@ -106,8 +106,8 @@ const StyledStepItemDot = styled(Space, {
       state: 'stepCompleted',
       css: {
         hr: {
-          backgroundColor: '$blue9',
-          border: '1px solid $blue9',
+          backgroundColor: '$$bgStep',
+          border: '1px solid $$bgStep',
         },
       },
     },

@@ -2,6 +2,12 @@ import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 import { ReactElement } from 'react';
 import { styled } from '../stitches.config';
 
+const getColorSchemeVariants = (colorScheme?: string) => {
+  return {
+    $$bgCheck: colorScheme ? `$colors-${colorScheme}9` : '$colors-primary9',
+  };
+};
+
 const StyledCheckboxLabel = styled('label', {
   display: 'inline-flex',
   alignItems: 'center',
@@ -24,6 +30,19 @@ const StyledCheckboxRoot = styled(CheckboxPrimitive.Root, {
     backgroundColor: '#F4F6F7 !important',
     border: '1px solid #D9D9D9  !important',
   },
+  '&:hover': {
+    border: '1px solid $$bgCheck',
+  },
+  '&[aria-checked="true"]': {
+    border: '1px solid $$bgCheck',
+    backgroundColor: '$$bgCheck',
+  },
+  '&[aria-checked="indeterminated"]:not(:disabled)::after': {
+    content: '',
+    width: '.5em',
+    height: '.5em',
+    backgroundColor: '$$bgCheck',
+  },
 });
 const StyledCheckboxIndicator = styled(CheckboxPrimitive.Indicator, {
   color: 'white',
@@ -43,9 +62,11 @@ export type CheckboxProps = CheckboxOwnProps & CheckboxPrimitive.CheckboxProps;
 
 export type CheckboxComponent = (props: CheckboxProps) => ReactElement;
 
-export const Checkbox: CheckboxComponent = ({ boxSize = '$3', ...props }) => {
-  const colorScheme = props.colorScheme || '#1890FF';
-
+export const Checkbox: CheckboxComponent = ({
+  boxSize = '$3',
+  colorScheme,
+  ...props
+}) => {
   return (
     <StyledCheckboxLabel
       css={{
@@ -59,19 +80,7 @@ export const Checkbox: CheckboxComponent = ({ boxSize = '$3', ...props }) => {
           fontSize: boxSize,
           width: '1em',
           height: '1em',
-          '&:hover': {
-            border: `1px solid ${colorScheme}`,
-          },
-          '&[aria-checked="true"]': {
-            border: `1px solid ${colorScheme}`,
-            backgroundColor: colorScheme,
-          },
-          '&[aria-checked="indeterminated"]:not(:disabled)::after': {
-            content: '',
-            width: '.5em',
-            height: '.5em',
-            backgroundColor: colorScheme,
-          },
+          ...getColorSchemeVariants(colorScheme),
         }}
         {...props}
       >
