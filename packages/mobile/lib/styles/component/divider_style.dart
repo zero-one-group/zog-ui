@@ -24,7 +24,7 @@ class ZeroDividerStyle with Diagnosticable {
 
   /// A default value style of [ZeroDividerStyle]
   static ZeroDividerStyle fallback({Color? color}) => ZeroDividerStyle(
-        color: ZeroColors.neutral[7],
+        color: color ?? ZeroColors.neutral[7],
         size: 1,
         startInset: 16,
         endInset: 16,

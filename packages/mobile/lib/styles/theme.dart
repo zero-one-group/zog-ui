@@ -87,6 +87,8 @@ class ZeroThemeData with Diagnosticable {
   final ZeroButtonStyle primaryButtonStyle;
   final ZeroButtonStyle secondaryButtonStyle;
   final ZeroDividerStyle dividerStyle;
+  final ZeroChipFilledStyle chipFilledStyle;
+  final ZeroChipOutlinedStyle chipOutlinedStyle;
 
   final Brightness brightness;
   final IconThemeData iconTheme;
@@ -115,6 +117,8 @@ class ZeroThemeData with Diagnosticable {
     required this.primaryButtonStyle,
     required this.secondaryButtonStyle,
     required this.dividerStyle,
+    required this.chipFilledStyle,
+    required this.chipOutlinedStyle,
   });
 
   factory ZeroThemeData({
@@ -137,6 +141,8 @@ class ZeroThemeData with Diagnosticable {
     ZeroButtonStyle? primaryButtonStyle,
     ZeroButtonStyle? secondaryButtonStyle,
     ZeroDividerStyle? dividerStyle,
+    ZeroChipFilledStyle? chipFilledStyle,
+    ZeroChipOutlinedStyle? chipOutlinedStyle,
   }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
@@ -190,6 +196,13 @@ class ZeroThemeData with Diagnosticable {
 
     final dividerStyleFallback = ZeroDividerStyle.fallback(color: dividerColor);
 
+    final chipFilledStyleFallback = ZeroChipFilledStyle.fallback(
+      textStyle: TextStyle(color: solidTextColor),
+    );
+    final chipOutlinedStyleFallback = ZeroChipOutlinedStyle.fallback(
+      textStyle: TextStyle(color: solidTextColor),
+    );
+
     return ZeroThemeData.raw(
       brightness: brightness,
       primaryColor: primaryColor,
@@ -211,6 +224,8 @@ class ZeroThemeData with Diagnosticable {
       secondaryButtonStyle:
           secondaryButtonStyleFallback.merge(secondaryButtonStyle),
       dividerStyle: dividerStyleFallback.merge(dividerStyle),
+      chipFilledStyle: chipFilledStyleFallback.merge(chipFilledStyle),
+      chipOutlinedStyle: chipOutlinedStyleFallback.merge(chipOutlinedStyle),
     );
   }
 
@@ -239,6 +254,10 @@ class ZeroThemeData with Diagnosticable {
       secondaryButtonStyle: ZeroButtonStyle.lerp(
           a.secondaryButtonStyle, b.secondaryButtonStyle, t),
       dividerStyle: ZeroDividerStyle.lerp(a.dividerStyle, b.dividerStyle, t),
+      chipFilledStyle:
+          ZeroChipFilledStyle.lerp(a.chipFilledStyle, b.chipFilledStyle, t),
+      chipOutlinedStyle: ZeroChipOutlinedStyle.lerp(
+          a.chipOutlinedStyle, b.chipOutlinedStyle, t),
     );
   }
 
@@ -263,6 +282,8 @@ class ZeroThemeData with Diagnosticable {
     ZeroButtonStyle? primaryButtonStyle,
     ZeroButtonStyle? secondaryButtonStyle,
     ZeroDividerStyle? dividerStyle,
+    ZeroChipFilledStyle? chipFilledStyle,
+    ZeroChipOutlinedStyle? chipOutlinedStyle,
   }) {
     return ZeroThemeData.raw(
       brightness: brightness ?? this.brightness,
@@ -286,6 +307,8 @@ class ZeroThemeData with Diagnosticable {
       primaryButtonStyle: primaryButtonStyle ?? this.primaryButtonStyle,
       secondaryButtonStyle: secondaryButtonStyle ?? this.secondaryButtonStyle,
       dividerStyle: dividerStyle ?? this.dividerStyle,
+      chipFilledStyle: chipFilledStyle ?? this.chipFilledStyle,
+      chipOutlinedStyle: chipOutlinedStyle ?? this.chipOutlinedStyle,
     );
   }
 
@@ -331,6 +354,7 @@ class ZeroThemeData with Diagnosticable {
         onPrimary: Colors.white,
       ),
       dividerTheme: dividerStyle.toDividerTheme(),
+      chipTheme: chipFilledStyle.toChipThemeData(),
     );
   }
 

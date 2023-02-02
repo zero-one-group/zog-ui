@@ -8,8 +8,9 @@ export './styles/color_accent.dart';
 
 // component styles
 export './styles/component/list_tile_style.dart';
-export './styles/component/zero_button_style.dart';
+export './styles/component/button_style.dart';
 export './styles/component/divider_style.dart';
+export './styles/component/chip_style.dart';
 
 // assets
 export './assets/assets.dart';
@@ -68,6 +69,10 @@ export './components/avatar/zero_avatar_group.dart';
 // divider
 export './components/divider/divider.dart';
 
+// chip
+export './components/chip/zero_chip_filled.dart';
+export './components/chip/zero_chip_outlined.dart';
+
 // switch
 export './components/switch/zero_switch.dart';
 export './components/switch/zero_switch_android.dart';
@@ -93,6 +98,7 @@ export './size/avatar_size.dart';
 export './size/list_tile_size.dart';
 export './size/text_field_size.dart';
 export './size/size_type.dart';
+export './size/chip_size.dart';
 
 // utils
 export './utils/extensions/theme_extensions.dart';

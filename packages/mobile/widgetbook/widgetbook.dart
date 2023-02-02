@@ -7,6 +7,7 @@ import 'widgetbook_component/badge.dart';
 import 'widgetbook_component/button.dart';
 import 'widgetbook_component/button_group.dart';
 import 'widgetbook_component/checkbox.dart';
+import 'widgetbook_component/chip.dart';
 import 'widgetbook_component/colors.dart';
 import 'widgetbook_component/divider.dart';
 import 'widgetbook_component/dropdown.dart';
@@ -41,6 +42,7 @@ class HotReload extends StatelessWidget {
               radioGroupWidgetbookComponent,
               dropdownWidgetbookComponent,
               checkboxWidgetbookComponent,
+              switchWidgetbookComponent,
             ]),
             WidgetbookFolder(name: 'Button', widgets: [
               buttonWidgetbookComponent,
@@ -56,7 +58,7 @@ class HotReload extends StatelessWidget {
             sliderWidgetbookComponenet,
             avatarWidgetbookComponent,
             dividerWidgetbookComponent,
-            switchWidgetbookComponent,
+            chipWidgetbookComponent,
           ],
         ),
       ],
