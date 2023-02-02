@@ -52,7 +52,6 @@ class HotReload extends StatelessWidget {
             badgeWidgetbookComponent,
             tooltipWidgetbookComponent,
             listTileWidgetbookComponent,
-            textWidgetbookComponent,
             sliderWidgetbookComponenet,
             avatarWidgetbookComponent,
             dividerWidgetbookComponent,

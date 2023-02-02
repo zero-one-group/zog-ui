@@ -158,14 +158,14 @@ class ZeroTypography with Diagnosticable {
     String? fontFamily,
     double fontSizeFactor = 1.0,
     double fontSizeDelta = 0.0,
-    Color? heading5Color,
+    Color? color,
     TextDecoration? decoration,
     Color? decorationColor,
     TextDecorationStyle? decorationStyle,
   }) {
     return ZeroTypography.raw(
       heading5: heading5?.apply(
-        color: heading5Color,
+        color: color,
         decoration: decoration,
         decorationColor: decorationColor,
         decorationStyle: decorationStyle,
@@ -174,7 +174,7 @@ class ZeroTypography with Diagnosticable {
         fontSizeDelta: fontSizeDelta,
       ),
       heading6: heading6?.apply(
-        color: heading5Color,
+        color: color,
         decoration: decoration,
         decorationColor: decorationColor,
         decorationStyle: decorationStyle,
@@ -183,7 +183,7 @@ class ZeroTypography with Diagnosticable {
         fontSizeDelta: fontSizeDelta,
       ),
       subtitle1: subtitle1?.apply(
-        color: heading5Color,
+        color: color,
         decoration: decoration,
         decorationColor: decorationColor,
         decorationStyle: decorationStyle,
@@ -192,7 +192,7 @@ class ZeroTypography with Diagnosticable {
         fontSizeDelta: fontSizeDelta,
       ),
       subtitle2: subtitle2?.apply(
-        color: heading5Color,
+        color: color,
         decoration: decoration,
         decorationColor: decorationColor,
         decorationStyle: decorationStyle,
@@ -201,7 +201,7 @@ class ZeroTypography with Diagnosticable {
         fontSizeDelta: fontSizeDelta,
       ),
       body1: body1?.apply(
-        color: heading5Color,
+        color: color,
         decoration: decoration,
         decorationColor: decorationColor,
         decorationStyle: decorationStyle,
@@ -210,7 +210,7 @@ class ZeroTypography with Diagnosticable {
         fontSizeDelta: fontSizeDelta,
       ),
       body2: body2?.apply(
-        color: heading5Color,
+        color: color,
         decoration: decoration,
         decorationColor: decorationColor,
         decorationStyle: decorationStyle,
@@ -219,7 +219,7 @@ class ZeroTypography with Diagnosticable {
         fontSizeDelta: fontSizeDelta,
       ),
       overline: overline?.apply(
-        color: heading5Color,
+        color: color,
         decoration: decoration,
         decorationColor: decorationColor,
         decorationStyle: decorationStyle,
@@ -228,7 +228,7 @@ class ZeroTypography with Diagnosticable {
         fontSizeDelta: fontSizeDelta,
       ),
       caption: caption?.apply(
-        color: heading5Color,
+        color: color,
         decoration: decoration,
         decorationColor: decorationColor,
         decorationStyle: decorationStyle,

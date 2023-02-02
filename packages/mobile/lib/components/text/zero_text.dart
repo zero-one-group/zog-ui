@@ -197,10 +197,7 @@ class ZeroText extends StatelessWidget {
   ///
   /// This TextStyle, each [_type] is different from each other
   TextStyle? _getCombineTextStyle(BuildContext context) {
-    // TODO: get fallback style from [ZeroTheme]
-    final typography = ZeroTypography.fromBrightness(
-      brightness: Theme.of(context).brightness,
-    );
+    final typography = context.theme.typography;
 
     switch (_type) {
       case _ZeroTextType.heading5:
