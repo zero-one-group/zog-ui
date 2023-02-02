@@ -1,11 +1,5 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
-import {
-  PageHeader,
-  PageHeaderProps,
-  Button,
-  Space,
-  Breadcrumb,
-} from '@zero-ui/core';
+import { PageHeader, Button, Space, Breadcrumb } from '@zero-ui/core';
 import { LeftOutlined } from '@ant-design/icons';
 
 <Meta
@@ -13,22 +7,33 @@ import { LeftOutlined } from '@ant-design/icons';
   component={[PageHeader]}
   argTypes={{
     title: {
-      description: 'Page Title',
+      description: 'Page Title <br/>`ReactNode`',
       control: { type: 'text' },
     },
     subtitle: {
-      description: 'Page Subtitle',
+      description: 'Page Subtitle <br/>`ReactNode`',
       control: { type: 'text' },
     },
     extra: {
-      name: 'Extra',
-      description: 'Extra Heading',
+      description: 'Extra Heading on the right side <br/>`ReactNode`',
     },
     avatar: {
-      description: 'AvatarProps',
+      description: '`AvatarProps`',
     },
     breadcrumb: {
-      description: 'BreadcrumbProps',
+      description: '`BreadcrumbProps`',
+    },
+    backIcon: {
+      description: 'Custom back icon <br/>`ReactNode`',
+    },
+    children: {
+      description: '`ReactNode`',
+    },
+    onBack: {
+      description: 'Function called when icon back clicked <br/>`()=>void`',
+    },
+    css: {
+      description: 'Customize CSS <br/>`CSS`',
     },
   }}
 />
@@ -39,7 +44,7 @@ export const PageHeaderStory = (args) => (
 
 # PageHeader
 
-Box is an essential component used in the most of Zero UI components. Box doesn't have unique props, you can easily customize and extends the Box component with `css` prop or `as` prop.
+> A header with common actions and design elements built in.
 
 ## Example Usage
 

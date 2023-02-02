@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/colors/zero_colors.dart';
-import 'package:zero_ui_mobile/types/list_tile_size.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 import 'list_tile_left_icon.dart';
 import 'list_tile_right_icon.dart';
-import 'list_tile_style.dart';
 
 class ZeroListTile extends StatelessWidget {
   const ZeroListTile({
@@ -18,7 +17,9 @@ class ZeroListTile extends StatelessWidget {
     this.selected = false,
     this.onTap,
     this.style,
-    this.size = ZeroListTileSizeType.large,
+    this.size = ZeroListTileSize.large,
+    this.startSlideActions = const [],
+    this.endSlideActions = const [],
   }) : super(key: key);
 
   /// The main text to be displayed in the [ZeroListTile]
@@ -54,81 +55,143 @@ class ZeroListTile extends StatelessWidget {
   final ZeroListTileStyle? style;
 
   /// Custom size
-  final ZeroListTileSizeType size;
+  final ZeroListTileSize size;
+
+  /// Slidable actions when sliding to the right
+  ///
+  /// This action is to the left when it opens
+  final List<ZeroListTileAction> startSlideActions;
+
+  /// Slidable actions when sliding to the left
+  ///
+  /// This action is to the right when it opens
+  final List<ZeroListTileAction> endSlideActions;
 
   @override
   Widget build(BuildContext context) {
-    // Get perferences style from params and combine with global themes
-    // TODO: get fallback style base on theme
-    final selectedColor = style?.selectedColor ?? ZeroColors.primary1;
-    final backgroundColor = selected ? selectedColor : style?.backgroundColor;
-    final dividerColor = style?.dividerColor ?? ZeroColors.neutral5;
+    final theme = context.theme;
+    final listTileStyle = context.theme.listTileStyle.merge(style);
+    final fallbackStyle = ZeroListTileStyle.fallback();
+    final selectedColor =
+        listTileStyle.selectedColor ?? theme.primaryColor.lightest;
+    final backgroundColor =
+        selected ? selectedColor : listTileStyle.backgroundColor;
+    final dividerColor = listTileStyle.dividerColor ?? theme.dividerColor;
 
-    // TODO: get disabled color from theme ZeroTheme
-    const disabledColor = ZeroColors.neutral7;
+    final isSmall = size == ZeroListTileSize.small;
 
-    final titleStyle = style?.titleTextStyle ??
-        TextStyle(
-          fontSize: size.fontSize(),
-          color: disabled ? disabledColor : ZeroColors.neutral10,
-        );
+    // title text style with merge from fallback style
+    final titleStyle = (isSmall
+                ? fallbackStyle.smallTitleTextStyle
+                    ?.merge(listTileStyle.smallTitleTextStyle)
+                : fallbackStyle.titleTextStyle
+                    ?.merge(listTileStyle.titleTextStyle))
+            ?.copyWith(
+          color: disabled ? theme.disabledColor : null,
+        ) ??
+        const TextStyle();
 
-    final subtitleStyle = style?.subTitleTextStyle ??
-        TextStyle(
-          fontSize: size.fontSize() - 2,
-          color: disabled
-              ? disabledColor.withOpacity(0.8)
-              : Colors.black.withOpacity(0.6),
-        );
+    // Subtitle text style with merge from fallback style
+    final subTitleStyle = (isSmall
+                ? fallbackStyle.smallSubTitleTextStyle
+                    ?.merge(listTileStyle.smallSubTitleTextStyle)
+                : fallbackStyle.subTitleTextStyle
+                    ?.merge(listTileStyle.subTitleTextStyle))
+            ?.copyWith(
+          color: disabled ? theme.disabledColor.withOpacity(0.8) : null,
+        ) ??
+        const TextStyle();
 
-    return InkWell(
-      onTap: disabled ? null : onTap,
+    final contentPadding = isSmall
+        ? listTileStyle.smallContentPadding
+        : listTileStyle.contentPadding;
+
+    return Slidable(
+      enabled: startSlideActions.isNotEmpty || endSlideActions.isNotEmpty,
+      startActionPane: startSlideActions.isNotEmpty
+          ? ActionPane(
+              motion: const DrawerMotion(),
+              children: startSlideActions,
+            )
+          : null,
+      endActionPane: endSlideActions.isNotEmpty
+          ? ActionPane(
+              motion: const DrawerMotion(),
+              children: endSlideActions,
+            )
+          : null,
       child: DecoratedBox(
         decoration: BoxDecoration(color: backgroundColor),
-        child: SizedBox(
-          width: double.infinity,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: size.contentPadding(),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ListTileLeftIcon(disabled: disabled, child: leftIcon),
-                    Expanded(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          DefaultTextStyle(
-                            style: titleStyle,
-                            child: Text(title),
-                          ),
-                          if (subtitle != null)
+        child: InkWell(
+          onTap: disabled ? null : onTap,
+          child: SizedBox(
+            width: double.infinity,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: contentPadding ?? EdgeInsets.zero,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ListTileLeftIcon(disabled: disabled, child: leftIcon),
+                      Expanded(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
                             DefaultTextStyle(
-                              style: subtitleStyle,
-                              child: Text(subtitle ?? ''),
+                              style: titleStyle,
+                              child: Text(title),
                             ),
-                        ],
+                            if (subtitle != null)
+                              DefaultTextStyle(
+                                style: subTitleStyle,
+                                child: Text(subtitle ?? ''),
+                              ),
+                          ],
+                        ),
                       ),
-                    ),
-                    ListTileRightIcon(disabled: disabled, child: rightIcon),
-                  ],
+                      ListTileRightIcon(disabled: disabled, child: rightIcon),
+                    ],
+                  ),
                 ),
-              ),
-              // Buils divider of ListTile
-              // TODO: use Divider from ZeroDivider
-              if (withDivider)
-                Container(
-                  color: dividerColor,
-                  width: double.infinity,
-                  height: 1,
-                )
-            ],
+                // Buils divider of ListTile
+                if (withDivider)
+                  ZeroDivider.horizontal(
+                    variant: ZeroDividerVariant.fullWidth,
+                    style: ZeroDividerStyle(color: dividerColor),
+                  )
+              ],
+            ),
           ),
         ),
       ),
     );
   }
+}
+
+/// An action for [ZeroListTile] which can show an icon, a label, or both.
+class ZeroListTileAction extends SlidableAction {
+  /// Creates a [ZeroListTileAction].
+  ///
+  /// The [flex], [backgroundColor], [autoClose] and [spacing] arguments
+  /// must not be null.
+  ///
+  /// You must set either an [icon] or a [label].
+  ///
+  /// The [flex] argument must also be greater than 0.
+  const ZeroListTileAction({
+    super.key,
+    super.autoClose,
+    super.flex,
+    super.icon,
+    super.backgroundColor,
+    super.borderRadius,
+    super.foregroundColor,
+    required super.label,
+    super.onPressed,
+    super.padding,
+    super.spacing,
+  });
 }

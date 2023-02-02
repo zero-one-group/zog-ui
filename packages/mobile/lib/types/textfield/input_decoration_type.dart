@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/colors/zero_colors.dart';
-import 'package:zero_ui_mobile/types/textfield/size_type.dart';
+import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 enum InputDecorationType {
   outline,
@@ -21,8 +20,8 @@ enum InputDecorationType {
       case underline:
         return ZeroColors.white;
       case fill:
-        if (!enabled) return ZeroColors.neutral3;
-        return !error ? ZeroColors.primary1 : ZeroColors.dustRed1;
+        if (!enabled) return ZeroColors.neutral[3];
+        return !error ? ZeroColors.primary[1] : ZeroColors.dustRed[1];
     }
   }
 
@@ -42,30 +41,30 @@ enum InputDecorationType {
   Color get focusedColor {
     switch (this) {
       case outline:
-        return ZeroColors.primary7;
+        return ZeroColors.primary[7];
       case round:
-        return ZeroColors.primary7;
+        return ZeroColors.primary[7];
       case underline:
-        return ZeroColors.primary7;
+        return ZeroColors.primary[7];
       case fill:
-        return ZeroColors.primary7;
+        return ZeroColors.primary[7];
     }
   }
 
   Color get borderColor {
     switch (this) {
       case outline:
-        return ZeroColors.primary7;
+        return ZeroColors.primary[7];
       case round:
-        return ZeroColors.primary7;
+        return ZeroColors.primary[7];
       case underline:
-        return ZeroColors.primary7;
+        return ZeroColors.primary[7];
       case fill:
-        return ZeroColors.primary7;
+        return ZeroColors.primary[7];
     }
   }
 
-  BorderRadius borderRadius(TextfieldSizeType sizeType) {
+  BorderRadius borderRadius(TextfieldSize sizeType) {
     switch (this) {
       case outline:
         return const BorderRadius.all(Radius.circular(8));
@@ -92,7 +91,7 @@ enum InputDecorationType {
     }
   }
 
-  InputBorder border(TextfieldSizeType sizeType) {
+  InputBorder border(TextfieldSize sizeType) {
     switch (this) {
       case outline:
         return OutlineInputBorder(
@@ -116,43 +115,43 @@ enum InputDecorationType {
   Color get focusedBordeColor {
     switch (this) {
       case outline:
-        return ZeroColors.primary7;
+        return ZeroColors.primary[7];
       case round:
-        return ZeroColors.primary7;
+        return ZeroColors.primary[7];
       case underline:
-        return ZeroColors.primary7;
+        return ZeroColors.primary[7];
       case fill:
-        return ZeroColors.primary7;
+        return ZeroColors.primary[7];
     }
   }
 
   Color floatingLabelColor(bool error) {
     switch (this) {
       case outline:
-        return !error ? ZeroColors.primary7 : ZeroColors.dustRed7;
+        return !error ? ZeroColors.primary[7] : ZeroColors.dustRed[7];
       case round:
-        return !error ? ZeroColors.primary7 : ZeroColors.dustRed7;
+        return !error ? ZeroColors.primary[7] : ZeroColors.dustRed[7];
       case fill:
-        return !error ? ZeroColors.primary7 : ZeroColors.dustRed7;
+        return !error ? ZeroColors.primary[7] : ZeroColors.dustRed[7];
       case underline:
-        return !error ? ZeroColors.primary7 : ZeroColors.dustRed7;
+        return !error ? ZeroColors.primary[7] : ZeroColors.dustRed[7];
     }
   }
 
   Color? iconColor(bool error) {
     switch (this) {
       case outline:
-        return !error ? null : ZeroColors.dustRed7;
+        return !error ? null : ZeroColors.dustRed[7];
       case round:
-        return !error ? null : ZeroColors.dustRed7;
+        return !error ? null : ZeroColors.dustRed[7];
       case fill:
-        return !error ? null : ZeroColors.dustRed7;
+        return !error ? null : ZeroColors.dustRed[7];
       case underline:
-        return !error ? null : ZeroColors.dustRed7;
+        return !error ? null : ZeroColors.dustRed[7];
     }
   }
 
-  InputBorder focusedBorder(TextfieldSizeType sizeType) {
+  InputBorder focusedBorder(TextfieldSize sizeType) {
     switch (this) {
       case outline:
         return OutlineInputBorder(
@@ -176,54 +175,54 @@ enum InputDecorationType {
     }
   }
 
-  InputBorder disabledBorder(TextfieldSizeType sizeType) {
+  InputBorder disabledBorder(TextfieldSize sizeType) {
     switch (this) {
       case outline:
         return OutlineInputBorder(
             borderSide:
-                BorderSide(color: ZeroColors.neutral5, width: borderWidth),
+                BorderSide(color: ZeroColors.neutral[5], width: borderWidth),
             borderRadius: borderRadius(sizeType));
       case round:
         return OutlineInputBorder(
             borderSide:
-                BorderSide(color: ZeroColors.neutral5, width: borderWidth),
+                BorderSide(color: ZeroColors.neutral[5], width: borderWidth),
             borderRadius: borderRadius(sizeType));
       case underline:
         return UnderlineInputBorder(
             borderSide:
-                BorderSide(color: ZeroColors.neutral5, width: borderWidth),
+                BorderSide(color: ZeroColors.neutral[5], width: borderWidth),
             borderRadius: borderRadius(sizeType));
       case fill:
         return UnderlineInputBorder(
             borderSide:
-                BorderSide(color: ZeroColors.neutral7, width: borderWidth),
+                BorderSide(color: ZeroColors.neutral[7], width: borderWidth),
             borderRadius: borderRadius(sizeType));
     }
   }
 
-  InputBorder errorBorder(TextfieldSizeType sizeType) {
+  InputBorder errorBorder(TextfieldSize sizeType) {
     switch (this) {
       case outline:
         return OutlineInputBorder(
-            borderSide: const BorderSide(color: ZeroColors.dustRed7, width: 0),
+            borderSide: BorderSide(color: ZeroColors.dustRed[7], width: 0),
             borderRadius: borderRadius(sizeType));
       case round:
         return OutlineInputBorder(
-            borderSide: const BorderSide(color: ZeroColors.dustRed7, width: 0),
+            borderSide: BorderSide(color: ZeroColors.dustRed[7], width: 0),
             borderRadius: borderRadius(sizeType));
       case underline:
         return UnderlineInputBorder(
-            borderSide: const BorderSide(color: ZeroColors.dustRed7, width: 0),
+            borderSide: BorderSide(color: ZeroColors.dustRed[7], width: 0),
             borderRadius: borderRadius(sizeType));
       case fill:
         return UnderlineInputBorder(
-            borderSide: const BorderSide(color: ZeroColors.dustRed7, width: 0),
+            borderSide: BorderSide(color: ZeroColors.dustRed[7], width: 0),
             borderRadius: borderRadius(sizeType));
     }
   }
 
   TextStyle textStyle(bool enabled) {
-    Color fontColor = enabled ? ZeroColors.neutral10 : ZeroColors.neutral7;
+    Color fontColor = enabled ? ZeroColors.neutral[10] : ZeroColors.neutral[7];
     switch (this) {
       case outline:
         return TextStyle(color: fontColor, fontSize: 16);
@@ -238,7 +237,7 @@ enum InputDecorationType {
 
   TextStyle floatingLabelStyle({required bool enabled, required bool error}) {
     Color fontColor =
-        !enabled ? ZeroColors.neutral7 : floatingLabelColor(error);
+        !enabled ? ZeroColors.neutral[7] : floatingLabelColor(error);
 
     switch (this) {
       case outline:
@@ -254,9 +253,9 @@ enum InputDecorationType {
 
   FloatingLabelBehavior get floatingLabelBehavior => FloatingLabelBehavior.auto;
 
-  TextStyle get errorStyle => const TextStyle(
+  TextStyle get errorStyle => TextStyle(
         fontSize: 11,
-        color: ZeroColors.dustRed7,
+        color: ZeroColors.dustRed[7],
       );
 
   bool? get alignLabelWithHint {

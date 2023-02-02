@@ -63,7 +63,7 @@ class ZeroBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     /// Get badge color, with fallback from primary color current theme
-    final color = badgeColor ?? Theme.of(context).primaryColor;
+    final color = badgeColor ?? context.theme.primaryColor;
 
     return Stack(
       clipBehavior: Clip.none,

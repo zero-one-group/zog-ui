@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/colors/zero_colors.dart';
-import 'package:zero_ui_mobile/types/size_type.dart';
+import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 /// [ZeroCheckbox] based on [Checkbox] widget with additional properties [isDisabled] and [size]
 /// how to use [ZeroCheckbox] is same as using a [Checkbox] widget
@@ -25,7 +24,7 @@ class ZeroCheckbox extends StatelessWidget {
   final ZeroSizeType size;
 
   /// [isDisabled] is a boolean value to disable the [ZeroCheckbox] widget
-  /// if [isDisabled] is true, the [ZeroCheckbox] widget will be disabled and the [activeColor] will be [ZeroColors.neutral6]
+  /// if [isDisabled] is true, the [ZeroCheckbox] widget will be disabled and the [activeColor] will be [ZeroColors.neutral]
   /// and the [onChanged] will not be called
   final bool isDisabled;
 
@@ -54,7 +53,7 @@ class ZeroCheckbox extends StatelessWidget {
         value: value,
         onChanged: isDisabled ? (_) {} : onChanged,
         tristate: tristate,
-        activeColor: isDisabled ? ZeroColors.neutral6 : activeColor,
+        activeColor: isDisabled ? ZeroColors.neutral : activeColor,
         checkColor: checkColor,
         materialTapTargetSize: materialTapTargetSize,
         visualDensity: visualDensity,

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:zero_ui_mobile/assets/assets.dart';
-import 'package:zero_ui_mobile/types/size_type.dart';
-
-import '../../colors/zero_colors.dart';
+import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 /// A rating component that allows users to rate something.
 ///
@@ -18,8 +15,8 @@ class ZeroRating extends StatefulWidget {
     this.minValue = 0,
     this.allowHalfRating = true,
     this.onRatingUpdate,
-    this.activeColor = ZeroColors.sunriseYellow6,
-    this.inactiveColor = ZeroColors.neutral6,
+    this.activeColor = ZeroColors.sunriseYellow,
+    this.inactiveColor = ZeroColors.neutral,
     this.isDisabled = false,
     this.sizeType = ZeroSizeType.medium,
     this.ratingWidget,
@@ -60,11 +57,11 @@ class ZeroRating extends StatefulWidget {
   final Function(double)? onRatingUpdate;
 
   /// The color of the active items in the rating.
-  /// The default value is [ZeroColors.sunriseYellow6].
+  /// The default value is [ZeroColors.sunriseYellow[6]].
   final Color activeColor;
 
   /// The color of the inactive items in the rating.
-  /// The default value is [ZeroColors.neutral6].
+  /// The default value is [ZeroColors.neutral].
   final Color inactiveColor;
 
   /// Whether the rating is disabled.
@@ -86,11 +83,11 @@ class ZeroRating extends StatefulWidget {
 }
 
 class _ZeroRatingState extends State<ZeroRating> {
-  /// [activeColor] defaults to [ZeroColors.sunriseYellow6] and then will be defined by [widget.activeColor] when state is initialized.
-  Color activeColor = ZeroColors.sunriseYellow6;
+  /// [activeColor] defaults to [ZeroColors.sunriseYellow] and then will be defined by [widget.activeColor] when state is initialized.
+  Color activeColor = ZeroColors.sunriseYellow;
 
-  /// [inactiveColor] defaults to [ZeroColors.neutral6] and then will be defined by [widget.inactiveColor] when state is initialized.
-  Color inactiveColor = ZeroColors.neutral6;
+  /// [inactiveColor] defaults to [ZeroColors.neutral] and then will be defined by [widget.inactiveColor] when state is initialized.
+  Color inactiveColor = ZeroColors.neutral;
 
   /// [value] defaults to [widget.initialValue] and then will be defined by [_onRatingDrag] and [_onRatingTap] when state is initialized.
   double value = 0;
@@ -112,15 +109,23 @@ class _ZeroRatingState extends State<ZeroRating> {
   void initState() {
     super.initState();
     value = widget.initialValue;
-    activeColor = widget.isDisabled ? widget.activeColor.withOpacity(0.5) : widget.activeColor;
-    inactiveColor = widget.isDisabled ? widget.inactiveColor.withOpacity(0.5) : widget.inactiveColor;
+    activeColor = widget.isDisabled
+        ? widget.activeColor.withOpacity(0.5)
+        : widget.activeColor;
+    inactiveColor = widget.isDisabled
+        ? widget.inactiveColor.withOpacity(0.5)
+        : widget.inactiveColor;
   }
 
   @override
   void didUpdateWidget(covariant ZeroRating oldWidget) {
     super.didUpdateWidget(oldWidget);
-    activeColor = widget.isDisabled ? widget.activeColor.withOpacity(0.5) : widget.activeColor;
-    inactiveColor = widget.isDisabled ? widget.inactiveColor.withOpacity(0.5) : widget.inactiveColor;
+    activeColor = widget.isDisabled
+        ? widget.activeColor.withOpacity(0.5)
+        : widget.activeColor;
+    inactiveColor = widget.isDisabled
+        ? widget.inactiveColor.withOpacity(0.5)
+        : widget.inactiveColor;
   }
 
   @override
@@ -146,7 +151,9 @@ class _ZeroRatingState extends State<ZeroRating> {
           mainAxisSize: MainAxisSize.min,
           children: [
             for (double i = 0; i < widget.itemCount; i++)
-              if (widget.allowHalfRating && i == value.floor() && value % 1 != 0)
+              if (widget.allowHalfRating &&
+                  i == value.floor() &&
+                  value % 1 != 0)
                 _starHalf()
               else if (i < value)
                 _starFull(i)

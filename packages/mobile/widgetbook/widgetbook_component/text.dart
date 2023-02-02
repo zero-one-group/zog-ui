@@ -3,7 +3,7 @@ import 'package:widgetbook/widgetbook.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 WidgetbookComponent textWidgetbookComponent = WidgetbookComponent(
-  name: 'Text',
+  name: 'Typography',
   useCases: [
     WidgetbookUseCase(
       name: 'Heading 5',
@@ -369,20 +369,20 @@ List<Option<Color>> _colorOptions = [
     label: 'Black',
     value: ZeroColors.black,
   ),
-  const Option(
+  Option(
     label: 'Primary 7',
-    value: ZeroColors.primary7,
+    value: ZeroColors.primary[7],
   ),
-  const Option(
+  Option(
     label: 'Dust Red 7',
-    value: ZeroColors.dustRed7,
+    value: ZeroColors.dustRed[7],
   ),
-  const Option(
+  Option(
     label: 'Polar Green 7',
-    value: ZeroColors.polarGreen7,
+    value: ZeroColors.polarGreen[7],
   ),
-  const Option(
+  Option(
     label: 'Sunset Orange 7',
-    value: ZeroColors.sunsetOrange7,
+    value: ZeroColors.sunsetOrange[7],
   ),
 ];

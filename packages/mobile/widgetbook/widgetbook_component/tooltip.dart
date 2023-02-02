@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
-WidgetbookComponent tooltipWidgetbookComponenet = WidgetbookComponent(
+WidgetbookComponent tooltipWidgetbookComponent = WidgetbookComponent(
   name: 'Tooltip',
   useCases: [
     WidgetbookUseCase(

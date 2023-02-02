@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/colors/zero_colors.dart';
+import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 enum ButtonGroupType {
   solid, // 'default' can not be used since this is a dart keyword
@@ -11,7 +11,7 @@ enum ButtonGroupType {
   Color get fillColor {
     switch (this) {
       case solid:
-        return ZeroColors.primary6;
+        return ZeroColors.primary;
       case outline:
         return ZeroColors.transparent;
       case text:
@@ -19,22 +19,22 @@ enum ButtonGroupType {
       case underline:
         return ZeroColors.transparent;
       default:
-        return ZeroColors.primary6;
+        return ZeroColors.primary;
     }
   }
 
   Color get selectedFillColor {
     switch (this) {
       case solid:
-        return ZeroColors.primary5;
+        return ZeroColors.primary[5];
       case outline:
-        return ZeroColors.primary2;
+        return ZeroColors.primary[2];
       case text:
-        return ZeroColors.neutral5;
+        return ZeroColors.neutral[5];
       case underline:
         return ZeroColors.transparent;
       default:
-        return ZeroColors.primary1;
+        return ZeroColors.primary[1];
     }
   }
 
@@ -49,7 +49,7 @@ enum ButtonGroupType {
       case underline:
         return ZeroColors.black;
       default:
-        return ZeroColors.primary6;
+        return ZeroColors.primary;
     }
   }
 
@@ -58,7 +58,7 @@ enum ButtonGroupType {
       case solid:
         return ZeroColors.transparent;
       case outline:
-        return ZeroColors.primary6;
+        return ZeroColors.primary;
       case text:
         return ZeroColors.black;
       case underline:
@@ -73,11 +73,11 @@ enum ButtonGroupType {
       case solid:
         return ZeroColors.white;
       case outline:
-        return ZeroColors.primary6;
+        return ZeroColors.primary;
       case text:
         return ZeroColors.black;
       case underline:
-        return ZeroColors.primary6;
+        return ZeroColors.primary;
       default:
         return ZeroColors.white;
     }
