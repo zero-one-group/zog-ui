@@ -22,6 +22,7 @@ export const Breadcrumb = ({ items, separator, ...props }: BreadcrumbProps) => {
             }}
             active={item.current}
             href={item.href}
+            key={index}
           >
             {item.title}
           </Link>

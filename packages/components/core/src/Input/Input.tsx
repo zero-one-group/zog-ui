@@ -1,38 +1,35 @@
 import { ComponentPropsWithoutRef, ElementType } from 'react';
 import { Space } from '../Space';
 import { styled } from '../stitches.config';
-export type TextAreaProps = ComponentPropsWithoutRef<ElementType>;
 
-const StyledTextArea = styled(Space, {
-  textarea: {
-    height: '$6',
-  },
-  'textarea:focus': {
+export type InputProps = ComponentPropsWithoutRef<ElementType>;
+
+const StyledInput = styled(Space, {
+  'input:focus': {
     borderColor: '$blue9',
   },
-  'textarea:disabled': {
+  'input:disabled': {
     color: '$gray9',
   },
   variants: {
     size: {
       sm: {
-        textarea: {
+        input: {
           padding: '1px 8px',
         },
       },
       md: {
-        textarea: {
+        input: {
           padding: '5px 12px',
         },
       },
       lg: {
-        textarea: {
+        input: {
           padding: '8px 12px',
         },
       },
       fullWidth: {
-        textarea: {
-          height: '$5',
+        input: {
           width: '100%',
           padding: '8px 12px',
         },
@@ -40,22 +37,26 @@ const StyledTextArea = styled(Space, {
     },
   },
   defaultVariants: {
-    size: 'md',
+    size: 'fullWidth',
   },
 });
-export const TextArea = ({
+export const Input = ({
   disabled,
   defaultValue,
   placeholder,
+  type,
+  id,
   ...props
-}: TextAreaProps) => {
+}: InputProps) => {
   return (
-    <StyledTextArea {...props}>
-      <textarea
+    <StyledInput {...props}>
+      <input
         disabled={disabled}
+        id={id}
         defaultValue={defaultValue}
         placeholder={placeholder}
+        type={type}
       />
-    </StyledTextArea>
+    </StyledInput>
   );
 };
