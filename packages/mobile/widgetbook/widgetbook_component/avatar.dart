@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
+import '../utils.dart';
+
 const String sampleUrl1 = 'https://shorturl.at/bgKVW';
 const String sampleUrl2 = 'https://shorturl.at/jpvwX';
 
@@ -46,7 +48,7 @@ WidgetbookComponent avatarWidgetbookComponent = WidgetbookComponent(
     WidgetbookUseCase(
         name: 'Avatar',
         builder: (context) {
-          return Center(
+          return PreviewWidget(
               child: ZeroAvatar.url(
             context.knobs.options(label: 'Image URL', options: [
               const Option(
@@ -88,10 +90,8 @@ WidgetbookComponent avatarWidgetbookComponent = WidgetbookComponent(
                 value: AvatarSize.xl,
               ),
             ]),
-            withBadge: context.knobs
-                .nullableBoolean(label: 'With Badge', initialValue: false),
-            backgroundColor: context.knobs
-                .options(label: 'Avatar Background Color', options: [
+            withBadge: context.knobs.nullableBoolean(label: 'With Badge', initialValue: false),
+            backgroundColor: context.knobs.options(label: 'Avatar Background Color', options: [
               Option(
                 label: 'Primary 7',
                 value: ZeroColors.primary[7],
@@ -132,14 +132,13 @@ WidgetbookComponent avatarWidgetbookComponent = WidgetbookComponent(
     WidgetbookUseCase(
         name: 'Avatar Group',
         builder: (context) {
-          return Center(
+          return PreviewWidget(
             child: ZeroAvatarGroup(
               moreNumber: context.knobs.nullableNumber(
                 label: 'More Count',
                 initialValue: 1,
               ) as int,
-              avatars:
-                  context.knobs.options(label: 'List of Avatars', options: [
+              avatars: context.knobs.options(label: 'List of Avatars', options: [
                 Option(label: '3 Items', value: avatars.sublist(0, 2)),
                 Option(label: '5 Items', value: avatars.sublist(0, 4)),
                 Option(label: '7 Items', value: avatars.sublist(0, 6))
