@@ -68,6 +68,11 @@ export './components/avatar/zero_avatar_group.dart';
 // divider
 export './components/divider/divider.dart';
 
+// switch
+export './components/switch/zero_switch.dart';
+export './components/switch/zero_switch_android.dart';
+export './components/switch/zero_switch_ios.dart';
+
 // types
 export './types/button_radius_type.dart';
 export './types/button_group_type.dart';

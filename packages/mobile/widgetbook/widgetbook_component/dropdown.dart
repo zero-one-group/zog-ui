@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
+import '../utils.dart';
+
 List items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
 
 List<Option<InputDecorationType>> decorationOptions = [
@@ -85,7 +87,7 @@ WidgetbookComponent dropdownWidgetbookComponent = WidgetbookComponent(
     WidgetbookUseCase(
         name: 'Default',
         builder: (context) {
-          return Center(
+          return PreviewWidget(
               child: ZeroDropdown(
             items: items,
             hintText: context.knobs
@@ -100,13 +102,10 @@ WidgetbookComponent dropdownWidgetbookComponent = WidgetbookComponent(
                   initialValue: 'Label Text',
                 )
                 .toString(),
-            inputDecorationType: context.knobs
-                .options(label: 'Decoration', options: decorationOptions),
+            inputDecorationType: context.knobs.options(label: 'Decoration', options: decorationOptions),
             onChanged: (value) {},
-            textfieldSize:
-                context.knobs.options(label: 'Size', options: sizeOptions),
-            suffixIcon: context.knobs
-                .options(label: 'Suffix Icon', options: suffixOptions),
+            textfieldSize: context.knobs.options(label: 'Size', options: sizeOptions),
+            suffixIcon: context.knobs.options(label: 'Suffix Icon', options: suffixOptions),
           ));
         }),
     WidgetbookUseCase(
@@ -121,13 +120,10 @@ WidgetbookComponent dropdownWidgetbookComponent = WidgetbookComponent(
                   initialValue: 'Hint ',
                 )
                 .toString(),
-            inputDecorationType: context.knobs
-                .options(label: 'Decoration', options: decorationOptions),
+            inputDecorationType: context.knobs.options(label: 'Decoration', options: decorationOptions),
             onChanged: (value) {},
-            textfieldSize:
-                context.knobs.options(label: 'Size', options: sizeOptions),
-            suffixIcon: context.knobs
-                .options(label: 'Suffix Icon', options: suffixOptions),
+            textfieldSize: context.knobs.options(label: 'Size', options: sizeOptions),
+            suffixIcon: context.knobs.options(label: 'Suffix Icon', options: suffixOptions),
           ));
         }),
     WidgetbookUseCase(
@@ -147,20 +143,13 @@ WidgetbookComponent dropdownWidgetbookComponent = WidgetbookComponent(
                     initialValue: 'Label Text',
                   )
                   .toString(),
-              inputDecorationType: context.knobs
-                  .options(label: 'Decoration', options: decorationOptions),
-              textfieldSize:
-                  context.knobs.options(label: 'Size', options: sizeOptions),
-              suffixIcon: context.knobs
-                  .options(label: 'Suffix Icon', options: suffixOptions),
-              multipleItemsVariant: context.knobs.options(
-                  label: 'Multiple Item Variant',
-                  options: multipleItemVariantOptions),
+              inputDecorationType: context.knobs.options(label: 'Decoration', options: decorationOptions),
+              textfieldSize: context.knobs.options(label: 'Size', options: sizeOptions),
+              suffixIcon: context.knobs.options(label: 'Suffix Icon', options: suffixOptions),
+              multipleItemsVariant: context.knobs.options(label: 'Multiple Item Variant', options: multipleItemVariantOptions),
               items: items,
               onChanged: (value) {},
-              selectedItemsStyle: context.knobs.options(
-                  label: 'Selected Items Style',
-                  options: selectedItemsStyleOptions),
+              selectedItemsStyle: context.knobs.options(label: 'Selected Items Style', options: selectedItemsStyleOptions),
             ),
           );
         }),
@@ -175,20 +164,13 @@ WidgetbookComponent dropdownWidgetbookComponent = WidgetbookComponent(
                     initialValue: 'Hint Text',
                   )
                   .toString(),
-              inputDecorationType: context.knobs
-                  .options(label: 'Decoration', options: decorationOptions),
-              textfieldSize:
-                  context.knobs.options(label: 'Size', options: sizeOptions),
-              suffixIcon: context.knobs
-                  .options(label: 'Suffix Icon', options: suffixOptions),
-              multipleItemsVariant: context.knobs.options(
-                  label: 'Multiple Item Variant',
-                  options: multipleItemVariantOptions),
+              inputDecorationType: context.knobs.options(label: 'Decoration', options: decorationOptions),
+              textfieldSize: context.knobs.options(label: 'Size', options: sizeOptions),
+              suffixIcon: context.knobs.options(label: 'Suffix Icon', options: suffixOptions),
+              multipleItemsVariant: context.knobs.options(label: 'Multiple Item Variant', options: multipleItemVariantOptions),
               items: items,
               onChanged: (value) {},
-              selectedItemsStyle: context.knobs.options(
-                  label: 'Selected Items Style',
-                  options: selectedItemsStyleOptions),
+              selectedItemsStyle: context.knobs.options(label: 'Selected Items Style', options: selectedItemsStyleOptions),
             ),
           );
         }),

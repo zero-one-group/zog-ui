@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
+import '../utils.dart';
+
 WidgetbookComponent sliderWidgetbookComponenet = WidgetbookComponent(
   name: 'Slider',
   useCases: [
     WidgetbookUseCase(
       name: 'Slider',
-      builder: (context) => Center(
+      builder: (context) => PreviewWidget(
         child: ZeroSlider(
           activeColor: context.knobs.options(
             label: 'Active Color',
@@ -33,7 +35,7 @@ WidgetbookComponent sliderWidgetbookComponenet = WidgetbookComponent(
     WidgetbookUseCase(
       name: 'Range Slider',
       builder: (context) => LayoutBuilder(builder: (context, constraints) {
-        return Center(
+        return PreviewWidget(
           child: ZeroRangeSlider(
             activeColor: context.knobs.options(
               label: 'Active Color',
