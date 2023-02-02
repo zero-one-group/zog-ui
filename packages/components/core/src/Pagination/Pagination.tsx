@@ -18,7 +18,6 @@ export type PaginationProps = ComponentPropsWithoutRef<ElementType> &
     nextIcon?: ReactNode;
     simple?: boolean;
     showTotal?: boolean;
-    onChange: (currentPage: number) => void;
     showSizeChange?: boolean;
     showQuickJumper?: boolean;
     onChangePage: (currentPage: number) => void;
@@ -121,7 +120,6 @@ export const Pagination = ({
           return (
             <ItemPagination
               simple={props.simple}
-              onClick={() => onChange(Number(item))}
               type={item === currentPage ? 'primary' : 'secondary'}
               onClick={() => onChangePage(Number(item))}
               size="lg"
