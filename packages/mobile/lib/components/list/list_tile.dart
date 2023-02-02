@@ -106,20 +106,7 @@ class ZeroListTile extends StatelessWidget {
         ? listTileStyle.smallContentPadding
         : listTileStyle.contentPadding;
 
-    return Slidable(
-      enabled: startSlideActions.isNotEmpty || endSlideActions.isNotEmpty,
-      startActionPane: startSlideActions.isNotEmpty
-          ? ActionPane(
-              motion: const DrawerMotion(),
-              children: startSlideActions,
-            )
-          : null,
-      endActionPane: endSlideActions.isNotEmpty
-          ? ActionPane(
-              motion: const DrawerMotion(),
-              children: endSlideActions,
-            )
-          : null,
+    return _buildSlidable(
       child: DecoratedBox(
         decoration: BoxDecoration(color: backgroundColor),
         child: InkWell(
@@ -167,6 +154,32 @@ class ZeroListTile extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  /// Build slidable widget if widget from all parameters
+  ///
+  /// If startSlideActions.isNotEmpty || endSlideActions.isNotEmpty
+  ///
+  /// Slidable is active, otherwise slidable disabled
+  Widget _buildSlidable({required Widget child}) {
+    final enabled = startSlideActions.isNotEmpty || endSlideActions.isNotEmpty;
+    if (!enabled) return child;
+    return Slidable(
+      enabled: enabled,
+      startActionPane: startSlideActions.isNotEmpty
+          ? ActionPane(
+              motion: const DrawerMotion(),
+              children: startSlideActions,
+            )
+          : null,
+      endActionPane: endSlideActions.isNotEmpty
+          ? ActionPane(
+              motion: const DrawerMotion(),
+              children: endSlideActions,
+            )
+          : null,
+      child: child,
     );
   }
 }
