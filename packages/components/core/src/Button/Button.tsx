@@ -29,7 +29,6 @@ export const Button = styled('button', {
   fontVariantNumeric: 'tabular-nums',
   borderWidth: '1px',
   borderRadius: '2px',
-  boxShadow: '0px 2px 0px rgba(0, 0, 0, 0.043)',
   variants: {
     size: {
       sm: {
@@ -111,9 +110,10 @@ export const Button = styled('button', {
         height: 'auto',
       },
       square: {
-        border: 'none',
+        border: '1px solid $gray9',
         width: 'auto',
         height: 'auto',
+        borderRadius: '0px',
       },
     },
     disabled: {

@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import { TextArea } from './TextArea';
+import { InputPassword } from './InputPassword';
 
-describe('TextArea', () => {
+describe('InputPassword', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<TextArea />);
+    const { baseElement } = render(<InputPassword />);
     expect(baseElement).toBeTruthy();
   });
 });

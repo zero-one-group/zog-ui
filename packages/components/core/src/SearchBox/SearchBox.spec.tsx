@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import { TextArea } from './TextArea';
+import { SearchBox } from './SearchBox';
 
-describe('TextArea', () => {
+describe('SearchBox', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<TextArea />);
+    const { baseElement } = render(<SearchBox />);
     expect(baseElement).toBeTruthy();
   });
 });
