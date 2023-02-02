@@ -16,7 +16,7 @@ const StyledStepItemBasic = styled(Space, {
     display: 'none',
   },
   span: {
-    color: '$blue9',
+    color: '$$bgStep',
   },
   variants: {
     orientation: {
@@ -102,7 +102,7 @@ const StyledStepItemBasic = styled(Space, {
       css: {
         'div:first-child': {
           'hr:last-child': {
-            borderLeft: '1px solid $blue9',
+            borderLeft: '1px solid $$bgStep',
           },
         },
       },
@@ -124,7 +124,7 @@ const StyledStepItemBasic = styled(Space, {
       css: {
         'div:last-child': {
           hr: {
-            borderBottom: '1px solid $blue9',
+            borderBottom: '1px solid $$bgStep',
           },
         },
       },
