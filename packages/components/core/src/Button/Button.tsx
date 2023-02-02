@@ -1,4 +1,5 @@
-import { ComponentProps } from 'react';
+import { Slot } from '@radix-ui/react-slot';
+import { ComponentProps, forwardRef } from 'react';
 import { styled } from '../stitches.config';
 
 const getColorSchemeVariants = (colorScheme?: string) => {
@@ -268,24 +269,24 @@ const StyledButton = styled('button', {
 
 export type ButtonProps = {
   colorScheme?: string;
+  asChild?: boolean;
 } & ComponentProps<typeof StyledButton>;
 
-export const Button = ({
-  css,
-  colorScheme,
-  intent = 'default',
-  ...props
-}: ButtonProps) => {
-  return (
-    <StyledButton
-      css={{
-        ...css,
-        ...getColorSchemeVariants(colorScheme),
-      }}
-      intent={intent}
-      {...props}
-    >
-      {props.children}
-    </StyledButton>
-  );
-};
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ css, colorScheme, asChild, children, ...props }, ref) => {
+    const Component = asChild ? Slot : StyledButton;
+
+    return (
+      <Component
+        css={{
+          ...css,
+          ...getColorSchemeVariants(colorScheme),
+        }}
+        ref={ref}
+        {...props}
+      >
+        {children}
+      </Component>
+    );
+  }
+);
