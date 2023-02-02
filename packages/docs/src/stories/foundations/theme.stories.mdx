@@ -10,12 +10,7 @@ import {
 <Meta
   title="Foundations/ZeroProvider"
   component={[ZeroProvider]}
-  argTypes={{
-    colorScheme: {
-      options: ['default', 'brand'],
-      control: { type: 'radio' },
-    },
-  }}
+  argTypes={{}}
 />
 
 export const ZeroProviderStory = ({ colorScheme, ...args }) => (
@@ -23,7 +18,7 @@ export const ZeroProviderStory = ({ colorScheme, ...args }) => (
     <ZeroProvider {...args}>
       <div style={{ width: '200px' }}>
         <Space direction="column">
-          <Button size="lg" colorScheme={colorScheme}>
+          <Button type="primary" size="lg" colorScheme={colorScheme}>
             Themed Button
           </Button>
           <Checkbox colorScheme={colorScheme} boxSize={'$3'}>
@@ -50,16 +45,18 @@ import { ZeroProvider } from '@zero-ui/core';
 
 // App.tsx
 const brand = {
-  brand1: '#fff0f6',
-  brand2: '#ffd6e7',
-  brand3: '#ffadd2',
-  brand4: '#ff85c0',
-  brand5: '#f759ab',
-  brand6: '#eb2f96',
-  brand7: '#c41d7f',
-  brand8: '#9e1068',
-  brand9: '#780650',
-  brand10: '#520339',
+  brand1: 'hsl(292, 90.0%, 99.4%)',
+  brand2: 'hsl(300, 100%, 98.6%)',
+  brand3: 'hsl(299, 71.2%, 96.4%)',
+  brand4: 'hsl(299, 62.0%, 93.8%)',
+  brand5: 'hsl(298, 56.1%, 90.5%)',
+  brand6: 'hsl(296, 51.3%, 85.8%)',
+  brand7: 'hsl(295, 48.2%, 78.9%)',
+  brand8: 'hsl(292, 47.7%, 70.8%)',
+  brand9: 'hsl(292, 45.0%, 51.0%)',
+  brand10: 'hsl(292, 50.2%, 46.9%)',
+  brand11: 'hsl(292, 60.0%, 42.5%)',
+  brand12: 'hsl(291, 66.0%, 14.0%)',
 };
 
 return (
@@ -78,16 +75,18 @@ return (
 ```
 
 export const brand = {
-  brand1: '#fff0f6',
-  brand2: '#ffd6e7',
-  brand3: '#ffadd2',
-  brand4: '#ff85c0',
-  brand5: '#f759ab',
-  brand6: '#eb2f96',
-  brand7: '#c41d7f',
-  brand8: '#9e1068',
-  brand9: '#780650',
-  brand10: '#520339',
+  brand1: 'hsl(292, 90.0%, 99.4%)',
+  brand2: 'hsl(300, 100%, 98.6%)',
+  brand3: 'hsl(299, 71.2%, 96.4%)',
+  brand4: 'hsl(299, 62.0%, 93.8%)',
+  brand5: 'hsl(298, 56.1%, 90.5%)',
+  brand6: 'hsl(296, 51.3%, 85.8%)',
+  brand7: 'hsl(295, 48.2%, 78.9%)',
+  brand8: 'hsl(292, 47.7%, 70.8%)',
+  brand9: 'hsl(292, 45.0%, 51.0%)',
+  brand10: 'hsl(292, 50.2%, 46.9%)',
+  brand11: 'hsl(292, 60.0%, 42.5%)',
+  brand12: 'hsl(291, 66.0%, 14.0%)',
 };
 
 <Canvas columns={2} withSource="close">

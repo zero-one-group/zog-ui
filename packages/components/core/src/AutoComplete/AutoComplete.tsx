@@ -9,14 +9,9 @@ import React, {
 import { Box } from '../Box';
 import { keyframes, styled } from '../stitches.config';
 
-const AUTOCOMPLETE_COLOR_SCHEME_VARIANTS = ['default'];
-
 const getItemColorSchemeVariants = (colorScheme?: string) => {
   return {
-    $$bgList:
-      colorScheme && !AUTOCOMPLETE_COLOR_SCHEME_VARIANTS.includes(colorScheme)
-        ? `$colors-${colorScheme}1`
-        : '$colors-primary1',
+    $$bgList: colorScheme ? `$colors-${colorScheme}4` : '$colors-primary4',
   };
 };
 

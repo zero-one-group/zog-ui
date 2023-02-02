@@ -2,14 +2,9 @@ import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 import { ReactElement } from 'react';
 import { styled } from '../stitches.config';
 
-const CHECKBOX_COLOR_SCHEME_VARIANTS = ['default'];
-
 const getColorSchemeVariants = (colorScheme?: string) => {
   return {
-    $$bgCheck:
-      colorScheme && !CHECKBOX_COLOR_SCHEME_VARIANTS.includes(colorScheme)
-        ? `$colors-${colorScheme}6`
-        : '$colors-primary6',
+    $$bgCheck: colorScheme ? `$colors-${colorScheme}9` : '$colors-primary9',
   };
 };
 
@@ -67,7 +62,7 @@ export type CheckboxComponent = (props: CheckboxProps) => ReactElement;
 
 export const Checkbox: CheckboxComponent = ({
   boxSize = '$3',
-  colorScheme = 'default',
+  colorScheme,
   ...props
 }) => {
   return (

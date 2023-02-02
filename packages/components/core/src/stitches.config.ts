@@ -120,29 +120,33 @@ export type { VariantProps } from '@stitches/react';
 
 // Default Theme Color
 const primary = {
-  primary1: '#e6f4ff',
-  primary2: '#bae0ff',
-  primary3: '#91caff',
-  primary4: '#69b1ff',
-  primary5: '#4096ff',
-  primary6: '#1677ff',
-  primary7: '#0958d9',
-  primary8: '#003eb3',
-  primary9: '#002c8c',
-  primary10: '#001d66',
+  primary1: 'hsl(206, 100%, 99.2%)',
+  primary2: 'hsl(210, 100%, 98.0%)',
+  primary3: 'hsl(209, 100%, 96.5%)',
+  primary4: 'hsl(210, 98.8%, 94.0%)',
+  primary5: 'hsl(209, 95.0%, 90.1%)',
+  primary6: 'hsl(209, 81.2%, 84.5%)',
+  primary7: 'hsl(208, 77.5%, 76.9%)',
+  primary8: 'hsl(206, 81.9%, 65.3%)',
+  primary9: 'hsl(206, 100%, 50.0%)',
+  primary10: 'hsl(208, 100%, 47.3%)',
+  primary11: 'hsl(211, 100%, 43.2%)',
+  primary12: 'hsl(211, 100%, 15.0%)',
 };
 
 const primaryDark = {
-  primary1: '#111d2c',
-  primary2: '#112a45',
-  primary3: '#15395b',
-  primary4: '#164c7e',
-  primary5: '#1765ad',
-  primary6: '#177ddc',
-  primary7: '#3c9ae8',
-  primary8: '#65b7f3',
-  primary9: '#8dcff8',
-  primary10: '#b7e3fa',
+  primary1: 'hsl(212, 35.0%, 9.2%)',
+  primary2: 'hsl(216, 50.0%, 11.8%)',
+  primary3: 'hsl(214, 59.4%, 15.3%)',
+  primary4: 'hsl(214, 65.8%, 17.9%)',
+  primary5: 'hsl(213, 71.2%, 20.2%)',
+  primary6: 'hsl(212, 77.4%, 23.1%)',
+  primary7: 'hsl(211, 85.1%, 27.4%)',
+  primary8: 'hsl(211, 89.7%, 34.1%)',
+  primary9: 'hsl(206, 100%, 50.0%)',
+  primary10: 'hsl(209, 100%, 60.6%)',
+  primary11: 'hsl(210, 100%, 66.1%)',
+  primary12: 'hsl(206, 98.0%, 95.8%)',
 };
 
 export const {
