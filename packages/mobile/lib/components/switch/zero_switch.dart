@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/utils/extensions/theme_extensions.dart';
-
-import '../../styles/colors.dart';
+import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 /// basic switch widget component with two states [true] and [false]
 /// there are properties to customize the icon and colors of the switch
@@ -102,7 +100,7 @@ class _ZeroSwitchState extends State<ZeroSwitch> {
   Widget _inactiveLine() {
     Color inactiveColor;
     if (widget.isDisabled) {
-      inactiveColor = ZeroColors.neutral[5];
+      inactiveColor = context.theme.disabledBackgroundColor;
     } else {
       inactiveColor = widget.inactiveColor ?? ZeroColors.neutral[7];
     }
@@ -120,7 +118,7 @@ class _ZeroSwitchState extends State<ZeroSwitch> {
   Widget _activeLine() {
     Color activeColor;
     if (widget.isDisabled) {
-      activeColor = ZeroColors.neutral[3];
+      activeColor = context.theme.disabledBackgroundColor;
     } else {
       activeColor = widget.activeColor ?? context.theme.primaryColor.light;
     }
@@ -150,7 +148,7 @@ class _ZeroSwitchState extends State<ZeroSwitch> {
               size: widget.activeIcon?.size ?? 15,
             )
           : null;
-      if (widget.isDisabled) thumbColor = ZeroColors.neutral[5];
+      if (widget.isDisabled) thumbColor = context.theme.disabledColor;
     } else {
       thumbColor = widget.inactiveThumbColor ?? ZeroColors.neutral[1];
       icon = widget.inactiveIcon != null
@@ -160,7 +158,7 @@ class _ZeroSwitchState extends State<ZeroSwitch> {
               size: widget.inactiveIcon?.size ?? 15,
             )
           : null;
-      if (widget.isDisabled) thumbColor = ZeroColors.neutral[3];
+      if (widget.isDisabled) thumbColor = context.theme.disabledColor;
     }
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 200),

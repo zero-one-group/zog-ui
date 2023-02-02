@@ -22,21 +22,21 @@ class _ZeroSwitchExampleState extends State<ZeroSwitchExample> {
             children: [
               ZeroSwitch(
                 onChanged: (val) {},
-                isDisabled: false,
+                isDisabled: true,
                 initialValue: true,
                 activeIcon: const Icon(Icons.sunny),
                 inactiveIcon: const Icon(Icons.nightlight_round),
               ),
               ZeroSwitchAndroid(
                 onChanged: (val) {},
-                isDisabled: false,
+                isDisabled: true,
                 initialValue: true,
                 activeIcon: const Icon(Icons.check),
                 inactiveIcon: const Icon(Icons.close),
               ),
               ZeroSwitchIOS(
                 onChanged: (val) {},
-                isDisabled: false,
+                isDisabled: true,
                 initialValue: true,
                 // inactiveColor: Colors.red,
                 // activeColor: Colors.green,
