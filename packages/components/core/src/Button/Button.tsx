@@ -1,4 +1,3 @@
-import type * as Stitches from '@stitches/react';
 import { ComponentProps } from 'react';
 import { styled } from '../stitches.config';
 
@@ -63,17 +62,7 @@ const StyledButton = styled('button', {
         height: '$7',
       },
     },
-    styleType: {
-      theme: {
-        color: '$gray1',
-        backgroundColor: '$$bgBtn',
-        '&:hover': {
-          backgroundColor: '$$bgBtnHover',
-        },
-        '&:active': {
-          backgroundColor: '$$bgBtnActive',
-        },
-      },
+    intent: {
       default: {
         color: '$gray12',
         backgroundColor: '$gray1',
@@ -167,7 +156,7 @@ const StyledButton = styled('button', {
       },
     },
     {
-      styleType: 'danger',
+      intent: 'danger',
       variant: 'outlined',
       css: {
         color: '$red10',
@@ -179,7 +168,7 @@ const StyledButton = styled('button', {
       },
     },
     {
-      styleType: 'primary',
+      intent: 'primary',
       variant: 'outlined',
       css: {
         color: '$$bgBtn',
@@ -191,7 +180,7 @@ const StyledButton = styled('button', {
       },
     },
     {
-      styleType: 'danger',
+      intent: 'danger',
       variant: 'dashed',
       css: {
         color: '$red10',
@@ -202,7 +191,7 @@ const StyledButton = styled('button', {
       },
     },
     {
-      styleType: 'theme',
+      intent: 'primary',
       variant: 'dashed',
       css: {
         color: '$$bgBtn',
@@ -216,21 +205,7 @@ const StyledButton = styled('button', {
       },
     },
     {
-      styleType: 'primary',
-      variant: 'dashed',
-      css: {
-        color: '$$bgBtn',
-        backgroundColor: '$gary1',
-        '&:hover': {
-          backgroundColor: '$gray1',
-        },
-        '&:active': {
-          backgroundColor: '$gary1',
-        },
-      },
-    },
-    {
-      styleType: 'primary',
+      intent: 'primary',
       disabled: true,
       css: {
         backgroundColor: '$gray3',
@@ -245,7 +220,7 @@ const StyledButton = styled('button', {
       },
     },
     {
-      styleType: 'secondary',
+      intent: 'secondary',
       disabled: true,
       css: {
         backgroundColor: '$gray3',
@@ -264,7 +239,7 @@ const StyledButton = styled('button', {
       },
     },
     {
-      styleType: 'danger',
+      intent: 'danger',
       disabled: true,
       css: {
         backgroundColor: '$gray3',
@@ -287,24 +262,18 @@ const StyledButton = styled('button', {
   defaultVariants: {
     size: 'sm',
     variant: 'default',
-    styleType: 'default',
+    intent: 'default',
   },
 });
 
 export type ButtonProps = {
   colorScheme?: string;
-  htmlType?: 'submit' | 'reset' | 'button';
-  type?: Extract<
-    Stitches.VariantProps<typeof StyledButton>['styleType'],
-    string
-  >;
-} & Omit<ComponentProps<typeof StyledButton>, 'type'>;
+} & ComponentProps<typeof StyledButton>;
 
 export const Button = ({
   css,
   colorScheme,
-  htmlType = 'submit',
-  type = 'default',
+  intent = 'default',
   ...props
 }: ButtonProps) => {
   return (
@@ -313,8 +282,7 @@ export const Button = ({
         ...css,
         ...getColorSchemeVariants(colorScheme),
       }}
-      type={htmlType}
-      styleType={type}
+      intent={intent}
       {...props}
     >
       {props.children}

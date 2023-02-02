@@ -198,7 +198,7 @@ export const StepItemBasic = ({
               <Box>
                 <Button
                   disabled={state === 'stepWaiting' ? true : false}
-                  colorScheme="primary"
+                  intent="primary"
                   size={size}
                   variant="circle"
                 >

@@ -104,7 +104,7 @@ export const Pagination = ({
       <ItemPagination
         simple={props.simple}
         onClick={onPrevious}
-        type="secondary"
+        intent="secondary"
         size="lg"
         variant="outlined"
         disabled={currentPage === 1}
@@ -120,7 +120,7 @@ export const Pagination = ({
           return (
             <ItemPagination
               simple={props.simple}
-              type={item === currentPage ? 'primary' : 'secondary'}
+              intent={item === currentPage ? 'primary' : 'secondary'}
               onClick={() => onChangePage(Number(item))}
               size="lg"
               variant="outlined"
@@ -136,7 +136,7 @@ export const Pagination = ({
         size="lg"
         variant="outlined"
         disabled={currentPage === lastPage}
-        type="secondary"
+        intent="secondary"
         colorScheme={colorScheme}
       >
         {nextIcon ? nextIcon : <RightOutlined />}
