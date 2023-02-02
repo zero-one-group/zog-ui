@@ -11,7 +11,12 @@ import {
 <Meta
   title="Foundations/ZeroProvider"
   component={[ZeroProvider]}
-  argTypes={{}}
+  argTypes={{
+    colorScheme: {
+      control: 'select',
+      options: ['amber', 'brand', 'pink', 'primary', 'sage'],
+    },
+  }}
 />
 
 export const ZeroProviderStory = ({ colorScheme, ...args }) => (
@@ -19,7 +24,7 @@ export const ZeroProviderStory = ({ colorScheme, ...args }) => (
     <ZeroProvider {...args}>
       <div style={{ width: '200px' }}>
         <Space direction="column">
-          <Button type="primary" size="lg" colorScheme={colorScheme}>
+          <Button intent="primary" size="lg" colorScheme={colorScheme}>
             Themed Button
           </Button>
           <Checkbox colorScheme={colorScheme} boxSize={'$3'}>
