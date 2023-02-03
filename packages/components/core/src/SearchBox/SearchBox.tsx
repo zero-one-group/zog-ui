@@ -61,25 +61,34 @@ const StyledSearchBox = styled(Space, {
 export const SearchBox = ({
   disabled,
   defaultValue,
-  placeholder,
-  colorSchema = 'secondary',
+  placeHolder,
+  intent = 'secondary',
   iconButton,
   label,
   showCloseIcon = false,
   showVoiceIcon = false,
   onClear,
+  size,
+  value,
+  onChange,
+  onSearch,
   ...props
 }: SearchBoxProps) => {
   return (
     <Space>
-      <StyledSearchBox {...props}>
-        <Input defaultValue={defaultValue} placeholder={placeholder} />
+      <StyledSearchBox size={size} {...props}>
+        <Input
+          onChange={onChange}
+          size={size}
+          defaultValue={defaultValue}
+          placeHolder={placeHolder}
+        />
         {showCloseIcon ? (
           <CloseCircleFilled onClick={onClear} style={{ color: '#bfbfbf' }} />
         ) : null}
         {showVoiceIcon ? <AudioOutlined style={{ color: '#1890FF' }} /> : null}
       </StyledSearchBox>
-      <Button colorScheme={colorSchema} size="sm" variant="square">
+      <Button onClick={onSearch} intent={intent} size="sm" variant="square">
         {iconButton ? iconButton : <SearchOutlined />}
         {label ? <Text css={{ margin: '0 10px' }}>{label}</Text> : null}
       </Button>
