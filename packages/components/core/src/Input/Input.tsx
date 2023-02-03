@@ -8,6 +8,7 @@ const StyledInput = styled(Space, {
   'input:focus': {
     borderColor: '$blue9',
   },
+  width: '100%',
   'input:disabled': {
     color: '$gray9',
   },
@@ -43,9 +44,11 @@ const StyledInput = styled(Space, {
 export const Input = ({
   disabled,
   defaultValue,
-  placeholder,
+  placeHolder,
   type,
+  value,
   id,
+  onChange,
   ...props
 }: InputProps) => {
   return (
@@ -54,8 +57,10 @@ export const Input = ({
         disabled={disabled}
         id={id}
         defaultValue={defaultValue}
-        placeholder={placeholder}
+        placeholder={placeHolder}
         type={type}
+        value={value}
+        onChange={onChange}
       />
     </StyledInput>
   );

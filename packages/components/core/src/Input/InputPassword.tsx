@@ -47,11 +47,27 @@ const StyledInputPassword = styled(Space, {
   },
 });
 
-export const InputPassword = (props: InputPasswordProps) => {
+export const InputPassword = ({
+  size,
+  onChage,
+  placeHolder,
+  id,
+  value,
+  disabled,
+  ...props
+}: InputPasswordProps) => {
   const [type, setType] = useState('password');
   return (
-    <StyledInputPassword {...props}>
-      <Input type={type} {...props} size="fullWidth" />
+    <StyledInputPassword size={size} {...props}>
+      <Input
+        type={type}
+        onChange={onChage}
+        placeHolder={placeHolder}
+        id={id}
+        value={value}
+        size={size}
+        disabled={disabled}
+      />
       {type === 'password' ? (
         <EyeInvisibleOutlined onClick={() => setType('text')} />
       ) : (

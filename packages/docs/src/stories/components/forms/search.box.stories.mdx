@@ -13,7 +13,7 @@ import { SettingOutlined } from '@ant-design/icons';
       options: ['sm', 'md', 'lg', 'fullWidth'],
       control: { type: 'radio' },
     },
-    colorSchema: {
+    intent: {
       options: ['default', 'secondary', 'primary', 'danger'],
       control: { type: 'radio' },
     },
@@ -42,7 +42,8 @@ import { SearchBox } from '@zero-ui/core';
   <Story
     args={{
       defaultValue: '',
-      placeholder: 'placeholder',
+      placeHolder: 'search',
+      value: '',
       label: 'Search',
       iconButton: <SettingOutlined />,
     }}
