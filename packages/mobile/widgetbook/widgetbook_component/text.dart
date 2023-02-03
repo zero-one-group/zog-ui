@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
+import '../utils.dart';
+
 WidgetbookComponent textWidgetbookComponent = WidgetbookComponent(
   name: 'Typography',
   useCases: [
     WidgetbookUseCase(
       name: 'Heading 5',
-      builder: (context) => Scaffold(
-        body: Column(
+      builder: (context) => PreviewWidget(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -45,8 +47,8 @@ WidgetbookComponent textWidgetbookComponent = WidgetbookComponent(
     ),
     WidgetbookUseCase(
       name: 'Heading 6',
-      builder: (context) => Scaffold(
-        body: Column(
+      builder: (context) => PreviewWidget(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -83,8 +85,8 @@ WidgetbookComponent textWidgetbookComponent = WidgetbookComponent(
     ),
     WidgetbookUseCase(
       name: 'Subtitle 1',
-      builder: (context) => Scaffold(
-        body: Column(
+      builder: (context) => PreviewWidget(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -121,8 +123,8 @@ WidgetbookComponent textWidgetbookComponent = WidgetbookComponent(
     ),
     WidgetbookUseCase(
       name: 'Subtitle 2',
-      builder: (context) => Scaffold(
-        body: Column(
+      builder: (context) => PreviewWidget(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -159,8 +161,8 @@ WidgetbookComponent textWidgetbookComponent = WidgetbookComponent(
     ),
     WidgetbookUseCase(
       name: 'Body 1',
-      builder: (context) => Scaffold(
-        body: Column(
+      builder: (context) => PreviewWidget(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -197,8 +199,8 @@ WidgetbookComponent textWidgetbookComponent = WidgetbookComponent(
     ),
     WidgetbookUseCase(
       name: 'Body 2',
-      builder: (context) => Scaffold(
-        body: Column(
+      builder: (context) => PreviewWidget(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -235,8 +237,8 @@ WidgetbookComponent textWidgetbookComponent = WidgetbookComponent(
     ),
     WidgetbookUseCase(
       name: 'Button',
-      builder: (context) => Scaffold(
-        body: Column(
+      builder: (context) => PreviewWidget(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -273,8 +275,8 @@ WidgetbookComponent textWidgetbookComponent = WidgetbookComponent(
     ),
     WidgetbookUseCase(
       name: 'Caption',
-      builder: (context) => Scaffold(
-        body: Column(
+      builder: (context) => PreviewWidget(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -311,8 +313,8 @@ WidgetbookComponent textWidgetbookComponent = WidgetbookComponent(
     ),
     WidgetbookUseCase(
       name: 'Overline',
-      builder: (context) => Scaffold(
-        body: Column(
+      builder: (context) => PreviewWidget(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -346,6 +348,84 @@ WidgetbookComponent textWidgetbookComponent = WidgetbookComponent(
           ],
         ),
       ),
+    ),
+    WidgetbookUseCase(
+      name: 'Custom Global Theme',
+      builder: (context) {
+        return PreviewWidget(
+          theme: ZeroThemeData(
+            typography:
+                ZeroTypography.fromBrightness(brightness: Brightness.light)
+                    .apply(
+              color: context.knobs.options(
+                label: 'Color',
+                options: _colorOptions,
+              ),
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 50),
+              const Text('Heading 5: '),
+              ZeroText.heading5(context.knobs.text(
+                label: 'Value',
+                initialValue: 'Text value',
+              )),
+              const SizedBox(height: 16),
+              const Text('Heading 6: '),
+              ZeroText.heading6(context.knobs.text(
+                label: 'Value',
+                initialValue: 'Text value',
+              )),
+              const SizedBox(height: 16),
+              const Text('Subtitle 1: '),
+              ZeroText.subtitle1(context.knobs.text(
+                label: 'Value',
+                initialValue: 'Text value',
+              )),
+              const SizedBox(height: 16),
+              const Text('Subtitle 2: '),
+              ZeroText.subtitle2(context.knobs.text(
+                label: 'Value',
+                initialValue: 'Text value',
+              )),
+              const SizedBox(height: 16),
+              const Text('Body 1: '),
+              ZeroText.body1(context.knobs.text(
+                label: 'Value',
+                initialValue: 'Text value',
+              )),
+              const SizedBox(height: 16),
+              const Text('Body 2: '),
+              ZeroText.body2(context.knobs.text(
+                label: 'Value',
+                initialValue: 'Text value',
+              )),
+              const SizedBox(height: 16),
+              const Text('Button: '),
+              ZeroText.button(context.knobs.text(
+                label: 'Value',
+                initialValue: 'Text value',
+              )),
+              const SizedBox(height: 16),
+              const Text('Caption: '),
+              ZeroText.caption(context.knobs.text(
+                label: 'Value',
+                initialValue: 'Text value',
+              )),
+              const SizedBox(height: 16),
+              const Text('Overline: '),
+              ZeroText.overline(context.knobs.text(
+                label: 'Value',
+                initialValue: 'Text value',
+              )),
+              const SizedBox(height: 50),
+            ],
+          ),
+        );
+      },
     ),
   ],
 );
