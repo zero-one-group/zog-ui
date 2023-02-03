@@ -1,4 +1,3 @@
-import { Slot } from '@radix-ui/react-slot';
 import { ComponentProps, forwardRef } from 'react';
 import { styled } from '../stitches.config';
 
@@ -274,10 +273,8 @@ export type ButtonProps = {
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ css, colorScheme, asChild, children, ...props }, ref) => {
-    const Component = asChild ? Slot : StyledButton;
-
     return (
-      <Component
+      <StyledButton
         css={{
           ...css,
           ...getColorSchemeVariants(colorScheme),
@@ -286,7 +283,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {children}
-      </Component>
+      </StyledButton>
     );
   }
 );
