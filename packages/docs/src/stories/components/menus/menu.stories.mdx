@@ -15,10 +15,182 @@ import { useState } from 'react';
 
 Used to display navigation menu to users. Usually used in header component.
 
+# Structures
+
+Menu is built from several separate components, which can be customized and extended further. Here are the components that can be used to build a Menu:
+
+## `<Menu.List />`
+
+Contains all of the menu items. [API Reference](https://www.radix-ui.com/docs/primitives/components/navigation-menu#list)
+
+## `<Menu.Item />`
+
+Used to render menu item. Usually contains a link or trigger with content inside. [API Reference](https://www.radix-ui.com/docs/primitives/components/navigation-menu#item)
+
+## `<Menu.Trigger />`
+
+Used to render button that trigger the menu content. [API Reference](https://www.radix-ui.com/docs/primitives/components/navigation-menu#trigger)
+
+## `<Menu.Content />`
+
+Contains all of the menu content. [API Reference](https://www.radix-ui.com/docs/primitives/components/navigation-menu#content)
+
+## `<Menu.ContentList />`
+
+Used to wrap `<Menu.ContentListItem />` and set the `<Menu.ContentListItem />` layout.
+
+| Name     | Type                 | Default | Description                               |
+| -------- | -------------------- | ------- | ----------------------------------------- |
+| `layout` | single \| one \| two | one     | Set the `<Menu.ContentListItem />` layout |
+
+## `<Menu.ContentListItem />`
+
+Used to render content list item link.
+
+| Name       | Type      | Default | Description                              |
+| ---------- | --------- | ------- | ---------------------------------------- |
+| `title`    | string    | -       | `<Menu.ContentListItem />` link title    |
+| `children` | ReactNode | -       | `<Menu.ContentListItem />` children link |
+
+## `<Menu.ContentListItemHeading />`
+
+Used to render `<Menu.ContentListItem />` heading text. **Usually used to build custom content list item**
+
+## `<Menu.ContentListItemText />`
+
+Used to render `<Menu.ContentListItem />` body text. **Usually used to build custom content list item**
+
+## `<Menu.Link />`
+
+A menu navigational link. [API Reference](https://www.radix-ui.com/docs/primitives/components/navigation-menu#link)
+
+## `<Menu.Indicator />`
+
+Used to highlight the currently active trigger. [API Reference](https://www.radix-ui.com/docs/primitives/components/navigation-menu#indicator)
+
+## `<Menu.Viewport />`
+
+An optional viewport element that is used to render active content outside of the list. [API Reference](https://www.radix-ui.com/docs/primitives/components/navigation-menu#viewport)
+
+## `<Menu.ViewportPosition />`
+
+An optional `<Menu.Viewport />` wrapper. Usually used to handle viewport position.
+
+## `<Menu.CaretDownIcon />`
+
+Used to render icon on trigger button
+
+## `<Menu.Arrow />`
+
+The arrow component that can be used to render arrow alongside the menu. Can be used to visually link the trigger with the content.
+
 ## Example Usage
 
 ```tsx
 import { Menu } from '@zero-ui/core';
+
+return (
+  <Menu>
+    <Menu.List>
+      <Menu.Item>
+        <Menu.Trigger>
+          Overview <Menu.CaretDownIcon aria-hidden />
+        </Menu.Trigger>
+        <Menu.Content>
+          <Menu.ContentList layout="two">
+            <Menu.ContentListItem
+              title="Introduction"
+              href="/docs/primitives/overview/introduction"
+            >
+              Build high-quality, accessible design systems and web apps.
+            </Menu.ContentListItem>
+            <Menu.ContentListItem
+              title="Getting started"
+              href="/docs/primitives/overview/getting-started"
+            >
+              A quick tutorial to get you up and running with Radix Primitives.
+            </Menu.ContentListItem>
+            <Menu.ContentListItem
+              title="Styling"
+              href="/docs/primitives/overview/styling"
+            >
+              Unstyled and compatible with any styling solution.
+            </Menu.ContentListItem>
+            <Menu.ContentListItem
+              title="Animation"
+              href="/docs/primitives/overview/animation"
+            >
+              Use CSS keyframes or any animation library of your choice.
+            </Menu.ContentListItem>
+            <Menu.ContentListItem
+              title="Accessibility"
+              href="/docs/primitives/overview/accessibility"
+            >
+              Tested in a range of browsers and assistive technologies.
+            </Menu.ContentListItem>
+            <Menu.ContentListItem
+              title="Releases"
+              href="/docs/primitives/overview/releases"
+            >
+              Radix Primitives releases and their changelogs.
+            </Menu.ContentListItem>
+          </Menu.ContentList>
+        </Menu.Content>
+      </Menu.Item>
+      <Menu.Item>
+        <Menu.Trigger>
+          Services <Menu.CaretDownIcon aria-hidden />
+        </Menu.Trigger>
+        <Menu.Content>
+          <Menu.ContentList layout="single">
+            <Menu.ContentListItem
+              title="Introduction"
+              href="/docs/primitives/overview/introduction"
+            >
+              Build high-quality, accessible design systems and web apps.
+            </Menu.ContentListItem>
+            <Menu.ContentListItem
+              title="Getting started"
+              href="/docs/primitives/overview/getting-started"
+            >
+              A quick tutorial to get you up and running with Radix Primitives.
+            </Menu.ContentListItem>
+          </Menu.ContentList>
+        </Menu.Content>
+      </Menu.Item>
+      <Menu.Item>
+        <Menu.Link href="https://github.com/radix-ui">Github</Menu.Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Menu.Trigger>
+          Services <Menu.CaretDownIcon aria-hidden />
+        </Menu.Trigger>
+        <Menu.Content>
+          <Menu.ContentList layout="single">
+            <Menu.ContentListItem
+              title="Introduction"
+              href="/docs/primitives/overview/introduction"
+            >
+              Build high-quality, accessible design systems and web apps.
+            </Menu.ContentListItem>
+            <Menu.ContentListItem
+              title="Getting started"
+              href="/docs/primitives/overview/getting-started"
+            >
+              A quick tutorial to get you up and running with Radix Primitives.
+            </Menu.ContentListItem>
+          </Menu.ContentList>
+        </Menu.Content>
+      </Menu.Item>
+      <Menu.Indicator>
+        <Menu.Arrow />
+      </Menu.Indicator>
+    </Menu.List>
+    <Menu.ViewportPosition>
+      <Menu.Viewport />
+    </Menu.ViewportPosition>
+  </Menu>
+);
 ```
 
 <Canvas columns={2} withSource="close">
@@ -97,6 +269,28 @@ import { Menu } from '@zero-ui/core';
             </Menu.Item>
             <Menu.Item>
               <Menu.Link href="https://github.com/radix-ui">Github</Menu.Link>
+            </Menu.Item>
+            <Menu.Item>
+              <Menu.Trigger>
+                Services <Menu.CaretDownIcon aria-hidden />
+              </Menu.Trigger>
+              <Menu.Content>
+                <Menu.ContentList layout="single">
+                  <Menu.ContentListItem
+                    title="Introduction"
+                    href="/docs/primitives/overview/introduction"
+                  >
+                    Build high-quality, accessible design systems and web apps.
+                  </Menu.ContentListItem>
+                  <Menu.ContentListItem
+                    title="Getting started"
+                    href="/docs/primitives/overview/getting-started"
+                  >
+                    A quick tutorial to get you up and running with Radix
+                    Primitives.
+                  </Menu.ContentListItem>
+                </Menu.ContentList>
+              </Menu.Content>
             </Menu.Item>
             <Menu.Indicator>
               <Menu.Arrow />
