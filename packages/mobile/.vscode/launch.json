@@ -13,10 +13,8 @@
             "name": "widgetbook",
             "request": "launch",
             "type": "dart",
-            "program":  "widgetbook/main.dart",
+            "program":  "widgetbook/lib/main.dart",
             "args": [
-                "-t",
-                "widgetbook/main.dart",
                 "-d",
                 "chrome",
                 "--web-renderer",
