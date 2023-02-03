@@ -92,6 +92,7 @@ class ZeroThemeData with Diagnosticable {
 
   final Brightness brightness;
   final IconThemeData iconTheme;
+  final DialogTheme dialogTheme;
 
   const ZeroThemeData.raw({
     required this.typography,
@@ -105,6 +106,7 @@ class ZeroThemeData with Diagnosticable {
     required this.brightness,
     required this.scaffoldBackgroundColor,
     required this.iconTheme,
+    required this.dialogTheme,
     required this.cardColor,
     required this.disabledBackgroundColor,
     required this.errorColor,
@@ -137,6 +139,7 @@ class ZeroThemeData with Diagnosticable {
     Color? solidTextColor,
     Color? regularTextColor,
     IconThemeData? iconTheme,
+    DialogTheme? dialogTheme,
     ZeroListTileStyle? listTileStyle,
     ZeroButtonStyle? primaryButtonStyle,
     ZeroButtonStyle? secondaryButtonStyle,
@@ -171,6 +174,16 @@ class ZeroThemeData with Diagnosticable {
     iconTheme ??= isLight
         ? const IconThemeData(color: ZeroColors.black, size: 24.0)
         : const IconThemeData(color: ZeroColors.white, size: 24.0);
+
+    dialogTheme ??= isLight
+        ? DialogTheme(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          )
+        : DialogTheme(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          );
 
     // Component Styles
     final listTileFallback = ZeroListTileStyle.fallback(
@@ -211,6 +224,7 @@ class ZeroThemeData with Diagnosticable {
       uncheckedColor: uncheckedColor,
       checkedColor: checkedColor,
       iconTheme: iconTheme,
+      dialogTheme: dialogTheme,
       typography: typography,
       cardColor: cardColor,
       errorColor: errorColor,
@@ -241,6 +255,7 @@ class ZeroThemeData with Diagnosticable {
       checkedColor: Color.lerp(a.checkedColor, b.checkedColor, t)!,
       cardColor: Color.lerp(a.cardColor, b.cardColor, t)!,
       iconTheme: IconThemeData.lerp(a.iconTheme, b.iconTheme, t),
+      dialogTheme: DialogTheme.lerp(a.dialogTheme, b.dialogTheme, t),
       disabledBackgroundColor:
           Color.lerp(a.disabledBackgroundColor, b.disabledBackgroundColor, t)!,
       errorColor: Color.lerp(a.errorColor, b.errorColor, t)!,
@@ -278,6 +293,7 @@ class ZeroThemeData with Diagnosticable {
     Color? solidTextColor,
     Color? regularTextColor,
     IconThemeData? iconTheme,
+    DialogTheme? dialogTheme,
     ZeroListTileStyle? listTileStyle,
     ZeroButtonStyle? primaryButtonStyle,
     ZeroButtonStyle? secondaryButtonStyle,
@@ -296,6 +312,7 @@ class ZeroThemeData with Diagnosticable {
       scaffoldBackgroundColor:
           scaffoldBackgroundColor ?? this.scaffoldBackgroundColor,
       iconTheme: this.iconTheme.merge(iconTheme),
+      dialogTheme: dialogTheme ?? this.dialogTheme,
       cardColor: cardColor ?? this.cardColor,
       errorColor: errorColor ?? this.errorColor,
       disabledBackgroundColor:
@@ -323,6 +340,7 @@ class ZeroThemeData with Diagnosticable {
       cardColor: cardColor,
       dividerColor: dividerColor,
       textTheme: typography.toTextTheme(),
+      dialogTheme: dialogTheme,
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: primaryButtonStyle.toButtonStyle(),
       ),
