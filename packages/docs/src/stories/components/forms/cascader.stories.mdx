@@ -6,7 +6,7 @@ import { Cascader } from '@zero-ui/core';
 
 <Meta title="Components/Forms/Cascader" component={[Cascader]} argTypes={{}} />
 
-export const CascaderStory = () => <Cascader />;
+export const CascaderStory = (args) => <Cascader {...args} />;
 
 # Cascader
 
@@ -18,8 +18,51 @@ export const CascaderStory = () => <Cascader />;
 import { Cascader } from '@zero-ui/core';
 ```
 
+export const options = [
+  {
+    value: 'zhejiang',
+    label: 'Zhejiang',
+    children: [
+      {
+        value: 'hangzhou',
+        label: 'Hangzhou',
+        children: [
+          {
+            value: 'xihu',
+            label: 'West Lake',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    value: 'jiangsu',
+    label: 'Jiangsu',
+    children: [
+      {
+        value: 'nanjing',
+        label: 'Nanjing',
+        children: [
+          {
+            value: 'zhonghuamen',
+            label: 'Zhong Hua Men',
+          },
+        ],
+      },
+    ],
+  },
+];
+
 <Canvas columns={2} withSource="close">
-  <Story name="Cascader">{CascaderStory.bind()}</Story>
+  <Story
+    name="Cascader"
+    args={{
+      colorScheme: 'amber',
+      options,
+    }}
+  >
+    {CascaderStory.bind()}
+  </Story>
 </Canvas>
 
 <ArgsTable of={Cascader} />

@@ -46,6 +46,7 @@ export const Input = ({
   placeholder,
   type,
   id,
+  readOnly,
   ...props
 }: InputProps) => {
   return (
@@ -56,6 +57,7 @@ export const Input = ({
         defaultValue={defaultValue}
         placeholder={placeholder}
         type={type}
+        readOnly={readOnly}
       />
     </StyledInput>
   );
