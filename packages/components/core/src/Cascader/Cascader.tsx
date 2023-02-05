@@ -43,11 +43,19 @@ export type CascaderOption = {
 
 export interface CascaderProps {
   options: CascaderOption[];
+  defaultValue?: string[];
   colorScheme?: string;
 }
 
-export const Cascader = ({ colorScheme, options, ...props }: CascaderProps) => {
-  const [activeValues, setActiveValues] = useState<string[]>([]);
+export const Cascader = ({
+  colorScheme,
+  options,
+  defaultValue,
+  ...props
+}: CascaderProps) => {
+  const [activeValues, setActiveValues] = useState<string[]>(
+    defaultValue || []
+  );
 
   const columns = useMemo(() => {
     const columnList = [{ options }];

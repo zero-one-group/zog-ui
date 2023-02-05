@@ -53,6 +53,12 @@ export const options = [
         value: 'disabled',
         label: 'Disabled',
         disabled: true,
+        children: [
+          {
+            value: 'test_children',
+            label: 'Disabled',
+          },
+        ],
       },
     ],
   },
@@ -60,9 +66,18 @@ export const options = [
 
 <Canvas columns={2} withSource="close">
   <Story
-    name="Cascader"
+    name="Basic"
     args={{
       colorScheme: 'amber',
+      options,
+    }}
+  >
+    {CascaderStory.bind()}
+  </Story>
+  <Story
+    name="Default Value"
+    args={{
+      defaultValue: ['zhejiang', 'hangzhou', 'xihu'],
       options,
     }}
   >
