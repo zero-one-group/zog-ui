@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react';
-import { Input } from '../Input';
 import { styled } from '../stitches.config';
 import CascaderColumn from './CascaderColumn';
 
@@ -17,7 +16,7 @@ const StyledCascader = styled('div', {
   boxSizing: 'border-box',
 });
 
-const StyledCascaderInput = styled(Input);
+const StyledCascaderInput = styled('input');
 
 const StyledCascaderDropdown = styled('div', {
   position: 'absolute',
@@ -35,8 +34,8 @@ const StyledCascaderMenus = styled('div', {
 });
 
 export type CascaderOption = {
-  value: string | number | null;
-  label: React.ReactNode;
+  value: string;
+  label: string;
   disabled?: boolean;
   children?: CascaderOption[];
 };
@@ -78,6 +77,18 @@ export const Cascader = ({
     return columnList;
   }, [options, activeValues]);
 
+  const activeLabels = useMemo(() => {
+    if (activeValues.length > 0) {
+      return activeValues.map(
+        (value, index) =>
+          columns[index].options.find((option) => option.value === value)?.label
+      );
+    }
+    return [];
+  }, [columns, activeValues]);
+
+  const displayRender = activeLabels.length > 0 ? activeLabels.join(' / ') : '';
+
   const handleChangeCell = (path: string[], isLeaf: boolean) => {
     setActiveValues(path);
   };
@@ -88,11 +99,17 @@ export const Cascader = ({
         ...getColorSchemeVariants(colorScheme),
       }}
     >
-      <StyledCascaderInput type="search" readOnly placeholder="Please Select" />
+      <StyledCascaderInput
+        value={displayRender}
+        type="search"
+        readOnly
+        placeholder="Please Select"
+      />
       <StyledCascaderDropdown>
         <StyledCascaderMenus>
           {columns.map((column, index) => (
             <CascaderColumn
+              key={index}
               handleChangeCell={handleChangeCell}
               parentPath={activeValues.slice(0, index)}
               active={activeValues[index]}
