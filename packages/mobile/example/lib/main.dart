@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 import 'package:zero_ui_mobile_example/component/datepicker/datepicker_example.dart';
+import 'package:zero_ui_mobile_example/component/dropdown/zero_dropdown_example.dart';
 
 import 'component/avatar/avatar_example.dart';
 import 'component/button/zero_button_example.dart';
@@ -44,9 +45,9 @@ class _MyAppState extends State<MyApp> {
     return ZeroApp(
       title: 'Flutter Demo',
       theme: ZeroThemeData(
-        brightness: Brightness.light,
-        primaryColor: _selectedColor.toAccentColor(),
-      ),
+          brightness: Brightness.light,
+          primaryColor: _selectedColor.toAccentColor(),
+          inputDecorationType: InputDecorationType.outline),
       home: Scaffold(
         body: SafeArea(
           child: Column(

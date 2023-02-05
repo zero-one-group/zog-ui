@@ -15,13 +15,6 @@ class ZeroTextfieldExample extends StatelessWidget {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(10),
-                child: ZeroTextField(
-                  labelText: 'Label',
-                  hintText: 'Input',
-                ),
-              ),
-              Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ZeroTextField.underline(
@@ -32,7 +25,7 @@ class ZeroTextfieldExample extends StatelessWidget {
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.fill(
+                child: ZeroTextField.filled(
                   labelText: 'Label',
                   hintText: 'Input',
                 ),
@@ -51,7 +44,7 @@ class ZeroTextfieldExample extends StatelessWidget {
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.fill(
+                child: ZeroTextField.filled(
                     labelText: 'Label',
                     hintText: 'Input',
                     errorText: 'Error Text'),
@@ -73,7 +66,7 @@ class ZeroTextfieldExample extends StatelessWidget {
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.fill(
+                child: ZeroTextField.filled(
                     labelText: 'Label', hintText: 'Input', enabled: false),
               ),
               Padding(
@@ -116,7 +109,7 @@ class ZeroTextfieldExample extends StatelessWidget {
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ZeroTextField.fill(
+                child: ZeroTextField.filled(
                   labelText: 'Label',
                   hintText: 'Input',
                   helperText: 'Support Text',
@@ -142,7 +135,7 @@ class ZeroTextfieldExample extends StatelessWidget {
                   labelText: 'Label Large',
                   hintText: 'Input Large',
                   helperText: 'Support Text Large',
-                  textfielSizeType: TextfieldSize.large,
+                  textfielSizeType: ZeroTextfieldSize.large,
                   prefixIcon: const Icon(Icons.search),
                   suffixIcon: const Icon(Icons.delete_forever),
                 ),
@@ -154,7 +147,7 @@ class ZeroTextfieldExample extends StatelessWidget {
                   labelText: 'Label Small',
                   hintText: 'Input Small',
                   helperText: 'Support Text Small',
-                  textfielSizeType: TextfieldSize.small,
+                  textfielSizeType: ZeroTextfieldSize.small,
                   prefixIcon: const Icon(Icons.search),
                   suffixIcon: const Icon(Icons.delete_forever),
                 ),
