@@ -1,6 +1,7 @@
+import { useMemo, useState } from 'react';
 import { Input } from '../Input';
 import { styled } from '../stitches.config';
-import CascaderColumns from './CascaderColumns';
+import CascaderColumn from './CascaderColumn';
 
 const getColorSchemeVariants = (colorScheme?: string) => {
   return {
@@ -46,6 +47,31 @@ export interface CascaderProps {
 }
 
 export const Cascader = ({ colorScheme, options, ...props }: CascaderProps) => {
+  const [activeValues, setActiveValues] = useState<string[]>([]);
+
+  const columns = useMemo(() => {
+    const columnList = [{ options }];
+    let currentOption = options;
+    activeValues.forEach((active) => {
+      const currentCell = currentOption.find(
+        (option) => option.value === active
+      );
+
+      const childrenOption = currentCell?.children;
+
+      if (childrenOption?.length) {
+        currentOption = childrenOption;
+        columnList.push({ options: currentOption });
+      }
+    });
+
+    return columnList;
+  }, [options, activeValues]);
+
+  const handleClickCell = (path: string[], isLeaf: boolean) => {
+    setActiveValues(path);
+  };
+
   return (
     <StyledCascader
       css={{
@@ -55,7 +81,14 @@ export const Cascader = ({ colorScheme, options, ...props }: CascaderProps) => {
       <StyledCascaderInput type="search" readOnly placeholder="Please Select" />
       <StyledCascaderDropdown>
         <StyledCascaderMenus>
-          <CascaderColumns options={options} />
+          {columns.map((column, index) => (
+            <CascaderColumn
+              handleClickCell={handleClickCell}
+              parentPath={activeValues.slice(0, index)}
+              active={activeValues[index]}
+              options={column.options}
+            />
+          ))}
         </StyledCascaderMenus>
       </StyledCascaderDropdown>
     </StyledCascader>
