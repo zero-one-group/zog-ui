@@ -86,14 +86,23 @@ class ZeroThemeData with Diagnosticable {
   final ZeroListTileStyle listTileStyle;
   final ZeroButtonStyle primaryButtonStyle;
   final ZeroButtonStyle secondaryButtonStyle;
+  final ZeroButtonStyle textButtonStyle;
   final ZeroDividerStyle dividerStyle;
   final ZeroChipFilledStyle chipFilledStyle;
   final ZeroChipOutlinedStyle chipOutlinedStyle;
   final ZeroNavigationBarStyle navigationBarStyle;
 
+  final ZeroTextfieldStyleSet? textfieldStyleSet;
+  final ZeroTextfieldSize? textfieldSize;
+  final InputDecorationType? inputDecorationType;
+
   final Brightness brightness;
   final IconThemeData iconTheme;
   final DialogTheme dialogTheme;
+
+  final ColorScheme colorScheme;
+
+  final bool useMaterial3;
 
   const ZeroThemeData.raw({
     required this.typography,
@@ -114,42 +123,56 @@ class ZeroThemeData with Diagnosticable {
     required this.dividerColor,
     required this.solidTextColor,
     required this.regularTextColor,
+    required this.colorScheme,
 
     // Component Style
     required this.listTileStyle,
     required this.primaryButtonStyle,
     required this.secondaryButtonStyle,
+    required this.textButtonStyle,
     required this.dividerStyle,
     required this.chipFilledStyle,
     required this.chipOutlinedStyle,
     required this.navigationBarStyle,
+    this.textfieldStyleSet,
+    this.inputDecorationType,
+    this.textfieldSize,
+
+    // Others
+    this.useMaterial3 = false,
   });
 
-  factory ZeroThemeData({
-    Brightness? brightness,
-    ZeroTypography? typography,
-    String? fontFamily,
-    AccentColor? primaryColor,
-    Color? disabledColor,
-    Color? scaffoldBackgroundColor,
-    Color? uncheckedColor,
-    Color? checkedColor,
-    Color? cardColor,
-    Color? disabledBackgroundColor,
-    Color? errorColor,
-    Color? dividerColor,
-    Color? solidTextColor,
-    Color? regularTextColor,
-    IconThemeData? iconTheme,
-    DialogTheme? dialogTheme,
-    ZeroListTileStyle? listTileStyle,
-    ZeroButtonStyle? primaryButtonStyle,
-    ZeroButtonStyle? secondaryButtonStyle,
-    ZeroDividerStyle? dividerStyle,
-    ZeroChipFilledStyle? chipFilledStyle,
-    ZeroChipOutlinedStyle? chipOutlinedStyle,
-    ZeroNavigationBarStyle? navigationBarStyle,
-  }) {
+  factory ZeroThemeData(
+      {Brightness? brightness,
+      ZeroTypography? typography,
+      String? fontFamily,
+      AccentColor? primaryColor,
+      Color? disabledColor,
+      Color? scaffoldBackgroundColor,
+      Color? uncheckedColor,
+      Color? checkedColor,
+      Color? cardColor,
+      Color? disabledBackgroundColor,
+      Color? errorColor,
+      Color? dividerColor,
+      Color? solidTextColor,
+      Color? regularTextColor,
+      ColorScheme? colorScheme,
+      IconThemeData? iconTheme,
+      DialogTheme? dialogTheme,
+      InputDecorationTheme? inputDecorationTheme,
+      ZeroListTileStyle? listTileStyle,
+      ZeroButtonStyle? primaryButtonStyle,
+      ZeroButtonStyle? secondaryButtonStyle,
+      ZeroButtonStyle? textButtonStyle,
+      ZeroDividerStyle? dividerStyle,
+      ZeroChipFilledStyle? chipFilledStyle,
+      ZeroChipOutlinedStyle? chipOutlinedStyle,
+      ZeroNavigationBarStyle? navigationBarStyle,
+      ZeroTextfieldStyleSet? textfieldStyleSet,
+      InputDecorationType? inputDecorationType,
+      ZeroTextfieldSize? textfieldSize,
+      bool? useMaterial3}) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
     final isLight = brightness.isLight;
@@ -180,13 +203,63 @@ class ZeroThemeData with Diagnosticable {
 
     dialogTheme ??= isLight
         ? DialogTheme(
+            backgroundColor: ZeroColors.white,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           )
         : DialogTheme(
+            backgroundColor: ZeroColors.neutral[10],
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           );
+
+    textfieldSize ??= ZeroTextfieldSize.small;
+
+    textfieldStyleSet ??= ZeroTextfieldStyleSet(
+        outline: ZeroTextfieldStyle.outline(
+            textfieldSize: textfieldSize,
+            focusedBorderColor: primaryColor,
+            focusedColor: primaryColor),
+        rounded: ZeroTextfieldStyle.rounded(
+            textfieldSize: textfieldSize,
+            focusedBorderColor: primaryColor,
+            focusedColor: primaryColor),
+        filled: ZeroTextfieldStyle.fill(
+            textfieldSize: textfieldSize,
+            focusedBorderColor: primaryColor,
+            focusedColor: primaryColor,
+            fillColor: primaryColor.lightest),
+        underline: ZeroTextfieldStyle.underline(
+            textfieldSize: textfieldSize,
+            focusedBorderColor: primaryColor,
+            focusedColor: primaryColor),
+        inputDecorationType:
+            inputDecorationType ?? InputDecorationType.underline);
+
+    colorScheme ??= ColorScheme.fromSwatch(
+      brightness: brightness,
+      cardColor: cardColor,
+      errorColor: errorColor,
+      backgroundColor: scaffoldBackgroundColor,
+      primarySwatch: MaterialColor(
+        primaryColor.value,
+        {
+          50: primaryColor.lightest,
+          100: primaryColor.lightest,
+          200: primaryColor.lighter,
+          300: primaryColor.lighter,
+          400: primaryColor.light,
+          500: primaryColor.normal,
+          600: primaryColor.dark,
+          700: primaryColor.darker,
+          800: primaryColor.darker,
+          900: primaryColor.darkest,
+        },
+      ),
+    ).copyWith(
+      error: errorColor,
+      onPrimary: Colors.white,
+    );
 
     // Component Styles
     final listTileFallback = ZeroListTileStyle.fallback(
@@ -210,6 +283,9 @@ class ZeroThemeData with Diagnosticable {
       textStyle: typography.button?.copyWith(color: solidTextColor),
     );
 
+    final textButtonStyleFallback = secondaryButtonStyleFallback.copyWith(
+        elevation: 0, side: BorderSide.none);
+
     final dividerStyleFallback = ZeroDividerStyle.fallback(color: dividerColor);
 
     final chipFilledStyleFallback = ZeroChipFilledStyle.fallback(
@@ -225,32 +301,41 @@ class ZeroThemeData with Diagnosticable {
       unselectedColor: isLight ? ZeroColors.black : ZeroColors.white,
     );
 
+    useMaterial3 ??= false;
+
     return ZeroThemeData.raw(
-      brightness: brightness,
-      primaryColor: primaryColor,
-      disabledColor: disabledColor,
-      scaffoldBackgroundColor: scaffoldBackgroundColor,
-      uncheckedColor: uncheckedColor,
-      checkedColor: checkedColor,
-      iconTheme: iconTheme,
-      dialogTheme: dialogTheme,
-      typography: typography,
-      cardColor: cardColor,
-      errorColor: errorColor,
-      disabledBackgroundColor: disabledBackgroundColor,
-      dividerColor: dividerColor,
-      solidTextColor: solidTextColor,
-      regularTextColor: regularTextColor,
-      fontFamily: fontFamily,
-      listTileStyle: listTileFallback.merge(listTileStyle),
-      primaryButtonStyle: primaryButtonStyleFallback.merge(primaryButtonStyle),
-      secondaryButtonStyle:
-          secondaryButtonStyleFallback.merge(secondaryButtonStyle),
-      dividerStyle: dividerStyleFallback.merge(dividerStyle),
-      chipFilledStyle: chipFilledStyleFallback.merge(chipFilledStyle),
-      chipOutlinedStyle: chipOutlinedStyleFallback.merge(chipOutlinedStyle),
-      navigationBarStyle: navigationBarStyleFallback.merge(navigationBarStyle),
-    );
+        brightness: brightness,
+        primaryColor: primaryColor,
+        disabledColor: disabledColor,
+        scaffoldBackgroundColor: scaffoldBackgroundColor,
+        uncheckedColor: uncheckedColor,
+        checkedColor: checkedColor,
+        iconTheme: iconTheme,
+        dialogTheme: dialogTheme,
+        colorScheme: colorScheme,
+        typography: typography,
+        cardColor: cardColor,
+        errorColor: errorColor,
+        disabledBackgroundColor: disabledBackgroundColor,
+        dividerColor: dividerColor,
+        solidTextColor: solidTextColor,
+        regularTextColor: regularTextColor,
+        fontFamily: fontFamily,
+        listTileStyle: listTileFallback.merge(listTileStyle),
+        primaryButtonStyle:
+            primaryButtonStyleFallback.merge(primaryButtonStyle),
+        secondaryButtonStyle:
+            secondaryButtonStyleFallback.merge(secondaryButtonStyle),
+        textButtonStyle: textButtonStyleFallback.merge(textButtonStyle),
+        dividerStyle: dividerStyleFallback.merge(dividerStyle),
+        chipFilledStyle: chipFilledStyleFallback.merge(chipFilledStyle),
+        chipOutlinedStyle: chipOutlinedStyleFallback.merge(chipOutlinedStyle),
+        navigationBarStyle:
+            navigationBarStyleFallback.merge(navigationBarStyle),
+        textfieldStyleSet: textfieldStyleSet,
+        inputDecorationType: inputDecorationType,
+        textfieldSize: textfieldSize,
+        useMaterial3: useMaterial3);
   }
 
   static ZeroThemeData lerp(ZeroThemeData a, ZeroThemeData b, double t) {
@@ -264,6 +349,7 @@ class ZeroThemeData with Diagnosticable {
       uncheckedColor: Color.lerp(a.uncheckedColor, b.uncheckedColor, t)!,
       checkedColor: Color.lerp(a.checkedColor, b.checkedColor, t)!,
       cardColor: Color.lerp(a.cardColor, b.cardColor, t)!,
+      colorScheme: ColorScheme.lerp(a.colorScheme, b.colorScheme, t),
       iconTheme: IconThemeData.lerp(a.iconTheme, b.iconTheme, t),
       dialogTheme: DialogTheme.lerp(a.dialogTheme, b.dialogTheme, t),
       disabledBackgroundColor:
@@ -278,6 +364,8 @@ class ZeroThemeData with Diagnosticable {
           ZeroButtonStyle.lerp(a.primaryButtonStyle, b.primaryButtonStyle, t),
       secondaryButtonStyle: ZeroButtonStyle.lerp(
           a.secondaryButtonStyle, b.secondaryButtonStyle, t),
+      textButtonStyle:
+          ZeroButtonStyle.lerp(a.textButtonStyle, b.textButtonStyle, t),
       dividerStyle: ZeroDividerStyle.lerp(a.dividerStyle, b.dividerStyle, t),
       chipFilledStyle:
           ZeroChipFilledStyle.lerp(a.chipFilledStyle, b.chipFilledStyle, t),
@@ -306,13 +394,19 @@ class ZeroThemeData with Diagnosticable {
     Color? regularTextColor,
     IconThemeData? iconTheme,
     DialogTheme? dialogTheme,
+    InputDecorationTheme? inputDecorationTheme,
     ZeroListTileStyle? listTileStyle,
     ZeroButtonStyle? primaryButtonStyle,
     ZeroButtonStyle? secondaryButtonStyle,
+    ZeroButtonStyle? textButtonStyle,
     ZeroDividerStyle? dividerStyle,
     ZeroChipFilledStyle? chipFilledStyle,
     ZeroChipOutlinedStyle? chipOutlinedStyle,
     ZeroNavigationBarStyle? navigationBarStyle,
+    ZeroTextfieldStyleSet? textfieldStyleSet,
+    InputDecorationType? inputDecorationType,
+    ZeroTextfieldSize? textfieldSize,
+    ColorScheme? colorScheme,
   }) {
     return ZeroThemeData.raw(
       brightness: brightness ?? this.brightness,
@@ -324,6 +418,7 @@ class ZeroThemeData with Diagnosticable {
       disabledColor: disabledColor ?? this.disabledColor,
       scaffoldBackgroundColor:
           scaffoldBackgroundColor ?? this.scaffoldBackgroundColor,
+      colorScheme: colorScheme ?? this.colorScheme,
       iconTheme: this.iconTheme.merge(iconTheme),
       dialogTheme: dialogTheme ?? this.dialogTheme,
       cardColor: cardColor ?? this.cardColor,
@@ -336,10 +431,27 @@ class ZeroThemeData with Diagnosticable {
       listTileStyle: listTileStyle ?? this.listTileStyle,
       primaryButtonStyle: primaryButtonStyle ?? this.primaryButtonStyle,
       secondaryButtonStyle: secondaryButtonStyle ?? this.secondaryButtonStyle,
+      textButtonStyle: textButtonStyle ?? this.textButtonStyle,
       dividerStyle: dividerStyle ?? this.dividerStyle,
       chipFilledStyle: chipFilledStyle ?? this.chipFilledStyle,
       chipOutlinedStyle: chipOutlinedStyle ?? this.chipOutlinedStyle,
       navigationBarStyle: navigationBarStyle ?? this.navigationBarStyle,
+      inputDecorationType: inputDecorationType ?? this.inputDecorationType,
+      textfieldStyleSet: this.textfieldStyleSet?.copyWith(
+          inputDecorationType: inputDecorationType,
+          outline: this
+              .textfieldStyleSet
+              ?.outline
+              .copyWith(textfieldSize: textfieldSize),
+          rounded: this.textfieldStyleSet?.rounded.copyWith(
+                textfieldSize: textfieldSize,
+              ),
+          filled: this.textfieldStyleSet?.filled.copyWith(
+                textfieldSize: textfieldSize,
+              ),
+          underline: this.textfieldStyleSet?.underline.copyWith(
+                textfieldSize: textfieldSize,
+              )),
     );
   }
 
@@ -350,7 +462,7 @@ class ZeroThemeData with Diagnosticable {
       brightness: brightness,
       disabledColor: disabledColor,
       scaffoldBackgroundColor: scaffoldBackgroundColor,
-      useMaterial3: false,
+      useMaterial3: useMaterial3,
       cardColor: cardColor,
       dividerColor: dividerColor,
       textTheme: typography.toTextTheme(),
@@ -361,30 +473,9 @@ class ZeroThemeData with Diagnosticable {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: secondaryButtonStyle.toButtonStyle(),
       ),
-      colorScheme: ColorScheme.fromSwatch(
-        brightness: brightness,
-        cardColor: cardColor,
-        errorColor: errorColor,
-        backgroundColor: scaffoldBackgroundColor,
-        primarySwatch: MaterialColor(
-          primaryColor.value,
-          {
-            50: primaryColor.lightest,
-            100: primaryColor.lightest,
-            200: primaryColor.lighter,
-            300: primaryColor.lighter,
-            400: primaryColor.light,
-            500: primaryColor.normal,
-            600: primaryColor.dark,
-            700: primaryColor.darker,
-            800: primaryColor.darker,
-            900: primaryColor.darkest,
-          },
-        ),
-      ).copyWith(
-        error: errorColor,
-        onPrimary: Colors.white,
-      ),
+      inputDecorationTheme:
+          textfieldStyleSet?.mainStyle.toInputDecorationTheme(),
+      colorScheme: colorScheme,
       dividerTheme: dividerStyle.toDividerTheme(),
       chipTheme: chipFilledStyle.toChipThemeData(),
       navigationBarTheme: navigationBarStyle.toNavigationBarTheme(),
