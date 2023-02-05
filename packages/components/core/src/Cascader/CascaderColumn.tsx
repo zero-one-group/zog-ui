@@ -1,7 +1,7 @@
 import { RightOutlined } from '@ant-design/icons';
 import { useMemo } from 'react';
 import { styled } from '../stitches.config';
-import { CascaderOption } from './Cascader';
+import { CascaderOption, CascaderProps } from './Cascader';
 
 const StyledCascaderMenu = styled('ul', {
   all: 'unset',
@@ -60,15 +60,17 @@ const StyledCascaderMenuExpandIcon = styled('div', {
 export type CascaderColumnProps = {
   options: CascaderOption[];
   parentPath: string[];
-  handleClickCell: (path: string[], isLeaf: boolean) => void;
+  handleChangeCell: (path: string[], isLeaf: boolean) => void;
   active: string;
+  trigger: CascaderProps['trigger'];
 };
 
 const CascaderColumn = ({
   options,
   parentPath,
-  handleClickCell,
+  handleChangeCell,
   active,
+  trigger,
 }: CascaderColumnProps) => {
   const optionList = useMemo(
     () =>
@@ -101,7 +103,12 @@ const CascaderColumn = ({
               <StyledCascaderMenuItem
                 key={pathString}
                 role="menuitem"
-                onClick={() => handleClickCell(path, isLeaf)}
+                onClick={() => handleChangeCell(path, isLeaf)}
+                onMouseEnter={() => {
+                  if (trigger === 'hover') {
+                    handleChangeCell(path, isLeaf);
+                  }
+                }}
                 title={label as string}
                 disabled={isDisabled}
                 active={isActive}

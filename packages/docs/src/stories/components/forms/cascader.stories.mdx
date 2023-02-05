@@ -4,7 +4,16 @@ import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { Cascader } from '@zero-ui/core';
 
-<Meta title="Components/Forms/Cascader" component={[Cascader]} argTypes={{}} />
+<Meta
+  title="Components/Forms/Cascader"
+  component={[Cascader]}
+  argTypes={{
+    trigger: {
+      control: 'radio',
+      options: ['click', 'hover'],
+    },
+  }}
+/>
 
 export const CascaderStory = (args) => <Cascader {...args} />;
 
@@ -70,6 +79,7 @@ export const options = [
     args={{
       colorScheme: 'amber',
       options,
+      trigger: 'click',
     }}
   >
     {CascaderStory.bind()}

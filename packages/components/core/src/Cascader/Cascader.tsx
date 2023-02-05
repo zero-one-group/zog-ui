@@ -45,12 +45,14 @@ export interface CascaderProps {
   options: CascaderOption[];
   defaultValue?: string[];
   colorScheme?: string;
+  trigger?: 'click' | 'hover';
 }
 
 export const Cascader = ({
   colorScheme,
   options,
   defaultValue,
+  trigger = 'click',
   ...props
 }: CascaderProps) => {
   const [activeValues, setActiveValues] = useState<string[]>(
@@ -76,7 +78,7 @@ export const Cascader = ({
     return columnList;
   }, [options, activeValues]);
 
-  const handleClickCell = (path: string[], isLeaf: boolean) => {
+  const handleChangeCell = (path: string[], isLeaf: boolean) => {
     setActiveValues(path);
   };
 
@@ -91,10 +93,11 @@ export const Cascader = ({
         <StyledCascaderMenus>
           {columns.map((column, index) => (
             <CascaderColumn
-              handleClickCell={handleClickCell}
+              handleChangeCell={handleChangeCell}
               parentPath={activeValues.slice(0, index)}
               active={activeValues[index]}
               options={column.options}
+              trigger={trigger}
             />
           ))}
         </StyledCascaderMenus>
