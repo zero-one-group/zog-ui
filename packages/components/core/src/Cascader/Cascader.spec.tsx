@@ -4,7 +4,7 @@ import Cascader from './Cascader';
 
 describe('Cascader', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Cascader />);
+    const { baseElement } = render(<Cascader options={[]} />);
     expect(baseElement).toBeTruthy();
   });
 });
