@@ -1,5 +1,5 @@
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
-import { ReactElement } from 'react';
+import { ComponentProps, ReactElement } from 'react';
 import { styled } from '../stitches.config';
 
 const getColorSchemeVariants = (colorScheme?: string) => {
@@ -58,13 +58,27 @@ type CheckboxOwnProps = {
   boxSize?: string | number;
 };
 
-export type CheckboxProps = CheckboxOwnProps & CheckboxPrimitive.CheckboxProps;
+type CheckboxLabelPrimitiveProps = ComponentProps<typeof StyledCheckboxLabel>;
+
+type CheckboxLabelProps = {
+  /** Customize style of label */
+  labelCss?: CheckboxLabelPrimitiveProps['css'];
+  /** Custom label className */
+  labelClassname?: CheckboxLabelPrimitiveProps['className'];
+};
+
+export type CheckboxProps = CheckboxOwnProps &
+  ComponentProps<typeof StyledCheckboxRoot> &
+  CheckboxLabelProps;
 
 export type CheckboxComponent = (props: CheckboxProps) => ReactElement;
 
 export const Checkbox: CheckboxComponent = ({
   boxSize = '$3',
   colorScheme,
+  css,
+  labelCss,
+  labelClassname,
   ...props
 }) => {
   return (
@@ -73,7 +87,9 @@ export const Checkbox: CheckboxComponent = ({
         fontSize: boxSize,
         cursor: props.disabled ? 'not-allowed' : 'pointer',
         color: props.disabled ? '$blackA8' : undefined,
+        ...labelCss,
       }}
+      className={labelClassname}
     >
       <StyledCheckboxRoot
         css={{
@@ -81,6 +97,7 @@ export const Checkbox: CheckboxComponent = ({
           width: '1em',
           height: '1em',
           ...getColorSchemeVariants(colorScheme),
+          ...css,
         }}
         {...props}
       >
