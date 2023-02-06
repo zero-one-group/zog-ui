@@ -4,6 +4,7 @@ export * from './Badge';
 export * from './Box';
 export * from './Breadcrumb';
 export * from './Button';
+export * from './Cascader';
 export * from './Checkbox';
 export * from './ControlGroup';
 export * from './DesignSystemProvider';
