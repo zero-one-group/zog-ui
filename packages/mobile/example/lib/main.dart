@@ -45,10 +45,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return ZeroApp(
       title: 'Flutter Demo',
-      theme: ZeroThemeData(
-          brightness: Brightness.light,
-          primaryColor: _selectedColor.toAccentColor(),
-          inputDecorationType: InputDecorationType.outline),
+      theme: ZeroThemeData(),
       home: Scaffold(
         body: SafeArea(
           child: Column(

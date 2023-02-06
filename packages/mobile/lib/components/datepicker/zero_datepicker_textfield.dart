@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/components/textfield/zero_textfield.dart';
 
-/// A [TextFormField] configured to accept and validate a date entered by a user.
+/// A [ZeroTextField] configured to accept and validate a date entered by a user.
 ///
 /// When the field is saved or submitted, the text will be parsed into a
 /// [DateTime] according to the ambient locale's compact date format. If the

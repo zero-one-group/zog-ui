@@ -191,7 +191,11 @@ Future<DateTime?> showZeroDatePicker({
     useRootNavigator: useRootNavigator,
     routeSettings: routeSettings,
     builder: (BuildContext context) {
-      return builder == null ? dialog : builder(context, dialog);
+      return Theme(
+        data: context.theme.toThemeData(),
+        child: builder == null ? dialog : builder(context, dialog),
+      );
+      // return;
     },
     anchorPoint: anchorPoint,
   );
