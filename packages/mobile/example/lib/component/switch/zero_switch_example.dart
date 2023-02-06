@@ -14,7 +14,7 @@ class _ZeroSwitchExampleState extends State<ZeroSwitchExample> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Zero Tooltip Example'),
+        title: const Text('Zero Switch Example'),
       ),
       body: SafeArea(
         child: Center(

@@ -30,8 +30,7 @@ WidgetbookComponent iconWidgetbookComponent = WidgetbookComponent(
                     Icon(
                       item.value,
                       size: 24,
-                      color: knobContext.knobs
-                          .options(label: 'Color', options: colorOptions),
+                      color: knobContext.knobs.options(label: 'Color', options: colorOptions),
                     ),
                     const SizedBox(height: 4),
                     Text(

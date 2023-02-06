@@ -82,4 +82,3 @@ export const Input = React.forwardRef(
     );
   }
 );
-

@@ -78,6 +78,10 @@ export './components/switch/zero_switch.dart';
 export './components/switch/zero_switch_android.dart';
 export './components/switch/zero_switch_ios.dart';
 
+// snackbar
+export './components/snackbar/zero_snackbar.dart';
+export './components/snackbar/zero_snackbar_alert.dart';
+
 // icons
 export './components/icons/zero_icons.dart';
 export './components/icons/two_tone_icons.dart';
@@ -88,10 +92,14 @@ export './types/button_group_type.dart';
 export './types/textfield/input_decoration_type.dart';
 export './types/badge_type.dart';
 export './types/tooltip_type.dart';
+export './types/snackbar_type.dart';
+export './types/snackbar_alert_type.dart';
+export './types/snackbar_alert_variant.dart';
 
 // positions
 export './position/tooltip_position.dart';
 export './position/badge_potision.dart';
+export './position/snackbar_position.dart';
 
 // model
 export './model/zero_range_values.dart';

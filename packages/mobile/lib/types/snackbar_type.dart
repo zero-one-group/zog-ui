@@ -1,0 +1,1 @@
+enum ZeroSnackbarType { singleline, multiline }
