@@ -243,7 +243,9 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
             helperText: widget.helperText,
             hintText: widget.hintText,
             labelText: widget.labelText,
-            contentPadding: const EdgeInsets.only(right: 8),
+            contentPadding: widget.labelText == null
+                ? const EdgeInsets.only(right: 8)
+                : const EdgeInsets.only(left: 16, right: 8),
             fillColor: context.theme.primaryColor.lightest,
             filled:
                 widget.selectedItemsStyle == SelectedItemsStyle.chipInverted),
@@ -335,7 +337,8 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
         return Row(
             children: _selectedItems
                 .map((value) => Container(
-                      margin: const EdgeInsets.only(left: 8),
+                      margin: EdgeInsets.only(
+                          left: widget.labelText == null ? 8 : 0, right: 4),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
@@ -352,7 +355,8 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
         return Row(
             children: _selectedItems
                 .map((value) => Container(
-                      margin: const EdgeInsets.only(left: 8),
+                      margin: EdgeInsets.only(
+                          left: widget.labelText == null ? 8 : 0, right: 4),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
