@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementType } from 'react';
+import React, { ComponentPropsWithoutRef, ElementType } from 'react';
 import { Space } from '../Space';
 import { styled } from '../stitches.config';
 
@@ -8,6 +8,7 @@ const StyledInput = styled(Space, {
   'input:focus': {
     borderColor: '$blue9',
   },
+  width: '100%',
   'input:disabled': {
     color: '$gray9',
   },
@@ -40,25 +41,45 @@ const StyledInput = styled(Space, {
     size: 'fullWidth',
   },
 });
-export const Input = ({
-  disabled,
-  defaultValue,
-  placeholder,
-  type,
-  id,
-  readOnly,
-  ...props
-}: InputProps) => {
-  return (
-    <StyledInput {...props}>
-      <input
-        disabled={disabled}
-        id={id}
-        defaultValue={defaultValue}
-        placeholder={placeholder}
-        type={type}
-        readOnly={readOnly}
-      />
-    </StyledInput>
-  );
-};
+
+export const Input = React.forwardRef(
+  ({
+    disabled,
+    defaultValue,
+    placeHolder,
+    type,
+    value,
+    id,
+    maxLength,
+    minLength,
+    max,
+    min,
+    name,
+    pattern,
+    onChange,
+    ref,
+    ...props
+  }: InputProps) => {
+    return (
+      <StyledInput {...props}>
+        <input
+          disabled={disabled}
+          id={id}
+          name={name}
+          pattern={pattern}
+          defaultValue={defaultValue}
+          placeholder={placeHolder}
+          type={type}
+          value={value}
+          ref={ref}
+          onChange={onChange}
+          maxLength={maxLength}
+          minLength={minLength}
+          max={max}
+          min={min}
+        />
+      </StyledInput>
+    );
+  }
+);
+

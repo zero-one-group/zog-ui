@@ -47,11 +47,15 @@ export const TextArea = ({
   disabled,
   defaultValue,
   placeholder,
+  value,
+  onChange,
   ...props
 }: TextAreaProps) => {
   return (
     <StyledTextArea {...props}>
       <textarea
+        onChange={onChange}
+        value={value}
         disabled={disabled}
         defaultValue={defaultValue}
         placeholder={placeholder}

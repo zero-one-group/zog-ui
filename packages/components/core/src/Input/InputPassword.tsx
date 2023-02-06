@@ -10,6 +10,7 @@ const StyledInputPassword = styled(Space, {
   input: {
     border: 'none',
     background: 'transparent',
+    padding: '0 !important',
   },
   padding: '4px 12px',
   'input:focus': {
@@ -30,15 +31,19 @@ const StyledInputPassword = styled(Space, {
     size: {
       sm: {
         height: '$5',
+        padding: '1px 8px',
       },
       md: {
         height: '$6',
+        padding: '5px 12px',
       },
       lg: {
         height: '$7',
+        padding: '8px 12px',
       },
       fullWidth: {
         width: '100%',
+        padding: '8px 12px',
       },
     },
   },
@@ -47,11 +52,27 @@ const StyledInputPassword = styled(Space, {
   },
 });
 
-export const InputPassword = (props: InputPasswordProps) => {
+export const InputPassword = ({
+  size,
+  onChage,
+  placeHolder,
+  id,
+  value,
+  disabled,
+  ...props
+}: InputPasswordProps) => {
   const [type, setType] = useState('password');
   return (
-    <StyledInputPassword {...props}>
-      <Input type={type} {...props} size="fullWidth" />
+    <StyledInputPassword size={size} {...props}>
+      <Input
+        type={type}
+        onChange={onChage}
+        placeHolder={placeHolder}
+        id={id}
+        value={value}
+        size={size}
+        disabled={disabled}
+      />
       {type === 'password' ? (
         <EyeInvisibleOutlined onClick={() => setType('text')} />
       ) : (

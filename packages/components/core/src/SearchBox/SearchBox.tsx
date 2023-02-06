@@ -22,6 +22,7 @@ const StyledSearchBox = styled(Space, {
   input: {
     border: 'none',
     background: 'transparent',
+    padding: '0 !important',
   },
   padding: '4px 12px',
   'input:focus': {
@@ -50,6 +51,7 @@ const StyledSearchBox = styled(Space, {
       },
       fullWidth: {
         width: '100%',
+        height: '$7',
         padding: '1px 8px',
       },
     },
@@ -61,25 +63,34 @@ const StyledSearchBox = styled(Space, {
 export const SearchBox = ({
   disabled,
   defaultValue,
-  placeholder,
-  colorSchema = 'secondary',
+  placeHolder,
+  intent = 'secondary',
   iconButton,
   label,
   showCloseIcon = false,
   showVoiceIcon = false,
   onClear,
+  size,
+  value,
+  onChange,
+  onSearch,
   ...props
 }: SearchBoxProps) => {
   return (
     <Space>
-      <StyledSearchBox {...props}>
-        <Input defaultValue={defaultValue} placeholder={placeholder} />
+      <StyledSearchBox size={size} {...props}>
+        <Input
+          onChange={onChange}
+          size={size}
+          defaultValue={defaultValue}
+          placeHolder={placeHolder}
+        />
         {showCloseIcon ? (
           <CloseCircleFilled onClick={onClear} style={{ color: '#bfbfbf' }} />
         ) : null}
         {showVoiceIcon ? <AudioOutlined style={{ color: '#1890FF' }} /> : null}
       </StyledSearchBox>
-      <Button colorScheme={colorSchema} size="sm" variant="square">
+      <Button onClick={onSearch} intent={intent} size="sm" variant="square">
         {iconButton ? iconButton : <SearchOutlined />}
         {label ? <Text css={{ margin: '0 10px' }}>{label}</Text> : null}
       </Button>
