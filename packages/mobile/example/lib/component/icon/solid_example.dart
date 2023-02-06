@@ -1,90 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:widgetbook/widgetbook.dart';
-import 'package:widgetbook_demo/options/color_options.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
-import '../utils.dart';
+class IconsSolidExample extends StatelessWidget {
+  const IconsSolidExample({super.key});
 
-WidgetbookComponent iconWidgetbookComponent = WidgetbookComponent(
-  name: 'Icon',
-  useCases: [
-    WidgetbookUseCase(
-      name: 'Single Tone',
-      builder: (context) => PreviewWidget(
-        child: LayoutBuilder(builder: (knobContext, constraints) {
-          return GridView.builder(
-            padding: const EdgeInsets.symmetric(vertical: 50),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: constraints.maxWidth ~/ 80,
-              mainAxisSpacing: 16,
-              crossAxisSpacing: 16,
-            ),
-            itemCount: _singleToneIconsData.length,
-            itemBuilder: (context, index) {
-              final item = _singleToneIconsData[index].entries.first;
-              return Container(
-                decoration: BoxDecoration(color: Colors.amber.shade50),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      item.value,
-                      size: 24,
-                      color: knobContext.knobs
-                          .options(label: 'Color', options: colorOptions),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      item.key,
-                      style: const TextStyle(fontSize: 10),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              );
-            },
-          );
-        }),
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Zero Icon Solid Example'),
       ),
-    ),
-    WidgetbookUseCase(
-      name: 'Two Tone',
-      builder: (context) => PreviewWidget(
-        child: LayoutBuilder(builder: (context, constraints) {
-          return GridView.builder(
-            padding: const EdgeInsets.symmetric(vertical: 50),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: constraints.maxWidth ~/ 80,
-              mainAxisSpacing: 16,
-              crossAxisSpacing: 16,
-            ),
-            itemCount: _twoToneIconsData.length,
-            itemBuilder: (context, index) {
-              final item = _twoToneIconsData[index].entries.first;
-              return Container(
-                decoration: BoxDecoration(color: Colors.amber.shade50),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    item.value,
-                    const SizedBox(height: 4),
-                    Text(
-                      item.key,
-                      style: const TextStyle(fontSize: 10),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              );
-            },
-          );
-        }),
-      ),
-    ),
-  ],
-);
+      body: LayoutBuilder(builder: (context, constraints) {
+        return GridView.builder(
+          padding: const EdgeInsets.symmetric(vertical: 50),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: constraints.maxWidth ~/ 80,
+            mainAxisSpacing: 16,
+            crossAxisSpacing: 16,
+          ),
+          itemCount: _iconsData.length,
+          itemBuilder: (context, index) {
+            final item = _iconsData[index].entries.first;
+            return Container(
+              decoration: BoxDecoration(color: Colors.amber.shade50),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(item.value, size: 24, color: Colors.blue),
+                  const SizedBox(height: 4),
+                  Text(
+                    item.key,
+                    style: const TextStyle(fontSize: 10),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      }),
+    );
+  }
+}
 
-final List<Map<String, IconData>> _singleToneIconsData = [
+final List<Map<String, IconData>> _iconsData = [
   {"verticalAlignTop": ZeroIcons.verticalAlignTop},
   {"verticalLeft": ZeroIcons.verticalLeft},
   {"verticalRight": ZeroIcons.verticalRight},
@@ -652,157 +611,4 @@ final List<Map<String, IconData>> _singleToneIconsData = [
   {"loading3Quarters": ZeroIcons.loading3Quarters},
   {"lock": ZeroIcons.lock},
   {"macCommand": ZeroIcons.macCommand}
-];
-
-final _twoToneIconsData = [
-  {'upCircle': const ZeroTwoToneIcons.upCircle(size: 32)},
-  {'like': const ZeroTwoToneIcons.like(size: 32)},
-  {'pauseCircle': const ZeroTwoToneIcons.pauseCircle(size: 32)},
-  {'checkSquare': const ZeroTwoToneIcons.checkSquare(size: 32)},
-  {'switcher': const ZeroTwoToneIcons.switcher(size: 32)},
-  {'moneyCollect': const ZeroTwoToneIcons.moneyCollect(size: 32)},
-  {'bulb': const ZeroTwoToneIcons.bulb(size: 32)},
-  {'fileUnknown': const ZeroTwoToneIcons.fileUnknown(size: 32)},
-  {'appstore': const ZeroTwoToneIcons.appstore(size: 32)},
-  {'fileExcel': const ZeroTwoToneIcons.fileExcel(size: 32)},
-  {'sound': const ZeroTwoToneIcons.sound(size: 32)},
-  {'leftCircle': const ZeroTwoToneIcons.leftCircle(size: 32)},
-  {'playCircle': const ZeroTwoToneIcons.playCircle(size: 32)},
-  {'fileZip': const ZeroTwoToneIcons.fileZip(size: 32)},
-  {'hourglass': const ZeroTwoToneIcons.hourglass(size: 32)},
-  {'highlight': const ZeroTwoToneIcons.highlight(size: 32)},
-  {'reconciliation': const ZeroTwoToneIcons.reconciliation(size: 32)},
-  {'dollar': const ZeroTwoToneIcons.dollar(size: 32)},
-  {'home': const ZeroTwoToneIcons.home(size: 32)},
-  {'poundCircle': const ZeroTwoToneIcons.poundCircle(size: 32)},
-  {'shop': const ZeroTwoToneIcons.shop(size: 32)},
-  {'copyright': const ZeroTwoToneIcons.copyright(size: 32)},
-  {'alert': const ZeroTwoToneIcons.alert(size: 32)},
-  {'sliders': const ZeroTwoToneIcons.sliders(size: 32)},
-  {'dollarCircle': const ZeroTwoToneIcons.dollarCircle(size: 32)},
-  {'shopping': const ZeroTwoToneIcons.shopping(size: 32)},
-  {'fileWord': const ZeroTwoToneIcons.fileWord(size: 32)},
-  {'funnelPlot': const ZeroTwoToneIcons.funnelPlot(size: 32)},
-  {'usb': const ZeroTwoToneIcons.usb(size: 32)},
-  {'euroCircle': const ZeroTwoToneIcons.euroCircle(size: 32)},
-  {'tag': const ZeroTwoToneIcons.tag(size: 32)},
-  {'upSquare': const ZeroTwoToneIcons.upSquare(size: 32)},
-  {'downSquare': const ZeroTwoToneIcons.downSquare(size: 32)},
-  {'fileAdd': const ZeroTwoToneIcons.fileAdd(size: 32)},
-  {'plusSquare': const ZeroTwoToneIcons.plusSquare(size: 32)},
-  {'database': const ZeroTwoToneIcons.database(size: 32)},
-  {'file': const ZeroTwoToneIcons.file(size: 32)},
-  {'accountBook': const ZeroTwoToneIcons.accountBook(size: 32)},
-  {'control': const ZeroTwoToneIcons.control(size: 32)},
-  {'redEnvelope': const ZeroTwoToneIcons.redEnvelope(size: 32)},
-  {'boxPlot': const ZeroTwoToneIcons.boxPlot(size: 32)},
-  {'fileText': const ZeroTwoToneIcons.fileText(size: 32)},
-  {'folderOpen': const ZeroTwoToneIcons.folderOpen(size: 32)},
-  {'build': const ZeroTwoToneIcons.build(size: 32)},
-  {'questionCircle': const ZeroTwoToneIcons.questionCircle(size: 32)},
-  {'lock': const ZeroTwoToneIcons.lock(size: 32)},
-  {'fire': const ZeroTwoToneIcons.fire(size: 32)},
-  {'dislike': const ZeroTwoToneIcons.dislike(size: 32)},
-  {'euro': const ZeroTwoToneIcons.euro(size: 32)},
-  {'idcard': const ZeroTwoToneIcons.idcard(size: 32)},
-  {'meh': const ZeroTwoToneIcons.meh(size: 32)},
-  {'ci': const ZeroTwoToneIcons.ci(size: 32)},
-  {'diff': const ZeroTwoToneIcons.diff(size: 32)},
-  {'minusSquare': const ZeroTwoToneIcons.minusSquare(size: 32)},
-  {'closeCircle': const ZeroTwoToneIcons.closeCircle(size: 32)},
-  {'mail': const ZeroTwoToneIcons.mail(size: 32)},
-  {'book': const ZeroTwoToneIcons.book(size: 32)},
-  {'wallet': const ZeroTwoToneIcons.wallet(size: 32)},
-  {'fileImage': const ZeroTwoToneIcons.fileImage(size: 32)},
-  {'bell': const ZeroTwoToneIcons.bell(size: 32)},
-  {'dashboard': const ZeroTwoToneIcons.dashboard(size: 32)},
-  {'code': const ZeroTwoToneIcons.code(size: 32)},
-  {'carryOut': const ZeroTwoToneIcons.carryOut(size: 32)},
-  {'flag': const ZeroTwoToneIcons.flag(size: 32)},
-  {'snippets': const ZeroTwoToneIcons.snippets(size: 32)},
-  {'stop': const ZeroTwoToneIcons.stop(size: 32)},
-  {'rightCircle': const ZeroTwoToneIcons.rightCircle(size: 32)},
-  {'container': const ZeroTwoToneIcons.container(size: 32)},
-  {'frown': const ZeroTwoToneIcons.frown(size: 32)},
-  {'tool': const ZeroTwoToneIcons.tool(size: 32)},
-  {'safetyCertificate': const ZeroTwoToneIcons.safetyCertificate(size: 32)},
-  {'trophy': const ZeroTwoToneIcons.trophy(size: 32)},
-  {'warning': const ZeroTwoToneIcons.warning(size: 32)},
-  {'pieChart': const ZeroTwoToneIcons.pieChart(size: 32)},
-  {'securityScan': const ZeroTwoToneIcons.securityScan(size: 32)},
-  {'infoCircle': const ZeroTwoToneIcons.infoCircle(size: 32)},
-  {'eyeInvisible': const ZeroTwoToneIcons.eyeInvisible(size: 32)},
-  {'leftSquare': const ZeroTwoToneIcons.leftSquare(size: 32)},
-  {'copy': const ZeroTwoToneIcons.copy(size: 32)},
-  {'gold': const ZeroTwoToneIcons.gold(size: 32)},
-  {'fund': const ZeroTwoToneIcons.fund(size: 32)},
-  {'playSquare': const ZeroTwoToneIcons.playSquare(size: 32)},
-  {'fileExclamation': const ZeroTwoToneIcons.fileExclamation(size: 32)},
-  {'environment': const ZeroTwoToneIcons.environment(size: 32)},
-  {'checkCircle': const ZeroTwoToneIcons.checkCircle(size: 32)},
-  {'html5': const ZeroTwoToneIcons.html5(size: 32)},
-  {'save': const ZeroTwoToneIcons.save(size: 32)},
-  {'smile': const ZeroTwoToneIcons.smile(size: 32)},
-  {'setting': const ZeroTwoToneIcons.setting(size: 32)},
-  {'message': const ZeroTwoToneIcons.message(size: 32)},
-  {'copyrightCircle': const ZeroTwoToneIcons.copyrightCircle(size: 32)},
-  {'crown': const ZeroTwoToneIcons.crown(size: 32)},
-  {'notification': const ZeroTwoToneIcons.notification(size: 32)},
-  {'picture': const ZeroTwoToneIcons.picture(size: 32)},
-  {'camera': const ZeroTwoToneIcons.camera(size: 32)},
-  {'printer': const ZeroTwoToneIcons.printer(size: 32)},
-  {'exclamationCircle': const ZeroTwoToneIcons.exclamationCircle(size: 32)},
-  {'downCircle': const ZeroTwoToneIcons.downCircle(size: 32)},
-  {'rest': const ZeroTwoToneIcons.rest(size: 32)},
-  {'contacts': const ZeroTwoToneIcons.contacts(size: 32)},
-  {'star': const ZeroTwoToneIcons.star(size: 32)},
-  {'trademarkCircle': const ZeroTwoToneIcons.trademarkCircle(size: 32)},
-  {'experiment': const ZeroTwoToneIcons.experiment(size: 32)},
-  {'edit': const ZeroTwoToneIcons.edit(size: 32)},
-  {'api': const ZeroTwoToneIcons.api(size: 32)},
-  {'bug': const ZeroTwoToneIcons.bug(size: 32)},
-  {'unlock': const ZeroTwoToneIcons.unlock(size: 32)},
-  {'compass': const ZeroTwoToneIcons.compass(size: 32)},
-  {'plusCircle': const ZeroTwoToneIcons.plusCircle(size: 32)},
-  {'bank': const ZeroTwoToneIcons.bank(size: 32)},
-  {'creditCard': const ZeroTwoToneIcons.creditCard(size: 32)},
-  {'fileMarkdown': const ZeroTwoToneIcons.fileMarkdown(size: 32)},
-  {'audio': const ZeroTwoToneIcons.audio(size: 32)},
-  {'delete': const ZeroTwoToneIcons.delete(size: 32)},
-  {'skin': const ZeroTwoToneIcons.skin(size: 32)},
-  {'phone': const ZeroTwoToneIcons.phone(size: 32)},
-  {'eye': const ZeroTwoToneIcons.eye(size: 32)},
-  {'mobile': const ZeroTwoToneIcons.mobile(size: 32)},
-  {'insurance': const ZeroTwoToneIcons.insurance(size: 32)},
-  {'gift': const ZeroTwoToneIcons.gift(size: 32)},
-  {'car': const ZeroTwoToneIcons.car(size: 32)},
-  {'ciCircle': const ZeroTwoToneIcons.ciCircle(size: 32)},
-  {'thunderbolt': const ZeroTwoToneIcons.thunderbolt(size: 32)},
-  {'profile': const ZeroTwoToneIcons.profile(size: 32)},
-  {'tags': const ZeroTwoToneIcons.tags(size: 32)},
-  {'folderAdd': const ZeroTwoToneIcons.folderAdd(size: 32)},
-  {'schedule': const ZeroTwoToneIcons.schedule(size: 32)},
-  {'filter': const ZeroTwoToneIcons.filter(size: 32)},
-  {'calendar': const ZeroTwoToneIcons.calendar(size: 32)},
-  {'videoCamera': const ZeroTwoToneIcons.videoCamera(size: 32)},
-  {'minusCircle': const ZeroTwoToneIcons.minusCircle(size: 32)},
-  {'closeSquare': const ZeroTwoToneIcons.closeSquare(size: 32)},
-  {'cloud': const ZeroTwoToneIcons.cloud(size: 32)},
-  {'interaction': const ZeroTwoToneIcons.interaction(size: 32)},
-  {'propertySafety': const ZeroTwoToneIcons.propertySafety(size: 32)},
-  {'rightSquare': const ZeroTwoToneIcons.rightSquare(size: 32)},
-  {'rocket': const ZeroTwoToneIcons.rocket(size: 32)},
-  {'tablet': const ZeroTwoToneIcons.tablet(size: 32)},
-  {'pushpin': const ZeroTwoToneIcons.pushpin(size: 32)},
-  {'hdd': const ZeroTwoToneIcons.hdd(size: 32)},
-  {'calculator': const ZeroTwoToneIcons.calculator(size: 32)},
-  {'medicineBox': const ZeroTwoToneIcons.medicineBox(size: 32)},
-  {'project': const ZeroTwoToneIcons.project(size: 32)},
-  {'folder': const ZeroTwoToneIcons.folder(size: 32)},
-  {'filePpt': const ZeroTwoToneIcons.filePpt(size: 32)},
-  {'filePdf': const ZeroTwoToneIcons.filePdf(size: 32)},
-  {'customerService': const ZeroTwoToneIcons.customerService(size: 32)},
-  {'layout': const ZeroTwoToneIcons.layout(size: 32)},
-  {'clockCircle': const ZeroTwoToneIcons.clockCircle(size: 32)},
-  {'heart': const ZeroTwoToneIcons.heart(size: 32)},
 ];

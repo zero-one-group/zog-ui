@@ -5,6 +5,7 @@ import 'component/avatar/avatar_example.dart';
 import 'component/button/zero_button_example.dart';
 import 'component/chip/chip_example.dart';
 import 'component/divider/divider_example.dart';
+import 'component/icon/icon_example.dart';
 import 'component/listtile/listile_example.dart';
 import 'component/rating/zero_rating_example.dart';
 import 'component/slider/zero_slider_example.dart';
