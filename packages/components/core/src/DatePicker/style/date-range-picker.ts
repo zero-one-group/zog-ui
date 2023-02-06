@@ -4,7 +4,7 @@ import { GetStyleArgs } from './type';
 
 export const getDateRangePickerOnlyStyle = ({
   primaryColor,
-  backgroundColor,
+  highlightColor,
   prefixCls,
 }: GetStyleArgs): CSS => {
   const cls = `.${prefixCls}`;
@@ -20,13 +20,31 @@ export const getDateRangePickerOnlyStyle = ({
           color: 'white',
           background: primaryColor,
         }),
-      [`&${cls}-cell-range-start ${cls}-cell-inner`]: renderCSS({
-        borderTopRightRadius: 0,
-        borderBottomRightRadius: 0,
+      [`&${cls}-cell-in-range ${cls}-cell-inner`]: renderCSS({
+        background: highlightColor,
       }),
-      [`&${cls}-cell-range-end ${cls}-cell-inner`]: renderCSS({
-        borderTopLeftRadius: 0,
-        borderBottomLeftRadius: 0,
+      [`&${cls}-cell-in-range::before`]: renderCSS({
+        background: highlightColor,
+      }),
+      [`&${cls}-cell-range-start`]: renderCSS({
+        [`${cls}-cell-inner`]: {
+          borderTopRightRadius: 0,
+          borderBottomRightRadius: 0,
+        },
+        '&::before': renderCSS({
+          background: highlightColor,
+          insetInlineStart: '50%',
+        }),
+      }),
+      [`&${cls}-cell-range-end`]: renderCSS({
+        [`${cls}-cell-inner`]: {
+          borderTopLeftRadius: 0,
+          borderBottomLeftRadius: 0,
+        },
+        '&::before': renderCSS({
+          background: highlightColor,
+          insetInlineEnd: '50%',
+        }),
       }),
     },
     '&-inner': {
@@ -52,6 +70,17 @@ export const getDateRangePickerOnlyStyle = ({
       zIndex: 1,
       border: `1px solid ${primaryColor}`,
       borderRadius: '2px',
+      content: '',
+    },
+    '&::before': {
+      position: 'absolute',
+      top: '50%',
+      insetInlineStart: 0,
+      insetInlineEnd: 0,
+      zIndex: 1,
+      height: '24px',
+      transform: 'translateY(-50%)',
+      transition: 'all .3s',
       content: '',
     },
   });
