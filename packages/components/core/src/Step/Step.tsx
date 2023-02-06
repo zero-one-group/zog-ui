@@ -27,6 +27,7 @@ export const StyledStep = styled(Space, {
   'div:last-child': {
     'hr:last-child': {
       borderLeft: '0px !important',
+      border: '0px !important',
     },
     'div:last-child hr': {
       borderBottom: '0px !important',
