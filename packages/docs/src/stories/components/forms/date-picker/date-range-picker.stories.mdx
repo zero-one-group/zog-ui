@@ -1,0 +1,49 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { DateRangePicker } from '@zero-ui/core';
+
+<Meta
+  title="Components/Forms/DatePicker/DateRangePicker"
+  component={[DateRangePicker]}
+  argTypes={{
+    size: {
+      options: ['small', 'medium', 'large'],
+      control: { type: 'radio' },
+    },
+    colorScheme: {
+      options: ['pink', 'slate', 'blue', 'teal'],
+      control: { type: 'select' },
+    },
+    disabled: {
+      control: { type: 'boolean' },
+    },
+  }}
+/>
+
+export const DateRangePickerStory = ({ children, ...args }) => (
+  <div style={{ height: '100vh' }}>
+    <DateRangePicker {...args}>{children}</DateRangePicker>
+  </div>
+);
+
+# DateRangePicker
+
+> DateRangePicker provides a visual way to select date range
+
+## Example Usage
+
+```jsx
+import { DateRangePicker } from '@zero-ui/core';
+```
+
+<Canvas columns={2} withSource="close">
+  <Story
+    name="DateRangePicker"
+    args={{
+      size: 'small',
+    }}
+  >
+    {DateRangePickerStory.bind()}
+  </Story>
+</Canvas>
+
+<ArgsTable of={DateRangePicker} />
