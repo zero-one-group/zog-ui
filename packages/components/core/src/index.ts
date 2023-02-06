@@ -7,6 +7,7 @@ export * from './Button';
 export * from './Cascader';
 export * from './Checkbox';
 export * from './ControlGroup';
+export * from './DatePicker';
 export * from './DesignSystemProvider';
 export * from './Dialog';
 export * from './Divider';
