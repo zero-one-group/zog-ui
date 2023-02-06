@@ -81,13 +81,10 @@ export './components/switch/zero_switch_ios.dart';
 // snackbar
 export './components/snackbar/zero_snackbar.dart';
 export './components/snackbar/zero_snackbar_alert.dart';
+
 // icons
 export './components/icons/zero_icons.dart';
 export './components/icons/two_tone_icons.dart';
-
-// snackbar
-export './components/snackbar/zero_snackbar.dart';
-export './components/snackbar/zero_snackbar_alert.dart';
 
 // types
 export './types/button_radius_type.dart';

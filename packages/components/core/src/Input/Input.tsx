@@ -41,6 +41,7 @@ const StyledInput = styled(Space, {
     size: 'fullWidth',
   },
 });
+
 export const Input = React.forwardRef(
   ({
     disabled,
