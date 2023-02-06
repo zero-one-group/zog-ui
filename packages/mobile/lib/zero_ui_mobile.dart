@@ -80,6 +80,7 @@ export './components/switch/zero_switch_ios.dart';
 
 // icons
 export './components/icons/zero_icons.dart';
+export './components/icons/two_tone_icons.dart';
 
 // types
 export './types/button_radius_type.dart';
@@ -106,3 +107,4 @@ export './size/chip_size.dart';
 // utils
 export './utils/extensions/theme_extensions.dart';
 export './utils/extensions/num_extensions.dart';
+export './utils/extensions/color_extension.dart';
