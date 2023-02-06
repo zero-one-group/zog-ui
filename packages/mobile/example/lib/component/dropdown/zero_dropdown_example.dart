@@ -9,7 +9,6 @@ class ZeroDropdownExample extends StatelessWidget {
     'Item 3',
     'Item 4',
     'Item 5',
-    'Item 6'
   ];
 
   @override
@@ -58,12 +57,38 @@ class ZeroDropdownExample extends StatelessWidget {
                 height: 10,
               ),
               ZeroDropdown.multiple(
+                labelText: 'Label text',
                 onChanged: (p0) {},
                 items: items,
                 multipleItemsVariant: MultipleItemsVariant.checkboxes,
                 suffixIcon: const Icon(Icons.search),
+                selectedItemsStyle: SelectedItemsStyle.chip,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              ZeroDropdown.multiple(
+                onChanged: (p0) {},
+                items: items,
+                labelText: 'Label text',
+                hintText: 'Hint text',
+                multipleItemsVariant: MultipleItemsVariant.checkboxes,
+                suffixIcon: const Icon(Icons.search),
                 selectedItemsStyle: SelectedItemsStyle.chipInverted,
-              )
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              ZeroDropdown.multiple(
+                onChanged: (p0) {},
+                items: items,
+                labelText: 'Label text large',
+                hintText: 'Hint text',
+                multipleItemsVariant: MultipleItemsVariant.checkboxes,
+                textfieldSize: ZeroTextfieldSize.large,
+                suffixIcon: const Icon(Icons.search),
+                selectedItemsStyle: SelectedItemsStyle.chipInverted,
+              ),
             ]),
           ),
         ),
