@@ -60,16 +60,6 @@ WidgetbookComponent colorWidgetbookComponent = WidgetbookComponent(
   ],
 );
 
-extension HexColor on Color {
-  /// Prefixes a hash sign if [leadingHashSign] is set to `true` (default is `true`).
-  String toHex({bool leadingHashSign = true}) =>
-      '${leadingHashSign ? '0x' : ''}'
-      '${alpha.toRadixString(16).toUpperCase().padLeft(2, '0')}'
-      '${red.toRadixString(16).toUpperCase().padLeft(2, '0')}'
-      '${green.toRadixString(16).toUpperCase().padLeft(2, '0')}'
-      '${blue.toRadixString(16).toUpperCase().padLeft(2, '0')}';
-}
-
 List<Option<ShadedColor>> _colorOptions = [
   const Option(label: 'Primary', value: ZeroColors.primary),
   const Option(label: 'Calendula Gold', value: ZeroColors.calendulaGold),

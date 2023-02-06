@@ -70,7 +70,7 @@ WidgetbookComponent dividerWidgetbookComponent = WidgetbookComponent(
 
 List<Option<Color>> _colorOptions = [
   Option(
-    label: 'Neutural 7',
+    label: 'Neutral 7',
     value: ZeroColors.neutral[7],
   ),
   Option(

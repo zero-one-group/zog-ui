@@ -23,7 +23,7 @@ WidgetbookComponent chipWidgetbookComponent = WidgetbookComponent(
       ),
     ),
     WidgetbookUseCase(
-      name: 'Filled without with Icon',
+      name: 'Filled with Cancel Icon',
       builder: (context) => PreviewWidget(
         child: ZeroChipFilled(
           label: context.knobs
@@ -56,7 +56,7 @@ WidgetbookComponent chipWidgetbookComponent = WidgetbookComponent(
       ),
     ),
     WidgetbookUseCase(
-      name: 'Outlined without with Icon',
+      name: 'Outlined with Cancel Icon',
       builder: (context) => PreviewWidget(
         child: ZeroChipOutlined(
           label: context.knobs
