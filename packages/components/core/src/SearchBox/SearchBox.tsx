@@ -22,6 +22,7 @@ const StyledSearchBox = styled(Space, {
   input: {
     border: 'none',
     background: 'transparent',
+    padding: '0 !important',
   },
   padding: '4px 12px',
   'input:focus': {
@@ -50,6 +51,7 @@ const StyledSearchBox = styled(Space, {
       },
       fullWidth: {
         width: '100%',
+        height: '$7',
         padding: '1px 8px',
       },
     },

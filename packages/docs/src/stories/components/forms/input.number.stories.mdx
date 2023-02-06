@@ -1,0 +1,67 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { InputNumber } from '@zero-ui/core';
+import { DownOutlined, PlusOutlined, UpOutlined } from '@ant-design/icons';
+
+import { useState } from 'react';
+<Meta
+  title="Components/Forms/Input"
+  component={[InputNumber]}
+  argTypes={{
+    size: {
+      options: ['sm', 'md', 'lg', 'fullWidth'],
+      control: { type: 'radio' },
+    },
+    disabled: {
+      control: 'boolean',
+    },
+    value: {
+      control: 'text',
+    },
+  }}
+/>;
+
+export const InputNumberStory = ({ children, ...args }) => (
+  <InputNumber {...args}></InputNumber>
+);
+
+# InputNumber
+
+> WIP
+
+## Example Usage
+
+```tsx
+import { InputNumber } from '@zero-ui/core';
+```
+
+<Canvas columns={2} withSource="close">
+  <Story
+    name="InputNumber"
+    args={{
+      defaultValue: '',
+      placeHolder: 'input number',
+      leftIcon: <PlusOutlined />,
+      decrementIcon: <DownOutlined />,
+      incrementIcon: <UpOutlined />,
+      rightIcon: '$',
+      max: 5,
+      min: 0,
+      enableNegativeValue: false,
+    }}
+  >
+    {(args) => {
+      const [value, setValue] = useState(0);
+      return (
+        <InputNumber
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          decrement={() => setValue(value + 1)}
+          increment={() => setValue(value - 1)}
+          {...args}
+        />
+      );
+    }}
+  </Story>
+</Canvas>
+
+<ArgsTable of={InputNumber} />
