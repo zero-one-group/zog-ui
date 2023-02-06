@@ -6,6 +6,7 @@ import 'component/button/zero_button_example.dart';
 import 'component/chip/chip_example.dart';
 import 'component/divider/divider_example.dart';
 import 'component/listtile/listile_example.dart';
+import 'component/progress_indicator/zero_progress_indicator_example.dart';
 import 'component/rating/zero_rating_example.dart';
 import 'component/slider/zero_slider_example.dart';
 import 'component/switch/zero_switch_example.dart';
@@ -193,6 +194,16 @@ class Examples extends StatelessWidget {
               );
             },
             text: 'Zero Switch Example',
+          ),
+          ZeroButton.primary(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const ZeroProgressIndicatorExample(),
+                ),
+              );
+            },
+            text: 'Zero Progress Indicator Example',
           ),
         ],
       ),

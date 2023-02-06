@@ -78,6 +78,9 @@ export './components/switch/zero_switch.dart';
 export './components/switch/zero_switch_android.dart';
 export './components/switch/zero_switch_ios.dart';
 
+// Progress Indicator
+export './components/progress_indicator/zero_progress_indicator.dart';
+
 // types
 export './types/button_radius_type.dart';
 export './types/button_group_type.dart';
