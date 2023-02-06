@@ -21,7 +21,7 @@ jobs:
           version: 3.7.0
 
       - name: Install dependencies & Build
-        run: cd packages/mobile && flutter pub get && flutter build web -t widgetbook/main.dart
+        run: cd packages/mobile/widgetbook && flutter pub get && flutter build web
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:

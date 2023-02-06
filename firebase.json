@@ -13,7 +13,7 @@
     },
     {
       "site": "zero-ui-mobile",
-      "public": "packages/mobile/build/web",
+      "public": "packages/mobile/widgetbook/build/web",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
         {
