@@ -1362,6 +1362,22 @@ class ZeroTwoToneIcons extends StatelessWidget {
 </svg>
 ''';
 
+  const ZeroTwoToneIcons._({
+    this.color,
+    this.secondaryColor,
+    this.size,
+    required String svgData,
+  }) : _svgData = svgData;
+
+  ZeroTwoToneIcons copyWith(
+          {Color? color, Color? secondaryColor, double? size}) =>
+      ZeroTwoToneIcons._(
+        color: color ?? this.color,
+        secondaryColor: secondaryColor ?? this.secondaryColor,
+        size: size ?? this.size,
+        svgData: _svgData,
+      );
+
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;

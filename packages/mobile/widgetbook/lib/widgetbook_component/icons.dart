@@ -50,6 +50,11 @@ WidgetbookComponent iconWidgetbookComponent = WidgetbookComponent(
     WidgetbookUseCase(
       name: 'Two Tone',
       builder: (context) => PreviewWidget(
+        theme: ZeroThemeData(
+          iconTheme: IconThemeData(
+            color: context.knobs.options(label: 'Color', options: colorOptions),
+          ),
+        ),
         child: LayoutBuilder(builder: (context, constraints) {
           return GridView.builder(
             padding: const EdgeInsets.symmetric(vertical: 50),
@@ -61,12 +66,18 @@ WidgetbookComponent iconWidgetbookComponent = WidgetbookComponent(
             itemCount: _twoToneIconsData.length,
             itemBuilder: (context, index) {
               final item = _twoToneIconsData[index].entries.first;
+
               return Container(
                 decoration: BoxDecoration(color: Colors.amber.shade50),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    item.value,
+                    item.value.copyWith(
+                      secondaryColor: context.knobs.options(
+                        label: 'Secondary Color',
+                        options: colorOptions,
+                      ),
+                    ),
                     const SizedBox(height: 4),
                     Text(
                       item.key,
