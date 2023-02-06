@@ -85,6 +85,10 @@ export './components/snackbar/zero_snackbar_alert.dart';
 export './components/icons/zero_icons.dart';
 export './components/icons/two_tone_icons.dart';
 
+// snackbar
+export './components/snackbar/zero_snackbar.dart';
+export './components/snackbar/zero_snackbar_alert.dart';
+
 // types
 export './types/button_radius_type.dart';
 export './types/button_group_type.dart';
