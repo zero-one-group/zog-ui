@@ -9,6 +9,13 @@ import { DatePicker } from '@zero-ui/core';
       options: ['small', 'medium', 'large'],
       control: { type: 'radio' },
     },
+    colorScheme: {
+      options: ['pink', 'slate', 'blue', 'teal'],
+      control: { type: 'select' },
+    },
+    disabled: {
+      control: { type: 'boolean' },
+    },
   }}
 />
 
@@ -20,7 +27,7 @@ export const DatePickerStory = ({ children, ...args }) => (
 
 # DatePicker
 
-> WIP
+> DatePicker provides a visual way to select date and time
 
 ## Example Usage
 

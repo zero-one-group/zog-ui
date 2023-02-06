@@ -9,6 +9,13 @@ import { DateRangePicker } from '@zero-ui/core';
       options: ['small', 'medium', 'large'],
       control: { type: 'radio' },
     },
+    colorScheme: {
+      options: ['pink', 'slate', 'blue', 'teal'],
+      control: { type: 'select' },
+    },
+    disabled: {
+      control: { type: 'boolean' },
+    },
   }}
 />
 
@@ -20,7 +27,7 @@ export const DateRangePickerStory = ({ children, ...args }) => (
 
 # DateRangePicker
 
-> WIP
+> DateRangePicker provides a visual way to select date range
 
 ## Example Usage
 

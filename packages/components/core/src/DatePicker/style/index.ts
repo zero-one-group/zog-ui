@@ -40,49 +40,6 @@ const getCommonStyle = ({
   const getDatetimePanelStyle = (): CSS => ({
     display: 'flex',
   });
-  // const getTimePanelStyle = (): CSS => ({
-  //   width: 'auto',
-  //   minWidth: 'auto',
-  //   '&-column': {
-  //     flex: '1 0 auto',
-  //     width: '56px',
-  //     margin: '4px 0',
-  //     padding: 0,
-  //     overflowY: 'hidden',
-  //     textAlign: 'start',
-  //     listStyle: 'none',
-  //     transition: 'background .2s',
-  //     overflowX: 'hidden',
-  //   },
-  //   '&-column:hover': {
-  //     overflowY: 'auto',
-  //   },
-  //   '&-cell': {
-  //     marginInline: '4px',
-  //     '&-inner': renderCSS({
-  //       display: 'flex',
-  //       alignItems: 'center',
-  //       justifyContent: 'center',
-  //       width: '48px',
-  //       height: '28px',
-  //       margin: 0,
-  //       paddingBlock: 0,
-  //       paddingInlineEnd: 0,
-  //       color: '$blackA12',
-  //       lineHeight: '28px',
-  //       borderRadius: '4px',
-  //       fontSize: '1em',
-  //       cursor: 'pointer',
-  //       transition: 'background .2s',
-  //       '&:hover': {
-  //         background: '$blackA5',
-  //       },
-  //     }),
-  //     '&-selected > div': {
-  //       backgroundColor: '$blackA3',
-  //     }
-  //   },
-  // });
   const getInputStyle = (): CSS => ({
     display: 'inline-flex',
     position: 'relative',
@@ -251,43 +208,6 @@ const getCommonStyle = ({
     },
   });
 
-  // const getCellStyle = (): CSS => ({
-  //   padding: '4px 0',
-  //   color: '$blackA9',
-  //   cursor: 'pointer',
-  //   '&-in-view': {
-  //     color: '$blackA12',
-  //   },
-  //   '&-inner': {
-  //     position: 'relative',
-  //     zIndex: 2,
-  //     display: 'inline-block',
-  //     fontSize: '1em',
-  //     minWidth: '24px',
-  //     height: '24px',
-  //     lineHeight: '24px',
-  //     borderRadius: '2px',
-  //   },
-  //   [`&:not(${cls}-cell-selected):hover ${cls}-cell-inner`]: {
-  //     background: '$blackA5',
-  //   },
-  //   [`&-selected ${cls}-cell-inner`]: {
-  //     color: 'white',
-  //     background: primaryColor,
-  //   },
-  //   [`&-today ${cls}-cell-inner::before`]: {
-  //     position: 'absolute',
-  //     top: 0,
-  //     insetInlineEnd: 0,
-  //     bottom: 0,
-  //     insetInlineStart: 0,
-  //     zIndex: 1,
-  //     border: `1px solid ${primaryColor}`,
-  //     borderRadius: '2px',
-  //     content: '',
-  //   },
-  // });
-
   const getFooterStyle = (): CSS => ({
     width: 'min-content',
     minWidth: '100%',
@@ -306,25 +226,6 @@ const getCommonStyle = ({
     display: 'flex',
     justifyContent: 'space-between',
   });
-
-  // const getButtonOkStyle = (): CSS => ({
-  //   marginInlineStart: 'auto',
-  //   button: {
-  //     padding: '0 8px',
-  //     height: '24px',
-  //     outline: 'none',
-  //     border: 'none',
-  //     background: primaryColor,
-  //     color: 'white',
-  //     borderRadius: '2px',
-  //     fontSize: '14px',
-  //     cursor: 'pointer',
-  //   },
-  //   'button:disabled': {
-  //     background: '$blackA9',
-  //     cursor: 'not-allowed',
-  //   },
-  // });
 
   const mainStyle: CSS = {
     fontSize: '14px',
@@ -351,7 +252,6 @@ const getCommonStyle = ({
       padding: '0 4px',
     },
     '&-datetime-panel': getDatetimePanelStyle(),
-    // '&-time-panel': getTimePanelStyle(),
     [`&-time-panel ${cls}-content`]: {
       display: 'flex',
       flex: 'auto',
@@ -364,19 +264,21 @@ const getCommonStyle = ({
     '&-header': getHeaderStyle(),
     '&-body': getBodyStyle(),
     '&-content': getContentStyle(),
-    // '&-cell': getCellStyle(),
     '&-footer': getFooterStyle(),
     '&-ranges': getRangeStyle(),
-    // '&-ok': getButtonOkStyle(),
-    // '&-today-btn': {
-    //   color: primaryColor,
-    //   cursor: 'pointer',
-    // },
     [`&:hover ${cls}-clear`]: {
       opacity: 1,
     },
     '&-panels': {
       display: 'inline-flex',
+    },
+    '&-disabled': {
+      cursor: 'not-allowed',
+      pointerEvents: 'none',
+      background: '#F4F6F7',
+      '& input': {
+        background: '#F4F6F7',
+      },
     },
   };
   return mainStyle;

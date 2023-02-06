@@ -1,17 +1,26 @@
-import { ComponentProps, ReactElement, useRef } from 'react';
+import { CalendarOutlined, CloseCircleFilled } from '@ant-design/icons';
 import Picker, { PickerProps } from 'rc-picker';
 import dateFnsGenerateConfig from 'rc-picker/lib/generate/dateFns';
 import enUS from 'rc-picker/lib/locale/en_US';
+import { ComponentProps, ReactElement, useRef } from 'react';
 import { styled } from '../stitches.config';
-import { CalendarOutlined, CloseCircleFilled } from '@ant-design/icons';
 import { getDatePickerStyle } from './style';
+
+const getColorSchemeVariants = (colorScheme?: string) => {
+  return {
+    $$primaryColor: colorScheme
+      ? `$colors-${colorScheme}9`
+      : '$colors-primary9',
+    $$highlightColor: colorScheme
+      ? `$colors-${colorScheme}4`
+      : '$colors-primary4',
+  };
+};
 
 const PREFIX_CLS = 'zero-picker';
 
 const StyledWrapperPicker = styled('div', {
   position: 'relative',
-  $$primaryColor: '#1890FF',
-  $$highlightColor: '#E6F7FF',
   [`.${PREFIX_CLS}`]: {
     fontSize: '14px',
     fontFamily: '$untitled',
@@ -52,14 +61,33 @@ const StyledWrapperPicker = styled('div', {
 });
 
 type DatePickerOwnProps = {
-  color?: string;
+  /** Color of the selected date, input focus and hovered also highlight
+   * please don't use color with opacity
+   * if not set, `primary color` will used*/
+  colorScheme?: string;
+  /** Show time picker beside datepicker*/
   showTime?: boolean;
+  /** Show button today for selecting today's date*/
   showToday?: boolean;
 };
 
 type RcPickerProps = Omit<
   PickerProps<Date>,
-  'generateConfig' | 'getPopupContainer' | 'prefixCls'
+  | 'generateConfig'
+  | 'getPopupContainer'
+  | 'prefixCls'
+  | 'components'
+  | 'dateRender'
+  | 'defaultOpen'
+  | 'defaultPickerValue'
+  | 'direction'
+  | 'dropdownAlign'
+  | 'inputRender'
+  | 'monthCellRender'
+  | 'panelRender'
+  | 'pickerRef'
+  | 'transitionName'
+  | 'tabIndex'
 >;
 type StyledWrapperProps = Pick<
   ComponentProps<typeof StyledWrapperPicker>,
@@ -79,6 +107,7 @@ export const DatePicker: DatePickerComponent = ({
   showTime,
   showToday = true,
   locale = enUS,
+  colorScheme,
   ...props
 }) => {
   // picker panel parent should be the wrapper for styling reason
@@ -86,7 +115,11 @@ export const DatePicker: DatePickerComponent = ({
   const wrapperRef = useRef<any>(null);
 
   return (
-    <StyledWrapperPicker css={css} size={size} ref={wrapperRef}>
+    <StyledWrapperPicker
+      css={{ ...css, ...getColorSchemeVariants(colorScheme) }}
+      size={size}
+      ref={wrapperRef}
+    >
       <Picker<Date>
         prefixCls={PREFIX_CLS}
         generateConfig={dateFnsGenerateConfig}
