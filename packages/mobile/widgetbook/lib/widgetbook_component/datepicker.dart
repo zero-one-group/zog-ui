@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
@@ -9,29 +8,36 @@ WidgetbookComponent datepickerWidgetbookComponent = WidgetbookComponent(
   useCases: [
     WidgetbookUseCase(
         name: 'Date Picker',
-        builder: (context) => ZeroApp(
-              home: PreviewWidget(
-                child: ZeroButton.primary(
-                    text: 'Date Picker',
-                    onPressed: () async {
-                      showZeroDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate:
-                            DateTime.now().subtract(const Duration(days: 30)),
-                        lastDate: DateTime.now().add(const Duration(days: 100)),
-                      );
-                    }),
-              ),
+        builder: (context) => PreviewWidget.builder(
+              theme: ZeroThemeData(),
+              builder: (context) => ZeroButton.primary(
+                  text: 'Date Picker',
+                  onPressed: () async {
+                    showZeroDatePicker(
+                      context: context,
+                      useRootNavigator: false,
+                      initialDate: DateTime.now(),
+                      firstDate:
+                          DateTime.now().subtract(const Duration(days: 30)),
+                      lastDate: DateTime.now().add(const Duration(days: 100)),
+                    );
+                  }),
             )),
     WidgetbookUseCase(
-      name: 'Date Rage Picker',
-      builder: (context) => PreviewWidget(
-        child: ZeroDateRangePickerDialog(
-          firstDate: DateTime.now().subtract(const Duration(days: 30)),
-          lastDate: DateTime.now().add(const Duration(days: 100)),
-        ),
-      ),
-    ),
+        name: 'Date Range Picker',
+        builder: (context) => PreviewWidget.builder(
+              theme: ZeroThemeData(),
+              builder: (context) => ZeroButton.primary(
+                  text: 'Date Range Picker',
+                  onPressed: () async {
+                    showZeroDateRangePicker(
+                      context: context,
+                      useRootNavigator: false,
+                      firstDate:
+                          DateTime.now().subtract(const Duration(days: 30)),
+                      lastDate: DateTime.now().add(const Duration(days: 100)),
+                    );
+                  }),
+            )),
   ],
 );

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:math' as math;
 
 import 'package:flutter/gestures.dart' show DragStartBehavior;
@@ -191,11 +192,7 @@ Future<DateTime?> showZeroDatePicker({
     useRootNavigator: useRootNavigator,
     routeSettings: routeSettings,
     builder: (BuildContext context) {
-      return Theme(
-        data: context.theme.toThemeData(),
-        child: builder == null ? dialog : builder(context, dialog),
-      );
-      // return;
+      return builder == null ? dialog : builder(context, dialog);
     },
     anchorPoint: anchorPoint,
   );
@@ -398,6 +395,8 @@ class _ZeroDatePickerDialogState extends State<ZeroDatePickerDialog>
 
   Size _dialogSize(BuildContext context) {
     final Orientation orientation = MediaQuery.of(context).orientation;
+    log('orientation $orientation');
+
     switch (_entryMode.value) {
       case DatePickerEntryMode.calendar:
       case DatePickerEntryMode.calendarOnly:
