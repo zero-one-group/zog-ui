@@ -70,6 +70,7 @@ class HotReload extends StatelessWidget {
             snackbarWidgetbookComponent,
             progressIndicatorWidgetbookComponent,
             datepickerWidgetbookComponent,
+            progressIndicatorWidgetbookComponent,
           ],
         ),
       ],
