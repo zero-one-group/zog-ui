@@ -120,6 +120,7 @@ WidgetbookComponent datepickerWidgetbookComponent = WidgetbookComponent(
                       onPressed: () async {
                         showZeroDateRangePicker(
                           context: context,
+                          useRootNavigator: false,
                           helpText: context.knobs.text(
                               label: 'Help Text', initialValue: 'Select Date'),
                           cancelText: context.knobs.text(
