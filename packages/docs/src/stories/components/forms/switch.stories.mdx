@@ -4,9 +4,22 @@ import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { Switch } from '@zero-ui/core';
 
-<Meta title="Components/Forms/Switch" component={[Switch]} argTypes={{}} />
+<Meta
+  title="Components/Forms/Switch"
+  component={[Switch]}
+  argTypes={{
+    size: {
+      options: ['sm', 'md'],
+      control: { type: 'radio' },
+    },
+    colorScheme: {
+      options: ['pink', 'red', 'blue', 'teal'],
+      control: { type: 'select' },
+    },
+  }}
+/>
 
-export const SwitchStory = () => <Switch />;
+export const SwitchStory = (args) => <Switch {...args} />;
 
 # Switch
 
@@ -19,7 +32,16 @@ import { Switch } from '@zero-ui/core';
 ```
 
 <Canvas columns={2} withSource="close">
-  <Story name="Switch">{SwitchStory.bind()}</Story>
+  <Story
+    name="Switch"
+    args={{
+      colorScheme: 'pink',
+      size: 'md',
+      disabled: false,
+    }}
+  >
+    {SwitchStory.bind()}
+  </Story>
 </Canvas>
 
 <ArgsTable of={Switch} />
