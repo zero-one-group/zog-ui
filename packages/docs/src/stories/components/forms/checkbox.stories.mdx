@@ -10,7 +10,6 @@ import { Checkbox } from '@zero-ui/core';
       control: { type: 'radio' },
     },
     colorScheme: {
-      defaultValue: '#1890FF',
       control: { type: 'text' },
     },
   }}
@@ -23,7 +22,7 @@ export const CheckboxStory = ({ children, ...args }) => (
 # Checkbox
 
 > Checkbox component used for selecting multiple values from several options.
-> And you can easily customize and extends the Box component with `css` prop or `asChild` prop
+> And you can easily customize and extends the Checkbox component with `css` prop and `labelCss` prop
 
 ## Example Usage
 
@@ -38,6 +37,14 @@ import { Checkbox } from '@zero-ui/core';
       disabled: false,
       boxSize: '$3',
       children: 'Label',
+      colorScheme: 'teal',
+      labelCss: {
+        fontFamily: '$mono',
+      },
+      css: {
+        background: '$grayA2',
+        borderRadius: 0,
+      },
     }}
   >
     {CheckboxStory.bind()}
