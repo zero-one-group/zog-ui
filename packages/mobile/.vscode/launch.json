@@ -14,12 +14,6 @@
             "request": "launch",
             "type": "dart",
             "program":  "widgetbook/lib/main.dart",
-            "args": [
-                "-d",
-                "chrome",
-                "--web-renderer",
-                "html"
-            ]
         },
         {
             "name": "mobile (profile mode)",

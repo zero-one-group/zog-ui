@@ -420,8 +420,8 @@ class ZeroApp extends StatelessWidget {
     );
   }
 
-  Widget _builder(BuildContext cotnext, Widget? child) {
-    final theme = _theme(cotnext);
+  Widget _builder(BuildContext context, Widget? child) {
+    final theme = _theme(context);
 
     return ZeroTheme(
       data: theme,
