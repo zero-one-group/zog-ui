@@ -11,7 +11,7 @@ class ZeroProgressIndicator {
     double? value,
     Color? backgroundColor,
     Color? valueColor,
-    double? height,
+    double height = 4.0,
   }) {
     return LinearProgressIndicator(
       key: key,

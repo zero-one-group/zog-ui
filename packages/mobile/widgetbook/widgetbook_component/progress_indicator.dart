@@ -1,6 +1,9 @@
+import 'package:flutter/src/widgets/basic.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
+import '../color_options.dart';
 import '../utils.dart';
 
 WidgetbookComponent progressIndicatorWidgetbookComponent = WidgetbookComponent(
@@ -9,22 +12,40 @@ WidgetbookComponent progressIndicatorWidgetbookComponent = WidgetbookComponent(
     WidgetbookUseCase(
       name: 'Circular',
       builder: (context) {
-        double? value;
-
-        if (!context.knobs.boolean(label: 'Animated')) {
-          value = context.knobs.slider(
-            label: 'Value',
-            initialValue: .4,
-            min: 0,
-            max: 1,
-          );
-        } else {
-          value = null;
-        }
-
         return PreviewWidget(
           child: ZeroProgressIndicator.circular(
-            value: value,
+            value: context.knobs.nullableSlider(label: 'Value', min: 0, max: 1),
+            backgroundColor: context.knobs.options(
+              label: 'Background Color',
+              options: [const Option(label: 'Transparent', value: ZeroColors.transparent), ...colorOptions],
+            ),
+            valueColor: context.knobs.options(
+              label: 'Value Color',
+              options: colorOptions,
+            ),
+            strokeWidth: context.knobs.number(label: 'Stroke Width', initialValue: 4).toDouble(),
+          ),
+        );
+      },
+    ),
+    WidgetbookUseCase(
+      name: 'Linear',
+      builder: (context) {
+        return PreviewWidget(
+          child: SizedBox(
+            width: 300,
+            child: ZeroProgressIndicator.linear(
+              value: context.knobs.nullableSlider(label: 'Value', min: 0, max: 1),
+              backgroundColor: context.knobs.options(
+                label: 'Background Color',
+                options: [const Option(label: 'Transparent', value: ZeroColors.transparent), ...colorOptions],
+              ),
+              valueColor: context.knobs.options(
+                label: 'Value Color',
+                options: colorOptions,
+              ),
+              height: context.knobs.number(label: 'Stroke Width', initialValue: 4).toDouble(),
+            ),
           ),
         );
       },
