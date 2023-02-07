@@ -48,12 +48,7 @@ const StyledStepItemBasic = styled(Space, {
             border: '0px',
             borderLeft: '1px solid $gray9',
             height: '22px',
-            marginTop: '6px',
           },
-          'span, button': {
-            marginTop: '12px',
-          },
-          p: { margin: 0 },
         },
       },
     },
@@ -141,6 +136,11 @@ const StyledStepItemBasic = styled(Space, {
       },
     },
   ],
+  defaultVariants: {
+    orientation: 'horizontal',
+    state: 'stepWaiting',
+    size: 'sm',
+  },
 });
 
 export const StepItemBasic = ({
@@ -164,7 +164,6 @@ export const StepItemBasic = ({
   return (
     <StyledStepItemBasic
       justify="space-between"
-      align="center"
       state={state}
       size={size}
       {...props}
