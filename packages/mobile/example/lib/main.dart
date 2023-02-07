@@ -122,6 +122,16 @@ class Examples extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
+                    builder: (context) => ZeroDropdownExample(),
+                  ),
+                );
+              },
+              text: 'Zero Dropdown Example',
+            ),
+            ZeroButton.primary(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
                     builder: (context) => const ZeroRatingExample(),
                   ),
                 );
@@ -237,6 +247,16 @@ class Examples extends StatelessWidget {
                 );
               },
               text: 'Zero BottomNavigationBar Example',
+            ),
+            ZeroButton.primary(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ZeroDatePickerExample(),
+                  ),
+                );
+              },
+              text: 'Zero Date Picker Example',
             ),
           ],
         ),
