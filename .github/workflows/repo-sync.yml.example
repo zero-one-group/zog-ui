@@ -1,0 +1,22 @@
+name: Sync to GitLab
+
+on:
+  push:
+    branches: ["main"]
+
+permissions: read-all
+
+jobs:
+  repo-sync:
+    runs-on: ubuntu-latest
+    name: Sync Repo to GitLab
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - uses: shiqianwei0508/git-repo-sync-gitlab@v0.3.1
+      with:
+        # TARGET_URL: https://gitlab.zero-one-group.com/zo-group/software/zog-design-system.git
+        target-url: ${{ secrets.GITLAB_TARGET_URL }}
+        target-username: ${{ secrets.GITLAB_TARGET_USERNAME }}
+        target-token: ${{ secrets.GITLAB_ACCESS_TOKEN }}
