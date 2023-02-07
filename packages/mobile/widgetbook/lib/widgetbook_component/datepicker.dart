@@ -11,19 +11,15 @@ List<Option<DateTime>> _initialDates = [
   ),
   Option(
     label: 'Yesterday',
-    value: DateTime.now(),
+    value: DateTime.now().subtract(const Duration(days: 1)),
   ),
   Option(
     label: 'Tomorrow',
-    value: DateTime.now(),
+    value: DateTime.now().subtract(const Duration(days: 1)),
   )
 ];
 
 List<Option<DateTime>> _firstDates = [
-  Option(
-    label: 'Now',
-    value: DateTime.now(),
-  ),
   Option(
     label: '1 Month Ago',
     value: DateTime.now().subtract(const Duration(days: 30)),
@@ -68,51 +64,79 @@ WidgetbookComponent datepickerWidgetbookComponent = WidgetbookComponent(
         name: 'Date Picker',
         builder: (context) => PreviewWidget.builder(
               theme: ZeroThemeData(),
-              builder: (context) => ZeroButton.primary(
-                  text: 'Date Picker',
-                  onPressed: () async {
-                    showZeroDatePicker(
-                      context: context,
-                      useRootNavigator: false,
-                      helpText: context.knobs.text(label: 'Help Text'),
-                      cancelText: context.knobs.text(label: 'Cancel Text'),
-                      confirmText: context.knobs.text(label: 'OK Text'),
-                      initialEntryMode: context.knobs.options(
-                          label: 'Picker Entry Mode',
-                          options: _datePickerEntryModes),
-                      initialDatePickerMode: context.knobs.options(
-                          label: 'Calender Picker Mode',
-                          options: _datePickerModes),
-                      initialDate: context.knobs.options(
-                          label: 'Initial Date', options: _initialDates),
-                      firstDate: context.knobs
-                          .options(label: 'First Date', options: _firstDates),
-                      lastDate: context.knobs
-                          .options(label: 'Last Date', options: _lastDates),
-                    );
-                  }),
+              builder: (context) => Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                        'Please close and re-open the dialog to see the knobs update',
+                        textAlign: TextAlign.center),
+                  ),
+                  ZeroButton.primary(
+                      text: 'Date Picker',
+                      onPressed: () async {
+                        showZeroDatePicker(
+                          context: context,
+                          useRootNavigator: false,
+                          helpText: context.knobs.text(
+                              label: 'Help Text', initialValue: 'Select Date'),
+                          cancelText: context.knobs.text(
+                              label: 'Cancel Text', initialValue: 'Cancel'),
+                          confirmText: context.knobs
+                              .text(label: 'OK Text', initialValue: 'OK'),
+                          initialEntryMode: context.knobs.options(
+                              label: 'Picker Entry Mode',
+                              options: _datePickerEntryModes),
+                          initialDatePickerMode: context.knobs.options(
+                              label: 'Calender Picker Mode',
+                              options: _datePickerModes),
+                          initialDate: context.knobs.options(
+                              label: 'Initial Date', options: _initialDates),
+                          firstDate: context.knobs.options(
+                              label: 'First Date', options: _firstDates),
+                          lastDate: context.knobs
+                              .options(label: 'Last Date', options: _lastDates),
+                        );
+                      }),
+                ],
+              ),
             )),
     WidgetbookUseCase(
         name: 'Date Range Picker',
         builder: (context) => PreviewWidget.builder(
               theme: ZeroThemeData(),
-              builder: (context) => ZeroButton.primary(
-                  text: 'Date Range Picker',
-                  onPressed: () async {
-                    showZeroDateRangePicker(
-                      context: context,
-                      helpText: context.knobs.text(label: 'Help Text'),
-                      cancelText: context.knobs.text(label: 'Cancel Text'),
-                      confirmText: context.knobs.text(label: 'OK Text'),
-                      initialEntryMode: context.knobs.options(
-                          label: 'Picker Entry Mode',
-                          options: _datePickerEntryModes),
-                      firstDate: context.knobs
-                          .options(label: 'First Date', options: _firstDates),
-                      lastDate: context.knobs
-                          .options(label: 'Last Date', options: _lastDates),
-                    );
-                  }),
+              builder: (context) => Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                        'Please close and re-open the dialog to see the knobs update',
+                        textAlign: TextAlign.center),
+                  ),
+                  ZeroButton.primary(
+                      text: 'Date Range Picker',
+                      onPressed: () async {
+                        showZeroDateRangePicker(
+                          context: context,
+                          helpText: context.knobs.text(
+                              label: 'Help Text', initialValue: 'Select Date'),
+                          cancelText: context.knobs.text(
+                              label: 'Cancel Text', initialValue: 'Cancel'),
+                          confirmText: context.knobs
+                              .text(label: 'OK Text', initialValue: 'OK'),
+                          initialEntryMode: context.knobs.options(
+                              label: 'Picker Entry Mode',
+                              options: _datePickerEntryModes),
+                          firstDate: context.knobs.options(
+                              label: 'First Date', options: _firstDates),
+                          lastDate: context.knobs
+                              .options(label: 'Last Date', options: _lastDates),
+                        );
+                      }),
+                ],
+              ),
             )),
   ],
 );
