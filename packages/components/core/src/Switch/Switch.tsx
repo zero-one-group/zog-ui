@@ -216,6 +216,7 @@ export type SwitchProps = {
   size?: Extract<VariantProps<typeof SwitchRoot>['size'], string>;
   checkedChildren?: React.ReactNode;
   uncheckedChildren?: React.ReactNode;
+  value?: boolean;
 } & StyledSwitchProps;
 
 export const Switch = forwardRef<
@@ -226,7 +227,6 @@ export const Switch = forwardRef<
     {
       id,
       colorScheme,
-      defaultValue,
       defaultChecked,
       onClick,
       value,
@@ -241,8 +241,8 @@ export const Switch = forwardRef<
   ) => {
     const isControlled = value !== undefined;
     const initialCheckValue = isControlled
-      ? Boolean(value)
-      : Boolean(defaultValue) || false;
+      ? (value as boolean)
+      : defaultChecked || false;
 
     const [isChecked, setIsChecked] = useState<boolean>(initialCheckValue);
 
