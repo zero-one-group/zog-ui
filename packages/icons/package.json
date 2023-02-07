@@ -1,15 +1,11 @@
 {
   "name": "@zero-ui/icons",
-  "version": "0.0.1",
-  "main": "./index.js",
-  "module": "./index.mjs",
-  "exports": {
-    ".": {
-      "import": "./index.mjs",
-      "require": "./index.js"
-    }
-  },
-  "homepage": "https://zero-one-group.com/",
+  "version": "0.0.6",
+  "description": "A set of icons used in ZeroUI packages",
+  "contributors": [],
+  "license": "Apache-2.0",
+  "sideEffects": false,
+  "homepage": "https://zero-one-group.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/zero-one-group/zero-ui"
@@ -21,18 +17,22 @@
     "react": ">=16.3 <= 18",
     "react-dom": ">=16.3 <= 18"
   },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
+  },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org",
     "access": "public"
   },
   "keywords": [
-    "svg",
     "icons",
+    "svg",
     "react",
-    "react-ui",
     "front-end",
-    "ui-libraries",
-    "ui-components",
     "web"
   ]
 }

@@ -40,3 +40,7 @@ Thumbs.db
 
 **/.firebase
 **/.firebaserc
+
+# Icons
+packages/icons/svg-files/*
+!packages/icons/svg-files/.gitkeep

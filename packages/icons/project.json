@@ -1,18 +1,12 @@
 {
   "name": "icons",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/icons/src",
   "projectType": "library",
   "tags": [],
   "targets": {
-    "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["packages/icons/**/*.{ts,tsx,js,jsx}"]
-      }
-    },
-    "build": {
-      "executor": "@nrwl/rollup:rollup",
+    "build-packages": {
+      "executor": "@nrwl/web:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/icons",
@@ -27,8 +21,31 @@
             "glob": "packages/icons/README.md",
             "input": ".",
             "output": "."
+          },
+          {
+            "glob": "packages/icons/LICENSE",
+            "input": ".",
+            "output": "."
           }
         ]
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx run icons:compile",
+          "nx run icons:build-packages --prod",
+          "cd dist/packages/icons/ && npm pack"
+        ],
+        "parallel": false
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/icons/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
@@ -37,6 +54,30 @@
       "options": {
         "jestConfig": "packages/icons/jest.config.ts",
         "passWithNoTests": true
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["npm publish"],
+        "cwd": "dist/packages/icons",
+        "parallel": false
+      }
+    },
+    "fetch": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["node -r esbuild-register scripts/fetcher.ts"],
+        "cwd": "packages/icons",
+        "parallel": false
+      }
+    },
+    "compile": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["node -r esbuild-register scripts/build.ts"],
+        "cwd": "packages/icons",
+        "parallel": false
       }
     }
   }

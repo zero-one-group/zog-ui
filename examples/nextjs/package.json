@@ -14,6 +14,7 @@
     "@types/react-dom": "18.0.10",
     "@types/react": "18.0.26",
     "@zero-ui/core": "../../dist/packages/components/core",
+    "@zero-ui/icons": "../../dist/packages/icons",
     "eslint-config-next": "13.1.1",
     "eslint": "8.31.0",
     "next": "13.1.1",

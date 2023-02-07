@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@zero-ui/core": "../../dist/packages/components/core",
+    "@zero-ui/icons": "../../dist/packages/icons",
     "react-dom": "^18.2.0",
     "react": "^18.2.0"
   },

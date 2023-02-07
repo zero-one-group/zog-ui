@@ -37,6 +37,19 @@ pnpm exec nx generate @nrwl/react:component avatar --directory=avatar \
   --pascalCaseFiles --no-interactive
 ```
 
+## Build Icons Package
+
+```sh
+# Get SVG source files
+pnpm nx run icons:fetch
+
+# Compile SVG into React component
+pnpm nx run icons:compile
+
+# Build icons npm package
+pnpm nx run icons:build
+```
+
 ## Setup Storybook
 
 ```sh
