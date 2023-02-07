@@ -13,6 +13,15 @@ const StyledCheckboxLabel = styled('label', {
   alignItems: 'center',
   columnGap: '.5em',
   fontFamily: '$untitled',
+  cursor: 'pointer',
+  variants: {
+    disabled: {
+      true: {
+        cursor: 'not-allowed',
+        color: '$blackA8',
+      },
+    },
+  },
 });
 
 const StyledCheckboxRoot = styled(CheckboxPrimitive.Root, {
@@ -25,6 +34,8 @@ const StyledCheckboxRoot = styled(CheckboxPrimitive.Root, {
   border: '1px solid #D9D9D9',
   borderRadius: '.2em',
   cursor: 'pointer',
+  width: '1em',
+  height: '1em',
   '&:disabled': {
     cursor: 'not-allowed',
     backgroundColor: '#F4F6F7 !important',
@@ -46,6 +57,8 @@ const StyledCheckboxRoot = styled(CheckboxPrimitive.Root, {
 });
 const StyledCheckboxIndicator = styled(CheckboxPrimitive.Indicator, {
   color: 'white',
+  height: '1em',
+  fontSize: '.7em',
   '&[data-disabled=""]': {
     color: '$blackA8 !important',
   },
@@ -85,28 +98,20 @@ export const Checkbox: CheckboxComponent = ({
     <StyledCheckboxLabel
       css={{
         fontSize: boxSize,
-        cursor: props.disabled ? 'not-allowed' : 'pointer',
-        color: props.disabled ? '$blackA8' : undefined,
         ...labelCss,
       }}
       className={labelClassname}
+      disabled={props.disabled}
     >
       <StyledCheckboxRoot
         css={{
           fontSize: boxSize,
-          width: '1em',
-          height: '1em',
           ...getColorSchemeVariants(colorScheme),
           ...css,
         }}
         {...props}
       >
-        <StyledCheckboxIndicator
-          css={{
-            height: '1em',
-            fontSize: '.7em',
-          }}
-        >
+        <StyledCheckboxIndicator>
           <svg
             aria-hidden
             style={{ display: 'inline-block' }}
