@@ -13,6 +13,7 @@ import 'widgetbook_component/divider.dart';
 import 'widgetbook_component/dropdown.dart';
 import 'widgetbook_component/icons.dart';
 import 'widgetbook_component/list_tile.dart';
+import 'widgetbook_component/progress_indicator.dart';
 import 'widgetbook_component/radio_group.dart';
 import 'widgetbook_component/rating.dart';
 import 'widgetbook_component/slider.dart';
@@ -62,6 +63,7 @@ class HotReload extends StatelessWidget {
             dividerWidgetbookComponent,
             chipWidgetbookComponent,
             snackbarWidgetbookComponent,
+            progressIndicatorWidgetbookComponent,
           ],
         ),
       ],
