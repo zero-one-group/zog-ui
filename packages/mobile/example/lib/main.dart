@@ -5,9 +5,7 @@ import 'package:zero_ui_mobile_example/component/dropdown/zero_dropdown_example.
 
 import 'component/avatar/avatar_example.dart';
 import 'component/button/zero_button_example.dart';
-import 'component/chip/chip_example.dart';
 import 'component/divider/divider_example.dart';
-import 'component/icon/icon_example.dart';
 import 'component/listtile/listile_example.dart';
 import 'component/progress_indicator/zero_progress_indicator_example.dart';
 import 'component/rating/zero_rating_example.dart';
@@ -121,6 +119,16 @@ class Examples extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
+                    builder: (context) => ZeroDropdownExample(),
+                  ),
+                );
+              },
+              text: 'Zero Dropdown Example',
+            ),
+            ZeroButton.primary(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
                     builder: (context) => const ZeroRatingExample(),
                   ),
                 );
@@ -206,6 +214,16 @@ class Examples extends StatelessWidget {
                 );
               },
               text: 'Zero Progress Indicator Example',
+            ),
+            ZeroButton.primary(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ZeroDatePickerExample(),
+                  ),
+                );
+              },
+              text: 'Zero Date Picker Example',
             ),
           ],
         ),
