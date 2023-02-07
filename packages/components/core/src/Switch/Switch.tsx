@@ -1,6 +1,6 @@
 import * as RadixSwitch from '@radix-ui/react-switch';
 import { keyframes, VariantProps } from '@stitches/react';
-import { ComponentProps, forwardRef } from 'react';
+import React, { ComponentProps, forwardRef, useState } from 'react';
 import { styled } from '../stitches.config';
 
 const getColorSchemeVariants = (colorScheme?: string) => {
@@ -46,6 +46,7 @@ const SwitchRoot = styled(RadixSwitch.Root, {
       md: {
         minWidth: 44,
         height: 22,
+        fontSize: '.8rem',
       },
     },
   },
@@ -109,12 +110,113 @@ const StyledLoader = styled('div', {
   },
 });
 
-export interface SwitchProps extends ComponentProps<typeof SwitchRoot> {
+const StyledSwitchInner = styled('span', {
+  display: 'block',
+  height: '100%',
+  overflow: 'hidden',
+  variants: {
+    checked: {
+      true: {
+        paddingLeft: 4,
+        paddingRight: 18,
+      },
+      false: {
+        paddingLeft: 18,
+        paddingRight: 4,
+      },
+    },
+    size: {
+      sm: {
+        lineHeight: '15px',
+      },
+      md: {
+        lineHeight: '21px',
+      },
+    },
+  },
+  compoundVariants: [
+    {
+      checked: true,
+      size: 'md',
+      css: {
+        paddingLeft: 6,
+        paddingRight: 24,
+      },
+    },
+    {
+      checked: false,
+      size: 'md',
+      css: {
+        paddingLeft: 24,
+        paddingRight: 6,
+      },
+    },
+  ],
+  defaultVariants: {
+    checked: false,
+  },
+});
+
+const StyledSwitchInnerTextChecked = styled('div', {
+  display: 'block',
+  height: '100%',
+  transition: 'margin-inline 100ms linear',
+  variants: {
+    checked: {
+      true: {
+        marginInlineStart: 0,
+        marginInlineEnd: 0,
+      },
+      false: {
+        marginInlineStart: 'calc(-100% + 24px - 48px)',
+        marginInlineEnd: 'calc(100% - 24px + 48px)',
+      },
+    },
+  },
+  defaultVariants: {
+    checked: false,
+  },
+});
+
+const StyledSwitchInnerTextUnchecked = styled('div', {
+  display: 'block',
+  height: '100%',
+  transition: 'margin-inline 100ms linear',
+  variants: {
+    checked: {
+      true: {
+        marginInlineStart: 'calc(100% - 24px + 48px)',
+        marginInlineEnd: 'calc(-100% + 24px - 48px)',
+      },
+      false: {
+        marginInlineStart: 0,
+        marginInlineEnd: 0,
+      },
+    },
+    size: {
+      sm: {
+        mt: '-16px',
+      },
+      md: {
+        mt: '-22px',
+      },
+    },
+  },
+  defaultVariants: {
+    checked: false,
+  },
+});
+
+export type StyledSwitchProps = ComponentProps<typeof SwitchRoot>;
+
+export type SwitchProps = {
   disabled?: boolean;
   loading?: boolean;
   colorScheme?: string;
   size?: Extract<VariantProps<typeof SwitchRoot>['size'], string>;
-}
+  checkedChildren?: React.ReactNode;
+  uncheckedChildren?: React.ReactNode;
+} & StyledSwitchProps;
 
 export const Switch = forwardRef<
   React.ElementRef<typeof SwitchRoot>,
@@ -124,13 +226,34 @@ export const Switch = forwardRef<
     {
       id,
       colorScheme,
+      defaultValue,
+      defaultChecked,
+      onClick,
+      value,
       disabled = false,
       loading = false,
       size = 'md',
+      checkedChildren,
+      uncheckedChildren,
       ...props
     },
     ref
   ) => {
+    const isControlled = value !== undefined;
+    const initialCheckValue = isControlled
+      ? Boolean(value)
+      : Boolean(defaultValue) || false;
+
+    const [isChecked, setIsChecked] = useState<boolean>(initialCheckValue);
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      if (isControlled) {
+        typeof onClick === 'function' && onClick(event);
+      } else {
+        setIsChecked((check) => !check);
+      }
+    };
+
     return (
       <SwitchRoot
         id={id}
@@ -138,11 +261,23 @@ export const Switch = forwardRef<
         css={{ ...getColorSchemeVariants(colorScheme) }}
         size={size}
         disabled={disabled || loading}
+        checked={isControlled ? Boolean(value) : isChecked}
+        onClick={(e) => handleClick(e)}
         {...props}
       >
         <SwitchThumb size={size}>
           {loading ? <StyledLoader size={size} /> : null}
         </SwitchThumb>
+        {checkedChildren && uncheckedChildren ? (
+          <StyledSwitchInner checked={isChecked} size={size}>
+            <StyledSwitchInnerTextChecked checked={isChecked}>
+              {checkedChildren}
+            </StyledSwitchInnerTextChecked>
+            <StyledSwitchInnerTextUnchecked checked={isChecked} size={size}>
+              {uncheckedChildren}
+            </StyledSwitchInnerTextUnchecked>
+          </StyledSwitchInner>
+        ) : null}
       </SwitchRoot>
     );
   }

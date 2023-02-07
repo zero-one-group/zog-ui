@@ -3,6 +3,7 @@ import { BADGE } from '@geometricpanda/storybook-addon-badges';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { Switch } from '@zero-ui/core';
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 
 <Meta
   title="Components/Forms/Switch"
@@ -33,12 +34,49 @@ import { Switch } from '@zero-ui/core';
 
 <Canvas columns={2} withSource="close">
   <Story
-    name="Switch"
+    name="Basic"
+    args={{
+      defaultValue: 'true',
+      colorScheme: 'pink',
+      size: 'md',
+      disabled: false,
+      loading: false,
+    }}
+  >
+    {SwitchStory.bind()}
+  </Story>
+  <Story
+    name="Controlled"
+    args={{
+      colorScheme: 'pink',
+      size: 'md',
+      value: false,
+    }}
+  >
+    {SwitchStory.bind()}
+  </Story>
+  <Story
+    name="With Text"
     args={{
       colorScheme: 'pink',
       size: 'md',
       disabled: false,
       loading: false,
+      checkedChildren: 'ON',
+      uncheckedChildren: 'OFF',
+    }}
+  >
+    {SwitchStory.bind()}
+  </Story>
+  <Story
+    name="With Icon"
+    args={{
+      colorScheme: 'pink',
+      size: 'md',
+      disabled: false,
+      loading: false,
+      checkedChildren: <CheckOutlined />,
+      uncheckedChildren: <CloseOutlined />,
     }}
   >
     {SwitchStory.bind()}
