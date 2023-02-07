@@ -16,8 +16,33 @@ class _ZeroProgressIndicatorExampleState extends State<ZeroProgressIndicatorExam
         title: const Text('Zero Progress Indicator'),
       ),
       body: Center(
-        child: SizedBox(
-          child: ZeroProgressIndicator.circular(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ZeroProgressIndicator.circular(),
+            const SizedBox(height: 20),
+            ZeroProgressIndicator.circular(
+              value: .4,
+              backgroundColor: ZeroColors.primary,
+              valueColor: ZeroColors.polarGreen,
+              strokeWidth: 10,
+            ),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: 200,
+              child: ZeroProgressIndicator.linear(),
+            ),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: 200,
+              child: ZeroProgressIndicator.linear(
+                backgroundColor: ZeroColors.primary,
+                valueColor: ZeroColors.black,
+                height: 10,
+              ),
+            ),
+            const SizedBox(height: 20),
+          ],
         ),
       ),
     );
