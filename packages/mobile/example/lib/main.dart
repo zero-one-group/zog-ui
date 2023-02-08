@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zero_ui_mobile_example/component/chip/chip_example.dart';
 import 'package:zero_ui_mobile_example/component/datepicker/datepicker_example.dart';
 import 'package:zero_ui_mobile_example/component/dropdown/zero_dropdown_example.dart';
 
