@@ -1,0 +1,51 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { BADGE } from '@geometricpanda/storybook-addon-badges';
+import { within, userEvent } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
+import { Rating } from '@zero-ui/core';
+import { StarFilled, SmileFilled } from '@ant-design/icons';
+
+<Meta title="Components/Forms/Rating" component={[Rating]} argTypes={{}} />
+
+export const RatingStory = (args) => <Rating {...args} />;
+
+# Rating
+
+> Rating usually describe satisfaction with users and the icon is Customizable
+
+## Example Usage
+
+```tsx
+import { Rating } from '@zero-ui/core';
+```
+
+<Canvas columns={2} withSource="close">
+  <Story
+    args={{
+      star: 5,
+      icon: <StarFilled />,
+      defaultValue: 2,
+      name: 'rating',
+      id: 'rating',
+      halfStar: true,
+    }}
+    name="Rating"
+  >
+    {RatingStory.bind()}
+  </Story>
+  <Story
+    args={{
+      star: 5,
+      icon: <SmileFilled />,
+      defaultValue: 2,
+      name: 'rating',
+      id: 'rating',
+      halfStar: true,
+    }}
+    name="RatingCustomIcon"
+  >
+    {RatingStory.bind()}
+  </Story>
+</Canvas>
+
+<ArgsTable of={Rating} />
