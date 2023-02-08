@@ -4,11 +4,8 @@ import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-<<<<<<< HEAD
 import 'package:flutter/foundation.dart' show kIsWeb;
 
-=======
->>>>>>> bf210b4 (refactor: make textfield and dropdown subject to global theme)
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 const Size _calendarPortraitDialogSize = Size(330.0, 518.0);
@@ -3024,10 +3021,13 @@ class _InputDateRangePickerState extends State<_InputDateRangePicker> {
             ),
             hintText: widget.fieldEndHintText ?? localizations.dateHelpText,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             labelText:
                 widget.fieldEndLabelText ?? localizations.dateRangeEndLabel,
 >>>>>>> bf210b4 (refactor: make textfield and dropdown subject to global theme)
+=======
+>>>>>>> d23614e (fix: update knobs on datepicker knobs and orientation issue, resolved conflict)
             errorText: _endErrorText,
             inputType: TextInputType.datetime,
             onChanged: _handleEndChanged,

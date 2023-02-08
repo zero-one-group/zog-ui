@@ -57,70 +57,20 @@ WidgetbookComponent datepickerWidgetbookComponent = WidgetbookComponent(
   name: 'Date Picker',
   useCases: [
     WidgetbookUseCase(
-        name: 'Date Picker',
-        builder: (context) => PreviewWidget.builder(
-              theme: ZeroThemeData(),
-              builder: (context) => Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                        'Please close and re-open the dialog to see the knobs update',
-                        textAlign: TextAlign.center),
-                  ),
-                  ZeroButton.primary(
-                      text: 'Date Picker',
-                      onPressed: () async {
-                        showZeroDatePicker(
-                          context: context,
-                          useRootNavigator: false,
-                          initialDate: DateTime.now(),
-                          firstDate:
-                              DateTime.now().subtract(const Duration(days: 30)),
-                          lastDate:
-                              DateTime.now().add(const Duration(days: 365 * 5)),
-                        );
-                      }),
-                ],
-              ),
-            )),
+      name: 'Date Picker',
+      builder: (context) => ZeroDatePickerDialog(
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now().subtract(const Duration(days: 30)),
+        lastDate: DateTime.now().add(const Duration(days: 100)),
+      ),
+    ),
     WidgetbookUseCase(
-        name: 'Date Range Picker',
-        builder: (context) => PreviewWidget.builder(
-              theme: ZeroThemeData(),
-              builder: (context) => Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                        'Please close and re-open the dialog to see the knobs update',
-                        textAlign: TextAlign.center),
-                  ),
-                  ZeroButton.primary(
-                      text: 'Date Range Picker',
-                      onPressed: () async {
-                        showZeroDateRangePicker(
-                          context: context,
-                          useRootNavigator: false,
-                          helpText: context.knobs.text(
-                              label: 'Help Text', initialValue: 'Select Date'),
-                          cancelText: context.knobs.text(
-                              label: 'Cancel Text', initialValue: 'Cancel'),
-                          confirmText: context.knobs
-                              .text(label: 'OK Text', initialValue: 'OK'),
-                          initialEntryMode: context.knobs.options(
-                              label: 'Picker Entry Mode',
-                              options: _datePickerEntryModes),
-                          firstDate: context.knobs.options(
-                              label: 'First Date', options: _firstDates),
-                          lastDate:
-                              DateTime.now().add(const Duration(days: 365 * 5)),
-                        );
-                      }),
-                ],
-              ),
-            )),
+      name: 'Date Rage Picker',
+      builder: (context) => ZeroDatePickerDialog(
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now().subtract(const Duration(days: 30)),
+        lastDate: DateTime.now().add(const Duration(days: 100)),
+      ),
+    ),
   ],
 );
