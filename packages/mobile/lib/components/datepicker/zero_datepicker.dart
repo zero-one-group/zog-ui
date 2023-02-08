@@ -397,8 +397,6 @@ class _ZeroDatePickerDialogState extends State<ZeroDatePickerDialog>
   Size _dialogSize(BuildContext context) {
     final Orientation orientation = MediaQuery.of(context).orientation;
 
-    if (kIsWeb) return _calendarPortraitDialogSize;
-
     switch (_entryMode.value) {
       case DatePickerEntryMode.calendar:
       case DatePickerEntryMode.calendarOnly:
@@ -434,7 +432,11 @@ class _ZeroDatePickerDialogState extends State<ZeroDatePickerDialog>
     Orientation orientation = MediaQuery.of(context).orientation;
     final ZeroTypography typography = context.theme.typography;
 
-    if (kIsWeb) orientation = Orientation.portrait; // TODO: Find a better way
+    if (kIsWeb &&
+        (_entryMode.value == DatePickerEntryMode.calendar ||
+            _entryMode.value == DatePickerEntryMode.calendarOnly)) {
+      orientation = Orientation.portrait; // TODO: Find a better way
+    }
 
     // Constrain the textScaleFactor to the largest supported value to prevent
     // layout issues.
@@ -3020,14 +3022,8 @@ class _InputDateRangePickerState extends State<_InputDateRangePicker> {
               filled: inputTheme.filled,
             ),
             hintText: widget.fieldEndHintText ?? localizations.dateHelpText,
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
             labelText:
                 widget.fieldEndLabelText ?? localizations.dateRangeEndLabel,
->>>>>>> bf210b4 (refactor: make textfield and dropdown subject to global theme)
-=======
->>>>>>> d23614e (fix: update knobs on datepicker knobs and orientation issue, resolved conflict)
             errorText: _endErrorText,
             inputType: TextInputType.datetime,
             onChanged: _handleEndChanged,
