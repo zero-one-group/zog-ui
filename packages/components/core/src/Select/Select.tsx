@@ -1,9 +1,13 @@
-import { useState, ComponentProps, useRef, useEffect, useMemo } from 'react';
 import * as Popover from '@radix-ui/react-popover';
 import * as ScrollArea from '@radix-ui/react-scroll-area';
+import { ComponentProps, useEffect, useMemo, useRef, useState } from 'react';
 // import { Box } from '../Box';
+import {
+  CloseCircleFilled,
+  CloseOutlined,
+  DownOutlined,
+} from '@ant-design/icons';
 import { Space } from '../Space';
-import { DownOutlined, CloseCircleFilled } from '@ant-design/icons';
 import { styled } from '../stitches.config';
 
 const Box = styled('div', {
@@ -68,17 +72,18 @@ const StyledArrow = styled(Box, {
   alignItems: 'center',
   paddingInlineStart: '6px',
   color: '$blackA9',
+  position: 'relative',
 });
 const StyledClear = styled(Box, {
   fontSize: '12px',
-  marginInlineEnd: '12px',
+  // marginInlineEnd: '12px',
   position: 'absolute',
-  top: '50%',
-  transform: 'translateY(-50%)',
+  // top: '50%',
+  // transform: 'translateY(-50%)',
   right: '0',
   cursor: 'pointer',
   background: 'white',
-  color: '$blackA9',
+  color: '$blackA8',
   opacity: 0,
   ':hover': {
     color: '$blackA11',
@@ -90,7 +95,7 @@ const StyledTrigger = styled('div', {
   height: '100%',
 });
 
-const StyledSelectionItem = styled('span', {
+const StyledSelectedSingleItem = styled('span', {
   userSelect: 'none',
   whiteSpace: 'nowrap',
   variants: {
@@ -101,6 +106,7 @@ const StyledSelectionItem = styled('span', {
     },
   },
 });
+
 const StyledPlaceholder = styled('span', {
   color: '$blackA11',
   whiteSpace: 'nowrap',
@@ -128,10 +134,40 @@ const StyledInput = styled('input', {
   fontFamily: '$untitled',
 });
 
-const StyledSelectedItems = styled(Space, {
-  height: '32px',
+const StyledSelected = styled(Space, {
+  minHeight: '32px',
   alignItems: 'center',
   position: 'relative',
+});
+const StyledSelectedItems = styled(Space, {
+  alignItems: 'center',
+  gap: '5px',
+  flexWrap: 'wrap',
+  padding: '3px 0',
+});
+
+const StyledSelectedMultipleItem = styled('span', {
+  display: 'inline-grid',
+  gridTemplateColumns: 'auto auto',
+  borderRadius: '2px',
+  padding: '0 5px 0 8px',
+  border: '1px solid #F0F0F0',
+  background: '#F5F5F5',
+  height: '24px',
+  gap: '5px',
+  alignItems: 'center',
+  whiteSpace: 'nowrap',
+});
+
+const StyledItemClose = styled('span', {
+  height: '100%',
+  display: 'inline-flex',
+  alignItems: 'center',
+  fontSize: '10px',
+  color: '$blackA8',
+  '&:hover': {
+    color: '$blackA12',
+  },
 });
 
 const SCROLLBAR_WIDTH = 4;
@@ -194,6 +230,9 @@ const StyledOptionItem = styled(Box, {
     selected: {
       true: {
         background: '$$hightlightColor',
+        '&:hover': {
+          background: '$$hightlightColor',
+        },
       },
     },
   },
@@ -210,6 +249,7 @@ export interface SelectProps {
   css?: ComponentProps<typeof StyledWrapper>['css'];
   placeholder?: string;
   searchable?: boolean;
+  multiple?: boolean;
   itemsToShow?: number;
 }
 
@@ -217,16 +257,21 @@ export const Select = ({
   options = [],
   css,
   placeholder = 'Select...',
-  searchable = false,
+  searchable,
   itemsToShow = 10,
+  multiple,
   ...props
 }: SelectProps) => {
   const [open, setOpen] = useState(false);
-  const [selectedItems, setSelectedItems] = useState<ISelectedItem[] | null>(
-    null
-  );
-  const [input, setInput] = useState<string | undefined>();
-  const [localOptions, setLocalOptions] = useState(() => options);
+  const [selectedItemsKey, setSelectedItemsKey] = useState<
+    ISelectedItem['value'][]
+  >([]);
+  const [selectedSingleItem, setSelectedSingleItem] =
+    useState<ISelectedItem | null>(null);
+  const [input, setInput] = useState<string>('');
+  const [filteredOptions, setFilteredOptions] = useState(() => options);
+  // used when trigger onchange props
+  const staticOptions = useRef(options ?? []);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -236,21 +281,43 @@ export const Select = ({
     }
   };
 
-  const resetLocalOptions = () => {
-    setLocalOptions(options);
+  const resetFilteredOptions = () => {
+    setFilteredOptions(options);
+  };
+
+  const deSelect = (val: ISelectedItem['value']) => {
+    setSelectedItemsKey((prev) => prev.filter((it) => it !== val));
+  };
+
+  const selectSingle = (option: ISelectedItem) => {
+    setSelectedSingleItem(option);
+  };
+  const selectMultiple = (option: ISelectedItem) => {
+    if (selectedItemsKey.includes(option.value)) {
+      setSelectedItemsKey((prev) => prev.filter((it) => it !== option.value));
+    } else {
+      setSelectedItemsKey((prev) =>
+        Array.from(new Set([...prev, option.value]))
+      );
+    }
   };
 
   const onSelect = (option: ISelectedItem) => {
-    setSelectedItems([option]);
-    setOpen(false);
+    if (multiple) {
+      selectMultiple(option);
+    } else {
+      selectSingle(option);
+      setOpen(false);
+    }
     clearInput();
-    resetLocalOptions();
+    resetFilteredOptions();
   };
 
-  const onClear = () => {
-    setSelectedItems(null);
+  const onClearAll = () => {
+    setSelectedItemsKey([]);
+    setSelectedSingleItem(null);
     clearInput();
-    resetLocalOptions();
+    resetFilteredOptions();
   };
 
   const inputWidth = useMemo(() => {
@@ -266,13 +333,13 @@ export const Select = ({
   const filterOptions = (inputValue: string) => {
     const lowerInput = inputValue.toLowerCase();
     if (lowerInput.length > 0) {
-      setLocalOptions((prev) =>
+      setFilteredOptions((prev) =>
         prev.filter((it) => {
           return (it.label || '').toLowerCase().includes(lowerInput);
         })
       );
     } else {
-      resetLocalOptions();
+      resetFilteredOptions();
     }
   };
 
@@ -288,15 +355,16 @@ export const Select = ({
     }
   }, [open]);
 
-  const hasItem = !!(selectedItems && selectedItems.length > 0);
-  const selectedItem = hasItem ? selectedItems[0] : null;
-  const inputExist = !!(input && input.length > 0);
+  const hasSelectedItem =
+    selectedItemsKey.length > 0 || selectedSingleItem !== null;
+  const inputExist = input.length > 0;
   const dropdownHeight =
-    (itemsToShow > localOptions.length ? localOptions.length : itemsToShow) *
-    26;
+    (itemsToShow > filteredOptions.length
+      ? filteredOptions.length
+      : itemsToShow) * 26;
 
   return (
-    <StyledWrapper hasItem={hasItem} css={css} ref={wrapperRef}>
+    <StyledWrapper hasItem={hasSelectedItem} css={css} ref={wrapperRef}>
       <Popover.Root open={open}>
         <Popover.Trigger asChild>
           <StyledTrigger />
@@ -310,15 +378,20 @@ export const Select = ({
           >
             <StyledScrollAreaRoot css={{ minWidth: inputWidth }}>
               <StyledScrollAreaViewport css={{ height: dropdownHeight }}>
-                {localOptions.length > 0 ? (
-                  localOptions.map((option, idx) => (
-                    <StyledOptionItem
-                      onClick={() => onSelect(option)}
-                      selected={selectedItem?.value === option.value}
-                    >
-                      {option.label}
-                    </StyledOptionItem>
-                  ))
+                {filteredOptions.length > 0 ? (
+                  filteredOptions.map((option) => {
+                    const selected =
+                      selectedSingleItem?.value === option.value ||
+                      selectedItemsKey.includes(option.value);
+                    return (
+                      <StyledOptionItem
+                        onClick={() => onSelect(option)}
+                        selected={selected}
+                      >
+                        {option.label}
+                      </StyledOptionItem>
+                    );
+                  })
                 ) : (
                   <center>Empty</center>
                 )}
@@ -336,7 +409,7 @@ export const Select = ({
         focused={open}
         searchable={searchable}
       >
-        <StyledSelectedItems>
+        <StyledSelected>
           {searchable ? (
             <StyledInput
               value={input}
@@ -344,27 +417,53 @@ export const Select = ({
               ref={inputRef}
             />
           ) : null}
-          <StyledPlaceholder hide={selectedItem !== null || inputExist}>
+          <StyledPlaceholder hide={hasSelectedItem || inputExist}>
             {placeholder}
           </StyledPlaceholder>
-          {hasItem
-            ? selectedItems.map((it) => (
-                <StyledSelectionItem
-                  data-value={it.value}
-                  isOnInput={inputExist}
-                >
-                  {it.label}
-                </StyledSelectionItem>
-              ))
-            : null}
-        </StyledSelectedItems>
+          {selectedSingleItem ? (
+            <StyledSelectedSingleItem
+              data-value={selectedSingleItem?.value}
+              isOnInput={inputExist}
+            >
+              {selectedSingleItem?.label}
+            </StyledSelectedSingleItem>
+          ) : null}
+          {multiple && selectedItemsKey.length > 0 ? (
+            <StyledSelectedItems>
+              {selectedItemsKey.map((val) => (
+                <StyledSelectedMultipleItem data-value={val}>
+                  <span>
+                    {
+                      staticOptions.current.find((it) => it.value === val)
+                        ?.label
+                    }
+                  </span>
+                  <StyledItemClose
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deSelect(val);
+                    }}
+                  >
+                    <CloseOutlined />
+                  </StyledItemClose>
+                </StyledSelectedMultipleItem>
+              ))}
+            </StyledSelectedItems>
+          ) : null}
+        </StyledSelected>
         <StyledArrow>
           <DownOutlined />
+          <StyledClear
+            className="clear-btn"
+            onClick={(e) => {
+              e.stopPropagation();
+              onClearAll();
+            }}
+          >
+            <CloseCircleFilled />
+          </StyledClear>
         </StyledArrow>
       </StyledSelect>
-      <StyledClear className="clear-btn" onClick={() => onClear()}>
-        <CloseCircleFilled />
-      </StyledClear>
     </StyledWrapper>
   );
 };
