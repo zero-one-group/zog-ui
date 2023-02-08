@@ -432,9 +432,7 @@ class _ZeroDatePickerDialogState extends State<ZeroDatePickerDialog>
     Orientation orientation = MediaQuery.of(context).orientation;
     final ZeroTypography typography = context.theme.typography;
 
-    if (kIsWeb &&
-        (_entryMode.value == DatePickerEntryMode.calendar ||
-            _entryMode.value == DatePickerEntryMode.calendarOnly)) {
+    if (kIsWeb) {
       orientation = Orientation.portrait; // TODO: Find a better way
     }
 
