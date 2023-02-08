@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zero_ui_mobile_example/component/chip/chip_example.dart';
+import 'package:zero_ui_mobile_example/component/datepicker/datepicker_example.dart';
+import 'package:zero_ui_mobile_example/component/dropdown/zero_dropdown_example.dart';
 
 import 'component/avatar/avatar_example.dart';
 import 'component/button/zero_button_example.dart';
-import 'component/chip/chip_example.dart';
 import 'component/divider/divider_example.dart';
-import 'component/icon/icon_example.dart';
 import 'component/listtile/listile_example.dart';
 import 'component/progress_indicator/zero_progress_indicator_example.dart';
 import 'component/rating/zero_rating_example.dart';
@@ -43,9 +44,9 @@ class _MyAppState extends State<MyApp> {
     return ZeroApp(
       title: 'Flutter Demo',
       theme: ZeroThemeData(
-        brightness: Brightness.light,
-        primaryColor: _selectedColor.toAccentColor(),
-      ),
+          brightness: Brightness.light,
+          primaryColor: _selectedColor.toAccentColor(),
+          inputDecorationType: InputDecorationType.outline),
       home: Scaffold(
         body: SafeArea(
           child: Column(
@@ -117,6 +118,16 @@ class Examples extends StatelessWidget {
                 );
               },
               text: 'Zero Textfield Example',
+            ),
+            ZeroButton.primary(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ZeroDropdownExample(),
+                  ),
+                );
+              },
+              text: 'Zero Dropdown Example',
             ),
             ZeroButton.primary(
               onPressed: () {
@@ -207,6 +218,16 @@ class Examples extends StatelessWidget {
                 );
               },
               text: 'Zero Progress Indicator Example',
+            ),
+            ZeroButton.primary(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ZeroDatePickerExample(),
+                  ),
+                );
+              },
+              text: 'Zero Date Picker Example',
             ),
           ],
         ),

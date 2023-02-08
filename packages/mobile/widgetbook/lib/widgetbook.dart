@@ -22,6 +22,7 @@ import 'widgetbook_component/switch.dart';
 import 'widgetbook_component/text.dart';
 import 'widgetbook_component/textfield.dart';
 import 'widgetbook_component/tooltip.dart';
+import 'widgetbook_component/datepicker.dart';
 
 class HotReload extends StatelessWidget {
   const HotReload({Key? key}) : super(key: key);
@@ -63,6 +64,8 @@ class HotReload extends StatelessWidget {
             dividerWidgetbookComponent,
             chipWidgetbookComponent,
             snackbarWidgetbookComponent,
+            progressIndicatorWidgetbookComponent,
+            datepickerWidgetbookComponent,
             progressIndicatorWidgetbookComponent,
           ],
         ),

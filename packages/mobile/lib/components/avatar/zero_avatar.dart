@@ -197,30 +197,34 @@ class ZeroAvatar extends StatelessWidget {
         break;
     }
 
-    return Container(
+    return SizedBox(
       width: size.areaWidth,
       height: size.areaWidth,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(size.avatarRadius),
-          border: Border.all(width: 1, color: Colors.white)),
       child: Stack(
         children: [
           variant == AvatarVariant.image
               ? CircleAvatar(
-                  backgroundColor: backgroundColor,
-                  backgroundImage: backgroundImage,
-                  radius: size.avatarRadius,
+                  backgroundColor: Colors.white,
+                  radius: size.areaWidth / 2,
+                  child: CircleAvatar(
+                    backgroundColor: backgroundColor,
+                    backgroundImage: backgroundImage,
+                    radius: size.avatarRadius,
+                  ),
                 )
               : CircleAvatar(
-                  backgroundColor: backgroundColor,
-                  radius: size.avatarRadius,
-                  child: Text(_getinitials(fullName!),
-                      style: TextStyle(
-                              color: initialColor,
-                              fontSize: size.fontSize,
-                              fontWeight: FontWeight.w500)
-                          .merge(initialStyle)),
-                ),
+                  backgroundColor: Colors.white,
+                  radius: size.areaWidth / 2,
+                  child: CircleAvatar(
+                    backgroundColor: backgroundColor,
+                    radius: size.avatarRadius,
+                    child: Text(_getinitials(fullName!),
+                        style: TextStyle(
+                                color: initialColor,
+                                fontSize: size.fontSize,
+                                fontWeight: FontWeight.w500)
+                            .merge(initialStyle)),
+                  )),
           if (withBadge)
             Align(
               alignment: Alignment.bottomRight,
