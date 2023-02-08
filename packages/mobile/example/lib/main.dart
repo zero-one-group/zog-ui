@@ -6,7 +6,6 @@ import 'package:zero_ui_mobile_example/component/dropdown/zero_dropdown_example.
 
 import 'component/avatar/avatar_example.dart';
 import 'component/button/zero_button_example.dart';
-import 'component/chip/chip_example.dart';
 import 'component/divider/divider_example.dart';
 import 'component/icon/icon_example.dart';
 import 'component/listtile/listile_example.dart';
