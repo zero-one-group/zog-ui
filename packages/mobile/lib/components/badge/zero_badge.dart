@@ -69,7 +69,6 @@ class ZeroBadge extends StatelessWidget {
     /// Get badge color, with fallback from primary color current theme
     final color = badgeColor ?? context.theme.primaryColor;
 
-    // TODO: @wisnu
     final adaptivePadding = padding ?? position.childPadding();
     final adaptiveChildSize =
         childSize + adaptivePadding.horizontal - adaptivePadding.horizontal / 2;
