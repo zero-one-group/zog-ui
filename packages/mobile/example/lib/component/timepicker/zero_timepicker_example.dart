@@ -13,6 +13,10 @@ class ZeroTimePickerExample extends StatelessWidget {
           onPressed: () => showZeroTimePicker(
             context: context,
             initialTime: TimeOfDay.now(),
+            builder: (context, child) => MediaQuery(
+                data: MediaQuery.of(context)
+                    .copyWith(alwaysUse24HourFormat: true),
+                child: child!),
           ),
           text: 'Time Picker Example',
         ),
