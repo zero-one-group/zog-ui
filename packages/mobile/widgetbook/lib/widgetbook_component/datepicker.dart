@@ -32,10 +32,6 @@ List<Option<DateTime>> _firstDates = [
 
 List<Option<DateTime>> _lastDates = [
   Option(
-    label: 'Now',
-    value: DateTime.now(),
-  ),
-  Option(
     label: '5 Month Later',
     value: DateTime.now().add(const Duration(days: 30 * 5)),
   ),
@@ -79,24 +75,11 @@ WidgetbookComponent datepickerWidgetbookComponent = WidgetbookComponent(
                         showZeroDatePicker(
                           context: context,
                           useRootNavigator: false,
-                          helpText: context.knobs.text(
-                              label: 'Help Text', initialValue: 'Select Date'),
-                          cancelText: context.knobs.text(
-                              label: 'Cancel Text', initialValue: 'Cancel'),
-                          confirmText: context.knobs
-                              .text(label: 'OK Text', initialValue: 'OK'),
-                          initialEntryMode: context.knobs.options(
-                              label: 'Picker Entry Mode',
-                              options: _datePickerEntryModes),
-                          initialDatePickerMode: context.knobs.options(
-                              label: 'Calender Picker Mode',
-                              options: _datePickerModes),
-                          initialDate: context.knobs.options(
-                              label: 'Initial Date', options: _initialDates),
-                          firstDate: context.knobs.options(
-                              label: 'First Date', options: _firstDates),
-                          lastDate: context.knobs
-                              .options(label: 'Last Date', options: _lastDates),
+                          initialDate: DateTime.now(),
+                          firstDate:
+                              DateTime.now().subtract(const Duration(days: 30)),
+                          lastDate:
+                              DateTime.now().add(const Duration(days: 365 * 5)),
                         );
                       }),
                 ],
@@ -132,8 +115,8 @@ WidgetbookComponent datepickerWidgetbookComponent = WidgetbookComponent(
                               options: _datePickerEntryModes),
                           firstDate: context.knobs.options(
                               label: 'First Date', options: _firstDates),
-                          lastDate: context.knobs
-                              .options(label: 'Last Date', options: _lastDates),
+                          lastDate:
+                              DateTime.now().add(const Duration(days: 365 * 5)),
                         );
                       }),
                 ],

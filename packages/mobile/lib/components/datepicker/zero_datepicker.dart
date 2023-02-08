@@ -1,10 +1,11 @@
-import 'dart:developer';
 import 'dart:math' as math;
 
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 const Size _calendarPortraitDialogSize = Size(330.0, 518.0);
@@ -395,7 +396,8 @@ class _ZeroDatePickerDialogState extends State<ZeroDatePickerDialog>
 
   Size _dialogSize(BuildContext context) {
     final Orientation orientation = MediaQuery.of(context).orientation;
-    log('orientation $orientation');
+
+    if (kIsWeb) return _calendarPortraitDialogSize;
 
     switch (_entryMode.value) {
       case DatePickerEntryMode.calendar:
@@ -429,8 +431,10 @@ class _ZeroDatePickerDialogState extends State<ZeroDatePickerDialog>
     final ColorScheme colorScheme = theme.colorScheme;
     final MaterialLocalizations localizations =
         MaterialLocalizations.of(context);
-    final Orientation orientation = MediaQuery.of(context).orientation;
+    Orientation orientation = MediaQuery.of(context).orientation;
     final ZeroTypography typography = context.theme.typography;
+
+    if (kIsWeb) orientation = Orientation.portrait; // TODO: Find a better way
 
     // Constrain the textScaleFactor to the largest supported value to prevent
     // layout issues.
