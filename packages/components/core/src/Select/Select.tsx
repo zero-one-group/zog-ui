@@ -1,19 +1,25 @@
-import { useState, ComponentProps, useRef } from 'react';
+import { useState, ComponentProps, useRef, useEffect, useMemo } from 'react';
 import * as Popover from '@radix-ui/react-popover';
 import * as ScrollArea from '@radix-ui/react-scroll-area';
-import { Box } from '../Box';
+// import { Box } from '../Box';
 import { Space } from '../Space';
 import { DownOutlined, CloseCircleFilled } from '@ant-design/icons';
 import { styled } from '../stitches.config';
+
+const Box = styled('div', {
+  fontFamily: '$untitled',
+  boxSizing: 'border-box',
+});
 
 const StyledWrapper = styled('div', {
   display: 'inline-grid',
   gridTemplateColumns: 'auto 1fr',
   minWidth: '100px',
   position: 'relative',
+  $$primaryColor: '$colors-primary9',
   '&:hover': {
     '.select': {
-      borderColor: '$primary9',
+      borderColor: '$$primaryColor',
     },
   },
   variants: {
@@ -39,14 +45,18 @@ const StyledSelect = styled('div', {
   background: 'white',
   cursor: 'pointer',
   fontSize: '14px',
-  // $$primaryColor: '$primary9',
   '&:hover': {
-    borderColor: '$primary9',
+    borderColor: '$$primaryColor',
   },
   variants: {
     focused: {
       true: {
-        borderColor: '$primary9',
+        borderColor: '$$primaryColor',
+      },
+    },
+    searchable: {
+      true: {
+        cursor: 'text',
       },
     },
   },
@@ -81,34 +91,54 @@ const StyledTrigger = styled('div', {
 });
 
 const StyledSelectionItem = styled('span', {
-  whiteSpace: 'nowrap',
-});
-const StyledPlaceholder = styled('span', {
-  display: 'none',
-  color: '$blackA11',
+  userSelect: 'none',
   whiteSpace: 'nowrap',
   variants: {
-    show: {
+    isOnInput: {
       true: {
-        display: 'block',
+        visibility: 'hidden',
       },
     },
   },
+});
+const StyledPlaceholder = styled('span', {
+  color: '$blackA11',
+  whiteSpace: 'nowrap',
+  pointerEvents: 'none',
+  display: 'block',
+  variants: {
+    hide: {
+      true: {
+        display: 'none',
+      },
+    },
+  },
+});
+const StyledInput = styled('input', {
+  position: 'absolute',
+  top: 0,
+  inset: 0,
+  bottom: 0,
+  margin: 0,
+  padding: 0,
+  outline: 0,
+  border: 0,
+  background: 'transparent',
+  fontSize: '14px',
+  fontFamily: '$untitled',
 });
 
 const StyledSelectedItems = styled(Space, {
   height: '32px',
   alignItems: 'center',
+  position: 'relative',
 });
 
 const SCROLLBAR_WIDTH = 4;
 
 const StyledScrollAreaRoot = styled(ScrollArea.Root, {
-  height: '200px',
-  width: '100px',
+  minWidth: '100px',
   overflow: 'hidden',
-  maxHeight: '200px',
-  padding: '4px 0',
   fontSize: '14px',
   outline: 'none',
   background: 'white',
@@ -118,8 +148,11 @@ const StyledScrollAreaRoot = styled(ScrollArea.Root, {
 });
 
 const StyledScrollAreaViewport = styled(ScrollArea.Viewport, {
+  minHeight: '30px',
+  padding: '4px 0',
   width: '100%',
   height: '100%',
+  $$hightlightColor: '$colors-primary4',
 });
 
 const StyledScrollAreaScrollbar = styled(ScrollArea.Scrollbar, {
@@ -160,7 +193,7 @@ const StyledOptionItem = styled(Box, {
   variants: {
     selected: {
       true: {
-        background: '$primary4',
+        background: '$$hightlightColor',
       },
     },
   },
@@ -176,57 +209,119 @@ export interface SelectProps {
   options?: ISelectedItem[];
   css?: ComponentProps<typeof StyledWrapper>['css'];
   placeholder?: string;
+  searchable?: boolean;
+  itemsToShow?: number;
 }
 
 export const Select = ({
   options = [],
   css,
   placeholder = 'Select...',
+  searchable = false,
+  itemsToShow = 10,
   ...props
 }: SelectProps) => {
   const [open, setOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<ISelectedItem | null>(null);
   const [selectedItems, setSelectedItems] = useState<ISelectedItem[] | null>(
     null
   );
+  const [input, setInput] = useState<string | undefined>();
+  const [localOptions, setLocalOptions] = useState(() => options);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const clearInput = () => {
+    if (searchable) {
+      setInput('');
+    }
+  };
+
+  const resetLocalOptions = () => {
+    setLocalOptions(options);
+  };
 
   const onSelect = (option: ISelectedItem) => {
     setSelectedItems([option]);
-    setSelectedItem(option);
     setOpen(false);
+    clearInput();
+    resetLocalOptions();
   };
 
   const onClear = () => {
     setSelectedItems(null);
-    setSelectedItem(null);
+    clearInput();
+    resetLocalOptions();
   };
 
-  const getInputWidth = () =>
-    wrapperRef.current?.getBoundingClientRect().width ?? 100;
+  const inputWidth = useMemo(() => {
+    return wrapperRef.current?.getBoundingClientRect().width ?? 100;
+  }, [open]);
+
+  const focusInput = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
+
+  const filterOptions = (inputValue: string) => {
+    const lowerInput = inputValue.toLowerCase();
+    if (lowerInput.length > 0) {
+      setLocalOptions((prev) =>
+        prev.filter((it) => {
+          return (it.label || '').toLowerCase().includes(lowerInput);
+        })
+      );
+    } else {
+      resetLocalOptions();
+    }
+  };
+
+  const onChangeInput: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const inputVal = e.target.value;
+    setInput(inputVal);
+    filterOptions(inputVal);
+  };
+
+  useEffect(() => {
+    if (open) {
+      focusInput();
+    }
+  }, [open]);
+
+  const hasItem = !!(selectedItems && selectedItems.length > 0);
+  const selectedItem = hasItem ? selectedItems[0] : null;
+  const inputExist = !!(input && input.length > 0);
+  const dropdownHeight =
+    (itemsToShow > localOptions.length ? localOptions.length : itemsToShow) *
+    26;
 
   return (
-    <StyledWrapper
-      hasItem={selectedItems?.length > 0}
-      css={css}
-      ref={wrapperRef}
-    >
-      <Popover.Root open={open} onOpenChange={setOpen}>
+    <StyledWrapper hasItem={hasItem} css={css} ref={wrapperRef}>
+      <Popover.Root open={open}>
         <Popover.Trigger asChild>
           <StyledTrigger />
         </Popover.Trigger>
         <Popover.Portal>
-          <Popover.Content align="start" asChild>
-            <StyledScrollAreaRoot css={{ minWidth: getInputWidth() }}>
-              <StyledScrollAreaViewport>
-                {options.map((option, idx) => (
-                  <StyledOptionItem
-                    onClick={() => onSelect(option)}
-                    selected={selectedItem?.value === option.value}
-                  >
-                    {option.label}
-                  </StyledOptionItem>
-                ))}
+          <Popover.Content
+            align="start"
+            asChild
+            onInteractOutside={() => setOpen(false)}
+            onOpenAutoFocus={(e) => e.preventDefault()}
+          >
+            <StyledScrollAreaRoot css={{ minWidth: inputWidth }}>
+              <StyledScrollAreaViewport css={{ height: dropdownHeight }}>
+                {localOptions.length > 0 ? (
+                  localOptions.map((option, idx) => (
+                    <StyledOptionItem
+                      onClick={() => onSelect(option)}
+                      selected={selectedItem?.value === option.value}
+                    >
+                      {option.label}
+                    </StyledOptionItem>
+                  ))
+                ) : (
+                  <center>Empty</center>
+                )}
               </StyledScrollAreaViewport>
               <StyledScrollAreaScrollbar orientation="vertical">
                 <StyledScrollAreaThumb />
@@ -239,14 +334,25 @@ export const Select = ({
         className="select"
         onClick={() => setOpen((prev) => !prev)}
         focused={open}
+        searchable={searchable}
       >
         <StyledSelectedItems>
-          <StyledPlaceholder show={selectedItem === null}>
+          {searchable ? (
+            <StyledInput
+              value={input}
+              onChange={onChangeInput}
+              ref={inputRef}
+            />
+          ) : null}
+          <StyledPlaceholder hide={selectedItem !== null || inputExist}>
             {placeholder}
           </StyledPlaceholder>
-          {selectedItems?.length > 0
+          {hasItem
             ? selectedItems.map((it) => (
-                <StyledSelectionItem data-value={it.value}>
+                <StyledSelectionItem
+                  data-value={it.value}
+                  isOnInput={inputExist}
+                >
                   {it.label}
                 </StyledSelectionItem>
               ))
