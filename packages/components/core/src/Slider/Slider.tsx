@@ -1,16 +1,17 @@
 import * as RadixSlider from '@radix-ui/react-slider';
-import { ComponentProps, ElementRef, forwardRef } from 'react';
+import { ComponentProps, ElementRef, forwardRef, useState } from 'react';
 import { styled } from '../stitches.config';
+import { SliderThumb } from './SliderThumb';
 
 const getColorSchemeVariants = (colorScheme?: string) => {
   return {
     $$bgSlider: colorScheme ? `$colors-${colorScheme}9` : '$colors-primary9',
     $$bgSliderRange: colorScheme
-      ? `$colors-${colorScheme}5`
-      : '$colors-primary5',
-    $$bgSliderThumb: colorScheme
       ? `$colors-${colorScheme}7`
       : '$colors-primary7',
+    $$bgSliderThumb: colorScheme
+      ? `$colors-${colorScheme}8`
+      : '$colors-primary8',
   };
 };
 const StyledSliderRoot = styled(RadixSlider.Root, {
@@ -40,23 +41,6 @@ const StyledSliderRange = styled(RadixSlider.Range, {
   '&:hover': { backgroundColor: `$$bgSliderThumb` },
 });
 
-const StyledSliderThumb = styled(RadixSlider.Thumb, {
-  display: 'block',
-  width: 10,
-  height: 10,
-  backgroundColor: 'white',
-  boxShadow: `0 0 0 2px $$bgSliderThumb`,
-  borderRadius: 10,
-  transition: 'all 100ms linear',
-  '&:hover': { boxShadow: `0 0 0 3px $$bgSlider`, width: 12, height: 12 },
-  '&:focus': {
-    outline: 'none',
-    boxShadow: `0 0 0 3px $$bgSlider`,
-    width: 12,
-    height: 12,
-  },
-});
-
 export type SliderPrimitive = ComponentProps<typeof StyledSliderRoot>;
 
 export type SliderProps = {
@@ -66,19 +50,39 @@ export type SliderProps = {
 export const Slider = forwardRef<
   ElementRef<typeof StyledSliderRoot>,
   SliderProps
->(({ colorScheme, ...props }) => {
+>(({ colorScheme, defaultValue, value, ...props }) => {
+  const [sliderValues, setSliderValues] = useState<number[]>(
+    value ? value : defaultValue || [0]
+  );
+
+  const [isDragging, setIsDragging] = useState<boolean[]>([false]);
+
+  const handleChangeSlider = (value: number[]) => {
+    setSliderValues(value);
+    if (!isDragging.some((x) => x === true)) {
+      setIsDragging([true]);
+    }
+  };
+
   return (
     <StyledSliderRoot
-      defaultValue={[0]}
-      max={100}
+      value={sliderValues}
+      onValueChange={(value) => handleChangeSlider(value)}
       css={{
         ...getColorSchemeVariants(colorScheme),
       }}
+      onValueCommit={(value) => {
+        console.log(value);
+        setIsDragging([false]);
+      }}
+      {...props}
     >
       <StyledSliderTrack>
         <StyledSliderRange />
       </StyledSliderTrack>
-      <StyledSliderThumb />
+      {sliderValues.map((value, index) => (
+        <SliderThumb dragging={isDragging[index]} key={index} value={value} />
+      ))}
     </StyledSliderRoot>
   );
 });
