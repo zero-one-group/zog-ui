@@ -36,6 +36,11 @@ const StyledWrapper = styled('div', {
         },
       },
     },
+    disabled: {
+      true: {
+        cursor: 'not-allowed',
+      },
+    },
   },
 });
 
@@ -63,6 +68,16 @@ const StyledSelect = styled('div', {
         cursor: 'text',
       },
     },
+    disabled: {
+      true: {
+        pointerEvents: 'none',
+        '*': {
+          pointerEvents: 'none',
+        },
+        borderColor: '#D9D9D9 !important',
+        background: '#F5F5F5',
+      },
+    },
   },
 });
 
@@ -76,10 +91,7 @@ const StyledArrow = styled(Box, {
 });
 const StyledClear = styled(Box, {
   fontSize: '12px',
-  // marginInlineEnd: '12px',
   position: 'absolute',
-  // top: '50%',
-  // transform: 'translateY(-50%)',
   right: '0',
   cursor: 'pointer',
   background: 'white',
@@ -238,22 +250,14 @@ const StyledItemClose = styled('span', {
 });
 
 const StyledInputMultiple = styled('span', {
-  // border: '1px solid #F0F0F0',
-  // height: '24px',
-  // display: 'inline-flex',
-  // alignItems: 'center',
   margin: 0,
   padding: 0,
   outline: 0,
-  // border: 0,
   background: 'transparent',
   fontSize: '14px',
   fontFamily: '$untitled',
   whiteSpace: 'nowrap',
-  // width: '100%',
   minWidth: '4px',
-  // position: 'relative',
-  // left: 0,
   variants: {
     size: {
       small: {
@@ -349,12 +353,12 @@ type SelectedItem = {
   label?: string;
 };
 
-/* eslint-disable-next-line */
 export type SelectProps = {
   options?: SelectedItem[];
   css?: ComponentProps<typeof StyledWrapper>['css'];
   placeholder?: string;
   searchable?: boolean;
+  disabled?: boolean;
   allowClear?: boolean;
   itemsToShow?: number;
   size?: ComponentProps<typeof StyledSelected>['size'];
@@ -374,7 +378,7 @@ export const Select = ({
   size,
   value: valueFromProps,
   onChange: onChangeFromProps,
-  ...props
+  disabled,
 }: SelectProps) => {
   // const isControlled = typeof valueFromProps !== undefined
   const [open, setOpen] = useState(false);
@@ -541,7 +545,12 @@ export const Select = ({
       : itemsToShow) * 26;
 
   return (
-    <StyledWrapper hasItem={hasSelectedItem} css={css} ref={wrapperRef}>
+    <StyledWrapper
+      hasItem={hasSelectedItem}
+      css={css}
+      ref={wrapperRef}
+      disabled={disabled}
+    >
       <Popover.Root open={open}>
         <Popover.Trigger asChild>
           <StyledTrigger />
@@ -586,6 +595,7 @@ export const Select = ({
         onClick={() => setOpen((prev) => !prev)}
         focused={open}
         searchable={searchable}
+        disabled={disabled}
       >
         <StyledSelected size={size}>
           {searchable && !multiple ? (
@@ -594,6 +604,7 @@ export const Select = ({
               onChange={onChangeInput}
               ref={inputRef}
               size={size}
+              disabled={disabled}
             />
           ) : null}
           <StyledPlaceholder
@@ -618,14 +629,18 @@ export const Select = ({
                   size={size}
                 >
                   <span>{option.label}</span>
-                  <StyledItemClose
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      deSelect(option);
-                    }}
-                  >
-                    <CloseOutlined />
-                  </StyledItemClose>
+                  {!disabled ? (
+                    <StyledItemClose
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        deSelect(option);
+                      }}
+                    >
+                      <CloseOutlined />
+                    </StyledItemClose>
+                  ) : (
+                    <span />
+                  )}
                 </StyledSelectedMultipleItem>
               ))}
               {multiple && searchable ? (
@@ -638,7 +653,7 @@ export const Select = ({
                 >
                   <StyledInputMultiple
                     placeholder={placeholder}
-                    contentEditable
+                    contentEditable={!disabled}
                     onInput={onChangeInputMultiple}
                     onBlur={() => setMultipleInputFocus(false)}
                     onFocus={() => setMultipleInputFocus(true)}
@@ -652,7 +667,7 @@ export const Select = ({
         </StyledSelected>
         <StyledArrow>
           <DownOutlined />
-          {allowClear ? (
+          {allowClear && !disabled ? (
             <StyledClear
               className="clear-btn"
               onClick={(e) => {
