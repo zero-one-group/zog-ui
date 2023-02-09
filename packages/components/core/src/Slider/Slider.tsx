@@ -1,6 +1,6 @@
 import * as RadixSlider from '@radix-ui/react-slider';
 import { ComponentProps, ElementRef, forwardRef, useState } from 'react';
-import { styled } from '../stitches.config';
+import { CSS, styled } from '../stitches.config';
 import { SliderThumb } from './SliderThumb';
 
 const getColorSchemeVariants = (colorScheme?: string) => {
@@ -20,8 +20,15 @@ const StyledSliderRoot = styled(RadixSlider.Root, {
   alignItems: 'center',
   userSelect: 'none',
   touchAction: 'none',
-  width: '100%',
-  height: 20,
+  "&[data-orientation='vertical']": {
+    flexDirection: 'column',
+    width: 20,
+    height: 200,
+  },
+  "&:not([data-orientation='vertical'])": {
+    width: 200,
+    height: 20,
+  },
 });
 
 const StyledSliderTrack = styled(RadixSlider.Track, {
@@ -29,15 +36,26 @@ const StyledSliderTrack = styled(RadixSlider.Track, {
   position: 'relative',
   flexGrow: 1,
   borderRadius: '9999px',
-  height: 4,
+  "&[data-orientation='vertical']": {
+    width: 4,
+  },
+  "&:not([data-orientation='vertical'])": {
+    height: 4,
+  },
 });
 
 const StyledSliderRange = styled(RadixSlider.Range, {
   position: 'absolute',
   backgroundColor: '$$bgSliderRange',
   borderRadius: '9999px',
-  height: '100%',
+
   transition: 'background-color 100ms linear',
+  "&[data-orientation='vertical']": {
+    width: '100%',
+  },
+  "&:not([data-orientation='vertical'])": {
+    height: '100%',
+  },
   '&:hover': { backgroundColor: `$$bgSliderThumb` },
 });
 
@@ -45,12 +63,13 @@ export type SliderPrimitive = ComponentProps<typeof StyledSliderRoot>;
 
 export type SliderProps = {
   colorScheme?: string;
+  css?: CSS;
 } & SliderPrimitive;
 
 export const Slider = forwardRef<
   ElementRef<typeof StyledSliderRoot>,
   SliderProps
->(({ colorScheme, defaultValue, value, ...props }) => {
+>(({ colorScheme, defaultValue, value, css, ...props }) => {
   const [sliderValues, setSliderValues] = useState<number[]>(
     value ? value : defaultValue || [0]
   );
@@ -71,12 +90,11 @@ export const Slider = forwardRef<
       value={sliderValues}
       onValueChange={(value) => handleChangeSlider(value)}
       css={{
+        ...css,
         ...getColorSchemeVariants(colorScheme),
       }}
       onValueCommit={(value) => {
         setIsDragging(value.map((val, i) => val === commitedValue[i]));
-        // flushSync(() => {
-        // });
         setCommitedValue(value);
       }}
       {...props}
@@ -85,7 +103,12 @@ export const Slider = forwardRef<
         <StyledSliderRange />
       </StyledSliderTrack>
       {sliderValues.map((value, index) => (
-        <SliderThumb dragging={isDragging[index]} key={index} value={value} />
+        <SliderThumb
+          orientation={props.orientation}
+          dragging={isDragging[index]}
+          key={index}
+          value={value}
+        />
       ))}
     </StyledSliderRoot>
   );

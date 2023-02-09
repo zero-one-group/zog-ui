@@ -80,12 +80,13 @@ const TooltipArrow = styled(Tooltip.Arrow, {
 type SliderThumbProps = {
   value: number;
   dragging: boolean;
+  orientation?: 'vertical' | 'horizontal';
 } & ComponentProps<typeof StyledSliderThumb>;
 
 export const SliderThumb = forwardRef<
   ElementRef<typeof StyledSliderThumb>,
   SliderThumbProps
->(({ value, dragging, ...props }, ref) => {
+>(({ value, dragging, orientation = 'horizontal', ...props }, ref) => {
   const [isVisited, setVisited] = useState<boolean>(dragging);
 
   useEffect(() => {
@@ -104,7 +105,11 @@ export const SliderThumb = forwardRef<
           />
         </Tooltip.Trigger>
         <Tooltip.Portal>
-          <TooltipContent key={value} sideOffset={5}>
+          <TooltipContent
+            key={value}
+            sideOffset={5}
+            side={orientation === 'horizontal' ? 'top' : 'left'}
+          >
             {value}
             <TooltipArrow />
           </TooltipContent>
