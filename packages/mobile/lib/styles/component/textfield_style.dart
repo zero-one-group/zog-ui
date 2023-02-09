@@ -1,8 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 /// A styles set of [ZeroTextField] for all variants
