@@ -32,6 +32,7 @@ export * from './ProgressBar';
 export * from './Radio';
 export * from './RadioCard';
 export * from './RadioGrid';
+export * from './Rating';
 export * from './Scrollbar';
 export * from './SearchBox';
 export * from './Section';
