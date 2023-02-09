@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:developer';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -874,18 +875,20 @@ class _TappableLabel {
 }
 
 class _DialPainter extends CustomPainter {
-  _DialPainter({
-    required this.primaryLabels,
-    required this.primaryInnerLabels,
-    required this.secondaryLabels,
-    required this.secondaryInnerLabels,
-    required this.backgroundColor,
-    required this.accentColor,
-    required this.dotColor,
-    required this.theta,
-    required this.textDirection,
-    required this.selectedValue,
-  }) : super(repaint: PaintingBinding.instance.systemFonts);
+  _DialPainter(
+      {required this.primaryLabels,
+      required this.primaryInnerLabels,
+      required this.secondaryLabels,
+      required this.secondaryInnerLabels,
+      required this.backgroundColor,
+      required this.accentColor,
+      required this.dotColor,
+      required this.theta,
+      required this.textDirection,
+      required this.selectedValue,
+      required this.pickerMode,
+      required this.selectPm})
+      : super(repaint: PaintingBinding.instance.systemFonts);
 
   final List<_TappableLabel> primaryLabels;
   final List<_TappableLabel>? primaryInnerLabels;
@@ -897,6 +900,8 @@ class _DialPainter extends CustomPainter {
   final double theta;
   final TextDirection textDirection;
   final int selectedValue;
+  final _TimePickerMode pickerMode;
+  final bool selectPm;
 
   static const double _labelPadding = 28.0;
 
@@ -925,23 +930,18 @@ class _DialPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    log('paint..');
     final double radius = size.shortestSide / 2.0;
     final Offset center = Offset(size.width / 2.0, size.height / 2.0);
     final Offset centerPoint = center;
+
+    // Larce circle for the clock backgorund
     canvas.drawCircle(centerPoint, radius, Paint()..color = backgroundColor);
 
     final double labelRadius = radius - _labelPadding;
-    final double innerLabelRadius = (radius - _labelPadding) / 2;
-
     Offset getOffsetForTheta(double theta) {
       return center +
           Offset(labelRadius * math.cos(theta), -labelRadius * math.sin(theta));
-    }
-
-    Offset getInnerOffsetForTheta(double theta) {
-      return center +
-          Offset(innerLabelRadius * math.cos(theta),
-              -innerLabelRadius * math.sin(theta));
     }
 
     void paintLabels(List<_TappableLabel>? labels) {
@@ -958,6 +958,13 @@ class _DialPainter extends CustomPainter {
         labelPainter.paint(canvas, getOffsetForTheta(labelTheta) + labelOffset);
         labelTheta += labelThetaIncrement;
       }
+    }
+
+    final double innerLabelRadius = (radius - _labelPadding) / 2;
+    Offset getInnerOffsetForTheta(double theta) {
+      return center +
+          Offset(innerLabelRadius * math.cos(theta),
+              -innerLabelRadius * math.sin(theta));
     }
 
     void paintInnerLabels(List<_TappableLabel>? labels) {
@@ -978,21 +985,32 @@ class _DialPainter extends CustomPainter {
     }
 
     paintLabels(primaryLabels);
-    paintInnerLabels(primaryInnerLabels);
+    if (pickerMode != _TimePickerMode.minute) {
+      paintInnerLabels(primaryInnerLabels);
+    }
 
     final Paint selectorPaint = Paint()..color = accentColor;
     selectorPaint.strokeWidth = 2.0;
+    canvas.drawCircle(
+        centerPoint, 4.0, selectorPaint); // Small circle in the center position
 
+    // Draw outer line and circle
     const double focusedRadius = _labelPadding - 4.0;
-    canvas.drawCircle(centerPoint, 4.0, selectorPaint);
-
     final Offset focusedPoint = getOffsetForTheta(theta);
-    canvas.drawCircle(focusedPoint, focusedRadius, selectorPaint);
-    canvas.drawLine(centerPoint, focusedPoint, selectorPaint);
 
+    // Draw inner line and circle
+    const double innerFocusedRadius = _labelPadding - 4.0;
     final Offset innerFocusedPoint = getInnerOffsetForTheta(theta);
-    canvas.drawCircle(innerFocusedPoint, focusedRadius, selectorPaint);
-    canvas.drawLine(centerPoint, innerFocusedPoint, selectorPaint);
+
+    if (pickerMode == _TimePickerMode.minute || !selectPm) {
+      // Circle for outer label
+      canvas.drawCircle(focusedPoint, focusedRadius, selectorPaint);
+      canvas.drawLine(centerPoint, focusedPoint, selectorPaint);
+    } else {
+      // Circle for inner label
+      canvas.drawCircle(innerFocusedPoint, innerFocusedRadius, selectorPaint);
+      canvas.drawLine(centerPoint, innerFocusedPoint, selectorPaint);
+    }
 
     // Add a dot inside the selector but only when it isn't over the labels.
     // This checks that the selector's theta is between two labels. A remainder
@@ -1001,41 +1019,34 @@ class _DialPainter extends CustomPainter {
     final double labelThetaIncrement = -_kTwoPi / primaryLabels.length;
     if (theta % labelThetaIncrement > 0.1 &&
         theta % labelThetaIncrement < 0.45) {
-      canvas.drawCircle(focusedPoint, 2.0, selectorPaint..color = dotColor);
+      if (selectPm) {
+        canvas.drawCircle(
+            innerFocusedPoint, 2.0, selectorPaint..color = dotColor);
+      } else {
+        canvas.drawCircle(focusedPoint, 2.0, selectorPaint..color = dotColor);
+      }
     }
 
-    final Rect focusedRect = Rect.fromCircle(
-      center: focusedPoint,
-      radius: focusedRadius,
+    Rect focusedRect = Rect.fromCircle(
+      center: selectPm && pickerMode == _TimePickerMode.hour
+          ? innerFocusedPoint
+          : focusedPoint,
+      radius: selectPm && pickerMode == _TimePickerMode.hour
+          ? innerFocusedRadius
+          : focusedRadius,
     );
 
     canvas
       ..save()
       ..clipPath(Path()..addOval(focusedRect));
-    paintLabels(secondaryLabels);
-    canvas.restore();
 
-    if (primaryInnerLabels != null) {
-      final double innerLabelThetaIncrement =
-          -_kTwoPi / primaryInnerLabels!.length;
-
-      if (theta % innerLabelThetaIncrement > 0.1 &&
-          theta % innerLabelThetaIncrement < 0.45) {
-        canvas.drawCircle(
-            innerFocusedPoint, 2.0, selectorPaint..color = dotColor);
-      }
-
-      final Rect innerFocusedRect = Rect.fromCircle(
-        center: innerFocusedPoint,
-        radius: focusedRadius,
-      );
-
-      canvas
-        ..save()
-        ..clipPath(Path()..addOval(innerFocusedRect));
-      paintInnerLabels(secondaryInnerLabels);
-      canvas.restore();
+    if (pickerMode == _TimePickerMode.minute || !selectPm) {
+      paintLabels(secondaryLabels);
+    } else {
+      paintInnerLabels(secondaryLabels);
     }
+
+    canvas.restore();
   }
 
   @override
@@ -1440,17 +1451,18 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
 
     painter?.dispose();
     painter = _DialPainter(
-      selectedValue: selectedDialValue,
-      primaryLabels: primaryLabels,
-      primaryInnerLabels: primaryInnerLabels,
-      secondaryLabels: secondaryLabels,
-      secondaryInnerLabels: secondaryInnerLabels,
-      backgroundColor: backgroundColor,
-      accentColor: accentColor,
-      dotColor: theme.colorScheme.surface,
-      theta: _theta.value,
-      textDirection: Directionality.of(context),
-    );
+        selectedValue: selectedDialValue,
+        primaryLabels: primaryLabels,
+        primaryInnerLabels: primaryInnerLabels,
+        secondaryLabels: secondaryLabels,
+        secondaryInnerLabels: secondaryInnerLabels,
+        backgroundColor: backgroundColor,
+        accentColor: accentColor,
+        dotColor: theme.colorScheme.surface,
+        theta: _theta.value,
+        pickerMode: widget.mode,
+        textDirection: Directionality.of(context),
+        selectPm: false);
 
     return GestureDetector(
       excludeFromSemantics: true,
