@@ -27,37 +27,37 @@ class _ZeroCardExampleState extends State<ZeroCardExample> {
                 header: 'Header',
                 subheader: 'Subheader',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-                // avatar: ZeroAvatar.url(
-                //   'https://picsum.photos/200',
-                //   size: AvatarSize.m,
-                // ),
-                // image: Image.network(
-                //   'https://picsum.photos/300',
-                //   fit: BoxFit.cover,
-                // ),
-                // cardPadding: 16,
-                // actions: [
-                //   ZeroButton.secondary(
-                //     text: 'Cancel',
-                //     onPressed: () {},
-                //     height: 35,
-                //     buttonSizeType: ZeroSizeType.small,
-                //     buttonRadiusType: ZeroButtonRadiusType.rounded,
-                //     style: const ZeroButtonStyle(
-                //       padding: EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-                //     ),
-                //   ),
-                //   ZeroButton.primary(
-                //     text: 'OK',
-                //     onPressed: () {},
-                //     height: 35,
-                //     buttonSizeType: ZeroSizeType.small,
-                //     buttonRadiusType: ZeroButtonRadiusType.rounded,
-                //     style: const ZeroButtonStyle(
-                //       padding: EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-                //     ),
-                //   ),
-                // ],
+                avatar: ZeroAvatar.url(
+                  'https://picsum.photos/200',
+                  size: AvatarSize.m,
+                ),
+                image: Image.network(
+                  'https://picsum.photos/300',
+                  fit: BoxFit.cover,
+                ),
+                headerTrailing: const Icon(Icons.more_vert),
+                actions: [
+                  ZeroButton.secondary(
+                    text: 'Cancel',
+                    onPressed: () {},
+                    height: 35,
+                    buttonSizeType: ZeroSizeType.small,
+                    buttonRadiusType: ZeroButtonRadiusType.rounded,
+                    style: const ZeroButtonStyle(
+                      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+                    ),
+                  ),
+                  ZeroButton.primary(
+                    text: 'OK',
+                    onPressed: () {},
+                    height: 35,
+                    buttonSizeType: ZeroSizeType.small,
+                    buttonRadiusType: ZeroButtonRadiusType.rounded,
+                    style: const ZeroButtonStyle(
+                      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 16),
               ZeroCardVertical(
@@ -68,8 +68,7 @@ class _ZeroCardExampleState extends State<ZeroCardExample> {
                   'https://picsum.photos/300',
                   fit: BoxFit.cover,
                 ),
-                filledColor: ZeroColors.neutral[5],
-                variant: ZeroCardVariant.filled,
+                variant: ZeroCardVariant.elevated,
               ),
             ],
           ),

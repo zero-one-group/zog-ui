@@ -11,25 +11,22 @@ enum ZeroCardVariant {
     switch (this) {
       case ZeroCardVariant.outline:
         return BoxDecoration(
-          color: Colors.white,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: ZeroColors.neutral[5]),
         );
       case ZeroCardVariant.filled:
         return BoxDecoration(
-          color: Colors.white,
           borderRadius: BorderRadius.circular(8),
         );
       case ZeroCardVariant.elevated:
         return BoxDecoration(
-          color: Colors.white,
           borderRadius: BorderRadius.circular(8),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
+              color: Colors.black26,
               spreadRadius: 1,
               blurRadius: 7,
-              offset: const Offset(0, 3), // changes position of shadow
+              offset: Offset(0, 3),
             ),
           ],
         );

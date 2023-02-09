@@ -42,12 +42,15 @@ class _ZeroCardVerticalState extends State<ZeroCardVertical> {
       decoration: widget.variant == ZeroCardVariant.outline
           ? widget.variant.decoration.copyWith(
               border: Border.all(color: widget.outlineBorderColor),
+              color: context.theme.cardColor,
             )
           : widget.variant == ZeroCardVariant.filled
               ? widget.variant.decoration.copyWith(
                   color: widget.filledColor,
                 )
-              : widget.variant.decoration,
+              : widget.variant.decoration.copyWith(
+                  color: context.theme.cardColor,
+                ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
