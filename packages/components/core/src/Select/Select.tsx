@@ -15,6 +15,17 @@ const Box = styled('div', {
   boxSizing: 'border-box',
 });
 
+const getColorSchemeVariants = (colorScheme?: string) => {
+  return {
+    $$primaryColor: colorScheme
+      ? `$colors-${colorScheme}9`
+      : '$colors-primary9',
+    $$hightlightColor: colorScheme
+      ? `$colors-${colorScheme}4`
+      : '$colors-primary4',
+  };
+};
+
 const StyledWrapper = styled('div', {
   display: 'inline-grid',
   gridTemplateColumns: 'auto 1fr',
@@ -361,6 +372,7 @@ export type SelectProps = {
   disabled?: boolean;
   allowClear?: boolean;
   itemsToShow?: number;
+  colorScheme?: string;
   size?: ComponentProps<typeof StyledSelected>['size'];
   multiple?: boolean;
   value?: SelectedItem | SelectedItem[];
@@ -379,8 +391,8 @@ export const Select = ({
   value: valueFromProps,
   onChange: onChangeFromProps,
   disabled,
+  colorScheme,
 }: SelectProps) => {
-  // const isControlled = typeof valueFromProps !== undefined
   const [open, setOpen] = useState(false);
 
   const [selectedItems, setSelectedItems] = useState<SelectedItem[]>([]);
@@ -547,7 +559,7 @@ export const Select = ({
   return (
     <StyledWrapper
       hasItem={hasSelectedItem}
-      css={css}
+      css={{ ...css, ...getColorSchemeVariants(colorScheme) }}
       ref={wrapperRef}
       disabled={disabled}
     >
@@ -563,7 +575,12 @@ export const Select = ({
             onOpenAutoFocus={(e) => e.preventDefault()}
           >
             <StyledScrollAreaRoot css={{ minWidth: inputWidth }}>
-              <StyledScrollAreaViewport css={{ height: dropdownHeight }}>
+              <StyledScrollAreaViewport
+                css={{
+                  height: dropdownHeight,
+                  ...getColorSchemeVariants(colorScheme),
+                }}
+              >
                 {filteredOptions.length > 0 ? (
                   filteredOptions.map((option) => {
                     const selected =
