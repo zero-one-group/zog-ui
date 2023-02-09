@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zero_ui_mobile_example/component/alert_dialog/zero_alert_dialog_example.dart';
 import 'package:zero_ui_mobile_example/component/chip/chip_example.dart';
 import 'package:zero_ui_mobile_example/component/datepicker/datepicker_example.dart';
 import 'package:zero_ui_mobile_example/component/dropdown/zero_dropdown_example.dart';
@@ -260,6 +261,16 @@ class Examples extends StatelessWidget {
                 );
               },
               text: 'Zero Date Picker Example',
+            ),
+            ZeroButton.primary(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ZeroAlertDialogExample(),
+                  ),
+                );
+              },
+              text: 'Zero Alert Dialog Example',
             ),
           ],
         ),
