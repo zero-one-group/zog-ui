@@ -3,6 +3,7 @@ import { BADGE } from '@geometricpanda/storybook-addon-badges';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { Select } from '@zero-ui/core';
+import { useState } from 'react';
 
 <Meta
   title="Components/Forms/Select"
@@ -15,11 +16,26 @@ import { Select } from '@zero-ui/core';
   }}
 />
 
-export const SelectStory = (args) => <Select {...args} />;
+export const SelectStory = (args) => {
+  const [value, setValue] = useState();
+  console.log(value);
+  return (
+    <div style={{ height: '100%' }}>
+      <h2>Uncontrolled</h2>
+      <Select {...args} />
+      <h2>Controlled</h2>
+      <Select {...args} value={value} onChange={setValue} />
+      <h2>OnChange Only</h2>
+      <Select {...args} onChange={setValue} />
+      <h2>Listen Value Only</h2>
+      <Select {...args} value={value} />
+    </div>
+  );
+};
 
 # Select
 
-> WIP
+> Select component to select value from options.
 
 ## Example Usage
 

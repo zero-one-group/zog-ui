@@ -344,22 +344,24 @@ const StyledOptionItem = styled(Box, {
   },
 });
 
-type ISelectedItem = {
+type SelectedItem = {
   value: string;
   label?: string;
 };
 
 /* eslint-disable-next-line */
-export interface SelectProps {
-  options?: ISelectedItem[];
+export type SelectProps = {
+  options?: SelectedItem[];
   css?: ComponentProps<typeof StyledWrapper>['css'];
   placeholder?: string;
   searchable?: boolean;
   allowClear?: boolean;
-  multiple?: boolean;
   itemsToShow?: number;
   size?: ComponentProps<typeof StyledSelected>['size'];
-}
+  multiple?: boolean;
+  value?: SelectedItem | SelectedItem[];
+  onChange?: (value?: SelectedItem | SelectedItem[]) => void;
+};
 
 export const Select = ({
   options = [],
@@ -370,22 +372,72 @@ export const Select = ({
   multiple,
   allowClear = true,
   size,
+  value: valueFromProps,
+  onChange: onChangeFromProps,
   ...props
 }: SelectProps) => {
+  // const isControlled = typeof valueFromProps !== undefined
   const [open, setOpen] = useState(false);
-  const [selectedItemsKey, setSelectedItemsKey] = useState<
-    ISelectedItem['value'][]
-  >([]);
-  const [selectedSingleItem, setSelectedSingleItem] =
-    useState<ISelectedItem | null>(null);
+
+  const [selectedItems, setSelectedItems] = useState<SelectedItem[]>([]);
+  const [selectedSingleItem, setSelectedSingleItem] = useState<
+    SelectedItem | undefined
+  >(undefined);
+
   const [input, setInput] = useState<string>('');
   const [filteredOptions, setFilteredOptions] = useState(() => options);
   const [multipleInputFocus, setMultipleInputFocus] = useState(false);
   // used when trigger onchange props
-  const staticOptions = useRef(options ?? []);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const inputMultipleRef = useRef<HTMLSpanElement>(null);
+  // to prevent effect when onChangeFromProps changed
+  const staticOnChangeFromProp = useRef(onChangeFromProps);
+
+  const setState = (option?: SelectedItem) => {
+    if (
+      typeof onChangeFromProps === 'function' &&
+      valueFromProps !== undefined
+    ) {
+      if (multiple) {
+        if (!option) {
+          onChangeFromProps([]);
+          return;
+        }
+        const prevValues = (valueFromProps as SelectedItem[]) ?? [];
+        if (prevValues.find((it) => it.value === option.value)) {
+          // remove it / deselect
+          onChangeFromProps(
+            prevValues.filter((it) => it.value !== option.value)
+          );
+        } else {
+          onChangeFromProps([...prevValues, option]);
+        }
+      } else {
+        onChangeFromProps(option);
+      }
+    } else {
+      if (multiple) {
+        if (!option) {
+          setSelectedItems([]);
+          return;
+        }
+        if (selectedItems.find((it) => it.value === option.value)) {
+          setSelectedItems((prev) =>
+            prev.filter((it) => it.value !== option.value)
+          );
+        } else {
+          setSelectedItems((prev) => Array.from(new Set([...prev, option])));
+        }
+      } else {
+        // handle when Select has onChange but does not have value
+        if (typeof onChangeFromProps === 'function') {
+          onChangeFromProps(option);
+        }
+        setSelectedSingleItem(option);
+      }
+    }
+  };
 
   const clearInput = () => {
     if (searchable) {
@@ -400,28 +452,13 @@ export const Select = ({
     setFilteredOptions(options);
   };
 
-  const deSelect = (val: ISelectedItem['value']) => {
-    setSelectedItemsKey((prev) => prev.filter((it) => it !== val));
+  const deSelect = (opt: SelectedItem) => {
+    setSelectedItems((prev) => prev.filter((it) => it.value !== opt.value));
   };
 
-  const selectSingle = (option: ISelectedItem) => {
-    setSelectedSingleItem(option);
-  };
-  const selectMultiple = (option: ISelectedItem) => {
-    if (selectedItemsKey.includes(option.value)) {
-      setSelectedItemsKey((prev) => prev.filter((it) => it !== option.value));
-    } else {
-      setSelectedItemsKey((prev) =>
-        Array.from(new Set([...prev, option.value]))
-      );
-    }
-  };
-
-  const onSelect = (option: ISelectedItem) => {
-    if (multiple) {
-      selectMultiple(option);
-    } else {
-      selectSingle(option);
+  const onSelect = (option: SelectedItem) => {
+    setState(option);
+    if (!multiple) {
       setOpen(false);
     }
     clearInput();
@@ -429,8 +466,7 @@ export const Select = ({
   };
 
   const onClearAll = () => {
-    setSelectedItemsKey([]);
-    setSelectedSingleItem(null);
+    setState();
     clearInput();
     resetFilteredOptions();
   };
@@ -480,8 +516,24 @@ export const Select = ({
     }
   }, [open]);
 
+  useEffect(() => {
+    if (typeof valueFromProps !== undefined) {
+      if (valueFromProps instanceof Array) {
+        setSelectedItems(valueFromProps);
+      } else {
+        setSelectedSingleItem(valueFromProps);
+      }
+    }
+  }, [valueFromProps]);
+
+  useEffect(() => {
+    if (multiple && typeof staticOnChangeFromProp.current === 'function') {
+      staticOnChangeFromProp.current(selectedItems);
+    }
+  }, [selectedItems, multiple]);
+
   const hasSelectedItem =
-    selectedItemsKey.length > 0 || selectedSingleItem !== null;
+    selectedItems.length > 0 || selectedSingleItem !== undefined;
   const inputExist = input.length > 0;
   const dropdownHeight =
     (itemsToShow > filteredOptions.length
@@ -507,7 +559,8 @@ export const Select = ({
                   filteredOptions.map((option) => {
                     const selected =
                       selectedSingleItem?.value === option.value ||
-                      selectedItemsKey.includes(option.value);
+                      selectedItems.find((it) => it.value === option.value) !==
+                        undefined;
                     return (
                       <StyledOptionItem
                         onClick={() => onSelect(option)}
@@ -559,18 +612,16 @@ export const Select = ({
           ) : null}
           {multiple ? (
             <StyledSelectedItems size={size}>
-              {selectedItemsKey.map((val) => (
-                <StyledSelectedMultipleItem data-value={val} size={size}>
-                  <span>
-                    {
-                      staticOptions.current.find((it) => it.value === val)
-                        ?.label
-                    }
-                  </span>
+              {selectedItems.map((option) => (
+                <StyledSelectedMultipleItem
+                  data-value={option.value}
+                  size={size}
+                >
+                  <span>{option.label}</span>
                   <StyledItemClose
                     onClick={(e) => {
                       e.stopPropagation();
-                      deSelect(val);
+                      deSelect(option);
                     }}
                   >
                     <CloseOutlined />
