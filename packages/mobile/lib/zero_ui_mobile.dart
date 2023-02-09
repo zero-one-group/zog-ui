@@ -12,6 +12,7 @@ export './styles/component/list_tile_style.dart';
 export './styles/component/button_style.dart';
 export './styles/component/divider_style.dart';
 export './styles/component/chip_style.dart';
+export './styles/component/navigation_bar_style.dart';
 
 // assets
 export './assets/assets.dart';
@@ -94,6 +95,9 @@ export './components/datepicker/zero_datepicker_textfield.dart';
 // Progress Indicator
 export './components/progress_indicator/zero_progress_indicator.dart';
 
+// navigation
+export './components/navigation/zero_navigation_bar.dart';
+
 // types
 export './types/button_radius_type.dart';
 export './types/button_group_type.dart';
@@ -103,6 +107,7 @@ export './types/tooltip_type.dart';
 export './types/snackbar_type.dart';
 export './types/snackbar_alert_type.dart';
 export './types/snackbar_alert_variant.dart';
+export './types/navigation_bar_type.dart';
 
 // positions
 export './position/tooltip_position.dart';

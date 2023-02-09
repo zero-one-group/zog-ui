@@ -90,6 +90,7 @@ class ZeroThemeData with Diagnosticable {
   final ZeroDividerStyle dividerStyle;
   final ZeroChipFilledStyle chipFilledStyle;
   final ZeroChipOutlinedStyle chipOutlinedStyle;
+  final ZeroNavigationBarStyle navigationBarStyle;
 
   final ZeroTextfieldStyleSet? textfieldStyleSet;
   final ZeroTextfieldSize? textfieldSize;
@@ -132,6 +133,7 @@ class ZeroThemeData with Diagnosticable {
     required this.dividerStyle,
     required this.chipFilledStyle,
     required this.chipOutlinedStyle,
+    required this.navigationBarStyle,
     this.textfieldStyleSet,
     this.inputDecorationType,
     this.textfieldSize,
@@ -166,6 +168,7 @@ class ZeroThemeData with Diagnosticable {
       ZeroDividerStyle? dividerStyle,
       ZeroChipFilledStyle? chipFilledStyle,
       ZeroChipOutlinedStyle? chipOutlinedStyle,
+      ZeroNavigationBarStyle? navigationBarStyle,
       ZeroTextfieldStyleSet? textfieldStyleSet,
       InputDecorationType? inputDecorationType,
       ZeroTextfieldSize? textfieldSize,
@@ -291,6 +294,12 @@ class ZeroThemeData with Diagnosticable {
     final chipOutlinedStyleFallback = ZeroChipOutlinedStyle.fallback(
       textStyle: TextStyle(color: solidTextColor),
     );
+    final navigationBarStyleFallback = ZeroNavigationBarStyle.fallback(
+      backgroundColor: isLight ? ZeroColors.white : ZeroColors.black,
+      indicatorColor: primaryColor.lighter,
+      selectedColor: isLight ? ZeroColors.black : ZeroColors.white,
+      unselectedColor: isLight ? ZeroColors.black : ZeroColors.white,
+    );
 
     useMaterial3 ??= false;
 
@@ -321,6 +330,8 @@ class ZeroThemeData with Diagnosticable {
         dividerStyle: dividerStyleFallback.merge(dividerStyle),
         chipFilledStyle: chipFilledStyleFallback.merge(chipFilledStyle),
         chipOutlinedStyle: chipOutlinedStyleFallback.merge(chipOutlinedStyle),
+        navigationBarStyle:
+            navigationBarStyleFallback.merge(navigationBarStyle),
         textfieldStyleSet: textfieldStyleSet,
         inputDecorationType: inputDecorationType,
         textfieldSize: textfieldSize,
@@ -360,6 +371,8 @@ class ZeroThemeData with Diagnosticable {
           ZeroChipFilledStyle.lerp(a.chipFilledStyle, b.chipFilledStyle, t),
       chipOutlinedStyle: ZeroChipOutlinedStyle.lerp(
           a.chipOutlinedStyle, b.chipOutlinedStyle, t),
+      navigationBarStyle: ZeroNavigationBarStyle.lerp(
+          a.navigationBarStyle, b.navigationBarStyle, t),
     );
   }
 
@@ -389,6 +402,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroDividerStyle? dividerStyle,
     ZeroChipFilledStyle? chipFilledStyle,
     ZeroChipOutlinedStyle? chipOutlinedStyle,
+    ZeroNavigationBarStyle? navigationBarStyle,
     ZeroTextfieldStyleSet? textfieldStyleSet,
     InputDecorationType? inputDecorationType,
     ZeroTextfieldSize? textfieldSize,
@@ -421,6 +435,7 @@ class ZeroThemeData with Diagnosticable {
       dividerStyle: dividerStyle ?? this.dividerStyle,
       chipFilledStyle: chipFilledStyle ?? this.chipFilledStyle,
       chipOutlinedStyle: chipOutlinedStyle ?? this.chipOutlinedStyle,
+      navigationBarStyle: navigationBarStyle ?? this.navigationBarStyle,
       inputDecorationType: inputDecorationType ?? this.inputDecorationType,
       textfieldStyleSet: this.textfieldStyleSet?.copyWith(
           inputDecorationType: inputDecorationType,
@@ -463,6 +478,7 @@ class ZeroThemeData with Diagnosticable {
       colorScheme: colorScheme,
       dividerTheme: dividerStyle.toDividerTheme(),
       chipTheme: chipFilledStyle.toChipThemeData(),
+      navigationBarTheme: navigationBarStyle.toNavigationBarTheme(),
     );
   }
 

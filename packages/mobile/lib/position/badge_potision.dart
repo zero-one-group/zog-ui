@@ -20,12 +20,14 @@ enum ZeroBadgePosition {
   /// Calculation of the top position on the badge
   ///
   /// If [ZeroBadgePosition] is top, it will `return 0`, otherwise it will `return null`
-  double? get top => this == topLeft || this == topRight ? 0 : null;
+  double? top(double childPadding) =>
+      this == topLeft || this == topRight ? -(childPadding / 2) : null;
 
   /// Calculation of the bottom position on the badge
   ///
   /// If [ZeroBadgePosition] is bottom, it will `return 0`, otherwise it will `return null`
-  double? get bottom => this == bottomLeft || this == bottomRight ? 0 : null;
+  double? bottom(double childPadding) =>
+      this == bottomLeft || this == bottomRight ? -(childPadding / 2) : null;
 
   /// Calculation of the left position on the badge
   ///
@@ -37,13 +39,18 @@ enum ZeroBadgePosition {
   /// Args:
   ///   childSize (double): The size of the child widget.
   ///   type (ZeroBadgeType): The type of badge.
+  ///   childPadding (double): The padding of the child widget.
   ///
   /// Returns:
   ///   A double value.
-  double? left({required double childSize, required ZeroBadgeType type}) {
+  double? left({
+    required double childSize,
+    required ZeroBadgeType type,
+    required double childPadding,
+  }) {
     if (this == topLeft || this == bottomLeft) {
       // Check if type is standard return [childSize]
-      return type == ZeroBadgeType.standard ? childSize : 0;
+      return type != ZeroBadgeType.dot ? childSize - (childPadding / 2) : 0;
     }
 
     return null;
@@ -59,13 +66,18 @@ enum ZeroBadgePosition {
   /// Args:
   ///   childSize (double): The size of the child widget.
   ///   type (ZeroBadgeType): The type of badge.
+  ///   childPadding (double): The padding of the child widget.
   ///
   /// Returns:
   ///   The return value is a double? (nullable double)
-  double? right({required double childSize, required ZeroBadgeType type}) {
+  double? right({
+    required double childSize,
+    required ZeroBadgeType type,
+    required double childPadding,
+  }) {
     if (this == topRight || this == bottomRight) {
       // Check if type is standard return [childSize]
-      return type == ZeroBadgeType.standard ? childSize : 0;
+      return type != ZeroBadgeType.dot ? childSize - (childPadding / 2) : 0;
     }
 
     return null;

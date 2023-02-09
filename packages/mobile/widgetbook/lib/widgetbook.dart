@@ -13,6 +13,7 @@ import 'widgetbook_component/divider.dart';
 import 'widgetbook_component/dropdown.dart';
 import 'widgetbook_component/icons.dart';
 import 'widgetbook_component/list_tile.dart';
+import 'widgetbook_component/navigation_bar.dart';
 import 'widgetbook_component/progress_indicator.dart';
 import 'widgetbook_component/radio_group.dart';
 import 'widgetbook_component/rating.dart';
@@ -52,6 +53,9 @@ class HotReload extends StatelessWidget {
             WidgetbookFolder(name: 'Button', widgets: [
               buttonWidgetbookComponent,
               buttonGroupWidgetbookComponent,
+            ]),
+            WidgetbookFolder(name: 'Navigation', widgets: [
+              navigationBarWidgetbookComponent,
             ]),
           ],
           widgets: [

@@ -13,6 +13,7 @@ class ZeroBadge extends StatelessWidget {
     this.stackFit = StackFit.loose,
     this.badgeColor,
     this.badgeTextColor = Colors.white,
+    this.padding,
   }) : super(key: key);
 
   /// Allows to set custom position of badge according to [child].
@@ -60,10 +61,17 @@ class ZeroBadge extends StatelessWidget {
   /// The color that will be displayed on the text of badge indicator
   final Color badgeTextColor;
 
+  /// The padding of child with indicator
+  final EdgeInsets? padding;
+
   @override
   Widget build(BuildContext context) {
     /// Get badge color, with fallback from primary color current theme
     final color = badgeColor ?? context.theme.primaryColor;
+
+    final adaptivePadding = padding ?? position.childPadding();
+    final adaptiveChildSize =
+        childSize + adaptivePadding.horizontal - adaptivePadding.horizontal / 2;
 
     return Stack(
       clipBehavior: Clip.none,
@@ -72,16 +80,14 @@ class ZeroBadge extends StatelessWidget {
         // Build badge child
         GestureDetector(
           onTap: onTap,
-          child: Padding(
-            padding: position.childPadding(),
-            child: child,
-          ),
+          child: child,
         ),
         // Build badge indicator
         _BadgePositioned(
           position: position,
           type: type,
-          childSize: childSize,
+          childSize: adaptiveChildSize,
+          childPadding: adaptiveChildSize,
           badge: GestureDetector(
             onTap: onTap,
             child: _Badge(
@@ -104,6 +110,7 @@ class _BadgePositioned extends StatelessWidget {
     required this.position,
     required this.type,
     required this.childSize,
+    required this.childPadding,
   });
 
   /// The Badge widget that will be built on this widget is in accordance with its position
@@ -118,17 +125,28 @@ class _BadgePositioned extends StatelessWidget {
   /// The size of the child in the widget [ZeroBadge]
   final double childSize;
 
+  /// The padding of child
+  final double childPadding;
+
   @override
   Widget build(BuildContext context) {
-    final left = position.left(childSize: childSize, type: type);
-    final right = position.right(childSize: childSize, type: type);
+    final left = position.left(
+      childSize: childSize,
+      type: type,
+      childPadding: childPadding,
+    );
+    final right = position.right(
+      childSize: childSize,
+      type: type,
+      childPadding: childPadding,
+    );
 
     return Positioned(
-      top: position.top,
-      bottom: position.bottom,
+      top: position.top(childPadding),
+      bottom: position.bottom(childPadding),
       // If the type is standard, need to reverse the position between left and right
-      left: type == ZeroBadgeType.standard ? right : left,
-      right: type == ZeroBadgeType.standard ? left : right,
+      left: type != ZeroBadgeType.dot ? right : left,
+      right: type != ZeroBadgeType.dot ? left : right,
       child: badge,
     );
   }
@@ -178,7 +196,6 @@ class _Badge extends StatelessWidget {
             shape: BoxShape.circle,
             color: color,
           ),
-          padding: const EdgeInsets.only(top: 2, bottom: 3),
           alignment: Alignment.center,
           child: Text(
             badgeText,
@@ -197,12 +214,6 @@ class _Badge extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
             color: color,
-          ),
-          padding: const EdgeInsets.only(
-            top: 2,
-            bottom: 3,
-            left: 6,
-            right: 6,
           ),
           alignment: Alignment.center,
           child: Text(
