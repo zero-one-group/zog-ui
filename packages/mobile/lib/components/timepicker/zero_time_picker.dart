@@ -1161,9 +1161,15 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
 
     if (widget.mode == _TimePickerMode.hour) {
       int newHour;
-      newHour = (fraction * TimeOfDay.hoursPerPeriod).round() %
-          TimeOfDay.hoursPerPeriod;
-      newHour = newHour + (_selectPm ? 12 : 0);
+      if (widget.use24HourDials) {
+        newHour = (fraction * TimeOfDay.hoursPerPeriod).round() %
+            TimeOfDay.hoursPerPeriod;
+        newHour = newHour + (_selectPm ? TimeOfDay.hoursPerPeriod : 0);
+      } else {
+        newHour = (fraction * TimeOfDay.hoursPerPeriod).round() %
+            TimeOfDay.hoursPerPeriod;
+        newHour = newHour + widget.selectedTime.periodOffset;
+      }
       return widget.selectedTime.replacing(hour: newHour);
     } else {
       int minute = (fraction * TimeOfDay.minutesPerHour).round() %
@@ -1240,7 +1246,7 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
     _center = null;
     _animateTo(_getThetaForTime(widget.selectedTime));
     if (widget.mode == _TimePickerMode.hour) {
-      // widget.onHourSelected?.call();
+      widget.onHourSelected?.call();
     }
   }
 
@@ -1258,7 +1264,7 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
         _announceToAccessibility(
             context, localizations.formatDecimal(newTime.hourOfPeriod));
       }
-      // widget.onHourSelected?.call();
+      widget.onHourSelected?.call();
     } else {
       _announceToAccessibility(
           context, localizations.formatDecimal(newTime.minute));
