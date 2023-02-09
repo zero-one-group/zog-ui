@@ -1,6 +1,5 @@
 import * as RadixSlider from '@radix-ui/react-slider';
 import { ComponentProps, ElementRef, forwardRef, useState } from 'react';
-import { flushSync } from 'react-dom';
 import { styled } from '../stitches.config';
 import { SliderThumb } from './SliderThumb';
 
@@ -75,9 +74,9 @@ export const Slider = forwardRef<
         ...getColorSchemeVariants(colorScheme),
       }}
       onValueCommit={(value) => {
-        flushSync(() => {
-          setIsDragging(value.map((val, i) => val === commitedValue[i]));
-        });
+        setIsDragging(value.map((val, i) => val === commitedValue[i]));
+        // flushSync(() => {
+        // });
         setCommitedValue(value);
       }}
       {...props}
