@@ -104,6 +104,9 @@ export './components/navigation/drawer/zero_navigation_drawer.dart';
 // alert dialog
 export './components/alert_dialog/zero_alert_dialog.dart';
 
+// card
+export './components/card/zero_card.dart';
+
 // types
 export './types/button_radius_type.dart';
 export './types/button_group_type.dart';
