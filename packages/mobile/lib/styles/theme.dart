@@ -91,10 +91,10 @@ class ZeroThemeData with Diagnosticable {
   final ZeroChipFilledStyle chipFilledStyle;
   final ZeroChipOutlinedStyle chipOutlinedStyle;
   final ZeroNavigationBarStyle navigationBarStyle;
-
   final ZeroTextfieldStyleSet? textfieldStyleSet;
   final ZeroTextfieldSize? textfieldSize;
   final InputDecorationType? inputDecorationType;
+  final ZeroNavigationDrawerStyle navigationDrawerStyle;
 
   final Brightness brightness;
   final IconThemeData iconTheme;
@@ -137,42 +137,45 @@ class ZeroThemeData with Diagnosticable {
     this.textfieldStyleSet,
     this.inputDecorationType,
     this.textfieldSize,
+    required this.navigationDrawerStyle,
 
     // Others
     this.useMaterial3 = false,
   });
 
-  factory ZeroThemeData(
-      {Brightness? brightness,
-      ZeroTypography? typography,
-      String? fontFamily,
-      AccentColor? primaryColor,
-      Color? disabledColor,
-      Color? scaffoldBackgroundColor,
-      Color? uncheckedColor,
-      Color? checkedColor,
-      Color? cardColor,
-      Color? disabledBackgroundColor,
-      Color? errorColor,
-      Color? dividerColor,
-      Color? solidTextColor,
-      Color? regularTextColor,
-      ColorScheme? colorScheme,
-      IconThemeData? iconTheme,
-      DialogTheme? dialogTheme,
-      InputDecorationTheme? inputDecorationTheme,
-      ZeroListTileStyle? listTileStyle,
-      ZeroButtonStyle? primaryButtonStyle,
-      ZeroButtonStyle? secondaryButtonStyle,
-      ZeroButtonStyle? textButtonStyle,
-      ZeroDividerStyle? dividerStyle,
-      ZeroChipFilledStyle? chipFilledStyle,
-      ZeroChipOutlinedStyle? chipOutlinedStyle,
-      ZeroNavigationBarStyle? navigationBarStyle,
-      ZeroTextfieldStyleSet? textfieldStyleSet,
-      InputDecorationType? inputDecorationType,
-      ZeroTextfieldSize? textfieldSize,
-      bool? useMaterial3}) {
+  factory ZeroThemeData({
+    Brightness? brightness,
+    ZeroTypography? typography,
+    String? fontFamily,
+    bool? useMaterial3,
+    AccentColor? primaryColor,
+    Color? disabledColor,
+    Color? scaffoldBackgroundColor,
+    Color? uncheckedColor,
+    Color? checkedColor,
+    Color? cardColor,
+    Color? disabledBackgroundColor,
+    Color? errorColor,
+    Color? dividerColor,
+    Color? solidTextColor,
+    Color? regularTextColor,
+    ColorScheme? colorScheme,
+    IconThemeData? iconTheme,
+    DialogTheme? dialogTheme,
+    InputDecorationTheme? inputDecorationTheme,
+    ZeroListTileStyle? listTileStyle,
+    ZeroButtonStyle? primaryButtonStyle,
+    ZeroButtonStyle? secondaryButtonStyle,
+    ZeroButtonStyle? textButtonStyle,
+    ZeroDividerStyle? dividerStyle,
+    ZeroChipFilledStyle? chipFilledStyle,
+    ZeroChipOutlinedStyle? chipOutlinedStyle,
+    ZeroNavigationBarStyle? navigationBarStyle,
+    ZeroTextfieldStyleSet? textfieldStyleSet,
+    InputDecorationType? inputDecorationType,
+    ZeroTextfieldSize? textfieldSize,
+    ZeroNavigationDrawerStyle? navigationDrawerStyle,
+  }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
     final isLight = brightness.isLight;
@@ -300,42 +303,48 @@ class ZeroThemeData with Diagnosticable {
       selectedColor: isLight ? ZeroColors.black : ZeroColors.white,
       unselectedColor: isLight ? ZeroColors.black : ZeroColors.white,
     );
+    final navigationDrawerStyleFallback = ZeroNavigationDrawerStyle.fallback(
+      backgroundColor: isLight ? ZeroColors.white : ZeroColors.black,
+      headerTitleStyle: typography.subtitle1,
+      sectionTitleStyle: typography.subtitle2,
+    );
 
     useMaterial3 ??= false;
 
     return ZeroThemeData.raw(
-        brightness: brightness,
-        primaryColor: primaryColor,
-        disabledColor: disabledColor,
-        scaffoldBackgroundColor: scaffoldBackgroundColor,
-        uncheckedColor: uncheckedColor,
-        checkedColor: checkedColor,
-        iconTheme: iconTheme,
-        dialogTheme: dialogTheme,
-        colorScheme: colorScheme,
-        typography: typography,
-        cardColor: cardColor,
-        errorColor: errorColor,
-        disabledBackgroundColor: disabledBackgroundColor,
-        dividerColor: dividerColor,
-        solidTextColor: solidTextColor,
-        regularTextColor: regularTextColor,
-        fontFamily: fontFamily,
-        listTileStyle: listTileFallback.merge(listTileStyle),
-        primaryButtonStyle:
-            primaryButtonStyleFallback.merge(primaryButtonStyle),
-        secondaryButtonStyle:
-            secondaryButtonStyleFallback.merge(secondaryButtonStyle),
-        textButtonStyle: textButtonStyleFallback.merge(textButtonStyle),
-        dividerStyle: dividerStyleFallback.merge(dividerStyle),
-        chipFilledStyle: chipFilledStyleFallback.merge(chipFilledStyle),
-        chipOutlinedStyle: chipOutlinedStyleFallback.merge(chipOutlinedStyle),
-        navigationBarStyle:
-            navigationBarStyleFallback.merge(navigationBarStyle),
-        textfieldStyleSet: textfieldStyleSet,
-        inputDecorationType: inputDecorationType,
-        textfieldSize: textfieldSize,
-        useMaterial3: useMaterial3);
+      brightness: brightness,
+      useMaterial3: useMaterial3,
+      primaryColor: primaryColor,
+      disabledColor: disabledColor,
+      scaffoldBackgroundColor: scaffoldBackgroundColor,
+      uncheckedColor: uncheckedColor,
+      checkedColor: checkedColor,
+      iconTheme: iconTheme,
+      dialogTheme: dialogTheme,
+      colorScheme: colorScheme,
+      typography: typography,
+      cardColor: cardColor,
+      errorColor: errorColor,
+      disabledBackgroundColor: disabledBackgroundColor,
+      dividerColor: dividerColor,
+      solidTextColor: solidTextColor,
+      regularTextColor: regularTextColor,
+      fontFamily: fontFamily,
+      listTileStyle: listTileFallback.merge(listTileStyle),
+      primaryButtonStyle: primaryButtonStyleFallback.merge(primaryButtonStyle),
+      secondaryButtonStyle:
+          secondaryButtonStyleFallback.merge(secondaryButtonStyle),
+      textButtonStyle: textButtonStyleFallback.merge(textButtonStyle),
+      dividerStyle: dividerStyleFallback.merge(dividerStyle),
+      chipFilledStyle: chipFilledStyleFallback.merge(chipFilledStyle),
+      chipOutlinedStyle: chipOutlinedStyleFallback.merge(chipOutlinedStyle),
+      navigationBarStyle: navigationBarStyleFallback.merge(navigationBarStyle),
+      textfieldStyleSet: textfieldStyleSet,
+      inputDecorationType: inputDecorationType,
+      textfieldSize: textfieldSize,
+      navigationDrawerStyle:
+          navigationDrawerStyleFallback.merge(navigationDrawerStyle),
+    );
   }
 
   static ZeroThemeData lerp(ZeroThemeData a, ZeroThemeData b, double t) {
@@ -373,12 +382,15 @@ class ZeroThemeData with Diagnosticable {
           a.chipOutlinedStyle, b.chipOutlinedStyle, t),
       navigationBarStyle: ZeroNavigationBarStyle.lerp(
           a.navigationBarStyle, b.navigationBarStyle, t),
+      navigationDrawerStyle: ZeroNavigationDrawerStyle.lerp(
+          a.navigationDrawerStyle, b.navigationDrawerStyle, t),
     );
   }
 
   ZeroThemeData copyWith({
     Brightness? brightness,
     ZeroTypography? typography,
+    bool? useMaterial3,
     String? fontFamily,
     AccentColor? primaryColor,
     Color? inactiveBackgroundColor,
@@ -392,6 +404,7 @@ class ZeroThemeData with Diagnosticable {
     Color? dividerColor,
     Color? solidTextColor,
     Color? regularTextColor,
+    ColorScheme? colorScheme,
     IconThemeData? iconTheme,
     DialogTheme? dialogTheme,
     InputDecorationTheme? inputDecorationTheme,
@@ -406,7 +419,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroTextfieldStyleSet? textfieldStyleSet,
     InputDecorationType? inputDecorationType,
     ZeroTextfieldSize? textfieldSize,
-    ColorScheme? colorScheme,
+    ZeroNavigationDrawerStyle? navigationDrawerStyle,
   }) {
     return ZeroThemeData.raw(
       brightness: brightness ?? this.brightness,
@@ -452,6 +465,10 @@ class ZeroThemeData with Diagnosticable {
           underline: this.textfieldStyleSet?.underline.copyWith(
                 textfieldSize: textfieldSize,
               )),
+      textfieldSize: textfieldSize ?? this.textfieldSize,
+      useMaterial3: useMaterial3 ?? this.useMaterial3,
+      navigationDrawerStyle:
+          navigationDrawerStyle ?? this.navigationDrawerStyle,
     );
   }
 
@@ -479,6 +496,7 @@ class ZeroThemeData with Diagnosticable {
       dividerTheme: dividerStyle.toDividerTheme(),
       chipTheme: chipFilledStyle.toChipThemeData(),
       navigationBarTheme: navigationBarStyle.toNavigationBarTheme(),
+      drawerTheme: navigationDrawerStyle.toNavigationDrawerTheme(),
     );
   }
 

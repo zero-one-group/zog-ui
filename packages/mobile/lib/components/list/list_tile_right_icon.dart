@@ -31,14 +31,17 @@ class ListTileRightIcon extends StatelessWidget {
     final color = disabled ? theme.disabledColor : theme.iconTheme.color;
 
     // set default color/theme if child is [Icon] widget
-    return IconTheme(
-      data: IconThemeData(
-        size: 24,
-        color: color,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(left: 24),
-        child: child!,
+    return DefaultTextStyle(
+      style: theme.typography.caption ?? const TextStyle(fontSize: 12),
+      child: IconTheme(
+        data: IconThemeData(
+          size: 24,
+          color: color,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 24),
+          child: child!,
+        ),
       ),
     );
   }
