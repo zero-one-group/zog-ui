@@ -4,7 +4,16 @@ import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { Select } from '@zero-ui/core';
 
-<Meta title="Components/Forms/Select" component={[Select]} argTypes={{}} />
+<Meta
+  title="Components/Forms/Select"
+  component={[Select]}
+  argTypes={{
+    size: {
+      options: ['small', 'medium', 'large'],
+      control: { type: 'radio' },
+    },
+  }}
+/>
 
 export const SelectStory = (args) => <Select {...args} />;
 
@@ -42,6 +51,7 @@ import { Select } from '@zero-ui/core';
       placeholder: 'Select Item...',
       searchable: true,
       multiple: true,
+      size: 'medium',
     }}
   >
     {SelectStory.bind()}

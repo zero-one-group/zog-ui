@@ -118,6 +118,17 @@ const StyledPlaceholder = styled('span', {
         display: 'none',
       },
     },
+    size: {
+      small: {
+        fontSize: '14px',
+      },
+      medium: {
+        fontSize: '14px',
+      },
+      large: {
+        fontSize: '16px',
+      },
+    },
   },
 });
 const StyledInput = styled('input', {
@@ -132,18 +143,57 @@ const StyledInput = styled('input', {
   background: 'transparent',
   fontSize: '14px',
   fontFamily: '$untitled',
+  variants: {
+    size: {
+      small: {
+        fontSize: '14px',
+      },
+      medium: {
+        fontSize: '14px',
+      },
+      large: {
+        fontSize: '16px',
+      },
+    },
+  },
 });
 
 const StyledSelected = styled(Space, {
   minHeight: '32px',
   alignItems: 'center',
   position: 'relative',
+  variants: {
+    size: {
+      small: {
+        minHeight: '24px',
+      },
+      medium: {
+        minHeight: '32px',
+      },
+      large: {
+        minHeight: '40px',
+      },
+    },
+  },
 });
 const StyledSelectedItems = styled(Space, {
   alignItems: 'center',
   gap: '5px',
   flexWrap: 'wrap',
   padding: '3px 0',
+  variants: {
+    size: {
+      small: {
+        padding: '0',
+      },
+      medium: {
+        padding: '3px 0',
+      },
+      large: {
+        padding: '3px 0',
+      },
+    },
+  },
 });
 
 const StyledSelectedMultipleItem = styled('span', {
@@ -154,9 +204,25 @@ const StyledSelectedMultipleItem = styled('span', {
   border: '1px solid #F0F0F0',
   background: '#F5F5F5',
   height: '24px',
-  gap: '5px',
+  gap: '4px',
   alignItems: 'center',
   whiteSpace: 'nowrap',
+  variants: {
+    size: {
+      small: {
+        height: '16px',
+      },
+      medium: {
+        height: '24px',
+      },
+      large: {
+        height: '32px',
+        span: {
+          fontSize: '16px',
+        },
+      },
+    },
+  },
 });
 
 const StyledItemClose = styled('span', {
@@ -165,8 +231,41 @@ const StyledItemClose = styled('span', {
   alignItems: 'center',
   fontSize: '10px',
   color: '$blackA8',
+  cursor: 'pointer',
   '&:hover': {
     color: '$blackA12',
+  },
+});
+
+const StyledInputMultiple = styled('span', {
+  // border: '1px solid #F0F0F0',
+  // height: '24px',
+  // display: 'inline-flex',
+  // alignItems: 'center',
+  margin: 0,
+  padding: 0,
+  outline: 0,
+  // border: 0,
+  background: 'transparent',
+  fontSize: '14px',
+  fontFamily: '$untitled',
+  whiteSpace: 'nowrap',
+  // width: '100%',
+  minWidth: '4px',
+  // position: 'relative',
+  // left: 0,
+  variants: {
+    size: {
+      small: {
+        fontSize: '14px',
+      },
+      medium: {
+        fontSize: '14px',
+      },
+      large: {
+        fontSize: '16px',
+      },
+    },
   },
 });
 
@@ -181,6 +280,13 @@ const StyledScrollAreaRoot = styled(ScrollArea.Root, {
   boxShadow:
     '0px 3px 6px -4px rgba(0, 0, 0, 0.12), 0px 6px 16px rgba(0, 0, 0, 0.08), 0px 9px 28px 8px rgba(0, 0, 0, 0.05)',
   borderRadius: '4px',
+  variants: {
+    size: {
+      small: {},
+      medium: {},
+      large: {},
+    },
+  },
 });
 
 const StyledScrollAreaViewport = styled(ScrollArea.Viewport, {
@@ -249,8 +355,10 @@ export interface SelectProps {
   css?: ComponentProps<typeof StyledWrapper>['css'];
   placeholder?: string;
   searchable?: boolean;
+  allowClear?: boolean;
   multiple?: boolean;
   itemsToShow?: number;
+  size?: ComponentProps<typeof StyledSelected>['size'];
 }
 
 export const Select = ({
@@ -260,6 +368,8 @@ export const Select = ({
   searchable,
   itemsToShow = 10,
   multiple,
+  allowClear = true,
+  size,
   ...props
 }: SelectProps) => {
   const [open, setOpen] = useState(false);
@@ -270,14 +380,19 @@ export const Select = ({
     useState<ISelectedItem | null>(null);
   const [input, setInput] = useState<string>('');
   const [filteredOptions, setFilteredOptions] = useState(() => options);
+  const [multipleInputFocus, setMultipleInputFocus] = useState(false);
   // used when trigger onchange props
   const staticOptions = useRef(options ?? []);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const inputMultipleRef = useRef<HTMLSpanElement>(null);
 
   const clearInput = () => {
     if (searchable) {
       setInput('');
+    }
+    if (multiple && inputMultipleRef.current) {
+      inputMultipleRef.current.innerText = '';
     }
   };
 
@@ -325,8 +440,11 @@ export const Select = ({
   }, [open]);
 
   const focusInput = () => {
-    if (inputRef.current) {
+    if (inputRef.current && !multiple) {
       inputRef.current.focus();
+    }
+    if (inputMultipleRef.current && multiple) {
+      inputMultipleRef.current.focus();
     }
   };
 
@@ -345,6 +463,13 @@ export const Select = ({
 
   const onChangeInput: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const inputVal = e.target.value;
+    setInput(inputVal);
+    filterOptions(inputVal);
+  };
+  const onChangeInputMultiple: React.ChangeEventHandler<HTMLSpanElement> = (
+    e
+  ) => {
+    const inputVal = e.currentTarget.innerText;
     setInput(inputVal);
     filterOptions(inputVal);
   };
@@ -409,15 +534,19 @@ export const Select = ({
         focused={open}
         searchable={searchable}
       >
-        <StyledSelected>
-          {searchable ? (
+        <StyledSelected size={size}>
+          {searchable && !multiple ? (
             <StyledInput
               value={input}
               onChange={onChangeInput}
               ref={inputRef}
+              size={size}
             />
           ) : null}
-          <StyledPlaceholder hide={hasSelectedItem || inputExist}>
+          <StyledPlaceholder
+            hide={hasSelectedItem || inputExist || multipleInputFocus}
+            size={size}
+          >
             {placeholder}
           </StyledPlaceholder>
           {selectedSingleItem ? (
@@ -428,10 +557,10 @@ export const Select = ({
               {selectedSingleItem?.label}
             </StyledSelectedSingleItem>
           ) : null}
-          {multiple && selectedItemsKey.length > 0 ? (
-            <StyledSelectedItems>
+          {multiple ? (
+            <StyledSelectedItems size={size}>
               {selectedItemsKey.map((val) => (
-                <StyledSelectedMultipleItem data-value={val}>
+                <StyledSelectedMultipleItem data-value={val} size={size}>
                   <span>
                     {
                       staticOptions.current.find((it) => it.value === val)
@@ -448,20 +577,41 @@ export const Select = ({
                   </StyledItemClose>
                 </StyledSelectedMultipleItem>
               ))}
+              {multiple && searchable ? (
+                <Space
+                  css={{
+                    display: 'inline-flex',
+                    height: '24px',
+                    padding: '3px 0',
+                  }}
+                >
+                  <StyledInputMultiple
+                    placeholder={placeholder}
+                    contentEditable
+                    onInput={onChangeInputMultiple}
+                    onBlur={() => setMultipleInputFocus(false)}
+                    onFocus={() => setMultipleInputFocus(true)}
+                    ref={inputMultipleRef}
+                    size={size}
+                  />
+                </Space>
+              ) : null}
             </StyledSelectedItems>
           ) : null}
         </StyledSelected>
         <StyledArrow>
           <DownOutlined />
-          <StyledClear
-            className="clear-btn"
-            onClick={(e) => {
-              e.stopPropagation();
-              onClearAll();
-            }}
-          >
-            <CloseCircleFilled />
-          </StyledClear>
+          {allowClear ? (
+            <StyledClear
+              className="clear-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                onClearAll();
+              }}
+            >
+              <CloseCircleFilled />
+            </StyledClear>
+          ) : null}
         </StyledArrow>
       </StyledSelect>
     </StyledWrapper>
