@@ -24,49 +24,30 @@ class _ZeroAlertDialogExampleState extends State<ZeroAlertDialogExample> {
                 ZeroAlertDialog().show(
                   context,
                   title: 'Basic dialog title',
+                  elevation: 4,
                   content:
                       'A dialog is a type of modal window that appears in front of app content to provide critical information, or prompt for a decision to be made.',
                   image: Image.network(
                     'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
                     fit: BoxFit.cover,
+                    height: 100,
                   ),
-                  titleStyle: TextStyle(color: Colors.red),
-                  contentStyle: TextStyle(color: Colors.blue),
+                  titlePadding: const EdgeInsets.all(4),
+                  contentPadding: const EdgeInsets.all(4),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(4)),
+                  ),
+                  // backgroundColor: Colors.black,
                   barrierDismissible: false,
-                  actionsAlignment: MainAxisAlignment.start,
-                  listItem: [
-                    ZeroListTile(
-                      title: 'List Tile 1',
-                      style: const ZeroListTileStyle(
-                        contentPadding: EdgeInsets.all(0),
-                        smallContentPadding: EdgeInsets.all(0),
-                      ),
-                      leftIcon: const Icon(Icons.person),
-                      rightIcon: ZeroCheckbox(value: true, tristate: true, onChanged: (val) {}),
-                      onTap: () {},
-                    ),
-                    ZeroListTile(
-                      title: 'List Tile 2',
-                      style: const ZeroListTileStyle(
-                        contentPadding: EdgeInsets.all(0),
-                        smallContentPadding: EdgeInsets.all(0),
-                      ),
-                      leftIcon: const Icon(Icons.person),
-                      rightIcon: ZeroCheckbox(value: true, tristate: true, onChanged: (val) {}),
-                      onTap: () {},
-                    ),
-                    ZeroListTile(
-                      title: 'List Tile 3',
-                      style: const ZeroListTileStyle(
-                        contentPadding: EdgeInsets.all(0),
-                        smallContentPadding: EdgeInsets.all(0),
-                      ),
-                      leftIcon: const Icon(Icons.person),
-                      rightIcon: ZeroCheckbox(value: true, tristate: true, onChanged: (val) {}),
-                      onTap: () {},
-                    ),
-                  ],
+                  alignment: Alignment.centerRight,
+                  actionsAlignment: MainAxisAlignment.center,
                   actions: [
+                    TextButton(
+                      onPressed: () {
+                        ZeroAlertDialog().hide();
+                      },
+                      child: const Text('Cancel'),
+                    ),
                     TextButton(
                       onPressed: () {
                         ZeroAlertDialog().hide();
@@ -77,6 +58,17 @@ class _ZeroAlertDialogExampleState extends State<ZeroAlertDialogExample> {
                 );
               },
               child: const Text('Show Alert Dialog'),
+            ),
+            TextButton(
+              onPressed: () {
+                ZeroAlertDialog().show(
+                  context,
+                  title: 'Title',
+                  content:
+                      'A dialog is a type of modal window that appears in front of app content to provide critical information, or prompt for a decision to be made.',
+                );
+              },
+              child: const Text('Show Simple Alert Dialog'),
             ),
           ],
         ),

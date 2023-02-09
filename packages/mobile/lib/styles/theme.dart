@@ -54,8 +54,7 @@ class _ZeroTheme extends InheritedTheme {
   final ZeroThemeData data;
 
   @override
-  bool updateShouldNotify(covariant _ZeroTheme oldWidget) =>
-      oldWidget.data != data;
+  bool updateShouldNotify(covariant _ZeroTheme oldWidget) => oldWidget.data != data;
 
   @override
   Widget wrap(BuildContext context, Widget child) {
@@ -180,22 +179,17 @@ class ZeroThemeData with Diagnosticable {
     // Base Colors
     primaryColor ??= ZeroColors.primary.toAccentColor();
     disabledColor ??= isLight ? ZeroColors.neutral[7] : ZeroColors.neutral[6];
-    disabledBackgroundColor ??=
-        isLight ? ZeroColors.neutral[3] : ZeroColors.neutral[8];
+    disabledBackgroundColor ??= isLight ? ZeroColors.neutral[3] : ZeroColors.neutral[8];
     scaffoldBackgroundColor ??= isLight ? ZeroColors.white : ZeroColors.black;
-    uncheckedColor ??= isLight
-        ? const Color.fromRGBO(0, 0, 0, 0.6063)
-        : const Color.fromRGBO(255, 255, 255, 0.786);
+    uncheckedColor ??= isLight ? const Color.fromRGBO(0, 0, 0, 0.6063) : const Color.fromRGBO(255, 255, 255, 0.786);
     checkedColor ??= isLight ? ZeroColors.white : ZeroColors.black;
     cardColor ??= isLight ? ZeroColors.white : ZeroColors.neutral[9];
     errorColor ??= ZeroColors.danger;
     dividerColor ??= ZeroColors.neutral[5];
     solidTextColor ??= isLight ? ZeroColors.neutral[10] : ZeroColors.neutral[5];
-    regularTextColor ??=
-        isLight ? ZeroColors.neutral[7] : ZeroColors.neutral[6];
+    regularTextColor ??= isLight ? ZeroColors.neutral[7] : ZeroColors.neutral[6];
 
-    typography ??=
-        ZeroTypography.fromBrightness(color: solidTextColor).merge(typography);
+    typography ??= ZeroTypography.fromBrightness(color: solidTextColor).merge(typography);
 
     iconTheme ??= isLight
         ? const IconThemeData(color: ZeroColors.black, size: 24.0)
@@ -204,37 +198,36 @@ class ZeroThemeData with Diagnosticable {
     dialogTheme ??= isLight
         ? DialogTheme(
             backgroundColor: ZeroColors.white,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            titleTextStyle: typography.heading6,
+            contentTextStyle: typography.body2,
           )
         : DialogTheme(
             backgroundColor: ZeroColors.neutral[10],
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            titleTextStyle: typography.heading6,
+            contentTextStyle: typography.body2,
           );
 
     textfieldSize ??= ZeroTextfieldSize.small;
 
     textfieldStyleSet ??= ZeroTextfieldStyleSet(
         outline: ZeroTextfieldStyle.outline(
-            textfieldSize: textfieldSize,
-            focusedBorderColor: primaryColor,
-            focusedColor: primaryColor),
+            textfieldSize: textfieldSize, focusedBorderColor: primaryColor, focusedColor: primaryColor),
         rounded: ZeroTextfieldStyle.rounded(
-            textfieldSize: textfieldSize,
-            focusedBorderColor: primaryColor,
-            focusedColor: primaryColor),
+            textfieldSize: textfieldSize, focusedBorderColor: primaryColor, focusedColor: primaryColor),
         filled: ZeroTextfieldStyle.fill(
             textfieldSize: textfieldSize,
             focusedBorderColor: primaryColor,
             focusedColor: primaryColor,
             fillColor: primaryColor.lightest),
         underline: ZeroTextfieldStyle.underline(
-            textfieldSize: textfieldSize,
-            focusedBorderColor: primaryColor,
-            focusedColor: primaryColor),
-        inputDecorationType:
-            inputDecorationType ?? InputDecorationType.underline);
+            textfieldSize: textfieldSize, focusedBorderColor: primaryColor, focusedColor: primaryColor),
+        inputDecorationType: inputDecorationType ?? InputDecorationType.underline);
 
     colorScheme ??= ColorScheme.fromSwatch(
       brightness: brightness,
@@ -283,8 +276,7 @@ class ZeroThemeData with Diagnosticable {
       textStyle: typography.button?.copyWith(color: solidTextColor),
     );
 
-    final textButtonStyleFallback = secondaryButtonStyleFallback.copyWith(
-        elevation: 0, side: BorderSide.none);
+    final textButtonStyleFallback = secondaryButtonStyleFallback.copyWith(elevation: 0, side: BorderSide.none);
 
     final dividerStyleFallback = ZeroDividerStyle.fallback(color: dividerColor);
 
@@ -322,16 +314,13 @@ class ZeroThemeData with Diagnosticable {
         regularTextColor: regularTextColor,
         fontFamily: fontFamily,
         listTileStyle: listTileFallback.merge(listTileStyle),
-        primaryButtonStyle:
-            primaryButtonStyleFallback.merge(primaryButtonStyle),
-        secondaryButtonStyle:
-            secondaryButtonStyleFallback.merge(secondaryButtonStyle),
+        primaryButtonStyle: primaryButtonStyleFallback.merge(primaryButtonStyle),
+        secondaryButtonStyle: secondaryButtonStyleFallback.merge(secondaryButtonStyle),
         textButtonStyle: textButtonStyleFallback.merge(textButtonStyle),
         dividerStyle: dividerStyleFallback.merge(dividerStyle),
         chipFilledStyle: chipFilledStyleFallback.merge(chipFilledStyle),
         chipOutlinedStyle: chipOutlinedStyleFallback.merge(chipOutlinedStyle),
-        navigationBarStyle:
-            navigationBarStyleFallback.merge(navigationBarStyle),
+        navigationBarStyle: navigationBarStyleFallback.merge(navigationBarStyle),
         textfieldStyleSet: textfieldStyleSet,
         inputDecorationType: inputDecorationType,
         textfieldSize: textfieldSize,
@@ -344,35 +333,26 @@ class ZeroThemeData with Diagnosticable {
       primaryColor: AccentColor.lerp(a.primaryColor, b.primaryColor, t),
       typography: ZeroTypography.lerp(a.typography, b.typography, t),
       disabledColor: Color.lerp(a.disabledColor, b.disabledColor, t)!,
-      scaffoldBackgroundColor:
-          Color.lerp(a.scaffoldBackgroundColor, b.scaffoldBackgroundColor, t)!,
+      scaffoldBackgroundColor: Color.lerp(a.scaffoldBackgroundColor, b.scaffoldBackgroundColor, t)!,
       uncheckedColor: Color.lerp(a.uncheckedColor, b.uncheckedColor, t)!,
       checkedColor: Color.lerp(a.checkedColor, b.checkedColor, t)!,
       cardColor: Color.lerp(a.cardColor, b.cardColor, t)!,
       colorScheme: ColorScheme.lerp(a.colorScheme, b.colorScheme, t),
       iconTheme: IconThemeData.lerp(a.iconTheme, b.iconTheme, t),
       dialogTheme: DialogTheme.lerp(a.dialogTheme, b.dialogTheme, t),
-      disabledBackgroundColor:
-          Color.lerp(a.disabledBackgroundColor, b.disabledBackgroundColor, t)!,
+      disabledBackgroundColor: Color.lerp(a.disabledBackgroundColor, b.disabledBackgroundColor, t)!,
       errorColor: Color.lerp(a.errorColor, b.errorColor, t)!,
       dividerColor: Color.lerp(a.dividerColor, b.dividerColor, t)!,
       solidTextColor: Color.lerp(a.solidTextColor, b.solidTextColor, t)!,
       regularTextColor: Color.lerp(a.regularTextColor, b.regularTextColor, t)!,
-      listTileStyle:
-          ZeroListTileStyle.lerp(a.listTileStyle, b.listTileStyle, t),
-      primaryButtonStyle:
-          ZeroButtonStyle.lerp(a.primaryButtonStyle, b.primaryButtonStyle, t),
-      secondaryButtonStyle: ZeroButtonStyle.lerp(
-          a.secondaryButtonStyle, b.secondaryButtonStyle, t),
-      textButtonStyle:
-          ZeroButtonStyle.lerp(a.textButtonStyle, b.textButtonStyle, t),
+      listTileStyle: ZeroListTileStyle.lerp(a.listTileStyle, b.listTileStyle, t),
+      primaryButtonStyle: ZeroButtonStyle.lerp(a.primaryButtonStyle, b.primaryButtonStyle, t),
+      secondaryButtonStyle: ZeroButtonStyle.lerp(a.secondaryButtonStyle, b.secondaryButtonStyle, t),
+      textButtonStyle: ZeroButtonStyle.lerp(a.textButtonStyle, b.textButtonStyle, t),
       dividerStyle: ZeroDividerStyle.lerp(a.dividerStyle, b.dividerStyle, t),
-      chipFilledStyle:
-          ZeroChipFilledStyle.lerp(a.chipFilledStyle, b.chipFilledStyle, t),
-      chipOutlinedStyle: ZeroChipOutlinedStyle.lerp(
-          a.chipOutlinedStyle, b.chipOutlinedStyle, t),
-      navigationBarStyle: ZeroNavigationBarStyle.lerp(
-          a.navigationBarStyle, b.navigationBarStyle, t),
+      chipFilledStyle: ZeroChipFilledStyle.lerp(a.chipFilledStyle, b.chipFilledStyle, t),
+      chipOutlinedStyle: ZeroChipOutlinedStyle.lerp(a.chipOutlinedStyle, b.chipOutlinedStyle, t),
+      navigationBarStyle: ZeroNavigationBarStyle.lerp(a.navigationBarStyle, b.navigationBarStyle, t),
     );
   }
 
@@ -416,15 +396,13 @@ class ZeroThemeData with Diagnosticable {
       uncheckedColor: uncheckedColor ?? this.uncheckedColor,
       checkedColor: checkedColor ?? this.checkedColor,
       disabledColor: disabledColor ?? this.disabledColor,
-      scaffoldBackgroundColor:
-          scaffoldBackgroundColor ?? this.scaffoldBackgroundColor,
+      scaffoldBackgroundColor: scaffoldBackgroundColor ?? this.scaffoldBackgroundColor,
       colorScheme: colorScheme ?? this.colorScheme,
       iconTheme: this.iconTheme.merge(iconTheme),
       dialogTheme: dialogTheme ?? this.dialogTheme,
       cardColor: cardColor ?? this.cardColor,
       errorColor: errorColor ?? this.errorColor,
-      disabledBackgroundColor:
-          disabledBackgroundColor ?? this.disabledBackgroundColor,
+      disabledBackgroundColor: disabledBackgroundColor ?? this.disabledBackgroundColor,
       dividerColor: dividerColor ?? this.dividerColor,
       solidTextColor: solidTextColor ?? this.solidTextColor,
       regularTextColor: regularTextColor ?? this.regularTextColor,
@@ -439,10 +417,7 @@ class ZeroThemeData with Diagnosticable {
       inputDecorationType: inputDecorationType ?? this.inputDecorationType,
       textfieldStyleSet: this.textfieldStyleSet?.copyWith(
           inputDecorationType: inputDecorationType,
-          outline: this
-              .textfieldStyleSet
-              ?.outline
-              .copyWith(textfieldSize: textfieldSize),
+          outline: this.textfieldStyleSet?.outline.copyWith(textfieldSize: textfieldSize),
           rounded: this.textfieldStyleSet?.rounded.copyWith(
                 textfieldSize: textfieldSize,
               ),
@@ -473,8 +448,7 @@ class ZeroThemeData with Diagnosticable {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: secondaryButtonStyle.toButtonStyle(),
       ),
-      inputDecorationTheme:
-          textfieldStyleSet?.mainStyle.toInputDecorationTheme(),
+      inputDecorationTheme: textfieldStyleSet?.mainStyle.toInputDecorationTheme(),
       colorScheme: colorScheme,
       dividerTheme: dividerStyle.toDividerTheme(),
       chipTheme: chipFilledStyle.toChipThemeData(),

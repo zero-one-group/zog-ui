@@ -36,6 +36,7 @@ WidgetbookComponent alertDialogWidgetbookComponent = WidgetbookComponent(
           image = Image.network(
             'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
             fit: BoxFit.cover,
+            height: 100,
           );
         }
 
@@ -76,8 +77,8 @@ WidgetbookComponent alertDialogWidgetbookComponent = WidgetbookComponent(
           ];
         }
 
-        return PreviewWidget(
-          child: GestureDetector(
+        return PreviewWidget(builder: (context) {
+          return GestureDetector(
             onTap: () {
               ZeroAlertDialog().show(
                 context,
@@ -104,8 +105,8 @@ WidgetbookComponent alertDialogWidgetbookComponent = WidgetbookComponent(
               );
             },
             child: const Text('Show Alert Dialog'),
-          ),
-        );
+          );
+        });
       },
     ),
   ],
