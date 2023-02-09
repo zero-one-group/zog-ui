@@ -110,6 +110,7 @@ export './components/alert_dialog/zero_alert_dialog.dart';
 
 // card
 export './components/card/zero_card.dart';
+export './components/card/zero_card_vertical.dart';
 
 // types
 export './types/button_radius_type.dart';
@@ -121,6 +122,7 @@ export './types/snackbar_type.dart';
 export './types/snackbar_alert_type.dart';
 export './types/snackbar_alert_variant.dart';
 export './types/navigation_bar_type.dart';
+export './types/card_variant.dart';
 
 // positions
 export './position/tooltip_position.dart';
