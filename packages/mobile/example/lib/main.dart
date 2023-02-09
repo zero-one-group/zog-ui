@@ -287,6 +287,9 @@ class Examples extends StatelessWidget {
               },
               text: 'Zero Navigation Drawer Example',
             ),
+            const SizedBox(
+              height: 100,
+            )
           ],
         ),
       ),

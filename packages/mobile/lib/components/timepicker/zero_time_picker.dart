@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 
 import 'dart:async';
-import 'dart:developer';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -903,7 +902,7 @@ class _DialPainter extends CustomPainter {
   final _TimePickerMode pickerMode;
   final bool selectPm;
 
-  static const double _labelPadding = 28.0;
+  static const double _labelPadding = 24.0;
 
   void dispose() {
     for (final _TappableLabel label in primaryLabels) {
@@ -930,7 +929,6 @@ class _DialPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    log('paint..');
     final double radius = size.shortestSide / 2.0;
     final Offset center = Offset(size.width / 2.0, size.height / 2.0);
     final Offset centerPoint = center;
@@ -960,7 +958,7 @@ class _DialPainter extends CustomPainter {
       }
     }
 
-    final double innerLabelRadius = (radius - _labelPadding) / 2;
+    final double innerLabelRadius = radius / 2;
     Offset getInnerOffsetForTheta(double theta) {
       return center +
           Offset(innerLabelRadius * math.cos(theta),
@@ -1002,14 +1000,14 @@ class _DialPainter extends CustomPainter {
     const double innerFocusedRadius = _labelPadding - 4.0;
     final Offset innerFocusedPoint = getInnerOffsetForTheta(theta);
 
-    if (pickerMode == _TimePickerMode.minute || !selectPm) {
-      // Circle for outer label
-      canvas.drawCircle(focusedPoint, focusedRadius, selectorPaint);
-      canvas.drawLine(centerPoint, focusedPoint, selectorPaint);
-    } else {
+    if (pickerMode == _TimePickerMode.hour && selectPm) {
       // Circle for inner label
       canvas.drawCircle(innerFocusedPoint, innerFocusedRadius, selectorPaint);
       canvas.drawLine(centerPoint, innerFocusedPoint, selectorPaint);
+    } else {
+      // Circle for outer label
+      canvas.drawCircle(focusedPoint, focusedRadius, selectorPaint);
+      canvas.drawLine(centerPoint, focusedPoint, selectorPaint);
     }
 
     // Add a dot inside the selector but only when it isn't over the labels.
@@ -1019,12 +1017,12 @@ class _DialPainter extends CustomPainter {
     final double labelThetaIncrement = -_kTwoPi / primaryLabels.length;
     if (theta % labelThetaIncrement > 0.1 &&
         theta % labelThetaIncrement < 0.45) {
-      if (selectPm) {
-        canvas.drawCircle(
-            innerFocusedPoint, 2.0, selectorPaint..color = dotColor);
-      } else {
-        canvas.drawCircle(focusedPoint, 2.0, selectorPaint..color = dotColor);
-      }
+      canvas.drawCircle(
+          selectPm && pickerMode == _TimePickerMode.hour
+              ? innerFocusedPoint
+              : focusedPoint,
+          2.0,
+          selectorPaint..color = dotColor);
     }
 
     Rect focusedRect = Rect.fromCircle(
@@ -1040,10 +1038,10 @@ class _DialPainter extends CustomPainter {
       ..save()
       ..clipPath(Path()..addOval(focusedRect));
 
-    if (pickerMode == _TimePickerMode.minute || !selectPm) {
-      paintLabels(secondaryLabels);
+    if (pickerMode == _TimePickerMode.hour && selectPm) {
+      paintInnerLabels(secondaryInnerLabels);
     } else {
-      paintInnerLabels(secondaryLabels);
+      paintLabels(secondaryLabels);
     }
 
     canvas.restore();
@@ -1097,6 +1095,7 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
   late MaterialLocalizations localizations;
   late MediaQueryData media;
   _DialPainter? painter;
+  bool _selectPm = false;
 
   @override
   void didChangeDependencies() {
@@ -1138,6 +1137,7 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
     final double currentTheta = _theta.value;
     double beginTheta =
         _nearest(targetTheta, currentTheta, currentTheta + _kTwoPi);
+
     beginTheta = _nearest(targetTheta, beginTheta, currentTheta - _kTwoPi);
     _thetaTween
       ..begin = beginTheta
@@ -1148,27 +1148,22 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
   }
 
   double _getThetaForTime(TimeOfDay time) {
-    final int hoursFactor = widget.use24HourDials
-        ? TimeOfDay.hoursPerDay
-        : TimeOfDay.hoursPerPeriod;
+    const int hoursFactor = TimeOfDay.hoursPerPeriod;
     final double fraction = widget.mode == _TimePickerMode.hour
         ? (time.hour / hoursFactor) % hoursFactor
         : (time.minute / TimeOfDay.minutesPerHour) % TimeOfDay.minutesPerHour;
-    return (math.pi / 2.0 - fraction * _kTwoPi) % _kTwoPi;
+    final theta = (math.pi / 2.0 - fraction * _kTwoPi) % _kTwoPi;
+    return theta;
   }
 
   TimeOfDay _getTimeForTheta(double theta, {bool roundMinutes = false}) {
     final double fraction = (0.25 - (theta % _kTwoPi) / _kTwoPi) % 1.0;
+
     if (widget.mode == _TimePickerMode.hour) {
       int newHour;
-      if (widget.use24HourDials) {
-        newHour =
-            (fraction * TimeOfDay.hoursPerDay).round() % TimeOfDay.hoursPerDay;
-      } else {
-        newHour = (fraction * TimeOfDay.hoursPerPeriod).round() %
-            TimeOfDay.hoursPerPeriod;
-        newHour = newHour + widget.selectedTime.periodOffset;
-      }
+      newHour = (fraction * TimeOfDay.hoursPerPeriod).round() %
+          TimeOfDay.hoursPerPeriod;
+      newHour = newHour + (_selectPm ? 12 : 0);
       return widget.selectedTime.replacing(hour: newHour);
     } else {
       int minute = (fraction * TimeOfDay.minutesPerHour).round() %
@@ -1196,8 +1191,17 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
   void _updateThetaForPan({bool roundMinutes = false}) {
     setState(() {
       final Offset offset = _position! - _center!;
+
+      // When distance from the center point less then 80, select PM hours
+      if (offset.distance < 85) {
+        _selectPm = true;
+      } else {
+        _selectPm = false;
+      }
+
       double angle =
           (math.atan2(offset.dx, offset.dy) - math.pi / 2.0) % _kTwoPi;
+
       if (roundMinutes) {
         angle = _getThetaForTime(
             _getTimeForTheta(angle, roundMinutes: roundMinutes));
@@ -1217,12 +1221,14 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
     final RenderBox box = context.findRenderObject()! as RenderBox;
     _position = box.globalToLocal(details.globalPosition);
     _center = box.size.center(Offset.zero);
+
     _updateThetaForPan();
     _notifyOnChangedIfNeeded();
   }
 
   void _handlePanUpdate(DragUpdateDetails details) {
     _position = _position! + details.delta;
+
     _updateThetaForPan();
     _notifyOnChangedIfNeeded();
   }
@@ -1234,7 +1240,7 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
     _center = null;
     _animateTo(_getThetaForTime(widget.selectedTime));
     if (widget.mode == _TimePickerMode.hour) {
-      widget.onHourSelected?.call();
+      // widget.onHourSelected?.call();
     }
   }
 
@@ -1252,7 +1258,7 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
         _announceToAccessibility(
             context, localizations.formatDecimal(newTime.hourOfPeriod));
       }
-      widget.onHourSelected?.call();
+      // widget.onHourSelected?.call();
     } else {
       _announceToAccessibility(
           context, localizations.formatDecimal(newTime.minute));
@@ -1262,40 +1268,6 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
     _dragging = false;
     _position = null;
     _center = null;
-  }
-
-  void _selectHour(int hour) {
-    _announceToAccessibility(context, localizations.formatDecimal(hour));
-    final TimeOfDay time;
-    if (widget.mode == _TimePickerMode.hour && widget.use24HourDials) {
-      time = TimeOfDay(hour: hour, minute: widget.selectedTime.minute);
-    } else {
-      if (widget.selectedTime.period == DayPeriod.am) {
-        time = TimeOfDay(hour: hour, minute: widget.selectedTime.minute);
-      } else {
-        time = TimeOfDay(
-            hour: hour + TimeOfDay.hoursPerPeriod,
-            minute: widget.selectedTime.minute);
-      }
-    }
-    final double angle = _getThetaForTime(time);
-    _thetaTween
-      ..begin = angle
-      ..end = angle;
-    _notifyOnChangedIfNeeded();
-  }
-
-  void _selectMinute(int minute) {
-    _announceToAccessibility(context, localizations.formatDecimal(minute));
-    final TimeOfDay time = TimeOfDay(
-      hour: widget.selectedTime.hour,
-      minute: minute,
-    );
-    final double angle = _getThetaForTime(time);
-    _thetaTween
-      ..begin = angle
-      ..end = angle;
-    _notifyOnChangedIfNeeded();
   }
 
   static const List<TimeOfDay> _amHours = <TimeOfDay>[
@@ -1353,9 +1325,7 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
             timeOfDay.hour,
             localizations.formatHour(timeOfDay,
                 alwaysUse24HourFormat: media.alwaysUse24HourFormat),
-            () {
-              _selectHour(timeOfDay.hour);
-            },
+            () {},
           ),
       ];
 
@@ -1368,9 +1338,7 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
             timeOfDay.hour,
             localizations.formatHour(timeOfDay,
                 alwaysUse24HourFormat: media.alwaysUse24HourFormat),
-            () {
-              _selectHour(timeOfDay.hour);
-            },
+            () {},
           ),
       ];
 
@@ -1397,9 +1365,7 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
           color,
           timeOfDay.minute,
           localizations.formatMinute(timeOfDay),
-          () {
-            _selectMinute(timeOfDay.minute);
-          },
+          () {},
         ),
     ];
   }
@@ -1433,7 +1399,7 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
               _buildPmHourRing(theme.textTheme, primaryLabelColor);
           secondaryLabels =
               _buildAmHourRing(theme.textTheme, secondaryLabelColor);
-          secondaryLabels =
+          secondaryInnerLabels =
               _buildPmHourRing(theme.textTheme, secondaryLabelColor);
         } else {
           selectedDialValue = widget.selectedTime.hourOfPeriod;
@@ -1462,7 +1428,7 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
         theta: _theta.value,
         pickerMode: widget.mode,
         textDirection: Directionality.of(context),
-        selectPm: false);
+        selectPm: _selectPm);
 
     return GestureDetector(
       excludeFromSemantics: true,
