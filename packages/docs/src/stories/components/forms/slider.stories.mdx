@@ -19,11 +19,19 @@ import { Slider } from '@zero-ui/core';
 ```
 
 <Canvas columns={2} withSource="close">
-  <Story name="Horizontal">{SliderStory.bind()}</Story>
+  <Story
+    name="Horizontal"
+    args={{
+      disabled: false,
+    }}
+  >
+    {SliderStory.bind()}
+  </Story>
   <Story
     name="Vertical"
     args={{
       orientation: 'vertical',
+      disabled: false,
     }}
   >
     {SliderStory.bind()}

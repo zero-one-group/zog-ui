@@ -29,6 +29,15 @@ const StyledSliderThumb = styled(RadixSlider.Thumb, {
     width: 12,
     height: 12,
   },
+  '&[data-disabled]': {
+    boxShadow: `0 0 0 2px $$bgSliderDisabled`,
+    '&:hover': {
+      boxShadow: `0 0 0 2px $$bgSliderDisabled`,
+      width: 10,
+      height: 10,
+      cursor: 'not-allowed',
+    },
+  },
 });
 
 const slideUpAndFade = keyframes({

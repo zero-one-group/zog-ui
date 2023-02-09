@@ -12,6 +12,7 @@ const getColorSchemeVariants = (colorScheme?: string) => {
     $$bgSliderThumb: colorScheme
       ? `$colors-${colorScheme}8`
       : '$colors-primary8',
+    $$bgSliderDisabled: '$colors-gray7',
   };
 };
 const StyledSliderRoot = styled(RadixSlider.Root, {
@@ -42,6 +43,9 @@ const StyledSliderTrack = styled(RadixSlider.Track, {
   "&:not([data-orientation='vertical'])": {
     height: 4,
   },
+  '&[data-disabled]': {
+    backgroundColor: '$$bgSliderDisabled',
+  },
 });
 
 const StyledSliderRange = styled(RadixSlider.Range, {
@@ -55,6 +59,9 @@ const StyledSliderRange = styled(RadixSlider.Range, {
   },
   "&:not([data-orientation='vertical'])": {
     height: '100%',
+  },
+  '&[data-disabled]': {
+    backgroundColor: '$$bgSliderDisabled',
   },
   '&:hover': { backgroundColor: `$$bgSliderThumb` },
 });
