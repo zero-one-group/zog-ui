@@ -4,6 +4,7 @@ import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 import 'component/alert_dialog/zero_alert_dialog_example.dart';
 import 'component/avatar/avatar_example.dart';
 import 'component/button/zero_button_example.dart';
+import 'component/card/zero_card_example.dart';
 import 'component/chip/chip_example.dart';
 import 'component/datepicker/datepicker_example.dart';
 import 'component/divider/divider_example.dart';
@@ -81,9 +82,7 @@ class _MyAppState extends State<MyApp> {
                     }
                   }),
               const Expanded(
-                child: SingleChildScrollView(
-                  child: Examples(),
-                ),
+                child: Examples(),
               ),
             ],
           ),
@@ -289,25 +288,22 @@ class Examples extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const ZeroTimePickerExample(),
+                    builder: (context) => const ZeroAppBarExample(),
                   ),
                 );
               },
-              text: 'Zero Time Picker Example',
+              text: 'Zero AppBar Example',
             ),
             ZeroButton.primary(
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const ZeroAppBarExample(),
+                    builder: (context) => const ZeroCardExample(),
                   ),
                 );
               },
-              text: 'Zero App Bar Example',
+              text: 'Zero Card Example',
             ),
-            const SizedBox(
-              height: 100,
-            )
           ],
         ),
       ),
