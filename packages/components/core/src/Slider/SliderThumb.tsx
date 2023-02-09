@@ -1,6 +1,6 @@
 import * as RadixSlider from '@radix-ui/react-slider';
 import * as Tooltip from '@radix-ui/react-tooltip';
-import { ComponentProps, ElementRef, forwardRef } from 'react';
+import { ComponentProps, ElementRef, forwardRef, useState } from 'react';
 import { keyframes, styled } from '../stitches.config';
 
 const StyledSliderThumb = styled(RadixSlider.Thumb, {
@@ -79,18 +79,27 @@ type SliderThumbProps = {
 export const SliderThumb = forwardRef<
   ElementRef<typeof StyledSliderThumb>,
   SliderThumbProps
->(({ value, dragging, ...props }, ref) => (
-  <Tooltip.Provider skipDelayDuration={0}>
-    <Tooltip.Root open={dragging}>
-      <Tooltip.Trigger asChild>
-        <StyledSliderThumb ref={ref} {...props} />
-      </Tooltip.Trigger>
-      <Tooltip.Portal>
-        <TooltipContent key={value} sideOffset={5}>
-          {value}
-          <TooltipArrow />
-        </TooltipContent>
-      </Tooltip.Portal>
-    </Tooltip.Root>
-  </Tooltip.Provider>
-));
+>(({ value, dragging, ...props }, ref) => {
+  const [isVisited, setVisited] = useState<boolean>(false);
+
+  return (
+    <Tooltip.Provider skipDelayDuration={0}>
+      <Tooltip.Root open={dragging || isVisited}>
+        <Tooltip.Trigger asChild>
+          <StyledSliderThumb
+            ref={ref}
+            onMouseEnter={() => setVisited(true)}
+            onMouseLeave={() => setVisited(false)}
+            {...props}
+          />
+        </Tooltip.Trigger>
+        <Tooltip.Portal>
+          <TooltipContent key={value} sideOffset={5}>
+            {value}
+            <TooltipArrow />
+          </TooltipContent>
+        </Tooltip.Portal>
+      </Tooltip.Root>
+    </Tooltip.Provider>
+  );
+});
