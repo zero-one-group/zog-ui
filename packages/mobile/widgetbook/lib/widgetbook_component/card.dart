@@ -119,7 +119,7 @@ WidgetbookComponent cardWidgetbookComponent = WidgetbookComponent(
             avatar: avatar,
             image: image,
             height: context.knobs.number(label: 'Height', initialValue: 80).toDouble(),
-            width: context.knobs.number(label: 'Height', initialValue: 300).toDouble(),
+            width: context.knobs.number(label: 'Width', initialValue: 300).toDouble(),
             filledColor: context.knobs.options(label: 'Filled Color', options: [
               const Option(value: ZeroColors.white, label: 'White'),
               ...colorOptions,
