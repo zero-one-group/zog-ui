@@ -9,16 +9,24 @@ class ZeroTimePickerExample extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Time Picker')),
       body: Center(
-        child: ZeroButton.primary(
-          onPressed: () => showZeroTimePicker(
-            context: context,
-            initialTime: TimeOfDay.now(),
-            builder: (context, child) => MediaQuery(
-                data: MediaQuery.of(context)
-                    .copyWith(alwaysUse24HourFormat: false),
-                child: child!),
-          ),
-          text: 'Time Picker Example',
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ZeroButton.primary(
+              onPressed: () => showZeroTimePicker(
+                context: context,
+                initialTime: TimeOfDay.now(),
+              ),
+              text: 'Time Picker',
+            ),
+            ZeroButton.primary(
+              onPressed: () => showZeroTimePicker(
+                  context: context,
+                  initialTime: TimeOfDay.now(),
+                  use24hFormat: true),
+              text: 'Time Picker 24 Hour',
+            ),
+          ],
         ),
       ),
     );

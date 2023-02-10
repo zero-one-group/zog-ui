@@ -1,16 +1,10 @@
-// Copyright 2014 The Flutter Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-
-// Examples can assume:
-// late BuildContext context;
+import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 const Duration _kDialogSizeAnimationDuration = Duration(milliseconds: 200);
 const Duration _kDialAnimateDuration = Duration(milliseconds: 200);
@@ -119,7 +113,7 @@ class _TimePickerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     assert(debugCheckHasMediaQuery(context));
-    final ThemeData themeData = Theme.of(context);
+    final ThemeData themeData = context.theme.toThemeData();
     final TimeOfDayFormat timeOfDayFormat =
         MaterialLocalizations.of(context).timeOfDayFormat(
       alwaysUse24HourFormat: MediaQuery.of(context).alwaysUse24HourFormat,
@@ -273,7 +267,8 @@ class _HourMinuteControl extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData themeData = Theme.of(context);
+    final ThemeData themeData = Theme.of(
+        context); // TODO: Figure out the issue of use ZeroTheme typography
     final TimePickerThemeData timePickerTheme = TimePickerTheme.of(context);
     final bool isDark = themeData.colorScheme.brightness == Brightness.dark;
     final Color textColor = timePickerTheme.hourMinuteTextColor ??
@@ -413,7 +408,7 @@ class _StringFragment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
+    final ThemeData theme = context.theme.toThemeData();
     final TimePickerThemeData timePickerTheme = TimePickerTheme.of(context);
     final TextStyle hourMinuteStyle =
         timePickerTheme.hourMinuteTextStyle ?? theme.textTheme.displayMedium!;
@@ -513,18 +508,7 @@ class _DayPeriodControl extends StatelessWidget {
     if (selectedTime.period == DayPeriod.am) {
       return;
     }
-    switch (Theme.of(context).platform) {
-      case TargetPlatform.android:
-      case TargetPlatform.fuchsia:
-      case TargetPlatform.linux:
-      case TargetPlatform.windows:
-        _announceToAccessibility(context,
-            MaterialLocalizations.of(context).anteMeridiemAbbreviation);
-        break;
-      case TargetPlatform.iOS:
-      case TargetPlatform.macOS:
-        break;
-    }
+
     _togglePeriod();
   }
 
@@ -532,18 +516,7 @@ class _DayPeriodControl extends StatelessWidget {
     if (selectedTime.period == DayPeriod.pm) {
       return;
     }
-    switch (Theme.of(context).platform) {
-      case TargetPlatform.android:
-      case TargetPlatform.fuchsia:
-      case TargetPlatform.linux:
-      case TargetPlatform.windows:
-        _announceToAccessibility(context,
-            MaterialLocalizations.of(context).postMeridiemAbbreviation);
-        break;
-      case TargetPlatform.iOS:
-      case TargetPlatform.macOS:
-        break;
-    }
+
     _togglePeriod();
   }
 
@@ -551,25 +524,26 @@ class _DayPeriodControl extends StatelessWidget {
   Widget build(BuildContext context) {
     final MaterialLocalizations materialLocalizations =
         MaterialLocalizations.of(context);
-    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+    final ColorScheme colorScheme = context.theme.colorScheme;
     final TimePickerThemeData timePickerTheme = TimePickerTheme.of(context);
     final bool isDark = colorScheme.brightness == Brightness.dark;
     final Color textColor = timePickerTheme.dayPeriodTextColor ??
         MaterialStateColor.resolveWith((Set<MaterialState> states) {
           return states.contains(MaterialState.selected)
-              ? colorScheme.primary
-              : colorScheme.onSurface.withOpacity(0.60);
+              ? colorScheme.onPrimary
+              : colorScheme.primary;
         });
-    final Color backgroundColor = timePickerTheme.dayPeriodColor ??
+    final Color backgroundColor =
         MaterialStateColor.resolveWith((Set<MaterialState> states) {
-          // The unselected day period should match the overall picker dialog
-          // color. Making it transparent enables that without being redundant
-          // and allows the optional elevation overlay for dark mode to be
-          // visible.
-          return states.contains(MaterialState.selected)
-              ? colorScheme.primary.withOpacity(isDark ? 0.24 : 0.12)
-              : Colors.transparent;
-        });
+      // The unselected day period should match the overall picker dialog
+      // color. Making it transparent enables that without being redundant
+      // and allows the optional elevation overlay for dark mode to be
+      // visible.
+      return states.contains(MaterialState.selected)
+          ? colorScheme.primary.withOpacity(isDark ? 0.24 : 1)
+          : Colors.white;
+    });
+
     final bool amSelected = selectedTime.period == DayPeriod.am;
     final Set<MaterialState> amStates = amSelected
         ? <MaterialState>{MaterialState.selected}
@@ -590,8 +564,8 @@ class _DayPeriodControl extends StatelessWidget {
         const RoundedRectangleBorder(borderRadius: _kDefaultBorderRadius);
     final BorderSide borderSide = timePickerTheme.dayPeriodBorderSide ??
         BorderSide(
-          color: Color.alphaBlend(
-              colorScheme.onBackground.withOpacity(0.38), colorScheme.surface),
+          width: 1,
+          color: colorScheme.onSurface,
         );
     // Apply the custom borderSide.
     shape = shape.copyWith(
@@ -1101,7 +1075,7 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
   void didChangeDependencies() {
     super.didChangeDependencies();
     assert(debugCheckHasMediaQuery(context));
-    themeData = Theme.of(context);
+    themeData = context.theme.toThemeData();
     localizations = MaterialLocalizations.of(context);
     media = MediaQuery.of(context);
   }
@@ -1378,10 +1352,10 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
+    final ThemeData theme = context.theme.toThemeData();
     final TimePickerThemeData pickerTheme = TimePickerTheme.of(context);
     final Color backgroundColor = pickerTheme.dialBackgroundColor ??
-        themeData.colorScheme.onBackground.withOpacity(0.12);
+        themeData.colorScheme.primary.withOpacity(0.12);
     final Color accentColor =
         pickerTheme.dialHandColor ?? themeData.colorScheme.primary;
     final Color primaryLabelColor = MaterialStateProperty.resolveAs(
@@ -1619,7 +1593,7 @@ class _TimePickerInputState extends State<_TimePickerInput>
     final TimeOfDayFormat timeOfDayFormat = MaterialLocalizations.of(context)
         .timeOfDayFormat(alwaysUse24HourFormat: media.alwaysUse24HourFormat);
     final bool use24HourDials = hourFormat(of: timeOfDayFormat) != HourFormat.h;
-    final ThemeData theme = Theme.of(context);
+    final ThemeData theme = context.theme.toThemeData();
     final TextStyle hourMinuteStyle =
         TimePickerTheme.of(context).hourMinuteTextStyle ??
             theme.textTheme.displayMedium!;
@@ -1914,7 +1888,7 @@ class _HourMinuteTextFieldState extends State<_HourMinuteTextField>
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
+    final ThemeData theme = context.theme.toThemeData();
     final TimePickerThemeData timePickerTheme = TimePickerTheme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
 
@@ -2372,7 +2346,7 @@ class _ZeroTimePickerDialogState extends State<ZeroTimePickerDialog>
 
   Size _dialogSize(BuildContext context) {
     final Orientation orientation = MediaQuery.of(context).orientation;
-    final ThemeData theme = Theme.of(context);
+    final ThemeData theme = context.theme.toThemeData();
     // Constrain the textScaleFactor to prevent layout issues. Since only some
     // parts of the time picker scale up with textScaleFactor, we cap the factor
     // to 1.1 as that provides enough space to reasonably fit all the content.
@@ -2417,7 +2391,7 @@ class _ZeroTimePickerDialogState extends State<ZeroTimePickerDialog>
     final TimeOfDayFormat timeOfDayFormat = localizations.timeOfDayFormat(
         alwaysUse24HourFormat: media.alwaysUse24HourFormat);
     final bool use24HourDials = hourFormat(of: timeOfDayFormat) != HourFormat.h;
-    final ThemeData theme = Theme.of(context);
+    final ThemeData theme = context.theme.toThemeData();
     final ShapeBorder shape =
         TimePickerTheme.of(context).shape ?? _kDefaultShape;
     final Orientation orientation = media.orientation;
@@ -2450,6 +2424,7 @@ class _ZeroTimePickerDialogState extends State<ZeroTimePickerDialog>
               overflowAlignment: OverflowBarAlignment.end,
               children: <Widget>[
                 TextButton(
+                  style: context.theme.textButtonStyle.toButtonStyle(),
                   onPressed: _handleCancel,
                   child: Text(widget.cancelText ??
                       (theme.useMaterial3
@@ -2457,6 +2432,7 @@ class _ZeroTimePickerDialogState extends State<ZeroTimePickerDialog>
                           : localizations.cancelButtonLabel.toUpperCase())),
                 ),
                 TextButton(
+                  style: context.theme.textButtonStyle.toButtonStyle(),
                   onPressed: _handleOk,
                   child:
                       Text(widget.confirmText ?? localizations.okButtonLabel),
@@ -2691,6 +2667,7 @@ Future<TimeOfDay?> showZeroTimePicker({
   String? hourLabelText,
   String? minuteLabelText,
   RouteSettings? routeSettings,
+  bool? use24hFormat,
   EntryModeChangeCallback? onEntryModeChanged,
   Offset? anchorPoint,
 }) async {
@@ -2711,7 +2688,10 @@ Future<TimeOfDay?> showZeroTimePicker({
     context: context,
     useRootNavigator: useRootNavigator,
     builder: (BuildContext context) {
-      return builder == null ? dialog : builder(context, dialog);
+      return MediaQuery(
+          data: MediaQuery.of(context)
+              .copyWith(alwaysUse24HourFormat: use24hFormat),
+          child: builder == null ? dialog : builder(context, dialog));
     },
     routeSettings: routeSettings,
     anchorPoint: anchorPoint,
