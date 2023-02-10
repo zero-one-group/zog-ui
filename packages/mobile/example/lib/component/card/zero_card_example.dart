@@ -60,7 +60,7 @@ class _ZeroCardExampleState extends State<ZeroCardExample> {
                 ],
               ),
               const SizedBox(height: 16),
-              ZeroCardVertical(
+              ZeroCardHorizontal(
                 header: 'Header',
                 subheader: 'Subheader',
                 avatar: ZeroAvatar.initial('John Smith'),
