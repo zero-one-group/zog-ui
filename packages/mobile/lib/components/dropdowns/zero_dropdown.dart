@@ -429,7 +429,7 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
   Widget _buildDropdownIconOnly() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
-        isExpanded: true,
+        isExpanded: false,
         buttonPadding: EdgeInsets.zero,
         customButton: SizedBox(
             width: widget.itemHeight,
