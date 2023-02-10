@@ -133,7 +133,10 @@ class _ZeroCardState extends State<ZeroCard> {
               ],
             ),
             SizedBox(height: widget.cardPadding),
-            SizedBox(child: widget.image),
+            SizedBox(
+              width: double.infinity,
+              child: widget.image,
+            ),
             SizedBox(height: widget.cardPadding),
             Text(
               widget.title,

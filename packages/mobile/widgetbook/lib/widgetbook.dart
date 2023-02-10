@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_demo/widgetbook_component/alert_dialog.dart';
+import 'package:widgetbook_demo/widgetbook_component/card.dart';
 import 'package:zero_ui_mobile/styles/theme.dart';
 
 import 'widgetbook_component/avatar.dart';
@@ -75,6 +76,7 @@ class HotReload extends StatelessWidget {
             datepickerWidgetbookComponent,
             progressIndicatorWidgetbookComponent,
             alertDialogWidgetbookComponent,
+            cardWidgetbookComponent,
           ],
         ),
       ],
