@@ -16,61 +16,133 @@ class _ZeroCardExampleState extends State<ZeroCardExample> {
         title: const Text('Zero Card Example'),
       ),
       body: SafeArea(
-        child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ZeroCard(
-                title: 'Title',
-                subtitle: 'Subtitle',
-                header: 'Header',
-                subheader: 'Subheader',
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-                avatar: ZeroAvatar.url(
-                  'https://picsum.photos/200',
-                  size: AvatarSize.m,
-                ),
-                image: Image.network(
-                  'https://picsum.photos/300',
-                  fit: BoxFit.cover,
-                ),
-                headerTrailing: const Icon(Icons.more_vert),
-                actions: [
-                  ZeroButton.secondary(
-                    text: 'Cancel',
-                    onPressed: () {},
-                    height: 35,
-                    buttonSizeType: ZeroSizeType.small,
-                    buttonRadiusType: ZeroButtonRadiusType.rounded,
-                    style: const ZeroButtonStyle(
-                      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+        child: SizedBox(
+          width: double.infinity,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 16),
+                ZeroCard(
+                  style: ZeroCardElevatedStyle(
+                    elevation: 8,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ZeroAvatar.initial(
+                              'Elevated Card',
+                              size: AvatarSize.m,
+                            ),
+                            const SizedBox(width: 8),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Elevated Card',
+                                    style: context.theme.typography.body1?.copyWith(fontWeight: FontWeight.bold)),
+                                Text('ZeroCardElevatedStyle', style: context.theme.typography.caption),
+                              ],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        SizedBox(
+                          child: Image.network(
+                            'https://picsum.photos/205',
+                            fit: BoxFit.fitWidth,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  ZeroButton.primary(
-                    text: 'OK',
-                    onPressed: () {},
-                    height: 35,
-                    buttonSizeType: ZeroSizeType.small,
-                    buttonRadiusType: ZeroButtonRadiusType.rounded,
-                    style: const ZeroButtonStyle(
-                      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+                ),
+                const SizedBox(height: 16),
+                ZeroCard(
+                  style: ZeroCardOutlinedStyle(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ZeroAvatar.initial(
+                              'Outlined Card',
+                              size: AvatarSize.m,
+                            ),
+                            const SizedBox(width: 8),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Outlined Card',
+                                    style: context.theme.typography.body1?.copyWith(fontWeight: FontWeight.bold)),
+                                Text('ZeroCardOutlinedStyle', style: context.theme.typography.caption),
+                              ],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        SizedBox(
+                          child: Image.network(
+                            'https://picsum.photos/202',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              ZeroCardHorizontal(
-                header: 'Header',
-                subheader: 'Subheader',
-                avatar: ZeroAvatar.initial('John Smith'),
-                image: Image.network(
-                  'https://picsum.photos/300',
-                  fit: BoxFit.cover,
                 ),
-                variant: ZeroCardVariant.elevated,
-              ),
-            ],
+                const SizedBox(height: 16),
+                ZeroCard(
+                  style: ZeroCardFilledStyle(
+                    backgroundColor: context.theme.colorScheme.primary,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ZeroAvatar.initial(
+                              'Filled Card',
+                              size: AvatarSize.m,
+                            ),
+                            const SizedBox(width: 8),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Filled Card', style: context.theme.typography.body1?.copyWith(fontWeight: FontWeight.bold)),
+                                Text('ZeroCardFilledStyle', style: context.theme.typography.caption),
+                              ],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        Image.network(
+                          'https://picsum.photos/200',
+                          fit: BoxFit.cover,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

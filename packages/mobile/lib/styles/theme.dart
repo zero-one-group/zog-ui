@@ -94,6 +94,7 @@ class ZeroThemeData with Diagnosticable {
   final ZeroTextfieldSize? textfieldSize;
   final InputDecorationType? inputDecorationType;
   final ZeroNavigationDrawerStyle navigationDrawerStyle;
+  final ZeroCardStyle cardStyle;
 
   final Brightness brightness;
   final IconThemeData iconTheme;
@@ -137,6 +138,7 @@ class ZeroThemeData with Diagnosticable {
     this.inputDecorationType,
     this.textfieldSize,
     required this.navigationDrawerStyle,
+    required this.cardStyle,
 
     // Others
     this.useMaterial3 = false,
@@ -174,6 +176,7 @@ class ZeroThemeData with Diagnosticable {
     InputDecorationType? inputDecorationType,
     ZeroTextfieldSize? textfieldSize,
     ZeroNavigationDrawerStyle? navigationDrawerStyle,
+    ZeroCardStyle? cardStyle,
   }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
@@ -300,6 +303,10 @@ class ZeroThemeData with Diagnosticable {
       headerTitleStyle: typography.subtitle1,
       sectionTitleStyle: typography.subtitle2,
     );
+    final cardStyle = ZeroCardStyle.fallback(
+      backgroundColor: cardColor,
+      side: BorderSide(color: dividerColor, width: 1),
+    );
 
     useMaterial3 ??= false;
 
@@ -324,8 +331,7 @@ class ZeroThemeData with Diagnosticable {
       fontFamily: fontFamily,
       listTileStyle: listTileFallback.merge(listTileStyle),
       primaryButtonStyle: primaryButtonStyleFallback.merge(primaryButtonStyle),
-      secondaryButtonStyle:
-          secondaryButtonStyleFallback.merge(secondaryButtonStyle),
+      secondaryButtonStyle: secondaryButtonStyleFallback.merge(secondaryButtonStyle),
       textButtonStyle: textButtonStyleFallback.merge(textButtonStyle),
       dividerStyle: dividerStyleFallback.merge(dividerStyle),
       chipFilledStyle: chipFilledStyleFallback.merge(chipFilledStyle),
@@ -334,8 +340,8 @@ class ZeroThemeData with Diagnosticable {
       textfieldStyleSet: textfieldStyleSet,
       inputDecorationType: inputDecorationType,
       textfieldSize: textfieldSize,
-      navigationDrawerStyle:
-          navigationDrawerStyleFallback.merge(navigationDrawerStyle),
+      navigationDrawerStyle: navigationDrawerStyleFallback.merge(navigationDrawerStyle),
+      cardStyle: cardStyle.merge(cardStyle),
     );
   }
 
@@ -362,14 +368,11 @@ class ZeroThemeData with Diagnosticable {
       secondaryButtonStyle: ZeroButtonStyle.lerp(a.secondaryButtonStyle, b.secondaryButtonStyle, t),
       textButtonStyle: ZeroButtonStyle.lerp(a.textButtonStyle, b.textButtonStyle, t),
       dividerStyle: ZeroDividerStyle.lerp(a.dividerStyle, b.dividerStyle, t),
-      chipFilledStyle:
-          ZeroChipFilledStyle.lerp(a.chipFilledStyle, b.chipFilledStyle, t),
-      chipOutlinedStyle: ZeroChipOutlinedStyle.lerp(
-          a.chipOutlinedStyle, b.chipOutlinedStyle, t),
-      navigationBarStyle: ZeroNavigationBarStyle.lerp(
-          a.navigationBarStyle, b.navigationBarStyle, t),
-      navigationDrawerStyle: ZeroNavigationDrawerStyle.lerp(
-          a.navigationDrawerStyle, b.navigationDrawerStyle, t),
+      chipFilledStyle: ZeroChipFilledStyle.lerp(a.chipFilledStyle, b.chipFilledStyle, t),
+      chipOutlinedStyle: ZeroChipOutlinedStyle.lerp(a.chipOutlinedStyle, b.chipOutlinedStyle, t),
+      navigationBarStyle: ZeroNavigationBarStyle.lerp(a.navigationBarStyle, b.navigationBarStyle, t),
+      navigationDrawerStyle: ZeroNavigationDrawerStyle.lerp(a.navigationDrawerStyle, b.navigationDrawerStyle, t),
+      cardStyle: ZeroCardStyle.lerp(a.cardStyle, b.cardStyle, t),
     );
   }
 
@@ -406,6 +409,7 @@ class ZeroThemeData with Diagnosticable {
     InputDecorationType? inputDecorationType,
     ZeroTextfieldSize? textfieldSize,
     ZeroNavigationDrawerStyle? navigationDrawerStyle,
+    ZeroCardStyle? cardStyle,
   }) {
     return ZeroThemeData.raw(
       brightness: brightness ?? this.brightness,
@@ -448,8 +452,8 @@ class ZeroThemeData with Diagnosticable {
               )),
       textfieldSize: textfieldSize ?? this.textfieldSize,
       useMaterial3: useMaterial3 ?? this.useMaterial3,
-      navigationDrawerStyle:
-          navigationDrawerStyle ?? this.navigationDrawerStyle,
+      navigationDrawerStyle: navigationDrawerStyle ?? this.navigationDrawerStyle,
+      cardStyle: cardStyle ?? this.cardStyle,
     );
   }
 

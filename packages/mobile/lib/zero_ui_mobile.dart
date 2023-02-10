@@ -14,6 +14,7 @@ export './styles/component/divider_style.dart';
 export './styles/component/chip_style.dart';
 export './styles/component/navigation_bar_style.dart';
 export './styles/component/navigation_drawer_style.dart';
+export './styles/component/card_style.dart';
 
 // assets
 export './assets/assets.dart';
@@ -106,7 +107,6 @@ export './components/alert_dialog/zero_alert_dialog.dart';
 
 // card
 export './components/card/zero_card.dart';
-export 'components/card/zero_card_horizontal.dart';
 
 // types
 export './types/button_radius_type.dart';

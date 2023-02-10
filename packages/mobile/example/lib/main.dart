@@ -48,9 +48,10 @@ class _MyAppState extends State<MyApp> {
     return ZeroApp(
       title: 'Flutter Demo',
       theme: ZeroThemeData(
-          brightness: Brightness.light,
-          primaryColor: _selectedColor.toAccentColor(),
-          inputDecorationType: InputDecorationType.outline),
+        brightness: Brightness.light,
+        primaryColor: _selectedColor.toAccentColor(),
+        inputDecorationType: InputDecorationType.outline,
+      ),
       home: Scaffold(
         body: SafeArea(
           child: Column(
