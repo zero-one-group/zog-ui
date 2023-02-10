@@ -1,7 +1,7 @@
 import * as Popover from '@radix-ui/react-popover';
 import * as ScrollArea from '@radix-ui/react-scroll-area';
 import { ComponentProps, useEffect, useMemo, useRef, useState } from 'react';
-// import { Box } from '../Box';
+import { Box } from '../Box';
 import {
   CloseCircleFilled,
   CloseOutlined,
@@ -9,11 +9,6 @@ import {
 } from '@ant-design/icons';
 import { Space } from '../Space';
 import { styled } from '../stitches.config';
-
-const Box = styled('div', {
-  fontFamily: '$untitled',
-  boxSizing: 'border-box',
-});
 
 const getColorSchemeVariants = (colorScheme?: string) => {
   return {

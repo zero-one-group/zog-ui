@@ -4,5 +4,5 @@
 git fetch origin main
 
 pnpm lint:affected
-# NODE_OPTIONS=--openssl-legacy-provider pnpm build:affected
+NODE_OPTIONS=--openssl-legacy-provider pnpm build:affected
 pnpm test:affected
