@@ -501,10 +501,12 @@ export const Select = ({
   };
 
   const filterOptions = (inputValue: string) => {
-    const lowerInput = inputValue.toLowerCase();
+    const toLowerNoSpace = (text: string) =>
+      text.toLowerCase().replace(/\s+/g, '');
+    const lowerInput = toLowerNoSpace(inputValue);
     if (lowerInput.length > 0) {
       const filtered = options.filter((it) => {
-        return (it.label || '').toLowerCase().includes(lowerInput);
+        return toLowerNoSpace(it.label || '').includes(lowerInput);
       });
       setFilteredOptions(filtered);
     } else {
@@ -673,6 +675,12 @@ export const Select = ({
                     onInput={onChangeInputMultiple}
                     onBlur={() => setMultipleInputFocus(false)}
                     onFocus={() => setMultipleInputFocus(true)}
+                    // cause this is span element, need to prevent enter
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                      }
+                    }}
                     ref={inputMultipleRef}
                     size={size}
                   />
