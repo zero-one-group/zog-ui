@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
-import 'package:zero_ui_mobile_example/component/alert_dialog/zero_alert_dialog_example.dart';
-import 'package:zero_ui_mobile_example/component/chip/chip_example.dart';
-import 'package:zero_ui_mobile_example/component/datepicker/datepicker_example.dart';
-import 'package:zero_ui_mobile_example/component/dropdown/zero_dropdown_example.dart';
-import 'package:zero_ui_mobile_example/component/timepicker/zero_timepicker_example.dart';
 
+import 'component/alert_dialog/zero_alert_dialog_example.dart';
 import 'component/avatar/avatar_example.dart';
 import 'component/button/zero_button_example.dart';
 import 'component/chip/chip_example.dart';
@@ -22,6 +18,7 @@ import 'component/slider/zero_slider_example.dart';
 import 'component/snackbar/zero_snackbar_example.dart';
 import 'component/switch/zero_switch_example.dart';
 import 'component/textfield/zero_textfield_example.dart';
+import 'component/timepicker/zero_timepicker_example.dart';
 import 'component/tooltip/zero_tooltip_example.dart';
 
 void main() {
