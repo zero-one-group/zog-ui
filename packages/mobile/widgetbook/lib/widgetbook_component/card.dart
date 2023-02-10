@@ -8,143 +8,169 @@ WidgetbookComponent cardWidgetbookComponent = WidgetbookComponent(
   name: 'Card',
   useCases: [
     WidgetbookUseCase(
-      name: 'Card Vertical',
+      name: 'Card Elevated',
       builder: (context) {
-        ZeroAvatar? avatar;
-        AvatarSize avatarSize = context.knobs.options(
-          label: 'Avatar Size',
-          options: _avatarSizes,
-        );
-        if (context.knobs.boolean(label: 'Avatar', initialValue: true)) {
-          avatar = ZeroAvatar.url(
-            'https://picsum.photos/100',
-            size: avatarSize,
-          );
-        }
-
-        Image? image;
-        if (context.knobs.boolean(label: 'Image', initialValue: true)) {
-          image = Image.network(
-            'https://picsum.photos/200',
-            fit: BoxFit.cover,
-            width: 100,
-          );
-        }
-
         return PreviewWidget(
-          child: ZeroCard(
-            header: context.knobs.text(label: 'Header', initialValue: 'Header'),
-            subheader: context.knobs.text(label: 'Subheader', initialValue: 'Subheader'),
-            title: context.knobs.text(label: 'Title', initialValue: 'Title'),
-            subtitle: context.knobs.text(label: 'Subtitle', initialValue: 'Subtitle'),
-            description: context.knobs.text(
-              label: 'Description',
-              initialValue: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-            ),
-            variant: context.knobs.options(
-              label: 'Variant',
-              options: _variants,
-            ),
-            avatar: avatar,
-            image: image,
-            headerTrailing:
-                context.knobs.boolean(label: 'Header Trailing', initialValue: true) ? const Icon(Icons.more_vert) : null,
-            actions: [
-              ZeroButton.secondary(
-                text: 'Cancel',
-                onPressed: () {},
-                height: 35,
-                buttonSizeType: ZeroSizeType.small,
-                buttonRadiusType: ZeroButtonRadiusType.rounded,
-                style: const ZeroButtonStyle(
-                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-                ),
+          builder: (context) => ZeroCard(
+            style: ZeroCardElevatedStyle(
+              elevation: context.knobs.number(label: 'Elevation', initialValue: 8).toDouble(),
+              backgroundColor: context.knobs.options(
+                label: 'Background Color',
+                options: [const Option(label: 'White', value: ZeroColors.white), ...colorOptions],
               ),
-              ZeroButton.primary(
-                text: 'OK',
-                onPressed: () {},
-                height: 35,
-                buttonSizeType: ZeroSizeType.small,
-                buttonRadiusType: ZeroButtonRadiusType.rounded,
-                style: const ZeroButtonStyle(
-                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-                ),
+              shadowColor: context.knobs.options(
+                label: 'Shadow Color',
+                options: [const Option(label: 'Black', value: ZeroColors.black), ...colorOptions],
               ),
-            ],
-            width: context.knobs.number(label: 'Width', initialValue: 300).toDouble(),
-            filledColor: context.knobs.options(label: 'Filled Color', options: [
-              const Option(value: ZeroColors.white, label: 'White'),
-              ...colorOptions,
-            ]),
-            outlineBorderColor: context.knobs.options(label: 'Outline Border Color', options: [
-              const Option(value: ZeroColors.black, label: 'Black'),
-              ...colorOptions,
-            ]),
+              borderRadius: BorderRadius.circular(context.knobs.number(label: 'Border Radius', initialValue: 8).toDouble()),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ZeroAvatar.initial(
+                        'Elevated Card',
+                        size: AvatarSize.m,
+                      ),
+                      const SizedBox(width: 8),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Elevated Card', style: context.theme.typography.body1?.copyWith(fontWeight: FontWeight.bold)),
+                          Text('ZeroCardElevatedStyle', style: context.theme.typography.caption),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    child: Image.network(
+                      'https://picsum.photos/205',
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         );
       },
     ),
     WidgetbookUseCase(
-      name: 'Card Horizontal',
+      name: 'Card Outlined',
       builder: (context) {
-        ZeroAvatar? avatar;
-        AvatarSize avatarSize = context.knobs.options(
-          label: 'Avatar Size',
-          options: _avatarSizes,
-        );
-        if (context.knobs.boolean(label: 'Avatar', initialValue: true)) {
-          avatar = ZeroAvatar.url(
-            'https://picsum.photos/100',
-            size: avatarSize,
-          );
-        }
-
-        Image? image;
-        if (context.knobs.boolean(label: 'Image', initialValue: true)) {
-          image = Image.network(
-            'https://picsum.photos/200',
-            fit: BoxFit.cover,
-            width: 100,
-          );
-        }
-
         return PreviewWidget(
-          child: ZeroCardHorizontal(
-            header: context.knobs.text(label: 'Header', initialValue: 'Header'),
-            subheader: context.knobs.text(label: 'Subheader', initialValue: 'Subheader'),
-            variant: context.knobs.options(
-              label: 'Variant',
-              options: _variants,
+          builder: (context) => ZeroCard(
+            style: ZeroCardOutlinedStyle(
+              backgroundColor: context.knobs.options(
+                label: 'Background Color',
+                options: [const Option(label: 'White', value: ZeroColors.white), ...colorOptions],
+              ),
+              side: BorderSide(
+                color: context.knobs.options(
+                  label: 'Border Color',
+                  options: [Option(label: 'Theme Color', value: context.theme.dividerColor), ...colorOptions],
+                ),
+                width: context.knobs.number(label: 'Border Width', initialValue: 1).toDouble(),
+              ),
+              borderRadius: BorderRadius.circular(context.knobs.number(label: 'Border Radius', initialValue: 8).toDouble()),
             ),
-            avatar: avatar,
-            image: image,
-            height: context.knobs.number(label: 'Height', initialValue: 80).toDouble(),
-            width: context.knobs.number(label: 'Width', initialValue: 300).toDouble(),
-            filledColor: context.knobs.options(label: 'Filled Color', options: [
-              const Option(value: ZeroColors.white, label: 'White'),
-              ...colorOptions,
-            ]),
-            outlineBorderColor: context.knobs.options(label: 'Outline Border Color', options: [
-              const Option(value: ZeroColors.black, label: 'Black'),
-              ...colorOptions,
-            ]),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ZeroAvatar.initial(
+                        'Outlined Card',
+                        size: AvatarSize.m,
+                      ),
+                      const SizedBox(width: 8),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Outlined Card', style: context.theme.typography.body1?.copyWith(fontWeight: FontWeight.bold)),
+                          Text('ZeroCardOutlinedStyle', style: context.theme.typography.caption),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    child: Image.network(
+                      'https://picsum.photos/206',
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    ),
+    WidgetbookUseCase(
+      name: 'Card Filled',
+      builder: (context) {
+        return PreviewWidget(
+          builder: (context) => ZeroCard(
+            style: ZeroCardFilledStyle(
+              backgroundColor: context.knobs.options(
+                label: 'Background Color',
+                options: [Option(label: 'Theme Color', value: context.theme.primaryColor), ...colorOptions],
+              ),
+              borderRadius: BorderRadius.circular(context.knobs.number(label: 'Border Radius', initialValue: 8).toDouble()),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ZeroAvatar.initial(
+                        'Filled Card',
+                        size: AvatarSize.m,
+                      ),
+                      const SizedBox(width: 8),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Filled Card', style: context.theme.typography.body1?.copyWith(fontWeight: FontWeight.bold)),
+                          Text('ZeroCardFileedStyle', style: context.theme.typography.caption),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    child: Image.network(
+                      'https://picsum.photos/207',
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         );
       },
     ),
   ],
 );
-
-List<Option<ZeroCardVariant>> _variants = [
-  const Option(value: ZeroCardVariant.elevated, label: 'Eleveated'),
-  const Option(value: ZeroCardVariant.outline, label: 'Outline'),
-  const Option(value: ZeroCardVariant.filled, label: 'Filled'),
-];
-
-List<Option<AvatarSize>> _avatarSizes = [
-  const Option(value: AvatarSize.xs, label: 'Extra Small'),
-  const Option(value: AvatarSize.s, label: 'Small'),
-  const Option(value: AvatarSize.m, label: 'Medium'),
-  const Option(value: AvatarSize.l, label: 'Large'),
-  const Option(value: AvatarSize.xl, label: 'Extra Large'),
-];
