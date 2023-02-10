@@ -34,7 +34,7 @@ WidgetbookComponent alertDialogWidgetbookComponent = WidgetbookComponent(
         Image? image;
         if (context.knobs.boolean(label: 'Image')) {
           image = Image.network(
-            'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
+            'https://picsum.photos/100',
             fit: BoxFit.cover,
             height: 100,
           );
