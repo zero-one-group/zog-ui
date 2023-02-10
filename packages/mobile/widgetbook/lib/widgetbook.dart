@@ -25,6 +25,7 @@ import 'widgetbook_component/snackbar.dart';
 import 'widgetbook_component/switch.dart';
 import 'widgetbook_component/text.dart';
 import 'widgetbook_component/textfield.dart';
+import 'widgetbook_component/timepicker.dart';
 import 'widgetbook_component/tooltip.dart';
 
 class HotReload extends StatelessWidget {
@@ -73,6 +74,7 @@ class HotReload extends StatelessWidget {
             snackbarWidgetbookComponent,
             progressIndicatorWidgetbookComponent,
             datepickerWidgetbookComponent,
+            timepickerWidgetbookComponent,
             progressIndicatorWidgetbookComponent,
             alertDialogWidgetbookComponent,
           ],
