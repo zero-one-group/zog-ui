@@ -194,5 +194,24 @@ WidgetbookComponent dropdownWidgetbookComponent = WidgetbookComponent(
             ),
           );
         }),
+    WidgetbookUseCase(
+        name: 'Icon Button',
+        builder: (context) {
+          return PreviewWidget.builder(
+            builder: (context) => ZeroDropdown.icon(
+              onChanged: (p0) {},
+              items: items,
+              icon: ClipOval(
+                child: Material(
+                  color: context.theme.primaryColor,
+                  child: InkWell(
+                    child: context.knobs
+                        .options(label: 'Icon', options: suffixOptions),
+                  ),
+                ),
+              ),
+            ),
+          );
+        }),
   ],
 );
