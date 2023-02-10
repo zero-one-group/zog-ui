@@ -13,6 +13,7 @@ export './styles/component/button_style.dart';
 export './styles/component/divider_style.dart';
 export './styles/component/chip_style.dart';
 export './styles/component/navigation_bar_style.dart';
+export './styles/component/navigation_drawer_style.dart';
 
 // assets
 export './assets/assets.dart';
@@ -98,6 +99,7 @@ export './components/progress_indicator/zero_progress_indicator.dart';
 
 // navigation
 export './components/navigation/zero_navigation_bar.dart';
+export './components/navigation/drawer/zero_navigation_drawer.dart';
 
 // alert dialog
 export './components/alert_dialog/zero_alert_dialog.dart';
