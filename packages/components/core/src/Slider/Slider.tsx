@@ -126,17 +126,20 @@ export const Slider = forwardRef<
   ElementRef<typeof StyledSliderRoot>,
   SliderProps
 >(
-  ({
-    colorScheme,
-    defaultValue,
-    value,
-    css,
-    max = 100,
-    snapToTicks = false,
-    showTicks = false,
-    ticks = 1,
-    ...props
-  }) => {
+  (
+    {
+      colorScheme,
+      defaultValue,
+      value,
+      css,
+      max = 100,
+      snapToTicks = false,
+      showTicks = false,
+      ticks = 1,
+      ...props
+    },
+    ref
+  ) => {
     const [sliderValues, setSliderValues] = useState<number[]>(
       value ? value : defaultValue || [0]
     );
@@ -183,6 +186,7 @@ export const Slider = forwardRef<
 
     return (
       <StyledSliderRoot
+        ref={ref}
         value={sliderValues}
         onValueChange={(value) => handleChangeSlider(value)}
         css={{
