@@ -3,14 +3,43 @@ import { BADGE } from '@geometricpanda/storybook-addon-badges';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { Select } from '@zero-ui/core';
+import { useState } from 'react';
 
-<Meta title="Components/Forms/Select" component={[Select]} argTypes={{}} />
+<Meta
+  title="Components/Forms/Select"
+  component={[Select]}
+  argTypes={{
+    size: {
+      options: ['small', 'medium', 'large'],
+      control: { type: 'radio' },
+    },
+    colorScheme: {
+      options: ['red', 'blue', 'green', 'pink', 'teal'],
+      control: { type: 'select' },
+    },
+  }}
+/>
 
-export const SelectStory = () => <Select />;
+export const SelectStory = (args) => {
+  const [value, setValue] = useState();
+  console.log(value);
+  return (
+    <div style={{ height: '100%' }}>
+      <h2>Uncontrolled</h2>
+      <Select {...args} />
+      <h2>Controlled</h2>
+      <Select {...args} value={value} onChange={setValue} />
+      <h2>OnChange Only</h2>
+      <Select {...args} onChange={setValue} />
+      <h2>Listen Value Only</h2>
+      <Select {...args} value={value} />
+    </div>
+  );
+};
 
 # Select
 
-> WIP
+> Select component to select value from options.
 
 ## Example Usage
 
@@ -19,7 +48,36 @@ import { Select } from '@zero-ui/core';
 ```
 
 <Canvas columns={2} withSource="close">
-  <Story name="Select">{SelectStory.bind()}</Story>
+  <Story
+    name="Select"
+    args={{
+      options: [
+        { value: 'Item 1', label: 'Item 1' },
+        { value: 'Item 2', label: 'Item 2' },
+        { value: 'Item 3', label: 'Item 3' },
+        { value: 'Item 4', label: 'Item 4' },
+        { value: 'Item 5', label: 'Item 5' },
+        { value: 'Item 6', label: 'Item 6' },
+        { value: 'Item 7', label: 'Item 7' },
+        { value: 'Item 8', label: 'Item 8' },
+        { value: 'Item 9', label: 'Item 9' },
+        { value: 'Item 10', label: 'Item 10' },
+        { value: 'Item 11', label: 'Item 11' },
+        { value: 'Item 12', label: 'Item 12' },
+      ],
+      css: {
+        width: '200px',
+      },
+      placeholder: 'Select Item...',
+      searchable: true,
+      multiple: true,
+      size: 'medium',
+      disabled: false,
+      itemsToShow: 10,
+    }}
+  >
+    {SelectStory.bind()}
+  </Story>
 </Canvas>
 
 <ArgsTable of={Select} />

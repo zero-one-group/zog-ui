@@ -42,24 +42,26 @@ const StyledInput = styled(Space, {
   },
 });
 
-export const Input = React.forwardRef(
-  ({
-    disabled,
-    defaultValue,
-    placeHolder,
-    type,
-    value,
-    id,
-    maxLength,
-    minLength,
-    max,
-    min,
-    name,
-    pattern,
-    onChange,
-    ref,
-    ...props
-  }: InputProps) => {
+export const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  (
+    {
+      disabled,
+      defaultValue,
+      placeHolder,
+      type,
+      value,
+      id,
+      maxLength,
+      minLength,
+      max,
+      min,
+      name,
+      pattern,
+      onChange,
+      ...props
+    }: InputProps,
+    ref
+  ) => {
     return (
       <StyledInput {...props}>
         <input
