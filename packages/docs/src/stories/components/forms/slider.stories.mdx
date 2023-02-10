@@ -36,6 +36,25 @@ import { Slider } from '@zero-ui/core';
   >
     {SliderStory.bind()}
   </Story>
+  <Story
+    name="Ranges"
+    args={{
+      defaultValue: [20, 50],
+      disabled: false,
+    }}
+  >
+    {SliderStory.bind()}
+  </Story>
+  <Story
+    name="Step"
+    args={{
+      step: 5,
+      disabled: false,
+      showTicks: true,
+    }}
+  >
+    {SliderStory.bind()}
+  </Story>
 </Canvas>
 
 <ArgsTable of={Slider} />

@@ -19,15 +19,11 @@ const StyledSliderThumb = styled(RadixSlider.Thumb, {
   transition: 'all 100ms linear',
   '&:hover': {
     boxShadow: `0 0 0 3px $$bgSlider`,
-    width: 12,
-    height: 12,
     cursor: 'pointer',
   },
   '&:focus': {
     outline: 'none',
     boxShadow: `0 0 0 3px $$bgSlider`,
-    width: 12,
-    height: 12,
   },
   '&[data-disabled]': {
     boxShadow: `0 0 0 2px $$bgSliderDisabled`,

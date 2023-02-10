@@ -1,5 +1,11 @@
 import * as RadixSlider from '@radix-ui/react-slider';
-import { ComponentProps, ElementRef, forwardRef, useState } from 'react';
+import {
+  ComponentProps,
+  ElementRef,
+  forwardRef,
+  useMemo,
+  useState,
+} from 'react';
 import { CSS, styled } from '../stitches.config';
 import { SliderThumb } from './SliderThumb';
 
@@ -66,59 +72,116 @@ const StyledSliderRange = styled(RadixSlider.Range, {
   '&:hover': { backgroundColor: `$$bgSliderThumb` },
 });
 
+const StyledSliderStep = styled('div', {
+  position: 'absolute',
+  width: 'calc(100% - 4px)',
+  height: 4,
+});
+
+const StyledSliderDot = styled('span', {
+  position: 'absolute',
+  display: 'block',
+  width: 3,
+  height: 3,
+  backgroundColor: 'white',
+  boxShadow: `0 0 0 2px $$bgSliderDisabled`,
+  borderRadius: 3,
+  transform: 'translateY(-50%)',
+  top: '50%',
+  variants: {
+    active: {
+      true: {
+        boxShadow: `0 0 0 2px $$bgSliderThumb`,
+      },
+    },
+  },
+});
+
 export type SliderPrimitive = ComponentProps<typeof StyledSliderRoot>;
 
 export type SliderProps = {
   colorScheme?: string;
   css?: CSS;
+  showTicks?: boolean;
 } & SliderPrimitive;
 
 export const Slider = forwardRef<
   ElementRef<typeof StyledSliderRoot>,
   SliderProps
->(({ colorScheme, defaultValue, value, css, ...props }) => {
-  const [sliderValues, setSliderValues] = useState<number[]>(
-    value ? value : defaultValue || [0]
-  );
+>(
+  ({
+    colorScheme,
+    defaultValue,
+    value,
+    css,
+    max = 100,
+    step = 1,
+    showTicks = false,
+    ...props
+  }) => {
+    const [sliderValues, setSliderValues] = useState<number[]>(
+      value ? value : defaultValue || [0]
+    );
 
-  const [commitedValue, setCommitedValue] = useState<number[]>(sliderValues);
+    const [commitedValue, setCommitedValue] = useState<number[]>(sliderValues);
 
-  const [isDragging, setIsDragging] = useState<boolean[]>([false]);
+    const [isDragging, setIsDragging] = useState<boolean[]>(
+      new Array(sliderValues.length).fill(false)
+    );
 
-  const handleChangeSlider = (value: number[]) => {
-    setSliderValues(value);
-    if (!isDragging.some((x) => x === true)) {
-      setIsDragging([true]);
-    }
-  };
+    const handleChangeSlider = (value: number[]) => {
+      setSliderValues(value);
+      if (isDragging.every((x) => x === false)) {
+        setIsDragging(value.map((val, index) => val !== commitedValue[index]));
+      }
+    };
 
-  return (
-    <StyledSliderRoot
-      value={sliderValues}
-      onValueChange={(value) => handleChangeSlider(value)}
-      css={{
-        ...css,
-        ...getColorSchemeVariants(colorScheme),
-      }}
-      onValueCommit={(value) => {
-        setIsDragging(value.map((val, i) => val === commitedValue[i]));
-        setCommitedValue(value);
-      }}
-      {...props}
-    >
-      <StyledSliderTrack>
-        <StyledSliderRange />
-      </StyledSliderTrack>
-      {sliderValues.map((value, index) => (
-        <SliderThumb
-          orientation={props.orientation}
-          dragging={isDragging[index]}
-          key={index}
-          value={value}
+    const renderTicks = useMemo(() => {
+      const numberOfTicks = Math.floor(max / step) + 1;
+      return [...Array.from(Array(numberOfTicks).keys())].map((dot) => (
+        <StyledSliderDot
+          key={dot}
+          active={
+            !props.disabled &&
+            sliderValues.some((value: number) => value >= dot * step)
+          }
+          css={{ left: `${dot * step}%` }}
         />
-      ))}
-    </StyledSliderRoot>
-  );
-});
+      ));
+    }, [max, sliderValues, step, props.disabled]);
+
+    return (
+      <StyledSliderRoot
+        value={sliderValues}
+        onValueChange={(value) => handleChangeSlider(value)}
+        css={{
+          ...css,
+          ...getColorSchemeVariants(colorScheme),
+        }}
+        onValueCommit={(value) => {
+          setIsDragging((prev) => prev.map(() => false));
+          setCommitedValue(value);
+        }}
+        step={step}
+        {...props}
+      >
+        <StyledSliderTrack>
+          <StyledSliderRange />
+          {showTicks ? (
+            <StyledSliderStep>{renderTicks}</StyledSliderStep>
+          ) : null}
+        </StyledSliderTrack>
+        {sliderValues.map((value, index) => (
+          <SliderThumb
+            orientation={props.orientation}
+            dragging={isDragging[index]}
+            key={index}
+            value={value}
+          />
+        ))}
+      </StyledSliderRoot>
+    );
+  }
+);
 
 export default Slider;
