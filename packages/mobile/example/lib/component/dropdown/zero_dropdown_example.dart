@@ -89,6 +89,14 @@ class ZeroDropdownExample extends StatelessWidget {
                 suffixIcon: const Icon(Icons.search),
                 selectedItemsStyle: SelectedItemsStyle.chipInverted,
               ),
+              const SizedBox(
+                height: 10,
+              ),
+              ZeroDropdown.icon(
+                onChanged: (p0) {},
+                items: items,
+                icon: const Icon(Icons.search),
+              ),
             ]),
           ),
         ),

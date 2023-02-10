@@ -28,6 +28,14 @@ enum SelectedItemsStyle {
   bool get isDropdownFilled => this == chipInverted;
 }
 
+enum DropdownVariant {
+  /// Dropdown must be decorated as [TextformField]. When selected, the [InputDecorationType] must be provided
+  form,
+
+  /// Dropdown has only icon to be tapped on. No need for [InputDecorationType]
+  icon
+}
+
 /// [ZeroDropdown] is built on top of [DropdownButtonFormField2] and [ZeroTextField]
 /// This uses decoration taken from [InputDecorationType].
 class ZeroDropdown<T> extends StatefulWidget {
@@ -41,7 +49,7 @@ class ZeroDropdown<T> extends StatefulWidget {
   final TextStyle? helperStyle;
 
   /// If set, this will override `suffixIcon` that is defined in [InputDecoration]
-  final Widget? suffixIcon;
+  final Widget? icon;
 
   /// [DropdownMenuItem]'s height, the default value is as per set on [ZeroTextfieldSize.small] height
   final double? itemHeight;
@@ -51,7 +59,10 @@ class ZeroDropdown<T> extends StatefulWidget {
   /// or [ZeroTextField.underline]
   ///
   /// Default value: [ZeroTextField.outline]
-  final InputDecorationType inputDecorationType;
+  final InputDecorationType? inputDecorationType;
+
+  /// Indicates whether it is a form [DropdownButton] or an icon one.
+  final DropdownVariant? variant;
 
   /// Default value: [ZeroTextfieldSize.small]
   final ZeroTextfieldSize textfieldSize;
@@ -96,9 +107,9 @@ class ZeroDropdown<T> extends StatefulWidget {
 
   ZeroDropdown._(
       {Key? key,
-      required this.inputDecorationType,
       required this.onChanged,
       required this.items,
+      this.inputDecorationType,
       this.menuItemBuilder,
       this.selectedMenuItemBuilder,
       this.textfieldSize = ZeroTextfieldSize.small,
@@ -110,14 +121,15 @@ class ZeroDropdown<T> extends StatefulWidget {
       this.labelStyle,
       this.errorStyle,
       this.helperStyle,
-      this.suffixIcon,
+      this.icon,
       this.itemHeight,
       this.enabled,
       this.focusNode,
       required this.enableMultipleItems,
       this.multipleItemsVariant = MultipleItemsVariant.plain,
       this.value,
-      this.selectedItemsStyle = SelectedItemsStyle.text}) {
+      this.selectedItemsStyle = SelectedItemsStyle.text,
+      this.variant = DropdownVariant.icon}) {
     if (menuItemBuilder != null || selectedMenuItemBuilder != null) {
       assert(selectedMenuItemBuilder != null && menuItemBuilder != null,
           "itemBuilder and selectedMenuItemBuilder must be provided together");
@@ -157,12 +169,34 @@ class ZeroDropdown<T> extends StatefulWidget {
         helperStyle: helperStyle,
         errorText: errorText,
         errorStyle: errorStyle,
-        suffixIcon: suffixIcon,
+        icon: suffixIcon,
         itemHeight: itemHeight,
         textfieldSize: textfieldSize ?? ZeroTextfieldSize.small,
         enableMultipleItems: false,
         menuItemBuilder: menuItemBuilder,
         selectedMenuItemBuilder: selectedMenuItemBuilder,
+        variant: DropdownVariant.form,
+      );
+
+  factory ZeroDropdown.icon({
+    Key? key,
+    required Function(dynamic) onChanged,
+    required List<T> items,
+    Widget? icon,
+    T? value,
+    Widget Function(T)? menuItemBuilder,
+    Widget Function(T)? selectedMenuItemBuilder,
+  }) =>
+      ZeroDropdown._(
+        key: key,
+        inputDecorationType: InputDecorationType.underline,
+        onChanged: onChanged,
+        items: items,
+        enableMultipleItems: false,
+        menuItemBuilder: menuItemBuilder,
+        icon: icon,
+        selectedMenuItemBuilder: selectedMenuItemBuilder,
+        variant: DropdownVariant.icon,
       );
 
   factory ZeroDropdown.multiple(
@@ -200,7 +234,7 @@ class ZeroDropdown<T> extends StatefulWidget {
         helperStyle: helperStyle,
         errorText: errorText,
         errorStyle: errorStyle,
-        suffixIcon: suffixIcon,
+        icon: suffixIcon,
         itemHeight: itemHeight ?? textfieldSize.height,
         selectedItems: selectedItems,
         textfieldSize: textfieldSize,
@@ -232,72 +266,14 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
     }
 
     return Theme(
-      data: context.theme
-          .copyWith(
-              inputDecorationType: widget.inputDecorationType,
-              textfieldSize: widget.textfieldSize)
-          .toThemeData(),
-      child: DropdownButtonFormField2(
-        isExpanded: false,
-        decoration: InputDecoration(
-            helperText: widget.helperText,
-            hintText: widget.hintText,
-            labelText: widget.labelText,
-            contentPadding: widget.labelText == null
-                ? const EdgeInsets.only(right: 8)
-                : const EdgeInsets.only(left: 16, right: 8),
-            fillColor: context.theme.primaryColor.lightest,
-            filled:
-                widget.selectedItemsStyle == SelectedItemsStyle.chipInverted),
-        buttonPadding: EdgeInsets.zero,
-        icon: widget
-            .suffixIcon, // If suffixIcon provided, then hide the default icon
-        dropdownPadding: EdgeInsets.zero,
-        buttonHighlightColor: context.theme.primaryColor.lightest,
-        itemHighlightColor: context.theme.primaryColor.lightest,
-        selectedItemHighlightColor: context.theme.primaryColor,
-        buttonHeight: widget.itemHeight ?? widget.textfieldSize.height,
-        items: widget.items.map((item) {
-          return DropdownMenuItem<T>(
-            value: item,
-            child: StatefulBuilder(
-              builder: (context, menuSetState) {
-                final isSelected = _selectedItems.contains(item);
-                return SizedBox(
-                  width: double.infinity,
-                  height: widget.itemHeight,
-                  child: InkWell(
-                      onTap: () =>
-                          _updateSelectedItems(menuSetState, item, isSelected),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: _MenuItem(
-                            item: item,
-                            isSelected: isSelected,
-                            multipleItemsVariant: widget.multipleItemsVariant,
-                            menuItemWidget: widget.menuItemBuilder?.call(item),
-                            selectedMenuItemWidget:
-                                widget.selectedMenuItemBuilder?.call(item),
-                            onClick: () => _updateSelectedItems(
-                                menuSetState, item, isSelected)),
-                      )),
-                );
-              },
-            ),
-          );
-        }).toList(),
-        value: _selectedItems.isEmpty ? null : _selectedItems.last,
-        onChanged: widget.onChanged,
-        itemPadding: EdgeInsets.zero,
-        selectedItemBuilder: (context) {
-          return widget.items
-              .map(
-                (item) => _buildSelectedItem(item),
-              )
-              .toList();
-        },
-      ),
-    );
+        data: context.theme
+            .copyWith(
+                inputDecorationType: widget.inputDecorationType,
+                textfieldSize: widget.textfieldSize)
+            .toThemeData(),
+        child: widget.variant == DropdownVariant.form
+            ? _buildDropdownForm()
+            : _buildDropdownIconOnly());
   }
 
   void _updateSelectedItems(
@@ -369,6 +345,121 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
                     ))
                 .toList());
     }
+  }
+
+  /// Dropdown with form decoration
+  Widget _buildDropdownForm() {
+    return DropdownButtonFormField2(
+      isExpanded: false,
+      decoration: InputDecoration(
+          helperText: widget.helperText,
+          hintText: widget.hintText,
+          labelText: widget.labelText,
+          contentPadding: widget.labelText == null
+              ? const EdgeInsets.only(right: 8)
+              : const EdgeInsets.only(left: 16, right: 8),
+          fillColor: context.theme.primaryColor.lightest,
+          filled: widget.selectedItemsStyle == SelectedItemsStyle.chipInverted),
+      buttonPadding: EdgeInsets.zero,
+      icon: widget.icon, // If suffixIcon provided, then hide the default icon
+      dropdownPadding: EdgeInsets.zero,
+      buttonHighlightColor: context.theme.primaryColor.lightest,
+      itemHighlightColor: context.theme.primaryColor.lightest,
+      selectedItemHighlightColor: context.theme.primaryColor,
+      buttonHeight: widget.itemHeight ?? widget.textfieldSize.height,
+      items: widget.items.map((item) {
+        return DropdownMenuItem<T>(
+          value: item,
+          child: StatefulBuilder(
+            builder: (context, menuSetState) {
+              final isSelected = _selectedItems.contains(item);
+              return SizedBox(
+                width: double.infinity,
+                height: widget.itemHeight,
+                child: InkWell(
+                    onTap: () =>
+                        _updateSelectedItems(menuSetState, item, isSelected),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: _MenuItem(
+                          item: item,
+                          isSelected: isSelected,
+                          multipleItemsVariant: widget.multipleItemsVariant,
+                          menuItemWidget: widget.menuItemBuilder?.call(item),
+                          selectedMenuItemWidget:
+                              widget.selectedMenuItemBuilder?.call(item),
+                          onClick: () => _updateSelectedItems(
+                              menuSetState, item, isSelected)),
+                    )),
+              );
+            },
+          ),
+        );
+      }).toList(),
+      value: _selectedItems.isEmpty ? null : _selectedItems.last,
+      onChanged: widget.onChanged,
+      itemPadding: EdgeInsets.zero,
+      selectedItemBuilder: (context) {
+        return widget.items
+            .map(
+              (item) => _buildSelectedItem(item),
+            )
+            .toList();
+      },
+    );
+  }
+
+  /// Dropdown with icon widget as the button
+  Widget _buildDropdownIconOnly() {
+    return DropdownButton2(
+      isExpanded: false,
+      buttonPadding: EdgeInsets.zero,
+      icon: widget.icon, // If suffixIcon provided, then hide the default icon
+      dropdownPadding: EdgeInsets.zero,
+      buttonHighlightColor: context.theme.primaryColor.lightest,
+      itemHighlightColor: context.theme.primaryColor.lightest,
+      selectedItemHighlightColor: context.theme.primaryColor,
+      buttonHeight: widget.itemHeight ?? widget.textfieldSize.height,
+      items: widget.items.map((item) {
+        return DropdownMenuItem<T>(
+          value: item,
+          child: StatefulBuilder(
+            builder: (context, menuSetState) {
+              final isSelected = _selectedItems.contains(item);
+              return SizedBox(
+                width: double.infinity,
+                height: widget.itemHeight,
+                child: InkWell(
+                    onTap: () =>
+                        _updateSelectedItems(menuSetState, item, isSelected),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: _MenuItem(
+                          item: item,
+                          isSelected: isSelected,
+                          multipleItemsVariant: widget.multipleItemsVariant,
+                          menuItemWidget: widget.menuItemBuilder?.call(item),
+                          selectedMenuItemWidget:
+                              widget.selectedMenuItemBuilder?.call(item),
+                          onClick: () => _updateSelectedItems(
+                              menuSetState, item, isSelected)),
+                    )),
+              );
+            },
+          ),
+        );
+      }).toList(),
+      value: _selectedItems.isEmpty ? null : _selectedItems.last,
+      onChanged: widget.onChanged,
+      itemPadding: EdgeInsets.zero,
+      selectedItemBuilder: (context) {
+        return widget.items
+            .map(
+              (item) => _buildSelectedItem(item),
+            )
+            .toList();
+      },
+    );
   }
 }
 
