@@ -88,17 +88,21 @@ export './components/snackbar/zero_snackbar_alert.dart';
 // icons
 export './components/icons/zero_icons.dart';
 export './components/icons/two_tone_icons.dart';
+
 // datepicker
 export './components/datepicker/zero_datepicker.dart';
 export './components/datepicker/zero_calendar_datepicker.dart';
 export './components/datepicker/zero_datepicker_textfield.dart';
 
-// Progress Indicator
+// progress indicator
 export './components/progress_indicator/zero_progress_indicator.dart';
 
 // navigation
 export './components/navigation/zero_navigation_bar.dart';
 export './components/navigation/drawer/zero_navigation_drawer.dart';
+
+// alert dialog
+export './components/alert_dialog/zero_alert_dialog.dart';
 
 // types
 export './types/button_radius_type.dart';
