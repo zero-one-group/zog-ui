@@ -10,6 +10,7 @@ import 'component/divider/divider_example.dart';
 import 'component/dropdown/zero_dropdown_example.dart';
 import 'component/icon/icon_example.dart';
 import 'component/listtile/listile_example.dart';
+import 'component/navigation/app_bar_example.dart';
 import 'component/navigation/navigation_bar_example.dart';
 import 'component/navigation/navigation_drawer_example.dart';
 import 'component/progress_indicator/zero_progress_indicator_example.dart';
@@ -293,6 +294,16 @@ class Examples extends StatelessWidget {
                 );
               },
               text: 'Zero Time Picker Example',
+            ),
+            ZeroButton.primary(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ZeroAppBarExample(),
+                  ),
+                );
+              },
+              text: 'Zero App Bar Example',
             ),
             const SizedBox(
               height: 100,

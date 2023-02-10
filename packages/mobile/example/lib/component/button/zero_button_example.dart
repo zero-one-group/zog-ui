@@ -7,7 +7,7 @@ class ZeroButtonExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: ZeroAppBar(
         title: const Text('Zero Button Example'),
       ),
       body: SafeArea(
