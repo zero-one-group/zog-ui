@@ -48,9 +48,21 @@ import { Slider } from '@zero-ui/core';
   <Story
     name="Step"
     args={{
-      step: 5,
+      ticks: 20,
       disabled: false,
       showTicks: true,
+      snapToTicks: true,
+    }}
+  >
+    {SliderStory.bind()}
+  </Story>
+  <Story
+    name="Step with Marks"
+    args={{
+      ticks: ['0°C', '20°C', '40°C', '60°C', '80°C', '100°C'],
+      disabled: false,
+      showTicks: true,
+      snapToTicks: true,
     }}
   >
     {SliderStory.bind()}

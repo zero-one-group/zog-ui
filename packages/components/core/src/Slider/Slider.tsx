@@ -30,10 +30,10 @@ const StyledSliderRoot = styled(RadixSlider.Root, {
   "&[data-orientation='vertical']": {
     flexDirection: 'column',
     width: 20,
-    height: 200,
+    height: 400,
   },
   "&:not([data-orientation='vertical'])": {
-    width: 200,
+    width: 400,
     height: 20,
   },
 });
@@ -97,12 +97,29 @@ const StyledSliderDot = styled('span', {
   },
 });
 
+const StyledSliderMarks = styled('div', {
+  position: 'absolute',
+  width: 'calc(100% - 4px)',
+  height: 4,
+  top: 14,
+});
+
+const StyledSliderMarkItem = styled('span', {
+  position: 'absolute',
+  display: 'block',
+  transform: 'translateX(-50%)',
+  textAlign: 'center',
+  fontFamily: '$untitled',
+});
+
 export type SliderPrimitive = ComponentProps<typeof StyledSliderRoot>;
 
 export type SliderProps = {
   colorScheme?: string;
   css?: CSS;
   showTicks?: boolean;
+  ticks?: number | string[];
+  snapToTicks?: boolean;
 } & SliderPrimitive;
 
 export const Slider = forwardRef<
@@ -115,8 +132,9 @@ export const Slider = forwardRef<
     value,
     css,
     max = 100,
-    step = 1,
+    snapToTicks = false,
     showTicks = false,
+    ticks = 1,
     ...props
   }) => {
     const [sliderValues, setSliderValues] = useState<number[]>(
@@ -136,8 +154,11 @@ export const Slider = forwardRef<
       }
     };
 
+    const step =
+      typeof ticks === 'number' ? ticks : Math.floor(max / (ticks.length - 1));
+    const numberOfTicks = Math.floor(max / step) + 1;
+
     const renderTicks = useMemo(() => {
-      const numberOfTicks = Math.floor(max / step) + 1;
       return [...Array.from(Array(numberOfTicks).keys())].map((dot) => (
         <StyledSliderDot
           key={dot}
@@ -148,7 +169,17 @@ export const Slider = forwardRef<
           css={{ left: `${dot * step}%` }}
         />
       ));
-    }, [max, sliderValues, step, props.disabled]);
+    }, [numberOfTicks, step, props.disabled, sliderValues]);
+
+    const renderMarks = useMemo(() => {
+      return typeof ticks !== 'number'
+        ? ticks.map((mark, index) => (
+            <StyledSliderMarkItem key={mark} css={{ left: `${index * step}%` }}>
+              {mark}
+            </StyledSliderMarkItem>
+          ))
+        : null;
+    }, [step, ticks]);
 
     return (
       <StyledSliderRoot
@@ -162,13 +193,16 @@ export const Slider = forwardRef<
           setIsDragging((prev) => prev.map(() => false));
           setCommitedValue(value);
         }}
-        step={step}
+        step={snapToTicks ? step : undefined}
         {...props}
       >
         <StyledSliderTrack>
           <StyledSliderRange />
           {showTicks ? (
             <StyledSliderStep>{renderTicks}</StyledSliderStep>
+          ) : null}
+          {typeof ticks !== 'number' ? (
+            <StyledSliderMarks>{renderMarks}</StyledSliderMarks>
           ) : null}
         </StyledSliderTrack>
         {sliderValues.map((value, index) => (
