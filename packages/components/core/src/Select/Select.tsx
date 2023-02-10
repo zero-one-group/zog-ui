@@ -582,7 +582,7 @@ export const Select = ({
                 }}
               >
                 {filteredOptions.length > 0 ? (
-                  filteredOptions.map((option) => {
+                  filteredOptions.map((option, index) => {
                     const selected =
                       selectedSingleItem?.value === option.value ||
                       selectedItems.find((it) => it.value === option.value) !==
@@ -591,6 +591,7 @@ export const Select = ({
                       <StyledOptionItem
                         onClick={() => onSelect(option)}
                         selected={selected}
+                        key={index}
                       >
                         {option.label}
                       </StyledOptionItem>
@@ -640,10 +641,11 @@ export const Select = ({
           ) : null}
           {multiple ? (
             <StyledSelectedItems size={size}>
-              {selectedItems.map((option) => (
+              {selectedItems.map((option, index) => (
                 <StyledSelectedMultipleItem
                   data-value={option.value}
                   size={size}
+                  key={index}
                 >
                   <span>{option.label}</span>
                   {!disabled ? (
