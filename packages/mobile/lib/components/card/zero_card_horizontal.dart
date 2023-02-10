@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../zero_ui_mobile.dart';
 
-class ZeroCardVertical extends StatefulWidget {
+class ZeroCardHorizontal extends StatefulWidget {
   final String header, subheader;
   final TextStyle? headerStyle, subheaderStyle;
   final ZeroAvatar? avatar;
@@ -13,7 +13,7 @@ class ZeroCardVertical extends StatefulWidget {
   final Color filledColor;
   final double height;
   final double width;
-  ZeroCardVertical({
+  ZeroCardHorizontal({
     super.key,
     required this.header,
     required this.subheader,
@@ -30,10 +30,10 @@ class ZeroCardVertical extends StatefulWidget {
   }) : outlineBorderColor = outlineBorderColor ?? ZeroColors.neutral[5];
 
   @override
-  State<ZeroCardVertical> createState() => _ZeroCardVerticalState();
+  State<ZeroCardHorizontal> createState() => _ZeroCardHorizontalState();
 }
 
-class _ZeroCardVerticalState extends State<ZeroCardVertical> {
+class _ZeroCardHorizontalState extends State<ZeroCardHorizontal> {
   @override
   Widget build(BuildContext context) {
     return Container(

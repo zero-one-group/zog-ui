@@ -106,7 +106,7 @@ export './components/alert_dialog/zero_alert_dialog.dart';
 
 // card
 export './components/card/zero_card.dart';
-export './components/card/zero_card_vertical.dart';
+export 'components/card/zero_card_horizontal.dart';
 
 // types
 export './types/button_radius_type.dart';

@@ -8,7 +8,7 @@ WidgetbookComponent cardWidgetbookComponent = WidgetbookComponent(
   name: 'Card',
   useCases: [
     WidgetbookUseCase(
-      name: 'Card Horizontal',
+      name: 'Card Vertical',
       builder: (context) {
         ZeroAvatar? avatar;
         AvatarSize avatarSize = context.knobs.options(
@@ -85,7 +85,7 @@ WidgetbookComponent cardWidgetbookComponent = WidgetbookComponent(
       },
     ),
     WidgetbookUseCase(
-      name: 'Card Vertical',
+      name: 'Card Horizontal',
       builder: (context) {
         ZeroAvatar? avatar;
         AvatarSize avatarSize = context.knobs.options(
@@ -109,7 +109,7 @@ WidgetbookComponent cardWidgetbookComponent = WidgetbookComponent(
         }
 
         return PreviewWidget(
-          child: ZeroCardVertical(
+          child: ZeroCardHorizontal(
             header: context.knobs.text(label: 'Header', initialValue: 'Header'),
             subheader: context.knobs.text(label: 'Subheader', initialValue: 'Subheader'),
             variant: context.knobs.options(
