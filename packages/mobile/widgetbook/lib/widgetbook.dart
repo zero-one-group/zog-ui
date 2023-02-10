@@ -77,7 +77,6 @@ class HotReload extends StatelessWidget {
             timepickerWidgetbookComponent,
             progressIndicatorWidgetbookComponent,
             alertDialogWidgetbookComponent,
-            timepickerWidgetbookComponent
           ],
         ),
       ],

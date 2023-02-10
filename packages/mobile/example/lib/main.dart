@@ -287,6 +287,16 @@ class Examples extends StatelessWidget {
               },
               text: 'Zero Navigation Drawer Example',
             ),
+            ZeroButton.primary(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ZeroTimePickerExample(),
+                  ),
+                );
+              },
+              text: 'Zero Time Picker Example',
+            ),
             const SizedBox(
               height: 100,
             )
