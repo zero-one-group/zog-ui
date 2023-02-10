@@ -503,11 +503,10 @@ export const Select = ({
   const filterOptions = (inputValue: string) => {
     const lowerInput = inputValue.toLowerCase();
     if (lowerInput.length > 0) {
-      setFilteredOptions((prev) =>
-        prev.filter((it) => {
-          return (it.label || '').toLowerCase().includes(lowerInput);
-        })
-      );
+      const filtered = options.filter((it) => {
+        return (it.label || '').toLowerCase().includes(lowerInput);
+      });
+      setFilteredOptions(filtered);
     } else {
       resetFilteredOptions();
     }
