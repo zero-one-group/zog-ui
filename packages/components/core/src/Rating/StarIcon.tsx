@@ -1,7 +1,7 @@
-import { ReactElement, ReactNode, Fragment } from 'react';
+import { ReactNode, Fragment } from 'react';
 import { styled } from '../stitches.config';
 export type StarIconProps = {
-  star: number;
+  star: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15;
   defaultValue?: number;
   icon: ReactNode;
   name: string;
@@ -9,7 +9,8 @@ export type StarIconProps = {
   halfStar?: boolean;
 };
 const Star = ({ star, defaultValue, icon, name, id }: StarIconProps) => {
-  const stars = Array.from(Array(star).keys()).map((item) => item + 1);
+  const starCount = star < 15 ? star : 15;
+  const stars = Array.from(Array(starCount).keys()).map((item) => item + 1);
   return (
     <>
       {stars.map((item) => {
@@ -40,9 +41,9 @@ const StyledHalfStar = styled('div', {
 });
 
 const HalfStar = ({ star, defaultValue, icon, id, name }: StarIconProps) => {
-  const startArray = Array.from(Array(star).keys()).map((item) => item + 1);
-  // const startArrayFloat = startArray.map((item) => item - 1 + 0.5);
-  const stars = startArray.flatMap((item) => [item - 0.5, item]);
+  const starCount = star < 15 ? star : 15;
+  const starArray = Array.from(Array(starCount).keys()).map((item) => item + 1);
+  const stars = starArray.flatMap((item) => [item - 0.5, item]);
   return (
     <StyledHalfStar>
       {stars.map((item) => {

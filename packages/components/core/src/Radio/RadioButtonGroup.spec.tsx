@@ -1,11 +1,14 @@
 import { render } from '@testing-library/react';
+import RadioButton from './RadioButton';
 
-import Radio from './Radio';
+import RadioButtonGroup from './RadioButtonGroup';
 
 describe('Radio', () => {
   it('should render successfully', () => {
     const { baseElement } = render(
-      <Radio name="list" id="html" label="html" />
+      <RadioButtonGroup>
+        <RadioButton name="list" id="list-item" label="html" />
+      </RadioButtonGroup>
     );
     expect(baseElement).toBeTruthy();
   });
