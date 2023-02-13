@@ -1,7 +1,13 @@
 import { CloseCircleFilled, DownOutlined } from '@ant-design/icons';
 import * as Popover from '@radix-ui/react-popover';
 import { keyframes } from '@stitches/react';
-import { ComponentProps, MouseEvent, useMemo, useState } from 'react';
+import {
+  ComponentProps,
+  MouseEvent,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { styled } from '../stitches.config';
 import CascaderColumn from './CascaderColumn';
 
@@ -182,6 +188,13 @@ export const Cascader = ({
   const handleInputChange = (path: string[]) => {
     setValue(displayRender(getActiveLabels(path) as string[]));
   };
+
+  useEffect(() => {
+    if (defaultValue && defaultValue.length > 0) {
+      setValue(displayRender(getActiveLabels(defaultValue) as string[]));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleChangeCell = (path: string[], isLeaf: boolean) => {
     setActiveValues(path);
