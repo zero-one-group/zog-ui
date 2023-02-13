@@ -21,7 +21,8 @@ class ZeroDropdownExample extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
-            child: Column(children: [
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               ZeroDropdown(
                 onChanged: (p0) {},
                 items: items,
@@ -33,6 +34,24 @@ class ZeroDropdownExample extends StatelessWidget {
                 onChanged: (p0) {},
                 items: items,
                 multipleItemsVariant: MultipleItemsVariant.checkboxes,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              ZeroDropdown.icon(
+                onChanged: (p0) {},
+                items: items,
+                icon: const ClipOval(
+                  child: Material(
+                    color: Colors.blue, // Button color
+                    child: InkWell(
+                      child: Icon(
+                        Icons.menu,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
               ),
               const SizedBox(
                 height: 10,

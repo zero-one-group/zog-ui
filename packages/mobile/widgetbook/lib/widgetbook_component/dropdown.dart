@@ -81,6 +81,30 @@ List<Option<Widget?>> suffixOptions = [
   ),
 ];
 
+List<Option<Widget?>> iconsOptions = [
+  const Option(
+    label: 'Icons.arrow_drop_down',
+    value: Icon(
+      Icons.arrow_drop_down,
+      color: Colors.white,
+    ),
+  ),
+  const Option(
+    label: 'Icons.date_range',
+    value: Icon(
+      Icons.date_range,
+      color: Colors.white,
+    ),
+  ),
+  const Option(
+    label: 'Icons.question_answer',
+    value: Icon(
+      Icons.question_answer,
+      color: Colors.white,
+    ),
+  ),
+];
+
 WidgetbookComponent dropdownWidgetbookComponent = WidgetbookComponent(
   name: 'Dropdown',
   useCases: [
@@ -191,6 +215,34 @@ WidgetbookComponent dropdownWidgetbookComponent = WidgetbookComponent(
               selectedItemsStyle: context.knobs.options(
                   label: 'Selected Items Style',
                   options: selectedItemsStyleOptions),
+            ),
+          );
+        }),
+    WidgetbookUseCase(
+        name: 'Icon Button',
+        builder: (context) {
+          return PreviewWidget.builder(
+            builder: (context) => SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ZeroDropdown.icon(
+                      onChanged: (p0) {},
+                      items: items,
+                      icon: ClipOval(
+                        child: Material(
+                          color: context.theme.primaryColor,
+                          child: InkWell(
+                            child: context.knobs
+                                .options(label: 'Icon', options: iconsOptions),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ]),
             ),
           );
         }),
