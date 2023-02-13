@@ -50,8 +50,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return ZeroApp(
+    return MaterialApp(
       title: 'Flutter Demo',
+<<<<<<< HEAD
       theme: ZeroThemeData(
         brightness: Brightness.light,
         primaryColor: _selectedColor.toAccentColor(),
@@ -90,6 +91,22 @@ class _MyAppState extends State<MyApp> {
             ],
           ),
         ),
+=======
+      theme: Theme.of(context).copyWith(useMaterial3: true),
+      home: Scaffold(
+        body: SafeArea(
+            child: ElevatedButton(
+          onPressed: () {
+            showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate:
+                    DateTime.now().subtract(const Duration(days: 365 * 5)),
+                lastDate: DateTime.now().add(const Duration(days: 365 * 5)));
+          },
+          child: const Text('Button'),
+        )),
+>>>>>>> 0b8e841 (fix: resolve conclicted, datepicker select dropdown working)
       ),
     );
   }
