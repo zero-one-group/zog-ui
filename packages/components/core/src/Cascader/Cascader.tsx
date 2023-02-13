@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { ComponentProps, useMemo, useState } from 'react';
 import { styled } from '../stitches.config';
 import CascaderColumn from './CascaderColumn';
 
@@ -40,11 +40,12 @@ export type CascaderOption = {
   children?: CascaderOption[];
 };
 
-export interface CascaderProps {
+export interface CascaderProps extends ComponentProps<typeof StyledCascader> {
   options: CascaderOption[];
   defaultValue?: string[];
   colorScheme?: string;
   trigger?: 'click' | 'hover';
+  changeOnSelect?: boolean;
 }
 
 export const Cascader = ({
@@ -52,11 +53,15 @@ export const Cascader = ({
   options,
   defaultValue,
   trigger = 'click',
+  css,
+  changeOnSelect = false,
   ...props
 }: CascaderProps) => {
   const [activeValues, setActiveValues] = useState<string[]>(
     defaultValue || []
   );
+
+  const [value, setValue] = useState('');
 
   const columns = useMemo(() => {
     const columnList = [{ options }];
@@ -77,30 +82,42 @@ export const Cascader = ({
     return columnList;
   }, [options, activeValues]);
 
-  const activeLabels = useMemo(() => {
-    if (activeValues.length > 0) {
-      return activeValues.map(
+  const getActiveLabels = (path: string[]) => {
+    if (path && path.length > 0) {
+      return path.map(
         (value, index) =>
           columns[index].options.find((option) => option.value === value)?.label
       );
     }
     return [];
-  }, [columns, activeValues]);
+  };
 
-  const displayRender = activeLabels.length > 0 ? activeLabels.join(' / ') : '';
+  const displayRender = (labels: string[]) => {
+    return labels.length > 0 ? labels.join(' / ') : '';
+  };
+
+  const handleInputChange = (path: string[]) => {
+    setValue(displayRender(getActiveLabels(path) as string[]));
+  };
 
   const handleChangeCell = (path: string[], isLeaf: boolean) => {
     setActiveValues(path);
+    if (changeOnSelect) {
+      handleInputChange(path);
+    } else if (isLeaf) {
+      handleInputChange(path);
+    }
   };
 
   return (
     <StyledCascader
       css={{
         ...getColorSchemeVariants(colorScheme),
+        ...css,
       }}
     >
       <StyledCascaderInput
-        value={displayRender}
+        value={value}
         type="search"
         readOnly
         placeholder="Please Select"
