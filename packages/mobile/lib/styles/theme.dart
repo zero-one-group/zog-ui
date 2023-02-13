@@ -142,7 +142,7 @@ class ZeroThemeData with Diagnosticable {
     required this.appBarStyle,
 
     // Others
-    this.useMaterial3 = false,
+    this.useMaterial3 = true,
   });
 
   factory ZeroThemeData({

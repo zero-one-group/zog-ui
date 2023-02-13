@@ -96,6 +96,7 @@ export './components/icons/two_tone_icons.dart';
 export './components/datepicker/zero_datepicker.dart';
 export './components/datepicker/zero_calendar_datepicker.dart';
 export './components/datepicker/zero_datepicker_textfield.dart';
+export './components/datepicker/zero_datepicker_dropdown.dart';
 
 // progress indicator
 export './components/progress_indicator/zero_progress_indicator.dart';

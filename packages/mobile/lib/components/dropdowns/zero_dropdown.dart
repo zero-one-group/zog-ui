@@ -108,6 +108,8 @@ class ZeroDropdown<T> extends StatefulWidget {
   /// Only used when parameter `enableMultiItems` of [ZeroDropdown] is true.
   final SelectedItemsStyle selectedItemsStyle;
 
+  final Function(bool isOpen)? onMenuStateChange;
+
   ZeroDropdown._(
       {Key? key,
       required this.onChanged,
@@ -133,7 +135,8 @@ class ZeroDropdown<T> extends StatefulWidget {
       this.multipleItemsVariant = MultipleItemsVariant.plain,
       this.value,
       this.selectedItemsStyle = SelectedItemsStyle.text,
-      this.variant = DropdownVariant.form}) {
+      this.variant = DropdownVariant.form,
+      this.onMenuStateChange}) {
     if (menuItemBuilder != null || selectedMenuItemBuilder != null) {
       assert(selectedMenuItemBuilder != null && menuItemBuilder != null,
           "itemBuilder and selectedMenuItemBuilder must be provided together");
@@ -235,7 +238,8 @@ class ZeroDropdown<T> extends StatefulWidget {
           InputDecorationType inputDecorationType = InputDecorationType.outline,
           MultipleItemsVariant? multipleItemsVariant,
           ZeroTextfieldSize textfieldSize = ZeroTextfieldSize.small,
-          SelectedItemsStyle selectedItemsStyle = SelectedItemsStyle.text}) =>
+          SelectedItemsStyle selectedItemsStyle = SelectedItemsStyle.text,
+          Function(bool isOpen)? onMenuStateChange}) =>
       ZeroDropdown._(
         key: key,
         inputDecorationType: inputDecorationType,
@@ -259,6 +263,7 @@ class ZeroDropdown<T> extends StatefulWidget {
         multipleItemsVariant:
             multipleItemsVariant ?? MultipleItemsVariant.plain,
         selectedItemsStyle: selectedItemsStyle,
+        onMenuStateChange: onMenuStateChange,
       );
 
   @override
