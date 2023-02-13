@@ -1,0 +1,38 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { BADGE } from '@geometricpanda/storybook-addon-badges';
+import { within, userEvent } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
+import { TimePicker } from '@zero-ui/core';
+
+<Meta
+  title="Components/Forms/TimePicker"
+  component={[TimePicker]}
+  argTypes={{}}
+/>
+
+export const TimePickerStory = (args) => <TimePicker {...args} />;
+
+# TimePicker
+
+> WIP
+
+## Example Usage
+
+```jsx
+import { TimePicker } from '@zero-ui/core';
+```
+
+<Canvas columns={2} withSource="close">
+  <Story
+    name="TimePicker"
+    args={{
+      disabled: false,
+      colorScheme: 'teal',
+      isRange: true,
+    }}
+  >
+    {TimePickerStory.bind()}
+  </Story>
+</Canvas>
+
+<ArgsTable of={TimePicker} />
