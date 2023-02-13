@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
+/// A card widget with custom style.
+/// there are 3 styles for [ZeroCard]:
+/// - [ZeroCardVariant.outline] is a card with border line
+/// - [ZeroCardVariant.filled] is a card with custom background color
+/// - [ZeroCardVariant.elevated] is a card with shadow/elavation
 class ZeroCard extends StatelessWidget {
-  final ZeroCardVariant variant;
+  /// style of the card
   final ZeroCardStyle style;
+
+  /// widget child of the card
   final Widget child;
+
+  /// clip behavior of the card
+  /// default is [Clip.antiAlias]
   final Clip clipBehavior;
   ZeroCard({
     super.key,
-    this.variant = ZeroCardVariant.elevated,
     ZeroCardStyle? style,
     required this.child,
     this.clipBehavior = Clip.antiAlias,
