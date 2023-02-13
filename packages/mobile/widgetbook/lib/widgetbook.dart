@@ -3,6 +3,7 @@ import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_demo/widgetbook_component/alert_dialog.dart';
 import 'package:zero_ui_mobile/styles/theme.dart';
 
+import 'widgetbook_component/app_bar.dart';
 import 'widgetbook_component/avatar.dart';
 import 'widgetbook_component/badge.dart';
 import 'widgetbook_component/button.dart';
@@ -60,6 +61,7 @@ class HotReload extends StatelessWidget {
             WidgetbookFolder(name: 'Navigation', widgets: [
               navigationBarWidgetbookComponent,
               navigationDrawerWidgetbookComponent,
+              appBarWidgetbookComponent,
             ]),
           ],
           widgets: [

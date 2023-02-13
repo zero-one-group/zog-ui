@@ -9,11 +9,11 @@ WidgetbookComponent navigationDrawerWidgetbookComponent = WidgetbookComponent(
   name: 'Navigation Drawer',
   useCases: [
     WidgetbookUseCase(
-      name: 'Navigation Drawer',
+      name: 'Start Drawer',
       builder: (context) => PreviewWidget(
         child: Scaffold(
           appBar: AppBar(
-            title: const Text('Open Drawer from the humberger menu'),
+            title: const Text('Tap the humberger menu'),
           ),
           drawer: ZeroNavigationDrawer(
             style: ZeroNavigationDrawerStyle(
@@ -22,6 +22,15 @@ WidgetbookComponent navigationDrawerWidgetbookComponent = WidgetbookComponent(
               backgroundColor: context.knobs.options(
                 label: 'Background Color',
                 options: _backgroundOptions,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.horizontal(
+                  right: Radius.circular(
+                    context.knobs
+                        .number(label: 'Border Radius', initialValue: 16)
+                        .toDouble(),
+                  ),
+                ),
               ),
               width: context.knobs
                   .number(
