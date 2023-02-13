@@ -10,3 +10,18 @@ enum ZeroNavigationBarType {
   /// For icon, still always appear
   iconLabelOnActive,
 }
+
+/// List indicator type of style [ZeroNavigationBar]
+enum ZeroNavigationBarIndicatorType {
+  /// [ZeroNavigationBar] indicator while active is oval
+  oval,
+
+  /// [ZeroNavigationBar] indicator while active is circle
+  circle;
+
+  /// Getter check this [indicator] oval or not
+  bool get isOval => this == oval;
+
+  /// Getter check this [indicator] circle or not
+  bool get isCircle => this == circle;
+}

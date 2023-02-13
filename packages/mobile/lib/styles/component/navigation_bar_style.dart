@@ -20,12 +20,16 @@ class ZeroNavigationBarStyle with Diagnosticable {
   /// Label color when state is selected/active
   final Color? selectedColor;
 
+  /// Type indicator on active
+  final ZeroNavigationBarIndicatorType? indicatorType;
+
   const ZeroNavigationBarStyle({
     this.backgroundColor,
     this.height,
     this.indicatorColor,
     this.unselectedColor,
     this.selectedColor,
+    this.indicatorType,
   });
 
   /// A default value style of [ZeroNavigationBarStyle]
@@ -41,6 +45,7 @@ class ZeroNavigationBarStyle with Diagnosticable {
         selectedColor: selectedColor ?? Colors.black,
         indicatorColor:
             indicatorColor ?? ZeroColors.primary.toAccentColor().lighter,
+        indicatorType: ZeroNavigationBarIndicatorType.oval,
       );
 
   /// If the caller passes in a value for a parameter, use that value, otherwise use the value from this
@@ -54,6 +59,7 @@ class ZeroNavigationBarStyle with Diagnosticable {
     Color? unselectedColor,
     Color? selectedColor,
     double? height,
+    ZeroNavigationBarIndicatorType? indicatorType,
   }) {
     return ZeroNavigationBarStyle(
       backgroundColor: backgroundColor ?? this.backgroundColor,
@@ -61,6 +67,7 @@ class ZeroNavigationBarStyle with Diagnosticable {
       unselectedColor: unselectedColor ?? this.unselectedColor,
       selectedColor: selectedColor ?? this.selectedColor,
       height: height ?? this.height,
+      indicatorType: indicatorType ?? this.indicatorType,
     );
   }
 
@@ -73,6 +80,7 @@ class ZeroNavigationBarStyle with Diagnosticable {
       unselectedColor: other.unselectedColor,
       selectedColor: other.selectedColor,
       height: other.height,
+      indicatorType: other.indicatorType,
     );
   }
 
@@ -84,6 +92,7 @@ class ZeroNavigationBarStyle with Diagnosticable {
       unselectedColor: Color.lerp(a?.unselectedColor, b?.unselectedColor, t),
       selectedColor: Color.lerp(a?.selectedColor, b?.selectedColor, t),
       height: t < 0.5 ? a?.height : b?.height,
+      indicatorType: t < 0.5 ? a?.indicatorType : b?.indicatorType,
     );
   }
 
