@@ -144,17 +144,13 @@ export const Slider = forwardRef<
       value ? value : defaultValue || [0]
     );
 
-    const [commitedValue, setCommitedValue] = useState<number[]>(sliderValues);
-
     const [isDragging, setIsDragging] = useState<boolean[]>(
       new Array(sliderValues.length).fill(false)
     );
 
     const handleChangeSlider = (value: number[]) => {
+      setIsDragging(value.map((val, index) => val !== sliderValues[index]));
       setSliderValues(value);
-      if (isDragging.every((x) => x === false)) {
-        setIsDragging(value.map((val, index) => val !== commitedValue[index]));
-      }
     };
 
     const step =
@@ -193,11 +189,11 @@ export const Slider = forwardRef<
           ...css,
           ...getColorSchemeVariants(colorScheme),
         }}
-        onValueCommit={(value) => {
+        onValueCommit={() => {
           setIsDragging((prev) => prev.map(() => false));
-          setCommitedValue(value);
         }}
         step={snapToTicks ? step : undefined}
+        max={max}
         {...props}
       >
         <StyledSliderTrack>
