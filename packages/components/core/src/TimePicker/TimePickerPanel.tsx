@@ -102,7 +102,7 @@ const StyledOk = styled('button', {
 });
 
 // change 0 to 00, add 0 behind
-const getTwoDigit = (t: number) => ('0' + t).slice(-2);
+export const getTwoDigit = (t: number) => ('0' + t).slice(-2);
 
 const getDigits = (n: number) => {
   return Array.from(Array(n).keys()).map((deg) => getTwoDigit(deg));
@@ -135,7 +135,7 @@ export const TimePickerPanel = ({
         <StyledTimeContent>
           <StyledTimePanelColumn>
             {hourDigits.map((digit) => (
-              <StyledTimePanelCell>
+              <StyledTimePanelCell key={`${uniqId}-minute-${digit}`}>
                 <StyledTimePanelCellInner
                   id={`${uniqId}-hour-${digit}`}
                   selected={digit === selectedTime?.hour}
@@ -148,7 +148,7 @@ export const TimePickerPanel = ({
           </StyledTimePanelColumn>
           <StyledTimePanelColumn>
             {sixtyDigits.map((digit) => (
-              <StyledTimePanelCell>
+              <StyledTimePanelCell key={`${uniqId}-minute-${digit}`}>
                 <StyledTimePanelCellInner
                   id={`${uniqId}-minute-${digit}`}
                   selected={digit === selectedTime?.minute}
@@ -161,7 +161,7 @@ export const TimePickerPanel = ({
           </StyledTimePanelColumn>
           <StyledTimePanelColumn>
             {sixtyDigits.map((digit) => (
-              <StyledTimePanelCell>
+              <StyledTimePanelCell key={`${uniqId}-minute-${digit}`}>
                 <StyledTimePanelCellInner
                   id={`${uniqId}-second-${digit}`}
                   selected={digit === selectedTime?.second}

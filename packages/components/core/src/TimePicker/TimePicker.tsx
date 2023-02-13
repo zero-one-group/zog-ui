@@ -1,17 +1,20 @@
 import { ClockCircleOutlined, CloseCircleFilled } from '@ant-design/icons';
 import * as Popover from '@radix-ui/react-popover';
-import { ComponentProps, useCallback, useEffect, useId, useState } from 'react';
+import {
+  ComponentProps,
+  useCallback,
+  useEffect,
+  useId,
+  useMemo,
+  useState,
+} from 'react';
 import { styled } from '../stitches.config';
-import { TimePickerPanel } from './TimePickerPanel';
+import { getTwoDigit, TimePickerPanel } from './TimePickerPanel';
 
-const getColorSchemeVariants = (colorScheme?: string) => {
+const getColorSchemeVariants = (colorScheme = 'primary') => {
   return {
-    $$primaryColor: colorScheme
-      ? `$colors-${colorScheme}9`
-      : '$colors-primary9',
-    $$highlightColor: colorScheme
-      ? `$colors-${colorScheme}4`
-      : '$colors-primary4',
+    $$primaryColor: `$colors-${colorScheme}9`,
+    $$highlightColor: `$colors-${colorScheme}4`,
   };
 };
 
@@ -59,7 +62,8 @@ const StyledAnchorWrapper = styled('div', {
 const StyledAnchor = styled(Popover.Anchor, {
   width: 0,
   position: 'absolute',
-  bottom: '-8px',
+  height: '32px',
+  top: '-5px',
   left: '-12px',
   // height: '100%',
 });
@@ -121,6 +125,22 @@ const StyledPicker = styled('div', {
         background: '#F5F5F5',
       },
     },
+    isRange: {
+      true: {
+        cursor: 'default',
+      },
+    },
+    size: {
+      small: {
+        padding: '1px 12px',
+      },
+      medium: {
+        padding: '5px 12px',
+      },
+      large: {
+        padding: '8px 12px',
+      },
+    },
   },
 });
 
@@ -134,7 +154,27 @@ const StyledPickerInput = styled('input', {
   border: 'none',
   padding: 0,
   display: 'inline-block',
+  boxSizing: 'border-box',
   width: '100px',
+  variants: {
+    focused: {
+      true: {
+        borderBottom: '1px solid $$primaryColor',
+      },
+    },
+    size: {
+      small: {
+        fontSize: '14px',
+      },
+      medium: {
+        fontSize: '14px',
+      },
+      large: {
+        fontSize: '16px',
+        height: '24px',
+      },
+    },
+  },
 });
 
 const StyledPanelContainer = styled(Popover.Content, {
@@ -175,6 +215,9 @@ type TimeRangeValue = {
 
 /* eslint-disable-next-line */
 export interface TimePickerProps {
+  /**
+   * Customize wrapper style
+   */
   css?: ComponentProps<typeof StyledWrapper>['css'];
   colorScheme?: string;
   placeholder?: string;
@@ -182,16 +225,14 @@ export interface TimePickerProps {
   placeholderEnd?: string;
   disabled?: boolean;
   allowClear?: boolean;
-  value?: Time;
-  onChange: (value: Time | TimeRangeValue) => void;
+  value?: Time | TimeRangeValue;
+  size?: ComponentProps<typeof StyledPicker>['size'];
+  onChange?: (value?: Time | Partial<TimeRangeValue>) => void;
   /**
-   * Range Time Picker, there will be a start time and end time
+   * Time Range Picker, there will be a start time and end time
    */
   isRange?: boolean;
 }
-
-// change 0 to 00, add 0 behind
-const getTwoDigit = (t: number) => ('0' + t).slice(-2);
 
 const getTimeFromDate = (date: Date): Time => {
   return {
@@ -201,26 +242,102 @@ const getTimeFromDate = (date: Date): Time => {
   };
 };
 
+const defaultTime: Time = { hour: '00', minute: '00', second: '00' };
+
 export function TimePicker({
   css,
-  colorScheme,
+  colorScheme = 'primary',
   disabled,
   allowClear = true,
   placeholder = 'Select time',
   placeholderStart = 'Start time',
   placeholderEnd = 'End time',
   isRange,
-  ...props
+  value: valueFromProps,
+  onChange: onChangeFromProps,
+  size = 'medium',
 }: TimePickerProps) {
+  const [singleValue, setSingleValue] = useState<Time | undefined>();
+  const [rangeValue, setRangeValue] = useState<
+    Partial<TimeRangeValue> | undefined
+  >();
   const [openStart, setOpenStart] = useState(false);
   const [openEnd, setOpenEnd] = useState(false);
-  const [start, setStart] = useState<Time | undefined>();
-  const [end, setEnd] = useState<Time | undefined>();
   // Temporary Start, used in the dropdown
   const [tempStart, setTempStart] = useState<Time | undefined>();
   const [tempEnd, setTempEnd] = useState<Time | undefined>();
   const startUniqId = useId();
   const endUniqId = useId();
+
+  const setState = useCallback(
+    (newStartValue?: Time, newEndValue?: Time) => {
+      if (
+        typeof onChangeFromProps === 'function' &&
+        valueFromProps !== undefined
+      ) {
+        setRangeValue(undefined);
+        setSingleValue(undefined);
+        // fully controlled
+        if (isRange) {
+          if (!newStartValue && !newEndValue) {
+            onChangeFromProps(undefined);
+          } else {
+            const prevValues = valueFromProps as TimeRangeValue;
+            let newStart = newStartValue;
+            let newEnd = newEndValue;
+            if (newStartValue && !newEndValue) {
+              newEnd = newEndValue ?? prevValues.end;
+            } else if (newEndValue && !newStartValue) {
+              newStart = newStartValue ?? prevValues.start;
+            }
+            onChangeFromProps({ start: newStart, end: newEnd });
+          }
+        } else {
+          onChangeFromProps(newStartValue);
+        }
+      } else {
+        if (isRange) {
+          if (!newStartValue && !newEndValue) {
+            // setStart(undefined)
+            // setEnd(undefined)
+            setRangeValue(undefined);
+          } else if (newStartValue && newEndValue) {
+            setRangeValue({ start: newStartValue, end: newEndValue });
+          } else {
+            if (newStartValue) {
+              setRangeValue((prev) => ({ ...prev, start: newStartValue }));
+              // setStart(newStartValue)
+            }
+            if (newEndValue) {
+              setRangeValue((prev) => ({ ...prev, end: newEndValue }));
+              // setEnd(newEndValue)
+            }
+          }
+          if (typeof onChangeFromProps === 'function') {
+            if (!newStartValue && !newEndValue) {
+              onChangeFromProps(undefined);
+            } else {
+              const prevValues = rangeValue;
+              let newStart = newStartValue;
+              let newEnd = newEndValue;
+              if (newStartValue && !newEndValue) {
+                newEnd = newEndValue ?? prevValues?.end;
+              } else if (newEndValue && !newStartValue) {
+                newStart = newStartValue ?? prevValues?.start;
+              }
+              onChangeFromProps({ start: newStart, end: newEnd });
+            }
+          }
+        } else {
+          setSingleValue(newStartValue);
+          if (typeof onChangeFromProps === 'function') {
+            onChangeFromProps(newStartValue);
+          }
+        }
+      }
+    },
+    [isRange, onChangeFromProps, rangeValue, valueFromProps]
+  );
 
   const closeDropdown = () => {
     setOpenStart(false);
@@ -237,9 +354,10 @@ export function TimePicker({
   }, [isRange]);
 
   const onClear = () => {
-    setStart(undefined);
+    // setStart(undefined);
+    // setEnd(undefined);
+    setState();
     setTempStart(undefined);
-    setEnd(undefined);
     setTempEnd(undefined);
     closeDropdown();
   };
@@ -249,41 +367,70 @@ export function TimePicker({
     const nowTime = getTimeFromDate(now);
     if (isRange && openEnd) {
       setTempEnd(nowTime);
-      setEnd(nowTime);
+      // setEnd(nowTime);
+      setState(undefined, nowTime);
       closeDropdown();
     } else {
       setTempStart(nowTime);
-      setStart(nowTime);
+      // setStart(nowTime);
+      setState(nowTime);
 
       closeStartOpenEndDropdown();
     }
-  }, [closeStartOpenEndDropdown, isRange, openEnd]);
+  }, [closeStartOpenEndDropdown, isRange, openEnd, setState]);
 
   const onClickOk = useCallback(() => {
     if (isRange && openEnd && tempEnd !== undefined) {
-      setEnd(tempEnd);
+      // setEnd(tempEnd);
+      setState(undefined, tempEnd);
       closeDropdown();
     } else if (tempStart !== undefined) {
-      setStart(tempStart);
+      // setStart(tempStart);
+      setState(tempStart);
       closeStartOpenEndDropdown();
     }
-  }, [closeStartOpenEndDropdown, isRange, openEnd, tempEnd, tempStart]);
+  }, [
+    closeStartOpenEndDropdown,
+    isRange,
+    openEnd,
+    setState,
+    tempEnd,
+    tempStart,
+  ]);
 
-  const getInputStart = useCallback(() => {
-    const time = openStart ? tempStart : start;
+  const inputStartValue = useMemo(() => {
+    let time;
+    if (valueFromProps !== undefined) {
+      time = openStart
+        ? tempStart
+        : isRange
+        ? (valueFromProps as TimeRangeValue).start
+        : (valueFromProps as Time);
+    } else {
+      time = openStart ? tempStart : isRange ? rangeValue?.start : singleValue;
+    }
     if (!time) {
       return '';
     }
     return `${time.hour}:${time.minute}:${time.second}`;
-  }, [start, tempStart, openStart]);
+  }, [valueFromProps, openStart, tempStart, isRange, rangeValue, singleValue]);
 
-  const getInputEnd = useCallback(() => {
-    const time = openEnd ? tempEnd : end;
+  const inputEndValue = useMemo(() => {
+    let time;
+    if (valueFromProps !== undefined) {
+      time = openEnd
+        ? tempEnd
+        : isRange
+        ? (valueFromProps as TimeRangeValue).end
+        : (valueFromProps as Time);
+    } else {
+      time = openEnd ? tempEnd : rangeValue?.end;
+    }
     if (!time) {
       return '';
     }
     return `${time.hour}:${time.minute}:${time.second}`;
-  }, [end, tempEnd, openEnd]);
+  }, [valueFromProps, openEnd, tempEnd, isRange, rangeValue?.end]);
 
   const getStartCellId = useCallback(
     (timeId: string) => `${startUniqId}-${timeId}`,
@@ -304,10 +451,9 @@ export function TimePicker({
 
   const onClickCell = useCallback(
     (timeType: 'hour' | 'minute' | 'second', timeDigit: string) => {
-      const defaultTemp: Time = { hour: '00', minute: '00', second: '00' };
       if (isRange && openEnd) {
         setTempEnd((prev) => ({
-          ...(prev ?? defaultTemp),
+          ...(prev ?? defaultTime),
           [timeType]: timeDigit,
         }));
         const timeId = getEndCellId(`${timeType}-${timeDigit}`);
@@ -315,7 +461,7 @@ export function TimePicker({
         return;
       }
       setTempStart((prev) => ({
-        ...(prev ?? defaultTemp),
+        ...(prev ?? defaultTime),
         [timeType]: timeDigit,
       }));
       const timeId = getStartCellId(`${timeType}-${timeDigit}`);
@@ -326,52 +472,63 @@ export function TimePicker({
 
   useEffect(() => {
     if (openStart) {
-      let hourId: string;
-      let minuteId: string;
-      let secondId: string;
-      if (start !== undefined) {
-        hourId = getStartCellId(`hour-${start.hour}`);
-        minuteId = getStartCellId(`minute-${start.minute}`);
-        secondId = getStartCellId(`second-${start.second}`);
-      } else {
-        // reset the time panel / scroll to top
-        hourId = getStartCellId(`hour-00`);
-        minuteId = getStartCellId(`minute-00`);
-        secondId = getStartCellId(`second-00`);
+      let digitHour = '00';
+      let digitMinute = '00';
+      let digitSecond = '00';
+      if (singleValue) {
+        digitHour = singleValue.hour;
+        digitMinute = singleValue.minute;
+        digitSecond = singleValue.second;
+      } else if (rangeValue?.start) {
+        digitHour = rangeValue.start.hour;
+        digitMinute = rangeValue.start.minute;
+        digitSecond = rangeValue.start.second;
       }
+      const hourId = getStartCellId(`hour-${digitHour}`);
+      const minuteId = getStartCellId(`minute-${digitMinute}`);
+      const secondId = getStartCellId(`second-${digitSecond}`);
       scrollIntoDivById(hourId);
       scrollIntoDivById(minuteId);
       scrollIntoDivById(secondId);
     }
-  }, [openStart, start, getStartCellId]);
+  }, [openStart, singleValue, rangeValue, getStartCellId]);
 
   useEffect(() => {
     if (openEnd) {
-      let hourId: string;
-      let minuteId: string;
-      let secondId: string;
-      if (end !== undefined) {
-        hourId = getEndCellId(`hour-${end.hour}`);
-        minuteId = getEndCellId(`minute-${end.minute}`);
-        secondId = getEndCellId(`second-${end.second}`);
-      } else {
-        // reset the time panel / scroll to top
-        hourId = getEndCellId(`hour-00`);
-        minuteId = getEndCellId(`minute-00`);
-        secondId = getEndCellId(`second-00`);
+      let digitHour = '00';
+      let digitMinute = '00';
+      let digitSecond = '00';
+      if (rangeValue?.end) {
+        digitHour = rangeValue.end.hour;
+        digitMinute = rangeValue.end.minute;
+        digitSecond = rangeValue.end.second;
       }
+      const hourId = getEndCellId(`hour-${digitHour}`);
+      const minuteId = getEndCellId(`minute-${digitMinute}`);
+      const secondId = getEndCellId(`second-${digitSecond}`);
       scrollIntoDivById(hourId);
       scrollIntoDivById(minuteId);
       scrollIntoDivById(secondId);
     }
-  }, [openEnd, end, getEndCellId]);
+  }, [singleValue, rangeValue, getEndCellId, openEnd]);
 
-  const hasSelected = start !== undefined || end !== undefined;
-  const inputStartValue = getInputStart();
-  const inputEndValue = getInputEnd();
+  useEffect(() => {
+    if (isRange) {
+      setRangeValue(valueFromProps as TimeRangeValue);
+    } else {
+      setSingleValue(valueFromProps as Time);
+    }
+  }, [valueFromProps, isRange]);
+
+  const hasSelected =
+    singleValue !== undefined ||
+    valueFromProps !== undefined ||
+    rangeValue?.start !== undefined ||
+    rangeValue?.end !== undefined;
 
   const uniqId = isRange && openEnd ? endUniqId : startUniqId;
   const selectedTime = isRange && openEnd ? tempEnd : tempStart;
+
   return (
     <StyledWrapper
       css={{ ...css, ...getColorSchemeVariants(colorScheme) }}
@@ -406,8 +563,10 @@ export function TimePicker({
           onClick={(e) =>
             isRange ? e.preventDefault() : setOpenStart((prev) => !prev)
           }
-          focused={openStart}
+          focused={openStart || openEnd}
           disabled={disabled}
+          isRange={isRange}
+          size={size}
         >
           {openStart ? (
             <StyledAnchorWrapper>
@@ -421,6 +580,9 @@ export function TimePicker({
               e.stopPropagation();
               setOpenStart((prev) => !prev);
             }}
+            readOnly
+            focused={isRange && openStart}
+            size={size}
           />
           {isRange ? (
             <StyledSeparator>
@@ -434,7 +596,7 @@ export function TimePicker({
                 <path
                   d="M13.6422 9.31563L11.0797 6.06563C11.033 6.00629 10.9734 5.95832 10.9055 5.92531C10.8375 5.89229 10.763 5.87509 10.6875 5.875H9.675C9.57031 5.875 9.5125 5.99531 9.57656 6.07812L11.8313 8.9375H2.375C2.30625 8.9375 2.25 8.99375 2.25 9.0625V10C2.25 10.0687 2.30625 10.125 2.375 10.125H13.2484C13.6672 10.125 13.9 9.64375 13.6422 9.31563Z"
                   fill="black"
-                  fill-opacity="0.25"
+                  fillOpacity="0.25"
                 />
               </svg>
             </StyledSeparator>
@@ -452,6 +614,8 @@ export function TimePicker({
                 e.stopPropagation();
                 setOpenEnd((prev) => !prev);
               }}
+              readOnly
+              focused={isRange && openEnd}
             />
           ) : null}
           <StyledIcon>

@@ -5,7 +5,14 @@ import {
 } from '@ant-design/icons';
 import * as Popover from '@radix-ui/react-popover';
 import * as ScrollArea from '@radix-ui/react-scroll-area';
-import { ComponentProps, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  ComponentProps,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { Space } from '../Space';
 import { styled } from '../stitches.config';
 
@@ -294,13 +301,6 @@ const StyledScrollAreaRoot = styled(ScrollArea.Root, {
   boxShadow:
     '0px 3px 6px -4px rgba(0, 0, 0, 0.12), 0px 6px 16px rgba(0, 0, 0, 0.08), 0px 9px 28px 8px rgba(0, 0, 0, 0.05)',
   borderRadius: '4px',
-  variants: {
-    size: {
-      small: {},
-      medium: {},
-      large: {},
-    },
-  },
 });
 
 const StyledScrollAreaViewport = styled(ScrollArea.Viewport, {
@@ -488,16 +488,17 @@ export const Select = ({
 
   const inputWidth = useMemo(() => {
     return wrapperRef.current?.getBoundingClientRect().width ?? 100;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
-  const focusInput = () => {
+  const focusInput = useCallback(() => {
     if (inputRef.current && !multiple) {
       inputRef.current.focus();
     }
     if (inputMultipleRef.current && multiple) {
       inputMultipleRef.current.focus();
     }
-  };
+  }, [multiple]);
 
   const filterOptions = (inputValue: string) => {
     const toLowerNoSpace = (text: string) =>
@@ -530,7 +531,7 @@ export const Select = ({
     if (open) {
       focusInput();
     }
-  }, [open]);
+  }, [focusInput, open]);
 
   useEffect(() => {
     if (typeof valueFromProps !== undefined) {
