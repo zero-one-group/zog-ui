@@ -105,7 +105,7 @@ const CascaderColumn = ({
                 role="menuitem"
                 onClick={() => handleChangeCell(path, isLeaf)}
                 onMouseEnter={() => {
-                  if (trigger === 'hover') {
+                  if (trigger === 'hover' && !isLeaf) {
                     handleChangeCell(path, isLeaf);
                   }
                 }}

@@ -12,6 +12,10 @@ import { Cascader } from '@zero-ui/core';
       control: 'radio',
       options: ['click', 'hover'],
     },
+    colorScheme: {
+      options: ['red', 'blue', 'green', 'pink', 'teal'],
+      control: { type: 'select' },
+    },
   }}
 />
 
@@ -19,7 +23,7 @@ export const CascaderStory = (args) => <Cascader {...args} />;
 
 # Cascader
 
-> WIP
+Cascade selection box. Select from a set of associated data set. Such as province/city/district, company level, things classification.
 
 ## Example Usage
 
@@ -80,6 +84,7 @@ export const options = [
       colorScheme: 'amber',
       options,
       trigger: 'click',
+      changeOnSelect: false,
     }}
   >
     {CascaderStory.bind()}
