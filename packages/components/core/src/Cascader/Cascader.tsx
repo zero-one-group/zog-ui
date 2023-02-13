@@ -10,6 +10,9 @@ const getColorSchemeVariants = (colorScheme?: string) => {
     $$bgCascaderActive: colorScheme
       ? `$colors-${colorScheme}4`
       : '$colors-primary4',
+    $$borderCascaderFocused: colorScheme
+      ? `$colors-${colorScheme}9`
+      : '$colors-primary9',
   };
 };
 
@@ -28,33 +31,18 @@ const StyledCascader = styled('div', {
   gridTemplateColumns: 'auto 1fr',
   minWidth: '100px',
   position: 'relative',
-  $$primaryColor: '$colors-primary9',
   '&:hover': {
     cursor: 'pointer',
     '.cascader-selector': {
-      borderColor: '$$primaryColor',
+      borderColor: '$$borderCascaderFocused',
     },
   },
   variants: {
     focused: {
       true: {
         '.cascader-selector': {
-          borderColor: '$$primaryColor',
+          borderColor: '$$borderCascaderFocused',
         },
-      },
-    },
-    selected: {
-      true: {
-        '&:hover': {
-          '& .clear-btn': {
-            opacity: 1,
-          },
-        },
-      },
-    },
-    disabled: {
-      true: {
-        cursor: 'not-allowed',
       },
     },
   },
@@ -259,7 +247,6 @@ export const Cascader = ({
           placeholder="Please Select"
         />
       </StyledCascaderSelector>
-
       {value ? (
         <StyledIcons onClick={handleClear}>
           <CloseCircleFilled />
