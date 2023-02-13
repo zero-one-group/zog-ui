@@ -30,7 +30,7 @@ class ZeroDatePickerExample extends StatelessWidget {
               ZeroButton.primary(
                   text: 'Date Picker',
                   onPressed: () async {
-                    showZeroDatePicker(
+                    showDatePicker(
                       context: context,
                       initialDate: DateTime.now(),
                       firstDate:
