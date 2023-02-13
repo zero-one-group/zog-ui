@@ -15,6 +15,7 @@ export './styles/component/chip_style.dart';
 export './styles/component/navigation_bar_style.dart';
 export './styles/component/navigation_drawer_style.dart';
 export './styles/component/app_bar_style.dart';
+export './styles/component/card_style.dart';
 
 // assets
 export './assets/assets.dart';
@@ -108,6 +109,9 @@ export './components/navigation/zero_app_bar.dart';
 // alert dialog
 export './components/alert_dialog/zero_alert_dialog.dart';
 
+// card
+export './components/card/zero_card.dart';
+
 // types
 export './types/button_radius_type.dart';
 export './types/button_group_type.dart';
@@ -118,6 +122,7 @@ export './types/snackbar_type.dart';
 export './types/snackbar_alert_type.dart';
 export './types/snackbar_alert_variant.dart';
 export './types/navigation_bar_type.dart';
+export './types/card_variant.dart';
 
 // positions
 export './position/tooltip_position.dart';

@@ -6,7 +6,8 @@ import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 /// [activeIcon] and [inactiveIcon] are used to customize the icon of the switch
 /// [activeColor] and [inactiveColor] are used to customize the background color of the switch
 /// [activeThumbColor] and [inactiveThumbColor] are used to customize the thumb color of the switch
-class ZeroSwitchAndroid extends StatefulWidget {
+
+class ZeroSwitchAndroid extends StatelessWidget {
   /// background color of the switch when it is [true]
   /// default value is from [context.theme.primaryColor.light]
   final Color? activeColor;
@@ -26,8 +27,7 @@ class ZeroSwitchAndroid extends StatefulWidget {
   /// callback function when the switch is tapped
   final Function(bool) onChanged;
 
-  /// initial state of the switch when it is created
-  final bool initialValue;
+  final bool value;
 
   /// disable the switch
   final bool isDisabled;
@@ -38,45 +38,32 @@ class ZeroSwitchAndroid extends StatefulWidget {
   /// custom icon of the switch when it is [false]
   final Icon? inactiveIcon;
 
-  const ZeroSwitchAndroid({
+  ZeroSwitchAndroid({
     super.key,
     this.activeColor,
     this.inactiveColor,
     this.activeThumbColor,
     this.inactiveThumbColor,
     required this.onChanged,
-    this.initialValue = false,
+    required this.value,
     this.isDisabled = false,
     this.activeIcon,
     this.inactiveIcon,
   });
 
-  @override
-  State<ZeroSwitchAndroid> createState() => _ZeroSwitchAndroidState();
-}
-
-class _ZeroSwitchAndroidState extends State<ZeroSwitchAndroid> {
   final double _thumbSize = 22;
-  bool _value = false;
   final _borderRadius = BorderRadius.circular(20);
 
   @override
-  void initState() {
-    super.initState();
-    _value = widget.initialValue;
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final ZeroThemeData theme = context.theme;
     return InkWell(
       overlayColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
         return Colors.transparent;
       }),
       onTap: () {
-        if (widget.isDisabled) return;
-        setState(() {
-          _value = !_value;
-        });
+        if (isDisabled) return;
+        onChanged(!value);
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -84,8 +71,8 @@ class _ZeroSwitchAndroidState extends State<ZeroSwitchAndroid> {
           alignment: Alignment.centerLeft,
           clipBehavior: Clip.none,
           children: [
-            _line(),
-            _thumb(),
+            _line(theme),
+            _thumb(theme),
           ],
         ),
       ),
@@ -93,30 +80,30 @@ class _ZeroSwitchAndroidState extends State<ZeroSwitchAndroid> {
   }
 
   // inactive line
-  Widget _line() {
-    Color inactiveColor;
+  Widget _line(ZeroThemeData theme) {
+    Color lineColor;
     Icon? icon;
 
-    if (_value) {
-      inactiveColor = widget.activeColor ?? context.theme.primaryColor.light;
-      icon = widget.activeIcon != null
+    if (!value) {
+      lineColor = inactiveColor ?? ZeroColors.neutral[7];
+      icon = inactiveIcon != null
           ? Icon(
-              widget.activeIcon?.icon,
-              color: widget.activeIcon?.color ?? ZeroColors.neutral[10],
-              size: widget.activeIcon?.size ?? 15,
+              inactiveIcon?.icon,
+              color: inactiveIcon?.color ?? ZeroColors.neutral[10],
+              size: inactiveIcon?.size ?? 15,
             )
           : null;
-      if (widget.isDisabled) inactiveColor = context.theme.disabledColor;
+      if (isDisabled) lineColor = theme.disabledBackgroundColor;
     } else {
-      inactiveColor = widget.inactiveColor ?? ZeroColors.neutral[7];
-      icon = widget.inactiveIcon != null
+      lineColor = activeColor ?? theme.primaryColor.light;
+      icon = activeIcon != null
           ? Icon(
-              widget.inactiveIcon?.icon,
-              color: widget.inactiveIcon?.color ?? ZeroColors.neutral[10],
-              size: widget.inactiveIcon?.size ?? 15,
+              activeIcon?.icon,
+              color: activeIcon?.color ?? ZeroColors.neutral[10],
+              size: activeIcon?.size ?? 15,
             )
           : null;
-      if (widget.isDisabled) inactiveColor = context.theme.disabledBackgroundColor;
+      if (isDisabled) lineColor = theme.disabledColor;
     }
 
     return Container(
@@ -124,30 +111,30 @@ class _ZeroSwitchAndroidState extends State<ZeroSwitchAndroid> {
       height: _thumbSize * 1.2,
       decoration: BoxDecoration(
         borderRadius: _borderRadius,
-        color: inactiveColor,
+        color: lineColor,
       ),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 4),
-        alignment: _value ? Alignment.centerLeft : Alignment.centerRight,
+        alignment: value ? Alignment.centerLeft : Alignment.centerRight,
         child: icon,
       ),
     );
   }
 
   // thumb
-  Widget _thumb() {
+  Widget _thumb(ZeroThemeData theme) {
     Color thumbColor;
-    if (_value) {
-      thumbColor = widget.activeThumbColor ?? context.theme.primaryColor;
-      if (widget.isDisabled) thumbColor = context.theme.disabledBackgroundColor;
+    if (!value) {
+      thumbColor = inactiveThumbColor ?? ZeroColors.neutral[1];
+      if (isDisabled) thumbColor = theme.disabledColor;
     } else {
-      thumbColor = widget.inactiveThumbColor ?? ZeroColors.neutral[1];
-      if (widget.isDisabled) thumbColor = context.theme.disabledColor;
+      thumbColor = activeThumbColor ?? theme.primaryColor;
+      if (isDisabled) thumbColor = theme.disabledBackgroundColor;
     }
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 200),
       curve: Curves.easeInOut,
-      left: !_value ? _thumbSize / 10 : _thumbSize,
+      left: !value ? _thumbSize / 10 : _thumbSize,
       child: Material(
         shape: RoundedRectangleBorder(
           borderRadius: _borderRadius,
