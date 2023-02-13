@@ -164,6 +164,7 @@ class ZeroDropdown<T> extends StatefulWidget {
     Widget Function(T)? selectedMenuItemBuilder,
     InputDecorationType inputDecorationType = InputDecorationType.outline,
     ZeroTextfieldSize? textfieldSize,
+    Function(dynamic isOpen)? onMenuStateChange,
   }) =>
       ZeroDropdown._(
         key: key,
@@ -185,6 +186,7 @@ class ZeroDropdown<T> extends StatefulWidget {
         menuItemBuilder: menuItemBuilder,
         selectedMenuItemBuilder: selectedMenuItemBuilder,
         variant: DropdownVariant.form,
+        onMenuStateChange: onMenuStateChange,
       );
 
   /// Constructor to create dropdown with only icon as the button. No Input Decoration needed
@@ -200,6 +202,7 @@ class ZeroDropdown<T> extends StatefulWidget {
     T? value,
     Widget Function(T)? menuItemBuilder,
     Widget Function(T)? selectedMenuItemBuilder,
+    Function(dynamic isOpen)? onMenuStateChange,
   }) =>
       ZeroDropdown._(
         key: key,
@@ -213,6 +216,7 @@ class ZeroDropdown<T> extends StatefulWidget {
         selectedMenuItemBuilder: selectedMenuItemBuilder,
         itemHeight: size ?? ZeroTextfieldSize.small.height,
         variant: DropdownVariant.icon,
+        onMenuStateChange: onMenuStateChange,
       );
 
   factory ZeroDropdown.multiple(
