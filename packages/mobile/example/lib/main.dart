@@ -98,219 +98,214 @@ class Examples extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ZeroButton.primary(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ZeroButtonExample(),
-                  ),
-                );
-              },
-              text: 'Zero Button Example',
-            ),
-            ZeroButton.primary(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ZeroTextfieldExample(),
-                  ),
-                );
-              },
-              text: 'Zero Textfield Example',
-            ),
-            ZeroButton.primary(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => ZeroDropdownExample(),
-                  ),
-                );
-              },
-              text: 'Zero Dropdown Example',
-            ),
-            ZeroButton.primary(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ZeroRatingExample(),
-                  ),
-                );
-              },
-              text: 'Zero Rating Example',
-            ),
-            ZeroButton.primary(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ZeroSliderExample(),
-                  ),
-                );
-              },
-              text: 'Zero Slider Example',
-            ),
-            ZeroButton.primary(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ZeroTooltipExample(),
-                  ),
-                );
-              },
-              text: 'Zero Tooltip Example',
-            ),
-            ZeroButton.primary(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ZeroAvatarExample(),
-                  ),
-                );
-              },
-              text: 'Zero Avatar Example',
-            ),
-            ZeroButton.primary(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ZeroDividerExample(),
-                  ),
-                );
-              },
-              text: 'Zero Divider Example',
-            ),
-            ZeroButton.primary(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ZeroListTileExample(),
-                  ),
-                );
-              },
-              text: 'Zero ListTile Example',
-            ),
-            ZeroButton.primary(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ZeroChipExample(),
-                  ),
-                );
-              },
-              text: 'Zero Chip Example',
-            ),
-            ZeroButton.primary(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ZeroSwitchExample(),
-                  ),
-                );
-              },
-              text: 'Zero Switch Example',
-            ),
-            ZeroButton.primary(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ZeroProgressIndicatorExample(),
-                  ),
-                );
-              },
-              text: 'Zero Progress Indicator Example',
-            ),
-            ZeroButton.primary(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ZeroIconExample(),
-                  ),
-                );
-              },
-              text: 'Zero Icon Example',
-            ),
-            ZeroButton.primary(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ZeroSnackbarExample(),
-                  ),
-                );
-              },
-              text: 'Zero Snackbar Example',
-            ),
-            ZeroButton.primary(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ZeroNavigationBarExample(),
-                  ),
-                );
-              },
-              text: 'Zero BottomNavigationBar Example',
-            ),
-            ZeroButton.primary(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ZeroDatePickerExample(),
-                  ),
-                );
-              },
-              text: 'Zero Date Picker Example',
-            ),
-            ZeroButton.primary(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ZeroAlertDialogExample(),
-                  ),
-                );
-              },
-              text: 'Zero Alert Dialog Example',
-            ),
-            ZeroButton.primary(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ZeroNavigationDrawerExample(),
-                  ),
-                );
-              },
-              text: 'Zero Navigation Drawer Example',
-            ),
-            ZeroButton.primary(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ZeroTimePickerExample(),
-                  ),
-                );
-              },
-              text: 'Zero Time Picker Example',
-            ),
-            ZeroButton.primary(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ZeroAppBarExample(),
-                  ),
-                );
-              },
-              text: 'Zero App Bar Example',
-            ),
-            const SizedBox(
-              height: 100,
-            )
-          ],
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const SizedBox(width: double.infinity),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroButtonExample(),
+              ),
+            );
+          },
+          text: 'Zero Button Example',
         ),
-      ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroTextfieldExample(),
+              ),
+            );
+          },
+          text: 'Zero Textfield Example',
+        ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => ZeroDropdownExample(),
+              ),
+            );
+          },
+          text: 'Zero Dropdown Example',
+        ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroRatingExample(),
+              ),
+            );
+          },
+          text: 'Zero Rating Example',
+        ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroSliderExample(),
+              ),
+            );
+          },
+          text: 'Zero Slider Example',
+        ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroTooltipExample(),
+              ),
+            );
+          },
+          text: 'Zero Tooltip Example',
+        ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroAvatarExample(),
+              ),
+            );
+          },
+          text: 'Zero Avatar Example',
+        ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroDividerExample(),
+              ),
+            );
+          },
+          text: 'Zero Divider Example',
+        ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroListTileExample(),
+              ),
+            );
+          },
+          text: 'Zero ListTile Example',
+        ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroChipExample(),
+              ),
+            );
+          },
+          text: 'Zero Chip Example',
+        ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroSwitchExample(),
+              ),
+            );
+          },
+          text: 'Zero Switch Example',
+        ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroProgressIndicatorExample(),
+              ),
+            );
+          },
+          text: 'Zero Progress Indicator Example',
+        ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroIconExample(),
+              ),
+            );
+          },
+          text: 'Zero Icon Example',
+        ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroSnackbarExample(),
+              ),
+            );
+          },
+          text: 'Zero Snackbar Example',
+        ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroNavigationBarExample(),
+              ),
+            );
+          },
+          text: 'Zero BottomNavigationBar Example',
+        ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroDatePickerExample(),
+              ),
+            );
+          },
+          text: 'Zero Date Picker Example',
+        ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroAlertDialogExample(),
+              ),
+            );
+          },
+          text: 'Zero Alert Dialog Example',
+        ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroNavigationDrawerExample(),
+              ),
+            );
+          },
+          text: 'Zero Navigation Drawer Example',
+        ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroTimePickerExample(),
+              ),
+            );
+          },
+          text: 'Zero Time Picker Example',
+        ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroAppBarExample(),
+              ),
+            );
+          },
+          text: 'Zero App Bar Example',
+        ),
+        const SizedBox(
+          height: 100,
+        )
+      ],
     );
   }
 }
