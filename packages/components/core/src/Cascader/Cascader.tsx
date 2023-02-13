@@ -1,4 +1,7 @@
-import { ComponentProps, useMemo, useState } from 'react';
+import { CloseCircleFilled, DownOutlined } from '@ant-design/icons';
+import * as Popover from '@radix-ui/react-popover';
+import { keyframes } from '@stitches/react';
+import { ComponentProps, MouseEvent, useMemo, useState } from 'react';
 import { styled } from '../stitches.config';
 import CascaderColumn from './CascaderColumn';
 
@@ -10,27 +13,114 @@ const getColorSchemeVariants = (colorScheme?: string) => {
   };
 };
 
-const StyledCascader = styled('div', {
-  display: 'inline-block',
-  position: 'relative',
-  boxSizing: 'border-box',
+const slideUpAndFade = keyframes({
+  '0%': { opacity: 0, transform: 'translateY(2px)' },
+  '100%': { opacity: 1, transform: 'translateY(0)' },
 });
 
-const StyledCascaderInput = styled('input');
+const slideDownAndFade = keyframes({
+  '0%': { opacity: 0, transform: 'translateY(-2px)' },
+  '100%': { opacity: 1, transform: 'translateY(0)' },
+});
 
-const StyledCascaderDropdown = styled('div', {
-  position: 'absolute',
-  top: 'calc(100% + $1)',
+const StyledCascader = styled('div', {
+  display: 'inline-grid',
+  gridTemplateColumns: 'auto 1fr',
+  minWidth: '100px',
+  position: 'relative',
+  $$primaryColor: '$colors-primary9',
+  '&:hover': {
+    cursor: 'pointer',
+    '.cascader-selector': {
+      borderColor: '$$primaryColor',
+    },
+  },
+  variants: {
+    focused: {
+      true: {
+        '.cascader-selector': {
+          borderColor: '$$primaryColor',
+        },
+      },
+    },
+    selected: {
+      true: {
+        '&:hover': {
+          '& .clear-btn': {
+            opacity: 1,
+          },
+        },
+      },
+    },
+    disabled: {
+      true: {
+        cursor: 'not-allowed',
+      },
+    },
+  },
+});
+
+const StyledCascaderInput = styled('input', {
+  margin: 0,
+  padding: 0,
+  border: 'none',
+  outline: 'none',
+  appearance: 'none',
+  height: '31px',
+  background: 'transparent',
+  width: 'calc(100% - 11px)',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+  pointerEvents: 'none',
+});
+
+const StyledTrigger = styled('div', {
+  width: 0,
+  height: '100%',
+});
+
+const StyledCascaderDropdown = styled(Popover.Content, {
   minHeight: 'auto',
   background: '#FFFF',
   br: '$2',
   boxShadow:
     '0 6px 16px 0 rgb(0 0 0 / 8%), 0 3px 6px -4px rgb(0 0 0 / 12%), 0 9px 28px 8px rgb(0 0 0 / 5%);',
+  animationDuration: '400ms',
+  animationTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
+  willChange: 'transform, opacity',
+  '&[data-state="open"]': {
+    '&[data-side="top"]': { animationName: slideDownAndFade },
+    '&[data-side="bottom"]': { animationName: slideUpAndFade },
+  },
+});
+
+const StyledCascaderSelector = styled('div', {
+  width: '100%',
+  height: '32px',
+  padding: '0 11px',
+  border: '1px solid $grayA8',
+  borderRadius: '$2',
+  cursor: 'pointer',
+  backgroundColor: 'white',
+  boxSizing: 'border-box',
 });
 
 const StyledCascaderMenus = styled('div', {
   display: 'flex',
   alignItems: 'flex-start',
+});
+
+const StyledIcons = styled('div', {
+  fontSize: '12px',
+  display: 'flex',
+  alignItems: 'center',
+  position: 'absolute',
+  right: '0',
+  top: '50%',
+  insetInlineEnd: '11px',
+  transform: 'translateY(-50%)',
+  color: '$gray8',
 });
 
 export type CascaderOption = {
@@ -62,6 +152,8 @@ export const Cascader = ({
   );
 
   const [value, setValue] = useState('');
+
+  const [open, setOpen] = useState(false);
 
   const columns = useMemo(() => {
     const columnList = [{ options }];
@@ -107,6 +199,13 @@ export const Cascader = ({
     } else if (isLeaf) {
       handleInputChange(path);
     }
+    isLeaf && setOpen(false);
+  };
+
+  const handleClear = (e: MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    setValue('');
+    setActiveValues([]);
   };
 
   return (
@@ -115,27 +214,58 @@ export const Cascader = ({
         ...getColorSchemeVariants(colorScheme),
         ...css,
       }}
+      title={value}
+      focused={open}
+      {...props}
     >
-      <StyledCascaderInput
-        value={value}
-        type="search"
-        readOnly
-        placeholder="Please Select"
-      />
-      <StyledCascaderDropdown>
-        <StyledCascaderMenus>
-          {columns.map((column, index) => (
-            <CascaderColumn
-              key={index}
-              handleChangeCell={handleChangeCell}
-              parentPath={activeValues.slice(0, index)}
-              active={activeValues[index]}
-              options={column.options}
-              trigger={trigger}
-            />
-          ))}
-        </StyledCascaderMenus>
-      </StyledCascaderDropdown>
+      <Popover.Root open={open}>
+        <Popover.Trigger asChild>
+          <StyledTrigger />
+        </Popover.Trigger>
+        <Popover.Portal>
+          <StyledCascaderDropdown
+            align="start"
+            sideOffset={5}
+            onInteractOutside={() => setOpen(false)}
+            css={{
+              ...getColorSchemeVariants(colorScheme),
+            }}
+          >
+            <StyledCascaderMenus>
+              {columns.map((column, index) => (
+                <CascaderColumn
+                  key={index}
+                  handleChangeCell={handleChangeCell}
+                  parentPath={activeValues.slice(0, index)}
+                  active={activeValues[index]}
+                  options={column.options}
+                  trigger={trigger}
+                />
+              ))}
+            </StyledCascaderMenus>
+          </StyledCascaderDropdown>
+        </Popover.Portal>
+      </Popover.Root>
+      <StyledCascaderSelector
+        onClick={() => setOpen(true)}
+        className="cascader-selector"
+      >
+        <StyledCascaderInput
+          value={value}
+          readOnly
+          placeholder="Please Select"
+        />
+      </StyledCascaderSelector>
+
+      {value ? (
+        <StyledIcons onClick={handleClear}>
+          <CloseCircleFilled />
+        </StyledIcons>
+      ) : (
+        <StyledIcons>
+          <DownOutlined />
+        </StyledIcons>
+      )}
     </StyledCascader>
   );
 };
