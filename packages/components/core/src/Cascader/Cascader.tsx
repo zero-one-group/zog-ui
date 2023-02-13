@@ -93,6 +93,9 @@ const StyledCascaderDropdown = styled(Popover.Content, {
     '&[data-side="top"]': { animationName: slideDownAndFade },
     '&[data-side="bottom"]': { animationName: slideUpAndFade },
   },
+  '&:focus': {
+    outline: 0,
+  },
 });
 
 const StyledCascaderSelector = styled('div', {
