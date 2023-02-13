@@ -1,13 +1,28 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+/// a style for [ZeroCard]
 class ZeroCardStyle with Diagnosticable {
+  /// background color of the card
   final Color? backgroundColor;
+
+  /// shadow elevation of the card
   final double? elevation;
+
+  /// border radius of the card
   final BorderRadiusGeometry? borderRadius;
+
+  /// border side of the card
   final BorderSide? side;
+
+  /// shadow color of the card
   final Color? shadowColor;
+
+  /// margin of the card
   final EdgeInsetsGeometry? margin;
+
+  /// [borderOnForeground] is true if the border is to be painted on top of the card's child.
+  /// If false, the border is painted behind the card's child.
   final bool? borderOnForeground;
 
   ZeroCardStyle({
@@ -20,6 +35,7 @@ class ZeroCardStyle with Diagnosticable {
     this.borderOnForeground,
   });
 
+  /// create a [ZeroCardStyle] with default values
   static ZeroCardStyle fallback({
     Color? backgroundColor,
     double? elevation,
@@ -39,6 +55,7 @@ class ZeroCardStyle with Diagnosticable {
         borderOnForeground: borderOnForeground ?? true,
       );
 
+  /// create a copy of [ZeroCardStyle] with some fields replaced with the new values
   ZeroCardStyle copyWith({
     Color? backgroundColor,
     double? elevation,
@@ -58,6 +75,7 @@ class ZeroCardStyle with Diagnosticable {
         borderOnForeground: borderOnForeground ?? this.borderOnForeground,
       );
 
+  /// merge two [ZeroCardStyle]
   ZeroCardStyle merge(ZeroCardStyle? otherStyle) {
     if (otherStyle == null) return this;
 
@@ -72,6 +90,7 @@ class ZeroCardStyle with Diagnosticable {
     );
   }
 
+  /// lerp between two [ZeroCardStyle]
   static ZeroCardStyle lerp(ZeroCardStyle? a, ZeroCardStyle? b, double t) => ZeroCardStyle(
         backgroundColor: Color.lerp(a?.backgroundColor, b?.backgroundColor, t),
         elevation: t < 0.5 ? a?.elevation : b?.elevation,
@@ -95,6 +114,7 @@ class ZeroCardStyle with Diagnosticable {
   }
 }
 
+/// a style for [ZeroCard] with border line and no shadow/elevation
 class ZeroCardOutlinedStyle extends ZeroCardStyle {
   ZeroCardOutlinedStyle({
     Color? backgroundColor,
@@ -112,6 +132,7 @@ class ZeroCardOutlinedStyle extends ZeroCardStyle {
         );
 }
 
+/// a style for [ZeroCard] with elevation
 class ZeroCardElevatedStyle extends ZeroCardStyle {
   ZeroCardElevatedStyle({
     Color? backgroundColor,
@@ -132,6 +153,7 @@ class ZeroCardElevatedStyle extends ZeroCardStyle {
         );
 }
 
+/// a style for [ZeroCard] with background color and no border line and no shadow/elevation
 class ZeroCardFilledStyle extends ZeroCardStyle {
   ZeroCardFilledStyle({
     required Color? backgroundColor,
