@@ -40,6 +40,8 @@ class __NavigationBarWidgetState extends State<_NavigationBarWidget> {
           indicatorColor: context.knobs
               .options(label: 'Indicator Color', options: colorOptions)
               .withOpacity(0.3),
+          indicatorType: context.knobs
+              .options(label: 'Indicator', options: _indicatorOptions),
         ),
         onTap: (index) {
           setState(() {
@@ -89,6 +91,11 @@ List<Option<ZeroNavigationBarType>> _typeOptions = [
   const Option(label: 'Icon Label', value: ZeroNavigationBarType.iconLabel),
   const Option(
       label: 'Label on Active', value: ZeroNavigationBarType.iconLabelOnActive),
+];
+
+List<Option<ZeroNavigationBarIndicatorType>> _indicatorOptions = [
+  const Option(label: 'Oval', value: ZeroNavigationBarIndicatorType.oval),
+  const Option(label: 'Circle', value: ZeroNavigationBarIndicatorType.circle),
 ];
 
 List<Option<Color>> _defaultColorOptions = [
