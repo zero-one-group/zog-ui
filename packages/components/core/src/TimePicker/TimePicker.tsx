@@ -25,7 +25,6 @@ const Box = styled('div', {
 
 const StyledWrapper = styled(Box, {
   display: 'inline-flex',
-  // gridTemplateColumns: 'auto 1fr',
   minWidth: '100px',
   position: 'relative',
   $$primaryColor: '$colors-primary9',
@@ -53,7 +52,6 @@ const StyledTrigger = styled(Popover.Trigger, {
   margin: 0,
   outline: 'none',
   border: 'none',
-  // height: '100%',
 });
 const StyledAnchorWrapper = styled('div', {
   position: 'relative',
@@ -65,7 +63,6 @@ const StyledAnchor = styled(Popover.Anchor, {
   height: '32px',
   top: '-5px',
   left: '-12px',
-  // height: '100%',
 });
 
 const StyledIcon = styled(Box, {
@@ -98,7 +95,6 @@ const StyledClear = styled(Box, {
 
 const StyledPicker = styled('div', {
   display: 'inline-flex',
-  // gridTemplateColumns: '1fr auto',
   alignItems: 'center',
   borderRadius: '2px',
   outline: '1px solid #D9D9D9',
