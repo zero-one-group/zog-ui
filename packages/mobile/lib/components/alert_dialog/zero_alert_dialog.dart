@@ -14,12 +14,14 @@ class ZeroAlertDialog {
   void show(
     BuildContext context, {
     /// title of the dialog
-    /// is required
-    required String title,
+    Widget? title,
 
     /// content of the dialog
-    /// is required
-    required String content,
+    Widget? content,
+
+    /// icon of the dialog
+    /// positioned at the top of the dialog
+    Icon? icon,
 
     /// if the dialog is dismissible by tapping outside the dialog
     /// default is true
@@ -42,24 +44,23 @@ class ZeroAlertDialog {
     /// default is MainAxisAlignment.end
     MainAxisAlignment actionsAlignment = MainAxisAlignment.end,
 
-    /// image of the dialog
-    /// this will be shown above the title
-    Image? image,
-
-    /// list items of the dialog
-    /// this will be shown below the content
-    List<Widget> listItem = const [],
-
     /// padding of the actions
     /// default is const EdgeInsets.only(bottom: 16, right: 16, left: 16)
     EdgeInsetsGeometry actionsPadding = const EdgeInsets.only(bottom: 16, right: 16, left: 16),
     EdgeInsetsGeometry? titlePadding,
     EdgeInsetsGeometry? contentPadding,
+    EdgeInsetsGeometry? iconPadding,
     double elevation = 4,
 
     /// background color of the dialog
     /// default is based on the theme background color
     Color? backgroundColor,
+
+    /// shadow color of the dialog
+    Color? shadowColor,
+
+    /// icon color of the dialog
+    Color? iconColor,
 
     /// alignment of the dialog
     /// default is based on the theme alignment
@@ -105,48 +106,23 @@ class ZeroAlertDialog {
         children: [
           barrier(),
           AlertDialog(
-            title: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (image != null) ...[
-                  SizedBox(
-                    width: image.width ?? double.infinity,
-                    child: image,
-                  ),
-                  const SizedBox(height: 20),
-                ],
-                Text(
-                  title,
-                  style: dialogTheme.titleTextStyle,
-                ),
-              ],
-            ),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  content,
-                  style: dialogTheme.contentTextStyle,
-                ),
-                if (listItem.isNotEmpty) ...[
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  ...listItem
-                ],
-              ],
-            ),
+            title: title,
+            content: content,
             actions: actions,
             titlePadding: titlePadding,
             contentPadding: contentPadding,
             actionsAlignment: actionsAlignment,
+            shadowColor: shadowColor,
+            icon: icon,
+            iconColor: iconColor,
+            iconPadding: iconPadding,
             alignment: dialogTheme.alignment,
             backgroundColor: dialogTheme.backgroundColor,
             actionsPadding: dialogTheme.actionsPadding,
             elevation: dialogTheme.elevation,
             shape: dialogTheme.shape,
+            titleTextStyle: dialogTheme.titleTextStyle,
+            contentTextStyle: dialogTheme.contentTextStyle,
           ),
         ],
       );
