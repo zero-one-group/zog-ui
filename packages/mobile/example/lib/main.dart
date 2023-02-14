@@ -22,7 +22,6 @@ import 'component/snackbar/zero_snackbar_example.dart';
 import 'component/stepper/zero_stepper_example.dart';
 import 'component/switch/zero_switch_example.dart';
 import 'component/textfield/zero_textfield_example.dart';
-import 'component/timepicker/zero_timepicker_example.dart';
 import 'component/tooltip/zero_tooltip_example.dart';
 
 void main() {
@@ -50,9 +49,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return ZeroApp(
       title: 'Flutter Demo',
-<<<<<<< HEAD
       theme: ZeroThemeData(
         brightness: Brightness.light,
         primaryColor: _selectedColor.toAccentColor(),
@@ -91,22 +89,6 @@ class _MyAppState extends State<MyApp> {
             ],
           ),
         ),
-=======
-      theme: Theme.of(context).copyWith(useMaterial3: true),
-      home: Scaffold(
-        body: SafeArea(
-            child: ElevatedButton(
-          onPressed: () {
-            showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate:
-                    DateTime.now().subtract(const Duration(days: 365 * 5)),
-                lastDate: DateTime.now().add(const Duration(days: 365 * 5)));
-          },
-          child: const Text('Button'),
-        )),
->>>>>>> 0b8e841 (fix: resolve conclicted, datepicker select dropdown working)
       ),
     );
   }
