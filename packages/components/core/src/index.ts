@@ -21,6 +21,7 @@ export * from './Kbd';
 export * from './Label';
 export * from './Layout';
 export * from './Link';
+export * from './List';
 export * from './Menu';
 export * from './Overlay';
 export * from './PageHeader';
