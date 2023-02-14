@@ -54,6 +54,7 @@ export * from './Tabs';
 export * from './Text';
 export * from './TextArea';
 export * from './TextField';
+export * from './TimePicker';
 export * from './Tooltip';
 export * from './TreeItem';
 export * from './VerifiedBadge';
