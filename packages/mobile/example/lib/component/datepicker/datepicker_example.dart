@@ -21,8 +21,9 @@ class ZeroDatePickerExample extends StatelessWidget {
               ),
               ZeroDatePickerTextField(
                   inputDecorationType: InputDecorationType.underline,
-                  firstDate: DateTime.now().subtract(const Duration(days: 30)),
-                  lastDate: DateTime.now().add(const Duration(days: 30)),
+                  firstDate:
+                      DateTime.now().subtract(const Duration(days: 365 * 10)),
+                  lastDate: DateTime.now().add(const Duration(days: 365 * 10)),
                   initialDate: DateTime.now()),
               const SizedBox(
                 height: 20,
