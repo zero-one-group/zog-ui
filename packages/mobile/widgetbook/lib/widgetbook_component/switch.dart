@@ -12,6 +12,7 @@ WidgetbookComponent switchWidgetbookComponent = WidgetbookComponent(
       name: 'Default',
       builder: (context) => PreviewWidget(
         child: ZeroSwitch(
+          value: context.knobs.boolean(label: 'Value'),
           activeColor: context.knobs.options(
             label: 'Active Track Color',
             options: _colorOptions.sublist(2),
@@ -37,6 +38,7 @@ WidgetbookComponent switchWidgetbookComponent = WidgetbookComponent(
       name: 'Custom',
       builder: (context) => PreviewWidget(
         child: ZeroSwitch(
+          value: context.knobs.boolean(label: 'Value'),
           activeColor: context.knobs.options(
             label: 'Active Track Color',
             options: _colorOptions.sublist(2),
@@ -70,6 +72,7 @@ WidgetbookComponent switchWidgetbookComponent = WidgetbookComponent(
       name: 'Android',
       builder: (context) => PreviewWidget(
         child: ZeroSwitchAndroid(
+          value: context.knobs.boolean(label: 'Value'),
           activeColor: context.knobs.options(
             label: 'Active Track Color',
             options: _colorOptions.sublist(2),
@@ -95,6 +98,7 @@ WidgetbookComponent switchWidgetbookComponent = WidgetbookComponent(
       name: 'Android with Icons',
       builder: (context) => PreviewWidget(
         child: ZeroSwitchAndroid(
+          value: context.knobs.boolean(label: 'Value'),
           activeColor: context.knobs.options(
             label: 'Active Track Color',
             options: _colorOptions.sublist(2),
@@ -128,6 +132,7 @@ WidgetbookComponent switchWidgetbookComponent = WidgetbookComponent(
       name: 'IOS',
       builder: (context) => PreviewWidget(
         child: ZeroSwitchIOS(
+          value: context.knobs.boolean(label: 'Value'),
           activeColor: context.knobs.options(
             label: 'Active Track Color',
             options: _colorOptions.sublist(2),

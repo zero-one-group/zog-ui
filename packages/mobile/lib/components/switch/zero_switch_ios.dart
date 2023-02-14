@@ -5,7 +5,8 @@ import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 /// there are properties to customize the icon and colors of the switch
 /// [activeIcon] and [inactiveIcon] are used to customize the icon of the switch
 /// [activeColor] and [inactiveColor] are used to customize the background color of the switch
-class ZeroSwitchIOS extends StatefulWidget {
+
+class ZeroSwitchIOS extends StatelessWidget {
   /// background color of the switch when it is [true]
   /// default value is from [context.theme.primaryColor.dark]
   final Color? activeColor;
@@ -26,50 +27,37 @@ class ZeroSwitchIOS extends StatefulWidget {
   /// it returns the current state of the switch which is [true] or [false] as a parameter
   final Function(bool) onChanged;
 
-  /// initial state of the switch when it is created
-  final bool initialValue;
+  final bool value;
 
   /// disable the switch
   /// default value is [false]
   final bool isDisabled;
 
-  const ZeroSwitchIOS({
+  ZeroSwitchIOS({
     super.key,
     this.activeColor,
     this.inactiveColor,
     this.activeThumbColor,
     this.inactiveThumbColor,
     required this.onChanged,
-    this.initialValue = false,
+    required this.value,
     this.isDisabled = false,
   });
 
-  @override
-  State<ZeroSwitchIOS> createState() => _ZeroSwitchIOSState();
-}
-
-class _ZeroSwitchIOSState extends State<ZeroSwitchIOS> {
   final double _thumbSize = 28;
-  bool _value = false;
+
   final _borderRadius = BorderRadius.circular(20);
 
   @override
-  void initState() {
-    super.initState();
-    _value = widget.initialValue;
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final ZeroThemeData theme = context.theme;
     return InkWell(
       overlayColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
         return Colors.transparent;
       }),
       onTap: () {
-        if (widget.isDisabled) return;
-        setState(() {
-          _value = !_value;
-        });
+        if (isDisabled) return;
+        onChanged(!value);
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -77,8 +65,8 @@ class _ZeroSwitchIOSState extends State<ZeroSwitchIOS> {
           alignment: Alignment.centerLeft,
           clipBehavior: Clip.none,
           children: [
-            _line(),
-            _thumb(),
+            _line(theme),
+            _thumb(theme),
           ],
         ),
       ),
@@ -86,14 +74,14 @@ class _ZeroSwitchIOSState extends State<ZeroSwitchIOS> {
   }
 
   // inactive line
-  Widget _line() {
-    Color inactiveColor;
-    if (_value) {
-      inactiveColor = widget.activeColor ?? context.theme.primaryColor.dark;
-      if (widget.isDisabled) inactiveColor = context.theme.disabledColor;
+  Widget _line(ZeroThemeData theme) {
+    Color lineColor;
+    if (!value) {
+      lineColor = inactiveColor ?? ZeroColors.neutral[7];
+      if (isDisabled) lineColor = theme.disabledColor;
     } else {
-      inactiveColor = widget.inactiveColor ?? ZeroColors.neutral[7];
-      if (widget.isDisabled) inactiveColor = context.theme.disabledColor;
+      lineColor = activeColor ?? theme.primaryColor;
+      if (isDisabled) lineColor = theme.disabledColor;
     }
 
     return Container(
@@ -101,25 +89,25 @@ class _ZeroSwitchIOSState extends State<ZeroSwitchIOS> {
       height: _thumbSize * 1.1,
       decoration: BoxDecoration(
         borderRadius: _borderRadius,
-        color: inactiveColor,
+        color: lineColor,
       ),
     );
   }
 
   // thumb
-  Widget _thumb() {
+  Widget _thumb(ZeroThemeData theme) {
     Color thumbColor;
-    if (_value) {
-      thumbColor = widget.activeThumbColor ?? ZeroColors.neutral[1];
-      if (widget.isDisabled) thumbColor = context.theme.disabledBackgroundColor;
+    if (!value) {
+      thumbColor = activeThumbColor ?? ZeroColors.neutral[1];
+      if (isDisabled) thumbColor = theme.disabledBackgroundColor;
     } else {
-      thumbColor = widget.inactiveThumbColor ?? ZeroColors.neutral[1];
-      if (widget.isDisabled) thumbColor = context.theme.disabledBackgroundColor;
+      thumbColor = inactiveThumbColor ?? ZeroColors.neutral[1];
+      if (isDisabled) thumbColor = theme.disabledBackgroundColor;
     }
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 200),
       curve: Curves.easeInOut,
-      left: !_value ? _thumbSize / 20 : _thumbSize * 1.8 - _thumbSize,
+      left: !value ? _thumbSize / 20 : _thumbSize * 1.8 - _thumbSize,
       child: Material(
         shape: RoundedRectangleBorder(
           borderRadius: _borderRadius,
