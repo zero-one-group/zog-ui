@@ -9,16 +9,24 @@ import {
   SettingOutlined,
 } from '@ant-design/icons';
 
-<Meta title="Components/Display/Card" component={[Card]} argTypes={{}} />
+<Meta
+  title="Components/Display/Card"
+  component={[Card]}
+  argTypes={{
+    size: {
+      options: ['small', 'medium'],
+      control: { type: 'radio' },
+    },
+  }}
+/>
 
 export const CardStory = (args) => <Card {...args} />;
 
 # Card
 
 > Simple rectangular container.
-
-<br />> A card can be used to display content related to a single subject. The
-content can consist of multiple elements of varying types and sizes.
+> A card can be used to display content related to a single subject. The
+> content can consist of multiple elements of varying types and sizes.
 
 ## Example Usage
 

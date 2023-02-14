@@ -36,14 +36,26 @@ const StyledHead = styled(Box, {
   display: 'flex',
   justifyContent: 'center',
   flexDirection: 'column',
-  minHeight: '56px',
   marginBottom: '-1px',
-  padding: '0 24px',
   color: '$blackA12',
   fontSize: '16px',
   background: 'transparent',
   borderBottom: '1px solid #f0f0f0',
-  // borderRadius: 8px 8px 0 0,
+  variants: {
+    size: {
+      small: {
+        padding: '0 16px',
+        minHeight: '40px',
+      },
+      medium: {
+        padding: '0 24px',
+        minHeight: '56px',
+      },
+    },
+  },
+  defaultVariants: {
+    size: 'medium',
+  },
 });
 
 const StyledTitleWrapper = styled(Box, {
@@ -65,7 +77,19 @@ const StyledExtra = styled('div', {
 });
 
 const StyledBody = styled(Box, {
-  padding: '24px',
+  variants: {
+    size: {
+      small: {
+        padding: '16px',
+      },
+      medium: {
+        padding: '24px',
+      },
+    },
+  },
+  defaultVariants: {
+    size: 'medium',
+  },
 });
 
 const StyledCover = styled('div', {
@@ -111,7 +135,6 @@ const StyledActionItem = styled('span', {
   display: 'block',
   minWidth: '28px',
   fontSize: '14px',
-  lineHeight: '1.5714285714285714',
   cursor: 'pointer',
   '&:hover': {
     color: '$$primaryColor',
@@ -130,9 +153,19 @@ type Action = {
 export type CardProps = {
   colorScheme?: string;
   title?: ReactNode;
+  /**
+   * Extra content placed beside the title
+   */
   extra?: ReactNode;
+  /**
+   * Cover image
+   */
   cover?: ReactNode;
+  /**
+   * ```type Action = {onClick?, component}```
+   */
   actions?: Action[];
+  size?: ComponentProps<typeof StyledHead>['size'];
 } & ComponentProps<typeof StyledCard>;
 
 export function Card({
@@ -144,6 +177,7 @@ export function Card({
   children,
   cover,
   actions,
+  size,
   ...props
 }: CardProps) {
   const uniqId = useId();
@@ -154,7 +188,7 @@ export function Card({
       {...props}
     >
       {isExist(title) || isExist(extra) ? (
-        <StyledHead>
+        <StyledHead size={size}>
           <StyledTitleWrapper>
             <StyledTitle>{title}</StyledTitle>
             <StyledExtra>{extra}</StyledExtra>
@@ -162,7 +196,7 @@ export function Card({
         </StyledHead>
       ) : null}
       {cover ? <StyledCover bordered={bordered}>{cover}</StyledCover> : null}
-      <StyledBody>{children}</StyledBody>
+      <StyledBody size={size}>{children}</StyledBody>
       {actions && actions?.length > 0 ? (
         <StyledActions>
           {actions.map((action, i) => (
