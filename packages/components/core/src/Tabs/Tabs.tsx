@@ -1,12 +1,20 @@
-/* eslint-disable-next-line */
-export interface TabsProps {}
-
-export function Tabs(props: TabsProps) {
-  return (
-    <div>
-      <h1>This is Tabs!</h1>
-    </div>
-  );
-}
-
+import * as TabsPrimitive from '@radix-ui/react-tabs';
+import { styled } from '../stitches.config';
+export const Tabs = styled(TabsPrimitive.Root, {
+  /* reset */
+  'button,fieldset,input': {
+    all: 'unset',
+  },
+  button: {
+    display: 'flex ',
+    flexdirection: 'column ',
+    gap: '11px',
+  },
+  '&[data-orientation=vertical]': {
+    display: 'flex',
+    alignItems: 'baseline',
+    gap: '12px',
+  },
+  position: 'relative',
+});
 export default Tabs;
