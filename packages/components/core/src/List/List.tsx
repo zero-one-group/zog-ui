@@ -1,4 +1,5 @@
-import { ComponentProps, Fragment, useMemo } from 'react';
+import { ComponentProps, Fragment, useMemo, useState } from 'react';
+import { Pagination } from '../Pagination';
 import { styled } from '../stitches.config';
 
 const getColorSchemeVariants = (colorScheme?: string) => {
@@ -113,6 +114,26 @@ const StyledItemAction = styled('li', {
   },
 });
 
+const StyledPaginationWrapper = styled('div', {
+  display: 'flex',
+  justifyContent: 'center',
+  marginBottom: '$2',
+  paddingInline: '24px',
+  variants: {
+    align: {
+      start: {
+        justifyContent: 'flex-start',
+      },
+      center: {
+        justifyContent: 'center',
+      },
+      end: {
+        justifyContent: 'flex-end',
+      },
+    },
+  },
+});
+
 const StyledHeader = styled(StyledItemBase, {
   borderBlockEnd: '1px solid $grayA6',
 });
@@ -167,6 +188,13 @@ const ListItem = ({ children, meta, actions, ...props }: ListItemProps) => {
   );
 };
 
+export type ListPaginationProps = {
+  align?: 'start' | 'center' | 'end';
+  pageSize?: number;
+  siblingCount?: number;
+  currentPage?: number;
+};
+
 export type ListProps<T> = {
   colorScheme?: string;
   bordered?: boolean;
@@ -176,6 +204,7 @@ export type ListProps<T> = {
   dataSource?: T[];
   renderItem?: (item: T, index: number) => React.ReactNode;
   size?: 'sm' | 'md' | 'lg';
+  pagination?: ListPaginationProps;
 } & ComponentProps<typeof StyledListWrapper>;
 
 export function List<T>({
@@ -187,8 +216,24 @@ export function List<T>({
   renderItem,
   colorScheme,
   css,
+  pagination,
   ...props
 }: ListProps<T>) {
+  const isPaginating = typeof pagination === 'object';
+  const defaultCurrentPage = isPaginating ? pagination.currentPage || 1 : 1;
+  const defaultPageSize = isPaginating ? pagination.pageSize || 5 : 5;
+
+  const [currentPage, setCurrentPage] = useState<number>(defaultCurrentPage);
+
+  let splittedDataSource = [...dataSource];
+
+  if (pagination) {
+    splittedDataSource = [...dataSource].splice(
+      (currentPage - 1) * defaultPageSize,
+      defaultPageSize
+    );
+  }
+
   const renderListItem = (item: T, index: number) => {
     if (renderItem !== undefined) {
       const key = `list-item-${index}`;
@@ -197,11 +242,31 @@ export function List<T>({
   };
 
   const renderList = () => {
-    if (dataSource.length > 0) {
-      const items = dataSource.map((item, index) =>
+    if (splittedDataSource.length > 0) {
+      const items = splittedDataSource.map((item, index) =>
         renderListItem(item, index)
       );
       return <StyledListUnordered role="list">{items}</StyledListUnordered>;
+    }
+    return null;
+  };
+
+  const renderPagination = () => {
+    if (pagination) {
+      return (
+        <StyledPaginationWrapper align={pagination.align || 'end'}>
+          <Pagination
+            colorScheme={colorScheme}
+            totalCount={dataSource.length}
+            pageSize={defaultPageSize}
+            currentPage={currentPage}
+            siblingCount={pagination.siblingCount || 2}
+            onChangePage={(page: number) => {
+              setCurrentPage(page);
+            }}
+          />
+        </StyledPaginationWrapper>
+      );
     }
     return null;
   };
@@ -224,6 +289,7 @@ export function List<T>({
       {footer ? (
         <StyledFooter className="list-footer">{footer}</StyledFooter>
       ) : null}
+      {renderPagination()}
     </StyledListWrapper>
   );
 }

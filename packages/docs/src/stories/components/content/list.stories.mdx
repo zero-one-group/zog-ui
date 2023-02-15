@@ -35,24 +35,15 @@ export const data = [
   'Los Angeles battles huge wildfires.',
 ];
 
-export const dataObject = [
-  {
-    title: 'Title 1',
+export const createDataObject = (length) =>
+  [...Array.from(Array(length).keys())].map((value) => ({
+    title: `Title ${value + 1}`,
     content: 'Content',
-  },
-  {
-    title: 'Title 2',
-    content: 'Content',
-  },
-  {
-    title: 'Title 3',
-    content: 'Content',
-  },
-  {
-    title: 'Title 4',
-    content: 'Content',
-  },
-];
+  }));
+
+export const dataObject = createDataObject(5);
+
+export const dataObjectLong = createDataObject(20);
 
 <Canvas columns={2} withSource="close">
   <Story
@@ -93,6 +84,33 @@ export const dataObject = [
       header: <div>Header</div>,
       footer: <div>Footer</div>,
       dataSource: dataObject,
+      renderItem: (item, index) => (
+        <List.Item
+          meta={{
+            avatar: <Avatar size={4} src="https://i.pravatar.cc/300?img=68" />,
+            title: item.title,
+            description:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          }}
+          actions={[<a key="list-edit">edit</a>, <a key="list-more">more</a>]}
+        >
+          {item.content}
+        </List.Item>
+      ),
+    }}
+  >
+    {ListStory.bind()}
+  </Story>
+  <Story
+    name="Basic List with Pagination"
+    args={{
+      bordered: true,
+      header: <div>Header</div>,
+      footer: <div>Footer</div>,
+      dataSource: dataObjectLong,
+      pagination: {
+        align: 'end',
+      },
       renderItem: (item, index) => (
         <List.Item
           meta={{
