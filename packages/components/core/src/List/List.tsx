@@ -1,5 +1,13 @@
-import { Fragment } from 'react';
+import { ComponentProps, Fragment } from 'react';
 import { styled } from '../stitches.config';
+
+const getColorSchemeVariants = (colorScheme?: string) => {
+  return {
+    $$colorPrimaryList: colorScheme
+      ? `$colors-${colorScheme}9`
+      : '$colors-primary9',
+  };
+};
 
 const StyledListWrapper = styled('div', {
   boxSizing: 'border-box',
@@ -44,7 +52,7 @@ const StyledListWrapper = styled('div', {
   },
 });
 
-const StyledListUnordered = styled('ul', {
+const StyledListUnordered = styled('div', {
   boxSizing: 'border-box',
   margin: 0,
   padding: 0,
@@ -57,7 +65,34 @@ const StyledItemBase = styled('div', {
 
 const StyledItemList = styled(StyledItemBase, {
   borderBlockEnd: '1px solid $grayA6',
-  variants: {},
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+});
+
+const StyledItemListMeta = styled('div', {
+  display: 'flex',
+  alignItems: 'flex-start',
+  flex: 1,
+});
+
+const StyledItemAvatar = styled('div', {
+  marginInlineEnd: '16px',
+});
+
+const StyledItemContent = styled('div', {
+  width: '0',
+  flex: '1 0',
+});
+
+const StyledItemTitle = styled('h4', {
+  marginTop: 0,
+  marginBottom: '$2',
+  color: '$gray12',
+});
+
+const StyledItemDescription = styled('div', {
+  color: '$gray9',
 });
 
 const StyledHeader = styled(StyledItemBase, {
@@ -72,10 +107,43 @@ export type ListItemProps = {
 };
 
 const ListItem = ({ children, ...props }: ListItemProps) => {
-  return <StyledItemList className="list-item">{children}</StyledItemList>;
+  return (
+    <StyledItemList role="listitem" className="list-item" {...props}>
+      {children}
+    </StyledItemList>
+  );
+};
+
+export type ListItemMetaProps = {
+  children?: React.ReactNode;
+  avatar?: React.ReactNode;
+  title?: React.ReactNode;
+  description?: React.ReactNode;
+};
+
+const ListItemMeta = ({
+  children,
+  avatar,
+  title,
+  description,
+  ...props
+}: ListItemMetaProps) => {
+  return (
+    <StyledItemListMeta {...props}>
+      {avatar ? <StyledItemAvatar> {avatar}</StyledItemAvatar> : null}
+      <StyledItemContent>
+        {title ? <StyledItemTitle>{title}</StyledItemTitle> : null}
+        {description ? (
+          <StyledItemDescription>{description}</StyledItemDescription>
+        ) : null}
+      </StyledItemContent>
+      {children}
+    </StyledItemListMeta>
+  );
 };
 
 export type ListProps<T> = {
+  colorScheme?: string;
   bordered?: boolean;
   header?: React.ReactNode;
   footer?: React.ReactNode;
@@ -83,7 +151,7 @@ export type ListProps<T> = {
   dataSource?: T[];
   renderItem?: (item: T, index: number) => React.ReactNode;
   size?: 'sm' | 'md' | 'lg';
-};
+} & ComponentProps<typeof StyledListWrapper>;
 
 export function List<T>({
   header,
@@ -92,6 +160,8 @@ export function List<T>({
   dataSource = [],
   size = 'md',
   renderItem,
+  colorScheme,
+  css,
   ...props
 }: ListProps<T>) {
   const renderListItem = (item: T, index: number) => {
@@ -106,7 +176,7 @@ export function List<T>({
       const items = dataSource.map((item, index) =>
         renderListItem(item, index)
       );
-      return <StyledListUnordered>{items}</StyledListUnordered>;
+      return <StyledListUnordered role="list">{items}</StyledListUnordered>;
     }
     return null;
   };
@@ -116,6 +186,11 @@ export function List<T>({
       bordered={bordered}
       size={size}
       hasFooter={footer !== undefined}
+      css={{
+        ...getColorSchemeVariants(colorScheme),
+        ...css,
+      }}
+      {...props}
     >
       {header ? (
         <StyledHeader className="list-header">{header}</StyledHeader>
@@ -129,5 +204,6 @@ export function List<T>({
 }
 
 List.Item = ListItem;
+List.ItemMeta = ListItemMeta;
 
 export default List;
