@@ -67,7 +67,7 @@ const StyledButton = styled('button', {
   cursor: 'pointer',
   position: 'relative',
   transition: 'all .2s linear',
-  '&:after': {
+  '&::after': {
     position: 'absolute',
     inset: -4,
     content: '',
