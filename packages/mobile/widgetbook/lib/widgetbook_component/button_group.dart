@@ -17,9 +17,12 @@ WidgetbookComponent buttonGroupWidgetbookComponent = WidgetbookComponent(
             child: ZeroButtonGroup.labelsOnly(
               labels: labels,
               isSelected: isSelected,
-              multipleSelect: context.knobs.boolean(label: 'Multiple-Select', initialValue: false),
-              withIcon: context.knobs.boolean(label: 'With Select Icon', initialValue: false),
-              vertical: context.knobs.boolean(label: 'Vertical', initialValue: false),
+              multipleSelect: context.knobs
+                  .boolean(label: 'Multiple-Select', initialValue: false),
+              withIcon: context.knobs
+                  .boolean(label: 'With Select Icon', initialValue: false),
+              vertical:
+                  context.knobs.boolean(label: 'Vertical', initialValue: false),
               selectIcon: context.knobs.options(label: 'Select Icon', options: [
                 const Option(
                   label: 'Check',
@@ -62,7 +65,8 @@ WidgetbookComponent buttonGroupWidgetbookComponent = WidgetbookComponent(
                   value: ButtonGroupType.underline,
                 ),
               ]),
-              buttonRadiusType: context.knobs.options(label: 'Radius', options: [
+              buttonRadiusType:
+                  context.knobs.options(label: 'Radius', options: [
                 const Option(
                   label: 'Rectangle',
                   value: ZeroButtonRadiusType.rectangle,
@@ -82,15 +86,21 @@ WidgetbookComponent buttonGroupWidgetbookComponent = WidgetbookComponent(
     WidgetbookUseCase(
         name: 'Icons Only',
         builder: (context) {
-          const List<IconData> labels = [Icons.message, Icons.wallet, Icons.hotel];
+          const List<IconData> labels = [
+            Icons.message,
+            Icons.wallet,
+            Icons.hotel
+          ];
 
           List<bool> isSelected = [false, false, false];
           return PreviewWidget(
             child: ZeroButtonGroup.iconsOnly(
               icons: labels,
               isSelected: isSelected,
-              vertical: context.knobs.boolean(label: 'Vertical', initialValue: false),
-              multipleSelect: context.knobs.boolean(label: 'Multiple-Select', initialValue: false),
+              vertical:
+                  context.knobs.boolean(label: 'Vertical', initialValue: false),
+              multipleSelect: context.knobs
+                  .boolean(label: 'Multiple-Select', initialValue: false),
               buttonSizeType: context.knobs.options(label: 'Size', options: [
                 const Option(
                   label: 'Large',
@@ -123,8 +133,10 @@ WidgetbookComponent buttonGroupWidgetbookComponent = WidgetbookComponent(
                   value: ButtonGroupType.underline,
                 ),
               ]),
-              square: context.knobs.boolean(label: 'Square', initialValue: false),
-              buttonRadiusType: context.knobs.options(label: 'Radius', options: [
+              square:
+                  context.knobs.boolean(label: 'Square', initialValue: false),
+              buttonRadiusType:
+                  context.knobs.options(label: 'Radius', options: [
                 const Option(
                   label: 'Rectangle',
                   value: ZeroButtonRadiusType.rectangle,
@@ -145,14 +157,20 @@ WidgetbookComponent buttonGroupWidgetbookComponent = WidgetbookComponent(
         name: 'Labels with Icons',
         builder: (context) {
           const List<String> labels = ['Tab Long Text 1', 'Tab 2', 'Tab 3'];
-          const List<IconData> icons = [Icons.message, Icons.wallet, Icons.hotel];
+          const List<IconData> icons = [
+            Icons.message,
+            Icons.wallet,
+            Icons.hotel
+          ];
 
           List<bool> isSelected = [false, false, false];
           return PreviewWidget(
             child: ZeroButtonGroup.labelsWithIcons(
               labels: labels,
-              vertical: context.knobs.boolean(label: 'Vertical', initialValue: false),
-              multipleSelect: context.knobs.boolean(label: 'Multiple-Select', initialValue: false),
+              vertical:
+                  context.knobs.boolean(label: 'Vertical', initialValue: false),
+              multipleSelect: context.knobs
+                  .boolean(label: 'Multiple-Select', initialValue: false),
               icons: icons,
               isSelected: isSelected,
               buttonSizeType: context.knobs.options(label: 'Size', options: [
@@ -187,7 +205,8 @@ WidgetbookComponent buttonGroupWidgetbookComponent = WidgetbookComponent(
                   value: ButtonGroupType.underline,
                 ),
               ]),
-              buttonRadiusType: context.knobs.options(label: 'Radius', options: [
+              buttonRadiusType:
+                  context.knobs.options(label: 'Radius', options: [
                 const Option(
                   label: 'Rectangle',
                   value: ZeroButtonRadiusType.rectangle,

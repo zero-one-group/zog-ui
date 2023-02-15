@@ -6,17 +6,13 @@ import 'button_animating.dart';
 /// ZeroButton created based on [ElevatedButton] and [TextButton] with some customizations
 /// how to use this widget is almost the same as [ElevatedButton], [TextButton], [OutlinedButton]
 class ZeroButtonRLIcon extends ElevatedButton {
-  ZeroButtonRLIcon({
+  ZeroButtonRLIcon._({
     super.key,
     required super.onPressed,
     super.onLongPress,
-    super.onHover,
-    super.onFocusChange,
     required ZeroButtonStyle style,
     super.focusNode,
     super.autofocus = false,
-    super.clipBehavior = Clip.none,
-    super.statesController,
     required super.child,
   }) : super(
           style: style.toButtonStyle(),
@@ -116,7 +112,7 @@ class ZeroButtonRLIcon extends ElevatedButton {
               buttonRadiusType: buttonRadiusType,
               height: height ?? buttonSizeType.defaultButtonHeight,
               animatingColor: animatingColor,
-              child: ZeroButtonRLIcon(
+              child: ZeroButtonRLIcon._(
                 key: key,
                 onPressed: () {
                   updateAnimating();
@@ -262,7 +258,7 @@ class ZeroButtonRLIcon extends ElevatedButton {
               buttonRadiusType: buttonRadiusType,
               height: height ?? buttonSizeType.defaultButtonHeight,
               animatingColor: animatingColor,
-              child: ZeroButtonRLIcon(
+              child: ZeroButtonRLIcon._(
                 key: key,
                 onPressed: () {
                   updateAnimating();
@@ -392,7 +388,7 @@ class ZeroButtonRLIcon extends ElevatedButton {
             )
           : SizedBox(
               height: height ?? buttonSizeType.defaultButtonHeight,
-              child: ZeroButtonRLIcon(
+              child: ZeroButtonRLIcon._(
                 key: key,
                 onPressed: onPressed,
                 onLongPress: onLongPress,
@@ -497,7 +493,7 @@ class ZeroButtonRLIcon extends ElevatedButton {
         buttonRadiusType: buttonRadiusType,
         height: height ?? buttonSizeType.defaultButtonHeight,
         animatingColor: animatingColor,
-        child: ZeroButtonRLIcon(
+        child: ZeroButtonRLIcon._(
           key: key,
           onPressed: () {
             // do nothing

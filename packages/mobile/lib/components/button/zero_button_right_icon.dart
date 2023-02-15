@@ -6,17 +6,13 @@ import 'button_animating.dart';
 /// ZeroButton created based on [ElevatedButton] and [TextButton] with some customizations
 /// how to use this widget is almost the same as [ElevatedButton], [TextButton], [OutlinedButton]
 class ZeroButtonRIcon extends ElevatedButton {
-  ZeroButtonRIcon({
+  ZeroButtonRIcon._({
     super.key,
     required super.onPressed,
     super.onLongPress,
-    super.onHover,
-    super.onFocusChange,
     required ZeroButtonStyle style,
     super.focusNode,
     super.autofocus = false,
-    super.clipBehavior = Clip.none,
-    super.statesController,
     required super.child,
   }) : super(
           style: style.toButtonStyle(),
@@ -113,7 +109,7 @@ class ZeroButtonRIcon extends ElevatedButton {
               buttonRadiusType: buttonRadiusType,
               height: height ?? buttonSizeType.defaultButtonHeight,
               animatingColor: animatingColor,
-              child: ZeroButtonRIcon(
+              child: ZeroButtonRIcon._(
                 key: key,
                 onPressed: () {
                   updateAnimating();
@@ -250,7 +246,7 @@ class ZeroButtonRIcon extends ElevatedButton {
               buttonRadiusType: buttonRadiusType,
               height: height ?? buttonSizeType.defaultButtonHeight,
               animatingColor: animatingColor,
-              child: ZeroButtonRIcon(
+              child: ZeroButtonRIcon._(
                 key: key,
                 onPressed: () {
                   updateAnimating();
@@ -372,7 +368,7 @@ class ZeroButtonRIcon extends ElevatedButton {
             )
           : SizedBox(
               height: height ?? buttonSizeType.defaultButtonHeight,
-              child: ZeroButtonRIcon(
+              child: ZeroButtonRIcon._(
                 key: key,
                 onPressed: onPressed,
                 onLongPress: onLongPress,
@@ -470,7 +466,7 @@ class ZeroButtonRIcon extends ElevatedButton {
         buttonRadiusType: buttonRadiusType,
         height: height ?? buttonSizeType.defaultButtonHeight,
         animatingColor: animatingColor,
-        child: ZeroButtonRIcon(
+        child: ZeroButtonRIcon._(
           key: key,
           onPressed: () {
             // do nothing

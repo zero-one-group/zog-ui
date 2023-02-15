@@ -102,55 +102,57 @@ class ZeroAppBar extends StatelessWidget implements PreferredSizeWidget {
         value: overlayStyle,
         child: Semantics(
           excludeSemantics: true,
-          child: Ink(
-            color: adaptiveStyle.backgroundColor,
-            child: SafeArea(
-              left: false,
-              right: false,
-              bottom: false,
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: height,
-                  maxHeight: height,
-                ),
-                child: IconTheme(
-                  data: IconThemeData(
-                    size: 24,
-                    color: adaptiveStyle.foregroundColor,
+          child: ClipRect(
+            child: Ink(
+              color: adaptiveStyle.backgroundColor,
+              child: SafeArea(
+                left: false,
+                right: false,
+                bottom: false,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: height,
+                    maxHeight: height,
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        children: [
-                          // Build leading
-                          _Leading(
-                            auto: automaticallyImplyLeading,
-                            leading: leading,
-                          ),
-                          // Build title small size
-                          Expanded(
-                            child: size == ZeroAppBarSize.small
-                                ? _Title(style: adaptiveStyle, title: title)
-                                : const SizedBox(),
-                          ),
-                          // Build actions
-                          Row(
-                            children: actions ?? [],
-                          )
-                        ],
-                      ),
+                  child: IconTheme(
+                    data: IconThemeData(
+                      size: 24,
+                      color: adaptiveStyle.foregroundColor,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          children: [
+                            // Build leading
+                            _Leading(
+                              auto: automaticallyImplyLeading,
+                              leading: leading,
+                            ),
+                            // Build title small size
+                            Expanded(
+                              child: size == ZeroAppBarSize.small
+                                  ? _Title(style: adaptiveStyle, title: title)
+                                  : const SizedBox(),
+                            ),
+                            // Build actions
+                            Row(
+                              children: actions ?? [],
+                            )
+                          ],
+                        ),
 
-                      // Build title when size is not small
-                      if (size != ZeroAppBarSize.small) ...[
-                        const Spacer(),
-                        _Title(style: adaptiveStyle, title: title),
-                        size == ZeroAppBarSize.large
-                            ? const SizedBox(height: 26)
-                            : const SizedBox(height: 20)
+                        // Build title when size is not small
+                        if (size != ZeroAppBarSize.small) ...[
+                          const Spacer(),
+                          _Title(style: adaptiveStyle, title: title),
+                          size == ZeroAppBarSize.large
+                              ? const SizedBox(height: 26)
+                              : const SizedBox(height: 20)
+                        ],
                       ],
-                    ],
+                    ),
                   ),
                 ),
               ),

@@ -14,6 +14,7 @@ import 'component/listtile/listile_example.dart';
 import 'component/navigation/app_bar_example.dart';
 import 'component/navigation/navigation_bar_example.dart';
 import 'component/navigation/navigation_drawer_example.dart';
+import 'component/navigation/navigation_rail_example.dart';
 import 'component/progress_indicator/zero_progress_indicator_example.dart';
 import 'component/rating/zero_rating_example.dart';
 import 'component/slider/zero_slider_example.dart';
@@ -100,6 +101,7 @@ class Examples extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       children: [
         const SizedBox(width: double.infinity),
         ZeroButton.primary(
@@ -321,6 +323,16 @@ class Examples extends StatelessWidget {
             );
           },
           text: 'Zero Stepper Example',
+        ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroNavigationRailExample(),
+              ),
+            );
+          },
+          text: 'Zero Navigation Rail Example',
         ),
         const SizedBox(
           height: 100,

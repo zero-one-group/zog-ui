@@ -16,6 +16,8 @@ export './styles/component/navigation_bar_style.dart';
 export './styles/component/navigation_drawer_style.dart';
 export './styles/component/app_bar_style.dart';
 export './styles/component/card_style.dart';
+export './styles/component/navigation_rail_style.dart';
+export './styles/component/button_icon_style.dart';
 
 // assets
 export './assets/assets.dart';
@@ -73,6 +75,7 @@ export './components/avatar/zero_avatar_group.dart';
 
 // divider
 export './components/divider/divider.dart';
+
 // time picker
 export './components/timepicker/zero_time_picker.dart';
 
@@ -105,6 +108,7 @@ export './components/progress_indicator/zero_progress_indicator.dart';
 export './components/navigation/zero_navigation_bar.dart';
 export './components/navigation/drawer/zero_navigation_drawer.dart';
 export './components/navigation/zero_app_bar.dart';
+export './components/navigation/zero_navigation_rail.dart';
 
 // alert dialog
 export './components/alert_dialog/zero_alert_dialog.dart';
@@ -127,6 +131,7 @@ export './types/snackbar_alert_type.dart';
 export './types/snackbar_alert_variant.dart';
 export './types/navigation_bar_type.dart';
 export './types/card_variant.dart';
+export './types/navigation_rail_type.dart';
 
 // positions
 export './position/tooltip_position.dart';
@@ -145,6 +150,7 @@ export './size/text_field_size.dart';
 export './size/size_type.dart';
 export './size/chip_size.dart';
 export './size/app_bar_size.dart';
+export './size/button_size.dart';
 
 // utils
 export './utils/extensions/theme_extensions.dart';

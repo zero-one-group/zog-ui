@@ -20,6 +20,7 @@ import 'widgetbook_component/icons.dart';
 import 'widgetbook_component/list_tile.dart';
 import 'widgetbook_component/navigation_bar.dart';
 import 'widgetbook_component/navigation_drawer.dart';
+import 'widgetbook_component/navigation_rail.dart';
 import 'widgetbook_component/progress_indicator.dart';
 import 'widgetbook_component/radio_group.dart';
 import 'widgetbook_component/rating.dart';
@@ -64,6 +65,7 @@ class HotReload extends StatelessWidget {
               navigationBarWidgetbookComponent,
               navigationDrawerWidgetbookComponent,
               appBarWidgetbookComponent,
+              navigationRailWidgetbookComponent,
             ]),
           ],
           widgets: [
@@ -76,7 +78,6 @@ class HotReload extends StatelessWidget {
             dividerWidgetbookComponent,
             chipWidgetbookComponent,
             snackbarWidgetbookComponent,
-            progressIndicatorWidgetbookComponent,
             datepickerWidgetbookComponent,
             timepickerWidgetbookComponent,
             progressIndicatorWidgetbookComponent,
