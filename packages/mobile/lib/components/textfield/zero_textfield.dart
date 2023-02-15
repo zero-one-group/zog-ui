@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
@@ -344,8 +342,9 @@ class _ZeroTextFieldState extends State<ZeroTextField> {
     return Theme(
       data: context.theme
           .copyWith(
-              inputDecorationType: widget.inputDecorationType,
-              textfieldSize: widget.textfieldSize)
+            inputDecorationType: widget.inputDecorationType,
+            textfieldSize: widget.textfieldSize,
+          )
           .toThemeData(),
       child: TextFormField(
         key: widget.key,
@@ -358,6 +357,8 @@ class _ZeroTextFieldState extends State<ZeroTextField> {
           hintText: widget.hintText,
           labelText: widget.labelText,
           prefixIcon: widget.prefixIcon,
+          errorText: widget.errorText,
+          floatingLabelStyle: widget.errorStyle,
           suffixIcon: widget.textfieldSize
               .suffixIcon(widget.suffixIcon, error: widget.errorText != null),
         ),

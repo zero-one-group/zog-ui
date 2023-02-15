@@ -31,12 +31,13 @@ class ZeroDatePickerExample extends StatelessWidget {
               ZeroButton.primary(
                   text: 'Date Picker',
                   onPressed: () async {
-                    showDatePicker(
+                    showZeroDatePicker(
                       context: context,
                       initialDate: DateTime.now(),
-                      firstDate:
-                          DateTime.now().subtract(const Duration(days: 30)),
-                      lastDate: DateTime.now().add(const Duration(days: 100)),
+                      firstDate: DateTime.now()
+                          .subtract(const Duration(days: 365 * 10)),
+                      lastDate:
+                          DateTime.now().add(const Duration(days: 365 * 10)),
                     );
                   }),
               ZeroButton.primary(
@@ -44,9 +45,10 @@ class ZeroDatePickerExample extends StatelessWidget {
                   onPressed: () async {
                     showZeroDateRangePicker(
                       context: context,
-                      firstDate:
-                          DateTime.now().subtract(const Duration(days: 30)),
-                      lastDate: DateTime.now().add(const Duration(days: 100)),
+                      firstDate: DateTime.now()
+                          .subtract(const Duration(days: 365 * 10)),
+                      lastDate:
+                          DateTime.now().add(const Duration(days: 365 * 10)),
                     );
                   }),
               const SizedBox(
@@ -59,20 +61,23 @@ class ZeroDatePickerExample extends StatelessWidget {
               ZeroDropdown(
                 items: const [''],
                 onChanged: (p0) {},
-                onMenuStateChange: (isOpen) {},
                 menuItemBuilder: (p0) {
                   return ZeroDatePickerDialog(
-                      initialDate: DateTime.now(),
-                      firstDate:
-                          DateTime.now().subtract(const Duration(days: 30)),
-                      lastDate: DateTime.now().add(const Duration(days: 30)));
+                    initialDate: DateTime.now(),
+                    firstDate:
+                        DateTime.now().subtract(const Duration(days: 365 * 10)),
+                    lastDate:
+                        DateTime.now().add(const Duration(days: 365 * 10)),
+                  );
                 },
                 selectedMenuItemBuilder: (p0) {
                   return ZeroDatePickerDialog(
-                      initialDate: DateTime.now(),
-                      firstDate:
-                          DateTime.now().subtract(const Duration(days: 30)),
-                      lastDate: DateTime.now().add(const Duration(days: 30)));
+                    initialDate: DateTime.now(),
+                    firstDate:
+                        DateTime.now().subtract(const Duration(days: 365 * 10)),
+                    lastDate:
+                        DateTime.now().add(const Duration(days: 365 * 10)),
+                  );
                 },
               ),
             ],

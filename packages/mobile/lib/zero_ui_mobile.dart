@@ -41,6 +41,7 @@ export './components/rating/zero_rating.dart';
 export './components/rating/zero_rating_custom.dart';
 
 // dropdown
+export './components/dropdowns/dropdown.dart';
 export './components/dropdowns/zero_dropdown.dart';
 
 // badge
@@ -100,6 +101,7 @@ export './components/icons/two_tone_icons.dart';
 // datepicker
 export './components/datepicker/zero_datepicker.dart';
 export './components/datepicker/zero_calendar_datepicker.dart';
+export './components/datepicker/zero_docked_calendar_datepicker.dart';
 export './components/datepicker/zero_datepicker_textfield.dart';
 export './components/datepicker/zero_datepicker_docked.dart';
 

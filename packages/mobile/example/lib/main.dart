@@ -22,6 +22,7 @@ import 'component/snackbar/zero_snackbar_example.dart';
 import 'component/stepper/zero_stepper_example.dart';
 import 'component/switch/zero_switch_example.dart';
 import 'component/textfield/zero_textfield_example.dart';
+import 'component/timepicker/zero_timepicker_example.dart';
 import 'component/tooltip/zero_tooltip_example.dart';
 
 void main() {

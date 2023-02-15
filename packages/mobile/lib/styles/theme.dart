@@ -150,7 +150,7 @@ class ZeroThemeData with Diagnosticable {
     required this.switchStyle,
 
     // Others
-    this.useMaterial3 = true,
+    this.useMaterial3 = false,
   });
 
   factory ZeroThemeData({
