@@ -4,9 +4,18 @@ import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { List } from '@zero-ui/core';
 
-<Meta title="Components/Content/List" component={[List]} argTypes={{}} />
+<Meta
+  title="Components/Content/List"
+  component={[List]}
+  argTypes={{
+    size: {
+      control: 'radio',
+      options: ['sm', 'md', 'lg'],
+    },
+  }}
+/>
 
-export const ListStory = () => <List />;
+export const ListStory = (args) => <List {...args} />;
 
 # List
 
@@ -18,8 +27,46 @@ export const ListStory = () => <List />;
 import { List } from '@zero-ui/core';
 ```
 
+export const data = [
+  'Racing car sprays burning fuel into crowd.',
+  'Japanese princess to wed commoner.',
+  'Australian walks 100km after outback crash.',
+  'Man charged over missing wedding girl.',
+  'Los Angeles battles huge wildfires.',
+];
+
 <Canvas columns={2} withSource="close">
-  <Story name="List">{ListStory.bind()}</Story>
+  <Story
+    name="Basic List"
+    args={{
+      bordered: true,
+      header: <div>Header</div>,
+      footer: <div>Footer</div>,
+      dataSource: data,
+      size: 'md',
+      renderItem: (item, index) => (
+        <List.Item>
+          <div>[ITEM] {item}</div>
+        </List.Item>
+      ),
+    }}
+  >
+    {ListStory.bind()}
+  </Story>
+  <Story
+    name="Without Header & Footer"
+    args={{
+      bordered: true,
+      dataSource: data,
+      renderItem: (item, index) => (
+        <List.Item>
+          <div>[ITEM] {item}</div>
+        </List.Item>
+      ),
+    }}
+  >
+    {ListStory.bind()}
+  </Story>
 </Canvas>
 
 <ArgsTable of={List} />
