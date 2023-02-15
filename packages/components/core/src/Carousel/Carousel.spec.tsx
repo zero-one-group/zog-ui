@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 
-import Carousel from './Carousel';
+import { Carousel } from './Carousel';
 
 describe('Carousel', () => {
   it('should render successfully', () => {
