@@ -98,6 +98,7 @@ class ZeroThemeData with Diagnosticable {
   final ZeroAppBarStyle appBarStyle;
   final ZeroCardStyle cardStyle;
   final ZeroButtonIconStyleSet buttonIconStyle;
+  final ZeroNavigationRailStyle navigationRailStyle;
 
   final Brightness brightness;
   final IconThemeData iconTheme;
@@ -144,6 +145,7 @@ class ZeroThemeData with Diagnosticable {
     required this.appBarStyle,
     required this.cardStyle,
     required this.buttonIconStyle,
+    required this.navigationRailStyle,
 
     // Others
     this.useMaterial3 = false,
@@ -184,6 +186,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroAppBarStyle? appBarStyle,
     ZeroCardStyle? cardStyle,
     ZeroButtonIconStyleSet? buttonIconStyle,
+    ZeroNavigationRailStyle? navigationRailStyle,
   }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
@@ -341,6 +344,13 @@ class ZeroThemeData with Diagnosticable {
       disabledColor: disabledColor,
     );
 
+    final navigationRailStyleFallback = ZeroNavigationRailStyle.fallback(
+      backgrondColor: isLight ? ZeroColors.white : ZeroColors.black,
+      activeColor: isLight ? ZeroColors.white : ZeroColors.black,
+      indicatorColor: primaryColor,
+      labelStyle: typography.caption,
+    );
+
     useMaterial3 ??= false;
 
     return ZeroThemeData.raw(
@@ -379,6 +389,8 @@ class ZeroThemeData with Diagnosticable {
       appBarStyle: appBarStyleFallback.merge(appBarStyleFallback),
       cardStyle: cardStyle.merge(cardStyle),
       buttonIconStyle: buttonIconStyleFallback.merge(buttonIconStyle),
+      navigationRailStyle:
+          navigationRailStyleFallback.merge(navigationRailStyle),
     );
   }
 
@@ -423,6 +435,8 @@ class ZeroThemeData with Diagnosticable {
       cardStyle: ZeroCardStyle.lerp(a.cardStyle, b.cardStyle, t),
       buttonIconStyle:
           ZeroButtonIconStyleSet.lerp(a.buttonIconStyle, b.buttonIconStyle, t),
+      navigationRailStyle: ZeroNavigationRailStyle.lerp(
+          a.navigationRailStyle, b.navigationRailStyle, t),
     );
   }
 
@@ -462,6 +476,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroAppBarStyle? appBarStyle,
     ZeroCardStyle? cardStyle,
     ZeroButtonIconStyleSet? buttonIconStyle,
+    ZeroNavigationRailStyle? navigationRailStyle,
   }) {
     return ZeroThemeData.raw(
       brightness: brightness ?? this.brightness,
@@ -514,6 +529,7 @@ class ZeroThemeData with Diagnosticable {
       appBarStyle: appBarStyle ?? this.appBarStyle,
       cardStyle: cardStyle ?? this.cardStyle,
       buttonIconStyle: buttonIconStyle ?? this.buttonIconStyle,
+      navigationRailStyle: navigationRailStyle ?? this.navigationRailStyle,
     );
   }
 
@@ -543,6 +559,7 @@ class ZeroThemeData with Diagnosticable {
       navigationBarTheme: navigationBarStyle.toNavigationBarTheme(),
       drawerTheme: navigationDrawerStyle.toNavigationDrawerTheme(),
       appBarTheme: appBarStyle.toAppBarTheme(),
+      navigationRailTheme: navigationRailStyle.toNavigationRailTheme(),
     );
   }
 

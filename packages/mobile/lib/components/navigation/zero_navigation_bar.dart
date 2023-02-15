@@ -46,7 +46,7 @@ class ZeroNavigationBar extends StatelessWidget {
   /// When this updated, the destination from [items] at [activeIndex] goes from unselected to selected.
   final int? activeIndex;
 
-  /// Called when one of the [ietms] is selcted
+  /// Called when one of the [items] is selected
   ///
   /// This callback usually upadtes the int passed to [activeIndex]
   final ValueChanged<int>? onTap;

@@ -13,56 +13,99 @@ class ZeroNavigationRail extends StatelessWidget {
     this.style,
   });
 
+  /// The list of [ZeroNavigationRailItem] in this [ZeroNavigationRail]
   final List<ZeroNavigationRailItem> items;
+
+  /// Leading action
+  ///
+  /// This wiget position in the first top of navigation rail
+  ///
+  /// Usually leading is menu button/back button
   final Widget? leading;
+
+  /// Action button for this [ZeroNavigationRail]
+  ///
+  /// Usually [action] is a floating button or [ZeroButtonIcon]
   final Widget? action;
+
+  /// Called when one of the [items] is selected
+  ///
+  /// This callback usually upadtes the int passed to [activeIndex]
   final ValueChanged<int>? onTap;
+
   final ZeroNavigationRailType type;
+
+  /// Determine which one of the [items] is currently selected/active
+  ///
+  /// When this updated, the destination from [items] at [activeIndex] goes from unselected to selected.
+
   final int activeIndex;
   final ZeroNavigationRailStyle? style;
 
   @override
   Widget build(BuildContext context) {
+    final themeStyle = context.theme.navigationRailStyle;
+    final adaptiveStyle = themeStyle.merge(style);
+
     return SizedBox(
-      // TODO: implment dynamic theme
-      width: 72,
+      width: adaptiveStyle.width,
       height: double.infinity,
       child: Material(
-        color: Colors.white,
+        color: adaptiveStyle.backgroundColor,
         elevation: 0,
         child: IconTheme(
           data: const IconThemeData(size: 16),
           child: Column(
             children: [
-              if (leading != null) ...[
-                const SizedBox(height: 24),
-                leading!,
-              ],
-              if (action != null) ...[
-                const SizedBox(height: 24),
-                action!,
-              ],
-              const SizedBox(height: 64),
-              for (int i = 0; i < items.length; i++) ...[
-                Builder(builder: (context) {
-                  final isActive = i == activeIndex;
-                  final item = items[i];
-                  return _Segment(
-                    icon: isActive ? item.activeIcon ?? item.icon : item.icon,
-                    isActive: isActive,
-                    color: context.theme.primaryColor,
-                    indicatorColor: Colors.transparent,
-                    type: type,
-                    label: item.label,
-                    onTap: onTap != null
-                        ? () {
-                            onTap?.call(i);
-                          }
-                        : null,
-                  );
-                }),
-                const SizedBox(height: 16),
-              ],
+              Ink(
+                color: adaptiveStyle.backgroundColor,
+                child: Column(
+                  children: [
+                    if (leading != null) ...[
+                      const SizedBox(height: 24),
+                      leading!,
+                    ],
+                    if (action != null) ...[
+                      const SizedBox(height: 24),
+                      action!,
+                    ],
+                    const SizedBox(height: 32),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: ClipRRect(
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 32),
+                        for (int i = 0; i < items.length; i++) ...[
+                          Builder(builder: (context) {
+                            final isActive = i == activeIndex;
+                            final item = items[i];
+                            return _Segment(
+                              icon: isActive
+                                  ? item.activeIcon ?? item.icon
+                                  : item.icon,
+                              isActive: isActive,
+                              style: adaptiveStyle,
+                              type: type,
+                              label: item.label,
+                              onTap: onTap != null
+                                  ? () {
+                                      onTap?.call(i);
+                                    }
+                                  : null,
+                            );
+                          }),
+                          const SizedBox(height: 16),
+                        ],
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -91,8 +134,7 @@ class _Segment extends StatelessWidget {
     required this.icon,
     required this.isActive,
     this.onTap,
-    this.color,
-    this.indicatorColor,
+    required this.style,
     required this.type,
     this.label,
   });
@@ -100,19 +142,15 @@ class _Segment extends StatelessWidget {
   final Widget icon;
   final bool isActive;
   final VoidCallback? onTap;
-  final Color? color;
-  final Color? indicatorColor;
+  final ZeroNavigationRailStyle style;
   final ZeroNavigationRailType type;
   final Widget? label;
 
   @override
   Widget build(BuildContext context) {
-    // TODO: @wisnu change to dynamic border radius
-    final borderRadius = BorderRadius.circular(8);
-
-    // TODO: from dynamic style
-    final defaultStyle =
-        context.theme.typography.caption ?? const TextStyle(fontSize: 10);
+    final defaultStyle = style.labelStyle ??
+        context.theme.typography.caption ??
+        const TextStyle(fontSize: 10);
 
     final isActiveLabel = type == ZeroNavigationRailType.iconLabel ||
         (type == ZeroNavigationRailType.iconLabelOnActive && isActive);
@@ -124,21 +162,32 @@ class _Segment extends StatelessWidget {
         children: [
           InkWell(
             onTap: onTap,
-            borderRadius: borderRadius,
-            child: Ink(
-              decoration: BoxDecoration(
-                color: isActive ? color : null,
-                borderRadius: borderRadius,
+            borderRadius: style.indicatorBorderRadius,
+            child: Material(
+              color: isActive ? style.indicatorColor : Colors.transparent,
+              shape: RoundedRectangleBorder(
+                borderRadius: style.indicatorBorderRadius ?? BorderRadius.zero,
               ),
-              // TODO: @wisnu
-              padding: const EdgeInsets.all(12),
-              child: icon,
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: IconTheme(
+                  data: IconThemeData(
+                    size: 16,
+                    color: isActive ? style.activeColor : style.inactiveColor,
+                  ),
+                  child: icon,
+                ),
+              ),
             ),
           ),
           const SizedBox(height: 4),
           DefaultTextStyle(
-            style: defaultStyle,
-            child: isActiveLabel ? label ?? const SizedBox() : const SizedBox(),
+            style: defaultStyle.copyWith(
+              color: style.inactiveColor,
+            ),
+            child: isActiveLabel
+                ? label ?? SizedBox(height: defaultStyle.fontSize)
+                : SizedBox(height: defaultStyle.fontSize),
           ),
         ],
       ),

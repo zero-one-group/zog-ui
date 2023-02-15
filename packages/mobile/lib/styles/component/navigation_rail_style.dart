@@ -3,32 +3,55 @@ import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 class ZeroNavigationRailStyle with Diagnosticable {
-  /// Divider color
-  final Color? color;
+  /// A background color of navigation rail
+  final Color? backgroundColor;
 
-  /// Height/width of divider or thickness
-  final double? size;
+  /// Width of navigation rail
+  final double? width;
 
-  /// Padding start
-  final double? startInset;
+  /// Indicator Color when active
+  final Color? indicatorColor;
 
-  /// Padding end
-  final double? endInset;
+  /// Color of icon when active
+  final Color? activeColor;
+
+  /// Color of icon and label when inactive
+  final Color? inactiveColor;
+
+  /// Text style of label segment NavigationRail
+  ///
+  /// By default [labelStyle] is Typography.caption
+  final TextStyle? labelStyle;
+
+  /// BorderRadius indicator when active
+  final BorderRadius? indicatorBorderRadius;
 
   const ZeroNavigationRailStyle({
-    this.color,
-    this.size,
-    this.startInset,
-    this.endInset,
+    this.backgroundColor,
+    this.width,
+    this.indicatorColor,
+    this.activeColor,
+    this.inactiveColor,
+    this.labelStyle,
+    this.indicatorBorderRadius,
   });
 
   /// A default value style of [ZeroNavigationRailStyle]
-  static ZeroNavigationRailStyle fallback({Color? color}) =>
+  static ZeroNavigationRailStyle fallback({
+    Color? backgrondColor,
+    Color? activeColor,
+    Color? inactiveColor,
+    Color? indicatorColor,
+    TextStyle? labelStyle,
+  }) =>
       ZeroNavigationRailStyle(
-        color: color ?? ZeroColors.neutral[7],
-        size: 1,
-        startInset: 16,
-        endInset: 16,
+        backgroundColor: backgrondColor ?? Colors.white,
+        width: 72,
+        activeColor: activeColor ?? Colors.white,
+        inactiveColor: inactiveColor ?? ZeroColors.neutral[12],
+        indicatorColor: indicatorColor,
+        labelStyle: labelStyle,
+        indicatorBorderRadius: BorderRadius.circular(8),
       );
 
   /// If the caller passes in a value for a parameter, use that value, otherwise use the value from this
@@ -37,16 +60,23 @@ class ZeroNavigationRailStyle with Diagnosticable {
   ///   A new instance of ZeroNavigationRailStyle with the same properties as the original instance, except for
   /// the properties that are explicitly overridden.
   ZeroNavigationRailStyle copyWith({
-    Color? color,
-    double? size,
-    double? startInset,
-    double? endInset,
+    Color? backgroundColor,
+    double? width,
+    Color? indicatorColor,
+    Color? activeColor,
+    Color? inactiveColor,
+    TextStyle? labelStyle,
+    BorderRadius? indicatorBorderRadius,
   }) {
     return ZeroNavigationRailStyle(
-      color: color ?? this.color,
-      size: size ?? this.size,
-      startInset: startInset ?? this.startInset,
-      endInset: endInset ?? this.endInset,
+      backgroundColor: backgroundColor ?? backgroundColor,
+      width: width ?? this.width,
+      inactiveColor: inactiveColor ?? this.inactiveColor,
+      activeColor: activeColor ?? this.activeColor,
+      indicatorColor: indicatorColor ?? this.indicatorColor,
+      labelStyle: labelStyle ?? this.labelStyle,
+      indicatorBorderRadius:
+          indicatorBorderRadius ?? this.indicatorBorderRadius,
     );
   }
 
@@ -54,30 +84,38 @@ class ZeroNavigationRailStyle with Diagnosticable {
     if (other == null) return this;
 
     return copyWith(
-      color: other.color,
-      size: other.size,
-      startInset: other.startInset,
-      endInset: other.endInset,
+      backgroundColor: other.backgroundColor,
+      width: other.width,
+      activeColor: other.activeColor,
+      inactiveColor: other.inactiveColor,
+      indicatorColor: other.indicatorColor,
+      labelStyle: other.labelStyle,
+      indicatorBorderRadius: other.indicatorBorderRadius,
     );
   }
 
   static ZeroNavigationRailStyle lerp(
       ZeroNavigationRailStyle? a, ZeroNavigationRailStyle? b, double t) {
     return ZeroNavigationRailStyle(
-      color: Color.lerp(a?.color, b?.color, t),
-      size: t < 0.5 ? a?.size : b?.size,
-      startInset: t < 0.5 ? a?.startInset : b?.startInset,
-      endInset: t < 0.5 ? a?.endInset : b?.endInset,
+      backgroundColor: Color.lerp(a?.backgroundColor, b?.backgroundColor, t),
+      activeColor: Color.lerp(a?.activeColor, b?.activeColor, t),
+      inactiveColor: Color.lerp(a?.inactiveColor, b?.inactiveColor, t),
+      indicatorColor: Color.lerp(a?.indicatorColor, b?.indicatorColor, t),
+      width: t < 0.5 ? a?.width : b?.width,
+      labelStyle: TextStyle.lerp(a?.labelStyle, b?.labelStyle, t),
+      indicatorBorderRadius: BorderRadius.lerp(
+          a?.indicatorBorderRadius, b?.indicatorBorderRadius, t),
     );
   }
 
-  /// Convert [ZeroNavigationRailStyle] to theme data divider material [DividerThemeData]
-  DividerThemeData toDividerTheme() => DividerThemeData(
-        color: color,
-        thickness: size,
-        endIndent: endInset,
-        space: size,
-        indent: startInset,
+  /// Convert [ZeroNavigationRailStyle] to theme data navigation rail material [NavigationRailThemeData]
+  NavigationRailThemeData toNavigationRailTheme() => NavigationRailThemeData(
+        backgroundColor: backgroundColor,
+        labelType: NavigationRailLabelType.all,
+        elevation: 0,
+        minWidth: width,
+        useIndicator: true,
+        indicatorColor: indicatorColor,
       );
 
   @override
@@ -85,9 +123,10 @@ class ZeroNavigationRailStyle with Diagnosticable {
     super.debugFillProperties(properties);
 
     properties
-      ..add(ColorProperty('color', color))
-      ..add(DoubleProperty('size', size))
-      ..add(DoubleProperty('startInset', startInset))
-      ..add(DoubleProperty('endInset', endInset));
+      ..add(ColorProperty('backgroundColor', backgroundColor))
+      ..add(ColorProperty('activeColor', activeColor))
+      ..add(ColorProperty('inactiveColor', inactiveColor))
+      ..add(ColorProperty('indicatorColor', indicatorColor))
+      ..add(DoubleProperty('width', width));
   }
 }

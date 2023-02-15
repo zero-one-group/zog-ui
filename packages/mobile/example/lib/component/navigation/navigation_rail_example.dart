@@ -21,50 +21,28 @@ class _ZeroNavigationRailExampleState extends State<ZeroNavigationRailExample> {
       body: Row(
         children: [
           ZeroNavigationRail(
-            items: const [
-              ZeroNavigationRailItem(
-                icon: Icon(ZeroIcons.home),
-                activeIcon: Icon(
-                  ZeroIcons.homeFilled,
-                  color: Colors.white,
-                ),
-                label: Text('Home'),
-              ),
-              ZeroNavigationRailItem(
-                icon: Icon(ZeroIcons.home),
-                activeIcon: Icon(
-                  ZeroIcons.homeFilled,
-                  color: Colors.white,
-                ),
-                label: Text('Home'),
-              ),
-              ZeroNavigationRailItem(
-                icon: Icon(ZeroIcons.home),
-                activeIcon: Icon(
-                  ZeroIcons.homeFilled,
-                  color: Colors.white,
-                ),
-                label: Text('Home'),
-              ),
-              ZeroNavigationRailItem(
-                icon: Icon(ZeroIcons.home),
-                activeIcon: Icon(
-                  ZeroIcons.homeFilled,
-                  color: Colors.white,
-                ),
-                label: Text('Home'),
-              ),
-            ],
+            items: List<ZeroNavigationRailItem>.generate(
+                15,
+                (index) => const ZeroNavigationRailItem(
+                      icon: Icon(ZeroIcons.home),
+                      activeIcon: Icon(
+                        ZeroIcons.homeFilled,
+                        color: Colors.white,
+                      ),
+                      label: Text('Home'),
+                    )),
             type: ZeroNavigationRailType.iconLabelOnActive,
             activeIndex: selectedIndex,
             leading: IconButton(
               onPressed: () {},
               icon: const Icon(ZeroIcons.menu),
             ),
-            // action: ZeroButtonIcon.primary(
-            //   icon: const Icon(ZeroIcons.search),
-            //   onPressed: () {},
-            // ),
+            action: ZeroButtonIcon.primary(
+              icon: const Icon(ZeroIcons.search),
+              onPressed: () {},
+              borderRadiusType: ZeroButtonRadiusType.curved,
+              size: ZeroButtonSize.large,
+            ),
             onTap: (index) {
               setState(() {
                 selectedIndex = index;
