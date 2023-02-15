@@ -112,6 +112,10 @@ export './components/alert_dialog/zero_alert_dialog.dart';
 // card
 export './components/card/zero_card.dart';
 
+// stepper
+export './components/stepper/zero_stepper.dart';
+export './components/stepper/zero_step.dart';
+
 // types
 export './types/button_radius_type.dart';
 export './types/button_group_type.dart';
@@ -128,6 +132,7 @@ export './types/card_variant.dart';
 export './position/tooltip_position.dart';
 export './position/badge_potision.dart';
 export './position/snackbar_position.dart';
+export './position/step_subtitle_position.dart';
 
 // model
 export './model/zero_range_values.dart';

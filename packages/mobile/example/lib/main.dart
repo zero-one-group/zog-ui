@@ -18,6 +18,7 @@ import 'component/progress_indicator/zero_progress_indicator_example.dart';
 import 'component/rating/zero_rating_example.dart';
 import 'component/slider/zero_slider_example.dart';
 import 'component/snackbar/zero_snackbar_example.dart';
+import 'component/stepper/zero_stepper_example.dart';
 import 'component/switch/zero_switch_example.dart';
 import 'component/textfield/zero_textfield_example.dart';
 import 'component/timepicker/zero_timepicker_example.dart';
@@ -310,6 +311,16 @@ class Examples extends StatelessWidget {
             );
           },
           text: 'Zero Card Example',
+        ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroStepperExample(),
+              ),
+            );
+          },
+          text: 'Zero Stepper Example',
         ),
         const SizedBox(
           height: 100,
