@@ -18,6 +18,7 @@ export './styles/component/app_bar_style.dart';
 export './styles/component/card_style.dart';
 export './styles/component/navigation_rail_style.dart';
 export './styles/component/button_icon_style.dart';
+export './styles/component/switch_style.dart';
 
 // assets
 export './assets/assets.dart';

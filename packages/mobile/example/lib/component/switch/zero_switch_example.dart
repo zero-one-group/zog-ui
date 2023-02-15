@@ -10,6 +10,7 @@ class ZeroSwitchExample extends StatefulWidget {
 
 class _ZeroSwitchExampleState extends State<ZeroSwitchExample> {
   bool value = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,87 +20,42 @@ class _ZeroSwitchExampleState extends State<ZeroSwitchExample> {
       body: SafeArea(
         child: Center(
           child: Column(
-            children: const [
-              _ZeroSwitchExample(),
-              _ZeroSwitchAndroidExample(),
-              _ZeroSwitchIOSExample(),
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ZeroSwitch(
+                onChanged: (val) {
+                  setState(() {
+                    value = val;
+                  });
+                },
+                value: value,
+                isDisabled: false,
+                activeIcon: const Icon(Icons.sunny),
+                inactiveIcon: const Icon(Icons.nightlight_round),
+              ),
+              ZeroSwitchAndroid(
+                value: value,
+                onChanged: (val) {
+                  setState(() {
+                    value = val;
+                  });
+                },
+                isDisabled: false,
+                activeIcon: const Icon(Icons.check),
+                inactiveIcon: const Icon(Icons.close),
+              ),
+              ZeroSwitchIOS(
+                onChanged: (val) {
+                  setState(() {
+                    value = val;
+                  });
+                },
+                value: value,
+              ),
             ],
           ),
         ),
       ),
-    );
-  }
-}
-
-class _ZeroSwitchExample extends StatefulWidget {
-  const _ZeroSwitchExample();
-
-  @override
-  State<_ZeroSwitchExample> createState() => __ZeroSwitchExampleState();
-}
-
-class __ZeroSwitchExampleState extends State<_ZeroSwitchExample> {
-  bool value = false;
-  @override
-  Widget build(BuildContext context) {
-    return ZeroSwitch(
-      onChanged: (newValue) {
-        setState(() {
-          value = newValue;
-        });
-      },
-      isDisabled: false,
-      value: value,
-      activeIcon: const Icon(Icons.sunny),
-      inactiveIcon: const Icon(Icons.nightlight_round),
-    );
-  }
-}
-
-class _ZeroSwitchAndroidExample extends StatefulWidget {
-  const _ZeroSwitchAndroidExample();
-
-  @override
-  State<_ZeroSwitchAndroidExample> createState() => __ZeroSwitchAndroidExampleState();
-}
-
-class __ZeroSwitchAndroidExampleState extends State<_ZeroSwitchAndroidExample> {
-  bool value = false;
-  @override
-  Widget build(BuildContext context) {
-    return ZeroSwitchAndroid(
-      onChanged: (newValue) {
-        setState(() {
-          value = newValue;
-        });
-      },
-      isDisabled: false,
-      value: value,
-      activeIcon: const Icon(Icons.check),
-      inactiveIcon: const Icon(Icons.close),
-    );
-  }
-}
-
-class _ZeroSwitchIOSExample extends StatefulWidget {
-  const _ZeroSwitchIOSExample();
-
-  @override
-  State<_ZeroSwitchIOSExample> createState() => __ZeroSwitchIOSExampleState();
-}
-
-class __ZeroSwitchIOSExampleState extends State<_ZeroSwitchIOSExample> {
-  bool value = false;
-  @override
-  Widget build(BuildContext context) {
-    return ZeroSwitchIOS(
-      onChanged: (newValue) {
-        setState(() {
-          value = newValue;
-        });
-      },
-      isDisabled: false,
-      value: value,
     );
   }
 }

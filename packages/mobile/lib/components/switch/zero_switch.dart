@@ -1,34 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
+const double _kThumbSize = 22;
+final _kBorderRadius = BorderRadius.circular(20);
+
 /// basic switch widget component with two states [true] and [false]
 /// there are properties to customize the icon and colors of the switch
-/// [activeIcon] and [inactiveIcon] are used to customize the icon of the switch
-/// [activeColor] and [inactiveColor] are used to customize the background color of the switch
-/// [activeThumbColor] and [inactiveThumbColor] are used to customize the thumb color of the switch
-
 class ZeroSwitch extends StatelessWidget {
-  /// background color of the switch when it is [true]
-  /// default value is from [context.theme.primaryColor.light]
-  final Color? activeColor;
-
-  /// background color of the switch when it is [false]
-  /// default value is [ZeroColors.neutral]
-  final Color? inactiveColor;
-
-  /// thumb color of the switch when it is [true]
-  /// default value is from [context.theme.primaryColor]
-  final Color? activeThumbColor;
-
-  /// thumb color of the switch when it is [false]
-  /// default value is [ZeroColors.neutral]
-  final Color? inactiveThumbColor;
+  /// Allow to custom style, by preferences
+  ///
+  /// This style will override global theme
+  final ZeroSwitchStyle? style;
 
   /// callback function when the switch is tapped
-  /// it returns the current state of the switch which is [true] or [false] as a parameter
-  /// is required
-  final Function(bool) onChanged;
+  final ValueChanged<bool> onChanged;
 
+  /// initial state of the switch when it is created
   final bool value;
 
   /// disable the switch
@@ -40,131 +27,175 @@ class ZeroSwitch extends StatelessWidget {
   /// custom icon of the switch when it is [false]
   final Icon? inactiveIcon;
 
-  ZeroSwitch({
+  const ZeroSwitch({
     super.key,
-    this.activeColor,
-    this.inactiveColor,
-    this.activeThumbColor,
-    this.inactiveThumbColor,
+    this.style,
     required this.onChanged,
-    required this.value,
+    this.value = false,
     this.isDisabled = false,
     this.activeIcon,
     this.inactiveIcon,
   });
-
-  final double _thumbSize = 22;
-  final _borderRadius = BorderRadius.circular(20);
-
   @override
   Widget build(BuildContext context) {
-    final ZeroThemeData theme = context.theme;
+    final theme = context.theme;
+    final themeStyle = theme.switchStyle.basic;
+    final adaptiveStyle = themeStyle.merge(style);
+
     return InkWell(
-      overlayColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+      overlayColor: MaterialStateProperty.resolveWith<Color?>(
+          (Set<MaterialState> states) {
         return Colors.transparent;
       }),
-      onTap: () {
-        if (isDisabled) return;
-        onChanged(!value);
-      },
+      onTap: isDisabled
+          ? null
+          : () {
+              onChanged(!value);
+            },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Stack(
           alignment: Alignment.centerLeft,
           clipBehavior: Clip.none,
           children: [
-            _inactiveLine(theme),
-            _activeLine(theme),
-            _thumb(theme),
+            _InactiveLine(
+              style: adaptiveStyle,
+              isDisabled: isDisabled,
+              isActive: value,
+            ),
+            _ActiveLine(
+              style: adaptiveStyle,
+              isActive: value,
+              isDisabled: isDisabled,
+            ),
+            _Thumb(
+              isActive: value,
+              isDisabled: isDisabled,
+              style: adaptiveStyle,
+              activeIcon: activeIcon,
+              inactiveIcon: inactiveIcon,
+            ),
           ],
         ),
       ),
     );
   }
+}
 
-  // inactive line
-  Widget _inactiveLine(ZeroThemeData theme) {
-    Color inactiveLineColor;
-    if (isDisabled) {
-      inactiveLineColor = theme.disabledBackgroundColor;
-    } else {
-      inactiveLineColor = inactiveColor ?? ZeroColors.neutral[7];
-    }
+class _InactiveLine extends StatelessWidget {
+  const _InactiveLine({
+    required this.style,
+    required this.isDisabled,
+    required this.isActive,
+  });
+
+  final ZeroSwitchStyle style;
+  final bool isDisabled;
+  final bool isActive;
+
+  @override
+  Widget build(BuildContext context) {
+    final switchStyleSet = context.theme.switchStyle;
+    final size = style.thumbSize ?? _kThumbSize;
+    final color = isDisabled
+        ? switchStyleSet.disabledColor
+        : isActive
+            ? style.activeColor
+            : style.inactiveColor;
+
     return Container(
-      width: _thumbSize * 1.5,
-      height: _thumbSize / 1.5,
+      width: size * 1.5,
+      height: size / 1.5,
       decoration: BoxDecoration(
-        borderRadius: _borderRadius,
-        color: inactiveLineColor,
+        borderRadius: _kBorderRadius,
+        color: color,
       ),
     );
   }
+}
 
-  // active line
-  Widget _activeLine(ZeroThemeData theme) {
-    Color activeLineColor;
-    if (isDisabled) {
-      activeLineColor = theme.disabledBackgroundColor;
-    } else {
-      activeLineColor = activeColor ?? theme.primaryColor.light;
-    }
+class _ActiveLine extends StatelessWidget {
+  const _ActiveLine({
+    required this.style,
+    required this.isDisabled,
+    required this.isActive,
+  });
+  final ZeroSwitchStyle style;
+  final bool isDisabled;
+  final bool isActive;
+
+  @override
+  Widget build(BuildContext context) {
+    final switchStyleSet = context.theme.switchStyle;
+    final color = isDisabled
+        ? switchStyleSet.disabledColor
+        : isActive
+            ? style.activeColor
+            : style.inactiveColor;
+    final size = style.thumbSize ?? _kThumbSize;
+
     return AnimatedContainer(
       alignment: Alignment.centerLeft,
       duration: const Duration(milliseconds: 200),
       curve: Curves.easeInOut,
-      width: value ? _thumbSize * 1.5 : _thumbSize / 1.5,
-      height: _thumbSize / 1.5,
+      width: isActive ? size * 1.5 : size / 1.5,
+      height: size / 1.5,
       decoration: BoxDecoration(
-        borderRadius: _borderRadius,
-        color: activeLineColor,
+        borderRadius: _kBorderRadius,
+        color: color,
       ),
     );
   }
+}
 
-  // thumb
-  Widget _thumb(ZeroThemeData theme) {
-    Color thumbColor;
-    Icon? icon;
-    if (value) {
-      thumbColor = activeThumbColor ?? theme.primaryColor;
-      icon = activeIcon != null
-          ? Icon(
-              activeIcon?.icon,
-              color: activeIcon?.color ?? ZeroColors.neutral[10],
-              size: activeIcon?.size ?? 15,
-            )
-          : null;
-      if (isDisabled) thumbColor = theme.disabledColor;
-    } else {
-      thumbColor = inactiveThumbColor ?? ZeroColors.neutral[1];
-      icon = inactiveIcon != null
-          ? Icon(
-              inactiveIcon?.icon,
-              color: inactiveIcon?.color ?? ZeroColors.neutral[10],
-              size: inactiveIcon?.size ?? 15,
-            )
-          : null;
-      if (isDisabled) thumbColor = theme.disabledColor;
-    }
-    return AnimatedPositioned(
-      duration: const Duration(milliseconds: 200),
-      curve: Curves.easeInOut,
-      left: !value ? 0 - _thumbSize / 3 : _thumbSize / 1.25,
-      child: Material(
-        shape: RoundedRectangleBorder(
-          borderRadius: _borderRadius,
-        ),
-        elevation: 2,
-        child: Container(
-          width: _thumbSize,
-          height: _thumbSize,
-          decoration: BoxDecoration(
-            borderRadius: _borderRadius,
-            color: thumbColor,
+class _Thumb extends StatelessWidget {
+  const _Thumb({
+    required this.style,
+    required this.isActive,
+    required this.isDisabled,
+    this.activeIcon,
+    this.inactiveIcon,
+  });
+
+  final ZeroSwitchStyle style;
+  final bool isActive;
+  final bool isDisabled;
+  final Icon? activeIcon;
+  final Icon? inactiveIcon;
+
+  @override
+  Widget build(BuildContext context) {
+    final enableColor =
+        isActive ? style.activeThumbColor : style.inactiveThumbColor;
+    const disableColor = Colors.white;
+    final color = isDisabled ? disableColor : enableColor;
+    final size = style.thumbSize ?? _kThumbSize;
+
+    return IconTheme(
+      data: IconThemeData(
+        color: ZeroColors.neutral[10],
+        size: 15,
+      ),
+      child: AnimatedPositioned(
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeInOut,
+        left: !isActive ? 0 - size / 3 : size / 1.25,
+        child: Material(
+          shape: RoundedRectangleBorder(
+            borderRadius: _kBorderRadius,
           ),
+          elevation: 2,
           child: Container(
-            alignment: Alignment.center,
-            child: icon,
+            width: size,
+            height: size,
+            decoration: BoxDecoration(
+              borderRadius: _kBorderRadius,
+              color: color,
+            ),
+            child: Container(
+              alignment: Alignment.center,
+              child: isActive ? activeIcon : inactiveIcon,
+            ),
           ),
         ),
       ),
