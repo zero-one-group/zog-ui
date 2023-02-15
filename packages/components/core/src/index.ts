@@ -5,6 +5,7 @@ export * from './Box';
 export * from './Breadcrumb';
 export * from './Button';
 export * from './Card';
+export * from './Carousel';
 export * from './Cascader';
 export * from './Checkbox';
 export * from './ControlGroup';
