@@ -94,12 +94,15 @@ export const dataObject = [
       footer: <div>Footer</div>,
       dataSource: dataObject,
       renderItem: (item, index) => (
-        <List.Item>
-          <List.ItemMeta
-            avatar={<Avatar size={4} src="https://i.pravatar.cc/300?img=68" />}
-            title={item.title}
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-          />
+        <List.Item
+          meta={{
+            avatar: <Avatar size={4} src="https://i.pravatar.cc/300?img=68" />,
+            title: item.title,
+            description:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          }}
+          actions={[<a key="list-edit">edit</a>, <a key="list-more">more</a>]}
+        >
           {item.content}
         </List.Item>
       ),

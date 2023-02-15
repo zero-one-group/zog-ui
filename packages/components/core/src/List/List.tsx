@@ -1,4 +1,4 @@
-import { ComponentProps, Fragment } from 'react';
+import { ComponentProps, Fragment, useMemo } from 'react';
 import { styled } from '../stitches.config';
 
 const getColorSchemeVariants = (colorScheme?: string) => {
@@ -95,50 +95,75 @@ const StyledItemDescription = styled('div', {
   color: '$gray9',
 });
 
+const StyledItemActions = styled('ul', {
+  display: 'flex',
+  justifyContent: 'center',
+  marginInlineStart: '48px',
+  listStyle: 'none',
+});
+
+const StyledItemAction = styled('li', {
+  flex: 1,
+  paddingInline: '$2',
+  cursor: 'pointer',
+  textAlign: 'center',
+  color: '$$colorPrimaryList',
+  '&:not(:last-child)': {
+    borderInlineEnd: '1px solid #f0f0f0',
+  },
+});
+
 const StyledHeader = styled(StyledItemBase, {
   borderBlockEnd: '1px solid $grayA6',
 });
 
 const StyledFooter = styled(StyledItemBase, {});
 
-export type ListItemProps = {
-  children?: React.ReactNode;
-  actions?: React.ReactNode[];
-};
-
-const ListItem = ({ children, ...props }: ListItemProps) => {
-  return (
-    <StyledItemList role="listitem" className="list-item" {...props}>
-      {children}
-    </StyledItemList>
-  );
-};
-
 export type ListItemMetaProps = {
-  children?: React.ReactNode;
   avatar?: React.ReactNode;
   title?: React.ReactNode;
   description?: React.ReactNode;
 };
 
-const ListItemMeta = ({
-  children,
-  avatar,
-  title,
-  description,
-  ...props
-}: ListItemMetaProps) => {
-  return (
-    <StyledItemListMeta {...props}>
-      {avatar ? <StyledItemAvatar> {avatar}</StyledItemAvatar> : null}
-      <StyledItemContent>
-        {title ? <StyledItemTitle>{title}</StyledItemTitle> : null}
-        {description ? (
-          <StyledItemDescription>{description}</StyledItemDescription>
+export type ListItemProps = {
+  children?: React.ReactNode;
+  actions?: React.ReactNode[];
+  meta: ListItemMetaProps;
+};
+
+const ListItem = ({ children, meta, actions, ...props }: ListItemProps) => {
+  const metaContents = useMemo(() => {
+    return meta ? (
+      <StyledItemListMeta>
+        {meta.avatar ? (
+          <StyledItemAvatar> {meta.avatar}</StyledItemAvatar>
         ) : null}
-      </StyledItemContent>
+        <StyledItemContent>
+          {meta.title ? <StyledItemTitle>{meta.title}</StyledItemTitle> : null}
+          {meta.description ? (
+            <StyledItemDescription>{meta.description}</StyledItemDescription>
+          ) : null}
+        </StyledItemContent>
+      </StyledItemListMeta>
+    ) : null;
+  }, [meta]);
+
+  const actionContents = useMemo(() => {
+    return actions && actions.length > 0 ? (
+      <StyledItemActions>
+        {actions.map((action) => (
+          <StyledItemAction>{action}</StyledItemAction>
+        ))}
+      </StyledItemActions>
+    ) : null;
+  }, [actions]);
+
+  return (
+    <StyledItemList role="listitem" className="list-item" {...props}>
+      {metaContents}
       {children}
-    </StyledItemListMeta>
+      {actionContents}
+    </StyledItemList>
   );
 };
 
@@ -204,6 +229,5 @@ export function List<T>({
 }
 
 List.Item = ListItem;
-List.ItemMeta = ListItemMeta;
 
 export default List;
