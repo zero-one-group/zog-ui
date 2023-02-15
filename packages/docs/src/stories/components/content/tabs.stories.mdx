@@ -2,24 +2,71 @@ import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
 import { BADGE } from '@geometricpanda/storybook-addon-badges';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { Tabs } from '@zero-ui/core';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@zero-ui/core';
+import { AndroidOutlined } from '@ant-design/icons';
 
-<Meta title="Components/Content/Tabs" component={[Tabs]} argTypes={{}} />
+<Meta
+  title="Components/Content/Tabs"
+  component={[Tabs]}
+  argTypes={{
+    orientation: {
+      options: ['vertical', 'horizontal'],
+      control: { type: 'radio' },
+    },
+    position: {
+      options: ['left', 'right', 'center', 'apart'],
+      control: { type: 'radio' },
+    },
+    type: {
+      options: ['card'],
+      control: { type: 'text' },
+    },
+  }}
+/>
 
-export const TabsStory = () => <Tabs />;
+export const TabsStory = (args) => (
+  <Tabs {...args}>
+    <TabsList {...args}>
+      {Array.from(Array(args.countItem).keys()).map((item) => {
+        return (
+          <TabsTrigger {...args} value={`tab${item}`}>
+            Tab {item}
+          </TabsTrigger>
+        );
+      })}
+    </TabsList>
+    {Array.from(Array(100).keys()).map((item) => {
+      return (
+        <TabsContent className="TabsPrimitiveContent" value={`tab${item}`}>
+          <p>content tab {item}</p>
+        </TabsContent>
+      );
+    })}
+  </Tabs>
+);
 
 # Tabs
 
-> WIP
+> component tabs is component that allows users to switch between different sections or views of content within a single window or page
 
 ## Example Usage
 
-```jsx
-import { Tabs } from '@zero-ui/core';
+```tsx
+import { Tabs, TabsList, TabsTrigger } from '@zero-ui/core';
 ```
 
 <Canvas columns={2} withSource="close">
-  <Story name="Tabs">{TabsStory.bind()}</Story>
+  <Story
+    args={{
+      orientation: 'vertical',
+      defaultValue: 'tab0',
+      position: 'left',
+      countItem: 10,
+    }}
+    name="Tabs"
+  >
+    {TabsStory.bind()}
+  </Story>
 </Canvas>
 
-<ArgsTable of={Tabs} />
+<ArgsTable of={TabsList} />
