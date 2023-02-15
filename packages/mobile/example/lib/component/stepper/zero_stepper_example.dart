@@ -45,20 +45,20 @@ class _ZeroStepperExampleState extends State<ZeroStepperExample> {
         steps: [
           ZeroStep(
             isActive: currentStep == 0,
-            title: Text('Step 1'),
-            subtitle: Text('Subtitle 1'),
-            content: Text('Step 1'),
+            title: const Text('Step 1'),
+            subtitle: const Text('Subtitle 1'),
+            content: const Text('Step 1'),
             subtitlePosition: ZeroStepSubtitlePosition.top,
           ),
           ZeroStep(
             isActive: currentStep == 1,
-            title: Text('Step 2'),
-            content: Text('Step 2'),
+            title: const Text('Step 2'),
+            content: const Text('Step 2'),
           ),
           ZeroStep(
             isActive: currentStep == 2,
-            title: Text('Step 3'),
-            content: Text('Step 3'),
+            title: const Text('Step 3'),
+            content: const Text('Step 3'),
           ),
         ],
       ),
