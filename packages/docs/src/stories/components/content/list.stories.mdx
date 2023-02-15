@@ -1,0 +1,146 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { BADGE } from '@geometricpanda/storybook-addon-badges';
+import { within, userEvent } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
+import { List, Avatar } from '@zero-ui/core';
+
+<Meta
+  title="Components/Content/List"
+  component={[List]}
+  argTypes={{
+    size: {
+      control: 'radio',
+      options: ['sm', 'md', 'lg'],
+    },
+  }}
+/>
+
+export const ListStory = (args) => <List {...args} />;
+
+# List
+
+Display content related to a single subject. Can consist of multiple elements of varying type and size.
+
+## Example Usage
+
+```jsx
+import { List } from '@zero-ui/core';
+```
+
+export const data = [
+  'Racing car sprays burning fuel into crowd.',
+  'Japanese princess to wed commoner.',
+  'Australian walks 100km after outback crash.',
+  'Man charged over missing wedding girl.',
+  'Los Angeles battles huge wildfires.',
+];
+
+export const createDataObject = (length) =>
+  [...Array.from(Array(length).keys())].map((value) => ({
+    title: `Title ${value + 1}`,
+    content: 'Content',
+  }));
+
+export const dataObject = createDataObject(5);
+
+export const dataObjectLong = createDataObject(20);
+
+<Canvas columns={2} withSource="close">
+  <Story
+    name="Simple List"
+    args={{
+      bordered: true,
+      header: <div>Header</div>,
+      footer: <div>Footer</div>,
+      dataSource: data,
+      size: 'md',
+      renderItem: (item, index) => (
+        <List.Item>
+          <div>[ITEM] {item}</div>
+        </List.Item>
+      ),
+    }}
+  >
+    {ListStory.bind()}
+  </Story>
+  <Story
+    name="Simple List without Header & Footer"
+    args={{
+      bordered: true,
+      dataSource: data,
+      renderItem: (item, index) => (
+        <List.Item>
+          <div>[ITEM] {item}</div>
+        </List.Item>
+      ),
+    }}
+  >
+    {ListStory.bind()}
+  </Story>
+  <Story
+    name="Basic List"
+    args={{
+      bordered: true,
+      header: <div>Header</div>,
+      footer: <div>Footer</div>,
+      dataSource: dataObject,
+      renderItem: (item, index) => (
+        <List.Item
+          meta={{
+            avatar: <Avatar size={4} src="https://i.pravatar.cc/300?img=68" />,
+            title: item.title,
+            description:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          }}
+          actions={[<a key="list-edit">edit</a>, <a key="list-more">more</a>]}
+        >
+          {item.content}
+        </List.Item>
+      ),
+    }}
+  >
+    {ListStory.bind()}
+  </Story>
+  <Story
+    name="Basic List with Pagination"
+    args={{
+      bordered: true,
+      header: <div>Header</div>,
+      footer: <div>Footer</div>,
+      dataSource: dataObjectLong,
+      pagination: {
+        align: 'end',
+      },
+      renderItem: (item, index) => (
+        <List.Item
+          meta={{
+            avatar: <Avatar size={4} src="https://i.pravatar.cc/300?img=68" />,
+            title: item.title,
+            description:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          }}
+          actions={[<a key="list-edit">edit</a>, <a key="list-more">more</a>]}
+        >
+          {item.content}
+        </List.Item>
+      ),
+    }}
+  >
+    {ListStory.bind()}
+  </Story>
+  <Story
+    name="Grid"
+    args={{
+      bordered: true,
+      dataSource: data,
+      grid: {
+        templateColumns: 'auto auto auto',
+      },
+      renderItem: (item, index) => <List.Item>{item}</List.Item>,
+    }}
+  >
+    {ListStory.bind()}
+  </Story>
+</Canvas>
+
+<ArgsTable of={List} />
