@@ -1,4 +1,11 @@
-import { ComponentProps, Fragment, useMemo, useState } from 'react';
+import {
+  ComponentProps,
+  ElementType,
+  Fragment,
+  useMemo,
+  useState,
+} from 'react';
+import { Grid, GridProps } from '../Grid';
 import { Pagination } from '../Pagination';
 import { styled } from '../stitches.config';
 
@@ -26,6 +33,13 @@ const StyledListWrapper = styled('div', {
     hasFooter: {
       false: {
         '& .list-item:last-child': {
+          borderBlockEnd: 'none',
+        },
+      },
+    },
+    showBorder: {
+      false: {
+        '& .list-item': {
           borderBlockEnd: 'none',
         },
       },
@@ -205,6 +219,7 @@ export type ListProps<T> = {
   renderItem?: (item: T, index: number) => React.ReactNode;
   size?: 'sm' | 'md' | 'lg';
   pagination?: ListPaginationProps;
+  grid?: GridProps;
 } & ComponentProps<typeof StyledListWrapper>;
 
 export function List<T>({
@@ -217,6 +232,7 @@ export function List<T>({
   colorScheme,
   css,
   pagination,
+  grid,
   ...props
 }: ListProps<T>) {
   const isPaginating = typeof pagination === 'object';
@@ -246,7 +262,15 @@ export function List<T>({
       const items = splittedDataSource.map((item, index) =>
         renderListItem(item, index)
       );
-      return <StyledListUnordered role="list">{items}</StyledListUnordered>;
+
+      const Component: ElementType = grid ? Grid : StyledListUnordered;
+      const gridProps = grid ? { ...grid } : {};
+
+      return (
+        <Component role="list" {...gridProps}>
+          {items}
+        </Component>
+      );
     }
     return null;
   };
@@ -276,6 +300,7 @@ export function List<T>({
       bordered={bordered}
       size={size}
       hasFooter={footer !== undefined}
+      showBorder={!grid}
       css={{
         ...getColorSchemeVariants(colorScheme),
         ...css,

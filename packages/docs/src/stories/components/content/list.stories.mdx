@@ -128,6 +128,19 @@ export const dataObjectLong = createDataObject(20);
   >
     {ListStory.bind()}
   </Story>
+  <Story
+    name="Grid"
+    args={{
+      bordered: true,
+      dataSource: data,
+      grid: {
+        templateColumns: 'auto auto auto',
+      },
+      renderItem: (item, index) => <List.Item>{item}</List.Item>,
+    }}
+  >
+    {ListStory.bind()}
+  </Story>
 </Canvas>
 
 <ArgsTable of={List} />
