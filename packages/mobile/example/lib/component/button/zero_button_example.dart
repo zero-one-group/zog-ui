@@ -105,17 +105,177 @@ class ZeroButtonExample extends StatelessWidget {
                   onPressed: () {},
                 ),
 
+                const SizedBox(height: 16),
+
                 /// button with icon only
-                ZeroButtonIcon.primary(
-                  icon: const Icon(Icons.search),
-                  onPressed: () {},
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ZeroButtonIcon.primary(
+                      icon: const Icon(Icons.search),
+                      onPressed: () {},
+                      size: ZeroButtonSize.small,
+                    ),
+                    const SizedBox(width: 16),
+                    ZeroButtonIcon.primary(
+                      icon: const Icon(Icons.search),
+                      onPressed: () {},
+                      size: ZeroButtonSize.medium,
+                    ),
+                    const SizedBox(width: 16),
+                    ZeroButtonIcon.primary(
+                      icon: const Icon(Icons.search),
+                      onPressed: () {},
+                      size: ZeroButtonSize.large,
+                    ),
+                  ],
                 ),
-                ZeroButtonIcon.secondary(
-                  icon: const Icon(Icons.search),
-                  onPressed: () {},
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ZeroButtonIcon.primary(
+                      icon: const Icon(Icons.search),
+                      onPressed: () {},
+                      size: ZeroButtonSize.small,
+                      borderRadiusType: ZeroButtonRadiusType.curved,
+                    ),
+                    const SizedBox(width: 16),
+                    ZeroButtonIcon.primary(
+                      icon: const Icon(Icons.search),
+                      onPressed: () {},
+                      size: ZeroButtonSize.medium,
+                      borderRadiusType: ZeroButtonRadiusType.curved,
+                    ),
+                    const SizedBox(width: 16),
+                    ZeroButtonIcon.primary(
+                      icon: const Icon(Icons.search),
+                      onPressed: () {},
+                      size: ZeroButtonSize.large,
+                      borderRadiusType: ZeroButtonRadiusType.curved,
+                    ),
+                  ],
                 ),
-                ZeroButtonIcon.disabled(
-                  icon: const Icon(Icons.search),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ZeroButtonIcon.primary(
+                      icon: const Icon(Icons.search),
+                      onPressed: () {},
+                      size: ZeroButtonSize.small,
+                      borderRadiusType: ZeroButtonRadiusType.rounded,
+                    ),
+                    const SizedBox(width: 16),
+                    ZeroButtonIcon.primary(
+                      icon: const Icon(Icons.search),
+                      onPressed: () {},
+                      size: ZeroButtonSize.medium,
+                      borderRadiusType: ZeroButtonRadiusType.rounded,
+                    ),
+                    const SizedBox(width: 16),
+                    ZeroButtonIcon.primary(
+                      icon: const Icon(Icons.search),
+                      onPressed: () {},
+                      size: ZeroButtonSize.large,
+                      borderRadiusType: ZeroButtonRadiusType.rounded,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ZeroButtonIcon.secondary(
+                      icon: const Icon(Icons.search),
+                      onPressed: () {},
+                      size: ZeroButtonSize.small,
+                    ),
+                    const SizedBox(width: 16),
+                    ZeroButtonIcon.secondary(
+                      icon: const Icon(Icons.search),
+                      onPressed: () {},
+                      size: ZeroButtonSize.medium,
+                    ),
+                    const SizedBox(width: 16),
+                    ZeroButtonIcon.secondary(
+                      icon: const Icon(Icons.search),
+                      onPressed: () {},
+                      size: ZeroButtonSize.large,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ZeroButtonIcon.secondary(
+                      icon: const Icon(Icons.search),
+                      onPressed: () {},
+                      size: ZeroButtonSize.small,
+                      borderRadiusType: ZeroButtonRadiusType.curved,
+                    ),
+                    const SizedBox(width: 16),
+                    ZeroButtonIcon.secondary(
+                      icon: const Icon(Icons.search),
+                      onPressed: () {},
+                      size: ZeroButtonSize.medium,
+                      borderRadiusType: ZeroButtonRadiusType.curved,
+                    ),
+                    const SizedBox(width: 16),
+                    ZeroButtonIcon.secondary(
+                      icon: const Icon(Icons.search),
+                      onPressed: () {},
+                      size: ZeroButtonSize.large,
+                      borderRadiusType: ZeroButtonRadiusType.curved,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ZeroButtonIcon.secondary(
+                      icon: const Icon(Icons.search),
+                      onPressed: () {},
+                      size: ZeroButtonSize.small,
+                      borderRadiusType: ZeroButtonRadiusType.rounded,
+                    ),
+                    const SizedBox(width: 16),
+                    ZeroButtonIcon.secondary(
+                      icon: const Icon(Icons.search),
+                      onPressed: () {},
+                      size: ZeroButtonSize.medium,
+                      borderRadiusType: ZeroButtonRadiusType.rounded,
+                    ),
+                    const SizedBox(width: 16),
+                    ZeroButtonIcon.secondary(
+                      icon: const Icon(Icons.search),
+                      onPressed: () {},
+                      size: ZeroButtonSize.large,
+                      borderRadiusType: ZeroButtonRadiusType.rounded,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    ZeroButtonIcon.disabled(
+                      icon: Icon(Icons.search),
+                      size: ZeroButtonSize.small,
+                    ),
+                    SizedBox(width: 16),
+                    ZeroButtonIcon.disabled(
+                      icon: Icon(Icons.search),
+                      size: ZeroButtonSize.medium,
+                    ),
+                    SizedBox(width: 16),
+                    ZeroButtonIcon.disabled(
+                      icon: Icon(Icons.search),
+                      size: ZeroButtonSize.large,
+                    ),
+                  ],
                 ),
 
                 /// button size type

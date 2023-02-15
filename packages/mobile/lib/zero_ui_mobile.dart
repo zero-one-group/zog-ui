@@ -17,6 +17,7 @@ export './styles/component/navigation_drawer_style.dart';
 export './styles/component/app_bar_style.dart';
 export './styles/component/card_style.dart';
 export './styles/component/navigation_rail_style.dart';
+export './styles/component/button_icon_style.dart';
 
 // assets
 export './assets/assets.dart';
@@ -144,6 +145,7 @@ export './size/text_field_size.dart';
 export './size/size_type.dart';
 export './size/chip_size.dart';
 export './size/app_bar_size.dart';
+export './size/button_size.dart';
 
 // utils
 export './utils/extensions/theme_extensions.dart';
