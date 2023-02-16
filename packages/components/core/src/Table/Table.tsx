@@ -8,6 +8,7 @@ import {
   Header,
   SortDirection,
   SortingState,
+  TableOptions,
   useReactTable,
 } from '@tanstack/react-table';
 import { ComponentProps, useState } from 'react';
@@ -90,6 +91,9 @@ const StyledTable = styled('table', {
         '& th, td': {
           border: '1px solid $gray4',
         },
+        '& thead>tr>th:not(:last-child)::after': {
+          content: 'none',
+        },
       },
     },
   },
@@ -120,11 +124,11 @@ const StyledHeaderColumnSortIcons = styled('div', {
   variants: {
     sort: {
       asc: {
-        '& span:first-of-type': { color: '$blue9' },
+        '& span:first-of-type': { color: '$$bgTable' },
       },
       desc: {
         '& span:last-of-type': {
-          color: '$blue9',
+          color: '$$bgTable',
         },
       },
     },
@@ -138,6 +142,7 @@ export type TableProps<T> = {
   size?: 'sm' | 'md' | 'lg';
   bordered?: boolean;
   enableSorting?: boolean;
+  initialState?: TableOptions<T>['initialState'];
 } & ComponentProps<typeof StyledTableWrapper>;
 
 export function Table<T>({
@@ -147,6 +152,7 @@ export function Table<T>({
   size = 'lg',
   bordered = false,
   enableSorting = false,
+  initialState,
   css,
 }: TableProps<T>) {
   const [data] = useState(() => [...dataSource]);
@@ -162,6 +168,9 @@ export function Table<T>({
     onSortingChange: enableSorting ? setSorting : undefined,
     getSortedRowModel: enableSorting ? getSortedRowModel() : undefined,
     getPaginationRowModel: getPaginationRowModel(),
+    initialState: {
+      ...initialState,
+    },
   });
 
   const renderHeader = (header: Header<T, unknown>) => {
@@ -220,6 +229,7 @@ export function Table<T>({
         </tbody>
       </StyledTable>
       <Pagination
+        colorScheme={colorScheme}
         siblingCount={1}
         pageSize={table.getState().pagination.pageSize}
         totalCount={dataSource.length}

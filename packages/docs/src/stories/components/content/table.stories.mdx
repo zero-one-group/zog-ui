@@ -9,6 +9,10 @@ import { Table, Space } from '@zero-ui/core';
   title="Components/Content/Table"
   component={[Table]}
   argTypes={{
+    colorScheme: {
+      options: ['pink', 'red', 'blue', 'teal'],
+      control: { type: 'select' },
+    },
     size: {
       control: 'radio',
       options: ['sm', 'md', 'lg'],
@@ -215,6 +219,11 @@ export const columnsGroup = [
       columns: columns,
       size: 'lg',
       bordered: false,
+      initialState: {
+        pagination: {
+          pageSize: 5,
+        },
+      },
     }}
   >
     {TableStory.bind()}
@@ -226,6 +235,11 @@ export const columnsGroup = [
       columns: columnsGroup,
       size: 'lg',
       bordered: false,
+      initialState: {
+        pagination: {
+          pageSize: 5,
+        },
+      },
     }}
   >
     {TableStory.bind()}
