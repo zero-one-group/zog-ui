@@ -1,8 +1,13 @@
-import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons';
+import {
+  CaretDownOutlined,
+  CaretUpOutlined,
+  FilterFilled,
+} from '@ant-design/icons';
 import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   Header,
@@ -14,6 +19,7 @@ import {
 import { ComponentProps, useState } from 'react';
 import { Pagination } from '../Pagination';
 import { styled } from '../stitches.config';
+import TableFilter from './TableFilter';
 
 const getColorSchemeVariants = (colorScheme?: string) => {
   return {
@@ -101,6 +107,7 @@ const StyledTable = styled('table', {
 
 const StyledHeaderColumn = styled('div', {
   display: 'flex',
+  alignItems: 'center',
   variants: {
     sortable: {
       true: {
@@ -115,12 +122,16 @@ const StyledHeaderColumnName = styled('div', {
   flex: '1',
 });
 
-const StyledHeaderColumnSortIcons = styled('div', {
-  marginLeft: '$1',
-  display: 'flex',
-  flexDirection: 'column',
-  fontSize: '9px',
+const StyledHeaderColumnIcons = styled('div', {
+  marginLeft: '$2',
+  fontSize: '10px',
   color: '$gray8',
+});
+
+const StyledHeaderColumnSortIcons = styled(StyledHeaderColumnIcons, {
+  display: 'flex',
+  fontSize: '8px',
+  flexDirection: 'column',
   variants: {
     sort: {
       asc: {
@@ -135,6 +146,25 @@ const StyledHeaderColumnSortIcons = styled('div', {
   },
 });
 
+const StyledHeaderColumnFilterIcons = styled(StyledHeaderColumnIcons, {
+  padding: '1px 2px',
+  borderRadius: '4px',
+  '&:hover': {
+    color: '$gray10',
+    backgroundColor: '$gray6',
+  },
+  variants: {
+    filtered: {
+      true: {
+        color: '$$bgTable',
+        '&:hover': {
+          color: '$$bgTable',
+        },
+      },
+    },
+  },
+});
+
 export type TableProps<T> = {
   colorScheme?: string;
   dataSource: T[];
@@ -142,6 +172,7 @@ export type TableProps<T> = {
   size?: 'sm' | 'md' | 'lg';
   bordered?: boolean;
   enableSorting?: boolean;
+  enableFiltering?: boolean;
   initialState?: TableOptions<T>['initialState'];
 } & ComponentProps<typeof StyledTableWrapper>;
 
@@ -152,6 +183,7 @@ export function Table<T>({
   size = 'lg',
   bordered = false,
   enableSorting = false,
+  enableFiltering = false,
   initialState,
   css,
 }: TableProps<T>) {
@@ -168,32 +200,48 @@ export function Table<T>({
     onSortingChange: enableSorting ? setSorting : undefined,
     getSortedRowModel: enableSorting ? getSortedRowModel() : undefined,
     getPaginationRowModel: getPaginationRowModel(),
+    getFilteredRowModel: enableFiltering ? getFilteredRowModel() : undefined,
     initialState: {
       ...initialState,
     },
   });
 
   const renderHeader = (header: Header<T, unknown>) => {
-    const sortedVariant = header.column.getIsSorted()
+    const sortedDirection = header.column.getIsSorted()
       ? (header.column.getIsSorted() as SortDirection)
       : undefined;
     const shouldShowSorting = header.column.getCanSort() && enableSorting;
 
+    const isFiltered = header.column.getIsFiltered()
+      ? header.column.getIsFiltered()
+      : undefined;
+    const shouldShowFiltering = header.column.getCanFilter() && enableFiltering;
+
     return (
       <th key={header.id} colSpan={header.colSpan}>
         {header.isPlaceholder ? null : (
-          <StyledHeaderColumn
-            sortable={shouldShowSorting}
-            onClick={header.column.getToggleSortingHandler()}
-          >
-            <StyledHeaderColumnName>
+          <StyledHeaderColumn sortable={shouldShowSorting}>
+            <StyledHeaderColumnName
+              onClick={header.column.getToggleSortingHandler()}
+            >
               {flexRender(header.column.columnDef.header, header.getContext())}
             </StyledHeaderColumnName>
             {shouldShowSorting ? (
-              <StyledHeaderColumnSortIcons sort={sortedVariant}>
+              <StyledHeaderColumnSortIcons sort={sortedDirection}>
                 <CaretUpOutlined />
                 <CaretDownOutlined />
               </StyledHeaderColumnSortIcons>
+            ) : null}
+            {shouldShowFiltering ? (
+              <StyledHeaderColumnFilterIcons filtered={isFiltered}>
+                <TableFilter
+                  colorScheme={colorScheme}
+                  column={header.column}
+                  table={table}
+                >
+                  <FilterFilled />
+                </TableFilter>
+              </StyledHeaderColumnFilterIcons>
             ) : null}
           </StyledHeaderColumn>
         )}
@@ -232,7 +280,7 @@ export function Table<T>({
         colorScheme={colorScheme}
         siblingCount={1}
         pageSize={table.getState().pagination.pageSize}
-        totalCount={dataSource.length}
+        totalCount={table.getPrePaginationRowModel().rows.length}
         currentPage={table.getState().pagination.pageIndex + 1}
         onChangePage={(page) => table.setPageIndex(page - 1)}
       />

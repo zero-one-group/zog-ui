@@ -20,6 +20,9 @@ import { Table, Space } from '@zero-ui/core';
     enableSorting: {
       control: 'boolean',
     },
+    enableFiltering: {
+      control: 'boolean',
+    },
     columns: {
       control: false,
     },
@@ -33,7 +36,7 @@ export const TableStory = (args) => <Table {...args} />;
 
 # Table
 
-To display a collection of structured data.
+To display a collection of structured data. Built on top of [TanStack Table v8](https://tanstack.com/table/v8/docs/guide/introduction)
 
 ## Example Usage
 
@@ -219,6 +222,8 @@ export const columnsGroup = [
       columns: columns,
       size: 'lg',
       bordered: false,
+      enableFiltering: true,
+      enableSorting: true,
       initialState: {
         pagination: {
           pageSize: 5,
@@ -233,6 +238,8 @@ export const columnsGroup = [
     args={{
       dataSource: dataSource,
       columns: columnsGroup,
+      enableFiltering: true,
+      enableSorting: true,
       size: 'lg',
       bordered: false,
       initialState: {
