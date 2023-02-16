@@ -52,7 +52,6 @@ export const columns = [
   columnHelper.accessor('firstName', {
     cell: (info) => info.getValue(),
     header: () => <span>First Name</span>,
-    footer: (info) => info.column.id,
   }),
   columnHelper.accessor((row) => row.lastName, {
     id: 'lastName',
@@ -84,8 +83,48 @@ export const columns = [
   }),
 ];
 
+export const columnsGroup = [
+  columnHelper.group({
+    id: 'name',
+    header: () => <span>Name</span>,
+    columns: [
+      columnHelper.accessor('firstName', {
+        cell: (info) => info.getValue(),
+      }),
+      columnHelper.accessor((row) => row.lastName, {
+        id: 'lastName',
+        cell: (info) => info.getValue(),
+        header: () => <span>Last Name</span>,
+      }),
+    ],
+  }),
+  columnHelper.group({
+    header: 'Info',
+    columns: [
+      columnHelper.accessor('age', {
+        header: () => 'Age',
+      }),
+      columnHelper.accessor('visits', {
+        header: () => <span>Visits</span>,
+      }),
+      columnHelper.accessor('status', {
+        header: 'Status',
+      }),
+      columnHelper.accessor('progress', {
+        header: 'Profile Progress',
+      }),
+    ],
+  }),
+];
+
 <Canvas columns={2} withSource="close">
-  <Story name="Table" args={{ dataSource: dataSource, columns: columns }}>
+  <Story name="Basic Table" args={{ dataSource: dataSource, columns: columns }}>
+    {TableStory.bind()}
+  </Story>
+  <Story
+    name="Grouping Table"
+    args={{ dataSource: dataSource, columns: columnsGroup }}
+  >
     {TableStory.bind()}
   </Story>
 </Canvas>

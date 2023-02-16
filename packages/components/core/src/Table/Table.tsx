@@ -13,6 +13,19 @@ const StyledTable = styled('table', {
   fontSize: '14px',
   border: 'none',
   borderCollapse: 'collapse',
+  '& thead': {
+    borderBottom: '1px solid $gray4',
+    '&>tr': {
+      backgroundColor: '$gray2',
+      '&>th': {
+        fontWeight: 500,
+        textAlign: 'left',
+        '&[colspan]:not([colspan="1"])': {
+          textAlign: 'center',
+        },
+      },
+    },
+  },
   '& thead>tr>th, tbody>tr>td': {
     padding: '1rem',
   },
@@ -23,13 +36,6 @@ const StyledTable = styled('table', {
       backgroundColor: '$gray2',
     },
   },
-});
-
-const StyledTH = styled('th', {
-  fontWeight: 500,
-  textAlign: 'left',
-  backgroundColor: '$gray2',
-  borderBottom: '1px solid $gray4',
 });
 
 export interface TableProps<T> {
@@ -53,14 +59,14 @@ export function Table<T>({ dataSource, columns }: TableProps<T>) {
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <StyledTH key={header.id}>
+                <th key={header.id} colSpan={header.colSpan}>
                   {header.isPlaceholder
                     ? null
                     : flexRender(
                         header.column.columnDef.header,
                         header.getContext()
                       )}
-                </StyledTH>
+                </th>
               ))}
             </tr>
           ))}
