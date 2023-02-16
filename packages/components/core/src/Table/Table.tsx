@@ -92,10 +92,10 @@ const StyledHeaderColumnSortIcons = styled('div', {
   variants: {
     sort: {
       asc: {
-        '& span:first-child': { color: '$blue9' },
+        '& span:first-of-type': { color: '$blue9' },
       },
       desc: {
-        '& span:last-child': {
+        '& span:last-of-type': {
           color: '$blue9',
         },
       },
