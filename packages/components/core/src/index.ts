@@ -19,6 +19,7 @@ export * from './Heading';
 export * from './IconButton';
 export * from './Image';
 export * from './Input';
+export * from './Alert';
 export * from './Kbd';
 export * from './Label';
 export * from './Layout';
