@@ -3,14 +3,29 @@ import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
+  getPaginationRowModel,
   getSortedRowModel,
   Header,
   SortDirection,
   SortingState,
   useReactTable,
 } from '@tanstack/react-table';
-import { useState } from 'react';
+import { ComponentProps, useState } from 'react';
+import { Pagination } from '../Pagination';
 import { styled } from '../stitches.config';
+
+const getColorSchemeVariants = (colorScheme?: string) => {
+  return {
+    $$bgTable: colorScheme ? `$colors-${colorScheme}9` : '$colors-primary9',
+  };
+};
+
+const StyledTableWrapper = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$4',
+  alignItems: 'end',
+});
 
 const StyledTable = styled('table', {
   width: '100%',
@@ -75,6 +90,7 @@ const StyledHeaderColumn = styled('div', {
     sortable: {
       true: {
         cursor: 'pointer',
+        userSelect: 'none',
       },
     },
   },
@@ -89,6 +105,7 @@ const StyledHeaderColumnSortIcons = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   fontSize: '9px',
+  color: '$gray8',
   variants: {
     sort: {
       asc: {
@@ -99,29 +116,29 @@ const StyledHeaderColumnSortIcons = styled('div', {
           color: '$blue9',
         },
       },
-      default: {
-        color: '$gray8',
-      },
     },
   },
 });
 
-export interface TableProps<T> {
+export type TableProps<T> = {
+  colorScheme?: string;
   dataSource: T[];
   columns: ColumnDef<T>[];
   size?: 'sm' | 'md' | 'lg';
   bordered?: boolean;
   enableSorting?: boolean;
-}
+} & ComponentProps<typeof StyledTableWrapper>;
 
 export function Table<T>({
+  colorScheme,
   dataSource,
   columns,
   size = 'lg',
   bordered = false,
   enableSorting = false,
+  css,
 }: TableProps<T>) {
-  const [data, setData] = useState(() => [...dataSource]);
+  const [data] = useState(() => [...dataSource]);
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const table = useReactTable({
@@ -133,12 +150,13 @@ export function Table<T>({
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: enableSorting ? setSorting : undefined,
     getSortedRowModel: enableSorting ? getSortedRowModel() : undefined,
+    getPaginationRowModel: getPaginationRowModel(),
   });
 
   const renderHeader = (header: Header<T, unknown>) => {
     const sortedVariant = header.column.getIsSorted()
       ? (header.column.getIsSorted() as SortDirection)
-      : 'default';
+      : undefined;
     const shouldShowSorting = header.column.getCanSort() && enableSorting;
 
     return (
@@ -164,7 +182,12 @@ export function Table<T>({
   };
 
   return (
-    <div>
+    <StyledTableWrapper
+      css={{
+        ...getColorSchemeVariants(colorScheme),
+        ...css,
+      }}
+    >
       <StyledTable size={size} bordered={bordered}>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -185,7 +208,14 @@ export function Table<T>({
           ))}
         </tbody>
       </StyledTable>
-    </div>
+      <Pagination
+        siblingCount={1}
+        pageSize={table.getState().pagination.pageSize}
+        totalCount={dataSource.length}
+        currentPage={table.getState().pagination.pageIndex + 1}
+        onChangePage={(page) => table.setPageIndex(page - 1)}
+      />
+    </StyledTableWrapper>
   );
 }
 
