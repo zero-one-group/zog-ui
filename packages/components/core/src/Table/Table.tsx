@@ -1,7 +1,12 @@
+import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons';
 import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
+  getSortedRowModel,
+  Header,
+  SortDirection,
+  SortingState,
   useReactTable,
 } from '@tanstack/react-table';
 import { useState } from 'react';
@@ -36,38 +41,135 @@ const StyledTable = styled('table', {
       backgroundColor: '$gray2',
     },
   },
+  variants: {
+    size: {
+      sm: {
+        '& thead>tr>th, tbody>tr>td': {
+          padding: '.5rem',
+        },
+      },
+      md: {
+        '& thead>tr>th, tbody>tr>td': {
+          padding: '12px 8px',
+        },
+      },
+      lg: {
+        '& thead>tr>th, tbody>tr>td': {
+          padding: '1rem',
+        },
+      },
+    },
+    bordered: {
+      true: {
+        '& th, td': {
+          border: '1px solid $gray4',
+        },
+      },
+    },
+  },
+});
+
+const StyledHeaderColumn = styled('div', {
+  display: 'flex',
+  variants: {
+    sortable: {
+      true: {
+        cursor: 'pointer',
+      },
+    },
+  },
+});
+
+const StyledHeaderColumnName = styled('div', {
+  flex: '1',
+});
+
+const StyledHeaderColumnSortIcons = styled('div', {
+  marginLeft: '$1',
+  display: 'flex',
+  flexDirection: 'column',
+  fontSize: '9px',
+  variants: {
+    sort: {
+      asc: {
+        '& span:first-child': { color: '$blue9' },
+      },
+      desc: {
+        '& span:last-child': {
+          color: '$blue9',
+        },
+      },
+      default: {
+        color: '$gray8',
+      },
+    },
+  },
 });
 
 export interface TableProps<T> {
   dataSource: T[];
-  columns: ColumnDef<T, unknown>[];
+  columns: ColumnDef<T>[];
+  size?: 'sm' | 'md' | 'lg';
+  bordered?: boolean;
+  enableSorting?: boolean;
 }
 
-export function Table<T>({ dataSource, columns }: TableProps<T>) {
+export function Table<T>({
+  dataSource,
+  columns,
+  size = 'lg',
+  bordered = false,
+  enableSorting = false,
+}: TableProps<T>) {
   const [data, setData] = useState(() => [...dataSource]);
+  const [sorting, setSorting] = useState<SortingState>([]);
 
   const table = useReactTable({
     data,
     columns,
+    state: {
+      sorting: enableSorting ? sorting : undefined,
+    },
     getCoreRowModel: getCoreRowModel(),
+    onSortingChange: enableSorting ? setSorting : undefined,
+    getSortedRowModel: enableSorting ? getSortedRowModel() : undefined,
   });
+
+  const renderHeader = (header: Header<T, unknown>) => {
+    const sortedVariant = header.column.getIsSorted()
+      ? (header.column.getIsSorted() as SortDirection)
+      : 'default';
+    const shouldShowSorting = header.column.getCanSort() && enableSorting;
+
+    return (
+      <th key={header.id} colSpan={header.colSpan}>
+        {header.isPlaceholder ? null : (
+          <StyledHeaderColumn
+            sortable={shouldShowSorting}
+            onClick={header.column.getToggleSortingHandler()}
+          >
+            <StyledHeaderColumnName>
+              {flexRender(header.column.columnDef.header, header.getContext())}
+            </StyledHeaderColumnName>
+            {shouldShowSorting ? (
+              <StyledHeaderColumnSortIcons sort={sortedVariant}>
+                <CaretUpOutlined />
+                <CaretDownOutlined />
+              </StyledHeaderColumnSortIcons>
+            ) : null}
+          </StyledHeaderColumn>
+        )}
+      </th>
+    );
+  };
 
   return (
     <div>
-      <StyledTable>
+      <StyledTable size={size} bordered={bordered}>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <th key={header.id} colSpan={header.colSpan}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                </th>
-              ))}
+              {headerGroup.headers.map(renderHeader)}
             </tr>
           ))}
         </thead>

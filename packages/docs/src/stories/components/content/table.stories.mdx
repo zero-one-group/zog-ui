@@ -5,13 +5,31 @@ import { expect } from '@storybook/jest';
 import { createColumnHelper } from '@tanstack/react-table';
 import { Table, Space } from '@zero-ui/core';
 
-<Meta title="Components/Content/Table" component={[Table]} argTypes={{}} />
+<Meta
+  title="Components/Content/Table"
+  component={[Table]}
+  argTypes={{
+    size: {
+      control: 'radio',
+      options: ['sm', 'md', 'lg'],
+    },
+    enableSorting: {
+      control: 'boolean',
+    },
+    columns: {
+      control: false,
+    },
+    dataSource: {
+      control: false,
+    },
+  }}
+/>
 
 export const TableStory = (args) => <Table {...args} />;
 
 # Table
 
-> WIP
+To display a collection of structured data.
 
 ## Example Usage
 
@@ -118,12 +136,25 @@ export const columnsGroup = [
 ];
 
 <Canvas columns={2} withSource="close">
-  <Story name="Basic Table" args={{ dataSource: dataSource, columns: columns }}>
+  <Story
+    name="Basic Table"
+    args={{
+      dataSource: dataSource,
+      columns: columns,
+      size: 'lg',
+      bordered: false,
+    }}
+  >
     {TableStory.bind()}
   </Story>
   <Story
     name="Grouping Table"
-    args={{ dataSource: dataSource, columns: columnsGroup }}
+    args={{
+      dataSource: dataSource,
+      columns: columnsGroup,
+      size: 'lg',
+      bordered: false,
+    }}
   >
     {TableStory.bind()}
   </Story>
