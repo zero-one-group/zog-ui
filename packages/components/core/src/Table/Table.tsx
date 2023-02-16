@@ -38,10 +38,21 @@ const StyledTable = styled('table', {
     '&>tr': {
       backgroundColor: '$gray2',
       '&>th': {
+        position: 'relative',
         fontWeight: 500,
         textAlign: 'left',
         '&[colspan]:not([colspan="1"])': {
           textAlign: 'center',
+        },
+        '&:not(:last-child)::after': {
+          content: '',
+          position: 'absolute',
+          width: '1px',
+          height: '16px',
+          backgroundColor: '$gray5',
+          right: 0,
+          top: '50%',
+          transform: 'translateY(-50%)',
         },
       },
     },
