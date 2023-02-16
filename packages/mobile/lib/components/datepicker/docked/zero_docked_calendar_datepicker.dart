@@ -9,6 +9,7 @@ import 'package:intl/intl.dart' show DateFormat;
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 const Duration _monthScrollDuration = Duration(milliseconds: 200);
+const Duration _yearScrollDuration = Duration(milliseconds: 400);
 
 const double _dayPickerRowHeight = 42.0;
 const int _maxDayPickerRowCount = 6; // A 31 day month that starts on Saturday.
@@ -20,10 +21,12 @@ const double _monthPickerHorizontalPadding = 8.0;
 const double _yearPickerPadding = 16.0;
 const double _yearPickerRowHeight = 52.0;
 
-const double _subHeaderHeight = 52.0;
-const double _kMonthNavButtonsWidth = 64.0;
-const double _kYearNavButtonsWidth = 32.0;
+const double _subHeaderHeight = 60.0;
 const double _kYearNavButtonIconSize = 24;
+const int _kMonthsNumInAYear = 12;
+const int kNumOfGridRows = 6;
+
+int get totalDaysInGrid => DateTime.daysPerWeek * kNumOfGridRows;
 
 /// Initial display of a calendar date picker.
 ///
@@ -102,6 +105,7 @@ class ZeroDockedCalendarDatePicker extends StatefulWidget {
     this.onDisplayedMonthChanged,
     this.initialCalendarMode = ZeroDatePickerMode.day,
     this.selectableDayPredicate,
+    this.onModeChanged,
   })  : initialDate = DateUtils.dateOnly(initialDate),
         firstDate = DateUtils.dateOnly(firstDate),
         lastDate = DateUtils.dateOnly(lastDate),
@@ -148,6 +152,9 @@ class ZeroDockedCalendarDatePicker extends StatefulWidget {
 
   /// Function to provide full control over which dates in the calendar can be selected.
   final SelectableDayPredicate? selectableDayPredicate;
+
+  /// Event triggered when [ZeroDatePickerMode] is changed
+  final Function(ZeroDatePickerMode mode)? onModeChanged;
 
   @override
   State<ZeroDockedCalendarDatePicker> createState() =>
@@ -220,6 +227,11 @@ class _ZeroDockedCalendarDatePickerState
   }
 
   void _handleModeChanged(ZeroDatePickerMode mode) {
+    debugPrint('_handleModeChanged $mode');
+    if (widget.onModeChanged != null) {
+      widget.onModeChanged!.call(mode);
+    }
+
     _vibrate();
     setState(() {
       _mode = mode;
@@ -250,6 +262,7 @@ class _ZeroDockedCalendarDatePickerState
   }
 
   void _handleYearChanged(DateTime value) {
+    debugPrint('_handleYearChanged $value');
     _vibrate();
 
     if (value.isBefore(widget.firstDate)) {
@@ -261,6 +274,7 @@ class _ZeroDockedCalendarDatePickerState
     setState(() {
       _handleMonthChanged(value);
       _mode = ZeroDatePickerMode.day;
+      widget.onModeChanged?.call(_mode);
     });
   }
 
@@ -328,7 +342,7 @@ class _ZeroDockedCalendarDatePickerState
     return Stack(
       children: <Widget>[
         SizedBox(
-          height: _subHeaderHeight + _maxDayPickerHeight,
+          height: _subHeaderHeight + _maxDayPickerHeight + 50,
           child: _buildPicker(),
         ),
         // Put the mode toggle button on top so that it won't be covered up by the _MonthPicker
@@ -472,12 +486,9 @@ class _DatePickerModeToggleButtonState
                         color: controlColor, fontWeight: FontWeight.w600),
                   ),
                   if (!inactive)
-                    RotationTransition(
-                      turns: _controller,
-                      child: Icon(
-                        Icons.arrow_drop_down,
-                        color: controlColor,
-                      ),
+                    Icon(
+                      Icons.arrow_drop_down,
+                      color: controlColor,
                     ),
                 ],
               ),
@@ -684,6 +695,30 @@ class _MonthPickerState extends State<_MonthPicker> {
     }
   }
 
+  /// Navigate to the next year.
+  void _handlePreviousYear() {
+    if (!_isDisplayingFirstMonth) {
+      _pageController.animateToPage(
+        (_pageController.page?.toInt() ?? _pageController.initialPage) -
+            _kMonthsNumInAYear,
+        duration: _yearScrollDuration,
+        curve: Curves.ease,
+      );
+    }
+  }
+
+  /// Navigate to the next year.
+  void _handleNextYear() {
+    if (!_isDisplayingFirstMonth) {
+      _pageController.animateToPage(
+        (_pageController.page?.toInt() ?? _pageController.initialPage) +
+            _kMonthsNumInAYear,
+        duration: _yearScrollDuration,
+        curve: Curves.ease,
+      );
+    }
+  }
+
   /// Navigate to the given month.
   void _showMonth(DateTime month, {bool jump = false}) {
     final int monthPage = DateUtils.monthDelta(widget.firstDate, month);
@@ -705,8 +740,22 @@ class _MonthPickerState extends State<_MonthPicker> {
     );
   }
 
+  /// True if the earliest allowable month is displayed.
+  bool get _isDisplayingFirstYear {
+    return !_currentMonth.isAfter(
+      DateTime(widget.firstDate.year, widget.firstDate.month),
+    );
+  }
+
   /// True if the latest allowable month is displayed.
   bool get _isDisplayingLastMonth {
+    return !_currentMonth.isBefore(
+      DateTime(widget.lastDate.year, widget.lastDate.month),
+    );
+  }
+
+  /// True if the latest allowable month is displayed.
+  bool get _isDisplayingLastYear {
     return !_currentMonth.isBefore(
       DateTime(widget.lastDate.year, widget.lastDate.month),
     );
@@ -871,21 +920,14 @@ class _MonthPickerState extends State<_MonthPicker> {
                       IconButton(
                         icon: const Icon(Icons.chevron_left),
                         color: controlColor,
-                        tooltip: _isDisplayingFirstMonth
-                            ? null
-                            : _localizations.previousMonthTooltip,
-                        onPressed: _isDisplayingFirstMonth
-                            ? null
-                            : _handlePreviousMonth,
+                        onPressed:
+                            _isDisplayingFirstYear ? null : _handlePreviousYear,
                       ),
                       IconButton(
                         icon: const Icon(Icons.chevron_right),
                         color: controlColor,
-                        tooltip: _isDisplayingLastMonth
-                            ? null
-                            : _localizations.nextMonthTooltip,
                         onPressed:
-                            _isDisplayingLastMonth ? null : _handleNextMonth,
+                            _isDisplayingLastYear ? null : _handleNextYear,
                       ),
                     ],
                   ),
@@ -1078,18 +1120,44 @@ class _DayPickerState extends State<_DayPicker> {
 
     final int year = widget.displayedMonth.year;
     final int month = widget.displayedMonth.month;
+    final int previousMonth = (month > 1) ? month - 1 : 12;
 
     final int daysInMonth = DateUtils.getDaysInMonth(year, month);
-    final int dayOffset = DateUtils.firstDayOffset(year, month, localizations);
+    final int daysInPreviousMonth =
+        DateUtils.getDaysInMonth(year, previousMonth);
+
+    final int firstDayOffset =
+        DateUtils.firstDayOffset(year, month, localizations);
+
+    final int lastDayOffset =
+        DateTime.daysPerWeek - DateTime(year, month, daysInMonth).weekday - 1;
 
     final List<Widget> dayItems = _dayHeaders(headerStyle, localizations);
     // 1-based day of month, e.g. 1-31 for January, and 1-29 for February on
     // a leap year.
-    int day = -dayOffset;
-    while (day < daysInMonth) {
+    int day = -firstDayOffset;
+    int lastDay = daysInMonth + lastDayOffset;
+
+    int index = 0;
+    while (day < lastDay || index <= totalDaysInGrid) {
       day++;
+      index++;
       if (day < 1) {
-        dayItems.add(Container());
+        final int dayInPreviousMonth = daysInPreviousMonth + day;
+        Widget dayWidget = Center(
+          child: Text(localizations.formatDecimal(dayInPreviousMonth),
+              style: dayStyle.apply(color: disabledDayColor)),
+        );
+
+        dayItems.add(dayWidget);
+      } else if (day > daysInMonth) {
+        final int dayInNextMonth = day - daysInMonth;
+        Widget dayWidget = Center(
+          child: Text(localizations.formatDecimal(dayInNextMonth),
+              style: dayStyle.apply(color: disabledDayColor)),
+        );
+
+        dayItems.add(dayWidget);
       } else {
         final DateTime dayToBuild = DateTime(year, month, day);
         final bool isDisabled = dayToBuild.isAfter(widget.lastDate) ||
@@ -1171,6 +1239,7 @@ class _DayPickerState extends State<_DayPicker> {
       ),
       child: GridView.custom(
         physics: const ClampingScrollPhysics(),
+        padding: EdgeInsets.zero,
         gridDelegate: _dayPickerGridDelegate,
         childrenDelegate: SliverChildListDelegate(
           dayItems,
@@ -1317,7 +1386,7 @@ class _DockedMonthPickerState extends State<DockedMonthPicker> {
 
     return Column(
       children: <Widget>[
-        const Divider(),
+        const ZeroDivider(),
         Expanded(
           child: ListView.builder(
             controller: _scrollController,
@@ -1335,14 +1404,14 @@ class _DockedMonthPickerState extends State<DockedMonthPicker> {
 /// A scrollable grid of years to allow picking a year.
 ///
 /// The year picker widget is rarely used directly. Instead, consider using
-/// [ZeroDockedCalendarDatePicker], or [showDatePicker] which create full date pickers.
+/// [ZeroDockedCalendarDatePicker], or [showZeroDatePicker] which create full date pickers.
 ///
 /// See also:
 ///
 ///  * [ZeroDockedCalendarDatePicker], which provides a Material Design date picker
 ///    interface.
 ///
-///  * [showDatePicker], which shows a dialog containing a Material Design
+///  * [showZeroDatePicker], which shows a dialog containing a Material Design
 ///    date picker.
 ///
 class DockedYearPicker extends StatefulWidget {
@@ -1457,7 +1526,7 @@ class _DockedYearPickerState extends State<DockedYearPicker> {
     assert(debugCheckHasMaterial(context));
     return Column(
       children: <Widget>[
-        const Divider(),
+        const ZeroDivider(),
         Expanded(
           child: ListView.builder(
             controller: _scrollController,

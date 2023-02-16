@@ -3,7 +3,7 @@ import 'dart:math' as math;
 
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
-const Size _calendarPortraitDialogSize = Size(428.0, 328.0);
+const Size _calendarPortraitDialogSize = Size(328.0, 420.0);
 const Size _calendarLandscapeDialogSize = Size(496.0, 346.0);
 
 const Duration _dialogSizeAnimationDuration = Duration(milliseconds: 200);
@@ -50,6 +50,8 @@ class _ZeroDatePickerDockedState extends State<ZeroDatePickerDocked>
   OverlayEntry? _overlayEntry;
   GlobalKey globalKey = GlobalKey();
   final LayerLink _layerLink = LayerLink();
+
+  bool _showActions = true;
 
   @override
   void initState() {
@@ -120,15 +122,6 @@ class _ZeroDatePickerDockedState extends State<ZeroDatePickerDocked>
       ),
     );
 
-    final picker = Theme(
-      data: context.theme.copyWith(useMaterial3: true).toThemeData(),
-      child: ZeroDockedCalendarDatePicker(
-          onDateChanged: (value) {},
-          firstDate: widget.firstDate,
-          lastDate: widget.lastDate,
-          initialDate: widget.initialDate),
-    );
-
     var size = renderBox.size;
     return OverlayEntry(
         builder: (context) => Positioned(
@@ -146,7 +139,8 @@ class _ZeroDatePickerDockedState extends State<ZeroDatePickerDocked>
                     data: MediaQuery.of(context).copyWith(
                       textScaleFactor: textScaleFactor,
                     ),
-                    child: Builder(builder: (BuildContext context) {
+                    child: StatefulBuilder(
+                        builder: (BuildContext context, innerState) {
                       switch (orientation) {
                         case Orientation.portrait:
                           return Material(
@@ -157,8 +151,20 @@ class _ZeroDatePickerDockedState extends State<ZeroDatePickerDocked>
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: <Widget>[
-                                Expanded(child: picker),
-                                actions,
+                                Expanded(
+                                  child: ZeroDockedCalendarDatePicker(
+                                      onDateChanged: (value) {},
+                                      firstDate: widget.firstDate,
+                                      lastDate: widget.lastDate,
+                                      initialDate: widget.initialDate,
+                                      onModeChanged: (mode) {
+                                        innerState(() {
+                                          _showActions =
+                                              mode == ZeroDatePickerMode.day;
+                                        });
+                                      }),
+                                ),
+                                if (_showActions) actions,
                               ],
                             ),
                           ));
@@ -180,8 +186,25 @@ class _ZeroDatePickerDockedState extends State<ZeroDatePickerDocked>
                                           crossAxisAlignment:
                                               CrossAxisAlignment.stretch,
                                           children: <Widget>[
-                                            Expanded(child: picker),
-                                            actions,
+                                            Expanded(
+                                                child:
+                                                    ZeroDockedCalendarDatePicker(
+                                                        onDateChanged:
+                                                            (value) {},
+                                                        firstDate:
+                                                            widget.firstDate,
+                                                        lastDate:
+                                                            widget.lastDate,
+                                                        initialDate:
+                                                            widget.initialDate,
+                                                        onModeChanged: (mode) {
+                                                          innerState(() {
+                                                            _showActions = mode ==
+                                                                ZeroDatePickerMode
+                                                                    .day;
+                                                          });
+                                                        })),
+                                            if (_showActions) actions,
                                           ],
                                         ),
                                       ),
