@@ -99,6 +99,7 @@ class ZeroThemeData with Diagnosticable {
   final ZeroCardStyle cardStyle;
   final ZeroButtonIconStyleSet buttonIconStyle;
   final ZeroNavigationRailStyle navigationRailStyle;
+  final ZeroSwitchStyleSet switchStyle;
 
   final Brightness brightness;
   final IconThemeData iconTheme;
@@ -146,6 +147,7 @@ class ZeroThemeData with Diagnosticable {
     required this.cardStyle,
     required this.buttonIconStyle,
     required this.navigationRailStyle,
+    required this.switchStyle,
 
     // Others
     this.useMaterial3 = false,
@@ -187,6 +189,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroCardStyle? cardStyle,
     ZeroButtonIconStyleSet? buttonIconStyle,
     ZeroNavigationRailStyle? navigationRailStyle,
+    ZeroSwitchStyleSet? switchStyle,
   }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
@@ -205,7 +208,7 @@ class ZeroThemeData with Diagnosticable {
     checkedColor ??= isLight ? ZeroColors.white : ZeroColors.black;
     cardColor ??= isLight ? ZeroColors.white : ZeroColors.neutral[9];
     errorColor ??= ZeroColors.danger;
-    dividerColor ??= ZeroColors.neutral[5];
+    dividerColor ??= isLight ? ZeroColors.neutral[5] : ZeroColors.neutral[10];
     solidTextColor ??= isLight ? ZeroColors.neutral[10] : ZeroColors.neutral[5];
     regularTextColor ??=
         isLight ? ZeroColors.neutral[7] : ZeroColors.neutral[6];
@@ -351,6 +354,13 @@ class ZeroThemeData with Diagnosticable {
       labelStyle: typography.caption,
     );
 
+    final switchStyleFallback = ZeroSwitchStyleSet.fallback(
+      primaryColor: primaryColor,
+      inActiveColor: disabledColor,
+      inActiveIOSColor: dividerColor,
+      disabledColor: dividerColor,
+    );
+
     useMaterial3 ??= false;
 
     return ZeroThemeData.raw(
@@ -391,6 +401,7 @@ class ZeroThemeData with Diagnosticable {
       buttonIconStyle: buttonIconStyleFallback.merge(buttonIconStyle),
       navigationRailStyle:
           navigationRailStyleFallback.merge(navigationRailStyle),
+      switchStyle: switchStyleFallback.merge(switchStyle),
     );
   }
 
@@ -437,6 +448,7 @@ class ZeroThemeData with Diagnosticable {
           ZeroButtonIconStyleSet.lerp(a.buttonIconStyle, b.buttonIconStyle, t),
       navigationRailStyle: ZeroNavigationRailStyle.lerp(
           a.navigationRailStyle, b.navigationRailStyle, t),
+      switchStyle: ZeroSwitchStyleSet.lerp(a.switchStyle, b.switchStyle, t),
     );
   }
 
@@ -477,6 +489,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroCardStyle? cardStyle,
     ZeroButtonIconStyleSet? buttonIconStyle,
     ZeroNavigationRailStyle? navigationRailStyle,
+    ZeroSwitchStyleSet? switchStyle,
   }) {
     return ZeroThemeData.raw(
       brightness: brightness ?? this.brightness,
@@ -530,6 +543,7 @@ class ZeroThemeData with Diagnosticable {
       cardStyle: cardStyle ?? this.cardStyle,
       buttonIconStyle: buttonIconStyle ?? this.buttonIconStyle,
       navigationRailStyle: navigationRailStyle ?? this.navigationRailStyle,
+      switchStyle: switchStyle ?? this.switchStyle,
     );
   }
 

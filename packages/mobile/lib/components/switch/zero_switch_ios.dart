@@ -1,124 +1,145 @@
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
+const double _kThumbSize = 22;
+final _kBorderRadius = BorderRadius.circular(20);
+
 /// switch widget component adapted to iOS switch style
 /// there are properties to customize the icon and colors of the switch
-/// [activeIcon] and [inactiveIcon] are used to customize the icon of the switch
-/// [activeColor] and [inactiveColor] are used to customize the background color of the switch
-
 class ZeroSwitchIOS extends StatelessWidget {
-  /// background color of the switch when it is [true]
-  /// default value is from [context.theme.primaryColor.dark]
-  final Color? activeColor;
-
-  /// background color of the switch when it is [false]
-  /// default value is [ZeroColors.neutral]
-  final Color? inactiveColor;
-
-  /// thumb color of the switch when it is [true]
-  /// default value is from [context.theme.primaryColor]
-  final Color? activeThumbColor;
-
-  /// thumb color of the switch when it is [false]
-  /// default value is [ZeroColors.neutral]
-  final Color? inactiveThumbColor;
+  /// Allow to custom style, by preferences
+  ///
+  /// This style will override global theme
+  final ZeroSwitchStyle? style;
 
   /// callback function when the switch is tapped
-  /// it returns the current state of the switch which is [true] or [false] as a parameter
-  final Function(bool) onChanged;
+  final ValueChanged<bool> onChanged;
 
+  /// initial state of the switch when it is created
   final bool value;
 
   /// disable the switch
-  /// default value is [false]
   final bool isDisabled;
 
-  ZeroSwitchIOS({
+  /// custom icon of the switch when it is [true]
+  final Icon? activeIcon;
+
+  /// custom icon of the switch when it is [false]
+  final Icon? inactiveIcon;
+
+  const ZeroSwitchIOS({
     super.key,
-    this.activeColor,
-    this.inactiveColor,
-    this.activeThumbColor,
-    this.inactiveThumbColor,
+    this.style,
     required this.onChanged,
-    required this.value,
+    this.value = false,
     this.isDisabled = false,
+    this.activeIcon,
+    this.inactiveIcon,
   });
-
-  final double _thumbSize = 28;
-
-  final _borderRadius = BorderRadius.circular(20);
 
   @override
   Widget build(BuildContext context) {
-    final ZeroThemeData theme = context.theme;
+    final theme = context.theme;
+    final themeStyle = theme.switchStyle.iOS;
+    final adaptiveStyle = themeStyle.merge(style);
+
     return InkWell(
-      overlayColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+      overlayColor: MaterialStateProperty.resolveWith<Color?>(
+          (Set<MaterialState> states) {
         return Colors.transparent;
       }),
-      onTap: () {
-        if (isDisabled) return;
-        onChanged(!value);
-      },
+      onTap: isDisabled
+          ? null
+          : () {
+              onChanged(!value);
+            },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Stack(
           alignment: Alignment.centerLeft,
           clipBehavior: Clip.none,
           children: [
-            _line(theme),
-            _thumb(theme),
+            _Line(
+              style: adaptiveStyle,
+              isActive: value,
+              isDisabled: isDisabled,
+            ),
+            _Thumb(
+              style: adaptiveStyle,
+              isActive: value,
+              isDisabled: isDisabled,
+            ),
           ],
         ),
       ),
     );
   }
+}
 
-  // inactive line
-  Widget _line(ZeroThemeData theme) {
-    Color lineColor;
-    if (!value) {
-      lineColor = inactiveColor ?? ZeroColors.neutral[7];
-      if (isDisabled) lineColor = theme.disabledColor;
-    } else {
-      lineColor = activeColor ?? theme.primaryColor;
-      if (isDisabled) lineColor = theme.disabledColor;
-    }
+class _Line extends StatelessWidget {
+  const _Line({
+    required this.style,
+    required this.isDisabled,
+    required this.isActive,
+  });
+
+  final ZeroSwitchStyle style;
+  final bool isDisabled;
+  final bool isActive;
+
+  @override
+  Widget build(BuildContext context) {
+    final switchStyleSet = context.theme.switchStyle;
+    final size = style.thumbSize ?? _kThumbSize;
+    final enableColor = isActive ? style.activeColor : style.inactiveColor;
+    final disableColor = switchStyleSet.disabledColor;
+    final color = isDisabled ? disableColor : enableColor;
 
     return Container(
-      width: _thumbSize * 1.8 + _thumbSize / 20,
-      height: _thumbSize * 1.1,
+      width: size * 1.8 + size / 20,
+      height: size * 1.1,
       decoration: BoxDecoration(
-        borderRadius: _borderRadius,
-        color: lineColor,
+        borderRadius: _kBorderRadius,
+        color: color,
       ),
     );
   }
+}
 
-  // thumb
-  Widget _thumb(ZeroThemeData theme) {
-    Color thumbColor;
-    if (!value) {
-      thumbColor = activeThumbColor ?? ZeroColors.neutral[1];
-      if (isDisabled) thumbColor = theme.disabledBackgroundColor;
-    } else {
-      thumbColor = inactiveThumbColor ?? ZeroColors.neutral[1];
-      if (isDisabled) thumbColor = theme.disabledBackgroundColor;
-    }
+class _Thumb extends StatelessWidget {
+  const _Thumb({
+    required this.style,
+    required this.isActive,
+    required this.isDisabled,
+  });
+
+  final ZeroSwitchStyle style;
+  final bool isActive;
+  final bool isDisabled;
+
+  @override
+  Widget build(BuildContext context) {
+    final size = style.thumbSize ?? _kThumbSize;
+    final enableColor =
+        isActive ? style.activeThumbColor : style.inactiveThumbColor;
+    final disableColor = ZeroColors.neutral[1];
+    final color = isDisabled ? disableColor : enableColor;
+
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 200),
       curve: Curves.easeInOut,
-      left: !value ? _thumbSize / 20 : _thumbSize * 1.8 - _thumbSize,
+      left: !isActive ? size / 20 : size * 1.8 - size,
       child: Material(
         shape: RoundedRectangleBorder(
-          borderRadius: _borderRadius,
+          borderRadius: _kBorderRadius,
         ),
         elevation: 2,
         child: Container(
-          width: _thumbSize,
-          height: _thumbSize,
+          width: size,
+          height: size,
           decoration: BoxDecoration(
-            borderRadius: _borderRadius,
-            color: thumbColor,
+            borderRadius: _kBorderRadius,
+            color: color,
           ),
         ),
       ),
