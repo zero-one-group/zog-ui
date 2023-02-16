@@ -59,6 +59,12 @@ class _ZeroDatePickerDockedState extends State<ZeroDatePickerDocked>
       globalKey;
     });
 
+    Future.delayed(const Duration(seconds: 1), () {
+      _overlayEntry = _createOverlay();
+
+      overlayState.insert(_overlayEntry!);
+    });
+
     _focusNode.addListener(() {
       if (_focusNode.hasFocus) {
         _overlayEntry = _createOverlay();

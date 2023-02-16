@@ -2,6 +2,8 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
+const kMarginBetweenChips = EdgeInsets.only(right: 4.0);
+
 enum MultipleItemsVariant {
   /// Just text with no checkbox
   plain,
@@ -326,21 +328,19 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
   Widget _buildSelectedItem(T item) {
     switch (widget.selectedItemsStyle) {
       case SelectedItemsStyle.text:
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Text(
-            _selectedItems.join(', '),
-            style: widget.labelStyle,
-            overflow: TextOverflow.ellipsis,
-            maxLines:
-                1, // TODO: Revisit later check whether this limit is necessary
-          ),
+        return Text(
+          _selectedItems.join(', '),
+          style: widget.labelStyle,
+          overflow: TextOverflow.ellipsis,
+          maxLines:
+              1, // TODO: Revisit later check whether this limit is necessary
         );
 
       case SelectedItemsStyle.chip:
         return Row(
             children: _selectedItems
                 .map((value) => Container(
+                      margin: kMarginBetweenChips,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
@@ -357,6 +357,7 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
         return Row(
             children: _selectedItems
                 .map((value) => Container(
+                      margin: kMarginBetweenChips,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
@@ -374,10 +375,12 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
   /// Dropdown with form decoration
   Widget _buildDropdownForm() {
     return Theme(
-      data: context.theme.toThemeData().copyWith(
+      data: context.theme
+          .copyWith(
               buttonTheme: ButtonTheme.of(context).copyWith(
             alignedDropdown: widget.alignedDropdown,
-          )),
+          ))
+          .toThemeData(),
       child: ZeroDropdownButtonFormField(
         isExpanded: true,
         decoration: InputDecoration(

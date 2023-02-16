@@ -21,7 +21,9 @@ const double _yearPickerPadding = 16.0;
 const double _yearPickerRowHeight = 52.0;
 
 const double _subHeaderHeight = 52.0;
-const double _monthNavButtonsWidth = 108.0;
+const double _kMonthNavButtonsWidth = 64.0;
+const double _kYearNavButtonsWidth = 32.0;
+const double _kYearNavButtonIconSize = 24;
 
 /// Initial display of a calendar date picker.
 ///
@@ -243,8 +245,6 @@ class _ZeroDockedCalendarDatePickerState
         widget.onDisplayedMonthChanged?.call(_currentDisplayedMonthDate);
 
         _selectedDate = date;
-
-        _mode = ZeroDatePickerMode.year;
       }
     });
   }
@@ -296,7 +296,12 @@ class _ZeroDockedCalendarDatePickerState
             lastDate: widget.lastDate,
             initialDate: _currentDisplayedMonthDate,
             selectedDate: _selectedDate,
-            onChanged: _handleMonthChanged,
+            onChanged: (DateTime selectedTime) {
+              _handleMonthChanged(selectedTime);
+              setState(() {
+                _mode = ZeroDatePickerMode.year;
+              });
+            },
           ),
         );
       case ZeroDatePickerMode.year:
@@ -327,15 +332,47 @@ class _ZeroDockedCalendarDatePickerState
           child: _buildPicker(),
         ),
         // Put the mode toggle button on top so that it won't be covered up by the _MonthPicker
-        _DatePickerModeToggleButton(
-          mode: _mode,
-          title: _localizations.formatMonthYear(_currentDisplayedMonthDate),
-          onTitlePressed: () {
-            // Toggle the day/year mode.
-            _handleModeChanged(_mode == ZeroDatePickerMode.day
-                ? ZeroDatePickerMode.month
-                : ZeroDatePickerMode.day);
-          },
+        Row(
+          children: [
+            Flexible(
+              fit: FlexFit.tight,
+              flex: 1,
+              child: Container(
+                margin: const EdgeInsets.symmetric(
+                    horizontal: _kYearNavButtonIconSize),
+                child: _DatePickerModeToggleButton(
+                  mode: _mode,
+                  title: DateFormat.MMM().format(_currentDisplayedMonthDate),
+                  active: _mode == ZeroDatePickerMode.month,
+                  onTitlePressed: () {
+                    // Toggle the day/year mode.
+                    _handleModeChanged(_mode != ZeroDatePickerMode.month
+                        ? ZeroDatePickerMode.month
+                        : ZeroDatePickerMode.day);
+                  },
+                ),
+              ),
+            ),
+            Flexible(
+              fit: FlexFit.tight,
+              flex: 1,
+              child: Container(
+                margin: const EdgeInsets.symmetric(
+                    horizontal: _kYearNavButtonIconSize),
+                child: _DatePickerModeToggleButton(
+                  mode: _mode,
+                  title: DateFormat.y().format(_currentDisplayedMonthDate),
+                  active: _mode == ZeroDatePickerMode.year,
+                  onTitlePressed: () {
+                    // Toggle the day/year mode.
+                    _handleModeChanged(_mode != ZeroDatePickerMode.year
+                        ? ZeroDatePickerMode.year
+                        : ZeroDatePickerMode.day);
+                  },
+                ),
+              ),
+            ),
+          ],
         ),
       ],
     );
@@ -347,11 +384,11 @@ class _ZeroDockedCalendarDatePickerState
 /// This appears above the calendar grid and allows the user to toggle the
 /// [ZeroDatePickerMode] to display either the calendar view or the year list.
 class _DatePickerModeToggleButton extends StatefulWidget {
-  const _DatePickerModeToggleButton({
-    required this.mode,
-    required this.title,
-    required this.onTitlePressed,
-  });
+  const _DatePickerModeToggleButton(
+      {required this.mode,
+      required this.title,
+      required this.onTitlePressed,
+      required this.active});
 
   /// The current display of the calendar picker.
   final ZeroDatePickerMode mode;
@@ -361,6 +398,9 @@ class _DatePickerModeToggleButton extends StatefulWidget {
 
   /// The callback when the title is pressed.
   final VoidCallback onTitlePressed;
+
+  /// `true` if selected
+  final bool active;
 
   @override
   _DatePickerModeToggleButtonState createState() =>
@@ -399,55 +439,51 @@ class _DatePickerModeToggleButtonState
 
   @override
   Widget build(BuildContext context) {
+    final bool inactive =
+        !widget.active && widget.mode != ZeroDatePickerMode.day;
     final ColorScheme colorScheme = context.theme.colorScheme;
     final TextTheme textTheme = context.theme.typography.toTextTheme();
-    final Color controlColor = colorScheme.onSurface;
 
-    return Container(
-      padding: const EdgeInsetsDirectional.only(start: 16, end: 4),
+    final Color controlColor =
+        inactive ? context.theme.disabledColor : colorScheme.onSurface;
+
+    final fullWidthButton = widget.mode != ZeroDatePickerMode.day;
+
+    return SizedBox(
       height: _subHeaderHeight,
-      child: Row(
-        children: <Widget>[
-          Flexible(
-            child: Semantics(
-              label: MaterialLocalizations.of(context).selectYearSemanticsLabel,
-              excludeSemantics: true,
-              button: true,
-              child: SizedBox(
-                height: _subHeaderHeight,
-                child: InkWell(
-                  onTap: widget.onTitlePressed,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Row(
-                      children: <Widget>[
-                        Flexible(
-                          child: Text(
-                            widget.title,
-                            overflow: TextOverflow.ellipsis,
-                            style: textTheme.titleSmall?.copyWith(
-                              color: controlColor,
-                            ),
-                          ),
-                        ),
-                        RotationTransition(
-                          turns: _controller,
-                          child: Icon(
-                            Icons.arrow_drop_down,
-                            color: controlColor,
-                          ),
-                        ),
-                      ],
-                    ),
+      child: Center(
+        child: Semantics(
+          label: MaterialLocalizations.of(context).selectYearSemanticsLabel,
+          excludeSemantics: true,
+          button: true,
+          child: SizedBox(
+            height: _subHeaderHeight,
+            child: InkWell(
+              onTap: widget.onTitlePressed,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize:
+                    fullWidthButton ? MainAxisSize.max : MainAxisSize.min,
+                children: <Widget>[
+                  Text(
+                    widget.title,
+                    overflow: TextOverflow.ellipsis,
+                    style: textTheme.bodyMedium?.copyWith(
+                        color: controlColor, fontWeight: FontWeight.w600),
                   ),
-                ),
+                  if (!inactive)
+                    RotationTransition(
+                      turns: _controller,
+                      child: Icon(
+                        Icons.arrow_drop_down,
+                        color: controlColor,
+                      ),
+                    ),
+                ],
               ),
             ),
           ),
-          if (widget.mode == ZeroDatePickerMode.day)
-            // Give space for the prev/next month buttons that are underneath this row
-            const SizedBox(width: _monthNavButtonsWidth),
-        ],
+        ),
       ),
     );
   }
@@ -792,27 +828,67 @@ class _MonthPickerState extends State<_MonthPicker> {
       child: Column(
         children: <Widget>[
           Container(
-            padding: const EdgeInsetsDirectional.only(start: 16, end: 4),
+            padding: const EdgeInsetsDirectional.only(start: 4, end: 4),
             height: _subHeaderHeight,
             child: Row(
-              children: <Widget>[
-                const Spacer(),
-                IconButton(
-                  icon: const Icon(Icons.chevron_left),
-                  color: controlColor,
-                  tooltip: _isDisplayingFirstMonth
-                      ? null
-                      : _localizations.previousMonthTooltip,
-                  onPressed:
-                      _isDisplayingFirstMonth ? null : _handlePreviousMonth,
+              children: [
+                Flexible(
+                  fit: FlexFit.tight,
+                  flex: 1,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      IconButton(
+                        icon: const Icon(Icons.chevron_left),
+                        color: controlColor,
+                        tooltip: _isDisplayingFirstMonth
+                            ? null
+                            : _localizations.previousMonthTooltip,
+                        onPressed: _isDisplayingFirstMonth
+                            ? null
+                            : _handlePreviousMonth,
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.chevron_right),
+                        color: controlColor,
+                        tooltip: _isDisplayingLastMonth
+                            ? null
+                            : _localizations.nextMonthTooltip,
+                        onPressed:
+                            _isDisplayingLastMonth ? null : _handleNextMonth,
+                      ),
+                    ],
+                  ),
                 ),
-                IconButton(
-                  icon: const Icon(Icons.chevron_right),
-                  color: controlColor,
-                  tooltip: _isDisplayingLastMonth
-                      ? null
-                      : _localizations.nextMonthTooltip,
-                  onPressed: _isDisplayingLastMonth ? null : _handleNextMonth,
+                Flexible(
+                  fit: FlexFit.tight,
+                  flex: 1,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      IconButton(
+                        icon: const Icon(Icons.chevron_left),
+                        color: controlColor,
+                        tooltip: _isDisplayingFirstMonth
+                            ? null
+                            : _localizations.previousMonthTooltip,
+                        onPressed: _isDisplayingFirstMonth
+                            ? null
+                            : _handlePreviousMonth,
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.chevron_right),
+                        color: controlColor,
+                        tooltip: _isDisplayingLastMonth
+                            ? null
+                            : _localizations.nextMonthTooltip,
+                        onPressed:
+                            _isDisplayingLastMonth ? null : _handleNextMonth,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -1251,7 +1327,6 @@ class _DockedMonthPickerState extends State<DockedMonthPicker> {
             padding: EdgeInsets.zero,
           ),
         ),
-        const Divider(),
       ],
     );
   }
@@ -1392,7 +1467,6 @@ class _DockedYearPickerState extends State<DockedYearPicker> {
             padding: const EdgeInsets.symmetric(horizontal: _yearPickerPadding),
           ),
         ),
-        const Divider(),
       ],
     );
   }
