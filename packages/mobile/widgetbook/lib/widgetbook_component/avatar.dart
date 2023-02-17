@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
@@ -41,6 +42,15 @@ List<ZeroAvatar> avatars = [
     'Zuhlhijaya Zulhijaya',
     size: AvatarSize.xs,
   ),
+];
+
+List<Option<Color>> _initialColorOptions = [
+  const Option(label: 'White', value: ZeroColors.white),
+  const Option(label: 'Red', value: ZeroColors.danger),
+  const Option(label: 'Green', value: ZeroColors.success),
+  const Option(label: 'Blue', value: ZeroColors.primary),
+  const Option(label: 'Yellow', value: ZeroColors.sunriseYellow),
+  const Option(label: 'Black', value: ZeroColors.black),
 ];
 
 WidgetbookComponent avatarWidgetbookComponent = WidgetbookComponent(
@@ -183,6 +193,8 @@ WidgetbookComponent avatarWidgetbookComponent = WidgetbookComponent(
             ]),
             withBadge: context.knobs
                 .nullableBoolean(label: 'With Badge', initialValue: false),
+            initialColor: context.knobs.options(
+                label: 'Initial Text Color', options: _initialColorOptions),
             backgroundColor: context.knobs
                 .options(label: 'Avatar Background Color', options: [
               Option(
