@@ -240,7 +240,6 @@ class _ZeroDatePickerDockedState extends State<ZeroDatePickerDocked>
             child: ZeroDockedCalendarDatePicker(
                 onDateChanged: (value) {
                   _textEditingController.text = _dateFormat.format(value);
-                  debugPrint('_selectedDate $_selectedDate');
                   _selectedDate = value;
                 },
                 firstDate: widget.firstDate,

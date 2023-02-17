@@ -252,8 +252,10 @@ class _ZeroDockedCalendarDatePickerState
     setState(() {
       if (_currentDisplayedMonthDate.year != date.year ||
           _currentDisplayedMonthDate.month != date.month) {
-        _currentDisplayedMonthDate = DateTime(date.year, date.month);
+        _currentDisplayedMonthDate =
+            DateTime(date.year, date.month, _selectedDate.day);
         widget.onDisplayedMonthChanged?.call(_currentDisplayedMonthDate);
+        debugPrint('_currentDisplayedMonthDate $_currentDisplayedMonthDate');
       }
     });
   }
@@ -268,9 +270,10 @@ class _ZeroDockedCalendarDatePickerState
       value = widget.lastDate;
     }
 
-    setState(() {
-      _handleMonthChanged(value);
+    _handleMonthChanged(value);
+    _handleDayChanged(value);
 
+    setState(() {
       _mode = ZeroDatePickerMode.day;
       widget.onModeChanged?.call(_mode);
     });
@@ -311,6 +314,7 @@ class _ZeroDockedCalendarDatePickerState
             onChanged: (DateTime selectedTime) {
               _handleMonthChanged(selectedTime);
               setState(() {
+                widget.onDateChanged.call(_currentDisplayedMonthDate);
                 _mode = ZeroDatePickerMode.year;
               });
             },
@@ -1355,8 +1359,12 @@ class _DockedMonthPickerState extends State<DockedMonthPicker> {
   }
 
   Widget _buildMonthItem(BuildContext context, int index) {
-    final String month = DateFormat.MMMM().format(DateTime(0, index));
-    final bool isSelected = index == widget.selectedDate.month;
+    final monthIndex = index + 1; // January starts from 1;
+    final String month = DateFormat.MMMM().format(DateTime(0, monthIndex));
+    final bool isSelected = monthIndex == widget.selectedDate.month;
+
+    debugPrint(
+        '$index == widget.selectedDate.month ${widget.selectedDate.month}');
 
     Widget monthItem = ZeroListTile(
       key: ValueKey<int>(index),
@@ -1370,7 +1378,8 @@ class _DockedMonthPickerState extends State<DockedMonthPicker> {
         maintainState: true,
         child: const Icon(Icons.check),
       ),
-      onTap: () => widget.onChanged(DateTime(widget.selectedDate.year, index)),
+      onTap: () =>
+          widget.onChanged(DateTime(widget.selectedDate.year, monthIndex)),
     );
 
     return monthItem;
@@ -1511,7 +1520,8 @@ class _DockedYearPickerState extends State<DockedYearPicker> {
         maintainState: true,
         child: const Icon(Icons.check),
       ),
-      onTap: () => widget.onChanged(DateTime(year, widget.selectedDate.month)),
+      onTap: () => widget.onChanged(
+          DateTime(year, widget.initialDate.month, widget.initialDate.day)),
     );
 
     return yearItem;
