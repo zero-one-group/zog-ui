@@ -3,7 +3,6 @@ import React, {
   ReactNode,
   useCallback,
   useContext,
-  useEffect,
   useRef,
 } from 'react';
 import { NotificationData, NotificationSpotHandle } from './NotificationSpot';
@@ -18,7 +17,9 @@ type NotificationContextType = {
 };
 
 const NotificationContext = createContext<NotificationContextType>({
-  notify() {},
+  notify() {
+    return;
+  },
 });
 
 export type NotificationProviderProps = {
