@@ -45,12 +45,12 @@ List<ZeroAvatar> avatars = [
 ];
 
 List<Option<Color>> _initialColorOptions = [
-  const Option(label: 'White', value: Colors.white),
-  const Option(label: 'Red', value: Colors.red),
-  const Option(label: 'Green', value: Colors.green),
-  const Option(label: 'Blue', value: Colors.blue),
-  const Option(label: 'Yellow', value: Colors.yellow),
-  const Option(label: 'Black', value: Colors.black),
+  const Option(label: 'White', value: ZeroColors.white),
+  const Option(label: 'Red', value: ZeroColors.danger),
+  const Option(label: 'Green', value: ZeroColors.success),
+  const Option(label: 'Blue', value: ZeroColors.primary),
+  const Option(label: 'Yellow', value: ZeroColors.sunriseYellow),
+  const Option(label: 'Black', value: ZeroColors.black),
 ];
 
 WidgetbookComponent avatarWidgetbookComponent = WidgetbookComponent(
