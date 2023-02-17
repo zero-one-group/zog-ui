@@ -240,11 +240,12 @@ class _ZeroDatePickerDockedState extends State<ZeroDatePickerDocked>
             child: ZeroDockedCalendarDatePicker(
                 onDateChanged: (value) {
                   _textEditingController.text = _dateFormat.format(value);
+                  debugPrint('_selectedDate $_selectedDate');
                   _selectedDate = value;
                 },
                 firstDate: widget.firstDate,
                 lastDate: widget.lastDate,
-                initialDate: widget.initialDate,
+                initialDate: _selectedDate ?? widget.initialDate,
                 onModeChanged: (mode) {
                   innerState(() {
                     _showActions = mode == ZeroDatePickerMode.day;

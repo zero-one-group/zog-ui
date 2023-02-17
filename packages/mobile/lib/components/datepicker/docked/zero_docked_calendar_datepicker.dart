@@ -254,13 +254,12 @@ class _ZeroDockedCalendarDatePickerState
           _currentDisplayedMonthDate.month != date.month) {
         _currentDisplayedMonthDate = DateTime(date.year, date.month);
         widget.onDisplayedMonthChanged?.call(_currentDisplayedMonthDate);
-
-        _selectedDate = date;
       }
     });
   }
 
   void _handleYearChanged(DateTime value) {
+    debugPrint('_handleYearChanged $value');
     _vibrate();
 
     if (value.isBefore(widget.firstDate)) {
@@ -271,6 +270,7 @@ class _ZeroDockedCalendarDatePickerState
 
     setState(() {
       _handleMonthChanged(value);
+
       _mode = ZeroDatePickerMode.day;
       widget.onModeChanged?.call(_mode);
     });
@@ -622,6 +622,7 @@ class _MonthPickerState extends State<_MonthPicker> {
 
   void _handleDateSelected(DateTime selectedDate) {
     _focusedDay = selectedDate;
+    debugPrint('_handleDateSelected $selectedDate');
     widget.onChanged(selectedDate);
   }
 
@@ -1102,6 +1103,7 @@ class _DayPickerState extends State<_DayPicker> {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('widget.selectedDate ${widget.selectedDate}');
     final ColorScheme colorScheme = context.theme.colorScheme;
     final MaterialLocalizations localizations =
         MaterialLocalizations.of(context);
