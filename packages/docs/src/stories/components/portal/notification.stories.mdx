@@ -1,0 +1,281 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { BADGE } from '@geometricpanda/storybook-addon-badges';
+import { within, userEvent } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
+import { NotificationProvider, useNotification } from '@zero-ui/core';
+import { SmileOutlined } from '@ant-design/icons';
+
+<Meta
+  title="Components/Portal/Notification"
+  component={[NotificationProvider]}
+  argTypes={{}}
+/>
+
+export const ChildComponent = () => {
+  const [notify] = useNotification({ placement: 'bottom-left' });
+  return (
+    <>
+      <h3>Placement</h3>
+      <div>
+        <button
+          onClick={() =>
+            notify({
+              title: 'Top Left',
+              description: 'Notification From Hook',
+              placement: 'top-left',
+            })
+          }
+        >
+          Top Left
+        </button>
+        <button
+          onClick={() =>
+            notify({
+              title: 'Top Right',
+              description: 'Notification From Hook',
+              placement: 'top-right',
+            })
+          }
+        >
+          Top Right
+        </button>
+      </div>
+      <div>
+        <button
+          onClick={() =>
+            notify({
+              title: 'Bottom Left',
+              description: 'Notification From Hook',
+            })
+          }
+        >
+          Bottom Left
+        </button>
+        <button
+          onClick={() =>
+            notify({
+              title: 'Bottom Right',
+              description: 'Notification From Hook',
+              placement: 'bottom-right',
+            })
+          }
+        >
+          Bottom Right
+        </button>
+      </div>
+      <h3>With Icon</h3>
+      <div>
+        <button
+          onClick={() =>
+            notify({
+              title: 'Bottom Left',
+              description: 'Notification From Hook',
+              icon: <SmileOutlined />,
+            })
+          }
+        >
+          <SmileOutlined />
+        </button>
+      </div>
+      <h3>With Action</h3>
+      <div>
+        <button
+          onClick={() =>
+            notify({
+              title: 'Done Uploading',
+              description: 'Item uploaded after 1 minute',
+              icon: <SmileOutlined />,
+              action: { label: 'Yayy!' },
+            })
+          }
+        >
+          Upload
+        </button>
+      </div>
+      <h3>Custom Duration</h3>
+      <div>
+        <button
+          onClick={() =>
+            notify({
+              title: '10 Second Notif',
+              description: 'Notification will autoclose after 10 second',
+              duration: 10000,
+              placement: 'top-right',
+            })
+          }
+        >
+          Long Notif
+        </button>
+      </div>
+    </>
+  );
+};
+
+export const NotificationStory = () => {
+  return (
+    <NotificationProvider placements="all">
+      <ChildComponent />
+    </NotificationProvider>
+  );
+};
+
+# Notification
+
+> Display a notification message globally.
+
+## Example Usage
+
+```jsx
+import { Notification, useNotification } from '@zero-ui/core';
+
+const ChildComponent = () => {
+  const [notify] = useNotification({ placement: 'bottom-left' });
+  return (
+    <>
+      <h3>Placement</h3>
+      <div>
+        <button
+          onClick={() =>
+            notify({
+              title: 'Top Left',
+              description: 'Notification From Hook',
+              placement: 'top-left',
+            })
+          }
+        >
+          Top Left
+        </button>
+        <button
+          onClick={() =>
+            notify({
+              title: 'Top Right',
+              description: 'Notification From Hook',
+              placement: 'top-right',
+            })
+          }
+        >
+          Top Right
+        </button>
+      </div>
+      <div>
+        <button
+          onClick={() =>
+            notify({
+              title: 'Bottom Left',
+              description: 'Notification From Hook',
+            })
+          }
+        >
+          Bottom Left
+        </button>
+        <button
+          onClick={() =>
+            notify({
+              title: 'Bottom Right',
+              description: 'Notification From Hook',
+              placement: 'bottom-right',
+            })
+          }
+        >
+          Bottom Right
+        </button>
+      </div>
+      <h3>With Icon</h3>
+      <div>
+        <button
+          onClick={() =>
+            notify({
+              title: 'Bottom Left',
+              description: 'Notification From Hook',
+              icon: <SmileOutlined />,
+            })
+          }
+        >
+          <SmileOutlined />
+        </button>
+      </div>
+      <h3>With Action</h3>
+      <div>
+        <button
+          onClick={() =>
+            notify({
+              title: 'Done Uploading',
+              description: 'Item uploaded after 1 minute',
+              icon: <SmileOutlined />,
+              action: { label: 'Yayy!' },
+            })
+          }
+        >
+          Upload
+        </button>
+      </div>
+      <h3>Custom Duration</h3>
+      <div>
+        <button
+          onClick={() =>
+            notify({
+              title: '10 Second Notif',
+              description: 'Notification will autoclose after 10 second',
+              duration: 10000,
+            })
+          }
+        >
+          Long Notif
+        </button>
+      </div>
+    </>
+  );
+};
+
+const App = () => {
+  return (
+    // Need to specify placements or if all selected you can use `placements='all'`
+    <NotificationProvider
+      placements={['bottom-left', 'bottom-right', 'top-left', 'top-right']}
+    >
+      <ChildComponent />
+    </NotificationProvider>
+  );
+};
+```
+
+<Canvas columns={2} withSource="close">
+  <Story name="Notification">{NotificationStory.bind()}</Story>
+</Canvas>
+
+<ArgsTable of={NotificationProvider} />
+
+### Hook `useNotification`
+
+`useNotification` return function to send notification
+currently this is the only way to send notification
+
+```ts
+const useNotification: ({
+  placement?: NotificationPlacement | undefined;
+}) => readonly [
+  ({
+    title?: string;
+    description?: ReactNode;
+    icon?: ReactNode;
+    action?: NotificationAction;
+    actionComponent?: ReactNode;
+    placement?: NotificationPlacement;
+    className?: string; // custom className for the NotificationCard
+    style?: CSSProperties;
+    css?: CSS; // stitches css
+  }) => void
+];
+
+type NotificationAction = {
+  label: string;
+  onClick?: () => void;
+  alt?: string;
+};
+
+type NotificationPlacement =
+  | 'top-left'
+  | 'top-right'
+  | 'bottom-right'
+  | 'bottom-left';
+```

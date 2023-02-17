@@ -25,6 +25,7 @@ export * from './Layout';
 export * from './Link';
 export * from './List';
 export * from './Menu';
+export * from './Notification';
 export * from './Overlay';
 export * from './PageHeader';
 export * from './Pagination';
