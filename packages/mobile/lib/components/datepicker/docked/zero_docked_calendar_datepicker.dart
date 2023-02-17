@@ -49,7 +49,7 @@ enum ZeroDatePickerMode {
 }
 
 /// Displays a grid of days for a given month and allows the user to select a
-/// date.
+/// date which is displayed in a docked mode
 ///
 /// Days are arranged in a rectangular grid with one column for each day of the
 /// week. Controls are provided to change the year and month that the grid is
@@ -64,7 +64,7 @@ enum ZeroDatePickerMode {
 ///  * [showZeroDatePicker], which creates a Dialog that contains a
 ///    [ZeroDockedCalendarDatePicker] and provides an optional compact view where the
 ///    user can enter a date as a line of text.
-///  * [showTimePicker], which shows a dialog that contains a Material Design
+///  * [showZeroTimePicker], which shows a dialog that contains a Material Design
 ///    time picker.
 ///
 class ZeroDockedCalendarDatePicker extends StatefulWidget {
@@ -227,7 +227,6 @@ class _ZeroDockedCalendarDatePickerState
   }
 
   void _handleModeChanged(ZeroDatePickerMode mode) {
-    debugPrint('_handleModeChanged $mode');
     if (widget.onModeChanged != null) {
       widget.onModeChanged!.call(mode);
     }
@@ -262,7 +261,6 @@ class _ZeroDockedCalendarDatePickerState
   }
 
   void _handleYearChanged(DateTime value) {
-    debugPrint('_handleYearChanged $value');
     _vibrate();
 
     if (value.isBefore(widget.firstDate)) {

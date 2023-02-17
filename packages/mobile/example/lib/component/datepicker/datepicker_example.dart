@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
@@ -19,18 +17,20 @@ class ZeroDatePickerExample extends StatelessWidget {
               height: 20,
             ),
             ZeroDatePickerDocked(
-                inputDecorationType: InputDecorationType.underline,
-                firstDate:
-                    DateTime.now().subtract(const Duration(days: 365 * 10)),
-                lastDate: DateTime.now().add(const Duration(days: 365 * 10)),
-                initialDate: DateTime.now()),
+              inputDecorationType: InputDecorationType.outline,
+              firstDate:
+                  DateTime.now().subtract(const Duration(days: 365 * 10)),
+              lastDate: DateTime.now().add(const Duration(days: 365 * 10)),
+              initialDate: DateTime.now(),
+              onDateChanged: (dateTime) {},
+            ),
             const SizedBox(
               height: 20,
             ),
             ZeroButton.primary(
                 text: 'Date Picker',
                 onPressed: () async {
-                  showDatePicker(
+                  showZeroDatePicker(
                     context: context,
                     initialDate: DateTime.now(),
                     firstDate:
@@ -52,30 +52,6 @@ class ZeroDatePickerExample extends StatelessWidget {
                 }),
             const SizedBox(
               height: 20,
-            ),
-            ZeroTextField.outline(
-              labelText: 'Select Date',
-              onFocusChanged: (bool hasFocus) {},
-            ),
-            ZeroDropdown(
-              items: const [''],
-              onChanged: (p0) {},
-              menuItemBuilder: (p0) {
-                return ZeroDatePickerDialog(
-                  initialDate: DateTime.now(),
-                  firstDate:
-                      DateTime.now().subtract(const Duration(days: 365 * 10)),
-                  lastDate: DateTime.now().add(const Duration(days: 365 * 10)),
-                );
-              },
-              selectedMenuItemBuilder: (p0) {
-                return ZeroDatePickerDialog(
-                  initialDate: DateTime.now(),
-                  firstDate:
-                      DateTime.now().subtract(const Duration(days: 365 * 10)),
-                  lastDate: DateTime.now().add(const Duration(days: 365 * 10)),
-                );
-              },
             ),
           ],
         ),
