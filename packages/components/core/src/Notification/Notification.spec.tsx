@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import { Notification } from './Notification';
+import { NotificationProvider } from './Notification';
 
 describe('Notification', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Notification />);
+    const { baseElement } = render(<NotificationProvider />);
     expect(baseElement).toBeTruthy();
   });
 });
