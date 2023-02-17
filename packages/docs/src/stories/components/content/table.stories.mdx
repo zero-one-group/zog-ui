@@ -2,15 +2,44 @@ import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
 import { BADGE } from '@geometricpanda/storybook-addon-badges';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { Table } from '@zero-ui/core';
+import { createColumnHelper } from '@tanstack/react-table';
+import { Table, Space } from '@zero-ui/core';
 
-<Meta title="Components/Content/Table" component={[Table]} argTypes={{}} />
+<Meta
+  title="Components/Content/Table"
+  component={[Table]}
+  argTypes={{
+    colorScheme: {
+      options: ['pink', 'red', 'blue', 'teal'],
+      control: { type: 'select' },
+    },
+    size: {
+      control: 'radio',
+      options: ['sm', 'md', 'lg'],
+    },
+    enableSorting: {
+      control: 'boolean',
+    },
+    enableFiltering: {
+      control: 'boolean',
+    },
+    enableSelection: {
+      control: 'boolean',
+    },
+    columns: {
+      control: false,
+    },
+    dataSource: {
+      control: false,
+    },
+  }}
+/>
 
-export const TableStory = () => <Table />;
+export const TableStory = (args) => <Table {...args} />;
 
 # Table
 
-> WIP
+To display a collection of structured data. Built on top of [TanStack Table v8](https://tanstack.com/table/v8/docs/guide/introduction)
 
 ## Example Usage
 
@@ -18,8 +47,214 @@ export const TableStory = () => <Table />;
 import { Table } from '@zero-ui/core';
 ```
 
+export const dataSource = [
+  {
+    firstName: 'tanner',
+    lastName: 'linsley',
+    age: 24,
+    visits: 100,
+    status: 'In Relationship',
+    progress: 50,
+  },
+  {
+    firstName: 'tanner',
+    lastName: 'linsley',
+    age: 24,
+    visits: 100,
+    status: 'In Relationship',
+    progress: 50,
+  },
+  {
+    firstName: 'tandy',
+    lastName: 'miller',
+    age: 40,
+    visits: 40,
+    status: 'Single',
+    progress: 80,
+  },
+  {
+    firstName: 'joe',
+    lastName: 'dirte',
+    age: 45,
+    visits: 20,
+    status: 'Complicated',
+    progress: 10,
+  },
+  {
+    firstName: 'jim',
+    lastName: 'séchen',
+    age: 22,
+    visits: 21,
+    status: 'Complicated',
+    progress: 50,
+  },
+  {
+    firstName: 'tandy',
+    lastName: 'miller',
+    age: 40,
+    visits: 40,
+    status: 'Single',
+    progress: 80,
+  },
+  {
+    firstName: 'joe',
+    lastName: 'dirte',
+    age: 45,
+    visits: 20,
+    status: 'Complicated',
+    progress: 10,
+  },
+  {
+    firstName: 'jim',
+    lastName: 'séchen',
+    age: 22,
+    visits: 21,
+    status: 'Complicated',
+    progress: 50,
+  },
+  {
+    firstName: 'tanner',
+    lastName: 'linsley',
+    age: 24,
+    visits: 100,
+    status: 'In Relationship',
+    progress: 50,
+  },
+  {
+    firstName: 'tandy',
+    lastName: 'miller',
+    age: 40,
+    visits: 40,
+    status: 'Single',
+    progress: 80,
+  },
+  {
+    firstName: 'joe',
+    lastName: 'dirte',
+    age: 45,
+    visits: 20,
+    status: 'Complicated',
+    progress: 10,
+  },
+  {
+    firstName: 'jim',
+    lastName: 'séchen',
+    age: 22,
+    visits: 21,
+    status: 'Complicated',
+    progress: 50,
+  },
+];
+
+export const columnHelper = createColumnHelper();
+
+export const columns = [
+  columnHelper.accessor('firstName', {
+    cell: (info) => info.getValue(),
+    header: () => <span>First Name</span>,
+  }),
+  columnHelper.accessor((row) => row.lastName, {
+    id: 'lastName',
+    cell: (info) => <i>{info.getValue()}</i>,
+    header: () => <span>Last Name</span>,
+  }),
+  columnHelper.accessor('age', {
+    header: () => 'Age',
+    cell: (info) => info.renderValue(),
+  }),
+  columnHelper.accessor('visits', {
+    header: () => <span>Visits</span>,
+  }),
+  columnHelper.accessor('status', {
+    header: 'Status',
+  }),
+  columnHelper.accessor('progress', {
+    header: 'Profile Progress',
+  }),
+  columnHelper.display({
+    id: 'actions',
+    header: 'Actions',
+    cell: (info) => (
+      <Space gap={16}>
+        <a href="#">edit</a>
+        <a href="#">more</a>
+      </Space>
+    ),
+  }),
+];
+
+export const columnsGroup = [
+  columnHelper.group({
+    id: 'name',
+    header: () => <span>Name</span>,
+    columns: [
+      columnHelper.accessor('firstName', {
+        cell: (info) => info.getValue(),
+      }),
+      columnHelper.accessor((row) => row.lastName, {
+        id: 'lastName',
+        cell: (info) => info.getValue(),
+        header: () => <span>Last Name</span>,
+      }),
+    ],
+  }),
+  columnHelper.group({
+    header: 'Info',
+    columns: [
+      columnHelper.accessor('age', {
+        header: () => 'Age',
+      }),
+      columnHelper.accessor('visits', {
+        header: () => <span>Visits</span>,
+      }),
+      columnHelper.accessor('status', {
+        header: 'Status',
+      }),
+      columnHelper.accessor('progress', {
+        header: 'Profile Progress',
+      }),
+    ],
+  }),
+];
+
 <Canvas columns={2} withSource="close">
-  <Story name="Table">{TableStory.bind()}</Story>
+  <Story
+    name="Basic Table"
+    args={{
+      dataSource: dataSource,
+      columns: columns,
+      size: 'lg',
+      bordered: false,
+      enableFiltering: true,
+      enableSorting: true,
+      enableSelection: true,
+      initialState: {
+        pagination: {
+          pageSize: 5,
+        },
+      },
+    }}
+  >
+    {TableStory.bind()}
+  </Story>
+  <Story
+    name="Grouping Table"
+    args={{
+      dataSource: dataSource,
+      columns: columnsGroup,
+      enableFiltering: true,
+      enableSorting: true,
+      size: 'lg',
+      bordered: false,
+      initialState: {
+        pagination: {
+          pageSize: 5,
+        },
+      },
+    }}
+  >
+    {TableStory.bind()}
+  </Story>
 </Canvas>
 
 <ArgsTable of={Table} />
