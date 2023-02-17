@@ -2346,7 +2346,8 @@ class _ZeroTimePickerDialogState extends State<ZeroTimePickerDialog>
   }
 
   Size _dialogSize(BuildContext context) {
-    final Orientation orientation = MediaQuery.of(context).orientation;
+    final Orientation orientation =
+        kIsWeb ? Orientation.portrait : MediaQuery.of(context).orientation;
 
     final ThemeData theme = context.theme.toThemeData();
     // Constrain the textScaleFactor to prevent layout issues. Since only some
