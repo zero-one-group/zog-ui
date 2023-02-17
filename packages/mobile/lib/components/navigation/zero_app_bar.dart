@@ -132,9 +132,17 @@ class ZeroAppBar extends StatelessWidget implements PreferredSizeWidget {
                             ),
                             // Build title small size
                             Expanded(
-                              child: size == ZeroAppBarSize.small
-                                  ? _Title(style: adaptiveStyle, title: title)
-                                  : const SizedBox(),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 16,
+                                ),
+                                child: size == ZeroAppBarSize.small
+                                    ? _Title(
+                                        style: adaptiveStyle,
+                                        title: title,
+                                      )
+                                    : const SizedBox.shrink(),
+                              ),
                             ),
                             // Build actions
                             Row(
@@ -150,6 +158,11 @@ class ZeroAppBar extends StatelessWidget implements PreferredSizeWidget {
                           size == ZeroAppBarSize.large
                               ? const SizedBox(height: 26)
                               : const SizedBox(height: 20)
+                        ],
+
+                        if (bottom != null) ...[
+                          const Spacer(),
+                          bottom!,
                         ],
                       ],
                     ),
