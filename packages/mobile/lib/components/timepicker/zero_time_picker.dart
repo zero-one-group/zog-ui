@@ -4,6 +4,8 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 const Duration _kDialogSizeAnimationDuration = Duration(milliseconds: 200);
@@ -1916,7 +1918,6 @@ class _HourMinuteTextFieldState extends State<_HourMinuteTextField>
         ),
         hintStyle: widget.style
             .copyWith(color: colorScheme.onSurface.withOpacity(0.36)),
-        // TODO(rami-a): Remove this logic once https://github.com/flutter/flutter/issues/54104 is fixed.
         errorStyle: const TextStyle(
             fontSize: 0.0,
             height: 0.0), // Prevent the error text from appearing.
@@ -1928,7 +1929,7 @@ class _HourMinuteTextFieldState extends State<_HourMinuteTextField>
     // Otherwise, remove the hint text when focused because the centered cursor
     // appears odd above the hint text.
     //
-    // TODO(rami-a): Once https://github.com/flutter/flutter/issues/67571 is
+
     // resolved, remove the window check for semantics being enabled on web.
     final String? hintText = MediaQuery.of(context).accessibleNavigation ||
             WidgetsBinding.instance.window.semanticsEnabled
@@ -2346,6 +2347,7 @@ class _ZeroTimePickerDialogState extends State<ZeroTimePickerDialog>
 
   Size _dialogSize(BuildContext context) {
     final Orientation orientation = MediaQuery.of(context).orientation;
+
     final ThemeData theme = context.theme.toThemeData();
     // Constrain the textScaleFactor to prevent layout issues. Since only some
     // parts of the time picker scale up with textScaleFactor, we cap the factor
@@ -2394,7 +2396,8 @@ class _ZeroTimePickerDialogState extends State<ZeroTimePickerDialog>
     final ThemeData theme = context.theme.toThemeData();
     final ShapeBorder shape =
         TimePickerTheme.of(context).shape ?? _kDefaultShape;
-    final Orientation orientation = media.orientation;
+    final Orientation orientation =
+        kIsWeb ? Orientation.portrait : media.orientation;
 
     final Widget actions = Row(
       children: <Widget>[

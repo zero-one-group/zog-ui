@@ -105,6 +105,12 @@ List<Option<Widget?>> iconsOptions = [
   ),
 ];
 
+List<Option<double>> widths = [
+  const Option(label: '100', value: 100.0),
+  const Option(label: '200', value: 200.0),
+  const Option(label: '300', value: 300.0),
+];
+
 WidgetbookComponent dropdownWidgetbookComponent = WidgetbookComponent(
   name: 'Dropdown',
   useCases: [
@@ -232,6 +238,8 @@ WidgetbookComponent dropdownWidgetbookComponent = WidgetbookComponent(
                     ZeroDropdown.icon(
                       onChanged: (p0) {},
                       items: items,
+                      dropdownWidth: context.knobs
+                          .options(label: 'Dropdown Width', options: widths),
                       icon: ClipOval(
                         child: Material(
                           color: context.theme.primaryColor,

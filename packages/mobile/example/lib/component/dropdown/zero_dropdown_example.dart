@@ -34,6 +34,7 @@ class ZeroDropdownExample extends StatelessWidget {
                 onChanged: (p0) {},
                 items: items,
                 multipleItemsVariant: MultipleItemsVariant.checkboxes,
+                inputDecorationType: InputDecorationType.underline,
               ),
               const SizedBox(
                 height: 10,
@@ -82,6 +83,17 @@ class ZeroDropdownExample extends StatelessWidget {
                 multipleItemsVariant: MultipleItemsVariant.checkboxes,
                 suffixIcon: const Icon(Icons.search),
                 selectedItemsStyle: SelectedItemsStyle.chip,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              ZeroDropdown.multiple(
+                labelText: 'Label text',
+                onChanged: (p0) {},
+                items: items,
+                multipleItemsVariant: MultipleItemsVariant.checkboxes,
+                textfieldSize: ZeroTextfieldSize.large,
+                suffixIcon: const Icon(Icons.search),
               ),
               const SizedBox(
                 height: 10,

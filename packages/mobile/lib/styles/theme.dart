@@ -104,6 +104,7 @@ class ZeroThemeData with Diagnosticable {
   final Brightness brightness;
   final IconThemeData iconTheme;
   final DialogTheme dialogTheme;
+  final ButtonThemeData? buttonTheme;
 
   final ColorScheme colorScheme;
 
@@ -122,6 +123,7 @@ class ZeroThemeData with Diagnosticable {
     required this.scaffoldBackgroundColor,
     required this.iconTheme,
     required this.dialogTheme,
+    this.buttonTheme,
     required this.cardColor,
     required this.disabledBackgroundColor,
     required this.errorColor,
@@ -172,6 +174,7 @@ class ZeroThemeData with Diagnosticable {
     ColorScheme? colorScheme,
     IconThemeData? iconTheme,
     DialogTheme? dialogTheme,
+    ButtonThemeData? buttonTheme,
     InputDecorationTheme? inputDecorationTheme,
     ZeroListTileStyle? listTileStyle,
     ZeroButtonStyle? primaryButtonStyle,
@@ -237,6 +240,10 @@ class ZeroThemeData with Diagnosticable {
             titleTextStyle: typography.heading6,
             contentTextStyle: typography.body2,
           );
+
+    buttonTheme ??= ButtonThemeData(
+      alignedDropdown: true,
+    );
 
     textfieldSize ??= ZeroTextfieldSize.small;
 
@@ -373,6 +380,7 @@ class ZeroThemeData with Diagnosticable {
       checkedColor: checkedColor,
       iconTheme: iconTheme,
       dialogTheme: dialogTheme,
+      buttonTheme: buttonTheme,
       colorScheme: colorScheme,
       typography: typography,
       cardColor: cardColor,
@@ -472,6 +480,7 @@ class ZeroThemeData with Diagnosticable {
     ColorScheme? colorScheme,
     IconThemeData? iconTheme,
     DialogTheme? dialogTheme,
+    ButtonThemeData? buttonTheme,
     InputDecorationTheme? inputDecorationTheme,
     ZeroListTileStyle? listTileStyle,
     ZeroButtonStyle? primaryButtonStyle,
@@ -503,6 +512,7 @@ class ZeroThemeData with Diagnosticable {
           scaffoldBackgroundColor ?? this.scaffoldBackgroundColor,
       colorScheme: colorScheme ?? this.colorScheme,
       iconTheme: this.iconTheme.merge(iconTheme),
+      buttonTheme: buttonTheme ?? this.buttonTheme,
       dialogTheme: dialogTheme ?? this.dialogTheme,
       cardColor: cardColor ?? this.cardColor,
       errorColor: errorColor ?? this.errorColor,
@@ -565,6 +575,7 @@ class ZeroThemeData with Diagnosticable {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: secondaryButtonStyle.toButtonStyle(),
       ),
+      buttonTheme: buttonTheme,
       inputDecorationTheme:
           textfieldStyleSet?.mainStyle.toInputDecorationTheme(),
       colorScheme: colorScheme,

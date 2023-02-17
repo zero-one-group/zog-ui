@@ -8,10 +8,25 @@ class ZeroDatePickerExample extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Date Picker')),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            const SizedBox(
+              height: 20,
+            ),
+            ZeroDatePickerDocked(
+              inputDecorationType: InputDecorationType.outline,
+              firstDate:
+                  DateTime.now().subtract(const Duration(days: 365 * 10)),
+              lastDate: DateTime.now().add(const Duration(days: 365 * 10)),
+              initialDate: DateTime.now(),
+              onDateChanged: (dateTime) {},
+            ),
+            const SizedBox(
+              height: 20,
+            ),
             ZeroButton.primary(
                 text: 'Date Picker',
                 onPressed: () async {
@@ -19,8 +34,9 @@ class ZeroDatePickerExample extends StatelessWidget {
                     context: context,
                     initialDate: DateTime.now(),
                     firstDate:
-                        DateTime.now().subtract(const Duration(days: 30)),
-                    lastDate: DateTime.now().add(const Duration(days: 100)),
+                        DateTime.now().subtract(const Duration(days: 365 * 10)),
+                    lastDate:
+                        DateTime.now().add(const Duration(days: 365 * 10)),
                   );
                 }),
             ZeroButton.primary(
@@ -29,10 +45,14 @@ class ZeroDatePickerExample extends StatelessWidget {
                   showZeroDateRangePicker(
                     context: context,
                     firstDate:
-                        DateTime.now().subtract(const Duration(days: 30)),
-                    lastDate: DateTime.now().add(const Duration(days: 100)),
+                        DateTime.now().subtract(const Duration(days: 365 * 10)),
+                    lastDate:
+                        DateTime.now().add(const Duration(days: 365 * 10)),
                   );
                 }),
+            const SizedBox(
+              height: 20,
+            ),
           ],
         ),
       ),
