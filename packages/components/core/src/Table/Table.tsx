@@ -5,6 +5,7 @@ import {
 } from '@ant-design/icons';
 import {
   ColumnDef,
+  createColumnHelper,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -16,7 +17,8 @@ import {
   TableOptions,
   useReactTable,
 } from '@tanstack/react-table';
-import { ComponentProps, useState } from 'react';
+import { ComponentProps, useMemo, useState } from 'react';
+import { Checkbox } from '../Checkbox';
 import { Pagination } from '../Pagination';
 import { styled } from '../stitches.config';
 import TableFilter from './TableFilter';
@@ -173,6 +175,7 @@ export type TableProps<T> = {
   bordered?: boolean;
   enableSorting?: boolean;
   enableFiltering?: boolean;
+  enableSelection?: boolean;
   initialState?: TableOptions<T>['initialState'];
 } & ComponentProps<typeof StyledTableWrapper>;
 
@@ -184,18 +187,56 @@ export function Table<T>({
   bordered = false,
   enableSorting = false,
   enableFiltering = false,
+  enableSelection = false,
   initialState,
   css,
 }: TableProps<T>) {
+  const columnHelper = createColumnHelper<T>();
   const [data] = useState(() => [...dataSource]);
   const [sorting, setSorting] = useState<SortingState>([]);
+  const [rowSelection, setRowSelection] = useState({});
+
+  let renderedColumns = [...columns];
+
+  const checkboxColumn: ColumnDef<T, unknown>[] = useMemo(() => {
+    return [
+      columnHelper.display({
+        id: 'select',
+        header: ({ table }) => (
+          <Checkbox
+            colorScheme={colorScheme}
+            checked={
+              table.getIsSomePageRowsSelected()
+                ? 'indeterminate'
+                : table.getIsAllPageRowsSelected()
+            }
+            onClick={table.getToggleAllRowsSelectedHandler()}
+          />
+        ),
+        cell: ({ row }) => (
+          <Checkbox
+            colorScheme={colorScheme}
+            checked={row.getIsSelected()}
+            onClick={row.getToggleSelectedHandler()}
+          />
+        ),
+      }),
+    ];
+  }, [colorScheme, columnHelper]);
+
+  if (enableSelection) {
+    renderedColumns = [...checkboxColumn, ...columns];
+  }
 
   const table = useReactTable({
     data,
-    columns,
+    columns: renderedColumns,
     state: {
       sorting: enableSorting ? sorting : undefined,
+      rowSelection,
     },
+    enableRowSelection: enableSelection,
+    onRowSelectionChange: setRowSelection,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: enableSorting ? setSorting : undefined,
     getSortedRowModel: enableSorting ? getSortedRowModel() : undefined,

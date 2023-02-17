@@ -48,12 +48,6 @@ const StyledCheckboxRoot = styled(CheckboxPrimitive.Root, {
     border: '1px solid $$bgCheck',
     backgroundColor: '$$bgCheck',
   },
-  '&[aria-checked="indeterminated"]:not(:disabled)::after': {
-    content: '',
-    width: '.5em',
-    height: '.5em',
-    backgroundColor: '$$bgCheck',
-  },
 });
 const StyledCheckboxIndicator = styled(CheckboxPrimitive.Indicator, {
   color: 'white',
@@ -61,6 +55,15 @@ const StyledCheckboxIndicator = styled(CheckboxPrimitive.Indicator, {
   fontSize: '.7em',
   '&[data-disabled=""]': {
     color: '$blackA8 !important',
+  },
+  '&[data-state="indeterminate"]': {
+    height: '.7em',
+    width: '.7em',
+    backgroundColor: '$$bgCheck',
+    color: 'transparent !important',
+  },
+  '&[data-state="indeterminate"][data-disabled]': {
+    backgroundColor: '$blackA8',
   },
 });
 

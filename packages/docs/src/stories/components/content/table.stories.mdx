@@ -23,6 +23,9 @@ import { Table, Space } from '@zero-ui/core';
     enableFiltering: {
       control: 'boolean',
     },
+    enableSelection: {
+      control: 'boolean',
+    },
     columns: {
       control: false,
     },
@@ -224,6 +227,7 @@ export const columnsGroup = [
       bordered: false,
       enableFiltering: true,
       enableSorting: true,
+      enableSelection: true,
       initialState: {
         pagination: {
           pageSize: 5,
