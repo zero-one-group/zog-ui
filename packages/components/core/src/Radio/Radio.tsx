@@ -15,14 +15,15 @@ const StlyedRadio = styled(Space, {
   fontSize: '$2',
   'input[type=radio]': {
     appearance: 'none',
+    marginTop: 0,
   },
   'input[type=radio]::before': {
     content: '""',
     border: '1px solid $gray9',
     borderRadius: '100%',
     display: 'block',
-    width: '13px',
-    height: '13px',
+    width: '14px',
+    height: '14px',
     cursor: 'pointer',
     appearance: 'auto',
     boxSizing: 'border-box',
