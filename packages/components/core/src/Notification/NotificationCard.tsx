@@ -2,6 +2,7 @@ import { CloseOutlined } from '@ant-design/icons';
 import * as Toast from '@radix-ui/react-toast';
 import { ComponentProps, ReactNode } from 'react';
 import { Space } from '../Space';
+import { Box } from '../Box';
 import { keyframes, styled } from '../stitches.config';
 import { NotificationPlacement } from './NotificationViewport';
 
@@ -166,13 +167,13 @@ export const NotificationCard = ({
   return (
     <StyledNotificationRoot {...props} duration={duration}>
       {icon ? <StyledIcon className="icon">{icon}</StyledIcon> : null}
-      <div style={{ flex: 1 }} className="content">
+      <Box css={{ flex: 1 }} className="content">
         <Space justify="space-between" align="start" className="head">
-          <div style={{ flex: 1 }}>
+          <Box css={{ flex: 1 }}>
             {title ? (
               <StyledTitle className="title">{title}</StyledTitle>
             ) : null}
-          </div>
+          </Box>
           <StyledClose className="button-close">
             <CloseOutlined />
           </StyledClose>
@@ -183,14 +184,14 @@ export const NotificationCard = ({
           </StyledDescription>
         ) : null}
         {action || actionComponent ? (
-          <div
-            style={{
+          <Space
+            css={{
               marginTop: 16,
-              display: 'flex',
-              justifyContent: 'flex-end',
             }}
+            justify="flex-end"
             className="action-wrapper"
           >
+            {' '}
             {action ? (
               <StyledAction
                 altText={action.alt ?? action.label}
@@ -201,9 +202,9 @@ export const NotificationCard = ({
               </StyledAction>
             ) : null}
             {actionComponent}
-          </div>
+          </Space>
         ) : null}
-      </div>
+      </Box>
     </StyledNotificationRoot>
   );
 };

@@ -36,9 +36,10 @@ export const TabsTrigger = ({
   leftIcon,
   children,
   rightIcon,
+  ...props
 }: TabsTriggerProps) => {
   return (
-    <StyledTabsTrigger value={value}>
+    <StyledTabsTrigger value={value} {...props}>
       {leftIcon}
       <span>{children}</span>
       {rightIcon}
