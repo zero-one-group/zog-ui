@@ -50,6 +50,13 @@ const StyledMenuRoot = styled(RadixMenu.Root, {
   justifyContent: 'center',
   width: '100vw',
   zIndex: 1,
+  variants: {
+    mode: {
+      horizontal: {},
+      vertical: {},
+      inline: {},
+    },
+  },
 });
 
 const StyledMenuList = styled(RadixMenu.List, {
