@@ -38,6 +38,24 @@ WidgetbookComponent navigationRailWidgetbookComponent = WidgetbookComponent(
                           ...colorOptions
                         ],
                       ),
+                      labelStyle: TextStyle(
+                        color: context.knobs.options(
+                          label: 'Inactive Label Color',
+                          options: [
+                            const Option(label: 'Default', value: null),
+                            ...colorOptions
+                          ],
+                        ),
+                      ),
+                      activeLabelStyle: TextStyle(
+                        color: context.knobs.options(
+                          label: 'Active Label Color',
+                          options: [
+                            const Option(label: 'Default', value: null),
+                            ...colorOptions
+                          ],
+                        ),
+                      ),
                     ),
                     items: const [
                       ZeroNavigationRailItem(

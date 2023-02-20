@@ -23,6 +23,11 @@ class ZeroNavigationRailStyle with Diagnosticable {
   /// By default [labelStyle] is Typography.caption
   final TextStyle? labelStyle;
 
+  /// Text style of label segment NavigationRail when active
+  ///
+  /// By default [labelStyle] is Typography.caption and copy color with [activeColor]
+  final TextStyle? activeLabelStyle;
+
   /// BorderRadius indicator when active
   final BorderRadius? indicatorBorderRadius;
 
@@ -33,6 +38,7 @@ class ZeroNavigationRailStyle with Diagnosticable {
     this.activeColor,
     this.inactiveColor,
     this.labelStyle,
+    this.activeLabelStyle,
     this.indicatorBorderRadius,
   });
 
@@ -51,6 +57,7 @@ class ZeroNavigationRailStyle with Diagnosticable {
         inactiveColor: inactiveColor ?? ZeroColors.neutral[12],
         indicatorColor: indicatorColor,
         labelStyle: labelStyle,
+        activeLabelStyle: labelStyle,
         indicatorBorderRadius: BorderRadius.circular(8),
       );
 
@@ -66,6 +73,7 @@ class ZeroNavigationRailStyle with Diagnosticable {
     Color? activeColor,
     Color? inactiveColor,
     TextStyle? labelStyle,
+    TextStyle? activeLabelStyle,
     BorderRadius? indicatorBorderRadius,
   }) {
     return ZeroNavigationRailStyle(
@@ -75,6 +83,7 @@ class ZeroNavigationRailStyle with Diagnosticable {
       activeColor: activeColor ?? this.activeColor,
       indicatorColor: indicatorColor ?? this.indicatorColor,
       labelStyle: labelStyle ?? this.labelStyle,
+      activeLabelStyle: activeLabelStyle ?? this.activeLabelStyle,
       indicatorBorderRadius:
           indicatorBorderRadius ?? this.indicatorBorderRadius,
     );
@@ -89,7 +98,9 @@ class ZeroNavigationRailStyle with Diagnosticable {
       activeColor: other.activeColor,
       inactiveColor: other.inactiveColor,
       indicatorColor: other.indicatorColor,
-      labelStyle: other.labelStyle,
+      labelStyle: labelStyle?.merge(other.labelStyle) ?? other.labelStyle,
+      activeLabelStyle: activeLabelStyle?.merge(other.activeLabelStyle) ??
+          other.activeLabelStyle,
       indicatorBorderRadius: other.indicatorBorderRadius,
     );
   }
@@ -103,6 +114,8 @@ class ZeroNavigationRailStyle with Diagnosticable {
       indicatorColor: Color.lerp(a?.indicatorColor, b?.indicatorColor, t),
       width: t < 0.5 ? a?.width : b?.width,
       labelStyle: TextStyle.lerp(a?.labelStyle, b?.labelStyle, t),
+      activeLabelStyle:
+          TextStyle.lerp(a?.activeLabelStyle, b?.activeLabelStyle, t),
       indicatorBorderRadius: BorderRadius.lerp(
           a?.indicatorBorderRadius, b?.indicatorBorderRadius, t),
     );
@@ -116,6 +129,8 @@ class ZeroNavigationRailStyle with Diagnosticable {
         minWidth: width,
         useIndicator: true,
         indicatorColor: indicatorColor,
+        selectedLabelTextStyle: activeLabelStyle,
+        unselectedLabelTextStyle: labelStyle,
       );
 
   @override

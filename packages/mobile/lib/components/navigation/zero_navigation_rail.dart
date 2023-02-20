@@ -148,9 +148,10 @@ class _Segment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final defaultStyle = style.labelStyle ??
-        context.theme.typography.caption ??
-        const TextStyle(fontSize: 10);
+    final defaultStyle =
+        (isActive ? style.activeLabelStyle : style.labelStyle) ??
+            context.theme.typography.caption ??
+            const TextStyle(fontSize: 10);
 
     final isActiveLabel = type == ZeroNavigationRailType.iconLabel ||
         (type == ZeroNavigationRailType.iconLabelOnActive && isActive);
@@ -182,9 +183,7 @@ class _Segment extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           DefaultTextStyle(
-            style: defaultStyle.copyWith(
-              color: style.inactiveColor,
-            ),
+            style: defaultStyle,
             child: isActiveLabel
                 ? label ?? SizedBox(height: defaultStyle.fontSize)
                 : SizedBox(height: defaultStyle.fontSize),
