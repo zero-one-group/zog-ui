@@ -94,6 +94,10 @@ const StyledButton = styled('button', {
 type BaseSliderType = ComponentProps<typeof StyledSlider>;
 
 export type CarouselProps = {
+  /**
+   * if not specified will default to `bottom` on default mode
+   * but, in vertical mode will default placed at `left`
+   */
   dotsPosition?: ComponentProps<typeof StyledPagination>['position'];
   /**
    * Fade effect
@@ -115,9 +119,19 @@ export type CarouselProps = {
   css?: BaseSliderType['css'];
   className?: BaseSliderType['className'];
   /**
-   * ref to controll the slider
+   * ref to control the slider
    */
   ref?: BaseSliderType['ref'];
+  /**
+   * customize dot wrapper,
+   * more documentation on react-slick
+   */
+  customPaging?: BaseSliderType['customPaging'];
+  /**
+   * customize dot component,
+   * more documentation on react-slick
+   */
+  appendDots?: BaseSliderType['appendDots'];
 };
 
 export const Carousel = ({
@@ -142,10 +156,15 @@ export const Carousel = ({
       dots
       arrows={false}
       vertical={vertical}
+      verticalSwiping={vertical}
       appendDots={(dots) => (
-        <StyledPagination position={position}>{dots}</StyledPagination>
+        <StyledPagination className="dot-wrapper" position={position}>
+          {dots}
+        </StyledPagination>
       )}
-      customPaging={() => <StyledButton direction={direction} />}
+      customPaging={() => (
+        <StyledButton className="dot" direction={direction} />
+      )}
       {...props}
     >
       {children}
