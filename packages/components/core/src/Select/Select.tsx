@@ -551,23 +551,6 @@ export const Select = ({
     filterOptions(inputVal);
   };
 
-  const defaultRenderOption = ({
-    option,
-    index,
-    selected,
-  }: RenderOptionArgs) => {
-    return (
-      <StyledOptionItem
-        onClick={() => onSelect(option)}
-        selected={selected}
-        key={index}
-        className={clsx('option', { selected })}
-      >
-        {option.label}
-      </StyledOptionItem>
-    );
-  };
-
   useEffect(() => {
     if (open) {
       focusInput();
