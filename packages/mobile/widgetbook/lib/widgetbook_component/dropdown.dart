@@ -144,7 +144,7 @@ WidgetbookComponent dropdownWidgetbookComponent = WidgetbookComponent(
     WidgetbookUseCase(
         name: 'Default (No Label)',
         builder: (context) {
-          return Center(
+          return PreviewWidget(
               child: ZeroDropdown(
             items: items,
             hintText: context.knobs
@@ -165,7 +165,7 @@ WidgetbookComponent dropdownWidgetbookComponent = WidgetbookComponent(
     WidgetbookUseCase(
         name: 'Multiple',
         builder: (context) {
-          return Center(
+          return PreviewWidget(
             child: ZeroDropdown.multiple(
               hintText: context.knobs
                   .text(
@@ -199,7 +199,7 @@ WidgetbookComponent dropdownWidgetbookComponent = WidgetbookComponent(
     WidgetbookUseCase(
         name: 'Multiple (No Label)',
         builder: (context) {
-          return Center(
+          return PreviewWidget(
             child: ZeroDropdown.multiple(
               hintText: context.knobs
                   .text(
