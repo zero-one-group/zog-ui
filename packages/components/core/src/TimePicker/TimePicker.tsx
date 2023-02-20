@@ -1,5 +1,6 @@
 import { ClockCircleOutlined, CloseCircleFilled } from '@ant-design/icons';
 import * as Popover from '@radix-ui/react-popover';
+import clsx from 'clsx';
 import {
   ComponentProps,
   useCallback,
@@ -209,8 +210,7 @@ type TimeRangeValue = {
   end: Time;
 };
 
-/* eslint-disable-next-line */
-export interface TimePickerProps {
+export type TimePickerProps = {
   /**
    * Customize wrapper style
    */
@@ -228,7 +228,9 @@ export interface TimePickerProps {
    * Time Range Picker, there will be a start time and end time
    */
   isRange?: boolean;
-}
+  className?: string;
+  dropdownClassname?: string;
+};
 
 const getTimeFromDate = (date: Date): Time => {
   return {
@@ -252,6 +254,8 @@ export function TimePicker({
   value: valueFromProps,
   onChange: onChangeFromProps,
   size = 'medium',
+  dropdownClassname,
+  className,
 }: TimePickerProps) {
   const [singleValue, setSingleValue] = useState<Time | undefined>();
   const [rangeValue, setRangeValue] = useState<
@@ -294,19 +298,15 @@ export function TimePicker({
       } else {
         if (isRange) {
           if (!newStartValue && !newEndValue) {
-            // setStart(undefined)
-            // setEnd(undefined)
             setRangeValue(undefined);
           } else if (newStartValue && newEndValue) {
             setRangeValue({ start: newStartValue, end: newEndValue });
           } else {
             if (newStartValue) {
               setRangeValue((prev) => ({ ...prev, start: newStartValue }));
-              // setStart(newStartValue)
             }
             if (newEndValue) {
               setRangeValue((prev) => ({ ...prev, end: newEndValue }));
-              // setEnd(newEndValue)
             }
           }
           if (typeof onChangeFromProps === 'function') {
@@ -350,8 +350,6 @@ export function TimePicker({
   }, [isRange]);
 
   const onClear = () => {
-    // setStart(undefined);
-    // setEnd(undefined);
     setState();
     setTempStart(undefined);
     setTempEnd(undefined);
@@ -363,12 +361,10 @@ export function TimePicker({
     const nowTime = getTimeFromDate(now);
     if (isRange && openEnd) {
       setTempEnd(nowTime);
-      // setEnd(nowTime);
       setState(undefined, nowTime);
       closeDropdown();
     } else {
       setTempStart(nowTime);
-      // setStart(nowTime);
       setState(nowTime);
 
       closeStartOpenEndDropdown();
@@ -377,11 +373,9 @@ export function TimePicker({
 
   const onClickOk = useCallback(() => {
     if (isRange && openEnd && tempEnd !== undefined) {
-      // setEnd(tempEnd);
       setState(undefined, tempEnd);
       closeDropdown();
     } else if (tempStart !== undefined) {
-      // setStart(tempStart);
       setState(tempStart);
       closeStartOpenEndDropdown();
     }
@@ -530,6 +524,7 @@ export function TimePicker({
       css={{ ...css, ...getColorSchemeVariants(colorScheme) }}
       hasSelected={hasSelected}
       disabled={disabled}
+      className={className}
     >
       <Popover.Root>
         <StyledTrigger />
@@ -544,6 +539,7 @@ export function TimePicker({
             onOpenAutoFocus={(e) => e.preventDefault()}
             css={getColorSchemeVariants(colorScheme)}
             open={openStart || openEnd}
+            className={clsx('panel-container', dropdownClassname)}
           >
             <TimePickerPanel
               uniqId={uniqId}
@@ -551,6 +547,7 @@ export function TimePicker({
               onClickCell={onClickCell}
               onClickNow={onClickNow}
               onClickOk={onClickOk}
+              className="panel"
             />
           </StyledPanelContainer>
         </Popover.Portal>
@@ -581,7 +578,7 @@ export function TimePicker({
             size={size}
           />
           {isRange ? (
-            <StyledSeparator>
+            <StyledSeparator className="input-range-separator">
               <svg
                 width="1em"
                 height="1em"
@@ -614,7 +611,7 @@ export function TimePicker({
               focused={isRange && openEnd}
             />
           ) : null}
-          <StyledIcon>
+          <StyledIcon className="suffix-icon">
             <ClockCircleOutlined />
             {allowClear && !disabled ? (
               <StyledClear
