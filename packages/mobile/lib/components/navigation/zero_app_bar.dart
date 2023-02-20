@@ -1,3 +1,5 @@
+import 'dart:math' show min;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
@@ -5,8 +7,7 @@ import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 /// Class for calculating [ZeroAppBar] size
 class _PreferredAppBarSize extends Size {
   _PreferredAppBarSize(this.toolbarHeight, this.bottomHeight)
-      : super.fromHeight(
-            (toolbarHeight ?? kToolbarHeight) + (bottomHeight ?? 0));
+      : super.fromHeight((toolbarHeight ?? 64) + (bottomHeight ?? 0));
 
   /// Height of toolbar body
   final double? toolbarHeight;
@@ -109,11 +110,8 @@ class ZeroAppBar extends StatelessWidget implements PreferredSizeWidget {
                 left: false,
                 right: false,
                 bottom: false,
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minHeight: height,
-                    maxHeight: height,
-                  ),
+                child: SizedBox(
+                  height: height,
                   child: IconTheme(
                     data: IconThemeData(
                       size: 24,
@@ -121,43 +119,45 @@ class ZeroAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Row(
-                          children: [
-                            // Build leading
-                            _Leading(
-                              auto: automaticallyImplyLeading,
-                              leading: leading,
-                            ),
-                            // Build title small size
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 16,
+                        SizedBox(
+                          height: min(
+                            min(ZeroAppBarSize.small.getSize, size.getSize),
+                            height,
+                          ),
+                          child: Center(
+                            child: Row(
+                              children: [
+                                // Build leading
+                                _Leading(
+                                  auto: automaticallyImplyLeading,
+                                  leading: leading,
                                 ),
-                                child: size == ZeroAppBarSize.small
-                                    ? _Title(
-                                        style: adaptiveStyle,
-                                        title: title,
-                                      )
-                                    : const SizedBox.shrink(),
-                              ),
+                                // Build title small size
+                                Expanded(
+                                  child: size == ZeroAppBarSize.small
+                                      ? _Title(
+                                          style: adaptiveStyle,
+                                          title: title,
+                                        )
+                                      : const SizedBox.shrink(),
+                                ),
+                                // Build actions
+                                Row(children: actions ?? [])
+                              ],
                             ),
-                            // Build actions
-                            Row(
-                              children: actions ?? [],
-                            )
-                          ],
+                          ),
                         ),
 
                         // Build title when size is not small
                         if (size != ZeroAppBarSize.small) ...[
                           const Spacer(),
-                          _Title(style: adaptiveStyle, title: title),
-                          size == ZeroAppBarSize.large
-                              ? const SizedBox(height: 26)
-                              : const SizedBox(height: 20)
+                          Padding(
+                            padding: EdgeInsets.only(
+                                bottom: size == ZeroAppBarSize.large ? 20 : 16),
+                            child: _Title(style: adaptiveStyle, title: title),
+                          ),
                         ],
 
                         if (bottom != null) ...[
