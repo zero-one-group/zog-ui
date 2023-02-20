@@ -100,6 +100,7 @@ class ZeroThemeData with Diagnosticable {
   final ZeroButtonIconStyleSet buttonIconStyle;
   final ZeroNavigationRailStyle navigationRailStyle;
   final ZeroSwitchStyleSet switchStyle;
+  final ZeroTabBarStyle tabBarStyle;
 
   final Brightness brightness;
   final IconThemeData iconTheme;
@@ -148,6 +149,7 @@ class ZeroThemeData with Diagnosticable {
     required this.buttonIconStyle,
     required this.navigationRailStyle,
     required this.switchStyle,
+    required this.tabBarStyle,
 
     // Others
     this.useMaterial3 = false,
@@ -190,6 +192,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroButtonIconStyleSet? buttonIconStyle,
     ZeroNavigationRailStyle? navigationRailStyle,
     ZeroSwitchStyleSet? switchStyle,
+    ZeroTabBarStyle? tabBarStyle,
   }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
@@ -361,6 +364,12 @@ class ZeroThemeData with Diagnosticable {
       disabledColor: dividerColor,
     );
 
+    final tabBarStyleFallback = ZeroTabBarStyle.fallback(
+      activeColor: primaryColor,
+      indicatorColor: primaryColor,
+      inactiveColor: regularTextColor,
+    );
+
     useMaterial3 ??= false;
 
     return ZeroThemeData.raw(
@@ -402,12 +411,15 @@ class ZeroThemeData with Diagnosticable {
       navigationRailStyle:
           navigationRailStyleFallback.merge(navigationRailStyle),
       switchStyle: switchStyleFallback.merge(switchStyle),
+      tabBarStyle: tabBarStyleFallback.merge(tabBarStyle),
     );
   }
 
   static ZeroThemeData lerp(ZeroThemeData a, ZeroThemeData b, double t) {
     return ZeroThemeData.raw(
       brightness: t < 0.5 ? a.brightness : b.brightness,
+      fontFamily: t < 0.5 ? a.fontFamily : b.fontFamily,
+      useMaterial3: t < 0.5 ? a.useMaterial3 : b.useMaterial3,
       primaryColor: AccentColor.lerp(a.primaryColor, b.primaryColor, t),
       typography: ZeroTypography.lerp(a.typography, b.typography, t),
       disabledColor: Color.lerp(a.disabledColor, b.disabledColor, t)!,
@@ -449,6 +461,12 @@ class ZeroThemeData with Diagnosticable {
       navigationRailStyle: ZeroNavigationRailStyle.lerp(
           a.navigationRailStyle, b.navigationRailStyle, t),
       switchStyle: ZeroSwitchStyleSet.lerp(a.switchStyle, b.switchStyle, t),
+      tabBarStyle: ZeroTabBarStyle.lerp(a.tabBarStyle, b.tabBarStyle, t),
+      inputDecorationType:
+          t < 0.5 ? a.inputDecorationType : b.inputDecorationType,
+      textfieldSize: t < 0.5 ? a.textfieldSize : b.textfieldSize,
+      textfieldStyleSet: ZeroTextfieldStyleSet.lerp(
+          a.textfieldStyleSet, b.textfieldStyleSet, t),
     );
   }
 
@@ -490,6 +508,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroButtonIconStyleSet? buttonIconStyle,
     ZeroNavigationRailStyle? navigationRailStyle,
     ZeroSwitchStyleSet? switchStyle,
+    ZeroTabBarStyle? tabBarStyle,
   }) {
     return ZeroThemeData.raw(
       brightness: brightness ?? this.brightness,
@@ -544,6 +563,7 @@ class ZeroThemeData with Diagnosticable {
       buttonIconStyle: buttonIconStyle ?? this.buttonIconStyle,
       navigationRailStyle: navigationRailStyle ?? this.navigationRailStyle,
       switchStyle: switchStyle ?? this.switchStyle,
+      tabBarStyle: tabBarStyle ?? this.tabBarStyle,
     );
   }
 
@@ -574,6 +594,7 @@ class ZeroThemeData with Diagnosticable {
       drawerTheme: navigationDrawerStyle.toNavigationDrawerTheme(),
       appBarTheme: appBarStyle.toAppBarTheme(),
       navigationRailTheme: navigationRailStyle.toNavigationRailTheme(),
+      tabBarTheme: tabBarStyle.toTabBarTheme(),
     );
   }
 

@@ -19,6 +19,7 @@ export './styles/component/card_style.dart';
 export './styles/component/navigation_rail_style.dart';
 export './styles/component/button_icon_style.dart';
 export './styles/component/switch_style.dart';
+export './styles/component/tab_bar_style.dart';
 
 // assets
 export './assets/assets.dart';
@@ -110,6 +111,7 @@ export './components/navigation/zero_navigation_bar.dart';
 export './components/navigation/drawer/zero_navigation_drawer.dart';
 export './components/navigation/zero_app_bar.dart';
 export './components/navigation/zero_navigation_rail.dart';
+export './components/navigation/zero_tab_bar.dart';
 
 // alert dialog
 export './components/alert_dialog/zero_alert_dialog.dart';

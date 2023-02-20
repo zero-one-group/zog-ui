@@ -45,6 +45,19 @@ class ZeroTextfieldStyleSet {
       inputDecorationType: inputDecorationType ?? this.inputDecorationType,
     );
   }
+
+  static ZeroTextfieldStyleSet lerp(
+      ZeroTextfieldStyleSet? a, ZeroTextfieldStyleSet? b, double t) {
+    return ZeroTextfieldStyleSet(
+      filled: ZeroTextfieldStyle.lerp(a?.filled, b?.filled, t),
+      rounded: ZeroTextfieldStyle.lerp(a?.rounded, b?.rounded, t),
+      outline: ZeroTextfieldStyle.lerp(a?.outline, b?.outline, t),
+      underline: ZeroTextfieldStyle.lerp(a?.underline, b?.underline, t),
+      inputDecorationType:
+          (t < 0.5 ? a?.inputDecorationType : b?.inputDecorationType) ??
+              InputDecorationType.outline,
+    );
+  }
 }
 
 class ZeroTextfieldStyle {
@@ -358,6 +371,28 @@ class ZeroTextfieldStyle {
       disabledBorder: disabledBorder(textfieldSize),
       errorBorder: errorBorder(textfieldSize),
       focusedErrorBorder: errorBorder(textfieldSize),
+    );
+  }
+
+  static ZeroTextfieldStyle lerp(
+    ZeroTextfieldStyle? a,
+    ZeroTextfieldStyle? b,
+    double t,
+  ) {
+    return ZeroTextfieldStyle(
+      inputDecorationType:
+          (t < 0.5 ? a?.inputDecorationType : b?.inputDecorationType) ??
+              InputDecorationType.outline,
+      textfieldSize: (t < 0.5 ? a?.textfieldSize : b?.textfieldSize) ??
+          ZeroTextfieldSize.small,
+      enabled: (t < 0.5 ? a?.enabled : b?.enabled) ?? false,
+      error: (t < 0.5 ? a?.error : b?.error) ?? false,
+      focusedBorderColor:
+          Color.lerp(a?.focusedBorderColor, b?.focusedBorderColor, t) ??
+              Colors.transparent,
+      focusedColor:
+          Color.lerp(a?.focusedColor, b?.focusedColor, t) ?? Colors.transparent,
+      fillColor: Color.lerp(a?.fillColor, b?.fillColor, t),
     );
   }
 }
