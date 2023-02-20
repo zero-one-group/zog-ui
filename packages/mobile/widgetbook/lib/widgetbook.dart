@@ -27,6 +27,7 @@ import 'widgetbook_component/rating.dart';
 import 'widgetbook_component/slider.dart';
 import 'widgetbook_component/snackbar.dart';
 import 'widgetbook_component/switch.dart';
+import 'widgetbook_component/tab_bar.dart';
 import 'widgetbook_component/text.dart';
 import 'widgetbook_component/textfield.dart';
 import 'widgetbook_component/timepicker.dart';
@@ -66,6 +67,7 @@ class HotReload extends StatelessWidget {
               navigationDrawerWidgetbookComponent,
               appBarWidgetbookComponent,
               navigationRailWidgetbookComponent,
+              tabBarWidgetbookComponenet,
             ]),
           ],
           widgets: [
