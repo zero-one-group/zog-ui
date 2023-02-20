@@ -9,7 +9,7 @@ import { InfoCircleOutlined } from '@ant-design/icons';
   title="Components/Display/Alert"
   component={[Alert]}
   argTypes={{
-    variant: {
+    intent: {
       options: ['success', 'info', 'warning', 'error'],
       control: { type: 'radio' },
     },
@@ -33,6 +33,7 @@ import { Alert } from '@zero-ui/core';
     args={{
       title: 'title',
       description: 'decription',
+      extraContent: 'this is extra content',
       intent: 'success',
       onClose: () => console.log('ok'),
       icon: <InfoCircleOutlined />,
