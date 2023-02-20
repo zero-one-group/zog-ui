@@ -17,7 +17,7 @@ import {
   TableOptions,
   useReactTable,
 } from '@tanstack/react-table';
-import { ComponentProps, useMemo, useState } from 'react';
+import { ComponentProps, ReactNode, useMemo, useState } from 'react';
 import { Checkbox } from '../Checkbox';
 import { Pagination } from '../Pagination';
 import { styled } from '../stitches.config';
@@ -127,12 +127,12 @@ const StyledHeaderColumnName = styled('div', {
 const StyledHeaderColumnIcons = styled('div', {
   marginLeft: '$2',
   fontSize: '10px',
-  color: '$gray8',
+  color: '$gray9',
 });
 
 const StyledHeaderColumnSortIcons = styled(StyledHeaderColumnIcons, {
   display: 'flex',
-  fontSize: '8px',
+  fontSize: '10px',
   flexDirection: 'column',
   variants: {
     sort: {
@@ -151,6 +151,7 @@ const StyledHeaderColumnSortIcons = styled(StyledHeaderColumnIcons, {
 const StyledHeaderColumnFilterIcons = styled(StyledHeaderColumnIcons, {
   padding: '1px 2px',
   borderRadius: '4px',
+  fontSize: '12px',
   '&:hover': {
     color: '$gray10',
     backgroundColor: '$gray6',
@@ -177,6 +178,8 @@ export type TableProps<T> = {
   enableFiltering?: boolean;
   enableSelection?: boolean;
   initialState?: TableOptions<T>['initialState'];
+  filterIcon?: ReactNode;
+  sortIcon?: (sort?: SortDirection) => ReactNode;
 } & ComponentProps<typeof StyledTableWrapper>;
 
 export function Table<T>({
@@ -188,6 +191,8 @@ export function Table<T>({
   enableSorting = false,
   enableFiltering = false,
   enableSelection = false,
+  sortIcon,
+  filterIcon,
   initialState,
   css,
 }: TableProps<T>) {
@@ -247,6 +252,18 @@ export function Table<T>({
     },
   });
 
+  const renderSortIcon = (sort?: SortDirection) => {
+    if (sortIcon && typeof sortIcon === 'function') {
+      return sortIcon(sort);
+    }
+    return (
+      <StyledHeaderColumnSortIcons sort={sort}>
+        <CaretUpOutlined />
+        <CaretDownOutlined />
+      </StyledHeaderColumnSortIcons>
+    );
+  };
+
   const renderHeader = (header: Header<T, unknown>) => {
     const sortedDirection = header.column.getIsSorted()
       ? (header.column.getIsSorted() as SortDirection)
@@ -267,12 +284,7 @@ export function Table<T>({
             >
               {flexRender(header.column.columnDef.header, header.getContext())}
             </StyledHeaderColumnName>
-            {shouldShowSorting ? (
-              <StyledHeaderColumnSortIcons sort={sortedDirection}>
-                <CaretUpOutlined />
-                <CaretDownOutlined />
-              </StyledHeaderColumnSortIcons>
-            ) : null}
+            {shouldShowSorting ? renderSortIcon(sortedDirection) : null}
             {shouldShowFiltering ? (
               <StyledHeaderColumnFilterIcons filtered={isFiltered}>
                 <TableFilter
@@ -280,7 +292,7 @@ export function Table<T>({
                   column={header.column}
                   table={table}
                 >
-                  <FilterFilled />
+                  {filterIcon ? filterIcon : <FilterFilled />}
                 </TableFilter>
               </StyledHeaderColumnFilterIcons>
             ) : null}

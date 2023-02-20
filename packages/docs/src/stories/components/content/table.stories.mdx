@@ -4,6 +4,11 @@ import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { createColumnHelper } from '@tanstack/react-table';
 import { Table, Space } from '@zero-ui/core';
+import {
+  SortAscendingOutlined,
+  SortDescendingOutlined,
+  SearchOutlined,
+} from '@ant-design/icons';
 
 <Meta
   title="Components/Content/Table"
@@ -46,6 +51,20 @@ To display a collection of structured data. Built on top of [TanStack Table v8](
 ```jsx
 import { Table } from '@zero-ui/core';
 ```
+
+export const CustomSort = ({ sort }) => {
+  return (
+    <div style={{ color: 'var(--colors-primary9)' }}>
+      {sort ? (
+        sort === 'asc' ? (
+          <SortAscendingOutlined />
+        ) : (
+          <SortDescendingOutlined />
+        )
+      ) : null}
+    </div>
+  );
+};
 
 export const dataSource = [
   {
@@ -246,6 +265,27 @@ export const columnsGroup = [
       enableSorting: true,
       size: 'lg',
       bordered: false,
+      initialState: {
+        pagination: {
+          pageSize: 5,
+        },
+      },
+    }}
+  >
+    {TableStory.bind()}
+  </Story>
+  <Story
+    name="Custom Icons"
+    args={{
+      dataSource: dataSource,
+      columns: columns,
+      size: 'lg',
+      bordered: false,
+      enableFiltering: true,
+      enableSorting: true,
+      enableSelection: true,
+      sortIcon: (sort) => <CustomSort sort={sort} />,
+      filterIcon: <SearchOutlined />,
       initialState: {
         pagination: {
           pageSize: 5,
