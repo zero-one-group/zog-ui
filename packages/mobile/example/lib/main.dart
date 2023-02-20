@@ -15,6 +15,7 @@ import 'component/navigation/app_bar_example.dart';
 import 'component/navigation/navigation_bar_example.dart';
 import 'component/navigation/navigation_drawer_example.dart';
 import 'component/navigation/navigation_rail_example.dart';
+import 'component/navigation/tabs_example.dart';
 import 'component/progress_indicator/zero_progress_indicator_example.dart';
 import 'component/rating/zero_rating_example.dart';
 import 'component/slider/zero_slider_example.dart';
@@ -333,6 +334,16 @@ class Examples extends StatelessWidget {
             );
           },
           text: 'Zero Navigation Rail Example',
+        ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroTabsExample(),
+              ),
+            );
+          },
+          text: 'Zero Tabs Example',
         ),
         const SizedBox(
           height: 100,
