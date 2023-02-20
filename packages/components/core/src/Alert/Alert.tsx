@@ -1,7 +1,6 @@
 import { Box } from '../Box';
 import { Text } from '../Text';
 import { Space } from '../Space';
-import { Button } from '../Button';
 import { styled } from '../stitches.config';
 import { CloseOutlined } from '@ant-design/icons';
 import type * as Stitches from '@stitches/react';
@@ -13,6 +12,7 @@ export type AlertProps = {
   description: string;
   onClose: () => void;
   icon: ReactNode;
+  extraContent: ReactNode | string;
 };
 
 const StyledAlert = styled(Box, {
@@ -61,6 +61,7 @@ export const Alert = ({
   description,
   intent,
   icon,
+  extraContent,
   onClose,
   ...props
 }: AlertProps & Stitches.VariantProps<typeof StyledAlert>) => {
@@ -76,26 +77,26 @@ export const Alert = ({
         >
           {title}
         </Text>
-        <Button
-          intent="default"
-          css={{
-            marginRight: '10px',
-            backgroundColor: '#E6F7FF',
-            borderColor: '#91D5FF',
-          }}
-          size="lg"
-          variant="dashed"
-        >
-          Swap
-        </Button>
+        {extraContent}
         <CloseOutlined
           onClick={onClose}
           style={{
+            marginRight: '6px',
             color: 'rgb(199, 199, 199)',
           }}
         />
       </Space>
-      <Text>{description}</Text>
+      <Space align="center">
+        <Box css={{ width: '16px', height: '16px' }}></Box>
+        <Text
+          css={{
+            flex: 1,
+            marginLeft: '10px',
+          }}
+        >
+          {description}
+        </Text>
+      </Space>
     </StyledAlert>
   );
 };
