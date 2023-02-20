@@ -133,6 +133,7 @@ export interface CascaderProps extends ComponentProps<typeof StyledCascader> {
   colorScheme?: string;
   trigger?: 'click' | 'hover';
   changeOnSelect?: boolean;
+  displayRender?: (labels: string[]) => string;
 }
 
 export const Cascader = ({
@@ -142,6 +143,7 @@ export const Cascader = ({
   trigger = 'click',
   css,
   changeOnSelect = false,
+  displayRender,
   ...props
 }: CascaderProps) => {
   const [activeValues, setActiveValues] = useState<string[]>(
@@ -181,17 +183,23 @@ export const Cascader = ({
     return [];
   };
 
-  const displayRender = (labels: string[]) => {
-    return labels.length > 0 ? labels.join(' / ') : '';
+  const handleRenderLabel = (labels: string[]) => {
+    if (labels.length > 0) {
+      if (typeof displayRender === 'function') {
+        return displayRender(labels);
+      }
+      return labels.join(' / ');
+    }
+    return '';
   };
 
   const handleInputChange = (path: string[]) => {
-    setValue(displayRender(getActiveLabels(path) as string[]));
+    setValue(handleRenderLabel(getActiveLabels(path) as string[]));
   };
 
   useEffect(() => {
     if (defaultValue && defaultValue.length > 0) {
-      setValue(displayRender(getActiveLabels(defaultValue) as string[]));
+      setValue(handleRenderLabel(getActiveLabels(defaultValue) as string[]));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

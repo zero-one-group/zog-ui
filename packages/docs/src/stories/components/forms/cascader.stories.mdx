@@ -98,6 +98,17 @@ export const options = [
   >
     {CascaderStory.bind()}
   </Story>
+  <Story
+    name="Custom Display Render"
+    args={{
+      displayRender: (labels) => {
+        return labels[labels.length - 1];
+      },
+      options,
+    }}
+  >
+    {CascaderStory.bind()}
+  </Story>
 </Canvas>
 
 <ArgsTable of={Cascader} />
