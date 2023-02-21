@@ -20,6 +20,7 @@ export './styles/component/navigation_rail_style.dart';
 export './styles/component/button_icon_style.dart';
 export './styles/component/switch_style.dart';
 export './styles/component/tab_bar_style.dart';
+export './styles/component/speed_dial_style.dart';
 
 // assets
 export './assets/assets.dart';
@@ -126,6 +127,9 @@ export './components/card/zero_card.dart';
 export './components/stepper/zero_stepper.dart';
 export './components/stepper/zero_step.dart';
 
+// speed dial
+export './components/speed_dial/zero_speed_dial.dart';
+
 // types
 export './types/button_radius_type.dart';
 export './types/button_group_type.dart';
@@ -144,6 +148,7 @@ export './position/tooltip_position.dart';
 export './position/badge_potision.dart';
 export './position/snackbar_position.dart';
 export './position/step_subtitle_position.dart';
+export './position/speed_dial_direction.dart';
 
 // model
 export './model/zero_range_values.dart';

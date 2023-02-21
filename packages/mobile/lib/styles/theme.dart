@@ -54,8 +54,7 @@ class _ZeroTheme extends InheritedTheme {
   final ZeroThemeData data;
 
   @override
-  bool updateShouldNotify(covariant _ZeroTheme oldWidget) =>
-      oldWidget.data != data;
+  bool updateShouldNotify(covariant _ZeroTheme oldWidget) => oldWidget.data != data;
 
   @override
   Widget wrap(BuildContext context, Widget child) {
@@ -101,6 +100,7 @@ class ZeroThemeData with Diagnosticable {
   final ZeroNavigationRailStyle navigationRailStyle;
   final ZeroSwitchStyleSet switchStyle;
   final ZeroTabBarStyle tabBarStyle;
+  final ZeroSpeedDialStyle speedDialStyle;
 
   final Brightness brightness;
   final IconThemeData iconTheme;
@@ -152,6 +152,7 @@ class ZeroThemeData with Diagnosticable {
     required this.navigationRailStyle,
     required this.switchStyle,
     required this.tabBarStyle,
+    required this.speedDialStyle,
 
     // Others
     this.useMaterial3 = false,
@@ -196,6 +197,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroNavigationRailStyle? navigationRailStyle,
     ZeroSwitchStyleSet? switchStyle,
     ZeroTabBarStyle? tabBarStyle,
+    ZeroSpeedDialStyle? speedDialStyle,
   }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
@@ -204,23 +206,17 @@ class ZeroThemeData with Diagnosticable {
     // Base Colors
     primaryColor ??= ZeroColors.primary.toAccentColor();
     disabledColor ??= isLight ? ZeroColors.neutral[7] : ZeroColors.neutral[6];
-    disabledBackgroundColor ??=
-        isLight ? ZeroColors.neutral[3] : ZeroColors.neutral[8];
-    scaffoldBackgroundColor ??=
-        isLight ? ZeroColors.neutral[2] : ZeroColors.neutral[11];
-    uncheckedColor ??= isLight
-        ? const Color.fromRGBO(0, 0, 0, 0.6063)
-        : const Color.fromRGBO(255, 255, 255, 0.786);
+    disabledBackgroundColor ??= isLight ? ZeroColors.neutral[3] : ZeroColors.neutral[8];
+    scaffoldBackgroundColor ??= isLight ? ZeroColors.neutral[2] : ZeroColors.neutral[11];
+    uncheckedColor ??= isLight ? const Color.fromRGBO(0, 0, 0, 0.6063) : const Color.fromRGBO(255, 255, 255, 0.786);
     checkedColor ??= isLight ? ZeroColors.white : ZeroColors.black;
     cardColor ??= isLight ? ZeroColors.white : ZeroColors.neutral[9];
     errorColor ??= ZeroColors.danger;
     dividerColor ??= isLight ? ZeroColors.neutral[5] : ZeroColors.neutral[10];
     solidTextColor ??= isLight ? ZeroColors.neutral[10] : ZeroColors.neutral[5];
-    regularTextColor ??=
-        isLight ? ZeroColors.neutral[7] : ZeroColors.neutral[6];
+    regularTextColor ??= isLight ? ZeroColors.neutral[7] : ZeroColors.neutral[6];
 
-    typography ??=
-        ZeroTypography.fromBrightness(color: solidTextColor).merge(typography);
+    typography ??= ZeroTypography.fromBrightness(color: solidTextColor).merge(typography);
 
     iconTheme ??= isLight
         ? const IconThemeData(color: ZeroColors.black, size: 24.0)
@@ -252,24 +248,17 @@ class ZeroThemeData with Diagnosticable {
 
     textfieldStyleSet ??= ZeroTextfieldStyleSet(
         outline: ZeroTextfieldStyle.outline(
-            textfieldSize: textfieldSize,
-            focusedBorderColor: primaryColor,
-            focusedColor: primaryColor),
+            textfieldSize: textfieldSize, focusedBorderColor: primaryColor, focusedColor: primaryColor),
         rounded: ZeroTextfieldStyle.rounded(
-            textfieldSize: textfieldSize,
-            focusedBorderColor: primaryColor,
-            focusedColor: primaryColor),
+            textfieldSize: textfieldSize, focusedBorderColor: primaryColor, focusedColor: primaryColor),
         filled: ZeroTextfieldStyle.fill(
             textfieldSize: textfieldSize,
             focusedBorderColor: primaryColor,
             focusedColor: primaryColor,
             fillColor: primaryColor.lightest),
         underline: ZeroTextfieldStyle.underline(
-            textfieldSize: textfieldSize,
-            focusedBorderColor: primaryColor,
-            focusedColor: primaryColor),
-        inputDecorationType:
-            inputDecorationType ?? InputDecorationType.underline);
+            textfieldSize: textfieldSize, focusedBorderColor: primaryColor, focusedColor: primaryColor),
+        inputDecorationType: inputDecorationType ?? InputDecorationType.underline);
 
     colorScheme ??= ColorScheme.fromSwatch(
       brightness: brightness,
@@ -318,8 +307,7 @@ class ZeroThemeData with Diagnosticable {
       textStyle: typography.button?.copyWith(color: solidTextColor),
     );
 
-    final textButtonStyleFallback = secondaryButtonStyleFallback.copyWith(
-        elevation: 0, side: BorderSide.none);
+    final textButtonStyleFallback = secondaryButtonStyleFallback.copyWith(elevation: 0, side: BorderSide.none);
 
     final dividerStyleFallback = ZeroDividerStyle.fallback(color: dividerColor);
 
@@ -377,6 +365,11 @@ class ZeroThemeData with Diagnosticable {
       inactiveColor: regularTextColor,
     );
 
+    final speedDialStyleFallback = ZeroSpeedDialStyle.fallback(
+      activeColor: isLight ? ZeroColors.white : ZeroColors.black,
+      inactiveColor: isLight ? ZeroColors.white : ZeroColors.black,
+    );
+
     useMaterial3 ??= false;
 
     return ZeroThemeData.raw(
@@ -401,8 +394,7 @@ class ZeroThemeData with Diagnosticable {
       fontFamily: fontFamily,
       listTileStyle: listTileFallback.merge(listTileStyle),
       primaryButtonStyle: primaryButtonStyleFallback.merge(primaryButtonStyle),
-      secondaryButtonStyle:
-          secondaryButtonStyleFallback.merge(secondaryButtonStyle),
+      secondaryButtonStyle: secondaryButtonStyleFallback.merge(secondaryButtonStyle),
       textButtonStyle: textButtonStyleFallback.merge(textButtonStyle),
       dividerStyle: dividerStyleFallback.merge(dividerStyle),
       chipFilledStyle: chipFilledStyleFallback.merge(chipFilledStyle),
@@ -411,15 +403,14 @@ class ZeroThemeData with Diagnosticable {
       textfieldStyleSet: textfieldStyleSet,
       inputDecorationType: inputDecorationType,
       textfieldSize: textfieldSize,
-      navigationDrawerStyle:
-          navigationDrawerStyleFallback.merge(navigationDrawerStyle),
+      navigationDrawerStyle: navigationDrawerStyleFallback.merge(navigationDrawerStyle),
       appBarStyle: appBarStyleFallback.merge(appBarStyleFallback),
       cardStyle: cardStyle.merge(cardStyle),
       buttonIconStyle: buttonIconStyleFallback.merge(buttonIconStyle),
-      navigationRailStyle:
-          navigationRailStyleFallback.merge(navigationRailStyle),
+      navigationRailStyle: navigationRailStyleFallback.merge(navigationRailStyle),
       switchStyle: switchStyleFallback.merge(switchStyle),
       tabBarStyle: tabBarStyleFallback.merge(tabBarStyle),
+      speedDialStyle: speedDialStyleFallback.merge(speedDialStyle),
     );
   }
 
@@ -431,50 +422,37 @@ class ZeroThemeData with Diagnosticable {
       primaryColor: AccentColor.lerp(a.primaryColor, b.primaryColor, t),
       typography: ZeroTypography.lerp(a.typography, b.typography, t),
       disabledColor: Color.lerp(a.disabledColor, b.disabledColor, t)!,
-      scaffoldBackgroundColor:
-          Color.lerp(a.scaffoldBackgroundColor, b.scaffoldBackgroundColor, t)!,
+      scaffoldBackgroundColor: Color.lerp(a.scaffoldBackgroundColor, b.scaffoldBackgroundColor, t)!,
       uncheckedColor: Color.lerp(a.uncheckedColor, b.uncheckedColor, t)!,
       checkedColor: Color.lerp(a.checkedColor, b.checkedColor, t)!,
       cardColor: Color.lerp(a.cardColor, b.cardColor, t)!,
       colorScheme: ColorScheme.lerp(a.colorScheme, b.colorScheme, t),
       iconTheme: IconThemeData.lerp(a.iconTheme, b.iconTheme, t),
       dialogTheme: DialogTheme.lerp(a.dialogTheme, b.dialogTheme, t),
-      disabledBackgroundColor:
-          Color.lerp(a.disabledBackgroundColor, b.disabledBackgroundColor, t)!,
+      disabledBackgroundColor: Color.lerp(a.disabledBackgroundColor, b.disabledBackgroundColor, t)!,
       errorColor: Color.lerp(a.errorColor, b.errorColor, t)!,
       dividerColor: Color.lerp(a.dividerColor, b.dividerColor, t)!,
       solidTextColor: Color.lerp(a.solidTextColor, b.solidTextColor, t)!,
       regularTextColor: Color.lerp(a.regularTextColor, b.regularTextColor, t)!,
-      listTileStyle:
-          ZeroListTileStyle.lerp(a.listTileStyle, b.listTileStyle, t),
-      primaryButtonStyle:
-          ZeroButtonStyle.lerp(a.primaryButtonStyle, b.primaryButtonStyle, t),
-      secondaryButtonStyle: ZeroButtonStyle.lerp(
-          a.secondaryButtonStyle, b.secondaryButtonStyle, t),
-      textButtonStyle:
-          ZeroButtonStyle.lerp(a.textButtonStyle, b.textButtonStyle, t),
+      listTileStyle: ZeroListTileStyle.lerp(a.listTileStyle, b.listTileStyle, t),
+      primaryButtonStyle: ZeroButtonStyle.lerp(a.primaryButtonStyle, b.primaryButtonStyle, t),
+      secondaryButtonStyle: ZeroButtonStyle.lerp(a.secondaryButtonStyle, b.secondaryButtonStyle, t),
+      textButtonStyle: ZeroButtonStyle.lerp(a.textButtonStyle, b.textButtonStyle, t),
       dividerStyle: ZeroDividerStyle.lerp(a.dividerStyle, b.dividerStyle, t),
-      chipFilledStyle:
-          ZeroChipFilledStyle.lerp(a.chipFilledStyle, b.chipFilledStyle, t),
-      chipOutlinedStyle: ZeroChipOutlinedStyle.lerp(
-          a.chipOutlinedStyle, b.chipOutlinedStyle, t),
-      navigationBarStyle: ZeroNavigationBarStyle.lerp(
-          a.navigationBarStyle, b.navigationBarStyle, t),
-      navigationDrawerStyle: ZeroNavigationDrawerStyle.lerp(
-          a.navigationDrawerStyle, b.navigationDrawerStyle, t),
+      chipFilledStyle: ZeroChipFilledStyle.lerp(a.chipFilledStyle, b.chipFilledStyle, t),
+      chipOutlinedStyle: ZeroChipOutlinedStyle.lerp(a.chipOutlinedStyle, b.chipOutlinedStyle, t),
+      navigationBarStyle: ZeroNavigationBarStyle.lerp(a.navigationBarStyle, b.navigationBarStyle, t),
+      navigationDrawerStyle: ZeroNavigationDrawerStyle.lerp(a.navigationDrawerStyle, b.navigationDrawerStyle, t),
       appBarStyle: ZeroAppBarStyle.lerp(a.appBarStyle, b.appBarStyle, t),
       cardStyle: ZeroCardStyle.lerp(a.cardStyle, b.cardStyle, t),
-      buttonIconStyle:
-          ZeroButtonIconStyleSet.lerp(a.buttonIconStyle, b.buttonIconStyle, t),
-      navigationRailStyle: ZeroNavigationRailStyle.lerp(
-          a.navigationRailStyle, b.navigationRailStyle, t),
+      buttonIconStyle: ZeroButtonIconStyleSet.lerp(a.buttonIconStyle, b.buttonIconStyle, t),
+      navigationRailStyle: ZeroNavigationRailStyle.lerp(a.navigationRailStyle, b.navigationRailStyle, t),
       switchStyle: ZeroSwitchStyleSet.lerp(a.switchStyle, b.switchStyle, t),
       tabBarStyle: ZeroTabBarStyle.lerp(a.tabBarStyle, b.tabBarStyle, t),
-      inputDecorationType:
-          t < 0.5 ? a.inputDecorationType : b.inputDecorationType,
+      inputDecorationType: t < 0.5 ? a.inputDecorationType : b.inputDecorationType,
       textfieldSize: t < 0.5 ? a.textfieldSize : b.textfieldSize,
-      textfieldStyleSet: ZeroTextfieldStyleSet.lerp(
-          a.textfieldStyleSet, b.textfieldStyleSet, t),
+      textfieldStyleSet: ZeroTextfieldStyleSet.lerp(a.textfieldStyleSet, b.textfieldStyleSet, t),
+      speedDialStyle: ZeroSpeedDialStyle.lerp(a.speedDialStyle, b.speedDialStyle, t),
     );
   }
 
@@ -518,6 +496,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroNavigationRailStyle? navigationRailStyle,
     ZeroSwitchStyleSet? switchStyle,
     ZeroTabBarStyle? tabBarStyle,
+    ZeroSpeedDialStyle? speedDialStyle,
   }) {
     return ZeroThemeData.raw(
       brightness: brightness ?? this.brightness,
@@ -527,16 +506,14 @@ class ZeroThemeData with Diagnosticable {
       uncheckedColor: uncheckedColor ?? this.uncheckedColor,
       checkedColor: checkedColor ?? this.checkedColor,
       disabledColor: disabledColor ?? this.disabledColor,
-      scaffoldBackgroundColor:
-          scaffoldBackgroundColor ?? this.scaffoldBackgroundColor,
+      scaffoldBackgroundColor: scaffoldBackgroundColor ?? this.scaffoldBackgroundColor,
       colorScheme: colorScheme ?? this.colorScheme,
       iconTheme: this.iconTheme.merge(iconTheme),
       buttonTheme: buttonTheme ?? this.buttonTheme,
       dialogTheme: dialogTheme ?? this.dialogTheme,
       cardColor: cardColor ?? this.cardColor,
       errorColor: errorColor ?? this.errorColor,
-      disabledBackgroundColor:
-          disabledBackgroundColor ?? this.disabledBackgroundColor,
+      disabledBackgroundColor: disabledBackgroundColor ?? this.disabledBackgroundColor,
       dividerColor: dividerColor ?? this.dividerColor,
       solidTextColor: solidTextColor ?? this.solidTextColor,
       regularTextColor: regularTextColor ?? this.regularTextColor,
@@ -551,10 +528,7 @@ class ZeroThemeData with Diagnosticable {
       inputDecorationType: inputDecorationType ?? this.inputDecorationType,
       textfieldStyleSet: this.textfieldStyleSet?.copyWith(
           inputDecorationType: inputDecorationType,
-          outline: this
-              .textfieldStyleSet
-              ?.outline
-              .copyWith(textfieldSize: textfieldSize),
+          outline: this.textfieldStyleSet?.outline.copyWith(textfieldSize: textfieldSize),
           rounded: this.textfieldStyleSet?.rounded.copyWith(
                 textfieldSize: textfieldSize,
               ),
@@ -566,14 +540,14 @@ class ZeroThemeData with Diagnosticable {
               )),
       textfieldSize: textfieldSize ?? this.textfieldSize,
       useMaterial3: useMaterial3 ?? this.useMaterial3,
-      navigationDrawerStyle:
-          navigationDrawerStyle ?? this.navigationDrawerStyle,
+      navigationDrawerStyle: navigationDrawerStyle ?? this.navigationDrawerStyle,
       appBarStyle: appBarStyle ?? this.appBarStyle,
       cardStyle: cardStyle ?? this.cardStyle,
       buttonIconStyle: buttonIconStyle ?? this.buttonIconStyle,
       navigationRailStyle: navigationRailStyle ?? this.navigationRailStyle,
       switchStyle: switchStyle ?? this.switchStyle,
       tabBarStyle: tabBarStyle ?? this.tabBarStyle,
+      speedDialStyle: speedDialStyle ?? this.speedDialStyle,
     );
   }
 
@@ -596,8 +570,7 @@ class ZeroThemeData with Diagnosticable {
         style: secondaryButtonStyle.toButtonStyle(),
       ),
       buttonTheme: buttonTheme,
-      inputDecorationTheme:
-          textfieldStyleSet?.mainStyle.toInputDecorationTheme(),
+      inputDecorationTheme: textfieldStyleSet?.mainStyle.toInputDecorationTheme(),
       colorScheme: colorScheme,
       dividerTheme: dividerStyle.toDividerTheme(),
       chipTheme: chipFilledStyle.toChipThemeData(),
