@@ -14,15 +14,25 @@ WidgetbookComponent progressIndicatorWidgetbookComponent = WidgetbookComponent(
         return PreviewWidget(
           child: ZeroProgressIndicator.circular(
             value: context.knobs.nullableSlider(label: 'Value', min: 0, max: 1),
-            backgroundColor: context.knobs.options(
-              label: 'Background Color',
-              options: [const Option(label: 'Transparent', value: ZeroColors.transparent), ...colorOptions],
+            style: ZeroProgressStyle(
+              backgroundColor: context.knobs.options(
+                label: 'Background Color',
+                options: [
+                  const Option(label: 'Default', value: null),
+                  ...colorOptions
+                ],
+              ),
+              valueColor: context.knobs.options(
+                label: 'Value Color',
+                options: [
+                  const Option(label: 'Default', value: null),
+                  ...colorOptions
+                ],
+              ),
+              lineSize: context.knobs
+                  .number(label: 'Stroke Width', initialValue: 4)
+                  .toDouble(),
             ),
-            valueColor: context.knobs.options(
-              label: 'Value Color',
-              options: colorOptions,
-            ),
-            strokeWidth: context.knobs.number(label: 'Stroke Width', initialValue: 4).toDouble(),
           ),
         );
       },
@@ -34,16 +44,27 @@ WidgetbookComponent progressIndicatorWidgetbookComponent = WidgetbookComponent(
           child: SizedBox(
             width: 300,
             child: ZeroProgressIndicator.linear(
-              value: context.knobs.nullableSlider(label: 'Value', min: 0, max: 1),
-              backgroundColor: context.knobs.options(
-                label: 'Background Color',
-                options: [const Option(label: 'Transparent', value: ZeroColors.transparent), ...colorOptions],
+              value:
+                  context.knobs.nullableSlider(label: 'Value', min: 0, max: 1),
+              style: ZeroProgressStyle(
+                backgroundColor: context.knobs.options(
+                  label: 'Background Color',
+                  options: [
+                    const Option(label: 'Default', value: null),
+                    ...colorOptions
+                  ],
+                ),
+                valueColor: context.knobs.options(
+                  label: 'Value Color',
+                  options: [
+                    const Option(label: 'Default', value: null),
+                    ...colorOptions
+                  ],
+                ),
+                lineSize: context.knobs
+                    .number(label: 'Stroke Height', initialValue: 4)
+                    .toDouble(),
               ),
-              valueColor: context.knobs.options(
-                label: 'Value Color',
-                options: colorOptions,
-              ),
-              height: context.knobs.number(label: 'Stroke Width', initialValue: 4).toDouble(),
             ),
           ),
         );

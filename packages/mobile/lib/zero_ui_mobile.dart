@@ -22,6 +22,7 @@ export './styles/component/switch_style.dart';
 export './styles/component/tab_bar_style.dart';
 export './styles/component/checkbox_style.dart';
 export './styles/component/radio_style.dart';
+export './styles/component/progress_style.dart';
 
 // assets
 export './assets/assets.dart';

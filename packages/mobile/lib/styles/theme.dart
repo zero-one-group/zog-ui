@@ -103,6 +103,7 @@ class ZeroThemeData with Diagnosticable {
   final ZeroTabBarStyle tabBarStyle;
   final ZeroCheckboxStyle checkboxStyle;
   final ZeroRadioStyle radioStyle;
+  final ZeroProgressStyle progressStyle;
 
   final Brightness brightness;
   final IconThemeData iconTheme;
@@ -156,6 +157,7 @@ class ZeroThemeData with Diagnosticable {
     required this.tabBarStyle,
     required this.checkboxStyle,
     required this.radioStyle,
+    required this.progressStyle,
 
     // Others
     this.useMaterial3 = false,
@@ -202,6 +204,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroTabBarStyle? tabBarStyle,
     ZeroCheckboxStyle? checkboxStyle,
     ZeroRadioStyle? radioStyle,
+    ZeroProgressStyle? progressStyle,
   }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
@@ -394,6 +397,12 @@ class ZeroThemeData with Diagnosticable {
       disabledColor: disabledColor,
     );
 
+    final progeressStyleFallback = ZeroProgressStyle.fallback(
+      backgroundColor: isLight ? ZeroColors.neutral[4] : ZeroColors.neutral[10],
+      lineSize: 4,
+      valueColor: primaryColor,
+    );
+
     useMaterial3 ??= false;
 
     return ZeroThemeData.raw(
@@ -439,6 +448,7 @@ class ZeroThemeData with Diagnosticable {
       tabBarStyle: tabBarStyleFallback.merge(tabBarStyle),
       checkboxStyle: checkboxStyleFallback.merge(checkboxStyle),
       radioStyle: radioStyleFallback.merge(radioStyle),
+      progressStyle: progeressStyleFallback.merge(progressStyle),
     );
   }
 
@@ -497,6 +507,8 @@ class ZeroThemeData with Diagnosticable {
       checkboxStyle:
           ZeroCheckboxStyle.lerp(a.checkboxStyle, b.checkboxStyle, t),
       radioStyle: ZeroRadioStyle.lerp(a.radioStyle, b.radioStyle, t),
+      progressStyle:
+          ZeroProgressStyle.lerp(a.progressStyle, b.progressStyle, t),
     );
   }
 
@@ -542,6 +554,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroTabBarStyle? tabBarStyle,
     ZeroCheckboxStyle? checkboxStyle,
     ZeroRadioStyle? radioStyle,
+    ZeroProgressStyle? progressStyle,
   }) {
     return ZeroThemeData.raw(
       brightness: brightness ?? this.brightness,
@@ -600,6 +613,7 @@ class ZeroThemeData with Diagnosticable {
       tabBarStyle: tabBarStyle ?? this.tabBarStyle,
       checkboxStyle: checkboxStyle ?? this.checkboxStyle,
       radioStyle: radioStyle ?? this.radioStyle,
+      progressStyle: progressStyle ?? this.progressStyle,
     );
   }
 
