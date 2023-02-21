@@ -2,24 +2,215 @@ import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
 import { BADGE } from '@geometricpanda/storybook-addon-badges';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { Modal } from '@zero-ui/core';
+import { Modal, Button, ButtonGroup } from '@zero-ui/core';
+import { CloseOutlined } from '@ant-design/icons';
+import { useState } from 'react';
 
-<Meta title="Components/Portal/Modal" component={[Modal]} argTypes={{}} />
+<Meta
+  title="Components/Portal/Modal"
+  component={[Modal]}
+  argTypes={{
+    intent: {
+      control: 'radio',
+      options: ['success', 'warning', 'info', 'error', 'default'],
+    },
+  }}
+/>
 
-export const ModalStory = () => <Modal />;
+export const ModalStory = (args) => (
+  <Modal>
+    <Modal.Trigger>
+      <Button>Open Modal</Button>
+    </Modal.Trigger>
+    <Modal.Content intent={args.intent !== 'default' ? args.intent : undefined}>
+      <Modal.Title>Modal Title</Modal.Title>
+      <ModalBody />
+      <ButtonGroup
+        css={{
+          justifyContent: 'flex-end',
+        }}
+      >
+        <Modal.Close>
+          <Button intent="primary" css={{ ...buttonStyle }}>
+            OK
+          </Button>
+        </Modal.Close>
+      </ButtonGroup>
+    </Modal.Content>
+  </Modal>
+);
 
 # Modal
 
-> WIP
+A window overlaid on either the primary window or another dialog window, rendering the content underneath inert.
+Built using [Radix UI Dialog](https://www.radix-ui.com/docs/primitives/components/dialog) under the hood.
+Please check the API documentation for this component
+
+# Structures
+
+Modal uses a fully composable API to freely customize the component.
+
+## `<Modal />`
+
+Contains all the parts of a modal.
+
+[API Reference](https://www.radix-ui.com/docs/primitives/components/dialog#root)
+
+## `<Modal.Trigger />`
+
+The button that opens the dialog. It passed in `asChild` by default.
+
+[API Reference](https://www.radix-ui.com/docs/primitives/components/dialog#trigger)
+
+## `<Modal.Content />`
+
+Contains content to be rendered in the open dialog. It composes `Portal` and `Overlay` by default.
+
+| Prop     | Type                                                     | Default   | Description                        |
+| -------- | -------------------------------------------------------- | --------- | ---------------------------------- |
+| `intent` | `default` \| `success` \| `warning` \| `error` \| `info` | `default` | Set the information intent variant |
+
+For more props:
+[API Reference](https://www.radix-ui.com/docs/primitives/components/dialog#content)
+
+## `<Modal.Title />`
+
+An accessible title to be announced when the modal is opened.
+
+[API Reference](https://www.radix-ui.com/docs/primitives/components/dialog#title)
+
+## `<Modal.Description />`
+
+An optional accessible description to be announced when the modal is opened.
+
+[API Reference](https://www.radix-ui.com/docs/primitives/components/dialog#description)
+
+## `<Modal.Close />`
+
+The button that closes the modal. It passed in `asChild` by default.
+
+[API Reference](https://www.radix-ui.com/docs/primitives/components/dialog#close)
+
+## `<Modal.CloseIcon />`
+
+The button that rendered a close icon. Pass in your icon to the `children`. Its implemented using `<Modal.Close />`.
 
 ## Example Usage
 
 ```jsx
 import { Modal } from '@zero-ui/core';
+
+const App = () => {
+  return (
+    <Modal>
+      <Modal.Trigger>
+        <Button>Open Modal</Button>
+      </Modal.Trigger>
+      <Modal.Content intent={args.intent}>
+        <Modal.Title>
+          Modal Title
+          <Modal.CloseIcon>
+            <CloseOutlined />
+          </Modal.CloseIcon>
+        </Modal.Title>
+        <Modal.Description>Modal Description</Modal.Description>
+      </Modal.Content>
+    </Modal>
+  );
+};
 ```
 
+export const ModalBody = () => {
+  return (
+    <div>
+      <p>Some Content...</p>
+    </div>
+  );
+};
+
+export const buttonStyle = {
+  padding: '4px 15px',
+  height: '32px',
+  borderRadius: '6px',
+  cursor: 'pointer',
+};
+
 <Canvas columns={2} withSource="close">
-  <Story name="Modal">{ModalStory.bind()}</Story>
+  <Story name="Basic Modal">
+    {(args) => (
+      <Modal>
+        <Modal.Trigger>
+          <Button>Open Modal</Button>
+        </Modal.Trigger>
+        <Modal.Content intent={args.intent}>
+          <Modal.Title>
+            Modal Title
+            <Modal.CloseIcon>
+              <CloseOutlined />
+            </Modal.CloseIcon>
+          </Modal.Title>
+          <Modal.Description>Modal Description</Modal.Description>
+          <ModalBody />
+          <ButtonGroup
+            css={{
+              justifyContent: 'flex-end',
+            }}
+          >
+            <Modal.Close>
+              <Button css={{ ...buttonStyle }}>Cancel</Button>
+            </Modal.Close>
+            <Modal.Close>
+              <Button intent="primary" css={{ ...buttonStyle }}>
+                OK
+              </Button>
+            </Modal.Close>
+          </ButtonGroup>
+        </Modal.Content>
+      </Modal>
+    )}
+  </Story>
+  <Story name="Controlled">
+    {(args) => {
+      const [open, setOpen] = useState(false);
+      return (
+        <Modal open={open}>
+          <Modal.Trigger>
+            <Button onClick={() => setOpen(true)}>Open Modal</Button>
+          </Modal.Trigger>
+          <Modal.Content intent={args.intent}>
+            <Modal.Title>
+              Modal Title
+              <Modal.CloseIcon onClick={() => setOpen(false)}>
+                <CloseOutlined />
+              </Modal.CloseIcon>
+            </Modal.Title>
+            <Modal.Description>Modal Description</Modal.Description>
+            <ModalBody />
+            <ButtonGroup
+              css={{
+                justifyContent: 'flex-end',
+              }}
+            >
+              <Modal.Close>
+                <Button onClick={() => setOpen(false)} css={{ ...buttonStyle }}>
+                  Cancel
+                </Button>
+              </Modal.Close>
+              <Modal.Close>
+                <Button
+                  onClick={() => setOpen(false)}
+                  intent="primary"
+                  css={{ ...buttonStyle }}
+                >
+                  OK
+                </Button>
+              </Modal.Close>
+            </ButtonGroup>
+          </Modal.Content>
+        </Modal>
+      );
+    }}
+  </Story>
 </Canvas>
 
 <ArgsTable of={Modal} />
