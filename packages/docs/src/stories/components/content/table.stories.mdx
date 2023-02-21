@@ -295,6 +295,35 @@ export const columnsGroup = [
   >
     {TableStory.bind()}
   </Story>
+  <Story
+    name="Custom Heading"
+    args={{
+      dataSource: dataSource,
+      columns: columns,
+      size: 'lg',
+      bordered: false,
+      enableFiltering: true,
+      enableSorting: true,
+      enableSelection: true,
+      initialState: {
+        pagination: {
+          pageSize: 5,
+        },
+      },
+      css: {
+        '& th': {
+          background: '$pink9',
+          color: 'white',
+          '& [data-sort="asc"] span:first-child svg, [data-sort="desc"] span:last-child svg':
+            {
+              color: '$pink1',
+            },
+        },
+      },
+    }}
+  >
+    {TableStory.bind()}
+  </Story>
 </Canvas>
 
 <ArgsTable of={Table} />

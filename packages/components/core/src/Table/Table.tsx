@@ -127,7 +127,7 @@ const StyledHeaderColumnName = styled('div', {
 const StyledHeaderColumnIcons = styled('div', {
   marginLeft: '$2',
   fontSize: '10px',
-  color: '$gray9',
+  color: '$gray8',
 });
 
 const StyledHeaderColumnSortIcons = styled(StyledHeaderColumnIcons, {
@@ -154,15 +154,11 @@ const StyledHeaderColumnFilterIcons = styled(StyledHeaderColumnIcons, {
   fontSize: '12px',
   '&:hover': {
     color: '$gray10',
-    backgroundColor: '$gray6',
   },
   variants: {
     filtered: {
       true: {
         color: '$$bgTable',
-        '&:hover': {
-          color: '$$bgTable',
-        },
       },
     },
   },
@@ -257,7 +253,10 @@ export function Table<T>({
       return sortIcon(sort);
     }
     return (
-      <StyledHeaderColumnSortIcons sort={sort}>
+      <StyledHeaderColumnSortIcons
+        sort={sort}
+        data-sort={sort ? `${sort}` : undefined}
+      >
         <CaretUpOutlined />
         <CaretDownOutlined />
       </StyledHeaderColumnSortIcons>
@@ -286,7 +285,10 @@ export function Table<T>({
             </StyledHeaderColumnName>
             {shouldShowSorting ? renderSortIcon(sortedDirection) : null}
             {shouldShowFiltering ? (
-              <StyledHeaderColumnFilterIcons filtered={isFiltered}>
+              <StyledHeaderColumnFilterIcons
+                filtered={isFiltered}
+                data-filter={isFiltered ? true : undefined}
+              >
                 <TableFilter
                   colorScheme={colorScheme}
                   column={header.column}
