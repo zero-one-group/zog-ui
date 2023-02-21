@@ -18,6 +18,7 @@ import 'component/navigation/navigation_drawer_example.dart';
 import 'component/navigation/navigation_rail_example.dart';
 import 'component/navigation/tabs_example.dart';
 import 'component/progress_indicator/zero_progress_indicator_example.dart';
+import 'component/radio/radio_example.dart';
 import 'component/rating/zero_rating_example.dart';
 import 'component/slider/zero_slider_example.dart';
 import 'component/snackbar/zero_snackbar_example.dart';
@@ -115,6 +116,16 @@ class Examples extends StatelessWidget {
             );
           },
           text: 'Zero Checkbox Example',
+        ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroRadioExample(),
+              ),
+            );
+          },
+          text: 'Zero Radio Example',
         ),
         ZeroButton.primary(
           onPressed: () {

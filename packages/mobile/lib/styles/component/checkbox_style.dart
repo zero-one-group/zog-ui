@@ -38,7 +38,7 @@ class ZeroCheckboxStyle with Diagnosticable {
       ZeroCheckboxStyle(
         activeColor: activeColor ?? ZeroColors.primary,
         borderRadius: borderRadius ?? BorderRadius.circular(2),
-        disabledColor: disabledColor ?? ZeroColors.neutral[8].withOpacity(0.4),
+        disabledColor: disabledColor ?? ZeroColors.neutral[8],
         inactiveColor: inactiveColor ?? ZeroColors.neutral[7],
         checkColor: checkColor ?? ZeroColors.white,
       );

@@ -102,6 +102,7 @@ class ZeroThemeData with Diagnosticable {
   final ZeroSwitchStyleSet switchStyle;
   final ZeroTabBarStyle tabBarStyle;
   final ZeroCheckboxStyle checkboxStyle;
+  final ZeroRadioStyle radioStyle;
 
   final Brightness brightness;
   final IconThemeData iconTheme;
@@ -154,6 +155,7 @@ class ZeroThemeData with Diagnosticable {
     required this.switchStyle,
     required this.tabBarStyle,
     required this.checkboxStyle,
+    required this.radioStyle,
 
     // Others
     this.useMaterial3 = false,
@@ -199,6 +201,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroSwitchStyleSet? switchStyle,
     ZeroTabBarStyle? tabBarStyle,
     ZeroCheckboxStyle? checkboxStyle,
+    ZeroRadioStyle? radioStyle,
   }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
@@ -385,6 +388,12 @@ class ZeroThemeData with Diagnosticable {
       disabledColor: disabledColor,
     );
 
+    final radioStyleFallback = ZeroRadioStyle.fallback(
+      activeColor: checkedColor,
+      inactiveColor: uncheckedColor,
+      disabledColor: disabledColor,
+    );
+
     useMaterial3 ??= false;
 
     return ZeroThemeData.raw(
@@ -429,6 +438,7 @@ class ZeroThemeData with Diagnosticable {
       switchStyle: switchStyleFallback.merge(switchStyle),
       tabBarStyle: tabBarStyleFallback.merge(tabBarStyle),
       checkboxStyle: checkboxStyleFallback.merge(checkboxStyle),
+      radioStyle: radioStyleFallback.merge(radioStyle),
     );
   }
 
@@ -486,6 +496,7 @@ class ZeroThemeData with Diagnosticable {
           a.textfieldStyleSet, b.textfieldStyleSet, t),
       checkboxStyle:
           ZeroCheckboxStyle.lerp(a.checkboxStyle, b.checkboxStyle, t),
+      radioStyle: ZeroRadioStyle.lerp(a.radioStyle, b.radioStyle, t),
     );
   }
 
@@ -530,6 +541,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroSwitchStyleSet? switchStyle,
     ZeroTabBarStyle? tabBarStyle,
     ZeroCheckboxStyle? checkboxStyle,
+    ZeroRadioStyle? radioStyle,
   }) {
     return ZeroThemeData.raw(
       brightness: brightness ?? this.brightness,
@@ -587,6 +599,7 @@ class ZeroThemeData with Diagnosticable {
       switchStyle: switchStyle ?? this.switchStyle,
       tabBarStyle: tabBarStyle ?? this.tabBarStyle,
       checkboxStyle: checkboxStyle ?? this.checkboxStyle,
+      radioStyle: radioStyle ?? this.radioStyle,
     );
   }
 
@@ -620,6 +633,7 @@ class ZeroThemeData with Diagnosticable {
       navigationRailTheme: navigationRailStyle.toNavigationRailTheme(),
       tabBarTheme: tabBarStyle.toTabBarTheme(),
       checkboxTheme: checkboxStyle.toCheckBoxTheme(),
+      radioTheme: radioStyle.toRadioTheme(),
     );
   }
 
