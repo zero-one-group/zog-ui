@@ -104,6 +104,7 @@ class ZeroThemeData with Diagnosticable {
   final ZeroCheckboxStyle checkboxStyle;
   final ZeroRadioStyle radioStyle;
   final ZeroProgressStyle progressStyle;
+  final ZeroRatingStyle ratingStyle;
 
   final Brightness brightness;
   final IconThemeData iconTheme;
@@ -158,6 +159,7 @@ class ZeroThemeData with Diagnosticable {
     required this.checkboxStyle,
     required this.radioStyle,
     required this.progressStyle,
+    required this.ratingStyle,
 
     // Others
     this.useMaterial3 = false,
@@ -205,6 +207,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroCheckboxStyle? checkboxStyle,
     ZeroRadioStyle? radioStyle,
     ZeroProgressStyle? progressStyle,
+    ZeroRatingStyle? ratingStyle,
   }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
@@ -403,6 +406,11 @@ class ZeroThemeData with Diagnosticable {
       valueColor: primaryColor,
     );
 
+    final ratingStyleFallback = ZeroRatingStyle.fallback(
+      inactiveColor: isLight ? ZeroColors.neutral : ZeroColors.neutral[10],
+      spacing: 2,
+    );
+
     useMaterial3 ??= false;
 
     return ZeroThemeData.raw(
@@ -449,6 +457,7 @@ class ZeroThemeData with Diagnosticable {
       checkboxStyle: checkboxStyleFallback.merge(checkboxStyle),
       radioStyle: radioStyleFallback.merge(radioStyle),
       progressStyle: progeressStyleFallback.merge(progressStyle),
+      ratingStyle: ratingStyleFallback.merge(ratingStyle),
     );
   }
 
@@ -509,6 +518,7 @@ class ZeroThemeData with Diagnosticable {
       radioStyle: ZeroRadioStyle.lerp(a.radioStyle, b.radioStyle, t),
       progressStyle:
           ZeroProgressStyle.lerp(a.progressStyle, b.progressStyle, t),
+      ratingStyle: ZeroRatingStyle.lerp(a.ratingStyle, b.ratingStyle, t),
     );
   }
 
@@ -555,6 +565,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroCheckboxStyle? checkboxStyle,
     ZeroRadioStyle? radioStyle,
     ZeroProgressStyle? progressStyle,
+    ZeroRatingStyle? ratingStyle,
   }) {
     return ZeroThemeData.raw(
       brightness: brightness ?? this.brightness,
@@ -614,6 +625,7 @@ class ZeroThemeData with Diagnosticable {
       checkboxStyle: checkboxStyle ?? this.checkboxStyle,
       radioStyle: radioStyle ?? this.radioStyle,
       progressStyle: progressStyle ?? this.progressStyle,
+      ratingStyle: ratingStyle ?? this.ratingStyle,
     );
   }
 
