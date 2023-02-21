@@ -1,6 +1,8 @@
 import { addParameters } from '@storybook/react';
 import badgeParameter from './parameter';
-
+import { useDarkMode } from 'storybook-dark-mode';
+import { darkTheme } from '@zero-ui/core';
+import React from 'react';
 // Register extra parameters
 addParameters(badgeParameter);
 
@@ -29,3 +31,14 @@ export const parameters = {
     },
   },
 };
+
+export const decorators = [
+  (Story) => {
+    const theme = useDarkMode() ? darkTheme : '';
+
+    return React.createElement('div', {
+      className: theme,
+      children: React.createElement(Story),
+    });
+  },
+];
