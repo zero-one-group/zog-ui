@@ -101,6 +101,7 @@ class ZeroThemeData with Diagnosticable {
   final ZeroNavigationRailStyle navigationRailStyle;
   final ZeroSwitchStyleSet switchStyle;
   final ZeroTabBarStyle tabBarStyle;
+  final ZeroCheckboxStyle checkboxStyle;
 
   final Brightness brightness;
   final IconThemeData iconTheme;
@@ -152,6 +153,7 @@ class ZeroThemeData with Diagnosticable {
     required this.navigationRailStyle,
     required this.switchStyle,
     required this.tabBarStyle,
+    required this.checkboxStyle,
 
     // Others
     this.useMaterial3 = false,
@@ -196,6 +198,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroNavigationRailStyle? navigationRailStyle,
     ZeroSwitchStyleSet? switchStyle,
     ZeroTabBarStyle? tabBarStyle,
+    ZeroCheckboxStyle? checkboxStyle,
   }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
@@ -208,10 +211,8 @@ class ZeroThemeData with Diagnosticable {
         isLight ? ZeroColors.neutral[3] : ZeroColors.neutral[8];
     scaffoldBackgroundColor ??=
         isLight ? ZeroColors.neutral[2] : ZeroColors.neutral[11];
-    uncheckedColor ??= isLight
-        ? const Color.fromRGBO(0, 0, 0, 0.6063)
-        : const Color.fromRGBO(255, 255, 255, 0.786);
-    checkedColor ??= isLight ? ZeroColors.white : ZeroColors.black;
+    uncheckedColor ??= isLight ? ZeroColors.neutral[7] : ZeroColors.neutral[9];
+    checkedColor ??= primaryColor;
     cardColor ??= isLight ? ZeroColors.white : ZeroColors.neutral[9];
     errorColor ??= ZeroColors.danger;
     dividerColor ??= isLight ? ZeroColors.neutral[5] : ZeroColors.neutral[10];
@@ -244,7 +245,7 @@ class ZeroThemeData with Diagnosticable {
             contentTextStyle: typography.body2,
           );
 
-    buttonTheme ??= ButtonThemeData(
+    buttonTheme ??= const ButtonThemeData(
       alignedDropdown: true,
     );
 
@@ -377,6 +378,13 @@ class ZeroThemeData with Diagnosticable {
       inactiveColor: regularTextColor,
     );
 
+    final checkboxStyleFallback = ZeroCheckboxStyle.fallback(
+      activeColor: checkedColor,
+      checkColor: colorScheme.onPrimary,
+      inactiveColor: uncheckedColor,
+      disabledColor: disabledColor,
+    );
+
     useMaterial3 ??= false;
 
     return ZeroThemeData.raw(
@@ -420,6 +428,7 @@ class ZeroThemeData with Diagnosticable {
           navigationRailStyleFallback.merge(navigationRailStyle),
       switchStyle: switchStyleFallback.merge(switchStyle),
       tabBarStyle: tabBarStyleFallback.merge(tabBarStyle),
+      checkboxStyle: checkboxStyleFallback.merge(checkboxStyle),
     );
   }
 
@@ -475,6 +484,8 @@ class ZeroThemeData with Diagnosticable {
       textfieldSize: t < 0.5 ? a.textfieldSize : b.textfieldSize,
       textfieldStyleSet: ZeroTextfieldStyleSet.lerp(
           a.textfieldStyleSet, b.textfieldStyleSet, t),
+      checkboxStyle:
+          ZeroCheckboxStyle.lerp(a.checkboxStyle, b.checkboxStyle, t),
     );
   }
 
@@ -518,6 +529,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroNavigationRailStyle? navigationRailStyle,
     ZeroSwitchStyleSet? switchStyle,
     ZeroTabBarStyle? tabBarStyle,
+    ZeroCheckboxStyle? checkboxStyle,
   }) {
     return ZeroThemeData.raw(
       brightness: brightness ?? this.brightness,
@@ -574,6 +586,7 @@ class ZeroThemeData with Diagnosticable {
       navigationRailStyle: navigationRailStyle ?? this.navigationRailStyle,
       switchStyle: switchStyle ?? this.switchStyle,
       tabBarStyle: tabBarStyle ?? this.tabBarStyle,
+      checkboxStyle: checkboxStyle ?? this.checkboxStyle,
     );
   }
 
@@ -606,6 +619,7 @@ class ZeroThemeData with Diagnosticable {
       appBarTheme: appBarStyle.toAppBarTheme(),
       navigationRailTheme: navigationRailStyle.toNavigationRailTheme(),
       tabBarTheme: tabBarStyle.toTabBarTheme(),
+      checkboxTheme: checkboxStyle.toCheckBoxTheme(),
     );
   }
 

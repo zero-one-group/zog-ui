@@ -5,6 +5,7 @@ import 'component/alert_dialog/zero_alert_dialog_example.dart';
 import 'component/avatar/avatar_example.dart';
 import 'component/button/zero_button_example.dart';
 import 'component/card/zero_card_example.dart';
+import 'component/checkbox/checkbox_example.dart';
 import 'component/chip/chip_example.dart';
 import 'component/datepicker/datepicker_example.dart';
 import 'component/divider/divider_example.dart';
@@ -105,6 +106,16 @@ class Examples extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       children: [
         const SizedBox(width: double.infinity),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroCheckboxExample(),
+              ),
+            );
+          },
+          text: 'Zero Checkbox Example',
+        ),
         ZeroButton.primary(
           onPressed: () {
             Navigator.of(context).push(
