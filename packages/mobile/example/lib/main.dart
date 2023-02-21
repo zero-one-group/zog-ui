@@ -346,6 +346,16 @@ class Examples extends StatelessWidget {
           },
           text: 'Zero Tabs Example',
         ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroSpeedDialExample(),
+              ),
+            );
+          },
+          text: 'Zero Speed Dial Example',
+        ),
         const SizedBox(
           height: 100,
         )
