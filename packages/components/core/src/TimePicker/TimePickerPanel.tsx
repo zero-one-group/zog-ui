@@ -1,3 +1,5 @@
+import clsx from 'clsx';
+import { ComponentProps } from 'react';
 import { Space } from '../Space';
 import { styled } from '../stitches.config';
 import { Time } from './TimePicker';
@@ -117,7 +119,7 @@ type TimePickerPanelProps = {
   ) => void;
   onClickNow?: () => void;
   onClickOk?: (selectedTime?: Time) => void;
-};
+} & ComponentProps<typeof StyledTimePanel>;
 
 export const TimePickerPanel = ({
   uniqId,
@@ -125,44 +127,48 @@ export const TimePickerPanel = ({
   onClickCell,
   onClickNow,
   onClickOk,
+  ...props
 }: TimePickerPanelProps) => {
   return (
-    <StyledPanelLayout>
-      <StyledTimePanel>
-        <StyledTimeContent>
-          <StyledTimePanelColumn>
+    <StyledPanelLayout className="panel-layout">
+      <StyledTimePanel {...props}>
+        <StyledTimeContent className="panel-content">
+          <StyledTimePanelColumn className="panel-column-hour">
             {hourDigits.map((digit) => (
-              <StyledTimePanelCell key={`${uniqId}-minute-${digit}`}>
+              <StyledTimePanelCell key={`${uniqId}-hour-${digit}`}>
                 <StyledTimePanelCellInner
                   id={`${uniqId}-hour-${digit}`}
                   selected={digit === selectedTime?.hour}
                   onClick={() => onClickCell('hour', digit)}
+                  className={clsx({ selected: digit === selectedTime?.hour })}
                 >
                   {digit}
                 </StyledTimePanelCellInner>
               </StyledTimePanelCell>
             ))}
           </StyledTimePanelColumn>
-          <StyledTimePanelColumn>
+          <StyledTimePanelColumn className="panel-column-minute">
             {sixtyDigits.map((digit) => (
               <StyledTimePanelCell key={`${uniqId}-minute-${digit}`}>
                 <StyledTimePanelCellInner
                   id={`${uniqId}-minute-${digit}`}
                   selected={digit === selectedTime?.minute}
                   onClick={() => onClickCell('minute', digit)}
+                  className={clsx({ selected: digit === selectedTime?.minute })}
                 >
                   {digit}
                 </StyledTimePanelCellInner>
               </StyledTimePanelCell>
             ))}
           </StyledTimePanelColumn>
-          <StyledTimePanelColumn>
+          <StyledTimePanelColumn className="panel-column-second">
             {sixtyDigits.map((digit) => (
-              <StyledTimePanelCell key={`${uniqId}-minute-${digit}`}>
+              <StyledTimePanelCell key={`${uniqId}-second-${digit}`}>
                 <StyledTimePanelCellInner
                   id={`${uniqId}-second-${digit}`}
                   selected={digit === selectedTime?.second}
                   onClick={() => onClickCell('second', digit)}
+                  className={clsx({ selected: digit === selectedTime?.second })}
                 >
                   {digit}
                 </StyledTimePanelCellInner>
@@ -172,10 +178,12 @@ export const TimePickerPanel = ({
         </StyledTimeContent>
       </StyledTimePanel>
       {typeof onClickNow === 'function' || typeof onClickOk === 'function' ? (
-        <StyledFooter>
+        <StyledFooter className="panel-footer">
           <span>
             {onClickNow ? (
-              <StyledNow onClick={() => onClickNow()}>Now</StyledNow>
+              <StyledNow className="btn-now" onClick={() => onClickNow()}>
+                Now
+              </StyledNow>
             ) : null}
           </span>
           <span>
@@ -183,6 +191,7 @@ export const TimePickerPanel = ({
               <StyledOk
                 onClick={() => onClickOk(selectedTime)}
                 disabled={selectedTime === undefined}
+                className="btn-ok"
               >
                 Ok
               </StyledOk>
