@@ -101,6 +101,7 @@ class ZeroThemeData with Diagnosticable {
   final ZeroNavigationRailStyle navigationRailStyle;
   final ZeroSwitchStyleSet switchStyle;
   final ZeroTabBarStyle tabBarStyle;
+  final ZeroSpeedDialStyle speedDialStyle;
   final ZeroCheckboxStyle checkboxStyle;
   final ZeroRadioStyle radioStyle;
   final ZeroProgressStyle progressStyle;
@@ -158,6 +159,7 @@ class ZeroThemeData with Diagnosticable {
     required this.navigationRailStyle,
     required this.switchStyle,
     required this.tabBarStyle,
+    required this.speedDialStyle,
     required this.checkboxStyle,
     required this.radioStyle,
     required this.progressStyle,
@@ -208,6 +210,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroNavigationRailStyle? navigationRailStyle,
     ZeroSwitchStyleSet? switchStyle,
     ZeroTabBarStyle? tabBarStyle,
+    ZeroSpeedDialStyle? speedDialStyle,
     ZeroCheckboxStyle? checkboxStyle,
     ZeroRadioStyle? radioStyle,
     ZeroProgressStyle? progressStyle,
@@ -393,6 +396,11 @@ class ZeroThemeData with Diagnosticable {
       inactiveColor: regularTextColor,
     );
 
+    final speedDialStyleFallback = ZeroSpeedDialStyle.fallback(
+      activeColor: isLight ? ZeroColors.white : ZeroColors.black,
+      inactiveColor: isLight ? ZeroColors.white : ZeroColors.black,
+    );
+
     final checkboxStyleFallback = ZeroCheckboxStyle.fallback(
       activeColor: checkedColor,
       checkColor: colorScheme.onPrimary,
@@ -468,6 +476,7 @@ class ZeroThemeData with Diagnosticable {
           navigationRailStyleFallback.merge(navigationRailStyle),
       switchStyle: switchStyleFallback.merge(switchStyle),
       tabBarStyle: tabBarStyleFallback.merge(tabBarStyle),
+      speedDialStyle: speedDialStyleFallback.merge(speedDialStyle),
       checkboxStyle: checkboxStyleFallback.merge(checkboxStyle),
       radioStyle: radioStyleFallback.merge(radioStyle),
       progressStyle: progeressStyleFallback.merge(progressStyle),
@@ -527,6 +536,8 @@ class ZeroThemeData with Diagnosticable {
       inputDecorationType:
           t < 0.5 ? a.inputDecorationType : b.inputDecorationType,
       textfieldSize: t < 0.5 ? a.textfieldSize : b.textfieldSize,
+      speedDialStyle:
+          ZeroSpeedDialStyle.lerp(a.speedDialStyle, b.speedDialStyle, t),
       textfieldStyleSet: ZeroTextfieldStyleSet.lerp(
           a.textfieldStyleSet, b.textfieldStyleSet, t),
       checkboxStyle:
@@ -580,6 +591,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroNavigationRailStyle? navigationRailStyle,
     ZeroSwitchStyleSet? switchStyle,
     ZeroTabBarStyle? tabBarStyle,
+    ZeroSpeedDialStyle? speedDialStyle,
     ZeroCheckboxStyle? checkboxStyle,
     ZeroRadioStyle? radioStyle,
     ZeroProgressStyle? progressStyle,
@@ -642,6 +654,7 @@ class ZeroThemeData with Diagnosticable {
       navigationRailStyle: navigationRailStyle ?? this.navigationRailStyle,
       switchStyle: switchStyle ?? this.switchStyle,
       tabBarStyle: tabBarStyle ?? this.tabBarStyle,
+      speedDialStyle: speedDialStyle ?? this.speedDialStyle,
       checkboxStyle: checkboxStyle ?? this.checkboxStyle,
       radioStyle: radioStyle ?? this.radioStyle,
       progressStyle: progressStyle ?? this.progressStyle,

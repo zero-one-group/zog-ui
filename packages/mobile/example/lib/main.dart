@@ -22,6 +22,7 @@ import 'component/radio/radio_example.dart';
 import 'component/rating/zero_rating_example.dart';
 import 'component/slider/zero_slider_example.dart';
 import 'component/snackbar/zero_snackbar_example.dart';
+import 'component/speed_dial/zero_speed_dial_example.dart';
 import 'component/stepper/zero_stepper_example.dart';
 import 'component/switch/zero_switch_example.dart';
 import 'component/textfield/zero_textfield_example.dart';
@@ -366,6 +367,16 @@ class Examples extends StatelessWidget {
             );
           },
           text: 'Zero Tabs Example',
+        ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroSpeedDialExample(),
+              ),
+            );
+          },
+          text: 'Zero Speed Dial Example',
         ),
         const SizedBox(
           height: 100,
