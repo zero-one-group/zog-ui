@@ -105,7 +105,7 @@ export const Pagination = ({
         simple={props.simple}
         onClick={onPrevious}
         intent="secondary"
-        size="lg"
+        size="large"
         variant="outlined"
         disabled={currentPage === 1}
         colorScheme={colorScheme}
@@ -126,7 +126,7 @@ export const Pagination = ({
               simple={props.simple}
               intent={item === currentPage ? 'primary' : 'secondary'}
               onClick={() => onChangePage(Number(item))}
-              size="lg"
+              size="large"
               variant="outlined"
               colorScheme={colorScheme}
               key={index}
@@ -138,7 +138,7 @@ export const Pagination = ({
       <ItemPagination
         simple={props.simple}
         onClick={onNext}
-        size="lg"
+        size="large"
         variant="outlined"
         disabled={currentPage === lastPage}
         intent="secondary"

@@ -1,6 +1,7 @@
-import { ReactNode } from 'react';
 import clsx from 'clsx';
+import { ReactNode } from 'react';
 import { styled } from '../../stitches.config';
+import { useFormContext } from '../Form';
 import {
   FormDisabledContext,
   useFormDisabledContext,
@@ -11,7 +12,6 @@ import {
   FormItemContextType,
 } from '../type';
 import { FormItemContext } from './FormItemContext';
-import { useFormContext } from '../Form';
 
 const StyledItemWrapper = styled('div', {
   boxSizing: 'border-box',
@@ -185,8 +185,6 @@ export const FormItem = ({
   const labelCol = propLabelCol ?? form.labelCol ?? 5;
   const wrapperCol = propWrapperCol ?? form.wrapperCol ?? 19;
   const size = propSize ?? form.size ?? 'medium';
-
-  console.log(labelCol);
 
   return (
     <FormItemContext.Provider

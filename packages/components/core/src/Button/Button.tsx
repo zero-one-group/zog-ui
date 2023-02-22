@@ -150,7 +150,7 @@ const StyledButton = styled('button', {
   },
   compoundVariants: [
     {
-      size: 'md',
+      size: 'medium',
       variant: 'circle',
       css: {
         padding: '19px 15px',
