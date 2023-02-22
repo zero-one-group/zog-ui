@@ -10,7 +10,7 @@ import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
   component={[Switch]}
   argTypes={{
     size: {
-      options: ['sm', 'md'],
+      options: ['small', 'medium'],
       control: { type: 'radio' },
     },
     colorScheme: {
@@ -38,7 +38,7 @@ import { Switch } from '@zero-ui/core';
     args={{
       defaultValue: 'true',
       colorScheme: 'pink',
-      size: 'md',
+      size: 'medium',
       disabled: false,
       loading: false,
     }}
@@ -49,7 +49,7 @@ import { Switch } from '@zero-ui/core';
     name="Controlled"
     args={{
       colorScheme: 'pink',
-      size: 'md',
+      size: 'medium',
       value: false,
     }}
   >
@@ -59,7 +59,7 @@ import { Switch } from '@zero-ui/core';
     name="With Text"
     args={{
       colorScheme: 'pink',
-      size: 'md',
+      size: 'medium',
       disabled: false,
       loading: false,
       checkedChildren: 'ON',
@@ -72,7 +72,7 @@ import { Switch } from '@zero-ui/core';
     name="With Icon"
     args={{
       colorScheme: 'pink',
-      size: 'md',
+      size: 'medium',
       disabled: false,
       loading: false,
       checkedChildren: <CheckOutlined />,

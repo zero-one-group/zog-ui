@@ -1,6 +1,7 @@
 import * as RadixSwitch from '@radix-ui/react-switch';
 import { keyframes, VariantProps } from '@stitches/react';
-import React, { ComponentProps, forwardRef, useState } from 'react';
+import React, { ComponentProps, forwardRef, useMemo, useState } from 'react';
+import { useFormDisabledContext, useFormItemContext } from '../Form';
 import { styled } from '../stitches.config';
 
 const getColorSchemeVariants = (colorScheme?: string) => {
@@ -38,12 +39,12 @@ const SwitchRoot = styled(RadixSwitch.Root, {
   '&[data-disabled]': { backgroundColor: '$grayA6' },
   variants: {
     size: {
-      sm: {
+      small: {
         minWidth: 28,
         height: 16,
         fontSize: '.5rem',
       },
-      md: {
+      medium: {
         minWidth: 44,
         height: 22,
         fontSize: '.8rem',
@@ -73,12 +74,12 @@ const SwitchThumb = styled(RadixSwitch.Thumb, {
   },
   variants: {
     size: {
-      sm: {
+      small: {
         width: 12,
         height: 12,
         '&[data-state="checked"]': { insetInlineStart: 'calc(100% - 14px)' },
       },
-      md: {
+      medium: {
         width: 18,
         height: 18,
         '&[data-state="checked"]': { insetInlineStart: 'calc(100% - 20px)' },
@@ -98,11 +99,11 @@ const StyledLoader = styled('div', {
   animation: `${rotate} 1s linear infinite`,
   variants: {
     size: {
-      sm: {
+      small: {
         width: 8,
         height: 8,
       },
-      md: {
+      medium: {
         width: 12,
         height: 12,
       },
@@ -126,10 +127,10 @@ const StyledSwitchInner = styled('span', {
       },
     },
     size: {
-      sm: {
+      small: {
         lineHeight: '15px',
       },
-      md: {
+      medium: {
         lineHeight: '21px',
       },
     },
@@ -137,7 +138,7 @@ const StyledSwitchInner = styled('span', {
   compoundVariants: [
     {
       checked: true,
-      size: 'md',
+      size: 'medium',
       css: {
         paddingLeft: 6,
         paddingRight: 24,
@@ -145,7 +146,7 @@ const StyledSwitchInner = styled('span', {
     },
     {
       checked: false,
-      size: 'md',
+      size: 'medium',
       css: {
         paddingLeft: 24,
         paddingRight: 6,
@@ -194,10 +195,10 @@ const StyledSwitchInnerTextUnchecked = styled('div', {
       },
     },
     size: {
-      sm: {
+      small: {
         mt: '-16px',
       },
-      md: {
+      medium: {
         mt: '-22px',
       },
     },
@@ -230,9 +231,9 @@ export const Switch = forwardRef<
       defaultChecked,
       onClick,
       value,
-      disabled = false,
+      disabled: propDisabled,
       loading = false,
-      size = 'md',
+      size: propSize,
       checkedChildren,
       uncheckedChildren,
       ...props
@@ -245,6 +246,19 @@ export const Switch = forwardRef<
       : defaultChecked || false;
 
     const [isChecked, setIsChecked] = useState<boolean>(initialCheckValue);
+
+    const { size: formItemSize } = useFormItemContext();
+
+    const size = useMemo(() => {
+      if (propSize) return propSize;
+      if (formItemSize) {
+        return formItemSize === 'large' ? 'medium' : formItemSize;
+      }
+      return 'medium';
+    }, [propSize, formItemSize]);
+
+    const disabledForm = useFormDisabledContext();
+    const disabled = propDisabled || disabledForm;
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
       if (isControlled) {

@@ -1,10 +1,16 @@
 import React, { ComponentPropsWithoutRef, ElementType } from 'react';
+import { useFormDisabledContext, useFormItemContext } from '../Form';
 import { Space } from '../Space';
 import { styled } from '../stitches.config';
 
-export type InputProps = ComponentPropsWithoutRef<ElementType>;
+export type InputProps = ComponentPropsWithoutRef<ElementType> &
+  Pick<ComponentPropsWithoutRef<typeof StyledInput>, 'size'>;
 
 const StyledInput = styled(Space, {
+  input: {
+    border: '1px solid $inputDefaultBorder',
+    transition: 'border .1s ease-in-out',
+  },
   'input:focus': {
     borderColor: '$blue9',
   },
@@ -14,17 +20,17 @@ const StyledInput = styled(Space, {
   },
   variants: {
     size: {
-      sm: {
+      small: {
         input: {
           padding: '1px 8px',
         },
       },
-      md: {
+      medium: {
         input: {
           padding: '5px 12px',
         },
       },
-      lg: {
+      large: {
         input: {
           padding: '8px 12px',
         },
@@ -33,6 +39,20 @@ const StyledInput = styled(Space, {
         input: {
           width: '100%',
           padding: '8px 12px',
+        },
+      },
+    },
+    isInvalid: {
+      true: {
+        input: {
+          borderColor: '$inputError !important',
+        },
+      },
+    },
+    isWarning: {
+      true: {
+        input: {
+          borderColor: '$inputWarning !important',
         },
       },
     },
@@ -45,7 +65,7 @@ const StyledInput = styled(Space, {
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
     {
-      disabled,
+      disabled: propDisabled,
       defaultValue,
       placeHolder,
       type,
@@ -58,12 +78,24 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       name,
       pattern,
       onChange,
+      size: propSize,
       ...props
     }: InputProps,
     ref
   ) => {
+    const formItem = useFormItemContext();
+    const size = propSize ?? formItem.size;
+
+    const disabledForm = useFormDisabledContext();
+    const disabled = propDisabled || disabledForm;
+
     return (
-      <StyledInput {...props}>
+      <StyledInput
+        {...props}
+        size={size}
+        isInvalid={formItem.isInvalid}
+        isWarning={formItem.isWarning && !formItem.isInvalid}
+      >
         <input
           disabled={disabled}
           id={id}

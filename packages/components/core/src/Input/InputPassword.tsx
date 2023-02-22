@@ -1,6 +1,7 @@
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import { styled } from '@stitches/react';
 import { ComponentPropsWithoutRef, ElementType, useState } from 'react';
+import { useFormDisabledContext, useFormItemContext } from '../Form';
 import { Space } from '../Space';
 import { Input } from './Input';
 
@@ -8,7 +9,7 @@ export type InputPasswordProps = ComponentPropsWithoutRef<ElementType>;
 
 const StyledInputPassword = styled(Space, {
   input: {
-    border: 'none',
+    border: 'none !important',
     background: 'transparent',
     padding: '0 !important',
   },
@@ -20,7 +21,8 @@ const StyledInputPassword = styled(Space, {
     },
   },
   width: 'fit-content',
-  border: '1px solid $gray9',
+  border: '1px solid $inputDefaultBorder',
+  transition: 'border .1s ease-in-out',
   borderRadius: '2px',
   alignItems: 'center',
   justifyContent: 'space-between',
@@ -29,21 +31,36 @@ const StyledInputPassword = styled(Space, {
   },
   variants: {
     size: {
-      sm: {
+      small: {
         height: '$5',
         padding: '1px 8px',
       },
-      md: {
+      medium: {
         height: '$6',
         padding: '5px 12px',
       },
-      lg: {
+      large: {
         height: '$7',
         padding: '8px 12px',
       },
       fullWidth: {
         width: '100%',
         padding: '8px 12px',
+      },
+    },
+    isInvalid: {
+      true: {
+        border: '1px solid $inputError !important',
+      },
+    },
+    isWarning: {
+      true: {
+        border: '1px solid $inputWarning !important',
+      },
+    },
+    disabled: {
+      true: {
+        backgroundColor: '#f8f8f8',
       },
     },
   },
@@ -53,17 +70,30 @@ const StyledInputPassword = styled(Space, {
 });
 
 export const InputPassword = ({
-  size,
+  size: propSize,
   onChage,
   placeHolder,
   id,
   value,
-  disabled,
+  disabled: propDisabled,
   ...props
 }: InputPasswordProps) => {
   const [type, setType] = useState('password');
+
+  const formItem = useFormItemContext();
+  const size = propSize ?? formItem.size;
+
+  const disabledForm = useFormDisabledContext();
+  const disabled = propDisabled || disabledForm;
+
   return (
-    <StyledInputPassword size={size} {...props}>
+    <StyledInputPassword
+      size={size}
+      {...props}
+      isInvalid={formItem.isInvalid}
+      isWarning={formItem.isWarning && !formItem.isInvalid}
+      disabled={disabled}
+    >
       <Input
         type={type}
         onChange={onChage}

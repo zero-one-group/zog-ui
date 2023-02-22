@@ -3,6 +3,7 @@ import { RangePicker, RangePickerProps } from 'rc-picker';
 import dateFnsGenerateConfig from 'rc-picker/lib/generate/dateFns';
 import enUS from 'rc-picker/lib/locale/en_US';
 import { ComponentProps, ReactElement, useRef } from 'react';
+import { useFormDisabledContext, useFormItemContext } from '../Form';
 import { styled } from '../stitches.config';
 import { getDateRangePickerStyle } from './style';
 
@@ -20,8 +21,10 @@ const getColorSchemeVariants = (colorScheme?: string) => {
 const PREFIX_CLS = 'zero-picker';
 
 const StyledWrapperPicker = styled('div', {
+  width: 350,
   position: 'relative',
   [`.${PREFIX_CLS}`]: {
+    transition: 'border .1s ease-in-out',
     fontSize: '14px',
     fontFamily: '$untitled',
     ...getDateRangePickerStyle({
@@ -33,30 +36,47 @@ const StyledWrapperPicker = styled('div', {
   },
   variants: {
     size: {
-      default: {
-        [`& .${PREFIX_CLS}-range`]: {
-          padding: '5px 12px',
-        },
-      },
       small: {
         [`& .${PREFIX_CLS}-range`]: {
-          padding: '0 12px',
+          height: 24,
         },
       },
       medium: {
         [`& .${PREFIX_CLS}-range`]: {
-          padding: '5px 12px',
+          height: 32,
         },
       },
       large: {
         [`& .${PREFIX_CLS}-range`]: {
-          padding: '8px 12px',
+          height: 40,
           input: {
             fontSize: '16px',
           },
         },
       },
     },
+    isInvalid: {
+      true: {
+        '.zero-picker': {
+          borderColor: '$inputError !important',
+        },
+      },
+    },
+    isWarning: {
+      true: {
+        '.zero-picker': {
+          borderColor: '$inputWarning !important',
+        },
+      },
+    },
+    fullWidth: {
+      true: {
+        width: '100%',
+      },
+    },
+  },
+  defaultVariants: {
+    size: 'medium',
   },
 });
 
@@ -87,7 +107,7 @@ type RcRangePickerProps = Omit<
 >;
 type StyledWrapperProps = Pick<
   ComponentProps<typeof StyledWrapperPicker>,
-  'css' | 'size'
+  'css' | 'size' | 'fullWidth'
 >;
 
 export type DateRangePickerProps = DateRangePickerOwnProps &
@@ -99,21 +119,32 @@ export type DateRangePickerComponent = (
 ) => ReactElement;
 
 export const DateRangePicker: DateRangePickerComponent = ({
-  size,
+  size: propSize,
+  disabled: propDisabled,
   css,
   placeholder,
   locale = enUS,
   colorScheme,
+  fullWidth,
   ...props
 }) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const wrapperRef = useRef<any>(null);
 
+  const formItem = useFormItemContext();
+  const size = propSize ?? formItem.size;
+
+  const disabledForm = useFormDisabledContext();
+  const disabled = propDisabled || disabledForm;
+
   return (
     <StyledWrapperPicker
+      ref={wrapperRef}
       css={{ ...css, ...getColorSchemeVariants(colorScheme) }}
       size={size}
-      ref={wrapperRef}
+      isWarning={formItem.isWarning && !formItem.isInvalid}
+      isInvalid={formItem.isInvalid}
+      fullWidth={fullWidth}
     >
       <RangePicker<Date>
         prefixCls={PREFIX_CLS}
@@ -144,6 +175,7 @@ export const DateRangePicker: DateRangePickerComponent = ({
             />
           </svg>
         }
+        disabled={disabled}
         {...props}
       />
     </StyledWrapperPicker>

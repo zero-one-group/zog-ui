@@ -85,6 +85,7 @@ const getCommonStyle = ({
     fontFamily: '$untitled',
     fontSize: '14px',
     position: 'absolute',
+    zIndex: 999,
     '&-range': {
       padding: '10px 0',
     },
@@ -229,11 +230,13 @@ const getCommonStyle = ({
 
   const mainStyle: CSS = {
     fontSize: '14px',
-    display: 'inline-flex',
+    display: 'flex',
     alignItems: 'center',
-    border: '1px solid #D9D9D9',
+    border: '1px solid $inputDefaultBorder',
+    boxSizing: 'border-box',
     borderRadius: '2px',
-    padding: '5px 12px',
+    padding: '0 12px',
+    transition: 'height .1s ease-in-out, font-size .1s ease-in-out',
     [`&-focused, &:hover`]: {
       border: `1px solid ${primaryColor}`,
     },

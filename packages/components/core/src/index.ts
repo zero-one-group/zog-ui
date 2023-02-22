@@ -15,6 +15,7 @@ export * from './DesignSystemProvider';
 export * from './Dialog';
 export * from './Divider';
 export * from './DropdownMenu';
+export * from './Form';
 export * from './Grid';
 export * from './Heading';
 export * from './IconButton';

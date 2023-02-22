@@ -1,6 +1,7 @@
 import { Space } from '../Space';
 import { styled } from '../stitches.config';
 import type * as Stitches from '@stitches/react';
+import { useFormDisabledContext } from '../Form';
 
 export interface RadioProps {
   id: string;
@@ -100,10 +101,13 @@ export const Radio = ({
   id,
   label,
   defaultChecked,
-  disabled,
+  disabled: propDisabled,
   name,
   ...props
 }: RadioProps) => {
+  const disabledForm = useFormDisabledContext();
+  const disabled = propDisabled || disabledForm;
+
   return (
     <StlyedRadio {...props}>
       <input

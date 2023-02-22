@@ -1,5 +1,6 @@
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 import { ComponentProps, ReactElement } from 'react';
+import { useFormDisabledContext } from '../Form';
 import { styled } from '../stitches.config';
 
 const getColorSchemeVariants = (colorScheme?: string) => {
@@ -31,15 +32,15 @@ const StyledCheckboxRoot = styled(CheckboxPrimitive.Root, {
   justifyContent: 'center',
   backgroundColor: 'white',
   outline: 'none',
-  border: '1px solid #D9D9D9',
-  borderRadius: '.2em',
+  border: '1px solid $inputDefaultBorder',
+  borderRadius: '.1em',
   cursor: 'pointer',
   width: '1em',
   height: '1em',
   '&:disabled': {
     cursor: 'not-allowed',
     backgroundColor: '#F4F6F7 !important',
-    border: '1px solid #D9D9D9  !important',
+    border: '1px solid $inputDefaultBorder  !important',
   },
   '&:hover': {
     border: '1px solid $$bgCheck',
@@ -90,13 +91,17 @@ export type CheckboxProps = CheckboxOwnProps &
 export type CheckboxComponent = (props: CheckboxProps) => ReactElement;
 
 export const Checkbox: CheckboxComponent = ({
-  boxSize = '$3',
+  boxSize = '$2',
   colorScheme,
   css,
   labelCss,
   labelClassname,
+  disabled: propDisabled,
   ...props
 }) => {
+  const disabledForm = useFormDisabledContext();
+  const disabled = propDisabled || disabledForm;
+
   return (
     <StyledCheckboxLabel
       css={{
@@ -104,14 +109,15 @@ export const Checkbox: CheckboxComponent = ({
         ...labelCss,
       }}
       className={labelClassname}
-      disabled={props.disabled}
+      disabled={disabled}
     >
       <StyledCheckboxRoot
         css={{
-          fontSize: boxSize,
+          fontSize: '1.15em',
           ...getColorSchemeVariants(colorScheme),
           ...css,
         }}
+        disabled={disabled}
         {...props}
       >
         <StyledCheckboxIndicator>

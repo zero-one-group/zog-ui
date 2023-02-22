@@ -67,9 +67,6 @@ import { Select } from '@zero-ui/core';
         { value: 'Item 11', label: 'Item 11' },
         { value: 'Item 12', label: 'Item 12' },
       ],
-      css: {
-        width: '200px',
-      },
       placeholder: 'Select Item...',
       searchable: true,
       multiple: true,
@@ -79,6 +76,7 @@ import { Select } from '@zero-ui/core';
       renderOption: ({ option, index, selected, onSelect }) => (
         <em onClick={onSelect}>{option.label}</em>
       ),
+      fullWidth: false,
     }}
   >
     {SelectStory.bind()}

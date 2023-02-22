@@ -1,11 +1,15 @@
 import { ComponentPropsWithoutRef, ElementType } from 'react';
+import { useFormDisabledContext, useFormItemContext } from '../Form';
 import { Space } from '../Space';
 import { styled } from '../stitches.config';
-export type TextAreaProps = ComponentPropsWithoutRef<ElementType>;
+export type TextAreaProps = ComponentPropsWithoutRef<ElementType> &
+  Pick<ComponentPropsWithoutRef<typeof StyledTextArea>, 'size'>;
 
 const StyledTextArea = styled(Space, {
   textarea: {
     height: '$6',
+    border: '1px solid $inputDefaultBorder',
+    transition: 'border .1s ease-in-out',
   },
   'textarea:focus': {
     borderColor: '$blue9',
@@ -15,17 +19,17 @@ const StyledTextArea = styled(Space, {
   },
   variants: {
     size: {
-      sm: {
+      small: {
         textarea: {
           padding: '1px 8px',
         },
       },
-      md: {
+      medium: {
         textarea: {
           padding: '5px 12px',
         },
       },
-      lg: {
+      large: {
         textarea: {
           padding: '8px 12px',
         },
@@ -38,21 +42,47 @@ const StyledTextArea = styled(Space, {
         },
       },
     },
+    isInvalid: {
+      true: {
+        textarea: {
+          borderColor: '$inputError !important',
+        },
+      },
+    },
+    isWarning: {
+      true: {
+        textarea: {
+          borderColor: '$inputWarning !important',
+        },
+      },
+    },
   },
   defaultVariants: {
-    size: 'md',
+    size: 'medium',
   },
 });
 export const TextArea = ({
-  disabled,
+  disabled: propDisabled,
   defaultValue,
   placeholder,
   value,
   onChange,
+  size: propSize,
   ...props
 }: TextAreaProps) => {
+  const formItem = useFormItemContext();
+  const size = propSize ?? formItem.size;
+
+  const disabledForm = useFormDisabledContext();
+  const disabled = propDisabled || disabledForm;
+
   return (
-    <StyledTextArea {...props}>
+    <StyledTextArea
+      {...props}
+      size={size}
+      isInvalid={formItem.isInvalid}
+      isWarning={formItem.isWarning && !formItem.isInvalid}
+    >
       <textarea
         onChange={onChange}
         value={value}

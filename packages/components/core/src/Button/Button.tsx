@@ -1,4 +1,5 @@
 import { ComponentProps, forwardRef } from 'react';
+import { useFormDisabledContext, useFormItemContext } from '../Form';
 import { styled } from '../stitches.config';
 
 const getColorSchemeVariants = (colorScheme?: string) => {
@@ -42,19 +43,19 @@ const StyledButton = styled('button', {
   borderRadius: '2px',
   variants: {
     size: {
-      sm: {
+      small: {
         padding: '0 7px',
         fontSize: '14px',
         lineHeight: '22px',
         height: '$4',
       },
-      md: {
+      medium: {
         padding: '4px 15px',
         fontSize: '14px',
         lineHeight: '22px',
         height: '$6',
       },
-      lg: {
+      large: {
         padding: '6.4px 15px',
         fontSize: '16px',
         lineHeight: '24px',
@@ -129,6 +130,7 @@ const StyledButton = styled('button', {
     },
     disabled: {
       true: {
+        cursor: 'not-allowed',
         backgroundColor: '$gray3',
         borderColor: '$gray9',
         color: '$gray9',
@@ -260,7 +262,7 @@ const StyledButton = styled('button', {
   ],
 
   defaultVariants: {
-    size: 'sm',
+    size: 'small',
     variant: 'default',
     intent: 'default',
   },
@@ -272,7 +274,24 @@ export type ButtonProps = {
 } & ComponentProps<typeof StyledButton>;
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ css, colorScheme, asChild, children, ...props }, ref) => {
+  (
+    {
+      css,
+      colorScheme,
+      asChild,
+      children,
+      size: propSize,
+      disabled: propDisabled,
+      ...props
+    },
+    ref
+  ) => {
+    const formItem = useFormItemContext();
+    const size = propSize ?? formItem.size;
+
+    const disabledForm = useFormDisabledContext();
+    const disabled = propDisabled || disabledForm;
+
     return (
       <StyledButton
         css={{
@@ -280,6 +299,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           ...getColorSchemeVariants(colorScheme),
         }}
         ref={ref}
+        size={size}
+        disabled={disabled}
         {...props}
       >
         {children}

@@ -6,6 +6,7 @@ import {
   useMemo,
   useState,
 } from 'react';
+import { useFormDisabledContext } from '../Form';
 import { CSS, styled } from '../stitches.config';
 import { SliderThumb } from './SliderThumb';
 
@@ -136,6 +137,7 @@ export const Slider = forwardRef<
       snapToTicks = false,
       showTicks = false,
       ticks = 1,
+      disabled: propDisabled,
       ...props
     },
     ref
@@ -147,6 +149,9 @@ export const Slider = forwardRef<
     const [isDragging, setIsDragging] = useState<boolean[]>(
       new Array(sliderValues.length).fill(false)
     );
+
+    const disabledForm = useFormDisabledContext();
+    const disabled = propDisabled || disabledForm;
 
     const handleChangeSlider = (value: number[]) => {
       setIsDragging(value.map((val, index) => val !== sliderValues[index]));
@@ -162,13 +167,13 @@ export const Slider = forwardRef<
         <StyledSliderDot
           key={dot}
           active={
-            !props.disabled &&
+            !disabled &&
             sliderValues.some((value: number) => value >= dot * step)
           }
           css={{ left: `${dot * step}%` }}
         />
       ));
-    }, [numberOfTicks, step, props.disabled, sliderValues]);
+    }, [numberOfTicks, step, disabled, sliderValues]);
 
     const renderMarks = useMemo(() => {
       return typeof ticks !== 'number'
@@ -194,6 +199,7 @@ export const Slider = forwardRef<
         }}
         step={snapToTicks ? step : undefined}
         max={max}
+        disabled={disabled}
         {...props}
       >
         <StyledSliderTrack>

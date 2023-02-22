@@ -1,0 +1,131 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { BADGE } from '@geometricpanda/storybook-addon-badges';
+import { within, userEvent } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
+import {
+  Button,
+  Checkbox,
+  DatePicker,
+  DateRangePicker,
+  Form,
+  FormItem,
+  Input,
+  InputNumber,
+  InputPassword,
+  Radio,
+  RadioButton,
+  RadioButtonGroup,
+  RadioGroup,
+  Select,
+  Slider,
+  Switch,
+  TextArea,
+  TimePicker,
+} from '@zero-ui/core';
+
+<Meta
+  title="Components/Forms/Form/Form"
+  component={[Form]}
+  argTypes={{
+    size: {
+      options: ['small', 'medium', 'large'],
+      control: { type: 'radio' },
+    },
+    layout: {
+      options: ['vertical', 'horizontal'],
+      control: { type: 'radio' },
+    },
+  }}
+/>
+
+export const FormStory = ({ fullWidth, ...args }) => (
+  <Form {...args}>
+    <FormItem label="Select">
+      <Select />
+    </FormItem>
+    <FormItem label="Date Picker">
+      <DatePicker />
+    </FormItem>
+    <FormItem label="Date Range Picker">
+      <DateRangePicker />
+    </FormItem>
+    <FormItem label="Time Picker">
+      <TimePicker />
+    </FormItem>
+    <FormItem label="Checkbox">
+      <Checkbox>Item01</Checkbox>
+    </FormItem>
+    <FormItem label="Switch">
+      <Switch />
+    </FormItem>
+    <FormItem label="TextArea">
+      <TextArea css={{ width: '100%' }} />
+    </FormItem>
+    <FormItem label="Radio Group">
+      <RadioGroup>
+        <Radio defaultChecked label="html" id="html" name="tech" />
+        <Radio label="css" id="css" name="tech" />
+        <Radio label="web" id="web" name="tech" />
+        <Radio label="javascript" id="js" name="tech" />
+        <Radio label="Python" id="py" name="tech" />
+      </RadioGroup>
+    </FormItem>
+    <FormItem label="Radio Button Group">
+      <RadioButtonGroup>
+        <RadioButton defaultChecked label="html" id="b-html" name="tech" />
+        <RadioButton label="css" id="b-css" name="tech" />
+        <RadioButton label="web" id="b-web" name="tech" />
+        <RadioButton label="javascript" id="b-js" name="tech" />
+        <RadioButton label="Python" id="b-py" name="tech" />
+      </RadioButtonGroup>
+    </FormItem>
+    <FormItem label="Slider">
+      <Slider />
+    </FormItem>
+    <FormItem label="Input">
+      <Input />
+    </FormItem>
+    <FormItem label="Input Number">
+      <InputNumber />
+    </FormItem>
+    <FormItem label="Input Password">
+      <InputPassword />
+    </FormItem>
+    <FormItem
+      labelCol={args.labelCol}
+      wrapperCol={args.wrapperCol}
+      layout={args.layout}
+      size={args.size}
+      disabled={args.disabled}
+    >
+      <Button type="submit">Submit</Button>
+    </FormItem>
+  </Form>
+);
+
+# Form
+
+> Handle form layout, size, disabled form
+
+## Example Usage
+
+```tsx
+import { Form, FormItem } from '@zero-ui/core';
+// import input components ...
+```
+
+<Canvas columns={2} withSource="close">
+  <Story
+    args={{
+      disabled: false,
+      labelCol: 5,
+      wrapperCol: 12,
+      size: 'medium',
+    }}
+    name="Form"
+  >
+    {FormStory.bind()}
+  </Story>
+</Canvas>
+
+<ArgsTable of={Form} />
