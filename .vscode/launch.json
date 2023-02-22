@@ -30,6 +30,13 @@
             "request": "launch",
             "type": "dart"
         },
+
+        {
+            "name": "widgetbook",
+            "cwd": "packages/mobile/widgetbook",
+            "request": "launch",
+            "type": "dart"
+        },
         {
             "name": "example (profile mode)",
             "cwd": "packages/mobile/example",

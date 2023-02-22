@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:zero_ui_mobile/styles/component/expansion_tile_style.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 class ZeroTheme extends StatelessWidget {
@@ -114,6 +115,8 @@ class ZeroThemeData with Diagnosticable {
   final DialogTheme dialogTheme;
   final ButtonThemeData? buttonTheme;
 
+  final ZeroExpansionTileStyle expansionTileStyle;
+
   final ColorScheme colorScheme;
 
   final bool useMaterial3;
@@ -131,6 +134,7 @@ class ZeroThemeData with Diagnosticable {
     required this.scaffoldBackgroundColor,
     required this.iconTheme,
     required this.dialogTheme,
+    required this.expansionTileStyle,
     this.buttonTheme,
     required this.cardColor,
     required this.disabledBackgroundColor,
@@ -217,6 +221,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroRatingStyle? ratingStyle,
     ZeroSliderStyle? sliderStyle,
     ZeroAvatarStyle? avatarStyle,
+    ZeroExpansionTileStyle? expansionTileStyle,
   }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
@@ -265,6 +270,22 @@ class ZeroThemeData with Diagnosticable {
 
     buttonTheme ??= const ButtonThemeData(
       alignedDropdown: true,
+    );
+
+    debugPrint('theme ZeroExpansionTileStyle');
+    expansionTileStyle ??= ZeroExpansionTileStyle(
+      variant: AccordionVariant.underline,
+      backgroundColor: scaffoldBackgroundColor,
+      titleColor: ZeroColors.neutral[5],
+      collapsedBackgroundColor: scaffoldBackgroundColor,
+      shape: Border(
+        top: BorderSide(color: ZeroColors.neutral[7]),
+        bottom: const BorderSide(color: ZeroColors.transparent),
+      ),
+      collapsedShape: Border(
+        top: BorderSide(color: ZeroColors.neutral[7]),
+        bottom: const BorderSide(color: ZeroColors.transparent),
+      ),
     );
 
     textfieldSize ??= ZeroTextfieldSize.small;
@@ -446,6 +467,7 @@ class ZeroThemeData with Diagnosticable {
       iconTheme: iconTheme,
       dialogTheme: dialogTheme,
       buttonTheme: buttonTheme,
+      expansionTileStyle: expansionTileStyle,
       colorScheme: colorScheme,
       typography: typography,
       cardColor: cardColor,
@@ -502,6 +524,8 @@ class ZeroThemeData with Diagnosticable {
       colorScheme: ColorScheme.lerp(a.colorScheme, b.colorScheme, t),
       iconTheme: IconThemeData.lerp(a.iconTheme, b.iconTheme, t),
       dialogTheme: DialogTheme.lerp(a.dialogTheme, b.dialogTheme, t),
+      expansionTileStyle: ZeroExpansionTileStyle.lerp(
+          a.expansionTileStyle, b.expansionTileStyle, t)!,
       disabledBackgroundColor:
           Color.lerp(a.disabledBackgroundColor, b.disabledBackgroundColor, t)!,
       errorColor: Color.lerp(a.errorColor, b.errorColor, t)!,
@@ -613,6 +637,7 @@ class ZeroThemeData with Diagnosticable {
       iconTheme: this.iconTheme.merge(iconTheme),
       buttonTheme: buttonTheme ?? this.buttonTheme,
       dialogTheme: dialogTheme ?? this.dialogTheme,
+      expansionTileStyle: expansionTileStyle,
       cardColor: cardColor ?? this.cardColor,
       errorColor: errorColor ?? this.errorColor,
       disabledBackgroundColor:
