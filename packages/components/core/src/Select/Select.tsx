@@ -5,8 +5,11 @@ import {
 } from '@ant-design/icons';
 import * as Popover from '@radix-ui/react-popover';
 import * as ScrollArea from '@radix-ui/react-scroll-area';
+import clsx from 'clsx';
 import {
   ComponentProps,
+  Fragment,
+  ReactElement,
   useCallback,
   useEffect,
   useMemo,
@@ -254,7 +257,7 @@ const StyledSelectedMultipleItem = styled('span', {
   },
 });
 
-const StyledItemClose = styled('span', {
+const StyledBtnRemove = styled('span', {
   height: '100%',
   display: 'inline-flex',
   alignItems: 'center',
@@ -309,6 +312,11 @@ const StyledScrollAreaViewport = styled(ScrollArea.Viewport, {
   width: '100%',
   height: '100%',
   $$hightlightColor: '$colors-primary4',
+  '&> div > *': {
+    display: 'block',
+    padding: '5px 12px',
+    cursor: 'pointer',
+  },
 });
 
 const StyledScrollAreaScrollbar = styled(ScrollArea.Scrollbar, {
@@ -363,6 +371,13 @@ type SelectedItem = {
   label?: string;
 };
 
+export type RenderOptionArgs = {
+  option: SelectedItem;
+  index: number;
+  onSelect?: (option: SelectedItem) => void;
+  selected?: boolean;
+};
+
 export type SelectProps = {
   options?: SelectedItem[];
   css?: ComponentProps<typeof StyledWrapper>['css'];
@@ -376,6 +391,12 @@ export type SelectProps = {
   multiple?: boolean;
   value?: SelectedItem | SelectedItem[];
   onChange?: (value?: SelectedItem | SelectedItem[]) => void;
+  className?: string;
+  dropdownClassName?: string;
+  /**
+   * Custom option render
+   */
+  renderOption?: (args: RenderOptionArgs) => ReactElement;
 };
 
 export const Select = ({
@@ -391,6 +412,9 @@ export const Select = ({
   onChange: onChangeFromProps,
   disabled,
   colorScheme,
+  className,
+  dropdownClassName,
+  renderOption,
 }: SelectProps) => {
   const [open, setOpen] = useState(false);
 
@@ -563,6 +587,7 @@ export const Select = ({
       css={{ ...css, ...getColorSchemeVariants(colorScheme) }}
       ref={wrapperRef}
       disabled={disabled}
+      className={clsx('select-wrapper', className)}
     >
       <Popover.Root open={open}>
         <Popover.Trigger asChild>
@@ -574,13 +599,18 @@ export const Select = ({
             asChild
             onInteractOutside={() => setOpen(false)}
             onOpenAutoFocus={(e) => e.preventDefault()}
+            className={clsx('dropdown-select', dropdownClassName)}
           >
-            <StyledScrollAreaRoot css={{ minWidth: inputWidth }}>
+            <StyledScrollAreaRoot
+              className="scroll-area"
+              css={{ minWidth: inputWidth }}
+            >
               <StyledScrollAreaViewport
                 css={{
                   height: dropdownHeight,
                   ...getColorSchemeVariants(colorScheme),
                 }}
+                className="options-wrapper"
               >
                 {filteredOptions.length > 0 ? (
                   filteredOptions.map((option, index) => {
@@ -588,11 +618,24 @@ export const Select = ({
                       selectedSingleItem?.value === option.value ||
                       selectedItems.find((it) => it.value === option.value) !==
                         undefined;
+                    if (renderOption) {
+                      return (
+                        <Fragment key={index}>
+                          {renderOption({
+                            option,
+                            index,
+                            selected,
+                            onSelect: () => onSelect(option),
+                          })}
+                        </Fragment>
+                      );
+                    }
                     return (
                       <StyledOptionItem
                         onClick={() => onSelect(option)}
                         selected={selected}
                         key={index}
+                        className={clsx('option', { selected })}
                       >
                         {option.label}
                       </StyledOptionItem>
@@ -602,8 +645,11 @@ export const Select = ({
                   <center>Empty</center>
                 )}
               </StyledScrollAreaViewport>
-              <StyledScrollAreaScrollbar orientation="vertical">
-                <StyledScrollAreaThumb />
+              <StyledScrollAreaScrollbar
+                className="scroll-indicator"
+                orientation="vertical"
+              >
+                <StyledScrollAreaThumb className="thumb" />
               </StyledScrollAreaScrollbar>
             </StyledScrollAreaRoot>
           </Popover.Content>
@@ -616,7 +662,7 @@ export const Select = ({
         searchable={searchable}
         disabled={disabled}
       >
-        <StyledSelected size={size}>
+        <StyledSelected className="input-item-wrapper" size={size}>
           {searchable && !multiple ? (
             <StyledInput
               value={input}
@@ -624,11 +670,13 @@ export const Select = ({
               ref={inputRef}
               size={size}
               disabled={disabled}
+              className="single-select-input"
             />
           ) : null}
           <StyledPlaceholder
             hide={hasSelectedItem || inputExist || multipleInputFocus}
             size={size}
+            className="placeholder"
           >
             {placeholder}
           </StyledPlaceholder>
@@ -636,28 +684,31 @@ export const Select = ({
             <StyledSelectedSingleItem
               data-value={selectedSingleItem?.value}
               isOnInput={inputExist}
+              className="selected-label"
             >
               {selectedSingleItem?.label}
             </StyledSelectedSingleItem>
           ) : null}
           {multiple ? (
-            <StyledSelectedItems size={size}>
+            <StyledSelectedItems size={size} className="selected-items">
               {selectedItems.map((option, index) => (
                 <StyledSelectedMultipleItem
                   data-value={option.value}
                   size={size}
                   key={index}
+                  className="selected-item"
                 >
                   <span>{option.label}</span>
                   {!disabled ? (
-                    <StyledItemClose
+                    <StyledBtnRemove
                       onClick={(e) => {
                         e.stopPropagation();
                         deSelect(option);
                       }}
+                      className="btn-remove"
                     >
                       <CloseOutlined />
-                    </StyledItemClose>
+                    </StyledBtnRemove>
                   ) : (
                     <span />
                   )}
@@ -670,6 +721,7 @@ export const Select = ({
                     height: '24px',
                     padding: '3px 0',
                   }}
+                  className="multiple-select-input-wrapper"
                 >
                   <StyledInputMultiple
                     placeholder={placeholder}
@@ -685,13 +737,14 @@ export const Select = ({
                     }}
                     ref={inputMultipleRef}
                     size={size}
+                    className="multiple-select-input"
                   />
                 </Space>
               ) : null}
             </StyledSelectedItems>
           ) : null}
         </StyledSelected>
-        <StyledArrow>
+        <StyledArrow className="input-suffix">
           <DownOutlined />
           {allowClear && !disabled ? (
             <StyledClear

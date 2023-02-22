@@ -7,8 +7,6 @@ class ZeroCheckbox extends StatelessWidget {
   final bool? value;
   final ValueChanged<bool?>? onChanged;
   final bool tristate;
-  final Color? activeColor;
-  final Color? checkColor;
   final MaterialTapTargetSize? materialTapTargetSize;
   final VisualDensity? visualDensity;
   final MouseCursor? mouseCursor;
@@ -28,13 +26,13 @@ class ZeroCheckbox extends StatelessWidget {
   /// and the [onChanged] will not be called
   final bool isDisabled;
 
+  final ZeroCheckboxStyle? style;
+
   const ZeroCheckbox({
     super.key,
     required this.value,
     required this.onChanged,
     this.tristate = false,
-    this.activeColor,
-    this.checkColor,
     this.materialTapTargetSize,
     this.visualDensity,
     this.mouseCursor,
@@ -42,9 +40,16 @@ class ZeroCheckbox extends StatelessWidget {
     this.autofocus = false,
     this.size = ZeroSizeType.medium,
     this.isDisabled = false,
+    this.style,
   });
+
   @override
   Widget build(BuildContext context) {
+    final themeStyle = context.theme.checkboxStyle;
+    final adaptiveStyle = themeStyle.merge(style);
+    final borderColor =
+        isDisabled ? adaptiveStyle.disabledColor : adaptiveStyle.inactiveColor;
+
     return Transform.scale(
       key: key,
       scale: _checkboxScale(size),
@@ -53,13 +58,24 @@ class ZeroCheckbox extends StatelessWidget {
         value: value,
         onChanged: isDisabled ? (_) {} : onChanged,
         tristate: tristate,
-        activeColor: isDisabled ? ZeroColors.neutral : activeColor,
-        checkColor: checkColor,
+        activeColor: isDisabled
+            ? adaptiveStyle.disabledColor
+            : adaptiveStyle.activeColor,
+        fillColor: isDisabled
+            ? MaterialStateProperty.all(
+                adaptiveStyle.disabledColor?.withOpacity(0.5))
+            : MaterialStateProperty.all(adaptiveStyle.activeColor),
+        checkColor: adaptiveStyle.checkColor,
         materialTapTargetSize: materialTapTargetSize,
         visualDensity: visualDensity,
         mouseCursor: mouseCursor,
         focusNode: focusNode,
         autofocus: autofocus,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(color: borderColor ?? Colors.transparent),
+          borderRadius: adaptiveStyle.borderRadius ?? BorderRadius.zero,
+        ),
+        side: BorderSide(color: borderColor ?? Colors.transparent),
       ),
     );
   }

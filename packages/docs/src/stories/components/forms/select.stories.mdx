@@ -20,7 +20,7 @@ import { useState } from 'react';
   }}
 />
 
-export const SelectStory = (args) => {
+export const SelectStory = ({ renderOption, ...args }) => {
   const [value, setValue] = useState();
   console.log(value);
   return (
@@ -33,6 +33,8 @@ export const SelectStory = (args) => {
       <Select {...args} onChange={setValue} />
       <h2>Listen Value Only</h2>
       <Select {...args} value={value} />
+      <h2>Custom Render Option</h2>
+      <Select renderOption={renderOption} {...args} />
     </div>
   );
 };
@@ -74,6 +76,9 @@ import { Select } from '@zero-ui/core';
       size: 'medium',
       disabled: false,
       itemsToShow: 10,
+      renderOption: ({ option, index, selected, onSelect }) => (
+        <em onClick={onSelect}>{option.label}</em>
+      ),
     }}
   >
     {SelectStory.bind()}
