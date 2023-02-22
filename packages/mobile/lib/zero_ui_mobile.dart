@@ -20,6 +20,10 @@ export './styles/component/navigation_rail_style.dart';
 export './styles/component/button_icon_style.dart';
 export './styles/component/switch_style.dart';
 export './styles/component/tab_bar_style.dart';
+export './styles/component/checkbox_style.dart';
+export './styles/component/radio_style.dart';
+export './styles/component/progress_style.dart';
+export './styles/component/rating_style.dart';
 
 // assets
 export './assets/assets.dart';
@@ -39,7 +43,6 @@ export './components/button_group/zero_button_group.dart';
 
 // ranting
 export './components/rating/zero_rating.dart';
-export './components/rating/zero_rating_custom.dart';
 
 // dropdown
 export './components/dropdowns/dropdown.dart';
