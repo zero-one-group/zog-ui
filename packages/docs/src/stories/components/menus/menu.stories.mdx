@@ -1,12 +1,6 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
-import { Menu, Grid } from '@zero-ui/core';
-import {
-  RightOutlined,
-  CheckOutlined,
-  BarsOutlined,
-  UserOutlined,
-  SettingOutlined,
-} from '@ant-design/icons';
+import { Menu, Grid, Space } from '@zero-ui/core';
+import { SettingOutlined, CopyOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 
 <Meta title="Components/Menus/Menu" component={[Menu]} argTypes={{}} />
@@ -195,112 +189,49 @@ return (
 
 <Canvas columns={2} withSource="close">
   <Story name="Menu">
-    {() => {
-      return (
-        <Menu>
-          <Menu.List>
-            <Menu.Item>
-              <Menu.Trigger>
-                Overview <Menu.CaretDownIcon aria-hidden />
-              </Menu.Trigger>
-              <Menu.Content>
-                <Menu.ContentList layout="two">
-                  <Menu.ContentListItem
-                    title="Introduction"
-                    href="/docs/primitives/overview/introduction"
-                  >
-                    Build high-quality, accessible design systems and web apps.
-                  </Menu.ContentListItem>
-                  <Menu.ContentListItem
-                    title="Getting started"
-                    href="/docs/primitives/overview/getting-started"
-                  >
-                    A quick tutorial to get you up and running with Radix
-                    Primitives.
-                  </Menu.ContentListItem>
-                  <Menu.ContentListItem
-                    title="Styling"
-                    href="/docs/primitives/overview/styling"
-                  >
-                    Unstyled and compatible with any styling solution.
-                  </Menu.ContentListItem>
-                  <Menu.ContentListItem
-                    title="Animation"
-                    href="/docs/primitives/overview/animation"
-                  >
-                    Use CSS keyframes or any animation library of your choice.
-                  </Menu.ContentListItem>
-                  <Menu.ContentListItem
-                    title="Accessibility"
-                    href="/docs/primitives/overview/accessibility"
-                  >
-                    Tested in a range of browsers and assistive technologies.
-                  </Menu.ContentListItem>
-                  <Menu.ContentListItem
-                    title="Releases"
-                    href="/docs/primitives/overview/releases"
-                  >
-                    Radix Primitives releases and their changelogs.
-                  </Menu.ContentListItem>
-                </Menu.ContentList>
-              </Menu.Content>
-            </Menu.Item>
-            <Menu.Item>
-              <Menu.Trigger>
-                Services <Menu.CaretDownIcon aria-hidden />
-              </Menu.Trigger>
-              <Menu.Content>
-                <Menu.ContentList layout="single">
-                  <Menu.ContentListItem
-                    title="Introduction"
-                    href="/docs/primitives/overview/introduction"
-                  >
-                    Build high-quality, accessible design systems and web apps.
-                  </Menu.ContentListItem>
-                  <Menu.ContentListItem
-                    title="Getting started"
-                    href="/docs/primitives/overview/getting-started"
-                  >
-                    A quick tutorial to get you up and running with Radix
-                    Primitives.
-                  </Menu.ContentListItem>
-                </Menu.ContentList>
-              </Menu.Content>
-            </Menu.Item>
-            <Menu.Item>
-              <Menu.Link href="https://github.com/radix-ui">Github</Menu.Link>
-            </Menu.Item>
-            <Menu.Item>
-              <Menu.Trigger>
-                Services <Menu.CaretDownIcon aria-hidden />
-              </Menu.Trigger>
-              <Menu.Content>
-                <Menu.ContentList layout="single">
-                  <Menu.ContentListItem
-                    title="Introduction"
-                    href="/docs/primitives/overview/introduction"
-                  >
-                    Build high-quality, accessible design systems and web apps.
-                  </Menu.ContentListItem>
-                  <Menu.ContentListItem
-                    title="Getting started"
-                    href="/docs/primitives/overview/getting-started"
-                  >
-                    A quick tutorial to get you up and running with Radix
-                    Primitives.
-                  </Menu.ContentListItem>
-                </Menu.ContentList>
-              </Menu.Content>
-            </Menu.Item>
-            <Menu.Indicator>
-              <Menu.Arrow />
-            </Menu.Indicator>
-          </Menu.List>
-          <Menu.ViewportPosition>
-            <Menu.Viewport />
-          </Menu.ViewportPosition>
+    {() => (
+      <Space>
+        <Menu title="Edit" icon={<SettingOutlined />}>
+          <Menu.Item title="Undo" onClick={() => console.log('Undo')} />
+          <Menu.Item title="Redo" disabled />
+          <Menu.Item title="Cut" />
+          <Menu title="Copy as">
+            <Menu.Item title="Text" />
+            <Menu.Item title="Video" />
+            <Menu title="Image">
+              <Menu.Item title=".png" />
+              <Menu.Item title=".jpg" />
+              <Menu.Item title=".svg" />
+              <Menu.Item title=".gif" />
+            </Menu>
+            <Menu.Item title="Audio" />
+          </Menu>
+          <Menu title="Share">
+            <Menu.Item title="Mail" />
+            <Menu.Item title="Instagram" />
+          </Menu>
         </Menu>
-      );
-    }}
+        <Menu title="Edit">
+          <Menu.Item title="Undo" onClick={() => console.log('Undo')} />
+          <Menu.Item title="Redo" disabled />
+          <Menu.Item title="Cut" />
+          <Menu title="Copy as" icon={<CopyOutlined />}>
+            <Menu.Item title="Text" icon={<CopyOutlined />} />
+            <Menu.Item title="Video" />
+            <Menu title="Image">
+              <Menu.Item title=".png" />
+              <Menu.Item title=".jpg" />
+              <Menu.Item title=".svg" />
+              <Menu.Item title=".gif" />
+            </Menu>
+            <Menu.Item title="Audio" />
+          </Menu>
+          <Menu title="Share">
+            <Menu.Item title="Mail" />
+            <Menu.Item title="Instagram" />
+          </Menu>
+        </Menu>
+      </Space>
+    )}
   </Story>
 </Canvas>
