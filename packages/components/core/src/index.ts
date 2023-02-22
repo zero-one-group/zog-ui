@@ -66,3 +66,4 @@ export * from './Tooltip';
 export * from './TreeItem';
 export * from './VerifiedBadge';
 export * from './ZeroProvider';
+export * from './stitches.config';
