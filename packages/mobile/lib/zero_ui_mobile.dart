@@ -44,28 +44,16 @@ export './components/avatar/zero_avatar.dart';
 export './components/avatar/zero_avatar_group.dart';
 // badge
 export './components/badge/zero_badge.dart';
-// badge
-export './components/badge/zero_badge.dart';
-// button
-export './components/button/zero_button.dart';
 // button
 export './components/button/zero_button.dart';
 export './components/button/zero_button_icon.dart';
-export './components/button/zero_button_icon.dart';
-export './components/button/zero_button_left_icon.dart';
 export './components/button/zero_button_left_icon.dart';
 export './components/button/zero_button_right_icon.dart';
-export './components/button/zero_button_right_icon.dart';
 export './components/button/zero_button_right_left_icon.dart';
-export './components/button/zero_button_right_left_icon.dart';
-// button group
-export './components/button_group/zero_button_group.dart';
 // button group
 export './components/button_group/zero_button_group.dart';
 // card
 export './components/card/zero_card.dart';
-// checkbox
-export './components/checkbox/zero_checkbox.dart';
 // checkbox
 export './components/checkbox/zero_checkbox.dart';
 // chip
@@ -82,14 +70,10 @@ export './components/divider/divider.dart';
 // dropdown
 export './components/dropdowns/dropdown.dart';
 // dropdown
-export './components/dropdowns/dropdown.dart';
-export './components/dropdowns/zero_dropdown.dart';
 export './components/dropdowns/zero_dropdown.dart';
 export './components/icons/two_tone_icons.dart';
 // icons
 export './components/icons/zero_icons.dart';
-// list
-export './components/list/list_tile.dart';
 // list
 export './components/list/list_tile.dart';
 export './components/navigation/drawer/zero_navigation_drawer.dart';
@@ -102,17 +86,9 @@ export './components/navigation/zero_tab_bar.dart';
 export './components/progress_indicator/zero_progress_indicator.dart';
 // radio
 export './components/radio_group/zero_radio_group.dart';
-// radio
-export './components/radio_group/zero_radio_group.dart';
 // ranting
 export './components/rating/zero_rating.dart';
-// ranting
-export './components/rating/zero_rating.dart';
-export './components/rating/zero_rating_custom.dart';
 export './components/slider/zero_range_slider.dart';
-export './components/slider/zero_range_slider.dart';
-// slider
-export './components/slider/zero_slider.dart';
 // slider
 export './components/slider/zero_slider.dart';
 // snackbar
@@ -191,21 +167,15 @@ export './model/zero_range_values.dart';
 =======
 // text
 export './components/text/zero_text.dart';
-// text
-export './components/text/zero_text.dart';
 // text field
 export './components/textfield/zero_textfield.dart';
 // text field
-export './components/textfield/zero_textfield.dart';
-export './components/textfield/zero_textfield_multiline.dart';
 export './components/textfield/zero_textfield_multiline.dart';
 // time picker
 export './components/timepicker/zero_time_picker.dart';
 // tooltip
 export './components/tooltip/zero_tooltip.dart';
 // tooltip
-export './components/tooltip/zero_tooltip.dart';
-export './components/tooltip/zero_tooltip_style.dart';
 export './components/tooltip/zero_tooltip_style.dart';
 // model
 export './model/zero_range_values.dart';
@@ -225,46 +195,28 @@ export './size/text_field_size.dart';
 // size
 export './size/zero_slider_size.dart';
 export './styles/color_accent.dart';
-export './styles/color_accent.dart';
 // styles
 export './styles/colors.dart';
 // styles
-export './styles/colors.dart';
-export './styles/component/app_bar_style.dart';
 export './styles/component/app_bar_style.dart';
 export './styles/component/button_icon_style.dart';
-export './styles/component/button_icon_style.dart';
 export './styles/component/button_style.dart';
-export './styles/component/button_style.dart';
-export './styles/component/card_style.dart';
 export './styles/component/card_style.dart';
 export './styles/component/checkbox_style.dart';
 export './styles/component/chip_style.dart';
-export './styles/component/chip_style.dart';
-export './styles/component/divider_style.dart';
 export './styles/component/divider_style.dart';
 export './styles/component/list_tile_style.dart';
-export './styles/component/list_tile_style.dart';
-export './styles/component/navigation_bar_style.dart';
 export './styles/component/navigation_bar_style.dart';
 export './styles/component/navigation_drawer_style.dart';
-export './styles/component/navigation_drawer_style.dart';
-export './styles/component/navigation_rail_style.dart';
 export './styles/component/navigation_rail_style.dart';
 export './styles/component/progress_style.dart';
 export './styles/component/radio_style.dart';
 export './styles/component/rating_style.dart';
 export './styles/component/switch_style.dart';
-export './styles/component/switch_style.dart';
-export './styles/component/tab_bar_style.dart';
 export './styles/component/tab_bar_style.dart';
 // component styles
 export './styles/component/textfield_style.dart';
-// component styles
-export './styles/component/textfield_style.dart';
 export './styles/theme.dart';
-export './styles/theme.dart';
-export './styles/typography.dart';
 export './styles/typography.dart';
 export './types/badge_type.dart';
 export './types/button_group_type.dart';
