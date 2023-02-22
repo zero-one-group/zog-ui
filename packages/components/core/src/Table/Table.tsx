@@ -1,42 +1,6 @@
-import {
-  CaretDownOutlined,
-  CaretUpOutlined,
-  FilterFilled,
-} from '@ant-design/icons';
-import {
-  ColumnDef,
-  createColumnHelper,
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  Header,
-  SortDirection,
-  SortingState,
-  TableOptions,
-  useReactTable,
-} from '@tanstack/react-table';
-import { ComponentProps, useMemo, useState } from 'react';
-import { Checkbox } from '../Checkbox';
-import { Pagination } from '../Pagination';
 import { styled } from '../stitches.config';
-import TableFilter from './TableFilter';
 
-const getColorSchemeVariants = (colorScheme?: string) => {
-  return {
-    $$bgTable: colorScheme ? `$colors-${colorScheme}9` : '$colors-primary9',
-  };
-};
-
-const StyledTableWrapper = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '$4',
-  alignItems: 'end',
-});
-
-const StyledTable = styled('table', {
+export const Table = styled('table', {
   width: '100%',
   fontFamily: '$untitled',
   fontSize: '14px',
@@ -45,7 +9,7 @@ const StyledTable = styled('table', {
   '& thead': {
     borderBottom: '1px solid $gray4',
     '&>tr': {
-      backgroundColor: '$gray2',
+      backgroundColor: '$gray3',
       '&>th': {
         position: 'relative',
         fontWeight: 500,
@@ -66,10 +30,10 @@ const StyledTable = styled('table', {
       },
     },
   },
-  '& thead>tr>th, tbody>tr>td': {
+  '& thead > tr > th, tbody > tr > td': {
     padding: '1rem',
   },
-  '& tbody>tr': {
+  '& tbody > tr': {
     borderBottom: '1px solid $gray4',
     transition: 'background-color .1s linear',
     '&:hover': {
@@ -79,17 +43,17 @@ const StyledTable = styled('table', {
   variants: {
     size: {
       sm: {
-        '& thead>tr>th, tbody>tr>td': {
+        '& thead > tr > th, tbody > tr > td': {
           padding: '.5rem',
         },
       },
       md: {
-        '& thead>tr>th, tbody>tr>td': {
+        '& thead > tr > th, tbody > tr > td': {
           padding: '12px 8px',
         },
       },
       lg: {
-        '& thead>tr>th, tbody>tr>td': {
+        '& thead > tr > th, tbody > tr > td': {
           padding: '1rem',
         },
       },
@@ -99,234 +63,19 @@ const StyledTable = styled('table', {
         '& th, td': {
           border: '1px solid $gray4',
         },
-        '& thead>tr>th:not(:last-child)::after': {
+        '& thead > tr > th:not(:last-child)::after': {
           content: 'none',
         },
       },
     },
-  },
-});
-
-const StyledHeaderColumn = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  variants: {
-    sortable: {
+    striped: {
       true: {
-        cursor: 'pointer',
-        userSelect: 'none',
-      },
-    },
-  },
-});
-
-const StyledHeaderColumnName = styled('div', {
-  flex: '1',
-});
-
-const StyledHeaderColumnIcons = styled('div', {
-  marginLeft: '$2',
-  fontSize: '10px',
-  color: '$gray8',
-});
-
-const StyledHeaderColumnSortIcons = styled(StyledHeaderColumnIcons, {
-  display: 'flex',
-  fontSize: '8px',
-  flexDirection: 'column',
-  variants: {
-    sort: {
-      asc: {
-        '& span:first-of-type': { color: '$$bgTable' },
-      },
-      desc: {
-        '& span:last-of-type': {
-          color: '$$bgTable',
+        '& tbody > tr:nth-child(even)': {
+          background: '$gray2',
         },
       },
     },
   },
 });
-
-const StyledHeaderColumnFilterIcons = styled(StyledHeaderColumnIcons, {
-  padding: '1px 2px',
-  borderRadius: '4px',
-  '&:hover': {
-    color: '$gray10',
-    backgroundColor: '$gray6',
-  },
-  variants: {
-    filtered: {
-      true: {
-        color: '$$bgTable',
-        '&:hover': {
-          color: '$$bgTable',
-        },
-      },
-    },
-  },
-});
-
-export type TableProps<T> = {
-  colorScheme?: string;
-  dataSource: T[];
-  columns: ColumnDef<T>[];
-  size?: 'sm' | 'md' | 'lg';
-  bordered?: boolean;
-  enableSorting?: boolean;
-  enableFiltering?: boolean;
-  enableSelection?: boolean;
-  initialState?: TableOptions<T>['initialState'];
-} & ComponentProps<typeof StyledTableWrapper>;
-
-export function Table<T>({
-  colorScheme,
-  dataSource,
-  columns,
-  size = 'lg',
-  bordered = false,
-  enableSorting = false,
-  enableFiltering = false,
-  enableSelection = false,
-  initialState,
-  css,
-}: TableProps<T>) {
-  const columnHelper = createColumnHelper<T>();
-  const [data] = useState(() => [...dataSource]);
-  const [sorting, setSorting] = useState<SortingState>([]);
-  const [rowSelection, setRowSelection] = useState({});
-
-  let renderedColumns = [...columns];
-
-  const checkboxColumn: ColumnDef<T, unknown>[] = useMemo(() => {
-    return [
-      columnHelper.display({
-        id: 'select',
-        header: ({ table }) => (
-          <Checkbox
-            colorScheme={colorScheme}
-            checked={
-              table.getIsSomePageRowsSelected()
-                ? 'indeterminate'
-                : table.getIsAllPageRowsSelected()
-            }
-            onClick={table.getToggleAllRowsSelectedHandler()}
-          />
-        ),
-        cell: ({ row }) => (
-          <Checkbox
-            colorScheme={colorScheme}
-            checked={row.getIsSelected()}
-            onClick={row.getToggleSelectedHandler()}
-          />
-        ),
-      }),
-    ];
-  }, [colorScheme, columnHelper]);
-
-  if (enableSelection) {
-    renderedColumns = [...checkboxColumn, ...columns];
-  }
-
-  const table = useReactTable({
-    data,
-    columns: renderedColumns,
-    state: {
-      sorting: enableSorting ? sorting : undefined,
-      rowSelection,
-    },
-    enableRowSelection: enableSelection,
-    onRowSelectionChange: setRowSelection,
-    getCoreRowModel: getCoreRowModel(),
-    onSortingChange: enableSorting ? setSorting : undefined,
-    getSortedRowModel: enableSorting ? getSortedRowModel() : undefined,
-    getPaginationRowModel: getPaginationRowModel(),
-    getFilteredRowModel: enableFiltering ? getFilteredRowModel() : undefined,
-    initialState: {
-      ...initialState,
-    },
-  });
-
-  const renderHeader = (header: Header<T, unknown>) => {
-    const sortedDirection = header.column.getIsSorted()
-      ? (header.column.getIsSorted() as SortDirection)
-      : undefined;
-    const shouldShowSorting = header.column.getCanSort() && enableSorting;
-
-    const isFiltered = header.column.getIsFiltered()
-      ? header.column.getIsFiltered()
-      : undefined;
-    const shouldShowFiltering = header.column.getCanFilter() && enableFiltering;
-
-    return (
-      <th key={header.id} colSpan={header.colSpan}>
-        {header.isPlaceholder ? null : (
-          <StyledHeaderColumn sortable={shouldShowSorting}>
-            <StyledHeaderColumnName
-              onClick={header.column.getToggleSortingHandler()}
-            >
-              {flexRender(header.column.columnDef.header, header.getContext())}
-            </StyledHeaderColumnName>
-            {shouldShowSorting ? (
-              <StyledHeaderColumnSortIcons sort={sortedDirection}>
-                <CaretUpOutlined />
-                <CaretDownOutlined />
-              </StyledHeaderColumnSortIcons>
-            ) : null}
-            {shouldShowFiltering ? (
-              <StyledHeaderColumnFilterIcons filtered={isFiltered}>
-                <TableFilter
-                  colorScheme={colorScheme}
-                  column={header.column}
-                  table={table}
-                >
-                  <FilterFilled />
-                </TableFilter>
-              </StyledHeaderColumnFilterIcons>
-            ) : null}
-          </StyledHeaderColumn>
-        )}
-      </th>
-    );
-  };
-
-  return (
-    <StyledTableWrapper
-      css={{
-        ...getColorSchemeVariants(colorScheme),
-        ...css,
-      }}
-    >
-      <StyledTable size={size} bordered={bordered}>
-        <thead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map(renderHeader)}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </StyledTable>
-      <Pagination
-        colorScheme={colorScheme}
-        siblingCount={1}
-        pageSize={table.getState().pagination.pageSize}
-        totalCount={table.getPrePaginationRowModel().rows.length}
-        currentPage={table.getState().pagination.pageIndex + 1}
-        onChangePage={(page) => table.setPageIndex(page - 1)}
-      />
-    </StyledTableWrapper>
-  );
-}
 
 export default Table;

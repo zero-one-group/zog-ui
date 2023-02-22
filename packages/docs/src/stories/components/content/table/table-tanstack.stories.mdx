@@ -1,0 +1,579 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { BADGE } from '@geometricpanda/storybook-addon-badges';
+import { within, userEvent } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
+import * as Popover from '@radix-ui/react-popover';
+import { Slot } from '@radix-ui/react-slot';
+import {
+  createColumnHelper,
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from '@tanstack/react-table';
+import {
+  Table,
+  Space,
+  Button as DefaultButton,
+  ButtonGroup as DefaultButtonGroup,
+  Checkbox,
+  Pagination,
+} from '@zero-ui/core';
+import { styled, keyframes } from '@stitches/react';
+import { useMemo, useState } from 'react';
+import {
+  SortAscendingOutlined,
+  SortDescendingOutlined,
+  SearchOutlined,
+  FilterFilled,
+  CaretDownOutlined,
+  CaretUpOutlined,
+} from '@ant-design/icons';
+
+<Meta
+  title="Components/Content/Table/TanStack"
+  component={[Table]}
+  argTypes={{
+    size: {
+      options: ['sm', 'md', 'lg'],
+      control: { type: 'radio' },
+    },
+    dataSource: {
+      table: {
+        disable: true,
+      },
+    },
+    columns: {
+      table: {
+        disable: true,
+      },
+    },
+  }}
+/>
+
+# Table
+
+Level-up our table component using [TanStack Table v8](https://tanstack.com/table/v8/docs/guide/introduction), please check the [API Guidelines](https://tanstack.com/table/v8/docs/examples/react/basic) for more information
+
+## Example Usage
+
+```jsx
+import { Table } from '@zero-ui/core';
+```
+
+export const dataSource = [
+  {
+    firstName: 'tanner',
+    lastName: 'linsley',
+    age: 24,
+    visits: 100,
+    status: 'In Relationship',
+    progress: 50,
+  },
+  {
+    firstName: 'tanner',
+    lastName: 'linsley',
+    age: 24,
+    visits: 100,
+    status: 'In Relationship',
+    progress: 50,
+  },
+  {
+    firstName: 'tandy',
+    lastName: 'miller',
+    age: 40,
+    visits: 40,
+    status: 'Single',
+    progress: 80,
+  },
+  {
+    firstName: 'joe',
+    lastName: 'dirte',
+    age: 45,
+    visits: 20,
+    status: 'Complicated',
+    progress: 10,
+  },
+  {
+    firstName: 'jim',
+    lastName: 'séchen',
+    age: 22,
+    visits: 21,
+    status: 'Complicated',
+    progress: 50,
+  },
+  {
+    firstName: 'tandy',
+    lastName: 'miller',
+    age: 40,
+    visits: 40,
+    status: 'Single',
+    progress: 80,
+  },
+  {
+    firstName: 'joe',
+    lastName: 'dirte',
+    age: 45,
+    visits: 20,
+    status: 'Complicated',
+    progress: 10,
+  },
+  {
+    firstName: 'jim',
+    lastName: 'séchen',
+    age: 22,
+    visits: 21,
+    status: 'Complicated',
+    progress: 50,
+  },
+  {
+    firstName: 'tanner',
+    lastName: 'linsley',
+    age: 24,
+    visits: 100,
+    status: 'In Relationship',
+    progress: 50,
+  },
+  {
+    firstName: 'tandy',
+    lastName: 'miller',
+    age: 40,
+    visits: 40,
+    status: 'Single',
+    progress: 80,
+  },
+  {
+    firstName: 'joe',
+    lastName: 'dirte',
+    age: 45,
+    visits: 20,
+    status: 'Complicated',
+    progress: 10,
+  },
+  {
+    firstName: 'jim',
+    lastName: 'séchen',
+    age: 22,
+    visits: 21,
+    status: 'Complicated',
+    progress: 50,
+  },
+];
+
+export const columnHelper = createColumnHelper();
+
+export const columns = [
+  columnHelper.accessor('firstName', {
+    cell: (info) => info.getValue(),
+    header: () => <span>First Name</span>,
+  }),
+  columnHelper.accessor((row) => row.lastName, {
+    id: 'lastName',
+    cell: (info) => <i>{info.getValue()}</i>,
+    header: () => <span>Last Name</span>,
+  }),
+  columnHelper.accessor('age', {
+    header: () => 'Age',
+    cell: (info) => info.renderValue(),
+  }),
+  columnHelper.accessor('visits', {
+    header: () => <span>Visits</span>,
+  }),
+  columnHelper.accessor('status', {
+    header: 'Status',
+  }),
+  columnHelper.accessor('progress', {
+    header: 'Profile Progress',
+  }),
+  columnHelper.display({
+    id: 'actions',
+    header: 'Actions',
+    cell: (info) => (
+      <Space gap={16}>
+        <a href="#">edit</a>
+        <a href="#">more</a>
+      </Space>
+    ),
+  }),
+];
+
+export const columnsGroup = [
+  columnHelper.group({
+    id: 'name',
+    header: () => <span>Name</span>,
+    columns: [
+      columnHelper.accessor('firstName', {
+        cell: (info) => info.getValue(),
+      }),
+      columnHelper.accessor((row) => row.lastName, {
+        id: 'lastName',
+        cell: (info) => info.getValue(),
+        header: () => <span>Last Name</span>,
+      }),
+    ],
+  }),
+  columnHelper.group({
+    header: 'Info',
+    columns: [
+      columnHelper.accessor('age', {
+        header: () => 'Age',
+      }),
+      columnHelper.accessor('visits', {
+        header: () => <span>Visits</span>,
+      }),
+      columnHelper.accessor('status', {
+        header: 'Status',
+      }),
+      columnHelper.accessor('progress', {
+        header: 'Profile Progress',
+      }),
+    ],
+  }),
+];
+
+export const StyledTableWrapper = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$4',
+  alignItems: 'end',
+});
+
+export const StyledHeaderColumn = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  variants: {
+    sortable: {
+      true: {
+        cursor: 'pointer',
+        userSelect: 'none',
+      },
+    },
+  },
+});
+
+export const StyledHeaderColumnName = styled('div', {
+  flex: '1',
+});
+
+export const StyledHeaderColumnIcons = styled('div', {
+  marginLeft: '$2',
+  fontSize: '10px',
+  color: '$gray8',
+});
+
+export const StyledHeaderColumnSortIcons = styled(StyledHeaderColumnIcons, {
+  display: 'flex',
+  fontSize: '10px',
+  flexDirection: 'column',
+  variants: {
+    sort: {
+      asc: {
+        '& span:first-of-type': { color: '$blue9' },
+      },
+      desc: {
+        '& span:last-of-type': {
+          color: '$blue9',
+        },
+      },
+    },
+  },
+});
+
+export const StyledHeaderColumnFilterIcons = styled(StyledHeaderColumnIcons, {
+  padding: '1px 2px',
+  borderRadius: '4px',
+  fontSize: '12px',
+  '&:hover': {
+    color: '$gray10',
+  },
+  variants: {
+    filtered: {
+      true: {
+        color: '$blue9',
+      },
+    },
+  },
+});
+
+export const slideUpAndFade = keyframes({
+  '0%': { opacity: 0, transform: 'translateY(2px)' },
+  '100%': { opacity: 1, transform: 'translateY(0)' },
+});
+
+export const slideRightAndFade = keyframes({
+  '0%': { opacity: 0, transform: 'translateX(-2px)' },
+  '100%': { opacity: 1, transform: 'translateX(0)' },
+});
+
+export const slideDownAndFade = keyframes({
+  '0%': { opacity: 0, transform: 'translateY(-2px)' },
+  '100%': { opacity: 1, transform: 'translateY(0)' },
+});
+
+export const slideLeftAndFade = keyframes({
+  '0%': { opacity: 0, transform: 'translateX(2px)' },
+  '100%': { opacity: 1, transform: 'translateX(0)' },
+});
+
+export const PopoverContent = styled(Popover.Content, {
+  borderRadius: '$2',
+  padding: '$2',
+  backgroundColor: 'white',
+  boxShadow:
+    '0 6px 16px 0 rgb(0 0 0 / 8%), 0 3px 6px -4px rgb(0 0 0 / 12%), 0 9px 28px 8px rgb(0 0 0 / 5%);',
+  animationDuration: '400ms',
+  animationTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
+  willChange: 'transform, opacity',
+  '&[data-state="open"]': {
+    '&[data-side="top"]': { animationName: slideDownAndFade },
+    '&[data-side="right"]': { animationName: slideLeftAndFade },
+    '&[data-side="bottom"]': { animationName: slideUpAndFade },
+    '&[data-side="left"]': { animationName: slideRightAndFade },
+  },
+  '&:focus': {
+    outline: 0,
+  },
+});
+
+export const StyledForm = styled('form', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$1',
+});
+
+export const StyledInput = styled('input', {
+  margin: 0,
+  padding: '0 8px',
+  border: '1px solid $$inputBorderColor',
+  borderRadius: '$1',
+  boxSizing: 'border-box',
+  outline: 'none',
+  appearance: 'none',
+  width: '100%',
+  height: '31px',
+  background: 'transparent',
+  '-webkitAppearance': 'none',
+});
+
+export const ButtonGroup = styled(DefaultButtonGroup, {
+  display: 'flex',
+  justifyContent: 'space-between',
+});
+
+export const Button = styled(DefaultButton, {
+  width: '80px',
+  flex: '0 0 auto',
+  cursor: 'pointer',
+  variants: {
+    ghost: {
+      true: {
+        border: 'none',
+      },
+    },
+  },
+});
+
+export const TableFilter = ({ column, table, children, filterDialog }) => {
+  const columnFilterValue = column.getFilterValue();
+  const [value, setValue] = useState(columnFilterValue ?? '');
+  const [open, setOpen] = useState(false);
+  const firstValue = table
+    .getPreFilteredRowModel()
+    .flatRows[0]?.getValue(column.id);
+  const handleSubmit = () => {
+    column.setFilterValue(value);
+    setOpen(false);
+  };
+  const handleReset = () => {
+    column.setFilterValue('');
+    setOpen(false);
+  };
+  const isNumberType = typeof firstValue === 'number';
+  const renderFormDialog = () => {
+    return (
+      <StyledForm
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit();
+        }}
+        onReset={(e) => {
+          e.preventDefault();
+          handleReset();
+        }}
+      >
+        <StyledInput
+          type={isNumberType ? 'number' : 'text'}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          placeholder="Search . . ."
+        />
+        <ButtonGroup>
+          <Button intent="primary" type="submit">
+            Search
+          </Button>
+          <Button intent="secondary" type="reset">
+            Reset
+          </Button>
+          <Button ghost type="button" onClick={() => setOpen(false)}>
+            Close
+          </Button>
+        </ButtonGroup>
+      </StyledForm>
+    );
+  };
+  return (
+    <Popover.Root open={open}>
+      <Popover.Trigger asChild>
+        <Slot onClick={() => setOpen((open) => !open)}>{children}</Slot>
+      </Popover.Trigger>
+      <Popover.Portal>
+        <PopoverContent sideOffset={10} align="end">
+          {renderFormDialog()}
+        </PopoverContent>
+      </Popover.Portal>
+    </Popover.Root>
+  );
+};
+
+export const TableTanstack = ({
+  dataSource,
+  columns,
+  size = 'lg',
+  bordered = false,
+}) => {
+  const columnHelper = createColumnHelper();
+  const [data] = useState(() => [...dataSource]);
+  const [sorting, setSorting] = useState([]);
+  const [rowSelection, setRowSelection] = useState({});
+  let renderedColumns = [...columns];
+  const checkboxColumn = [
+    columnHelper.display({
+      id: 'select',
+      header: ({ table }) => (
+        <Checkbox
+          checked={
+            table.getIsSomePageRowsSelected()
+              ? 'indeterminate'
+              : table.getIsAllPageRowsSelected()
+          }
+          onClick={table.getToggleAllRowsSelectedHandler()}
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onClick={row.getToggleSelectedHandler()}
+        />
+      ),
+    }),
+  ];
+  renderedColumns = [...checkboxColumn, ...columns];
+  const table = useReactTable({
+    data,
+    columns: renderedColumns,
+    state: {
+      sorting,
+      rowSelection,
+    },
+    enableRowSelection: true,
+    onRowSelectionChange: setRowSelection,
+    getCoreRowModel: getCoreRowModel(),
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+  });
+  const renderHeader = (header) => {
+    const sortedDirection = header.column.getIsSorted()
+      ? header.column.getIsSorted()
+      : undefined;
+    const shouldShowSorting = header.column.getCanSort();
+    const isFiltered = header.column.getIsFiltered()
+      ? header.column.getIsFiltered()
+      : undefined;
+    const shouldShowFiltering = header.column.getCanFilter();
+    const headerValue = flexRender(
+      header.column.columnDef.header,
+      header.getContext()
+    );
+    return (
+      <th key={header.id} colSpan={header.colSpan}>
+        {header.isPlaceholder ? null : (
+          <StyledHeaderColumn sortable={shouldShowSorting}>
+            <StyledHeaderColumnName
+              onClick={header.column.getToggleSortingHandler()}
+            >
+              {headerValue}
+            </StyledHeaderColumnName>
+            {shouldShowSorting ? (
+              <StyledHeaderColumnSortIcons sort={sortedDirection}>
+                <CaretUpOutlined />
+                <CaretDownOutlined />
+              </StyledHeaderColumnSortIcons>
+            ) : null}
+            {shouldShowFiltering ? (
+              <StyledHeaderColumnFilterIcons
+                filtered={isFiltered}
+                data-filter={isFiltered ? true : undefined}
+              >
+                <TableFilter column={header.column} table={table}>
+                  <FilterFilled />
+                </TableFilter>
+              </StyledHeaderColumnFilterIcons>
+            ) : null}
+          </StyledHeaderColumn>
+        )}
+      </th>
+    );
+  };
+  return (
+    <StyledTableWrapper>
+      <Table size={size} bordered={bordered}>
+        <thead>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map(renderHeader)}
+            </tr>
+          ))}
+        </thead>
+        <tbody>
+          {table.getRowModel().rows.map((row) => (
+            <tr key={row.id}>
+              {row.getVisibleCells().map((cell) => (
+                <td key={cell.id}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+      <Pagination
+        siblingCount={1}
+        pageSize={table.getState().pagination.pageSize}
+        totalCount={table.getPrePaginationRowModel().rows.length}
+        currentPage={table.getState().pagination.pageIndex + 1}
+        onChangePage={(page) => table.setPageIndex(page - 1)}
+      />
+    </StyledTableWrapper>
+  );
+};
+
+<Canvas columns={2} withSource="close">
+  <Story
+    name="TanStack"
+    args={{
+      dataSource: dataSource,
+      columns: columns,
+      size: 'lg',
+      bordered: false,
+      striped: false,
+    }}
+  >
+    {(args) => <TableTanstack {...args} />}
+  </Story>
+</Canvas>
+
+<ArgsTable of={Table} />
