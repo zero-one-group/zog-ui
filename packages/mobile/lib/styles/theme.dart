@@ -105,6 +105,7 @@ class ZeroThemeData with Diagnosticable {
   final ZeroRadioStyle radioStyle;
   final ZeroProgressStyle progressStyle;
   final ZeroRatingStyle ratingStyle;
+  final ZeroSliderStyle sliderStyle;
 
   final Brightness brightness;
   final IconThemeData iconTheme;
@@ -160,6 +161,7 @@ class ZeroThemeData with Diagnosticable {
     required this.radioStyle,
     required this.progressStyle,
     required this.ratingStyle,
+    required this.sliderStyle,
 
     // Others
     this.useMaterial3 = false,
@@ -208,6 +210,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroRadioStyle? radioStyle,
     ZeroProgressStyle? progressStyle,
     ZeroRatingStyle? ratingStyle,
+    ZeroSliderStyle? sliderStyle,
   }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
@@ -411,6 +414,11 @@ class ZeroThemeData with Diagnosticable {
       spacing: 2,
     );
 
+    final sliderStyleFallback = ZeroSliderStyle.fallback(
+      primaryColor: primaryColor,
+      thickColor: primaryColor,
+    );
+
     useMaterial3 ??= false;
 
     return ZeroThemeData.raw(
@@ -458,6 +466,7 @@ class ZeroThemeData with Diagnosticable {
       radioStyle: radioStyleFallback.merge(radioStyle),
       progressStyle: progeressStyleFallback.merge(progressStyle),
       ratingStyle: ratingStyleFallback.merge(ratingStyle),
+      sliderStyle: sliderStyleFallback.merge(sliderStyle),
     );
   }
 
@@ -519,6 +528,7 @@ class ZeroThemeData with Diagnosticable {
       progressStyle:
           ZeroProgressStyle.lerp(a.progressStyle, b.progressStyle, t),
       ratingStyle: ZeroRatingStyle.lerp(a.ratingStyle, b.ratingStyle, t),
+      sliderStyle: ZeroSliderStyle.lerp(a.sliderStyle, b.sliderStyle, t),
     );
   }
 
@@ -566,6 +576,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroRadioStyle? radioStyle,
     ZeroProgressStyle? progressStyle,
     ZeroRatingStyle? ratingStyle,
+    ZeroSliderStyle? sliderStyle,
   }) {
     return ZeroThemeData.raw(
       brightness: brightness ?? this.brightness,
@@ -626,6 +637,7 @@ class ZeroThemeData with Diagnosticable {
       radioStyle: radioStyle ?? this.radioStyle,
       progressStyle: progressStyle ?? this.progressStyle,
       ratingStyle: ratingStyle ?? this.ratingStyle,
+      sliderStyle: sliderStyle ?? this.sliderStyle,
     );
   }
 
@@ -660,6 +672,7 @@ class ZeroThemeData with Diagnosticable {
       tabBarTheme: tabBarStyle.toTabBarTheme(),
       checkboxTheme: checkboxStyle.toCheckBoxTheme(),
       radioTheme: radioStyle.toRadioTheme(),
+      sliderTheme: sliderStyle.toSliderTheme(),
     );
   }
 

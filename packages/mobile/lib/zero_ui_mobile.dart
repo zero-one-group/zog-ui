@@ -24,6 +24,7 @@ export './styles/component/checkbox_style.dart';
 export './styles/component/radio_style.dart';
 export './styles/component/progress_style.dart';
 export './styles/component/rating_style.dart';
+export './styles/component/slider_style.dart';
 
 // assets
 export './assets/assets.dart';

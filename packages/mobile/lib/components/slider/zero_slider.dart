@@ -12,25 +12,6 @@ import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 /// 2. [ZeroSliderSize.small] - is the small size of the slider
 
 class ZeroSlider extends StatefulWidget {
-  /// [activeColor] is the color of the active line of the slider
-  /// the default color is [ZeroColors.primary6]
-  final Color activeColor;
-
-  /// [inactiveColor] is the color of the inactive line of the slider
-  /// when this value is null, the color will be [activeColor] with opacity 0.3
-  final Color inactiveColor;
-
-  /// [thumbColor] is the color of the thumb of the slider
-  /// when this value is null, the color will be [activeColor]
-  final Color thumbColor;
-
-  /// [tickBehavior] is a boolean that indicates if the slider will snap to the ticks
-  final bool tickBehavior;
-
-  /// [tickColor] is the color of the ticks
-  /// the default color is [ZeroColors.neutral8]
-  final Color tickColor;
-
   /// [showTicks] is a boolean that indicates if the slider will show ticks
   final bool showTicks;
 
@@ -42,14 +23,6 @@ class ZeroSlider extends StatefulWidget {
   /// [initialValue] is the initial value of the slider
   final int initialValue;
 
-  /// [tooltipVariant] is the variant of the tooltip
-  /// the default value is [ZeroTooltipVariant.rounded]
-  /// the available variants are:
-  /// 1. [ZeroTooltipVariant.rounded] - is the default variant of the tooltip
-  /// 2. [ZeroTooltipVariant.custom] - is the custom variant of the tooltip
-  /// 3. [ZeroTooltipVariant.none] - is the variant of the tooltip that doesn't show the tooltip
-  final ZeroTooltipVariant tooltipVariant;
-
   /// [size] is the size of the slider
   /// the default value is [ZeroSliderSize.large]
   /// the available sizes are:
@@ -60,22 +33,18 @@ class ZeroSlider extends StatefulWidget {
   /// [isDisabled] is a boolean that indicates if the slider is disabled
   final bool isDisabled;
 
-  ZeroSlider({
+  /// If non-null, the style to use for this widget.
+  final ZeroSliderStyle? style;
+
+  const ZeroSlider({
     super.key,
-    this.activeColor = ZeroColors.primary,
-    Color? inactiveColor,
-    Color? thumbColor,
-    this.tickBehavior = false,
     this.showTicks = false,
     this.tickInterval = 10,
     this.initialValue = 0,
-    this.tooltipVariant = ZeroTooltipVariant.rounded,
     this.size = ZeroSliderSize.large,
     this.isDisabled = false,
-  })  : thumbColor = thumbColor ?? activeColor,
-        inactiveColor = inactiveColor ?? activeColor.withOpacity(0.3),
-        tickColor = ZeroColors.neutral[8],
-        assert(tickInterval % 5 == 0),
+    this.style,
+  })  : assert(tickInterval % 5 == 0),
         assert(100 % tickInterval == 0),
         assert(initialValue >= 0 && initialValue <= 100);
 
@@ -96,14 +65,14 @@ class _ZeroSliderState extends State<ZeroSlider> {
   /// this function is used to calculate the distance of the thumb from the left side of the slider
   /// and also the percentage of the distance from the left side of the slider
   /// [_onSliderUpdate] is called when the user is dragging the thumb
-  void _onSliderUpdate(dynamic details) {
-    double newDistance = details.localPosition.dx - _horizontalMargin;
+  void _onSliderUpdate(Offset localPosition, {required bool tickBehavior}) {
+    double newDistance = localPosition.dx - _horizontalMargin;
 
     /// when [tickBehavior] is true, the slider will snap to the nearest tick interval
     /// the nearest tick interval is calculated by the percentage of the distance from the left side of the slider
     /// to the maximum width of the slider widget
-    if (widget.tickBehavior) {
-      final percentage = (details.localPosition.dx - _horizontalMargin) /
+    if (tickBehavior) {
+      final percentage = (localPosition.dx - _horizontalMargin) /
           (_widgetKey.currentContext?.size?.width ?? 0) *
           100;
       final nearestTick =
@@ -131,13 +100,19 @@ class _ZeroSliderState extends State<ZeroSlider> {
 
   @override
   Widget build(BuildContext context) {
+    final themeStyle = context.theme.sliderStyle;
+    final adaptiveStyle = themeStyle.merge(widget.style);
+
     return LayoutBuilder(
       builder: (context, constraints) {
         return GestureDetector(
           onHorizontalDragUpdate: (details) {
             if (widget.isDisabled) return;
             _tooltipController(true);
-            _onSliderUpdate(details);
+            _onSliderUpdate(
+              details.localPosition,
+              tickBehavior: adaptiveStyle.tickBehavior ?? false,
+            );
           },
           onHorizontalDragEnd: (details) {
             if (widget.isDisabled) return;
@@ -145,7 +120,10 @@ class _ZeroSliderState extends State<ZeroSlider> {
           },
           onTapDown: (details) {
             if (widget.isDisabled) return;
-            _onSliderUpdate(details);
+            _onSliderUpdate(
+              details.localPosition,
+              tickBehavior: adaptiveStyle.tickBehavior ?? false,
+            );
             Future.delayed(const Duration(milliseconds: 100), () {
               _tooltipController(true);
             });
@@ -153,44 +131,44 @@ class _ZeroSliderState extends State<ZeroSlider> {
               _tooltipController(false);
             });
           },
-          child: Container(
-            color: ZeroColors.transparent,
-            child: Stack(
-              clipBehavior: Clip.none,
-              alignment: Alignment.centerLeft,
-              children: [
-                _inactiveLine(),
-                if (widget.showTicks) _ticks(constraints.maxWidth),
-                _activeLine(constraints.maxWidth),
-                _thumb(constraints.maxWidth),
-              ],
-            ),
+          child: Stack(
+            clipBehavior: Clip.none,
+            alignment: Alignment.centerLeft,
+            children: [
+              _inactiveLine(style: adaptiveStyle),
+              if (widget.showTicks)
+                _ticks(constraints.maxWidth, style: adaptiveStyle),
+              _activeLine(constraints.maxWidth, style: adaptiveStyle),
+              _thumb(constraints.maxWidth, style: adaptiveStyle),
+            ],
           ),
         );
       },
     );
   }
 
-  Widget _inactiveLine() {
+  Widget _inactiveLine({required ZeroSliderStyle style}) {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Padding(
           padding: EdgeInsets.symmetric(
-              vertical: 16.0, horizontal: _horizontalMargin),
+            vertical: 16.0,
+            horizontal: _horizontalMargin,
+          ),
           child: Container(
             key: _widgetKey,
             width: constraints.maxWidth,
             height: widget.size.lineWidth,
             color: widget.isDisabled
-                ? ZeroColors.neutral[4]
-                : widget.inactiveColor,
+                ? context.theme.disabledBackgroundColor
+                : style.inactiveColor,
           ),
         );
       },
     );
   }
 
-  Widget _activeLine(double maxWidth) {
+  Widget _activeLine(double maxWidth, {required ZeroSliderStyle style}) {
     double distance =
         _distance == null ? (widget.initialValue / 100 * maxWidth) : _distance!;
     return Padding(
@@ -199,12 +177,14 @@ class _ZeroSliderState extends State<ZeroSlider> {
       child: Container(
         width: distance,
         height: widget.size.lineWidth,
-        color: widget.isDisabled ? ZeroColors.neutral : widget.activeColor,
+        color: widget.isDisabled
+            ? context.theme.disabledColor.withOpacity(0.6)
+            : style.activeColor,
       ),
     );
   }
 
-  Widget _ticks(double maxWidth) {
+  Widget _ticks(double maxWidth, {required ZeroSliderStyle style}) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: _horizontalMargin),
       width: maxWidth,
@@ -221,7 +201,7 @@ class _ZeroSliderState extends State<ZeroSlider> {
               height: widget.size.lineWidth,
               width: widget.size.lineWidth,
               decoration: BoxDecoration(
-                color: widget.tickColor,
+                color: style.tickColor,
                 shape: BoxShape.circle,
               ),
             ),
@@ -230,15 +210,15 @@ class _ZeroSliderState extends State<ZeroSlider> {
     );
   }
 
-  Widget _thumb(double maxWidth) {
+  Widget _thumb(double maxWidth, {required ZeroSliderStyle style}) {
     final double distance =
         _distance == null ? (widget.initialValue / 100 * maxWidth) : _distance!;
     return Positioned(
       left: distance - widget.size.lineWidth,
       child: ZeroTooltip(
-        backgroundColor: widget.activeColor,
-        borderColor: ZeroColors.neutral[1].withOpacity(0.2),
-        variant: widget.tooltipVariant,
+        backgroundColor: style.activeColor,
+        borderColor: style.activeColor?.withOpacity(0.2),
+        variant: style.tooltipVariant ?? ZeroTooltipVariant.rounded,
         onCreated: (controller) {
           _tooltipController = controller;
         },
@@ -246,8 +226,8 @@ class _ZeroSliderState extends State<ZeroSlider> {
         child: InkWell(
           borderRadius: BorderRadius.circular(20),
           highlightColor: widget.isDisabled
-              ? ZeroColors.neutral[7].withOpacity(0.3)
-              : widget.thumbColor.withOpacity(0.2),
+              ? Colors.transparent
+              : style.thumbColor?.withOpacity(0.2),
           splashColor: Colors.transparent,
           onTap: () {
             // do nothing
@@ -258,8 +238,9 @@ class _ZeroSliderState extends State<ZeroSlider> {
             width: widget.size.thumbSize,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color:
-                  widget.isDisabled ? ZeroColors.neutral[7] : widget.thumbColor,
+              color: widget.isDisabled
+                  ? context.theme.disabledColor
+                  : style.thumbColor,
             ),
           ),
         ),

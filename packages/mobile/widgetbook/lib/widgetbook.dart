@@ -57,6 +57,7 @@ class HotReload extends StatelessWidget {
               dropdownWidgetbookComponent,
               checkboxWidgetbookComponent,
               switchWidgetbookComponent,
+              sliderWidgetbookComponenet,
             ]),
             WidgetbookFolder(name: 'Button', widgets: [
               buttonWidgetbookComponent,
@@ -75,7 +76,6 @@ class HotReload extends StatelessWidget {
             badgeWidgetbookComponent,
             tooltipWidgetbookComponent,
             listTileWidgetbookComponent,
-            sliderWidgetbookComponenet,
             avatarWidgetbookComponent,
             dividerWidgetbookComponent,
             chipWidgetbookComponent,
