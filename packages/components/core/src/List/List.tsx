@@ -124,7 +124,7 @@ const StyledItemAction = styled('li', {
   textAlign: 'center',
   color: '$$colorPrimaryList',
   '&:not(:last-child)': {
-    borderInlineEnd: '1px solid #f0f0f0',
+    borderInlineEnd: '1px solid $gray3',
   },
 });
 

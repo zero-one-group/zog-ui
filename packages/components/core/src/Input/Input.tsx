@@ -10,9 +10,12 @@ const StyledInput = styled(Space, {
   input: {
     border: '1px solid $inputDefaultBorder',
     transition: 'border .1s ease-in-out',
+    color: '$gray12',
+    backgroundColor: 'transparent',
   },
   'input:focus': {
     borderColor: '$blue9',
+    outline: 'none',
   },
   width: '100%',
   'input:disabled': {

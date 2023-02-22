@@ -101,6 +101,9 @@ const StyledClear = styled(Box, {
 });
 
 const StyledPicker = styled('div', {
+  // input: {
+  backgroundColor: 'transparent',
+  // },
   flex: 1,
   display: 'flex',
   alignItems: 'center',
@@ -108,7 +111,7 @@ const StyledPicker = styled('div', {
   boxSizing: 'border-box',
   border: '1px solid $inputDefaultBorder',
   transition: 'border .1s ease-in-out',
-  background: 'white',
+  // background: 'white',
   cursor: 'pointer',
   fontSize: '14px',
   paddingInline: 12,

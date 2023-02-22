@@ -18,6 +18,9 @@ export type SearchBoxProps = ComponentPropsWithoutRef<ElementType> & {
   onClear?: () => void;
 };
 
+CloseCircleFilled.toString = () => '.anticon-close-circle';
+AudioOutlined.toString = () => '.anticon-audio';
+
 const StyledSearchBox = styled(Space, {
   input: {
     border: 'none',
@@ -27,9 +30,6 @@ const StyledSearchBox = styled(Space, {
   padding: '4px 12px',
   'input:focus': {
     outline: 'none',
-    div: {
-      backgroundColor: 'blue',
-    },
   },
   width: 'fit-content',
   border: '1px solid $gray9',
@@ -37,6 +37,12 @@ const StyledSearchBox = styled(Space, {
   justifyContent: 'space-between',
   '&:focus-within': {
     borderColor: '$blue9',
+  },
+  [`& ${CloseCircleFilled}`]: {
+    color: '$gray7',
+  },
+  [`& ${AudioOutlined}`]: {
+    color: '$blue9',
   },
   variants: {
     size: {
@@ -85,10 +91,8 @@ export const SearchBox = ({
           defaultValue={defaultValue}
           placeHolder={placeHolder}
         />
-        {showCloseIcon ? (
-          <CloseCircleFilled onClick={onClear} style={{ color: '#bfbfbf' }} />
-        ) : null}
-        {showVoiceIcon ? <AudioOutlined style={{ color: '#1890FF' }} /> : null}
+        {showCloseIcon ? <CloseCircleFilled onClick={onClear} /> : null}
+        {showVoiceIcon ? <AudioOutlined /> : null}
       </StyledSearchBox>
       <Button onClick={onSearch} intent={intent} size="sm" variant="square">
         {iconButton ? iconButton : <SearchOutlined />}

@@ -62,7 +62,7 @@ const StyledButton = styled('button', {
   outline: 'none',
   border: 'none',
   padding: 0,
-  background: 'white',
+  background: '$gray1',
   opacity: 0.3,
   cursor: 'pointer',
   position: 'relative',
