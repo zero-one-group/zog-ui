@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
+const _kHorizontalMargin = 16.0;
+
 /// A slider component that allows users to select a value from a range of values.
 /// [ZeroSlider] is a stateful widget that requires a [State] object to function.
 /// this slider have a special feature that allows you to show ticks on the slider
@@ -20,9 +22,6 @@ class ZeroSlider extends StatefulWidget {
   /// the value must be divisible by 5
   final int tickInterval;
 
-  /// [initialValue] is the initial value of the slider
-  final int initialValue;
-
   /// [size] is the size of the slider
   /// the default value is [ZeroSliderSize.large]
   /// the available sizes are:
@@ -33,20 +32,34 @@ class ZeroSlider extends StatefulWidget {
   /// [isDisabled] is a boolean that indicates if the slider is disabled
   final bool isDisabled;
 
-  /// If non-null, the style to use for this widget.
+  /// If non-null, the style to use for this
   final ZeroSliderStyle? style;
+
+  /// The currently selected value for this slider.
+  ///
+  /// The slider's thumb is drawn at a position that corresponds to this value.
+  final double value;
+
+  /// Called during a drag when the user is selecting a new value for the slider
+  /// by dragging.
+  ///
+  /// The slider passes the new value to the callback but does not actually
+  /// change state until the parent widget rebuilds the slider with the new
+  /// value.
+  final ValueChanged<double>? onChanged;
 
   const ZeroSlider({
     super.key,
     this.showTicks = false,
     this.tickInterval = 10,
-    this.initialValue = 0,
     this.size = ZeroSliderSize.large,
     this.isDisabled = false,
     this.style,
+    required this.value,
+    required this.onChanged,
   })  : assert(tickInterval % 5 == 0),
         assert(100 % tickInterval == 0),
-        assert(initialValue >= 0 && initialValue <= 100);
+        assert(value >= 0 && value <= 100);
 
   @override
   State<ZeroSlider> createState() => _ZeroSliderState();
@@ -56,7 +69,6 @@ class _ZeroSliderState extends State<ZeroSlider> {
   final GlobalKey _widgetKey = GlobalKey();
   double? _distance;
   double _percentage = 0.0;
-  final double _horizontalMargin = 16.0;
 
   /// this function is used to control the tooltip
   /// when the user is dragging the thumb, the tooltip will show
@@ -66,13 +78,14 @@ class _ZeroSliderState extends State<ZeroSlider> {
   /// and also the percentage of the distance from the left side of the slider
   /// [_onSliderUpdate] is called when the user is dragging the thumb
   void _onSliderUpdate(Offset localPosition, {required bool tickBehavior}) {
-    double newDistance = localPosition.dx - _horizontalMargin;
+    if (widget.onChanged == null) return;
+    double newDistance = localPosition.dx - _kHorizontalMargin;
 
     /// when [tickBehavior] is true, the slider will snap to the nearest tick interval
     /// the nearest tick interval is calculated by the percentage of the distance from the left side of the slider
     /// to the maximum width of the slider widget
     if (tickBehavior) {
-      final percentage = (localPosition.dx - _horizontalMargin) /
+      final percentage = (localPosition.dx - _kHorizontalMargin) /
           (_widgetKey.currentContext?.size?.width ?? 0) *
           100;
       final nearestTick =
@@ -90,12 +103,10 @@ class _ZeroSliderState extends State<ZeroSlider> {
       newDistance = _widgetKey.currentContext!.size!.width;
     }
 
-    setState(() {
-      _distance = newDistance;
-      _percentage = (_distance ?? 0) /
-          (_widgetKey.currentContext?.size?.width ?? 0) *
-          100;
-    });
+    _distance = newDistance;
+    _percentage =
+        (_distance ?? 0) / (_widgetKey.currentContext?.size?.width ?? 0) * 100;
+    widget.onChanged?.call(_percentage);
   }
 
   @override
@@ -138,8 +149,16 @@ class _ZeroSliderState extends State<ZeroSlider> {
               _inactiveLine(style: adaptiveStyle),
               if (widget.showTicks)
                 _ticks(constraints.maxWidth, style: adaptiveStyle),
-              _activeLine(constraints.maxWidth, style: adaptiveStyle),
-              _thumb(constraints.maxWidth, style: adaptiveStyle),
+              _activeLine(
+                constraints.maxWidth,
+                style: adaptiveStyle,
+                context: context,
+              ),
+              _thumb(
+                constraints.maxWidth,
+                style: adaptiveStyle,
+                context: context,
+              ),
             ],
           ),
         );
@@ -151,9 +170,9 @@ class _ZeroSliderState extends State<ZeroSlider> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Padding(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             vertical: 16.0,
-            horizontal: _horizontalMargin,
+            horizontal: _kHorizontalMargin,
           ),
           child: Container(
             key: _widgetKey,
@@ -168,12 +187,16 @@ class _ZeroSliderState extends State<ZeroSlider> {
     );
   }
 
-  Widget _activeLine(double maxWidth, {required ZeroSliderStyle style}) {
+  Widget _activeLine(
+    double maxWidth, {
+    required ZeroSliderStyle style,
+    required BuildContext context,
+  }) {
     double distance =
-        _distance == null ? (widget.initialValue / 100 * maxWidth) : _distance!;
+        _distance == null ? (widget.value / 100 * maxWidth) : _distance!;
     return Padding(
-      padding:
-          EdgeInsets.symmetric(vertical: 16.0, horizontal: _horizontalMargin),
+      padding: const EdgeInsets.symmetric(
+          vertical: 16.0, horizontal: _kHorizontalMargin),
       child: Container(
         width: distance,
         height: widget.size.lineWidth,
@@ -186,7 +209,7 @@ class _ZeroSliderState extends State<ZeroSlider> {
 
   Widget _ticks(double maxWidth, {required ZeroSliderStyle style}) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: _horizontalMargin),
+      margin: const EdgeInsets.symmetric(horizontal: _kHorizontalMargin),
       width: maxWidth,
       height: widget.size.lineWidth,
       child: Row(
@@ -194,7 +217,7 @@ class _ZeroSliderState extends State<ZeroSlider> {
           for (int i = 0; i < 100; i += widget.tickInterval)
             Container(
               margin: EdgeInsets.only(
-                left: (maxWidth - _horizontalMargin * 2) /
+                left: (maxWidth - _kHorizontalMargin * 2) /
                         (100 / widget.tickInterval) -
                     widget.size.lineWidth,
               ),
@@ -210,9 +233,13 @@ class _ZeroSliderState extends State<ZeroSlider> {
     );
   }
 
-  Widget _thumb(double maxWidth, {required ZeroSliderStyle style}) {
+  Widget _thumb(
+    double maxWidth, {
+    required ZeroSliderStyle style,
+    required BuildContext context,
+  }) {
     final double distance =
-        _distance == null ? (widget.initialValue / 100 * maxWidth) : _distance!;
+        _distance == null ? (widget.value / 100 * maxWidth) : _distance!;
     return Positioned(
       left: distance - widget.size.lineWidth,
       child: ZeroTooltip(

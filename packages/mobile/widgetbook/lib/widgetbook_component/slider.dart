@@ -10,104 +10,125 @@ WidgetbookComponent sliderWidgetbookComponenet = WidgetbookComponent(
   useCases: [
     WidgetbookUseCase(
       name: 'Slider',
-      builder: (context) => PreviewWidget(
-        child: ZeroSlider(
-          style: ZeroSliderStyle(
-            activeColor: context.knobs.options(
-              label: 'Active Color',
-              options: [
-                const Option(label: 'Default', value: null),
-                ...colorOptions
-              ],
-            ),
-            inactiveColor: context.knobs.options(
-              label: 'Inactive Color',
-              options: [
-                const Option(label: 'Default', value: null),
-                ...colorOptions
-              ],
-            ),
-            thumbColor: context.knobs.options(
-              label: 'Thumb Color',
-              options: [
-                const Option(label: 'Default', value: null),
-                ...colorOptions
-              ],
-            ),
-            tickColor: context.knobs.options(
-              label: 'Tick Color',
-              options: [
-                const Option(label: 'Default', value: null),
-                ...colorOptions
-              ],
-            ),
-            tickBehavior: context.knobs.boolean(label: 'Tick Behavior'),
-            tooltipVariant: context.knobs.options(
-              label: 'Tooltip Variant',
-              options: _tooltipVariants,
+      builder: (context) {
+        double value = 0;
+        return PreviewWidget(
+          child: StatefulBuilder(
+            builder: (context, setState) => ZeroSlider(
+              value: value,
+              onChanged: (newValue) {
+                setState(() {
+                  value = newValue;
+                });
+              },
+              style: ZeroSliderStyle(
+                activeColor: context.knobs.options(
+                  label: 'Active Color',
+                  options: [
+                    const Option(label: 'Default', value: null),
+                    ...colorOptions
+                  ],
+                ),
+                inactiveColor: context.knobs.options(
+                  label: 'Inactive Color',
+                  options: [
+                    const Option(label: 'Default', value: null),
+                    ...colorOptions
+                  ],
+                ),
+                thumbColor: context.knobs.options(
+                  label: 'Thumb Color',
+                  options: [
+                    const Option(label: 'Default', value: null),
+                    ...colorOptions
+                  ],
+                ),
+                tickColor: context.knobs.options(
+                  label: 'Tick Color',
+                  options: [
+                    const Option(label: 'Default', value: null),
+                    ...colorOptions
+                  ],
+                ),
+                tickBehavior: context.knobs.boolean(label: 'Tick Behavior'),
+                tooltipVariant: context.knobs.options(
+                  label: 'Tooltip Variant',
+                  options: _tooltipVariants,
+                ),
+              ),
+              showTicks: context.knobs.boolean(label: 'Show Ticks'),
+              tickInterval: context.knobs
+                  .number(
+                    label: 'Tick Interval',
+                    initialValue: 10,
+                  )
+                  .toInt(),
+              size: context.knobs.options(label: 'Size', options: _sizeTypes),
+              isDisabled: context.knobs.boolean(label: 'IsDisabled'),
             ),
           ),
-          showTicks: context.knobs.boolean(label: 'Show Ticks'),
-          tickInterval: context.knobs
-              .number(
-                label: 'Tick Interval',
-                initialValue: 10,
-              )
-              .toInt(),
-          size: context.knobs.options(label: 'Size', options: _sizeTypes),
-          isDisabled: context.knobs.boolean(label: 'IsDisabled'),
-        ),
-      ),
+        );
+      },
     ),
     WidgetbookUseCase(
       name: 'Range Slider',
       builder: (context) => LayoutBuilder(builder: (context, constraints) {
-        return PreviewWidget(
-          child: ZeroRangeSlider(
-            style: ZeroSliderStyle(
-              activeColor: context.knobs.options(
-                label: 'Active Color',
-                options: [
-                  const Option(label: 'Default', value: null),
-                  ...colorOptions
-                ],
+        var value = const ZeroRangeValues(10, 20);
+
+        return StatefulBuilder(
+          builder: (context, setState) => PreviewWidget(
+            child: ZeroRangeSlider(
+              values: value,
+              onChanged: (newValue) {
+                setState(() {
+                  value = newValue;
+                });
+              },
+              style: ZeroSliderStyle(
+                activeColor: context.knobs.options(
+                  label: 'Active Color',
+                  options: [
+                    const Option(label: 'Default', value: null),
+                    ...colorOptions
+                  ],
+                ),
+                inactiveColor: context.knobs.options(
+                  label: 'Inactive Color',
+                  options: [
+                    const Option(label: 'Default', value: null),
+                    ...colorOptions
+                  ],
+                ),
+                thumbColor: context.knobs.options(
+                  label: 'Thumb Color',
+                  options: [
+                    const Option(label: 'Default', value: null),
+                    ...colorOptions
+                  ],
+                ),
+                tickColor: context.knobs.options(
+                  label: 'Tick Color',
+                  options: [
+                    const Option(label: 'Default', value: null),
+                    ...colorOptions
+                  ],
+                ),
+                tickBehavior: context.knobs.boolean(label: 'Tick Behavior'),
+                tooltipVariant: context.knobs.options(
+                  label: 'Tooltip Variant',
+                  options: _tooltipVariants,
+                ),
               ),
-              inactiveColor: context.knobs.options(
-                label: 'Inactive Color',
-                options: [
-                  const Option(label: 'Default', value: null),
-                  ...colorOptions
-                ],
-              ),
-              thumbColor: context.knobs.options(
-                label: 'Thumb Color',
-                options: [
-                  const Option(label: 'Default', value: null),
-                  ...colorOptions
-                ],
-              ),
-              tickColor: context.knobs.options(
-                label: 'Tick Color',
-                options: [
-                  const Option(label: 'Default', value: null),
-                  ...colorOptions
-                ],
-              ),
-              tickBehavior: context.knobs.boolean(label: 'Tick Behavior'),
-              tooltipVariant: context.knobs.options(
-                label: 'Tooltip Variant',
-                options: _tooltipVariants,
-              ),
+              showTicks: context.knobs.boolean(label: 'Show Ticks'),
+              tickInterval: context.knobs
+                  .number(
+                    label: 'Tick Interval',
+                    initialValue: 10,
+                  )
+                  .toInt(),
+              size: context.knobs.options(label: 'Size', options: _sizeTypes),
+              isDisabled: context.knobs.boolean(label: 'IsDisabled'),
             ),
-            showTicks: context.knobs.boolean(label: 'Show Ticks'),
-            tickInterval: context.knobs
-                .number(
-                  label: 'Tick Interval',
-                  initialValue: 10,
-                )
-                .toInt(),
-            size: context.knobs.options(label: 'Size', options: _sizeTypes),
-            isDisabled: context.knobs.boolean(label: 'IsDisabled'),
           ),
         );
       }),
