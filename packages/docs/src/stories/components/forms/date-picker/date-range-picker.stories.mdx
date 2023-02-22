@@ -6,7 +6,7 @@ import { DateRangePicker } from '@zero-ui/core';
   component={[DateRangePicker]}
   argTypes={{
     size: {
-      options: ['small', 'medium', 'large'],
+      options: ['sm', 'md', 'lg'],
       control: { type: 'radio' },
     },
     colorScheme: {
@@ -39,7 +39,8 @@ import { DateRangePicker } from '@zero-ui/core';
   <Story
     name="DateRangePicker"
     args={{
-      size: 'small',
+      size: 'sm',
+      fullWidth: false,
     }}
   >
     {DateRangePickerStory.bind()}

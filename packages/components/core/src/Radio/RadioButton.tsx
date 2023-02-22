@@ -1,3 +1,4 @@
+import { useFormDisabledContext } from '../Form';
 import { Space } from '../Space';
 import { styled } from '../stitches.config';
 import { RadioProps } from './Radio';
@@ -24,7 +25,7 @@ const StyledRadioButton = styled(Space, {
   },
 });
 const StyledLabel = styled('label', {
-  border: '1px solid $gray9',
+  border: '1px solid $inputDefaultBorder',
   padding: '4px 15px',
   fontSize: '14px',
   borderRadius: '2px',
@@ -33,10 +34,13 @@ export const RadioButton = ({
   id,
   label,
   defaultChecked,
-  disabled,
+  disabled: propDisabled,
   name,
   ...props
 }: RadioProps) => {
+  const disabledForm = useFormDisabledContext();
+  const disabled = propDisabled || disabledForm;
+
   return (
     <StyledRadioButton {...props}>
       <input

@@ -3,6 +3,7 @@ import Picker, { PickerProps } from 'rc-picker';
 import dateFnsGenerateConfig from 'rc-picker/lib/generate/dateFns';
 import enUS from 'rc-picker/lib/locale/en_US';
 import { ComponentProps, ReactElement, useRef } from 'react';
+import { useFormDisabledContext, useFormItemContext } from '../Form';
 import { styled } from '../stitches.config';
 import { getDatePickerStyle } from './style';
 
@@ -20,8 +21,10 @@ const getColorSchemeVariants = (colorScheme?: string) => {
 const PREFIX_CLS = 'zero-picker';
 
 const StyledWrapperPicker = styled('div', {
+  width: 200,
   position: 'relative',
   [`.${PREFIX_CLS}`]: {
+    transition: 'border .1s ease-in-out',
     fontSize: '14px',
     fontFamily: '$untitled',
     ...getDatePickerStyle({
@@ -33,30 +36,47 @@ const StyledWrapperPicker = styled('div', {
   },
   variants: {
     size: {
-      default: {
+      sm: {
         [`& .${PREFIX_CLS}`]: {
-          padding: '5px 12px',
+          height: 24,
         },
       },
-      small: {
+      md: {
         [`& .${PREFIX_CLS}`]: {
-          padding: '0 12px',
+          height: 32,
         },
       },
-      medium: {
+      lg: {
         [`& .${PREFIX_CLS}`]: {
-          padding: '5px 12px',
-        },
-      },
-      large: {
-        [`& .${PREFIX_CLS}`]: {
-          padding: '8px 12px',
+          height: 40,
           input: {
             fontSize: '16px',
           },
         },
       },
     },
+    isInvalid: {
+      true: {
+        '.zero-picker': {
+          borderColor: '$inputError !important',
+        },
+      },
+    },
+    isWarning: {
+      true: {
+        '.zero-picker': {
+          borderColor: '$inputWarning !important',
+        },
+      },
+    },
+    fullWidth: {
+      true: {
+        width: '100%',
+      },
+    },
+  },
+  defaultVariants: {
+    size: 'md',
   },
 });
 
@@ -91,7 +111,7 @@ type RcPickerProps = Omit<
 >;
 type StyledWrapperProps = Pick<
   ComponentProps<typeof StyledWrapperPicker>,
-  'css' | 'size'
+  'css' | 'size' | 'fullWidth'
 >;
 
 export type DatePickerProps = DatePickerOwnProps &
@@ -101,24 +121,35 @@ export type DatePickerProps = DatePickerOwnProps &
 export type DatePickerComponent = (props: DatePickerProps) => ReactElement;
 
 export const DatePicker: DatePickerComponent = ({
-  size,
+  size: propSize,
   css,
   placeholder,
   showTime,
   showToday = true,
   locale = enUS,
   colorScheme,
+  disabled: propDisabled,
+  fullWidth,
   ...props
 }) => {
   // picker panel parent should be the wrapper for styling reason
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const wrapperRef = useRef<any>(null);
 
+  const formItem = useFormItemContext();
+  const size = propSize ?? formItem.size;
+
+  const disabledForm = useFormDisabledContext();
+  const disabled = propDisabled || disabledForm;
+
   return (
     <StyledWrapperPicker
+      ref={wrapperRef}
       css={{ ...css, ...getColorSchemeVariants(colorScheme) }}
       size={size}
-      ref={wrapperRef}
+      isWarning={formItem.isWarning && !formItem.isInvalid}
+      isInvalid={formItem.isInvalid}
+      fullWidth={fullWidth}
     >
       <Picker<Date>
         prefixCls={PREFIX_CLS}
@@ -136,6 +167,7 @@ export const DatePicker: DatePickerComponent = ({
         showTime={showTime}
         showNow={false}
         getPopupContainer={() => wrapperRef.current}
+        disabled={disabled}
         {...props}
       />
     </StyledWrapperPicker>

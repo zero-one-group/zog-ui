@@ -1,6 +1,7 @@
 import { styled } from '@stitches/react';
 import { ComponentPropsWithoutRef, ElementType } from 'react';
 import { Button } from '../Button';
+import { useFormDisabledContext, useFormItemContext } from '../Form';
 import { Space } from '../Space';
 import { Input } from './Input';
 
@@ -21,7 +22,7 @@ const StyledWrapInputNumber = styled(Space, {
 
 const StyledInputNumber = styled(Space, {
   input: {
-    border: 'none',
+    border: 'none !important',
     background: 'transparent',
     width: '100%',
     padding: '0 !important',
@@ -43,7 +44,8 @@ const StyledInputNumber = styled(Space, {
     },
   },
   width: 'fit-content',
-  border: '1px solid $gray9',
+  border: '1px solid $inputDefaultBorder',
+  transition: 'border .1s ease-in-out',
   borderRadius: '2px',
   alignItems: 'center',
   justifyContent: 'space-between',
@@ -91,6 +93,16 @@ const StyledInputNumber = styled(Space, {
         backgroundColor: '#f8f8f8',
       },
     },
+    isInvalid: {
+      true: {
+        border: '1px solid $inputError !important',
+      },
+    },
+    isWarning: {
+      true: {
+        border: '1px solid $inputWarning !important',
+      },
+    },
   },
   defaultVariants: {
     size: 'fullWidth',
@@ -104,8 +116,8 @@ export const InputNumber = ({
   placeHolder,
   id,
   value,
-  size,
-  disabled,
+  size: propSize,
+  disabled: propDisabled,
   leftIcon,
   rightIcon,
   incrementIcon,
@@ -115,6 +127,12 @@ export const InputNumber = ({
   enableNegativeValue = false,
   ...props
 }: InputNumberProps) => {
+  const formItem = useFormItemContext();
+  const size = propSize ?? formItem.size;
+
+  const disabledForm = useFormDisabledContext();
+  const disabled = propDisabled || disabledForm;
+
   if (value === 0 && enableNegativeValue === false && value < min + 1) {
     increment = undefined;
   }
@@ -140,6 +158,8 @@ export const InputNumber = ({
         leftIcon={Boolean(leftIcon)}
         inrementDecrement={Boolean(incrementIcon) && Boolean(decrementIcon)}
         {...props}
+        isInvalid={formItem.isInvalid}
+        isWarning={formItem.isWarning && !formItem.isInvalid}
       >
         <Input
           onChange={onChange}

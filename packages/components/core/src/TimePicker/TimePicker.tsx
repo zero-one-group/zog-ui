@@ -9,6 +9,7 @@ import {
   useMemo,
   useState,
 } from 'react';
+import { useFormDisabledContext, useFormItemContext } from '../Form';
 import { styled } from '../stitches.config';
 import { getTwoDigit, TimePickerPanel } from './TimePickerPanel';
 
@@ -25,8 +26,8 @@ const Box = styled('div', {
 });
 
 const StyledWrapper = styled(Box, {
-  display: 'inline-flex',
-  minWidth: '100px',
+  display: 'flex',
+  width: 200,
   position: 'relative',
   $$primaryColor: '$colors-primary9',
   variants: {
@@ -42,6 +43,11 @@ const StyledWrapper = styled(Box, {
             opacity: 1,
           },
         },
+      },
+    },
+    fullWidth: {
+      true: {
+        width: '100%',
       },
     },
   },
@@ -95,21 +101,24 @@ const StyledClear = styled(Box, {
 });
 
 const StyledPicker = styled('div', {
-  display: 'inline-flex',
+  flex: 1,
+  display: 'flex',
   alignItems: 'center',
   borderRadius: '2px',
-  outline: '1px solid #D9D9D9',
-  padding: '5px 12px',
+  boxSizing: 'border-box',
+  border: '1px solid $inputDefaultBorder',
+  transition: 'border .1s ease-in-out',
   background: 'white',
   cursor: 'pointer',
   fontSize: '14px',
+  paddingInline: 12,
   '&:hover': {
-    outlineColor: '$$primaryColor',
+    borderColor: '$$primaryColor',
   },
   variants: {
     focused: {
       true: {
-        outlineColor: '$$primaryColor',
+        borderColor: '$$primaryColor',
       },
     },
     disabled: {
@@ -118,7 +127,7 @@ const StyledPicker = styled('div', {
         '*': {
           pointerEvents: 'none',
         },
-        outlineColor: '#D9D9D9 !important',
+        borderColor: '$inputDefaultBorder !important',
         background: '#F5F5F5',
       },
     },
@@ -128,20 +137,34 @@ const StyledPicker = styled('div', {
       },
     },
     size: {
-      small: {
-        padding: '1px 12px',
+      sm: {
+        height: 24,
       },
-      medium: {
-        padding: '5px 12px',
+      md: {
+        height: 32,
       },
-      large: {
-        padding: '8px 12px',
+      lg: {
+        height: 40,
       },
     },
+    isInvalid: {
+      true: {
+        borderColor: '$inputError !important',
+      },
+    },
+    isWarning: {
+      true: {
+        borderColor: '$inputWarning !important',
+      },
+    },
+  },
+  defaultVariants: {
+    size: 'md',
   },
 });
 
 const StyledPickerInput = styled('input', {
+  flex: 1,
   fontFamily: '$untitled',
   lineHeight: '22px',
   height: '22px',
@@ -160,17 +183,20 @@ const StyledPickerInput = styled('input', {
       },
     },
     size: {
-      small: {
+      sm: {
         fontSize: '14px',
       },
-      medium: {
+      md: {
         fontSize: '14px',
       },
-      large: {
+      lg: {
         fontSize: '16px',
         height: '24px',
       },
     },
+  },
+  defaultVariants: {
+    size: 'md',
   },
 });
 
@@ -181,8 +207,9 @@ const StyledPanelContainer = styled(Popover.Content, {
   background: 'white',
   boxShadow:
     '0px 3px 6px -4px rgba(0, 0, 0, 0.12), 0px 6px 16px rgba(0, 0, 0, 0.08), 0px 9px 28px 8px rgba(0, 0, 0, 0.05)',
-  borderRadius: '4px',
+  borderRadius: '2px',
   display: 'none',
+  zIndex: 999,
   variants: {
     open: {
       true: {
@@ -230,6 +257,7 @@ export type TimePickerProps = {
   isRange?: boolean;
   className?: string;
   dropdownClassname?: string;
+  fullWidth?: boolean;
 };
 
 const getTimeFromDate = (date: Date): Time => {
@@ -245,7 +273,7 @@ const defaultTime: Time = { hour: '00', minute: '00', second: '00' };
 export function TimePicker({
   css,
   colorScheme = 'primary',
-  disabled,
+  disabled: propDisabled,
   allowClear = true,
   placeholder = 'Select time',
   placeholderStart = 'Start time',
@@ -253,9 +281,10 @@ export function TimePicker({
   isRange,
   value: valueFromProps,
   onChange: onChangeFromProps,
-  size = 'medium',
   dropdownClassname,
   className,
+  size: propSize,
+  fullWidth,
 }: TimePickerProps) {
   const [singleValue, setSingleValue] = useState<Time | undefined>();
   const [rangeValue, setRangeValue] = useState<
@@ -268,6 +297,12 @@ export function TimePicker({
   const [tempEnd, setTempEnd] = useState<Time | undefined>();
   const startUniqId = useId();
   const endUniqId = useId();
+
+  const formItem = useFormItemContext();
+  const size = propSize ?? formItem.size;
+
+  const disabledForm = useFormDisabledContext();
+  const disabled = propDisabled || disabledForm;
 
   const setState = useCallback(
     (newStartValue?: Time, newEndValue?: Time) => {
@@ -525,6 +560,7 @@ export function TimePicker({
       hasSelected={hasSelected}
       disabled={disabled}
       className={className}
+      fullWidth={fullWidth}
     >
       <Popover.Root>
         <StyledTrigger />
@@ -560,6 +596,8 @@ export function TimePicker({
           disabled={disabled}
           isRange={isRange}
           size={size}
+          isInvalid={formItem.isInvalid}
+          isWarning={formItem.isWarning && !formItem.isInvalid}
         >
           {openStart ? (
             <StyledAnchorWrapper>

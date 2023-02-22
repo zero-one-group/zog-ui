@@ -10,7 +10,7 @@ import { useState } from 'react';
   component={[Select]}
   argTypes={{
     size: {
-      options: ['small', 'medium', 'large'],
+      options: ['sm', 'md', 'lg'],
       control: { type: 'radio' },
     },
     colorScheme: {
@@ -67,18 +67,16 @@ import { Select } from '@zero-ui/core';
         { value: 'Item 11', label: 'Item 11' },
         { value: 'Item 12', label: 'Item 12' },
       ],
-      css: {
-        width: '200px',
-      },
       placeholder: 'Select Item...',
       searchable: true,
       multiple: true,
-      size: 'medium',
+      size: 'md',
       disabled: false,
       itemsToShow: 10,
       renderOption: ({ option, index, selected, onSelect }) => (
         <em onClick={onSelect}>{option.label}</em>
       ),
+      fullWidth: false,
     }}
   >
     {SelectStory.bind()}

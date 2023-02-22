@@ -101,6 +101,7 @@ specifiers:
   eslint-plugin-jsx-a11y: 6.6.1
   eslint-plugin-react: 7.31.11
   eslint-plugin-react-hooks: 4.6.0
+  formik: ^2.2.9
   html-webpack-plugin: ^5.5.0
   husky: ^8.0.3
   jest: 28.1.1
@@ -166,6 +167,7 @@ dependencies:
   clsx: 1.2.1
   core-js: 3.27.1
   date-fns: 2.29.3
+  formik: 2.2.9_react@18.2.0
   lodash.merge: 4.6.2
   rc-picker: 3.1.4_3pf3ktbrffvgnzxoo2eotyjcpi
   react: 18.2.0
@@ -13829,6 +13831,14 @@ packages:
       }
     dev: true
 
+  /deepmerge/2.2.1:
+    resolution:
+      {
+        integrity: sha512-R9hc1Xa/NOBi9WRVUWg19rl1UB7Tt4kuPd+thNJgFZoxXsTz7ncaPaeIm+40oSGuP33DfMb4sZt1QIGiJzC4EA==,
+      }
+    engines: { node: '>=0.10.0' }
+    dev: false
+
   /deepmerge/4.2.2:
     resolution:
       {
@@ -16070,6 +16080,24 @@ packages:
       mime-types: 2.1.35
     dev: true
 
+  /formik/2.2.9_react@18.2.0:
+    resolution:
+      {
+        integrity: sha512-LQLcISMmf1r5at4/gyJigGn0gOwFbeEAlji+N9InZF6LIMXnFNkO42sCI8Jt84YZggpD4cPWObAZaxpEFtSzNA==,
+      }
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      deepmerge: 2.2.1
+      hoist-non-react-statics: 3.3.2
+      lodash: 4.17.21
+      lodash-es: 4.17.21
+      react: 18.2.0
+      react-fast-compare: 2.0.4
+      tiny-warning: 1.0.3
+      tslib: 1.14.1
+    dev: false
+
   /forwarded/0.2.0:
     resolution:
       {
@@ -16919,7 +16947,6 @@ packages:
       }
     dependencies:
       react-is: 16.13.1
-    dev: true
 
   /hosted-git-info/2.8.9:
     resolution:
@@ -19562,6 +19589,13 @@ packages:
       p-locate: 5.0.0
     dev: true
 
+  /lodash-es/4.17.21:
+    resolution:
+      {
+        integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==,
+      }
+    dev: false
+
   /lodash.camelcase/4.3.0:
     resolution:
       {
@@ -19649,7 +19683,6 @@ packages:
       {
         integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==,
       }
-    dev: true
 
   /loose-envify/1.4.0:
     resolution:
@@ -22861,6 +22894,13 @@ packages:
       react-is: 17.0.2
     dev: true
 
+  /react-fast-compare/2.0.4:
+    resolution:
+      {
+        integrity: sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==,
+      }
+    dev: false
+
   /react-inspector/5.1.1_react@18.2.0:
     resolution:
       {
@@ -25447,6 +25487,13 @@ packages:
       setimmediate: 1.0.5
     dev: true
 
+  /tiny-warning/1.0.3:
+    resolution:
+      {
+        integrity: sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA==,
+      }
+    dev: false
+
   /tinybench/2.3.1:
     resolution:
       {
@@ -25783,7 +25830,6 @@ packages:
       {
         integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==,
       }
-    dev: true
 
   /tslib/2.4.1:
     resolution:

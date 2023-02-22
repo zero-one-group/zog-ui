@@ -1,4 +1,5 @@
 import { ComponentProps, forwardRef } from 'react';
+import { useFormDisabledContext, useFormItemContext } from '../Form';
 import { styled } from '../stitches.config';
 
 const getColorSchemeVariants = (colorScheme?: string) => {
@@ -129,6 +130,7 @@ const StyledButton = styled('button', {
     },
     disabled: {
       true: {
+        cursor: 'not-allowed',
         backgroundColor: '$gray3',
         borderColor: '$gray9',
         color: '$gray9',
@@ -272,7 +274,24 @@ export type ButtonProps = {
 } & ComponentProps<typeof StyledButton>;
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ css, colorScheme, asChild, children, ...props }, ref) => {
+  (
+    {
+      css,
+      colorScheme,
+      asChild,
+      children,
+      size: propSize,
+      disabled: propDisabled,
+      ...props
+    },
+    ref
+  ) => {
+    const formItem = useFormItemContext();
+    const size = propSize ?? formItem.size;
+
+    const disabledForm = useFormDisabledContext();
+    const disabled = propDisabled || disabledForm;
+
     return (
       <StyledButton
         css={{
@@ -280,6 +299,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           ...getColorSchemeVariants(colorScheme),
         }}
         ref={ref}
+        size={size}
+        disabled={disabled}
         {...props}
       >
         {children}

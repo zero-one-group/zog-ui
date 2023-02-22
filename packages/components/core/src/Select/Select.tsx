@@ -16,6 +16,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import { useFormDisabledContext, useFormItemContext } from '../Form';
 import { Space } from '../Space';
 import { styled } from '../stitches.config';
 
@@ -38,7 +39,7 @@ const getColorSchemeVariants = (colorScheme?: string) => {
 const StyledWrapper = styled('div', {
   display: 'inline-grid',
   gridTemplateColumns: 'auto 1fr',
-  minWidth: '100px',
+  minWidth: 200,
   position: 'relative',
   $$primaryColor: '$colors-primary9',
   '&:hover': {
@@ -61,6 +62,11 @@ const StyledWrapper = styled('div', {
         cursor: 'not-allowed',
       },
     },
+    fullWidth: {
+      true: {
+        width: '100%',
+      },
+    },
   },
 });
 
@@ -69,14 +75,14 @@ const StyledSelect = styled('div', {
   gridTemplateColumns: '1fr auto',
   alignItems: 'center',
   borderRadius: '2px',
-  border: '1px solid #D9D9D9',
+  border: '1px solid $inputDefaultBorder',
+  boxSizing: 'border-box',
   padding: '0 12px',
   background: 'white',
   cursor: 'pointer',
   fontSize: '14px',
-  '&:hover': {
-    borderColor: '$$primaryColor',
-  },
+  transition:
+    'min-height .1s ease-in-out, font-size .1s ease-in-out, border .1s ease-in-out',
   variants: {
     focused: {
       true: {
@@ -94,13 +100,36 @@ const StyledSelect = styled('div', {
         '*': {
           pointerEvents: 'none',
         },
-        borderColor: '#D9D9D9 !important',
+        borderColor: '$inputDefaultBorder !important',
         background: '#F5F5F5',
       },
     },
+    size: {
+      sm: {
+        minHeight: '24px',
+      },
+      md: {
+        minHeight: '32px',
+      },
+      lg: {
+        minHeight: '40px',
+      },
+    },
+    isInvalid: {
+      true: {
+        borderColor: '$inputError !important',
+      },
+    },
+    isWarning: {
+      true: {
+        borderColor: '$inputWarning !important',
+      },
+    },
+  },
+  defaultVariants: {
+    size: 'md',
   },
 });
-
 const StyledArrow = styled(Box, {
   fontSize: '12px',
   display: 'flex',
@@ -140,7 +169,7 @@ const StyledSelectedSingleItem = styled('span', {
 });
 
 const StyledPlaceholder = styled('span', {
-  color: '$blackA11',
+  color: '$blackA9',
   whiteSpace: 'nowrap',
   pointerEvents: 'none',
   display: 'block',
@@ -151,13 +180,13 @@ const StyledPlaceholder = styled('span', {
       },
     },
     size: {
-      small: {
+      sm: {
         fontSize: '14px',
       },
-      medium: {
+      md: {
         fontSize: '14px',
       },
-      large: {
+      lg: {
         fontSize: '16px',
       },
     },
@@ -177,13 +206,13 @@ const StyledInput = styled('input', {
   fontFamily: '$untitled',
   variants: {
     size: {
-      small: {
+      sm: {
         fontSize: '14px',
       },
-      medium: {
+      md: {
         fontSize: '14px',
       },
-      large: {
+      lg: {
         fontSize: '16px',
       },
     },
@@ -191,22 +220,9 @@ const StyledInput = styled('input', {
 });
 
 const StyledSelected = styled(Space, {
-  minHeight: '32px',
+  height: '100%',
   alignItems: 'center',
   position: 'relative',
-  variants: {
-    size: {
-      small: {
-        minHeight: '24px',
-      },
-      medium: {
-        minHeight: '32px',
-      },
-      large: {
-        minHeight: '40px',
-      },
-    },
-  },
 });
 const StyledSelectedItems = styled(Space, {
   alignItems: 'center',
@@ -215,13 +231,13 @@ const StyledSelectedItems = styled(Space, {
   padding: '3px 0',
   variants: {
     size: {
-      small: {
+      sm: {
         padding: '0',
       },
-      medium: {
+      md: {
         padding: '3px 0',
       },
-      large: {
+      lg: {
         padding: '3px 0',
       },
     },
@@ -241,13 +257,13 @@ const StyledSelectedMultipleItem = styled('span', {
   whiteSpace: 'nowrap',
   variants: {
     size: {
-      small: {
+      sm: {
         height: '16px',
       },
-      medium: {
+      md: {
         height: '24px',
       },
-      large: {
+      lg: {
         height: '32px',
         span: {
           fontSize: '16px',
@@ -280,13 +296,13 @@ const StyledInputMultiple = styled('span', {
   minWidth: '4px',
   variants: {
     size: {
-      small: {
+      sm: {
         fontSize: '14px',
       },
-      medium: {
+      md: {
         fontSize: '14px',
       },
-      large: {
+      lg: {
         fontSize: '16px',
       },
     },
@@ -387,8 +403,9 @@ export type SelectProps = {
   allowClear?: boolean;
   itemsToShow?: number;
   colorScheme?: string;
-  size?: ComponentProps<typeof StyledSelected>['size'];
+  size?: ComponentProps<typeof StyledSelect>['size'];
   multiple?: boolean;
+  fullWidth?: boolean;
   value?: SelectedItem | SelectedItem[];
   onChange?: (value?: SelectedItem | SelectedItem[]) => void;
   className?: string;
@@ -407,14 +424,15 @@ export const Select = ({
   itemsToShow = 10,
   multiple,
   allowClear = true,
-  size,
-  value: valueFromProps,
-  onChange: onChangeFromProps,
-  disabled,
+  size: propSize,
+  value: propValue,
+  onChange: propOnChange,
+  disabled: propDisabled,
   colorScheme,
   className,
   dropdownClassName,
   renderOption,
+  fullWidth,
 }: SelectProps) => {
   const [open, setOpen] = useState(false);
 
@@ -430,30 +448,31 @@ export const Select = ({
   const wrapperRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const inputMultipleRef = useRef<HTMLSpanElement>(null);
-  // to prevent effect when onChangeFromProps changed
-  const staticOnChangeFromProp = useRef(onChangeFromProps);
+  // to prevent effect when propOnChange changed
+  const staticOnChangeFromProp = useRef(propOnChange);
+
+  const formItem = useFormItemContext();
+  const size = propSize ?? formItem.size;
+
+  const disabledForm = useFormDisabledContext();
+  const disabled = propDisabled || disabledForm;
 
   const setState = (option?: SelectedItem) => {
-    if (
-      typeof onChangeFromProps === 'function' &&
-      valueFromProps !== undefined
-    ) {
+    if (typeof propOnChange === 'function' && propValue !== undefined) {
       if (multiple) {
         if (!option) {
-          onChangeFromProps([]);
+          propOnChange([]);
           return;
         }
-        const prevValues = (valueFromProps as SelectedItem[]) ?? [];
+        const prevValues = (propValue as SelectedItem[]) ?? [];
         if (prevValues.find((it) => it.value === option.value)) {
           // remove it / deselect
-          onChangeFromProps(
-            prevValues.filter((it) => it.value !== option.value)
-          );
+          propOnChange(prevValues.filter((it) => it.value !== option.value));
         } else {
-          onChangeFromProps([...prevValues, option]);
+          propOnChange([...prevValues, option]);
         }
       } else {
-        onChangeFromProps(option);
+        propOnChange(option);
       }
     } else {
       if (multiple) {
@@ -470,8 +489,8 @@ export const Select = ({
         }
       } else {
         // handle when Select has onChange but does not have value
-        if (typeof onChangeFromProps === 'function') {
-          onChangeFromProps(option);
+        if (typeof propOnChange === 'function') {
+          propOnChange(option);
         }
         setSelectedSingleItem(option);
       }
@@ -558,14 +577,14 @@ export const Select = ({
   }, [focusInput, open]);
 
   useEffect(() => {
-    if (typeof valueFromProps !== undefined) {
-      if (valueFromProps instanceof Array) {
-        setSelectedItems(valueFromProps);
+    if (typeof propValue !== undefined) {
+      if (propValue instanceof Array) {
+        setSelectedItems(propValue);
       } else {
-        setSelectedSingleItem(valueFromProps);
+        setSelectedSingleItem(propValue);
       }
     }
-  }, [valueFromProps]);
+  }, [propValue]);
 
   useEffect(() => {
     if (multiple && typeof staticOnChangeFromProp.current === 'function') {
@@ -588,6 +607,7 @@ export const Select = ({
       ref={wrapperRef}
       disabled={disabled}
       className={clsx('select-wrapper', className)}
+      fullWidth={fullWidth}
     >
       <Popover.Root open={open}>
         <Popover.Trigger asChild>
@@ -661,8 +681,11 @@ export const Select = ({
         focused={open}
         searchable={searchable}
         disabled={disabled}
+        size={size}
+        isInvalid={formItem.isInvalid}
+        isWarning={formItem.isWarning && !formItem.isInvalid}
       >
-        <StyledSelected className="input-item-wrapper" size={size}>
+        <StyledSelected className="input-item-wrapper">
           {searchable && !multiple ? (
             <StyledInput
               value={input}

@@ -1,6 +1,7 @@
 import * as RadixSwitch from '@radix-ui/react-switch';
 import { keyframes, VariantProps } from '@stitches/react';
-import React, { ComponentProps, forwardRef, useState } from 'react';
+import React, { ComponentProps, forwardRef, useMemo, useState } from 'react';
+import { useFormDisabledContext, useFormItemContext } from '../Form';
 import { styled } from '../stitches.config';
 
 const getColorSchemeVariants = (colorScheme?: string) => {
@@ -230,9 +231,9 @@ export const Switch = forwardRef<
       defaultChecked,
       onClick,
       value,
-      disabled = false,
+      disabled: propDisabled,
       loading = false,
-      size = 'md',
+      size: propSize,
       checkedChildren,
       uncheckedChildren,
       ...props
@@ -245,6 +246,19 @@ export const Switch = forwardRef<
       : defaultChecked || false;
 
     const [isChecked, setIsChecked] = useState<boolean>(initialCheckValue);
+
+    const { size: formItemSize } = useFormItemContext();
+
+    const size = useMemo(() => {
+      if (propSize) return propSize;
+      if (formItemSize) {
+        return formItemSize === 'lg' ? 'md' : formItemSize;
+      }
+      return 'md';
+    }, [propSize, formItemSize]);
+
+    const disabledForm = useFormDisabledContext();
+    const disabled = propDisabled || disabledForm;
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
       if (isControlled) {

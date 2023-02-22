@@ -43,18 +43,18 @@ const StyledHead = styled(Box, {
   borderBottom: '1px solid #f0f0f0',
   variants: {
     size: {
-      small: {
+      sm: {
         padding: '0 16px',
         minHeight: '40px',
       },
-      medium: {
+      md: {
         padding: '0 24px',
         minHeight: '56px',
       },
     },
   },
   defaultVariants: {
-    size: 'medium',
+    size: 'md',
   },
 });
 
@@ -79,16 +79,16 @@ const StyledExtra = styled('div', {
 const StyledBody = styled(Box, {
   variants: {
     size: {
-      small: {
+      sm: {
         padding: '16px',
       },
-      medium: {
+      md: {
         padding: '24px',
       },
     },
   },
   defaultVariants: {
-    size: 'medium',
+    size: 'md',
   },
 });
 

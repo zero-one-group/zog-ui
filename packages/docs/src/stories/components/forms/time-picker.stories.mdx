@@ -10,7 +10,7 @@ import { useState } from 'react';
   component={[TimePicker]}
   argTypes={{
     size: {
-      options: ['small', 'medium', 'large'],
+      options: ['sm', 'md', 'lg'],
       control: { type: 'radio' },
     },
   }}
@@ -54,7 +54,8 @@ import { TimePicker } from '@zero-ui/core';
       placeholder: 'Select Time',
       placeholderStart: 'Select Start',
       placeholderEnd: 'Select End',
-      size: 'medium',
+      size: 'md',
+      fullWidth: false,
     }}
   >
     {TimePickerStory.bind()}
