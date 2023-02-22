@@ -1,0 +1,4 @@
+enum ZeroSpeedDialDirection {
+  vertical,
+  horizontal,
+}

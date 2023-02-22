@@ -135,18 +135,10 @@ class _ZeroTooltipState extends State<ZeroTooltip> {
                     height: childSize.height,
                   ),
                   Positioned(
-                    bottom: widget.position == ZeroTooltipPosition.top
-                        ? childSize.height + 15
-                        : null,
-                    top: widget.position == ZeroTooltipPosition.bottom
-                        ? childSize.height + 15
-                        : null,
-                    left: widget.position == ZeroTooltipPosition.right
-                        ? childSize.width + 15
-                        : null,
-                    right: widget.position == ZeroTooltipPosition.left
-                        ? childSize.width + 15
-                        : null,
+                    bottom: widget.position == ZeroTooltipPosition.top ? childSize.height + 15 : null,
+                    top: widget.position == ZeroTooltipPosition.bottom ? childSize.height + 15 : null,
+                    left: widget.position == ZeroTooltipPosition.right ? childSize.width + 15 : null,
+                    right: widget.position == ZeroTooltipPosition.left ? childSize.width + 15 : null,
                     child: CustomPaint(
                       painter: widget.variant.toPainter(
                         backgroundColor: widget.backgroundColor,
@@ -155,10 +147,8 @@ class _ZeroTooltipState extends State<ZeroTooltip> {
                       ),
                       child: Padding(
                         padding: widget.variant == ZeroTooltipVariant.rounded
-                            ? const EdgeInsets.symmetric(
-                                horizontal: 0, vertical: 8)
-                            : const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 8),
+                            ? const EdgeInsets.symmetric(horizontal: 0, vertical: 8)
+                            : const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                         child: DefaultTextStyle(
                           style: TextStyle(
                             color: widget.textColor,
@@ -171,17 +161,13 @@ class _ZeroTooltipState extends State<ZeroTooltip> {
                                     width: 35,
                                     child: Text(
                                       widget.text,
-                                      // key: _widgetTextKey,
-                                      style: widget.textStyle ??
-                                          TextStyle(color: widget.textColor),
+                                      style: widget.textStyle ?? TextStyle(color: widget.textColor),
                                       textAlign: TextAlign.center,
                                     ),
                                   )
                                 : Text(
-                                    // key: _widgetTextKey,
                                     widget.text,
-                                    style: widget.textStyle ??
-                                        TextStyle(color: widget.textColor),
+                                    style: widget.textStyle ?? TextStyle(color: widget.textColor),
                                     textAlign: TextAlign.center,
                                   ),
                           ),
@@ -203,6 +189,13 @@ class _ZeroTooltipState extends State<ZeroTooltip> {
   void initState() {
     super.initState();
     widget.onCreated?.call(showTooltip);
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _overlayEntry?.remove();
   }
 
   @override
