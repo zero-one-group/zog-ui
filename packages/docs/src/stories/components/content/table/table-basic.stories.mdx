@@ -4,7 +4,12 @@ import { Table } from '@zero-ui/core';
 <Meta
   title="Components/Content/Table/Basic"
   component={[Table]}
-  argTypes={{}}
+  argTypes={{
+    size: {
+      options: ['small', 'medium', 'large'],
+      control: { type: 'radio' },
+    },
+  }}
 />
 
 export const elements = [
@@ -86,6 +91,8 @@ const App = () => {
     name="Basic"
     args={{
       bordered: false,
+      size: 'large',
+      striped: false,
     }}
   >
     {TableBasic.bind()}

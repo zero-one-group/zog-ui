@@ -35,7 +35,22 @@ import {
 <Meta
   title="Components/Content/Table/TanStack"
   component={[Table]}
-  argTypes={{}}
+  argTypes={{
+    size: {
+      options: ['small', 'medium', 'large'],
+      control: { type: 'radio' },
+    },
+    dataSource: {
+      table: {
+        disable: true,
+      },
+    },
+    columns: {
+      table: {
+        disable: true,
+      },
+    },
+  }}
 />
 
 # Table
@@ -425,7 +440,7 @@ export const TableFilter = ({ column, table, children, filterDialog }) => {
 export const TableTanstack = ({
   dataSource,
   columns,
-  size = 'lg',
+  size = 'large',
   bordered = false,
 }) => {
   const columnHelper = createColumnHelper();
@@ -552,8 +567,9 @@ export const TableTanstack = ({
     args={{
       dataSource: dataSource,
       columns: columns,
-      size: 'lg',
+      size: 'large',
       bordered: false,
+      striped: false,
     }}
   >
     {(args) => <TableTanstack {...args} />}

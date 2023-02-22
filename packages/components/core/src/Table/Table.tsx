@@ -9,7 +9,7 @@ export const Table = styled('table', {
   '& thead': {
     borderBottom: '1px solid $gray4',
     '&>tr': {
-      backgroundColor: '$gray2',
+      backgroundColor: '$gray3',
       '&>th': {
         position: 'relative',
         fontWeight: 500,
@@ -30,10 +30,10 @@ export const Table = styled('table', {
       },
     },
   },
-  '& thead>tr>th, tbody>tr>td': {
+  '& thead > tr > th, tbody > tr > td': {
     padding: '1rem',
   },
-  '& tbody>tr': {
+  '& tbody > tr': {
     borderBottom: '1px solid $gray4',
     transition: 'background-color .1s linear',
     '&:hover': {
@@ -42,18 +42,18 @@ export const Table = styled('table', {
   },
   variants: {
     size: {
-      sm: {
-        '& thead>tr>th, tbody>tr>td': {
+      small: {
+        '& thead > tr > th, tbody > tr > td': {
           padding: '.5rem',
         },
       },
-      md: {
-        '& thead>tr>th, tbody>tr>td': {
+      medium: {
+        '& thead > tr > th, tbody > tr > td': {
           padding: '12px 8px',
         },
       },
-      lg: {
-        '& thead>tr>th, tbody>tr>td': {
+      large: {
+        '& thead > tr > th, tbody > tr > td': {
           padding: '1rem',
         },
       },
@@ -63,8 +63,15 @@ export const Table = styled('table', {
         '& th, td': {
           border: '1px solid $gray4',
         },
-        '& thead>tr>th:not(:last-child)::after': {
+        '& thead > tr > th:not(:last-child)::after': {
           content: 'none',
+        },
+      },
+    },
+    striped: {
+      true: {
+        '& tbody > tr:nth-child(even)': {
+          background: '$gray2',
         },
       },
     },
