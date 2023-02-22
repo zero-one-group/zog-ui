@@ -73,17 +73,17 @@ const StyledStepItemBasic = styled(Space, {
       },
     },
     size: {
-      sm: {
+      small: {
         span: {
           fontSize: '22px',
         },
       },
-      md: {
+      medium: {
         span: {
           fontSize: '38px',
         },
       },
-      lg: {
+      large: {
         span: {
           fontSize: '40px',
         },
@@ -139,7 +139,7 @@ const StyledStepItemBasic = styled(Space, {
   defaultVariants: {
     orientation: 'horizontal',
     state: 'stepWaiting',
-    size: 'sm',
+    size: 'small',
   },
 });
 

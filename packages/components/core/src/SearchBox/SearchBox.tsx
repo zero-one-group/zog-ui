@@ -90,7 +90,7 @@ export const SearchBox = ({
         ) : null}
         {showVoiceIcon ? <AudioOutlined style={{ color: '#1890FF' }} /> : null}
       </StyledSearchBox>
-      <Button onClick={onSearch} intent={intent} size="sm" variant="square">
+      <Button onClick={onSearch} intent={intent} size="small" variant="square">
         {iconButton ? iconButton : <SearchOutlined />}
         {label ? <Text css={{ margin: '0 10px' }}>{label}</Text> : null}
       </Button>

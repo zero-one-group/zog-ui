@@ -20,7 +20,7 @@ export type StepItemProps = ComponentPropsWithoutRef<ElementType> & {
   state: 'stepProgress' | 'stepCompleted' | 'stepWaiting' | 'stepError';
   step: number;
   icon?: ReactNode;
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'small' | 'medium' | 'large';
 };
 
 export const StyledStep = styled(Space, {
