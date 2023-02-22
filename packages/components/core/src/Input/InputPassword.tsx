@@ -31,15 +31,15 @@ const StyledInputPassword = styled(Space, {
   },
   variants: {
     size: {
-      small: {
+      sm: {
         height: '$5',
         padding: '1px 8px',
       },
-      medium: {
+      md: {
         height: '$6',
         padding: '5px 12px',
       },
-      large: {
+      lg: {
         height: '$7',
         padding: '8px 12px',
       },

@@ -137,13 +137,13 @@ const StyledPicker = styled('div', {
       },
     },
     size: {
-      small: {
+      sm: {
         height: 24,
       },
-      medium: {
+      md: {
         height: 32,
       },
-      large: {
+      lg: {
         height: 40,
       },
     },
@@ -159,7 +159,7 @@ const StyledPicker = styled('div', {
     },
   },
   defaultVariants: {
-    size: 'medium',
+    size: 'md',
   },
 });
 
@@ -183,20 +183,20 @@ const StyledPickerInput = styled('input', {
       },
     },
     size: {
-      small: {
+      sm: {
         fontSize: '14px',
       },
-      medium: {
+      md: {
         fontSize: '14px',
       },
-      large: {
+      lg: {
         fontSize: '16px',
         height: '24px',
       },
     },
   },
   defaultVariants: {
-    size: 'medium',
+    size: 'md',
   },
 });
 

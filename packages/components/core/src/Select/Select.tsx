@@ -105,13 +105,13 @@ const StyledSelect = styled('div', {
       },
     },
     size: {
-      small: {
+      sm: {
         minHeight: '24px',
       },
-      medium: {
+      md: {
         minHeight: '32px',
       },
-      large: {
+      lg: {
         minHeight: '40px',
       },
     },
@@ -127,7 +127,7 @@ const StyledSelect = styled('div', {
     },
   },
   defaultVariants: {
-    size: 'medium',
+    size: 'md',
   },
 });
 const StyledArrow = styled(Box, {
@@ -180,13 +180,13 @@ const StyledPlaceholder = styled('span', {
       },
     },
     size: {
-      small: {
+      sm: {
         fontSize: '14px',
       },
-      medium: {
+      md: {
         fontSize: '14px',
       },
-      large: {
+      lg: {
         fontSize: '16px',
       },
     },
@@ -206,13 +206,13 @@ const StyledInput = styled('input', {
   fontFamily: '$untitled',
   variants: {
     size: {
-      small: {
+      sm: {
         fontSize: '14px',
       },
-      medium: {
+      md: {
         fontSize: '14px',
       },
-      large: {
+      lg: {
         fontSize: '16px',
       },
     },
@@ -231,13 +231,13 @@ const StyledSelectedItems = styled(Space, {
   padding: '3px 0',
   variants: {
     size: {
-      small: {
+      sm: {
         padding: '0',
       },
-      medium: {
+      md: {
         padding: '3px 0',
       },
-      large: {
+      lg: {
         padding: '3px 0',
       },
     },
@@ -257,13 +257,13 @@ const StyledSelectedMultipleItem = styled('span', {
   whiteSpace: 'nowrap',
   variants: {
     size: {
-      small: {
+      sm: {
         height: '16px',
       },
-      medium: {
+      md: {
         height: '24px',
       },
-      large: {
+      lg: {
         height: '32px',
         span: {
           fontSize: '16px',
@@ -296,13 +296,13 @@ const StyledInputMultiple = styled('span', {
   minWidth: '4px',
   variants: {
     size: {
-      small: {
+      sm: {
         fontSize: '14px',
       },
-      medium: {
+      md: {
         fontSize: '14px',
       },
-      large: {
+      lg: {
         fontSize: '16px',
       },
     },

@@ -69,20 +69,20 @@ const StyledLabel = styled('div', {
       },
     },
     size: {
-      small: {
+      sm: {
         minHeight: 24,
       },
-      medium: {
+      md: {
         minHeight: 32,
       },
-      large: {
+      lg: {
         minHeight: 40,
       },
     },
   },
   defaultVariants: {
     layout: 'horizontal',
-    size: 'medium',
+    size: 'md',
   },
 });
 const StyledControl = styled('div', {
@@ -92,19 +92,19 @@ const StyledControl = styled('div', {
   transition: 'min-height .1s ease-in-out',
   variants: {
     size: {
-      small: {
+      sm: {
         minHeight: 24,
       },
-      medium: {
+      md: {
         minHeight: 32,
       },
-      large: {
+      lg: {
         minHeight: 40,
       },
     },
   },
   defaultVariants: {
-    size: 'medium',
+    size: 'md',
   },
 });
 const StyledControlInput = styled('div', {
@@ -184,7 +184,7 @@ export const FormItem = ({
   const layout = propLayout ?? form.layout ?? 'horizontal';
   const labelCol = propLabelCol ?? form.labelCol ?? 5;
   const wrapperCol = propWrapperCol ?? form.wrapperCol ?? 19;
-  const size = propSize ?? form.size ?? 'medium';
+  const size = propSize ?? form.size ?? 'md';
 
   return (
     <FormItemContext.Provider

@@ -67,19 +67,19 @@ const StyledStepItemDot = styled(Space, {
       },
     },
     size: {
-      small: {
+      sm: {
         span: {
           height: '8px',
           width: '8px',
         },
       },
-      medium: {
+      md: {
         span: {
           height: '10px',
           width: '10px',
         },
       },
-      large: {
+      lg: {
         span: {
           height: '12px',
           width: '12px',

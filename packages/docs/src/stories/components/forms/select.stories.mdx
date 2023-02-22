@@ -10,7 +10,7 @@ import { useState } from 'react';
   component={[Select]}
   argTypes={{
     size: {
-      options: ['small', 'medium', 'large'],
+      options: ['sm', 'md', 'lg'],
       control: { type: 'radio' },
     },
     colorScheme: {
@@ -70,7 +70,7 @@ import { Select } from '@zero-ui/core';
       placeholder: 'Select Item...',
       searchable: true,
       multiple: true,
-      size: 'medium',
+      size: 'md',
       disabled: false,
       itemsToShow: 10,
       renderOption: ({ option, index, selected, onSelect }) => (

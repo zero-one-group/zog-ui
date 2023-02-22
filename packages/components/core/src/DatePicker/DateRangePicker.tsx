@@ -36,17 +36,17 @@ const StyledWrapperPicker = styled('div', {
   },
   variants: {
     size: {
-      small: {
+      sm: {
         [`& .${PREFIX_CLS}-range`]: {
           height: 24,
         },
       },
-      medium: {
+      md: {
         [`& .${PREFIX_CLS}-range`]: {
           height: 32,
         },
       },
-      large: {
+      lg: {
         [`& .${PREFIX_CLS}-range`]: {
           height: 40,
           input: {
@@ -76,7 +76,7 @@ const StyledWrapperPicker = styled('div', {
     },
   },
   defaultVariants: {
-    size: 'medium',
+    size: 'md',
   },
 });
 

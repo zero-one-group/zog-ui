@@ -20,17 +20,17 @@ const StyledInput = styled(Space, {
   },
   variants: {
     size: {
-      small: {
+      sm: {
         input: {
           padding: '1px 8px',
         },
       },
-      medium: {
+      md: {
         input: {
           padding: '5px 12px',
         },
       },
-      large: {
+      lg: {
         input: {
           padding: '8px 12px',
         },

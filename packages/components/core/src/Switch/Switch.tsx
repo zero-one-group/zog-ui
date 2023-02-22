@@ -39,12 +39,12 @@ const SwitchRoot = styled(RadixSwitch.Root, {
   '&[data-disabled]': { backgroundColor: '$grayA6' },
   variants: {
     size: {
-      small: {
+      sm: {
         minWidth: 28,
         height: 16,
         fontSize: '.5rem',
       },
-      medium: {
+      md: {
         minWidth: 44,
         height: 22,
         fontSize: '.8rem',
@@ -74,12 +74,12 @@ const SwitchThumb = styled(RadixSwitch.Thumb, {
   },
   variants: {
     size: {
-      small: {
+      sm: {
         width: 12,
         height: 12,
         '&[data-state="checked"]': { insetInlineStart: 'calc(100% - 14px)' },
       },
-      medium: {
+      md: {
         width: 18,
         height: 18,
         '&[data-state="checked"]': { insetInlineStart: 'calc(100% - 20px)' },
@@ -99,11 +99,11 @@ const StyledLoader = styled('div', {
   animation: `${rotate} 1s linear infinite`,
   variants: {
     size: {
-      small: {
+      sm: {
         width: 8,
         height: 8,
       },
-      medium: {
+      md: {
         width: 12,
         height: 12,
       },
@@ -127,10 +127,10 @@ const StyledSwitchInner = styled('span', {
       },
     },
     size: {
-      small: {
+      sm: {
         lineHeight: '15px',
       },
-      medium: {
+      md: {
         lineHeight: '21px',
       },
     },
@@ -138,7 +138,7 @@ const StyledSwitchInner = styled('span', {
   compoundVariants: [
     {
       checked: true,
-      size: 'medium',
+      size: 'md',
       css: {
         paddingLeft: 6,
         paddingRight: 24,
@@ -146,7 +146,7 @@ const StyledSwitchInner = styled('span', {
     },
     {
       checked: false,
-      size: 'medium',
+      size: 'md',
       css: {
         paddingLeft: 24,
         paddingRight: 6,
@@ -195,10 +195,10 @@ const StyledSwitchInnerTextUnchecked = styled('div', {
       },
     },
     size: {
-      small: {
+      sm: {
         mt: '-16px',
       },
-      medium: {
+      md: {
         mt: '-22px',
       },
     },
@@ -252,9 +252,9 @@ export const Switch = forwardRef<
     const size = useMemo(() => {
       if (propSize) return propSize;
       if (formItemSize) {
-        return formItemSize === 'large' ? 'medium' : formItemSize;
+        return formItemSize === 'lg' ? 'md' : formItemSize;
       }
-      return 'medium';
+      return 'md';
     }, [propSize, formItemSize]);
 
     const disabledForm = useFormDisabledContext();

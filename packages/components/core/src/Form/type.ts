@@ -8,7 +8,7 @@ export type FormContextType = {
   layout?: FormLayoutType;
   labelCol?: number;
   wrapperCol?: number;
-  size?: 'small' | 'medium' | 'large';
+  size?: 'sm' | 'md' | 'lg';
 };
 
 export type FormItemContextType = {

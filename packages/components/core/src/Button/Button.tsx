@@ -43,19 +43,19 @@ const StyledButton = styled('button', {
   borderRadius: '2px',
   variants: {
     size: {
-      small: {
+      sm: {
         padding: '0 7px',
         fontSize: '14px',
         lineHeight: '22px',
         height: '$4',
       },
-      medium: {
+      md: {
         padding: '4px 15px',
         fontSize: '14px',
         lineHeight: '22px',
         height: '$6',
       },
-      large: {
+      lg: {
         padding: '6.4px 15px',
         fontSize: '16px',
         lineHeight: '24px',
@@ -150,7 +150,7 @@ const StyledButton = styled('button', {
   },
   compoundVariants: [
     {
-      size: 'medium',
+      size: 'md',
       variant: 'circle',
       css: {
         padding: '19px 15px',
@@ -262,7 +262,7 @@ const StyledButton = styled('button', {
   ],
 
   defaultVariants: {
-    size: 'small',
+    size: 'sm',
     variant: 'default',
     intent: 'default',
   },

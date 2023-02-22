@@ -19,17 +19,17 @@ const StyledTextArea = styled(Space, {
   },
   variants: {
     size: {
-      small: {
+      sm: {
         textarea: {
           padding: '1px 8px',
         },
       },
-      medium: {
+      md: {
         textarea: {
           padding: '5px 12px',
         },
       },
-      large: {
+      lg: {
         textarea: {
           padding: '8px 12px',
         },
@@ -58,7 +58,7 @@ const StyledTextArea = styled(Space, {
     },
   },
   defaultVariants: {
-    size: 'medium',
+    size: 'md',
   },
 });
 export const TextArea = ({
