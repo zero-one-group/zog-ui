@@ -14,8 +14,6 @@ enum AvatarVariant { image, initials }
 
 class ZeroAvatar extends StatelessWidget {
   final String? url;
-  final String? file;
-  final String? asset;
 
   /// The user's full name text to get the initial from
   final String? fullName;
@@ -33,165 +31,117 @@ class ZeroAvatar extends StatelessWidget {
 
   final bool withBadge;
 
-  /// backgroundColor of the avatar when no image
-  final Color? backgroundColor;
-
-  /// backgroundColor of the badge when no child
-  final Color? badgeColor;
-
   /// Can be [Text], [Icon], etc.
   final Widget? badgeChild;
 
-  /// text Color of the initials
-  final Color? initialColor;
+  /// Allow to custom style of this [avatar]
+  final ZeroAvatarStyle? style;
 
-  /// [TextStyle] of initial text
-  final TextStyle? initialStyle;
-
-  const ZeroAvatar._(
-      {Key? key,
-      this.url,
-      this.file,
-      this.asset,
-      this.fullName,
-      required this.type,
-      required this.size,
-      required this.withBadge,
-      required this.variant,
-      this.badgeColor,
-      this.initialColor,
-      this.badgeChild,
-      this.backgroundColor,
-      this.initialStyle});
+  const ZeroAvatar._({
+    this.url,
+    this.size = AvatarSize.l,
+    this.withBadge = false,
+    this.style,
+    this.badgeChild,
+    this.fullName,
+    required this.type,
+    required this.variant,
+  });
 
   /// Create avatar from URL
   /// Default values:
   ///   size = [AvatarSize.l]
   ///   withBadge = false
-  factory ZeroAvatar.url(String url,
-          {Key? key,
-          AvatarSize? size,
-          bool? withBadge,
-          Color? badgeColor,
-          Color? backgroundColor,
-          Widget? badgeChild}) =>
-      ZeroAvatar._(
-        key: key,
-        url: url,
-        size: size ?? AvatarSize.l,
-        type: SourceType.url,
-        withBadge: withBadge ?? false,
-        variant: AvatarVariant.image,
-        badgeColor: badgeColor,
-        backgroundColor: backgroundColor,
-        badgeChild: badgeChild,
-      );
+  const ZeroAvatar.url(
+    String avatarUrl, {
+    super.key,
+    this.size = AvatarSize.l,
+    this.withBadge = false,
+    this.style,
+    this.badgeChild,
+  })  : url = avatarUrl,
+        variant = AvatarVariant.image,
+        fullName = null,
+        type = SourceType.url;
 
   /// Create avatar from [File]
   /// Default values:
   ///   size = [AvatarSize.l]
   ///   withBadge = false
-  factory ZeroAvatar.file(
-    String file, {
-    Key? key,
-    AvatarSize? size,
-    bool? withBadge,
-    Color? badgeColor,
-    Color? backgroundColor,
-    Widget? badgeChild,
-  }) =>
-      ZeroAvatar._(
-        file: file,
-        size: size ?? AvatarSize.l,
-        type: SourceType.url,
-        withBadge: withBadge ?? false,
-        badgeColor: badgeColor,
-        backgroundColor: backgroundColor,
-        badgeChild: badgeChild,
-        variant: AvatarVariant.image,
-      );
+  const ZeroAvatar.file(
+    String avatarFile, {
+    super.key,
+    this.size = AvatarSize.l,
+    this.withBadge = false,
+    this.style,
+    this.badgeChild,
+  })  : variant = AvatarVariant.image,
+        url = avatarFile,
+        fullName = null,
+        type = SourceType.file;
 
   /// Create avatar from asset
   /// Default values:
   ///   size = [AvatarSize.l]
   ///   withBadge = false
-  factory ZeroAvatar.asset(
-          {Key? key,
-          required String asset,
-          AvatarSize? size,
-          bool? withBadge,
-          Color? badgeColor,
-          Color? backgroundColor,
-          Widget? badgeChild}) =>
-      ZeroAvatar._(
-        asset: asset,
-        size: size ?? AvatarSize.l,
-        type: SourceType.url,
-        withBadge: withBadge ?? false,
-        badgeColor: badgeColor,
-        backgroundColor: backgroundColor,
-        badgeChild: badgeChild,
-        variant: AvatarVariant.image,
-      );
+  const ZeroAvatar.asset(
+    String avatarAsset, {
+    super.key,
+    this.size = AvatarSize.l,
+    this.withBadge = false,
+    this.style,
+    this.badgeChild,
+  })  : variant = AvatarVariant.image,
+        url = avatarAsset,
+        fullName = null,
+        type = SourceType.asset;
 
   /// Create avatar from full name text that only shows its initial
   /// Default values:
   ///   size = [AvatarSize.l]
   ///   withBadge = false
-  factory ZeroAvatar.initial(String fullName,
-          {Key? key,
-          AvatarSize? size,
-          bool? withBadge,
-          Color? badgeColor,
-          Color? backgroundColor,
-          Color? initialColor,
-          Widget? badgeChild,
-          TextStyle? initialStyle}) =>
-      ZeroAvatar._(
-        fullName: fullName,
-        size: size ?? AvatarSize.l,
-        type: SourceType.noSource,
-        withBadge: withBadge ?? false,
-        badgeColor: badgeColor,
-        backgroundColor: backgroundColor,
-        badgeChild: badgeChild,
-        variant: AvatarVariant.initials,
-        initialColor: initialColor,
-        initialStyle: initialStyle,
-      );
+  const ZeroAvatar.initial(
+    String name, {
+    super.key,
+    this.size = AvatarSize.l,
+    this.withBadge = false,
+    this.style,
+    this.badgeChild,
+  })  : variant = AvatarVariant.initials,
+        url = null,
+        fullName = name,
+        type = SourceType.noSource;
 
-  /// Get smallIcon with size [AvatarSize.m]
+  /// Change the size of avatar
   /// Typically as the children of [ZeroAvatarGroup]
-  ZeroAvatar get smallIcon {
+  ZeroAvatar changeSize(AvatarSize size) {
     return ZeroAvatar._(
       fullName: fullName,
-      size: AvatarSize.m,
-      url: url,
-      asset: asset,
-      file: file,
-      type: type,
+      size: size,
       withBadge: false,
-      badgeColor: badgeColor,
-      backgroundColor: backgroundColor,
+      type: type,
       badgeChild: badgeChild,
       variant: variant,
-      initialColor: initialColor,
-      initialStyle: initialStyle,
+      style: style,
+      url: url,
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final themeStyle = context.theme.avatarStyle;
+    final adaptiveStyle = themeStyle.merge(style);
+
     ImageProvider? backgroundImage;
     switch (type) {
       case SourceType.url:
         backgroundImage = NetworkImage(url!);
         break;
       case SourceType.file:
-        backgroundImage = FileImage(File(file!));
+        backgroundImage = FileImage(File(url!));
         break;
       case SourceType.asset:
-        backgroundImage = AssetImage(asset!);
+        backgroundImage = AssetImage(url!);
         break;
       case SourceType.noSource:
         break;
@@ -204,36 +154,36 @@ class ZeroAvatar extends StatelessWidget {
         children: [
           variant == AvatarVariant.image
               ? CircleAvatar(
-                  backgroundColor: Colors.white,
+                  backgroundColor: adaptiveStyle.borderColor,
                   radius: size.areaWidth / 2,
                   child: CircleAvatar(
-                    backgroundColor: backgroundColor,
+                    backgroundColor: adaptiveStyle.backgroundColor,
                     backgroundImage: backgroundImage,
                     radius: size.avatarRadius,
                   ),
                 )
               : CircleAvatar(
-                  backgroundColor: Colors.white,
+                  backgroundColor: adaptiveStyle.borderColor,
                   radius: size.areaWidth / 2,
                   child: CircleAvatar(
-                    backgroundColor: backgroundColor,
+                    backgroundColor: adaptiveStyle.backgroundColor,
                     radius: size.avatarRadius,
                     child: Text(_getinitials(fullName!),
                         style: TextStyle(
-                                color: initialColor,
+                                color: adaptiveStyle.initialColor,
                                 fontSize: size.fontSize,
                                 fontWeight: FontWeight.w500)
-                            .merge(initialStyle)),
+                            .merge(adaptiveStyle.initialStyle)),
                   )),
           if (withBadge)
             Align(
               alignment: Alignment.bottomRight,
               child: badgeChild ??
                   CircleAvatar(
-                    backgroundColor: ZeroColors.white,
+                    backgroundColor: adaptiveStyle.borderColor,
                     radius: size.badgeRadius,
                     child: CircleAvatar(
-                      backgroundColor: badgeColor,
+                      backgroundColor: adaptiveStyle.badgeColor,
                       radius: size.badgeRadius - (size.badgeRadius / 3),
                     ),
                   ),

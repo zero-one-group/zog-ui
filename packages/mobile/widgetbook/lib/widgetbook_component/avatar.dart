@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
+import 'package:widgetbook_demo/options/color_options.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 import '../utils.dart';
@@ -10,47 +10,38 @@ const String sampleUrl2 =
     'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80';
 
 List<ZeroAvatar> avatars = [
-  ZeroAvatar.url(
-    'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80',
+  const ZeroAvatar.url(
+    sampleUrl1,
     size: AvatarSize.xs,
   ),
-  ZeroAvatar.initial(
+  const ZeroAvatar.initial(
     'Muhammad R Kahfi',
     size: AvatarSize.xs,
   ),
-  ZeroAvatar.url(
-    'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80',
+  const ZeroAvatar.url(
+    sampleUrl2,
     size: AvatarSize.xs,
   ),
-  ZeroAvatar.initial(
+  const ZeroAvatar.initial(
     'Wisnu',
     size: AvatarSize.xs,
   ),
-  ZeroAvatar.url(
-    'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80',
+  const ZeroAvatar.url(
+    sampleUrl1,
     size: AvatarSize.xs,
   ),
-  ZeroAvatar.initial(
+  const ZeroAvatar.initial(
     'Zuhlhijaya Zulhijaya',
     size: AvatarSize.xs,
   ),
-  ZeroAvatar.url(
-    'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80',
+  const ZeroAvatar.url(
+    sampleUrl2,
     size: AvatarSize.xs,
   ),
-  ZeroAvatar.initial(
+  const ZeroAvatar.initial(
     'Zuhlhijaya Zulhijaya',
     size: AvatarSize.xs,
   ),
-];
-
-List<Option<Color>> _initialColorOptions = [
-  const Option(label: 'White', value: ZeroColors.white),
-  const Option(label: 'Red', value: ZeroColors.danger),
-  const Option(label: 'Green', value: ZeroColors.success),
-  const Option(label: 'Blue', value: ZeroColors.primary),
-  const Option(label: 'Yellow', value: ZeroColors.sunriseYellow),
-  const Option(label: 'Black', value: ZeroColors.black),
 ];
 
 WidgetbookComponent avatarWidgetbookComponent = WidgetbookComponent(
@@ -71,75 +62,25 @@ WidgetbookComponent avatarWidgetbookComponent = WidgetbookComponent(
                 value: sampleUrl2,
               ),
             ]),
-            size: context.knobs.options(label: 'Size', options: [
-              const Option(
-                label: 'XXS',
-                value: AvatarSize.xxs,
-              ),
-              const Option(
-                label: 'XS',
-                value: AvatarSize.xs,
-              ),
-              const Option(
-                label: 'S',
-                value: AvatarSize.s,
-              ),
-              const Option(
-                label: 'M',
-                value: AvatarSize.m,
-              ),
-              const Option(
-                label: 'L',
-                value: AvatarSize.l,
-              ),
-              const Option(
-                label: 'XL',
-                value: AvatarSize.xl,
-              ),
-              const Option(
-                label: 'XXL',
-                value: AvatarSize.xl,
-              ),
-            ]),
-            withBadge: context.knobs
-                .nullableBoolean(label: 'With Badge', initialValue: false),
-            backgroundColor: context.knobs
-                .options(label: 'Avatar Background Color', options: [
-              Option(
-                label: 'Primary 7',
-                value: ZeroColors.primary[7],
-              ),
-              const Option(
-                label: 'White',
-                value: ZeroColors.white,
-              ),
-              const Option(
-                label: 'Black',
-                value: ZeroColors.black,
-              ),
-              Option(
-                label: 'Neutral 7',
-                value: ZeroColors.neutral[7],
-              ),
-            ]),
-            badgeColor: context.knobs.options(label: 'Badge Color', options: [
-              Option(
-                label: 'Primary 7',
-                value: ZeroColors.primary[7],
-              ),
-              Option(
-                label: 'Sunrise Yellow 7',
-                value: ZeroColors.sunriseYellow[7],
-              ),
-              const Option(
-                label: 'Success',
-                value: ZeroColors.success,
-              ),
-              const Option(
-                label: 'Danger',
-                value: ZeroColors.danger,
-              ),
-            ]),
+            size: context.knobs.options(label: 'Size', options: _sizeOptions),
+            withBadge:
+                context.knobs.boolean(label: 'With Badge', initialValue: false),
+            style: ZeroAvatarStyle(
+              backgroundColor: context.knobs
+                  .options(label: 'Avatar Background Color', options: [
+                const Option(label: 'Default', value: null),
+                ...colorOptions,
+              ]),
+              badgeColor: context.knobs.options(label: 'Badge Color', options: [
+                const Option(label: 'Default', value: null),
+                ...colorOptions,
+              ]),
+              borderColor:
+                  context.knobs.options(label: 'Border Color', options: [
+                const Option(label: 'Default', value: null),
+                ...colorOptions,
+              ]),
+            ),
           ));
         }),
     WidgetbookUseCase(
@@ -161,77 +102,30 @@ WidgetbookComponent avatarWidgetbookComponent = WidgetbookComponent(
                 value: 'Wisnu G Saputra',
               ),
             ]),
-            size: context.knobs.options(label: 'Size', options: [
-              const Option(
-                label: 'XXS',
-                value: AvatarSize.xxs,
-              ),
-              const Option(
-                label: 'XS',
-                value: AvatarSize.xs,
-              ),
-              const Option(
-                label: 'S',
-                value: AvatarSize.s,
-              ),
-              const Option(
-                label: 'M',
-                value: AvatarSize.m,
-              ),
-              const Option(
-                label: 'L',
-                value: AvatarSize.l,
-              ),
-              const Option(
-                label: 'XL',
-                value: AvatarSize.xl,
-              ),
-              const Option(
-                label: 'XXL',
-                value: AvatarSize.xl,
-              ),
-            ]),
-            withBadge: context.knobs
-                .nullableBoolean(label: 'With Badge', initialValue: false),
-            initialColor: context.knobs.options(
-                label: 'Initial Text Color', options: _initialColorOptions),
-            backgroundColor: context.knobs
-                .options(label: 'Avatar Background Color', options: [
-              Option(
-                label: 'Primary 7',
-                value: ZeroColors.primary[7],
-              ),
-              const Option(
-                label: 'White',
-                value: ZeroColors.white,
-              ),
-              const Option(
-                label: 'Black',
-                value: ZeroColors.black,
-              ),
-              Option(
-                label: 'Neutral 7',
-                value: ZeroColors.neutral[7],
-              ),
-            ]),
-            badgeColor: context.knobs.options(label: 'Badge Color', options: [
-              Option(
-                label: 'Primary 7',
-                value: ZeroColors.primary[7],
-              ),
-              Option(
-                label: 'Sunrise Yellow 7',
-                value: ZeroColors.sunriseYellow[7],
-              ),
-              const Option(
-                label: 'Success',
-                value: ZeroColors.success,
-              ),
-              const Option(
-                label: 'Danger',
-                value: ZeroColors.danger,
-              ),
-            ]),
+            size: context.knobs.options(label: 'Size', options: _sizeOptions),
+            withBadge:
+                context.knobs.boolean(label: 'With Badge', initialValue: false),
+            style: ZeroAvatarStyle(
+              backgroundColor: context.knobs
+                  .options(label: 'Avatar Background Color', options: [
+                const Option(label: 'Default', value: null),
+                ...colorOptions,
+              ]),
+              badgeColor: context.knobs.options(label: 'Badge Color', options: [
+                const Option(label: 'Default', value: null),
+                ...colorOptions,
+              ]),
+              borderColor:
+                  context.knobs.options(label: 'Border Color', options: [
+                const Option(label: 'Default', value: null),
+                ...colorOptions,
+              ]),
+              initialColor:
+                  context.knobs.options(label: 'Initial Color', options: [
+                const Option(label: 'Default', value: null),
+                ...colorOptions,
+              ]),
+            ),
           ));
         }),
     WidgetbookUseCase(
@@ -239,18 +133,52 @@ WidgetbookComponent avatarWidgetbookComponent = WidgetbookComponent(
         builder: (context) {
           return PreviewWidget(
             child: ZeroAvatarGroup(
-              moreNumber: context.knobs.number(
-                label: 'More Count',
-                initialValue: 1,
-              ) as int,
+              moreNumber: context.knobs
+                  .number(
+                    label: 'More Count',
+                    initialValue: 1,
+                  )
+                  .toInt(),
               avatars:
                   context.knobs.options(label: 'List of Avatars', options: [
                 Option(label: '3 Items', value: avatars.sublist(0, 2)),
                 Option(label: '5 Items', value: avatars.sublist(0, 4)),
                 Option(label: '7 Items', value: avatars.sublist(0, 6))
               ]),
+              size: context.knobs.options(label: 'Size', options: _sizeOptions),
             ),
           );
         }),
   ],
 );
+
+List<Option<AvatarSize>> _sizeOptions = [
+  const Option(
+    label: 'M',
+    value: AvatarSize.m,
+  ),
+  const Option(
+    label: 'XXS',
+    value: AvatarSize.xxs,
+  ),
+  const Option(
+    label: 'XS',
+    value: AvatarSize.xs,
+  ),
+  const Option(
+    label: 'S',
+    value: AvatarSize.s,
+  ),
+  const Option(
+    label: 'L',
+    value: AvatarSize.l,
+  ),
+  const Option(
+    label: 'XL',
+    value: AvatarSize.xl,
+  ),
+  const Option(
+    label: 'XXL',
+    value: AvatarSize.xl,
+  ),
+];

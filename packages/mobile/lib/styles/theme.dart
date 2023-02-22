@@ -91,9 +91,9 @@ class ZeroThemeData with Diagnosticable {
   final ZeroChipFilledStyle chipFilledStyle;
   final ZeroChipOutlinedStyle chipOutlinedStyle;
   final ZeroNavigationBarStyle navigationBarStyle;
-  final ZeroTextfieldStyleSet? textfieldStyleSet;
-  final ZeroTextfieldSize? textfieldSize;
-  final InputDecorationType? inputDecorationType;
+  final ZeroTextfieldStyleSet textfieldStyleSet;
+  final ZeroTextfieldSize textfieldSize;
+  final InputDecorationType inputDecorationType;
   final ZeroNavigationDrawerStyle navigationDrawerStyle;
   final ZeroAppBarStyle appBarStyle;
   final ZeroCardStyle cardStyle;
@@ -106,6 +106,7 @@ class ZeroThemeData with Diagnosticable {
   final ZeroProgressStyle progressStyle;
   final ZeroRatingStyle ratingStyle;
   final ZeroSliderStyle sliderStyle;
+  final ZeroAvatarStyle avatarStyle;
 
   final Brightness brightness;
   final IconThemeData iconTheme;
@@ -147,9 +148,9 @@ class ZeroThemeData with Diagnosticable {
     required this.chipFilledStyle,
     required this.chipOutlinedStyle,
     required this.navigationBarStyle,
-    this.textfieldStyleSet,
-    this.inputDecorationType,
-    this.textfieldSize,
+    required this.textfieldStyleSet,
+    required this.inputDecorationType,
+    required this.textfieldSize,
     required this.navigationDrawerStyle,
     required this.appBarStyle,
     required this.cardStyle,
@@ -162,6 +163,7 @@ class ZeroThemeData with Diagnosticable {
     required this.progressStyle,
     required this.ratingStyle,
     required this.sliderStyle,
+    required this.avatarStyle,
 
     // Others
     this.useMaterial3 = false,
@@ -211,6 +213,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroProgressStyle? progressStyle,
     ZeroRatingStyle? ratingStyle,
     ZeroSliderStyle? sliderStyle,
+    ZeroAvatarStyle? avatarStyle,
   }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
@@ -262,6 +265,7 @@ class ZeroThemeData with Diagnosticable {
     );
 
     textfieldSize ??= ZeroTextfieldSize.small;
+    inputDecorationType ??= InputDecorationType.underline;
 
     textfieldStyleSet ??= ZeroTextfieldStyleSet(
         outline: ZeroTextfieldStyle.outline(
@@ -281,8 +285,7 @@ class ZeroThemeData with Diagnosticable {
             textfieldSize: textfieldSize,
             focusedBorderColor: primaryColor,
             focusedColor: primaryColor),
-        inputDecorationType:
-            inputDecorationType ?? InputDecorationType.underline);
+        inputDecorationType: inputDecorationType);
 
     colorScheme ??= ColorScheme.fromSwatch(
       brightness: brightness,
@@ -419,6 +422,9 @@ class ZeroThemeData with Diagnosticable {
       thickColor: primaryColor,
     );
 
+    final avatarStyleFallback =
+        ZeroAvatarStyle.fallback(backgroundColor: primaryColor);
+
     useMaterial3 ??= false;
 
     return ZeroThemeData.raw(
@@ -467,6 +473,7 @@ class ZeroThemeData with Diagnosticable {
       progressStyle: progeressStyleFallback.merge(progressStyle),
       ratingStyle: ratingStyleFallback.merge(ratingStyle),
       sliderStyle: sliderStyleFallback.merge(sliderStyle),
+      avatarStyle: avatarStyleFallback.merge(avatarStyle),
     );
   }
 
@@ -529,6 +536,7 @@ class ZeroThemeData with Diagnosticable {
           ZeroProgressStyle.lerp(a.progressStyle, b.progressStyle, t),
       ratingStyle: ZeroRatingStyle.lerp(a.ratingStyle, b.ratingStyle, t),
       sliderStyle: ZeroSliderStyle.lerp(a.sliderStyle, b.sliderStyle, t),
+      avatarStyle: ZeroAvatarStyle.lerp(a.avatarStyle, b.avatarStyle, t),
     );
   }
 
@@ -577,6 +585,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroProgressStyle? progressStyle,
     ZeroRatingStyle? ratingStyle,
     ZeroSliderStyle? sliderStyle,
+    ZeroAvatarStyle? avatarStyle,
   }) {
     return ZeroThemeData.raw(
       brightness: brightness ?? this.brightness,
@@ -608,19 +617,19 @@ class ZeroThemeData with Diagnosticable {
       chipOutlinedStyle: chipOutlinedStyle ?? this.chipOutlinedStyle,
       navigationBarStyle: navigationBarStyle ?? this.navigationBarStyle,
       inputDecorationType: inputDecorationType ?? this.inputDecorationType,
-      textfieldStyleSet: this.textfieldStyleSet?.copyWith(
+      textfieldStyleSet: this.textfieldStyleSet.copyWith(
           inputDecorationType: inputDecorationType,
           outline: this
               .textfieldStyleSet
-              ?.outline
+              .outline
               .copyWith(textfieldSize: textfieldSize),
-          rounded: this.textfieldStyleSet?.rounded.copyWith(
+          rounded: this.textfieldStyleSet.rounded.copyWith(
                 textfieldSize: textfieldSize,
               ),
-          filled: this.textfieldStyleSet?.filled.copyWith(
+          filled: this.textfieldStyleSet.filled.copyWith(
                 textfieldSize: textfieldSize,
               ),
-          underline: this.textfieldStyleSet?.underline.copyWith(
+          underline: this.textfieldStyleSet.underline.copyWith(
                 textfieldSize: textfieldSize,
               )),
       textfieldSize: textfieldSize ?? this.textfieldSize,
@@ -638,6 +647,7 @@ class ZeroThemeData with Diagnosticable {
       progressStyle: progressStyle ?? this.progressStyle,
       ratingStyle: ratingStyle ?? this.ratingStyle,
       sliderStyle: sliderStyle ?? this.sliderStyle,
+      avatarStyle: avatarStyle ?? this.avatarStyle,
     );
   }
 
@@ -661,7 +671,7 @@ class ZeroThemeData with Diagnosticable {
       ),
       buttonTheme: buttonTheme,
       inputDecorationTheme:
-          textfieldStyleSet?.mainStyle.toInputDecorationTheme(),
+          textfieldStyleSet.mainStyle.toInputDecorationTheme(),
       colorScheme: colorScheme,
       dividerTheme: dividerStyle.toDividerTheme(),
       chipTheme: chipFilledStyle.toChipThemeData(),
