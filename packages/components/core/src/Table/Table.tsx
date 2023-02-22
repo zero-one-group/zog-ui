@@ -42,17 +42,17 @@ export const Table = styled('table', {
   },
   variants: {
     size: {
-      small: {
+      sm: {
         '& thead > tr > th, tbody > tr > td': {
           padding: '.5rem',
         },
       },
-      medium: {
+      md: {
         '& thead > tr > th, tbody > tr > td': {
           padding: '12px 8px',
         },
       },
-      large: {
+      lg: {
         '& thead > tr > th, tbody > tr > td': {
           padding: '1rem',
         },

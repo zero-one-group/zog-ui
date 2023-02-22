@@ -37,7 +37,7 @@ import {
   component={[Table]}
   argTypes={{
     size: {
-      options: ['small', 'medium', 'large'],
+      options: ['sm', 'md', 'lg'],
       control: { type: 'radio' },
     },
     dataSource: {
@@ -440,7 +440,7 @@ export const TableFilter = ({ column, table, children, filterDialog }) => {
 export const TableTanstack = ({
   dataSource,
   columns,
-  size = 'large',
+  size = 'lg',
   bordered = false,
 }) => {
   const columnHelper = createColumnHelper();
@@ -567,7 +567,7 @@ export const TableTanstack = ({
     args={{
       dataSource: dataSource,
       columns: columns,
-      size: 'large',
+      size: 'lg',
       bordered: false,
       striped: false,
     }}
