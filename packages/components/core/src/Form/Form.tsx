@@ -1,3 +1,4 @@
+import { Slot } from '@radix-ui/react-slot';
 import React, {
   ComponentProps,
   createContext,
@@ -39,6 +40,7 @@ export type FormProps = FormContextType & {
   css?: BaseComponentFormType['css'];
   style?: BaseComponentFormType['style'];
   className?: BaseComponentFormType['className'];
+  asChild?: boolean;
 };
 
 export const Form = ({
@@ -47,6 +49,7 @@ export const Form = ({
   style,
   className,
   onSubmit: propOnSubmit,
+  asChild,
   ...contextProps
 }: FormProps) => {
   const onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
@@ -56,13 +59,10 @@ export const Form = ({
     }
   };
 
+  const Comp = asChild ? Slot : StyledForm;
+
   return (
-    <StyledForm
-      css={css}
-      style={style}
-      className={className}
-      onSubmit={onSubmit}
-    >
+    <Comp css={css} style={style} className={className} onSubmit={onSubmit}>
       <FormContext.Provider value={contextProps}>
         <FormDisabledContext.Provider
           value={{ disabled: contextProps.disabled }}
@@ -70,6 +70,6 @@ export const Form = ({
           {children}
         </FormDisabledContext.Provider>
       </FormContext.Provider>
-    </StyledForm>
+    </Comp>
   );
 };
