@@ -90,7 +90,7 @@ List<Option<IconData>> _iconOptions = [
 
 List<Option<Widget?>> _avatarOptions = [
   const Option(label: 'None', value: null),
-  Option(
+  const Option(
     label: 'Avatar',
     value: ZeroAvatar.url(
       'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?fit=crop&w=80&h=80&q=80',

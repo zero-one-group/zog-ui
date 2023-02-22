@@ -79,7 +79,7 @@ class _Filled extends StatelessWidget {
               onTap: () {},
               label: 'Chip Large Avatar',
               size: ZeroChipSize.large,
-              avatar: ZeroAvatar.initial(
+              avatar: const ZeroAvatar.initial(
                 'WS',
                 size: AvatarSize.xs,
               ),
@@ -90,7 +90,7 @@ class _Filled extends StatelessWidget {
               onTap: () {},
               label: 'Chip Large Disabled',
               size: ZeroChipSize.large,
-              avatar: ZeroAvatar.url(
+              avatar: const ZeroAvatar.url(
                 'https://shorturl.at/dknSY',
                 size: AvatarSize.xs,
               ),
@@ -102,7 +102,7 @@ class _Filled extends StatelessWidget {
               onTap: () {},
               label: 'Chip Large Custom Style',
               size: ZeroChipSize.large,
-              avatar: ZeroAvatar.url(
+              avatar: const ZeroAvatar.url(
                 'https://shorturl.at/dknSY',
                 size: AvatarSize.xs,
               ),
@@ -150,7 +150,7 @@ class _Filled extends StatelessWidget {
               onTap: () {},
               label: 'Chip Small Disabled',
               size: ZeroChipSize.small,
-              avatar: ZeroAvatar.url(
+              avatar: const ZeroAvatar.url(
                 'https://shorturl.at/dknSY',
                 size: AvatarSize.xs,
               ),
@@ -162,7 +162,7 @@ class _Filled extends StatelessWidget {
               onTap: () {},
               label: 'Chip Small Custom Style',
               size: ZeroChipSize.small,
-              avatar: ZeroAvatar.url(
+              avatar: const ZeroAvatar.url(
                 'https://shorturl.at/dknSY',
                 size: AvatarSize.xs,
               ),
@@ -224,7 +224,7 @@ class _Outlined extends StatelessWidget {
               onTap: () {},
               label: 'Chip Large Avatar',
               size: ZeroChipSize.large,
-              avatar: ZeroAvatar.initial(
+              avatar: const ZeroAvatar.initial(
                 'WS',
                 size: AvatarSize.xs,
               ),
@@ -235,7 +235,7 @@ class _Outlined extends StatelessWidget {
               onTap: () {},
               label: 'Chip Large Disabled',
               size: ZeroChipSize.large,
-              avatar: ZeroAvatar.url(
+              avatar: const ZeroAvatar.url(
                 'https://shorturl.at/dknSY',
                 size: AvatarSize.xs,
               ),
@@ -247,7 +247,7 @@ class _Outlined extends StatelessWidget {
               onTap: () {},
               label: 'Chip Large Custom Style',
               size: ZeroChipSize.large,
-              avatar: ZeroAvatar.url(
+              avatar: const ZeroAvatar.url(
                 'https://shorturl.at/dknSY',
                 size: AvatarSize.xs,
               ),
@@ -295,7 +295,7 @@ class _Outlined extends StatelessWidget {
               onTap: () {},
               label: 'Chip Small Disabled',
               size: ZeroChipSize.small,
-              avatar: ZeroAvatar.url(
+              avatar: const ZeroAvatar.url(
                 'https://shorturl.at/dknSY',
                 size: AvatarSize.xs,
               ),
@@ -307,7 +307,7 @@ class _Outlined extends StatelessWidget {
               onTap: () {},
               label: 'Chip Small Custom Style',
               size: ZeroChipSize.small,
-              avatar: ZeroAvatar.url(
+              avatar: const ZeroAvatar.url(
                 'https://shorturl.at/dknSY',
                 size: AvatarSize.xs,
               ),
