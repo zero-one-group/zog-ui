@@ -84,8 +84,8 @@ const StyledIconImage = styled('div', {
   },
 });
 
-const BASE_COLOR = '#F5F5F5';
-const HIGHLIGHT_COLOR = '#FBFAFA';
+const BASE_COLOR = '$colors$gray3';
+const HIGHLIGHT_COLOR = '$colors$gray1';
 const ANIMATION_DURATION = '1.5s';
 
 const getCssVars = ({
