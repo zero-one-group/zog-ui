@@ -109,6 +109,7 @@ class ZeroThemeData with Diagnosticable {
   final ZeroSliderStyle sliderStyle;
   final ZeroAvatarStyle avatarStyle;
   final ZeroMenuStyle menuStyle;
+  final ZeroButtonGroupStyleSet buttonGroupStyle;
 
   final Brightness brightness;
   final IconThemeData iconTheme;
@@ -171,6 +172,7 @@ class ZeroThemeData with Diagnosticable {
     required this.sliderStyle,
     required this.avatarStyle,
     required this.menuStyle,
+    required this.buttonGroupStyle,
 
     // Others
     this.useMaterial3 = false,
@@ -224,6 +226,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroAvatarStyle? avatarStyle,
     ZeroExpansionTileStyle? expansionTileStyle,
     ZeroMenuStyle? menuStyle,
+    ZeroButtonGroupStyleSet? buttonGroupStyle,
   }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
@@ -454,62 +457,61 @@ class ZeroThemeData with Diagnosticable {
         ZeroAvatarStyle.fallback(backgroundColor: primaryColor);
 
     final menuStyleFallback = ZeroMenuStyle.fallback();
+    final buttonGroupStyleFallback =
+        ZeroButtonGroupStyleSet.fallback(primaryColor: primaryColor);
 
     useMaterial3 ??= false;
 
     return ZeroThemeData.raw(
-        brightness: brightness,
-        useMaterial3: useMaterial3,
-        primaryColor: primaryColor,
-        disabledColor: disabledColor,
-        scaffoldBackgroundColor: scaffoldBackgroundColor,
-        uncheckedColor: uncheckedColor,
-        checkedColor: checkedColor,
-        iconTheme: iconTheme,
-        dialogTheme: dialogTheme,
-        buttonTheme: buttonTheme,
-        expansionTileStyle:
-            expansionTileStyleFallback.merge(expansionTileStyle),
-        colorScheme: colorScheme,
-        typography: typography,
-        cardColor: cardColor,
-        errorColor: errorColor,
-        disabledBackgroundColor: disabledBackgroundColor,
-        dividerColor: dividerColor,
-        solidTextColor: solidTextColor,
-        regularTextColor: regularTextColor,
-        fontFamily: fontFamily,
-        listTileStyle: listTileFallback.merge(listTileStyle),
-        primaryButtonStyle:
-            primaryButtonStyleFallback.merge(primaryButtonStyle),
-        secondaryButtonStyle:
-            secondaryButtonStyleFallback.merge(secondaryButtonStyle),
-        textButtonStyle: textButtonStyleFallback.merge(textButtonStyle),
-        dividerStyle: dividerStyleFallback.merge(dividerStyle),
-        chipFilledStyle: chipFilledStyleFallback.merge(chipFilledStyle),
-        chipOutlinedStyle: chipOutlinedStyleFallback.merge(chipOutlinedStyle),
-        navigationBarStyle:
-            navigationBarStyleFallback.merge(navigationBarStyle),
-        textfieldStyleSet: textfieldStyleSet,
-        inputDecorationType: inputDecorationType,
-        textfieldSize: textfieldSize,
-        navigationDrawerStyle:
-            navigationDrawerStyleFallback.merge(navigationDrawerStyle),
-        appBarStyle: appBarStyleFallback.merge(appBarStyleFallback),
-        cardStyle: cardStyle.merge(cardStyle),
-        buttonIconStyle: buttonIconStyleFallback.merge(buttonIconStyle),
-        navigationRailStyle:
-            navigationRailStyleFallback.merge(navigationRailStyle),
-        switchStyle: switchStyleFallback.merge(switchStyle),
-        tabBarStyle: tabBarStyleFallback.merge(tabBarStyle),
-        speedDialStyle: speedDialStyleFallback.merge(speedDialStyle),
-        checkboxStyle: checkboxStyleFallback.merge(checkboxStyle),
-        radioStyle: radioStyleFallback.merge(radioStyle),
-        progressStyle: progeressStyleFallback.merge(progressStyle),
-        ratingStyle: ratingStyleFallback.merge(ratingStyle),
-        sliderStyle: sliderStyleFallback.merge(sliderStyle),
-        avatarStyle: avatarStyleFallback.merge(avatarStyle),
-        menuStyle: menuStyleFallback.merge(menuStyle));
+      brightness: brightness,
+      useMaterial3: useMaterial3,
+      primaryColor: primaryColor,
+      disabledColor: disabledColor,
+      scaffoldBackgroundColor: scaffoldBackgroundColor,
+      uncheckedColor: uncheckedColor,
+      checkedColor: checkedColor,
+      iconTheme: iconTheme,
+      dialogTheme: dialogTheme,
+      buttonTheme: buttonTheme,
+      colorScheme: colorScheme,
+      typography: typography,
+      cardColor: cardColor,
+      errorColor: errorColor,
+      disabledBackgroundColor: disabledBackgroundColor,
+      dividerColor: dividerColor,
+      solidTextColor: solidTextColor,
+      regularTextColor: regularTextColor,
+      fontFamily: fontFamily,
+      listTileStyle: listTileFallback.merge(listTileStyle),
+      primaryButtonStyle: primaryButtonStyleFallback.merge(primaryButtonStyle),
+      secondaryButtonStyle:
+          secondaryButtonStyleFallback.merge(secondaryButtonStyle),
+      textButtonStyle: textButtonStyleFallback.merge(textButtonStyle),
+      dividerStyle: dividerStyleFallback.merge(dividerStyle),
+      chipFilledStyle: chipFilledStyleFallback.merge(chipFilledStyle),
+      chipOutlinedStyle: chipOutlinedStyleFallback.merge(chipOutlinedStyle),
+      navigationBarStyle: navigationBarStyleFallback.merge(navigationBarStyle),
+      textfieldStyleSet: textfieldStyleSet,
+      inputDecorationType: inputDecorationType,
+      textfieldSize: textfieldSize,
+      navigationDrawerStyle:
+          navigationDrawerStyleFallback.merge(navigationDrawerStyle),
+      appBarStyle: appBarStyleFallback.merge(appBarStyleFallback),
+      cardStyle: cardStyle.merge(cardStyle),
+      buttonIconStyle: buttonIconStyleFallback.merge(buttonIconStyle),
+      navigationRailStyle:
+          navigationRailStyleFallback.merge(navigationRailStyle),
+      switchStyle: switchStyleFallback.merge(switchStyle),
+      tabBarStyle: tabBarStyleFallback.merge(tabBarStyle),
+      speedDialStyle: speedDialStyleFallback.merge(speedDialStyle),
+      checkboxStyle: checkboxStyleFallback.merge(checkboxStyle),
+      radioStyle: radioStyleFallback.merge(radioStyle),
+      progressStyle: progeressStyleFallback.merge(progressStyle),
+      ratingStyle: ratingStyleFallback.merge(ratingStyle),
+      sliderStyle: sliderStyleFallback.merge(sliderStyle),
+      avatarStyle: avatarStyleFallback.merge(avatarStyle),
+      buttonGroupStyle: buttonGroupStyleFallback.merge(buttonGroupStyle),
+    );
   }
 
   static ZeroThemeData lerp(ZeroThemeData a, ZeroThemeData b, double t) {
@@ -577,6 +579,9 @@ class ZeroThemeData with Diagnosticable {
       ratingStyle: ZeroRatingStyle.lerp(a.ratingStyle, b.ratingStyle, t),
       sliderStyle: ZeroSliderStyle.lerp(a.sliderStyle, b.sliderStyle, t),
       avatarStyle: ZeroAvatarStyle.lerp(a.avatarStyle, b.avatarStyle, t),
+      buttonTheme: t < 0.5 ? a.buttonTheme : b.buttonTheme,
+      buttonGroupStyle: ZeroButtonGroupStyleSet.lerp(
+          a.buttonGroupStyle, b.buttonGroupStyle, t),
     );
   }
 
@@ -627,7 +632,11 @@ class ZeroThemeData with Diagnosticable {
     ZeroRatingStyle? ratingStyle,
     ZeroSliderStyle? sliderStyle,
     ZeroAvatarStyle? avatarStyle,
+<<<<<<< HEAD
     ZeroMenuStyle? menuStyle,
+=======
+    ZeroButtonGroupStyleSet? buttonGroupStyle,
+>>>>>>> 1bb68ee (feat(mobile): Refactor & implement global theme button group)
   }) {
     return ZeroThemeData.raw(
       brightness: brightness ?? this.brightness,
@@ -693,6 +702,7 @@ class ZeroThemeData with Diagnosticable {
       ratingStyle: ratingStyle ?? this.ratingStyle,
       sliderStyle: sliderStyle ?? this.sliderStyle,
       avatarStyle: avatarStyle ?? this.avatarStyle,
+      buttonGroupStyle: buttonGroupStyle ?? this.buttonGroupStyle,
     );
   }
 
