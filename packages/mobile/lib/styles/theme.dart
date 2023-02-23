@@ -110,7 +110,6 @@ class ZeroThemeData with Diagnosticable {
   final ZeroAvatarStyle avatarStyle;
   final ZeroMenuStyle menuStyle;
   final ZeroButtonGroupStyleSet buttonGroupStyle;
-  final ZeroMenuStyle? menuStyle;
 
   final Brightness brightness;
   final IconThemeData iconTheme;
@@ -174,7 +173,6 @@ class ZeroThemeData with Diagnosticable {
     required this.avatarStyle,
     required this.menuStyle,
     required this.buttonGroupStyle,
-    this.menuStyle,
 
     // Others
     this.useMaterial3 = false,
@@ -229,6 +227,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroExpansionTileStyle? expansionTileStyle,
     ZeroButtonGroupStyleSet? buttonGroupStyle,
     ZeroMenuStyle? menuStyle,
+    ZeroButtonGroupStyleSet? buttonGroupStyle,
   }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
