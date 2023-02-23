@@ -205,6 +205,7 @@ export './styles/component/card_style.dart';
 export './styles/component/checkbox_style.dart';
 export './styles/component/chip_style.dart';
 export './styles/component/divider_style.dart';
+export './styles/component/expansion_tile_style.dart';
 export './styles/component/list_tile_style.dart';
 export './styles/component/navigation_bar_style.dart';
 export './styles/component/navigation_drawer_style.dart';

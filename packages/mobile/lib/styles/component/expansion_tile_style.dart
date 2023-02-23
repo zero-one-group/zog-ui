@@ -40,6 +40,7 @@ class ZeroExpansionTileStyle with Diagnosticable {
     this.trailing,
     this.backgroundColor,
     this.collapsedBackgroundColor,
+    this.childrenBackgroundColor,
     this.tilePadding,
     this.expandedAlignment,
     this.childrenPadding,
@@ -52,10 +53,7 @@ class ZeroExpansionTileStyle with Diagnosticable {
     this.clipBehavior,
     this.titleColor,
     this.collapsedTitleColor,
-  }) {
-    debugPrint(
-        'ZeroExpansionTileStyle variant $variant titleColor $titleColor');
-  }
+  });
 
   /// Variant of [ZeroAccordion], values: [AccordionVariant.underline], [AccordionVariant.filled].
   final AccordionVariant? variant;
@@ -69,10 +67,13 @@ class ZeroExpansionTileStyle with Diagnosticable {
   /// Overrides the default value of [ZeroExpansionTile.backgroundColor].
   final Color? backgroundColor;
 
-// Overrides the default value of [ZeroExpansionTile.backgroundColor].
+  /// Overrides the default value of [ZeroExpansionTile.backgroundColor].
+  final Color? childrenBackgroundColor;
+
+  /// Background color of the title when expanded
   final Color? titleColor;
 
-// Overrides the default value of [ZeroExpansionTile.backgroundColor].
+  /// Background color of the title when collapsed
   final Color? collapsedTitleColor;
 
   /// Overrides the default value of [ZeroExpansionTile.collapsedBackgroundColor].
@@ -108,14 +109,95 @@ class ZeroExpansionTileStyle with Diagnosticable {
   /// Overrides the default value of [ZeroExpansionTile.clipBehavior].
   final Clip? clipBehavior;
 
+  factory ZeroExpansionTileStyle.underline(
+      {Widget? leading,
+      Widget? trailing,
+      Color? backgroundColor,
+      Color? iconColor,
+      Color? collapsedIconColor,
+      Color? textColor,
+      Color? collapsedTextColor,
+      Color? lineColor,
+      Color? collapsedLineColor,
+      EdgeInsetsGeometry? childrenPadding}) {
+    return ZeroExpansionTileStyle(
+        variant: AccordionVariant.underline,
+        leading: leading,
+        trailing: trailing,
+        backgroundColor: backgroundColor,
+        collapsedBackgroundColor: backgroundColor,
+        childrenBackgroundColor: backgroundColor,
+        iconColor: iconColor,
+        collapsedIconColor: collapsedIconColor,
+        textColor: textColor,
+        collapsedTextColor: collapsedTextColor,
+        shape: Border(
+          top: const BorderSide(color: ZeroColors.transparent),
+          bottom: BorderSide(color: lineColor ?? ZeroColors.neutral[7]),
+        ),
+        collapsedShape: Border(
+          top: const BorderSide(color: ZeroColors.transparent),
+          bottom:
+              BorderSide(color: collapsedLineColor ?? ZeroColors.neutral[7]),
+        ),
+        childrenPadding: childrenPadding);
+  }
+
+  factory ZeroExpansionTileStyle.filled(
+      {Widget? leading,
+      Widget? trailing,
+
+      /// Background color of the title when expanded
+      Color? titleColor,
+
+      /// Background olor of the children when expanded
+      Color? childrenBackgroundColor,
+
+      /// Background color of the title when collapsed
+      Color? collapsedTitleColor,
+      Color? iconColor,
+      Color? collapsedIconColor,
+      Color? textColor,
+      Color? collapsedTextColor,
+      ShapeBorder? shape,
+      ShapeBorder? collapsedShape,
+      EdgeInsetsGeometry? childrenPadding}) {
+    return ZeroExpansionTileStyle(
+        variant: AccordionVariant.filled,
+        leading: leading,
+        trailing: trailing,
+        titleColor: titleColor,
+        backgroundColor: titleColor,
+        childrenBackgroundColor: childrenBackgroundColor,
+        collapsedBackgroundColor: collapsedTitleColor,
+        iconColor: iconColor,
+        collapsedIconColor: collapsedIconColor,
+        textColor: textColor,
+        collapsedTextColor: collapsedTextColor,
+        shape: shape ??
+            Border.all(
+              color: ZeroColors.transparent,
+              width: 0,
+            ),
+        collapsedShape: collapsedShape ??
+            Border.all(
+              color: ZeroColors.transparent,
+              width: 0,
+            ),
+        childrenPadding: childrenPadding);
+  }
+
   /// Creates a copy of this object with the given fields replaced with the
   /// new values.
   ZeroExpansionTileStyle copyWith({
     AccordionVariant? variant,
+    Widget? leading,
+    Widget? trailing,
     Color? titleColor,
     Color? collapsedTitleColor,
     Color? backgroundColor,
     Color? collapsedBackgroundColor,
+    Color? childrenBackgroundColor,
     EdgeInsetsGeometry? tilePadding,
     AlignmentGeometry? expandedAlignment,
     EdgeInsetsGeometry? childrenPadding,
@@ -129,9 +211,13 @@ class ZeroExpansionTileStyle with Diagnosticable {
   }) {
     return ZeroExpansionTileStyle(
       variant: variant ?? this.variant,
+      leading: leading ?? this.leading,
+      trailing: trailing ?? this.trailing,
       titleColor: titleColor ?? this.titleColor,
       collapsedTitleColor: collapsedTitleColor ?? this.collapsedTitleColor,
       backgroundColor: backgroundColor ?? this.backgroundColor,
+      childrenBackgroundColor:
+          childrenBackgroundColor ?? this.childrenBackgroundColor,
       collapsedBackgroundColor:
           collapsedBackgroundColor ?? this.collapsedBackgroundColor,
       tilePadding: tilePadding ?? this.tilePadding,
@@ -178,6 +264,9 @@ class ZeroExpansionTileStyle with Diagnosticable {
     return Object.hash(
       backgroundColor,
       collapsedBackgroundColor,
+      titleColor,
+      collapsedTitleColor,
+      childrenBackgroundColor,
       tilePadding,
       expandedAlignment,
       childrenPadding,
@@ -202,6 +291,9 @@ class ZeroExpansionTileStyle with Diagnosticable {
     return other is ZeroExpansionTileStyle &&
         other.backgroundColor == backgroundColor &&
         other.collapsedBackgroundColor == collapsedBackgroundColor &&
+        other.titleColor == titleColor &&
+        other.collapsedTitleColor == collapsedTitleColor &&
+        other.childrenBackgroundColor == childrenBackgroundColor &&
         other.tilePadding == tilePadding &&
         other.expandedAlignment == expandedAlignment &&
         other.childrenPadding == childrenPadding &&
@@ -217,17 +309,56 @@ class ZeroExpansionTileStyle with Diagnosticable {
   ZeroExpansionTileStyle merge(ZeroExpansionTileStyle? other) {
     if (other == null) return this;
     return copyWith(
+      leading: other.leading,
+      trailing: trailing,
+      titleColor: other.titleColor,
+      collapsedTitleColor: other.collapsedTitleColor,
+      variant: other.variant,
       backgroundColor: other.backgroundColor,
+      childrenBackgroundColor: other.childrenBackgroundColor,
       childrenPadding: other.childrenPadding,
       clipBehavior: other.clipBehavior,
       collapsedBackgroundColor: other.collapsedBackgroundColor,
       collapsedIconColor: other.collapsedIconColor,
       collapsedShape: other.collapsedShape,
-      collapsedTextColor: other.backgroundColor,
       expandedAlignment: expandedAlignment,
       iconColor: other.iconColor,
       shape: other.shape,
       textColor: other.textColor,
+      collapsedTextColor: other.collapsedTextColor,
+    );
+  }
+
+  static ZeroExpansionTileStyle fallback({
+    Color? titleColor,
+    Color? collapsedTitleColor,
+    Color? backgroundColor,
+    Color? collapsedBackgroundColor,
+    Color? childrenBackgroundColor,
+    Color? textColor,
+    Color? collapsedTextColor,
+    Color? iconColor,
+    Color? collapsedIconColor,
+  }) {
+    return ZeroExpansionTileStyle(
+      variant: AccordionVariant.underline,
+      titleColor: titleColor ?? ZeroColors.neutral[5],
+      collapsedTitleColor: collapsedTitleColor ?? ZeroColors.neutral[3],
+      backgroundColor: backgroundColor,
+      childrenBackgroundColor: childrenBackgroundColor ?? ZeroColors.white,
+      collapsedBackgroundColor: collapsedBackgroundColor,
+      textColor: textColor ?? ZeroColors.neutral[10],
+      collapsedTextColor: textColor ?? ZeroColors.neutral[10],
+      iconColor: iconColor ?? ZeroColors.neutral[10],
+      collapsedIconColor: collapsedIconColor ?? ZeroColors.neutral[10],
+      shape: Border(
+        top: const BorderSide(color: ZeroColors.transparent),
+        bottom: BorderSide(color: ZeroColors.neutral[7]),
+      ),
+      collapsedShape: Border(
+        top: const BorderSide(color: ZeroColors.transparent),
+        bottom: BorderSide(color: ZeroColors.neutral[7]),
+      ),
     );
   }
 
@@ -277,5 +408,68 @@ class ZeroExpansionTileStyle with Diagnosticable {
         defaultValue: null));
     properties.add(DiagnosticsProperty<Clip>('clipBehavior', clipBehavior,
         defaultValue: null));
+  }
+
+  ZeroExpansionTileStyle underline(
+      {Widget? leading,
+      Widget? trailing,
+      Color? backgroundColor,
+      Color? textColor,
+      Color? collapsedTextColor,
+      Color? lineColor,
+      Color? collapsedLineColor,
+      EdgeInsetsGeometry? childrenPadding}) {
+    return copyWith(
+      variant: AccordionVariant.underline,
+      leading: leading,
+      trailing: trailing,
+      backgroundColor: backgroundColor ?? this.backgroundColor,
+      childrenBackgroundColor: backgroundColor ?? this.backgroundColor,
+      collapsedBackgroundColor:
+          collapsedBackgroundColor ?? this.backgroundColor,
+      textColor: textColor ?? this.textColor,
+      collapsedTextColor: collapsedTextColor ?? this.collapsedTextColor,
+      shape: lineColor != null
+          ? Border(
+              top: const BorderSide(color: ZeroColors.transparent),
+              bottom: BorderSide(color: lineColor),
+            )
+          : shape,
+      collapsedShape: collapsedLineColor != null
+          ? Border(
+              top: const BorderSide(color: ZeroColors.transparent),
+              bottom: BorderSide(color: collapsedLineColor),
+            )
+          : collapsedShape,
+    );
+  }
+
+  ZeroExpansionTileStyle filled(
+      {Widget? leading,
+      Widget? trailing,
+      Color? titleColor,
+      Color? collapsedTitleColor,
+      Color? childrenBackgroundColor,
+      Color? textColor,
+      Color? collapsedTextColor,
+      ShapeBorder? shape,
+      ShapeBorder? collapsedShape}) {
+    return copyWith(
+        variant: AccordionVariant.filled,
+        leading: leading,
+        trailing: trailing,
+        backgroundColor: titleColor ?? this.titleColor,
+        collapsedBackgroundColor:
+            collapsedTitleColor ?? this.collapsedTitleColor,
+        childrenBackgroundColor:
+            childrenBackgroundColor ?? this.childrenBackgroundColor,
+        shape: Border.all(
+          color: ZeroColors.transparent,
+          width: 0,
+        ),
+        collapsedShape: Border.all(
+          color: ZeroColors.transparent,
+          width: 0,
+        ));
   }
 }

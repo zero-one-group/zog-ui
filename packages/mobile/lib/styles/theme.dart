@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:zero_ui_mobile/styles/component/expansion_tile_style.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 class ZeroTheme extends StatelessWidget {
@@ -272,21 +271,18 @@ class ZeroThemeData with Diagnosticable {
       alignedDropdown: true,
     );
 
-    debugPrint('theme ZeroExpansionTileStyle');
-    expansionTileStyle ??= ZeroExpansionTileStyle(
-      variant: AccordionVariant.underline,
-      backgroundColor: scaffoldBackgroundColor,
-      titleColor: ZeroColors.neutral[5],
-      collapsedBackgroundColor: scaffoldBackgroundColor,
-      shape: Border(
-        top: BorderSide(color: ZeroColors.neutral[7]),
-        bottom: const BorderSide(color: ZeroColors.transparent),
-      ),
-      collapsedShape: Border(
-        top: BorderSide(color: ZeroColors.neutral[7]),
-        bottom: const BorderSide(color: ZeroColors.transparent),
-      ),
-    );
+    final expansionTileStyleFallback = ZeroExpansionTileStyle.fallback(
+        backgroundColor: scaffoldBackgroundColor,
+        collapsedBackgroundColor: scaffoldBackgroundColor,
+        childrenBackgroundColor: scaffoldBackgroundColor,
+        iconColor: typography.subtitle1?.color ?? ZeroColors.neutral[10],
+        collapsedIconColor:
+            typography.subtitle1?.color ?? ZeroColors.neutral[10],
+        titleColor: ZeroColors.neutral[5],
+        collapsedTitleColor: ZeroColors.neutral[3],
+        textColor: typography.subtitle1?.color ?? ZeroColors.neutral[10],
+        collapsedTextColor:
+            typography.subtitle1?.color ?? ZeroColors.neutral[10]);
 
     textfieldSize ??= ZeroTextfieldSize.small;
     inputDecorationType ??= InputDecorationType.underline;
@@ -467,7 +463,7 @@ class ZeroThemeData with Diagnosticable {
       iconTheme: iconTheme,
       dialogTheme: dialogTheme,
       buttonTheme: buttonTheme,
-      expansionTileStyle: expansionTileStyle,
+      expansionTileStyle: expansionTileStyleFallback.merge(expansionTileStyle),
       colorScheme: colorScheme,
       typography: typography,
       cardColor: cardColor,
