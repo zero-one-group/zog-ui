@@ -1,36 +1,5 @@
 library zero_ui_mobile;
 
-<<<<<<< HEAD
-// styles
-export './styles/colors.dart';
-export './styles/typography.dart';
-export './styles/theme.dart';
-export './styles/color_accent.dart';
-
-// component styles
-export './styles/component/textfield_style.dart';
-export './styles/component/list_tile_style.dart';
-export './styles/component/button_style.dart';
-export './styles/component/divider_style.dart';
-export './styles/component/chip_style.dart';
-export './styles/component/navigation_bar_style.dart';
-export './styles/component/navigation_drawer_style.dart';
-export './styles/component/app_bar_style.dart';
-export './styles/component/card_style.dart';
-export './styles/component/navigation_rail_style.dart';
-export './styles/component/button_icon_style.dart';
-export './styles/component/switch_style.dart';
-export './styles/component/tab_bar_style.dart';
-export './styles/component/speed_dial_style.dart';
-export './styles/component/checkbox_style.dart';
-export './styles/component/radio_style.dart';
-export './styles/component/progress_style.dart';
-export './styles/component/rating_style.dart';
-export './styles/component/slider_style.dart';
-export './styles/component/avatar_style.dart';
-
-=======
->>>>>>> 19a364e (feat: add global style to global theme for expansion tile)
 // assets
 export './assets/assets.dart';
 // accordion
@@ -69,7 +38,6 @@ export './components/datepicker/modal/zero_datepicker_input.dart';
 export './components/divider/divider.dart';
 // dropdown
 export './components/dropdowns/dropdown.dart';
-// dropdown
 export './components/dropdowns/zero_dropdown.dart';
 export './components/icons/two_tone_icons.dart';
 // icons
@@ -94,6 +62,8 @@ export './components/slider/zero_slider.dart';
 // snackbar
 export './components/snackbar/zero_snackbar.dart';
 export './components/snackbar/zero_snackbar_alert.dart';
+// speed dial
+export './components/speed_dial/zero_speed_dial.dart';
 export './components/stepper/zero_step.dart';
 // stepper
 export './components/stepper/zero_stepper.dart';
@@ -101,86 +71,21 @@ export './components/stepper/zero_stepper.dart';
 export './components/switch/zero_switch.dart';
 export './components/switch/zero_switch_android.dart';
 export './components/switch/zero_switch_ios.dart';
-<<<<<<< HEAD
-
-// snackbar
-export './components/snackbar/zero_snackbar.dart';
-export './components/snackbar/zero_snackbar_alert.dart';
-
-// icons
-export './components/icons/zero_icons.dart';
-export './components/icons/two_tone_icons.dart';
-
-// datepicker
-export './components/datepicker/modal/zero_datepicker.dart';
-export './components/datepicker/modal/zero_calendar_datepicker.dart';
-export './components/datepicker/modal/zero_datepicker_input.dart';
-export './components/datepicker/docked/zero_docked_calendar_datepicker.dart';
-export './components/datepicker/docked/zero_datepicker_docked.dart';
-
-// progress indicator
-export './components/progress_indicator/zero_progress_indicator.dart';
-
-// navigation
-export './components/navigation/zero_navigation_bar.dart';
-export './components/navigation/drawer/zero_navigation_drawer.dart';
-export './components/navigation/zero_app_bar.dart';
-export './components/navigation/zero_navigation_rail.dart';
-export './components/navigation/zero_tab_bar.dart';
-
-// alert dialog
-export './components/alert_dialog/zero_alert_dialog.dart';
-
-// card
-export './components/card/zero_card.dart';
-
-// stepper
-export './components/stepper/zero_stepper.dart';
-export './components/stepper/zero_step.dart';
-
-// speed dial
-export './components/speed_dial/zero_speed_dial.dart';
-
-// types
-export './types/button_radius_type.dart';
-export './types/button_group_type.dart';
-export './types/input_decoration_type.dart';
-export './types/badge_type.dart';
-export './types/tooltip_type.dart';
-export './types/snackbar_type.dart';
-export './types/snackbar_alert_type.dart';
-export './types/snackbar_alert_variant.dart';
-export './types/navigation_bar_type.dart';
-export './types/card_variant.dart';
-export './types/navigation_rail_type.dart';
-
-// positions
-export './position/tooltip_position.dart';
-export './position/badge_potision.dart';
-export './position/snackbar_position.dart';
-export './position/step_subtitle_position.dart';
-export './position/speed_dial_direction.dart';
-
-// model
-export './model/zero_range_values.dart';
-
-=======
 // text
 export './components/text/zero_text.dart';
 // text field
 export './components/textfield/zero_textfield.dart';
-// text field
 export './components/textfield/zero_textfield_multiline.dart';
 // time picker
 export './components/timepicker/zero_time_picker.dart';
 // tooltip
 export './components/tooltip/zero_tooltip.dart';
-// tooltip
 export './components/tooltip/zero_tooltip_style.dart';
 // model
 export './model/zero_range_values.dart';
 export './position/badge_potision.dart';
 export './position/snackbar_position.dart';
+export './position/speed_dial_direction.dart';
 export './position/step_subtitle_position.dart';
 // positions
 export './position/tooltip_position.dart';
@@ -191,14 +96,13 @@ export './size/chip_size.dart';
 export './size/list_tile_size.dart';
 export './size/size_type.dart';
 export './size/text_field_size.dart';
->>>>>>> 19a364e (feat: add global style to global theme for expansion tile)
 // size
 export './size/zero_slider_size.dart';
 export './styles/color_accent.dart';
 // styles
 export './styles/colors.dart';
-// styles
 export './styles/component/app_bar_style.dart';
+export './styles/component/avatar_style.dart';
 export './styles/component/button_icon_style.dart';
 export './styles/component/button_style.dart';
 export './styles/component/card_style.dart';
@@ -213,6 +117,8 @@ export './styles/component/navigation_rail_style.dart';
 export './styles/component/progress_style.dart';
 export './styles/component/radio_style.dart';
 export './styles/component/rating_style.dart';
+export './styles/component/slider_style.dart';
+export './styles/component/speed_dial_style.dart';
 export './styles/component/switch_style.dart';
 export './styles/component/tab_bar_style.dart';
 // component styles
