@@ -27,6 +27,7 @@ export './styles/component/progress_style.dart';
 export './styles/component/rating_style.dart';
 export './styles/component/slider_style.dart';
 export './styles/component/avatar_style.dart';
+export './styles/component/button_group_style.dart';
 
 // assets
 export './assets/assets.dart';

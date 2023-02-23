@@ -3,6 +3,7 @@ import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 import 'component/alert_dialog/zero_alert_dialog_example.dart';
 import 'component/avatar/avatar_example.dart';
+import 'component/button/button_group_example.dart';
 import 'component/button/zero_button_example.dart';
 import 'component/card/zero_card_example.dart';
 import 'component/checkbox/checkbox_example.dart';
@@ -50,7 +51,7 @@ class _MyAppState extends State<MyApp> {
     ZeroColors.polarGreen,
   ];
 
-  ShadedColor _selectedColor = ZeroColors.lime;
+  ShadedColor _selectedColor = ZeroColors.primary;
 
   @override
   Widget build(BuildContext context) {
@@ -377,6 +378,16 @@ class Examples extends StatelessWidget {
             );
           },
           text: 'Zero Speed Dial Example',
+        ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroButtonGroupExample(),
+              ),
+            );
+          },
+          text: 'Zero Button Group Example',
         ),
         const SizedBox(
           height: 100,
