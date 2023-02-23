@@ -25,7 +25,7 @@ class _ZeroCardExampleState extends State<ZeroCardExample> {
               children: [
                 const SizedBox(height: 16),
                 ZeroCard(
-                  style: ZeroCardElevatedStyle(
+                  style: const ZeroCardElevatedStyle(
                     elevation: 8,
                   ),
                   child: Padding(
@@ -69,7 +69,7 @@ class _ZeroCardExampleState extends State<ZeroCardExample> {
                 ),
                 const SizedBox(height: 16),
                 ZeroCard(
-                  style: ZeroCardOutlinedStyle(),
+                  style: const ZeroCardOutlinedStyle(),
                   child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: Column(
