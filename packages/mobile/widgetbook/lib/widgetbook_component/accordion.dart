@@ -121,7 +121,7 @@ WidgetbookComponent accordionWidgetbookComponent = WidgetbookComponent(
             ),
           );
         }),
-  WidgetbookUseCase(
+    WidgetbookUseCase(
         name: 'Sub Tile (Nested)',
         builder: (context) {
           ZeroExpansionTile subChild = const ZeroExpansionTile(
@@ -133,12 +133,10 @@ WidgetbookComponent accordionWidgetbookComponent = WidgetbookComponent(
             ],
           );
 
-          ZeroExpansionTile child =  ZeroExpansionTile(
-            title: Text('ZeroExpansionTile 1'),
-            subtitle: Text('Trailing expansion arrow icon'),
-            children: [
-              subChild, subChild
-            ],
+          ZeroExpansionTile child = ZeroExpansionTile(
+            title: const Text('ZeroExpansionTile 1'),
+            subtitle: const Text('Trailing expansion arrow icon'),
+            children: [subChild, subChild],
           );
 
           return PreviewWidget.builder(
@@ -181,5 +179,5 @@ WidgetbookComponent accordionWidgetbookComponent = WidgetbookComponent(
             ),
           );
         }),
-    ],
+  ],
 );
