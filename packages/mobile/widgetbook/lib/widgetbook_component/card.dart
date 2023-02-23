@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+
 import '../options/options.dart';
 import '../utils.dart';
 
@@ -13,16 +14,26 @@ WidgetbookComponent cardWidgetbookComponent = WidgetbookComponent(
         return PreviewWidget(
           builder: (context) => ZeroCard(
             style: ZeroCardElevatedStyle(
-              elevation: context.knobs.number(label: 'Elevation', initialValue: 8).toDouble(),
+              elevation: context.knobs
+                  .number(label: 'Elevation', initialValue: 8)
+                  .toDouble(),
               backgroundColor: context.knobs.options(
                 label: 'Background Color',
-                options: [const Option(label: 'White', value: ZeroColors.white), ...colorOptions],
+                options: [
+                  const Option(label: 'White', value: ZeroColors.white),
+                  ...colorOptions
+                ],
               ),
               shadowColor: context.knobs.options(
                 label: 'Shadow Color',
-                options: [const Option(label: 'Black', value: ZeroColors.black), ...colorOptions],
+                options: [
+                  const Option(label: 'Black', value: ZeroColors.black),
+                  ...colorOptions
+                ],
               ),
-              borderRadius: BorderRadius.circular(context.knobs.number(label: 'Border Radius', initialValue: 8).toDouble()),
+              borderRadius: BorderRadius.circular(context.knobs
+                  .number(label: 'Border Radius', initialValue: 8)
+                  .toDouble()),
             ),
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -35,7 +46,7 @@ WidgetbookComponent cardWidgetbookComponent = WidgetbookComponent(
                     mainAxisAlignment: MainAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      ZeroAvatar.initial(
+                      const ZeroAvatar.initial(
                         'Elevated Card',
                         size: AvatarSize.m,
                       ),
@@ -43,8 +54,11 @@ WidgetbookComponent cardWidgetbookComponent = WidgetbookComponent(
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Elevated Card', style: context.theme.typography.body1?.copyWith(fontWeight: FontWeight.bold)),
-                          Text('ZeroCardElevatedStyle', style: context.theme.typography.caption),
+                          Text('Elevated Card',
+                              style: context.theme.typography.body1
+                                  ?.copyWith(fontWeight: FontWeight.bold)),
+                          Text('ZeroCardElevatedStyle',
+                              style: context.theme.typography.caption),
                         ],
                       ),
                     ],
@@ -71,16 +85,28 @@ WidgetbookComponent cardWidgetbookComponent = WidgetbookComponent(
             style: ZeroCardOutlinedStyle(
               backgroundColor: context.knobs.options(
                 label: 'Background Color',
-                options: [const Option(label: 'White', value: ZeroColors.white), ...colorOptions],
+                options: [
+                  const Option(label: 'White', value: ZeroColors.white),
+                  ...colorOptions
+                ],
               ),
               side: BorderSide(
                 color: context.knobs.options(
                   label: 'Border Color',
-                  options: [Option(label: 'Theme Color', value: context.theme.dividerColor), ...colorOptions],
+                  options: [
+                    Option(
+                        label: 'Theme Color',
+                        value: context.theme.dividerColor),
+                    ...colorOptions
+                  ],
                 ),
-                width: context.knobs.number(label: 'Border Width', initialValue: 1).toDouble(),
+                width: context.knobs
+                    .number(label: 'Border Width', initialValue: 1)
+                    .toDouble(),
               ),
-              borderRadius: BorderRadius.circular(context.knobs.number(label: 'Border Radius', initialValue: 8).toDouble()),
+              borderRadius: BorderRadius.circular(context.knobs
+                  .number(label: 'Border Radius', initialValue: 8)
+                  .toDouble()),
             ),
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -93,7 +119,7 @@ WidgetbookComponent cardWidgetbookComponent = WidgetbookComponent(
                     mainAxisAlignment: MainAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      ZeroAvatar.initial(
+                      const ZeroAvatar.initial(
                         'Outlined Card',
                         size: AvatarSize.m,
                       ),
@@ -101,8 +127,11 @@ WidgetbookComponent cardWidgetbookComponent = WidgetbookComponent(
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Outlined Card', style: context.theme.typography.body1?.copyWith(fontWeight: FontWeight.bold)),
-                          Text('ZeroCardOutlinedStyle', style: context.theme.typography.caption),
+                          Text('Outlined Card',
+                              style: context.theme.typography.body1
+                                  ?.copyWith(fontWeight: FontWeight.bold)),
+                          Text('ZeroCardOutlinedStyle',
+                              style: context.theme.typography.caption),
                         ],
                       ),
                     ],
@@ -129,9 +158,15 @@ WidgetbookComponent cardWidgetbookComponent = WidgetbookComponent(
             style: ZeroCardFilledStyle(
               backgroundColor: context.knobs.options(
                 label: 'Background Color',
-                options: [Option(label: 'Theme Color', value: context.theme.primaryColor), ...colorOptions],
+                options: [
+                  Option(
+                      label: 'Theme Color', value: context.theme.primaryColor),
+                  ...colorOptions
+                ],
               ),
-              borderRadius: BorderRadius.circular(context.knobs.number(label: 'Border Radius', initialValue: 8).toDouble()),
+              borderRadius: BorderRadius.circular(context.knobs
+                  .number(label: 'Border Radius', initialValue: 8)
+                  .toDouble()),
             ),
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -144,7 +179,7 @@ WidgetbookComponent cardWidgetbookComponent = WidgetbookComponent(
                     mainAxisAlignment: MainAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      ZeroAvatar.initial(
+                      const ZeroAvatar.initial(
                         'Filled Card',
                         size: AvatarSize.m,
                       ),
@@ -152,8 +187,11 @@ WidgetbookComponent cardWidgetbookComponent = WidgetbookComponent(
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Filled Card', style: context.theme.typography.body1?.copyWith(fontWeight: FontWeight.bold)),
-                          Text('ZeroCardFileedStyle', style: context.theme.typography.caption),
+                          Text('Filled Card',
+                              style: context.theme.typography.body1
+                                  ?.copyWith(fontWeight: FontWeight.bold)),
+                          Text('ZeroCardFileedStyle',
+                              style: context.theme.typography.caption),
                         ],
                       ),
                     ],

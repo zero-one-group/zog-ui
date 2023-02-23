@@ -38,7 +38,7 @@ class _ZeroCardExampleState extends State<ZeroCardExample> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            ZeroAvatar.initial(
+                            const ZeroAvatar.initial(
                               'Elevated Card',
                               size: AvatarSize.m,
                             ),
@@ -47,8 +47,11 @@ class _ZeroCardExampleState extends State<ZeroCardExample> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text('Elevated Card',
-                                    style: context.theme.typography.body1?.copyWith(fontWeight: FontWeight.bold)),
-                                Text('ZeroCardElevatedStyle', style: context.theme.typography.caption),
+                                    style: context.theme.typography.body1
+                                        ?.copyWith(
+                                            fontWeight: FontWeight.bold)),
+                                Text('ZeroCardElevatedStyle',
+                                    style: context.theme.typography.caption),
                               ],
                             ),
                           ],
@@ -77,7 +80,7 @@ class _ZeroCardExampleState extends State<ZeroCardExample> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            ZeroAvatar.initial(
+                            const ZeroAvatar.initial(
                               'Outlined Card',
                               size: AvatarSize.m,
                             ),
@@ -86,8 +89,11 @@ class _ZeroCardExampleState extends State<ZeroCardExample> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text('Outlined Card',
-                                    style: context.theme.typography.body1?.copyWith(fontWeight: FontWeight.bold)),
-                                Text('ZeroCardOutlinedStyle', style: context.theme.typography.caption),
+                                    style: context.theme.typography.body1
+                                        ?.copyWith(
+                                            fontWeight: FontWeight.bold)),
+                                Text('ZeroCardOutlinedStyle',
+                                    style: context.theme.typography.caption),
                               ],
                             ),
                           ],
@@ -118,7 +124,7 @@ class _ZeroCardExampleState extends State<ZeroCardExample> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            ZeroAvatar.initial(
+                            const ZeroAvatar.initial(
                               'Filled Card',
                               size: AvatarSize.m,
                             ),
@@ -126,8 +132,12 @@ class _ZeroCardExampleState extends State<ZeroCardExample> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Filled Card', style: context.theme.typography.body1?.copyWith(fontWeight: FontWeight.bold)),
-                                Text('ZeroCardFilledStyle', style: context.theme.typography.caption),
+                                Text('Filled Card',
+                                    style: context.theme.typography.body1
+                                        ?.copyWith(
+                                            fontWeight: FontWeight.bold)),
+                                Text('ZeroCardFilledStyle',
+                                    style: context.theme.typography.caption),
                               ],
                             ),
                           ],
