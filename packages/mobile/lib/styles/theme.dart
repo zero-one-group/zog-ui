@@ -333,7 +333,7 @@ class ZeroThemeData with Diagnosticable {
     );
 
     final secondaryButtonStyleFallback = ZeroButtonStyle.secondaryStyle(
-      backgroundColor: cardColor,
+      backgroundColor: Colors.transparent,
       foregroundColor: solidTextColor,
       surfaceTintColor: primaryColor.lighter,
       animatingColor: primaryColor.lighter,
@@ -341,7 +341,9 @@ class ZeroThemeData with Diagnosticable {
     );
 
     final textButtonStyleFallback = secondaryButtonStyleFallback.copyWith(
-        elevation: 0, side: BorderSide.none);
+      elevation: 0,
+      side: BorderSide.none,
+    );
 
     final dividerStyleFallback = ZeroDividerStyle.fallback(color: dividerColor);
 
