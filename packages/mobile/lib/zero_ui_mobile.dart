@@ -38,8 +38,6 @@ export './components/datepicker/modal/zero_datepicker_input.dart';
 export './components/divider/divider.dart';
 // grid
 export './components/grid/zero_grid.dart';
-// grid
-export './components/grid/zero_grid.dart';
 export './components/icons/two_tone_icons.dart';
 // icons
 export './components/icons/zero_icons.dart';
@@ -118,8 +116,11 @@ export './styles/component/card_style.dart';
 export './styles/component/card_style.dart';
 export './styles/component/checkbox_style.dart';
 export './styles/component/checkbox_style.dart';
+export './styles/component/checkbox_style.dart';
 export './styles/component/chip_style.dart';
 export './styles/component/chip_style.dart';
+export './styles/component/chip_style.dart';
+export './styles/component/divider_style.dart';
 export './styles/component/divider_style.dart';
 export './styles/component/dropdown_menu_style.dart';
 export './styles/component/expansion_tile_style.dart';
@@ -145,7 +146,6 @@ export './styles/component/switch_style.dart';
 export './styles/component/switch_style.dart';
 export './styles/component/tab_bar_style.dart';
 export './styles/component/tab_bar_style.dart';
-// component styles
 export './styles/component/textfield_style.dart';
 // component styles
 export './styles/component/textfield_style.dart';
