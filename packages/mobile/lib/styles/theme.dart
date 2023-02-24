@@ -226,7 +226,6 @@ class ZeroThemeData with Diagnosticable {
     ZeroAvatarStyle? avatarStyle,
     ZeroExpansionTileStyle? expansionTileStyle,
     ZeroMenuStyle? menuStyle,
-    ZeroButtonGroupStyleSet? buttonGroupStyle,
   }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
@@ -292,6 +291,8 @@ class ZeroThemeData with Diagnosticable {
 
     textfieldSize ??= ZeroTextfieldSize.small;
     inputDecorationType ??= InputDecorationType.underline;
+
+    menuStyle ??= ZeroMenuStyle();
 
     textfieldStyleSet ??= ZeroTextfieldStyleSet(
         outline: ZeroTextfieldStyle.outline(
