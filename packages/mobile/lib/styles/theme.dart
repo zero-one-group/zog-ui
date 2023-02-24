@@ -227,7 +227,6 @@ class ZeroThemeData with Diagnosticable {
     ZeroExpansionTileStyle? expansionTileStyle,
     ZeroButtonGroupStyleSet? buttonGroupStyle,
     ZeroMenuStyle? menuStyle,
-    ZeroButtonGroupStyleSet? buttonGroupStyle,
   }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
@@ -460,6 +459,8 @@ class ZeroThemeData with Diagnosticable {
         ZeroAvatarStyle.fallback(backgroundColor: primaryColor);
 
     final menuStyleFallback = ZeroMenuStyle.fallback();
+    final buttonGroupStyleFallback =
+        ZeroButtonGroupStyleSet.fallback(primaryColor: primaryColor);
 
     useMaterial3 ??= false;
 

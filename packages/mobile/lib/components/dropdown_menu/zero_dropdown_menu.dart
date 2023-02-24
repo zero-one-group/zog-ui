@@ -1,4 +1,3 @@
-
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
@@ -160,12 +159,13 @@ class ZeroDropdownMenu<T> extends StatelessWidget {
       menuHeight: menuHeight,
       enableFilter: enableFilter,
       onSelected: onSelected,
-      items!.map((item) {
-        return ZeroDropdownMenuEntry<T>(
-          value: item,
-          label: item.toString(),
-        );
-      }).toList(),
+      dropdownMenuEntries: entries ??
+          items!.map((item) {
+            return ZeroDropdownMenuEntry<T>(
+              value: item,
+              label: item.toString(),
+            );
+          }).toList(),
     );
   }
 }
