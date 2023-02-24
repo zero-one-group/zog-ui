@@ -227,7 +227,6 @@ class ZeroThemeData with Diagnosticable {
     ZeroAvatarStyle? avatarStyle,
     ZeroButtonGroupStyleSet? buttonGroupStyle,
     ZeroExpansionTileStyle? expansionTileStyle,
-    ZeroButtonGroupStyleSet? buttonGroupStyle,
     ZeroMenuStyle? menuStyle,
   }) {
     // TODO: Finalize the default style of theme
