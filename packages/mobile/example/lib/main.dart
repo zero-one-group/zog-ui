@@ -12,6 +12,7 @@ import 'component/datepicker/datepicker_example.dart';
 import 'component/divider/divider_example.dart';
 import 'component/dropdown/zero_dropdown_example.dart';
 import 'component/dropdown/zero_dropdown_menu_example.dart';
+import 'component/grid/zero_grid_example.dart';
 import 'component/icon/icon_example.dart';
 import 'component/listtile/listile_example.dart';
 import 'component/navigation/app_bar_example.dart';
@@ -389,6 +390,16 @@ class Examples extends StatelessWidget {
             );
           },
           text: 'Zero Speed Dial Example',
+        ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroGridExample(),
+              ),
+            );
+          },
+          text: 'Zero Grid Example',
         ),
         ZeroButton.primary(
           onPressed: () {

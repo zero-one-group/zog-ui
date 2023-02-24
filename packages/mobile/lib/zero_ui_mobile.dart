@@ -37,6 +37,8 @@ export './components/datepicker/modal/zero_datepicker_input.dart';
 // divider
 export './components/divider/divider.dart';
 export './components/icons/two_tone_icons.dart';
+// grid
+export './components/grid/zero_grid.dart';
 // icons
 export './components/icons/zero_icons.dart';
 // list
