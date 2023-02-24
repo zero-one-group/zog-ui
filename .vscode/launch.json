@@ -4,7 +4,30 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+<<<<<<< HEAD
        
+=======
+        {
+            "name": "mobile",
+            "cwd": "packages/mobile",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "mobile (profile mode)",
+            "cwd": "packages/mobile",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "mobile (release mode)",
+            "cwd": "packages/mobile",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+>>>>>>> 8281c4a (feat: added widgetbook for dropdown menu)
         {
             "name": "example",
             "cwd": "packages/mobile/example",

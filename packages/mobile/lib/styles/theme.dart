@@ -295,6 +295,8 @@ class ZeroThemeData with Diagnosticable {
     textfieldSize ??= ZeroTextfieldSize.small;
     inputDecorationType ??= InputDecorationType.underline;
 
+    menuStyle ??= ZeroMenuStyle();
+
     textfieldStyleSet ??= ZeroTextfieldStyleSet(
         outline: ZeroTextfieldStyle.outline(
             textfieldSize: textfieldSize,
