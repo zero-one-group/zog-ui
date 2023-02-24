@@ -16,12 +16,12 @@ class ZeroCard extends StatelessWidget {
   /// clip behavior of the card
   /// default is [Clip.antiAlias]
   final Clip clipBehavior;
-  ZeroCard({
+  const ZeroCard({
     super.key,
     ZeroCardStyle? style,
     required this.child,
     this.clipBehavior = Clip.antiAlias,
-  }) : style = style ?? ZeroCardStyle();
+  }) : style = style ?? const ZeroCardStyle();
 
   @override
   Widget build(BuildContext context) {

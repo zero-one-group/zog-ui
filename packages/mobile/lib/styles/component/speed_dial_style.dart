@@ -14,7 +14,7 @@ class ZeroSpeedDialStyle with Diagnosticable {
   final Color? shadowColor;
   final BorderRadius? borderRadius;
 
-  ZeroSpeedDialStyle({
+  const ZeroSpeedDialStyle({
     this.activeColor,
     this.inactiveColor,
     this.size,
@@ -26,7 +26,9 @@ class ZeroSpeedDialStyle with Diagnosticable {
     this.borderRadius,
   });
 
-  static ZeroSpeedDialStyle fallback({Color? activeColor, Color? inactiveColor}) => ZeroSpeedDialStyle(
+  static ZeroSpeedDialStyle fallback(
+          {Color? activeColor, Color? inactiveColor}) =>
+      ZeroSpeedDialStyle(
         activeColor: activeColor ?? Colors.white,
         inactiveColor: inactiveColor ?? activeColor ?? Colors.white,
         size: 56,
@@ -52,7 +54,8 @@ class ZeroSpeedDialStyle with Diagnosticable {
       inactiveColor: inactiveColor ?? this.inactiveColor,
       size: size ?? this.size,
       spacing: spacing ?? this.spacing,
-      tooltipBackgroundColor: tooltipBackgroundColor ?? this.tooltipBackgroundColor,
+      tooltipBackgroundColor:
+          tooltipBackgroundColor ?? this.tooltipBackgroundColor,
       tooltipBorderColor: tooltipBorderColor ?? this.tooltipBorderColor,
       elevation: elevation ?? this.elevation,
       shadowColor: shadowColor ?? this.shadowColor,
@@ -76,14 +79,17 @@ class ZeroSpeedDialStyle with Diagnosticable {
     );
   }
 
-  static ZeroSpeedDialStyle lerp(ZeroSpeedDialStyle? a, ZeroSpeedDialStyle? b, double t) {
+  static ZeroSpeedDialStyle lerp(
+      ZeroSpeedDialStyle? a, ZeroSpeedDialStyle? b, double t) {
     return ZeroSpeedDialStyle(
       activeColor: Color.lerp(a?.activeColor, b?.activeColor, t),
       inactiveColor: Color.lerp(a?.inactiveColor, b?.inactiveColor, t),
       size: t < 0.5 ? a?.size : b?.size,
       spacing: t < 0.5 ? a?.spacing : b?.spacing,
-      tooltipBackgroundColor: Color.lerp(a?.tooltipBackgroundColor, b?.tooltipBackgroundColor, t),
-      tooltipBorderColor: Color.lerp(a?.tooltipBorderColor, b?.tooltipBorderColor, t),
+      tooltipBackgroundColor:
+          Color.lerp(a?.tooltipBackgroundColor, b?.tooltipBackgroundColor, t),
+      tooltipBorderColor:
+          Color.lerp(a?.tooltipBorderColor, b?.tooltipBorderColor, t),
       elevation: t < 0.5 ? a?.elevation : b?.elevation,
       shadowColor: Color.lerp(a?.shadowColor, b?.shadowColor, t),
       borderRadius: BorderRadius.lerp(a?.borderRadius, b?.borderRadius, t),
@@ -97,10 +103,12 @@ class ZeroSpeedDialStyle with Diagnosticable {
     properties.add(ColorProperty('inactiveColor', inactiveColor));
     properties.add(DoubleProperty('size', size));
     properties.add(DoubleProperty('spacing', spacing));
-    properties.add(ColorProperty('tooltipBackgroundColor', tooltipBackgroundColor));
+    properties
+        .add(ColorProperty('tooltipBackgroundColor', tooltipBackgroundColor));
     properties.add(ColorProperty('tooltipBorderColor', tooltipBorderColor));
     properties.add(DoubleProperty('elevation', elevation));
     properties.add(ColorProperty('shadowColor', shadowColor));
-    properties.add(DiagnosticsProperty<BorderRadius>('borderRadius', borderRadius));
+    properties
+        .add(DiagnosticsProperty<BorderRadius>('borderRadius', borderRadius));
   }
 }

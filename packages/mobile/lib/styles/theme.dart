@@ -108,6 +108,7 @@ class ZeroThemeData with Diagnosticable {
   final ZeroRatingStyle ratingStyle;
   final ZeroSliderStyle sliderStyle;
   final ZeroAvatarStyle avatarStyle;
+  final ZeroButtonGroupStyleSet buttonGroupStyle;
 
   final Brightness brightness;
   final IconThemeData iconTheme;
@@ -169,6 +170,7 @@ class ZeroThemeData with Diagnosticable {
     required this.ratingStyle,
     required this.sliderStyle,
     required this.avatarStyle,
+    required this.buttonGroupStyle,
 
     // Others
     this.useMaterial3 = false,
@@ -220,6 +222,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroRatingStyle? ratingStyle,
     ZeroSliderStyle? sliderStyle,
     ZeroAvatarStyle? avatarStyle,
+    ZeroButtonGroupStyleSet? buttonGroupStyle,
     ZeroExpansionTileStyle? expansionTileStyle,
   }) {
     // TODO: Finalize the default style of theme
@@ -347,7 +350,7 @@ class ZeroThemeData with Diagnosticable {
     );
 
     final secondaryButtonStyleFallback = ZeroButtonStyle.secondaryStyle(
-      backgroundColor: cardColor,
+      backgroundColor: Colors.transparent,
       foregroundColor: solidTextColor,
       surfaceTintColor: primaryColor.lighter,
       animatingColor: primaryColor.lighter,
@@ -355,7 +358,9 @@ class ZeroThemeData with Diagnosticable {
     );
 
     final textButtonStyleFallback = secondaryButtonStyleFallback.copyWith(
-        elevation: 0, side: BorderSide.none);
+      elevation: 0,
+      side: BorderSide.none,
+    );
 
     final dividerStyleFallback = ZeroDividerStyle.fallback(color: dividerColor);
 
@@ -450,6 +455,9 @@ class ZeroThemeData with Diagnosticable {
     final avatarStyleFallback =
         ZeroAvatarStyle.fallback(backgroundColor: primaryColor);
 
+    final buttonGroupStyleFallback =
+        ZeroButtonGroupStyleSet.fallback(primaryColor: primaryColor);
+
     useMaterial3 ??= false;
 
     return ZeroThemeData.raw(
@@ -501,6 +509,7 @@ class ZeroThemeData with Diagnosticable {
       ratingStyle: ratingStyleFallback.merge(ratingStyle),
       sliderStyle: sliderStyleFallback.merge(sliderStyle),
       avatarStyle: avatarStyleFallback.merge(avatarStyle),
+      buttonGroupStyle: buttonGroupStyleFallback.merge(buttonGroupStyle),
     );
   }
 
@@ -568,6 +577,9 @@ class ZeroThemeData with Diagnosticable {
       ratingStyle: ZeroRatingStyle.lerp(a.ratingStyle, b.ratingStyle, t),
       sliderStyle: ZeroSliderStyle.lerp(a.sliderStyle, b.sliderStyle, t),
       avatarStyle: ZeroAvatarStyle.lerp(a.avatarStyle, b.avatarStyle, t),
+      buttonTheme: t < 0.5 ? a.buttonTheme : b.buttonTheme,
+      buttonGroupStyle: ZeroButtonGroupStyleSet.lerp(
+          a.buttonGroupStyle, b.buttonGroupStyle, t),
     );
   }
 
@@ -618,6 +630,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroRatingStyle? ratingStyle,
     ZeroSliderStyle? sliderStyle,
     ZeroAvatarStyle? avatarStyle,
+    ZeroButtonGroupStyleSet? buttonGroupStyle,
   }) {
     return ZeroThemeData.raw(
       brightness: brightness ?? this.brightness,
@@ -682,6 +695,7 @@ class ZeroThemeData with Diagnosticable {
       ratingStyle: ratingStyle ?? this.ratingStyle,
       sliderStyle: sliderStyle ?? this.sliderStyle,
       avatarStyle: avatarStyle ?? this.avatarStyle,
+      buttonGroupStyle: buttonGroupStyle ?? this.buttonGroupStyle,
     );
   }
 
