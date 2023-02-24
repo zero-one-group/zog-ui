@@ -108,6 +108,7 @@ class ZeroThemeData with Diagnosticable {
   final ZeroRatingStyle ratingStyle;
   final ZeroSliderStyle sliderStyle;
   final ZeroAvatarStyle avatarStyle;
+  final ZeroMenuStyle? menuStyle;
 
   final Brightness brightness;
   final IconThemeData iconTheme;
@@ -169,6 +170,7 @@ class ZeroThemeData with Diagnosticable {
     required this.ratingStyle,
     required this.sliderStyle,
     required this.avatarStyle,
+    this.menuStyle,
 
     // Others
     this.useMaterial3 = false,
@@ -553,6 +555,7 @@ class ZeroThemeData with Diagnosticable {
           a.navigationRailStyle, b.navigationRailStyle, t),
       switchStyle: ZeroSwitchStyleSet.lerp(a.switchStyle, b.switchStyle, t),
       tabBarStyle: ZeroTabBarStyle.lerp(a.tabBarStyle, b.tabBarStyle, t),
+      menuStyle: ZeroMenuStyle.lerp(a.menuStyle, b.menuStyle, t)!,
       inputDecorationType:
           t < 0.5 ? a.inputDecorationType : b.inputDecorationType,
       textfieldSize: t < 0.5 ? a.textfieldSize : b.textfieldSize,
@@ -618,6 +621,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroRatingStyle? ratingStyle,
     ZeroSliderStyle? sliderStyle,
     ZeroAvatarStyle? avatarStyle,
+    ZeroMenuStyle? menuStyle,
   }) {
     return ZeroThemeData.raw(
       brightness: brightness ?? this.brightness,
@@ -649,6 +653,7 @@ class ZeroThemeData with Diagnosticable {
       chipFilledStyle: chipFilledStyle ?? this.chipFilledStyle,
       chipOutlinedStyle: chipOutlinedStyle ?? this.chipOutlinedStyle,
       navigationBarStyle: navigationBarStyle ?? this.navigationBarStyle,
+      menuStyle: menuStyle ?? this.menuStyle,
       inputDecorationType: inputDecorationType ?? this.inputDecorationType,
       textfieldStyleSet: this.textfieldStyleSet.copyWith(
           inputDecorationType: inputDecorationType,

@@ -36,9 +36,6 @@ export './components/datepicker/modal/zero_datepicker.dart';
 export './components/datepicker/modal/zero_datepicker_input.dart';
 // divider
 export './components/divider/divider.dart';
-// dropdown
-export './components/dropdowns/dropdown.dart';
-export './components/dropdowns/zero_dropdown.dart';
 export './components/icons/two_tone_icons.dart';
 // icons
 export './components/icons/zero_icons.dart';
@@ -141,3 +138,7 @@ export './utils/extensions/color_extension.dart';
 export './utils/extensions/num_extensions.dart';
 // utils
 export './utils/extensions/theme_extensions.dart';
+// dropdown button
+export 'components/dropdown/dropdown_button.dart';
+export 'components/dropdown/zero_dropdown_button.dart';
+export 'components/dropdown/zero_dropdown_menu.dart';
