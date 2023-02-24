@@ -292,8 +292,6 @@ class ZeroThemeData with Diagnosticable {
     textfieldSize ??= ZeroTextfieldSize.small;
     inputDecorationType ??= InputDecorationType.underline;
 
-    menuStyle ??= ZeroMenuStyle();
-
     textfieldStyleSet ??= ZeroTextfieldStyleSet(
         outline: ZeroTextfieldStyle.outline(
             textfieldSize: textfieldSize,
@@ -460,6 +458,7 @@ class ZeroThemeData with Diagnosticable {
     final menuStyleFallback = ZeroMenuStyle.fallback();
     final buttonGroupStyleFallback =
         ZeroButtonGroupStyleSet.fallback(primaryColor: primaryColor);
+    final menuStyleFallback = ZeroMenuStyle.fallback();
 
     useMaterial3 ??= false;
 
