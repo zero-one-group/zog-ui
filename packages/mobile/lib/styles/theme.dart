@@ -637,7 +637,6 @@ class ZeroThemeData with Diagnosticable {
     ZeroRatingStyle? ratingStyle,
     ZeroSliderStyle? sliderStyle,
     ZeroAvatarStyle? avatarStyle,
-    ZeroMenuStyle? menuStyle,
     ZeroButtonGroupStyleSet? buttonGroupStyle,
     ZeroMenuStyle? menuStyle,
   }) {
