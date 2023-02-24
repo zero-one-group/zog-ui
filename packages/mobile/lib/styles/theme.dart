@@ -225,6 +225,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroSliderStyle? sliderStyle,
     ZeroAvatarStyle? avatarStyle,
     ZeroExpansionTileStyle? expansionTileStyle,
+    ZeroButtonGroupStyleSet? buttonGroupStyle,
     ZeroMenuStyle? menuStyle,
   }) {
     // TODO: Finalize the default style of theme
@@ -458,8 +459,6 @@ class ZeroThemeData with Diagnosticable {
     final menuStyleFallback = ZeroMenuStyle.fallback();
     final buttonGroupStyleFallback =
         ZeroButtonGroupStyleSet.fallback(primaryColor: primaryColor);
-    final menuStyleFallback = ZeroMenuStyle.fallback();
-
     useMaterial3 ??= false;
 
     return ZeroThemeData.raw(
