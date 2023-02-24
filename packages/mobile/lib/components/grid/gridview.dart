@@ -135,8 +135,7 @@ class __GridViewState extends State<_GridView> {
       clipBehavior: Clip.none,
       alignment: Alignment.center,
       children: [
-        Container(
-          color: Colors.transparent,
+        SizedBox(
           height: parentHeight,
           width: widget.maxWidth,
         ),
