@@ -1,11 +1,10 @@
-
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 /// [ZeroDropdownMenu] is built on top of [DropdownButtonFormField2] and [ZeroTextField]
 /// This uses decoration taken from [InputDecorationType].
-class ZeroDropdownMenu<T> extends StatefulWidget {
+class ZeroDropdownMenu<T> extends StatelessWidget {
   final String? labelText;
   final String? helperText;
   final String? hintText;
@@ -110,27 +109,10 @@ class ZeroDropdownMenu<T> extends StatefulWidget {
   }
 
   @override
-  State<ZeroDropdownMenu<T>> createState() => _ZeroDropdownMenuState<T>();
-}
-
-class _ZeroDropdownMenuState<T> extends State<ZeroDropdownMenu<T>> {
-  InputDecoration? decoration;
-  final List<T> _selectedItems = [];
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    if (widget.value != null) {
-      _selectedItems.add(widget.value as T);
-    }
-
     late InputDecorationTheme inputDecorationTheme;
 
-    switch (widget.inputDecorationType) {
+    switch (inputDecorationType) {
       case InputDecorationType.outline:
         inputDecorationTheme =
             context.theme.textfieldStyleSet.outline.toInputDecorationTheme();
@@ -154,34 +136,34 @@ class _ZeroDropdownMenuState<T> extends State<ZeroDropdownMenu<T>> {
 
     inputDecorationTheme = inputDecorationTheme.copyWith(
       isDense: false,
-      contentPadding: widget.textfieldSize.contentPadding.copyWith(
+      contentPadding: textfieldSize.contentPadding.copyWith(
           top: 16, bottom: 16), // TODO: Revisit and investigate further
       alignLabelWithHint: true,
     );
 
     return CustomDropdownMenu<T>(
-      leadingIcon: widget.leadingIcon,
-      label: widget.labelText != null
+      leadingIcon: leadingIcon,
+      label: labelText != null
           ? Text(
-              widget.labelText!,
-              style: widget.labelStyle,
+              labelText!,
+              style: labelStyle,
             )
           : null,
-      hintText: widget.hintText,
-      enabled: widget.enabled ?? true,
-      width: widget.width,
-      menuStyle: widget.menuStyle,
-      textStyle: widget.labelStyle,
-      trailingIcon: widget.trailingIcon,
+      hintText: hintText,
+      enabled: enabled ?? true,
+      width: width,
+      menuStyle: menuStyle,
+      textStyle: labelStyle,
+      trailingIcon: trailingIcon,
       inputDecorationTheme: inputDecorationTheme,
-      menuHeight: widget.menuHeight,
-      enableFilter: widget.enableFilter,
-      enableSearch: widget.enableSearch,
-      onSelected: widget.onSelected,
-      controller: widget.controller,
-      initialSelection: widget.value,
-      dropdownMenuEntries: widget.entries ??
-          widget.items!.map((item) {
+      menuHeight: menuHeight,
+      enableFilter: enableFilter,
+      enableSearch: enableSearch,
+      onSelected: onSelected,
+      controller: controller,
+      initialSelection: value,
+      dropdownMenuEntries: entries ??
+          items!.map((item) {
             return ZeroDropdownMenuEntry<T>(
               value: item,
               label: item.toString(),
