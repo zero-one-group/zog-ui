@@ -1,9 +1,11 @@
 import { CloseCircleFilled, DownOutlined } from '@ant-design/icons';
+import { CheckedState } from '@radix-ui/react-checkbox';
 import * as Popover from '@radix-ui/react-popover';
 import { keyframes } from '@stitches/react';
 import {
   ComponentProps,
   MouseEvent,
+  useCallback,
   useEffect,
   useMemo,
   useState,
@@ -121,39 +123,50 @@ const StyledIcons = styled('div', {
   color: '$gray8',
 });
 
+export type CascaderValue = string | number;
+
 export type CascaderOption = {
-  value: string;
+  value: CascaderValue;
   label: string;
   disabled?: boolean;
   children?: CascaderOption[];
 };
 
-export interface CascaderProps extends ComponentProps<typeof StyledCascader> {
+export type CascaderProps = {
   options: CascaderOption[];
   defaultValue?: string[];
   colorScheme?: string;
   trigger?: 'click' | 'hover';
   changeOnSelect?: boolean;
   displayRender?: (labels: string[]) => string;
-}
+  multiple?: boolean;
+} & ComponentProps<typeof StyledCascader>;
 
 export const Cascader = ({
   colorScheme,
   options,
   defaultValue,
   trigger = 'click',
-  css,
   changeOnSelect = false,
   displayRender,
+  multiple = false,
+  css,
   ...props
 }: CascaderProps) => {
-  const [activeValues, setActiveValues] = useState<string[]>(
+  const [activeValues, setActiveValues] = useState<CascaderValue[]>(
     defaultValue || []
   );
 
   const [value, setValue] = useState('');
 
   const [open, setOpen] = useState(false);
+
+  const [selectedValues, setSelectedValues] = useState<Set<CascaderValue>>(
+    new Set()
+  );
+  const [indeterminateValues, setIndeterminateValues] = useState<
+    Set<CascaderValue>
+  >(new Set());
 
   const columns = useMemo(() => {
     const columnList = [{ options }];
@@ -174,7 +187,7 @@ export const Cascader = ({
     return columnList;
   }, [options, activeValues]);
 
-  const getActiveLabels = (path: string[]) => {
+  const getActiveLabels = (path: CascaderValue[]) => {
     if (path && path.length > 0) {
       return path.map(
         (value, index) =>
@@ -194,7 +207,7 @@ export const Cascader = ({
     return '';
   };
 
-  const handleInputChange = (path: string[]) => {
+  const handleInputChange = (path: CascaderValue[]) => {
     setValue(handleRenderLabel(getActiveLabels(path) as string[]));
   };
 
@@ -205,14 +218,155 @@ export const Cascader = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleChangeCell = (path: string[], isLeaf: boolean) => {
+  const handleChangeCell = (path: CascaderValue[], isLeaf: boolean) => {
     setActiveValues(path);
-    if (changeOnSelect) {
-      handleInputChange(path);
-    } else if (isLeaf) {
+    if ((changeOnSelect || isLeaf) && !multiple) {
       handleInputChange(path);
     }
-    isLeaf && setOpen(false);
+    isLeaf && !multiple && setOpen(false);
+  };
+
+  const handleSelect = (
+    value: CascaderValue,
+    option: CascaderOption,
+    isSelected: CheckedState
+  ) => {
+    if (typeof isSelected === 'boolean' && isSelected) {
+      deselectAllChildren(option, value);
+    } else {
+      selectAllChildren(option, value);
+    }
+  };
+
+  const traverseCascader = (
+    root: CascaderOption,
+    callback: (option: CascaderOption) => void
+  ) => {
+    if (root.children) {
+      root.children.forEach((option) => {
+        callback(option);
+        traverseCascader(option, callback);
+      });
+    }
+  };
+
+  const checkAllSelected = useCallback(
+    (option: CascaderOption, selected: Set<CascaderValue>) => {
+      return option.children
+        ? option.children.every((value) => selected.has(value.value))
+        : false;
+    },
+    []
+  );
+
+  const checkSomeSelected = useCallback(
+    (
+      option: CascaderOption,
+      indeterminate: Set<CascaderValue>,
+      selected: Set<CascaderValue>
+    ) => {
+      if (option.children) {
+        const isChildrenHasSelected = option.children.some(
+          (value) => selected.has(value.value) || indeterminate.has(value.value)
+        );
+        return isChildrenHasSelected;
+      }
+
+      return false;
+    },
+    []
+  );
+
+  const handleValueCheck = (
+    indeterminate: Set<CascaderValue>,
+    selected: Set<CascaderValue>,
+    option: CascaderOption
+  ) => {
+    const { value } = option;
+    const newIndeterminate = new Set(indeterminate);
+    const newSelected = new Set(selected);
+    const isSomeSelected = checkSomeSelected(option, indeterminate, selected);
+    const isAllSelected = checkAllSelected(option, selected);
+
+    if (isSomeSelected && !isAllSelected) {
+      newIndeterminate.add(value);
+      newSelected.delete(value);
+    } else {
+      newIndeterminate.delete(value);
+    }
+
+    if (isAllSelected) {
+      newSelected.add(value);
+      newIndeterminate.delete(value);
+    }
+
+    return [newIndeterminate, newSelected] as const;
+  };
+
+  const traverseAndHandleValue = (
+    root: CascaderOption,
+    indeterminate: Set<CascaderValue>,
+    selected: Set<CascaderValue>
+  ) => {
+    let newIndeterminate = new Set(indeterminate);
+    let newSelected = new Set(selected);
+    if (root.children) {
+      root.children.forEach((option) => {
+        [newIndeterminate, newSelected] = handleValueCheck(
+          newIndeterminate,
+          newSelected,
+          option
+        );
+
+        return traverseAndHandleValue(option, newIndeterminate, newSelected);
+      });
+    }
+    return [newIndeterminate, newSelected] as const;
+  };
+
+  const conductValueCheck = (selectedVal: Set<CascaderValue>) => {
+    let indeterminate = new Set(indeterminateValues);
+    let selected = new Set(selectedVal);
+    options.forEach((option) => {
+      const [newIndeterminate, newSelected] = traverseAndHandleValue(
+        option,
+        indeterminate,
+        selected
+      );
+      [indeterminate, selected] = handleValueCheck(
+        newIndeterminate,
+        newSelected,
+        option
+      );
+    });
+    setIndeterminateValues(new Set(indeterminate));
+    setSelectedValues(new Set(selected));
+  };
+
+  const selectAllChildren = (
+    root: CascaderOption,
+    currentValue: CascaderValue
+  ) => {
+    const selected = new Set(selectedValues);
+    traverseCascader(root, (option) => {
+      selected.add(option.value);
+      conductValueCheck(selected);
+    });
+    selected.add(currentValue);
+    conductValueCheck(selected);
+  };
+
+  const deselectAllChildren = (
+    root: CascaderOption,
+    currentValue: CascaderValue
+  ) => {
+    const selected = new Set(selectedValues);
+    traverseCascader(root, (option) => {
+      selected.delete(option.value);
+      conductValueCheck(selected);
+    });
+    selected.delete(currentValue);
+    conductValueCheck(selected);
   };
 
   const handleClear = (e: MouseEvent<HTMLDivElement>) => {
@@ -249,10 +403,15 @@ export const Cascader = ({
                 <CascaderColumn
                   key={index}
                   handleChangeCell={handleChangeCell}
+                  handleSelectCell={handleSelect}
                   parentPath={activeValues.slice(0, index)}
                   active={activeValues[index]}
                   options={column.options}
                   trigger={trigger}
+                  multiple={multiple}
+                  colorScheme={colorScheme}
+                  selectedValues={selectedValues}
+                  indeterminateValues={indeterminateValues}
                 />
               ))}
             </StyledCascaderMenus>

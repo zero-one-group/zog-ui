@@ -21,7 +21,7 @@ import { Cascader } from '@01group-ui/core';
 
 export const CascaderStory = (args) => <Cascader {...args} />;
 
-# Cascader
+# Cascader Basic
 
 Cascade selection box. Select from a set of associated data set. Such as province/city/district, company level, things classification.
 
@@ -77,6 +77,58 @@ export const options = [
   },
 ];
 
+export const optionsMultiple = [
+  {
+    label: 'Light',
+    value: 'light',
+    children: new Array(20)
+      .fill(null)
+      .map((_, index) => ({ label: `Number ${index}`, value: index })),
+  },
+  {
+    label: 'Bamboo',
+    value: 'bamboo',
+    children: [
+      {
+        label: 'Little',
+        value: 'little',
+        children: [
+          {
+            label: 'Toy Fish',
+            value: 'fish',
+          },
+          {
+            label: 'Toy Cards',
+            value: 'cards',
+          },
+          {
+            label: 'Toy Bird',
+            value: 'bird',
+          },
+        ],
+      },
+      {
+        label: 'Little 2',
+        value: 'little2',
+        children: [
+          {
+            label: 'Toy Fish 2',
+            value: 'fish2',
+          },
+          {
+            label: 'Toy Cards 2',
+            value: 'cards2',
+          },
+          {
+            label: 'Toy Bird 2',
+            value: 'bird2',
+          },
+        ],
+      },
+    ],
+  },
+];
+
 <Canvas columns={2} withSource="close">
   <Story
     name="Basic"
@@ -105,6 +157,16 @@ export const options = [
         return labels[labels.length - 1];
       },
       options,
+    }}
+  >
+    {CascaderStory.bind()}
+  </Story>
+  <Story
+    name="Multiple"
+    args={{
+      colorScheme: 'amber',
+      multiple: true,
+      options: optionsMultiple,
     }}
   >
     {CascaderStory.bind()}
