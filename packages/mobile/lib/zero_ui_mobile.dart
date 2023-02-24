@@ -39,8 +39,6 @@ export './components/divider/divider.dart';
 // grid
 export './components/grid/zero_grid.dart';
 export './components/icons/two_tone_icons.dart';
-// grid
-export './components/grid/zero_grid.dart';
 // icons
 export './components/icons/zero_icons.dart';
 // list
