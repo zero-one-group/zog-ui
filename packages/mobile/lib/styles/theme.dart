@@ -353,7 +353,7 @@ class ZeroThemeData with Diagnosticable {
     );
 
     final secondaryButtonStyleFallback = ZeroButtonStyle.secondaryStyle(
-      backgroundColor: Colors.transparent,
+      backgroundColor: cardColor,
       foregroundColor: solidTextColor,
       surfaceTintColor: primaryColor.lighter,
       animatingColor: primaryColor.lighter,
@@ -361,9 +361,7 @@ class ZeroThemeData with Diagnosticable {
     );
 
     final textButtonStyleFallback = secondaryButtonStyleFallback.copyWith(
-      elevation: 0,
-      side: BorderSide.none,
-    );
+        elevation: 0, side: BorderSide.none);
 
     final dividerStyleFallback = ZeroDividerStyle.fallback(color: dividerColor);
 
@@ -634,11 +632,8 @@ class ZeroThemeData with Diagnosticable {
     ZeroRatingStyle? ratingStyle,
     ZeroSliderStyle? sliderStyle,
     ZeroAvatarStyle? avatarStyle,
-<<<<<<< HEAD
     ZeroMenuStyle? menuStyle,
-=======
     ZeroButtonGroupStyleSet? buttonGroupStyle,
->>>>>>> 1bb68ee (feat(mobile): Refactor & implement global theme button group)
   }) {
     return ZeroThemeData.raw(
       brightness: brightness ?? this.brightness,
