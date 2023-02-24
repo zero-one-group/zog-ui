@@ -28,7 +28,7 @@ class ZeroDropdownMenuExample extends StatelessWidget {
               ZeroDropdownMenu(
                 inputDecorationType: InputDecorationType.fill,
                 onSelected: (p0) {},
-                width: 400,
+                width: 300,
                 enableFilter: true,
                 trailingIcon: const Icon(Icons.close_outlined),
                 leadingIcon: const Icon(Icons.account_box),
