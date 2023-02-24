@@ -66,6 +66,7 @@ const StyledCascaderInput = styled('input', {
   overflow: 'hidden',
   whiteSpace: 'nowrap',
   textOverflow: 'ellipsis',
+  color: '$gray12',
   pointerEvents: 'none',
 });
 
@@ -99,7 +100,7 @@ const StyledCascaderSelector = styled('div', {
   border: '1px solid $grayA8',
   borderRadius: '$2',
   cursor: 'pointer',
-  backgroundColor: 'white',
+  backgroundColor: '$gray1',
   boxSizing: 'border-box',
 });
 

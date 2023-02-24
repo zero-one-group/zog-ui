@@ -29,7 +29,12 @@ export const TabsStory = (args) => (
     <TabsList {...args}>
       {Array.from(Array(args.countItem).keys()).map((item) => {
         return (
-          <TabsTrigger {...args} value={`tab${item}`}>
+          <TabsTrigger
+            {...args}
+            value={`tab${item}`}
+            leftIcon={<AndroidOutlined />}
+            rightIcon={<AndroidOutlined />}
+          >
             Tab {item}
           </TabsTrigger>
         );

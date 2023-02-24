@@ -7,6 +7,7 @@ import React, {
   useState,
 } from 'react';
 import { Box } from '../Box';
+import { Input } from '../Input';
 import { keyframes, styled } from '../stitches.config';
 
 const getItemColorSchemeVariants = (colorScheme?: string) => {
@@ -20,8 +21,6 @@ const slideUpAndFade = keyframes({
   '100%': { opacity: 1, transform: 'translateY(0)' },
 });
 
-const StyledAutoComplete = styled('input', {});
-
 const StyledListBoxWrapper = styled(Box, {
   position: 'relative',
   display: 'inline-block',
@@ -32,7 +31,7 @@ const StyledListBox = styled(Box, {
   top: 'calc(100% + .3rem)',
   width: '100%',
   borderRadius: '$1',
-  background: 'White',
+  background: '$gray1',
   animationDuration: '400ms',
   animationTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
   willChange: 'transform, opacity',
@@ -51,6 +50,7 @@ const StyledListBoxItem = styled(Box, {
   borderRadius: '$1',
   py: '$1',
   px: '$2',
+  color: '$gray12',
   boxSizing: 'border-box',
   variants: {
     hovered: {
@@ -113,8 +113,7 @@ const StyledScrollAreaThumb = styled(ScrollArea.Thumb, {
 
 export type AutoCompleteItem = string;
 
-export interface AutoCompleteProps
-  extends ComponentProps<typeof StyledAutoComplete> {
+export interface AutoCompleteProps extends ComponentProps<typeof Input> {
   options?: AutoCompleteItem[];
   itemsToShow?: number;
   colorScheme?: string;
@@ -267,7 +266,7 @@ export const AutoComplete: AutoCompleteComponent = ({
 
   return (
     <StyledListBoxWrapper role="combobox">
-      <StyledAutoComplete
+      <Input
         ref={inputRef}
         type="text"
         autoComplete="off"

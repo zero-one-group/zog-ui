@@ -28,6 +28,7 @@ const StyledLabel = styled('label', {
   border: '1px solid $inputDefaultBorder',
   padding: '4px 15px',
   fontSize: '14px',
+  color: '$gray12',
   borderRadius: '2px',
 });
 export const RadioButton = ({

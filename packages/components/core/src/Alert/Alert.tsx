@@ -14,39 +14,44 @@ export type AlertProps = {
   icon: ReactNode;
   extraContent: ReactNode | string;
 };
+CloseOutlined.toString = () => '.anticon-close';
 
 const StyledAlert = styled(Box, {
+  [`& ${CloseOutlined}`]: {
+    color: '$gray9',
+    marginLeft: '$4',
+  },
   minWidth: '395px',
   padding: '$2 $3',
   borderRadius: '2px',
   variants: {
     intent: {
       success: {
-        border: '1px solid #B7EB8F',
-        backgroundColor: '#F6FFED',
+        border: '1px solid $lime4',
+        backgroundColor: '$lime2',
         span: {
-          color: '#52c41a',
+          color: '$lime9',
         },
       },
       info: {
-        border: '1px solid #91D5FF',
-        backgroundColor: '#E6F7FF',
+        border: '1px solid $blue6',
+        backgroundColor: '$blue4',
         span: {
-          color: '#1890ff',
+          color: '$blue11',
         },
       },
       warning: {
-        border: '1px solid #FFE58F',
-        backgroundColor: '#FFFBE6',
+        border: '1px solid $yellow6',
+        backgroundColor: '$yellow2',
         span: {
-          color: '#fa8c16',
+          color: '$yellow11',
         },
       },
       error: {
-        border: '1px solid #FFCCC7',
-        backgroundColor: '#FFF1F0',
+        border: '1px solid $red6',
+        backgroundColor: '$red4',
         span: {
-          color: '#f5222d',
+          color: '$red11',
         },
       },
     },
@@ -73,18 +78,13 @@ export const Alert = ({
           css={{
             flex: 1,
             marginLeft: '10px',
+            color: '$gray12',
           }}
         >
           {title}
         </Text>
         {extraContent}
-        <CloseOutlined
-          onClick={onClose}
-          style={{
-            marginRight: '6px',
-            color: 'rgb(199, 199, 199)',
-          }}
-        />
+        <CloseOutlined onClick={onClose} />
       </Space>
       <Space align="center">
         <Box css={{ width: '16px', height: '16px' }}></Box>
@@ -92,6 +92,7 @@ export const Alert = ({
           css={{
             flex: 1,
             marginLeft: '10px',
+            color: '$gray12',
           }}
         >
           {description}

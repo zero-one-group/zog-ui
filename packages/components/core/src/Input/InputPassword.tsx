@@ -7,6 +7,8 @@ import { Input } from './Input';
 
 export type InputPasswordProps = ComponentPropsWithoutRef<ElementType>;
 
+EyeOutlined.toString = () => '.anticon-eye';
+EyeInvisibleOutlined.toString = () => '.anticon-eye-invisible';
 const StyledInputPassword = styled(Space, {
   input: {
     border: 'none !important',
@@ -64,6 +66,12 @@ const StyledInputPassword = styled(Space, {
       },
     },
   },
+  [`& ${EyeOutlined}`]: {
+    color: '$blue9',
+  },
+  [`& ${EyeInvisibleOutlined}`]: {
+    color: '$gray12',
+  },
   defaultVariants: {
     size: 'fullWidth',
   },
@@ -106,10 +114,7 @@ export const InputPassword = ({
       {type === 'password' ? (
         <EyeInvisibleOutlined onClick={() => setType('text')} />
       ) : (
-        <EyeOutlined
-          style={{ color: '#1890FF' }}
-          onClick={() => setType('password')}
-        />
+        <EyeOutlined onClick={() => setType('password')} />
       )}
     </StyledInputPassword>
   );

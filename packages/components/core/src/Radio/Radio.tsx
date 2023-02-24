@@ -12,6 +12,9 @@ export interface RadioProps {
   name: string;
 }
 const StlyedRadio = styled(Space, {
+  label: {
+    color: '$gray12',
+  },
   alignItems: 'center',
   fontSize: '$2',
   'input[type=radio]': {
@@ -35,8 +38,6 @@ const StlyedRadio = styled(Space, {
     border: '1px solid $blue9',
     borderRadius: '100%',
     display: 'block',
-    width: '13px',
-    height: '13px',
     cursor: 'pointer',
     appearance: 'auto',
     boxSizing: 'border-box',
@@ -44,26 +45,28 @@ const StlyedRadio = styled(Space, {
   'input[type=radio]:active::before': {
     content: '""',
     border: '1px solid $blue9',
-    boxShadow: '0px 0px 1px 1px #E6F7FF',
+    boxShadow: '0px 0px 1px 1px $colors$blue5',
   },
   'input[type=radio]:checked::before': {
     border: '4px solid $gray1',
     cursor: 'pointer',
     boxSizing: 'border-box',
-    outline: 'auto',
+    outlineStyle: 'solid',
+    outlineOffset: '-1px',
+    outlineWidth: '2px',
     outlineColor: '$blue9',
-    boxShadow: 'inset 0em 0em 0px 20px rgb(0, 144, 255)',
+    boxShadow: 'inset 0em 0em 0px 20px $colors$blue9',
   },
   position: 'relative',
   'input[type=radio]:checked:active::after': {
     content: '""',
     position: 'absolute',
-    top: '3.3px',
-    boxShadow: '0px 0px 1px 1px #E6F7FF',
+    top: '1.3px',
+    boxShadow: '0px 0px 1px 1px $colors$blue5',
     borderRadius: '100%',
     display: 'block',
-    width: '13px',
-    height: '13px',
+    width: '14px',
+    height: '14px',
     cursor: 'pointer',
     appearance: 'auto',
     boxSizing: 'border-box',
@@ -74,14 +77,14 @@ const StlyedRadio = styled(Space, {
   },
   'input[type=radio]:disabled:checked::before': {
     pointerEvents: 'none',
-    outlineColor: 'rgba(0, 0, 0, 0.44)',
-    boxShadow: 'inset 0em 0em 0px 20px rgba(0, 0, 0, 0.44)',
+    outlineColor: '$colors$gray10',
+    boxShadow: 'inset 0em 0em 0px 20px $colors$gray10',
   },
   'input[type=radio]:disabled:checked:hover::before': {
     pointerEvents: 'none',
     borderColor: '$gray1',
-    outlineColor: 'rgba(0, 0, 0, 0.44)',
-    boxShadow: 'inset 0em 0em 0px 20px rgba(0, 0, 0, 0.44)',
+    outlineColor: '$colors$gray10',
+    boxShadow: 'inset 0em 0em 0px 20px $colors$gray10',
   },
   'input[type=radio]:disabled:checked:active::after': {
     pointerEvents: 'none',

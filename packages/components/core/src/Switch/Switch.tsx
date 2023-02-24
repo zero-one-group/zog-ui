@@ -25,7 +25,7 @@ const SwitchRoot = styled(RadixSwitch.Root, {
   WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)',
   overflow: 'hidden',
   width: 'auto',
-  color: 'white',
+  color: '$gray1',
   fontFamily: '$untitled',
   '&:focus': {
     boxShadow: `0 0 0 2px $$bgSwitchFocus`,
@@ -58,7 +58,7 @@ const SwitchThumb = styled(RadixSwitch.Thumb, {
   alignItems: 'center',
   justifyContent: 'center',
   position: 'absolute',
-  backgroundColor: 'white',
+  backgroundColor: '$gray1',
   borderRadius: '9999px',
   boxShadow: `0 2px 2px $blackA9`,
   top: '2px',
@@ -95,7 +95,7 @@ const rotate = keyframes({
 
 const StyledLoader = styled('div', {
   borderRadius: '50%',
-  border: '1px solid white',
+  border: '1px solid $gray1',
   animation: `${rotate} 1s linear infinite`,
   variants: {
     size: {

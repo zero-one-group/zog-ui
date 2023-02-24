@@ -31,7 +31,7 @@ const StyledButton = styled('button', {
   justifyContent: 'center',
   lineHeight: '1',
   WebkitTapHighlightColor: 'rgba(0,0,0,0)',
-
+  color: '$gray12',
   // Custom
   height: '$5',
   px: '$2',

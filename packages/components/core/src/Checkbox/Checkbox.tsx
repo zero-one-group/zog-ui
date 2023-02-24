@@ -13,6 +13,7 @@ const StyledCheckboxLabel = styled('label', {
   display: 'inline-flex',
   alignItems: 'center',
   columnGap: '.5em',
+  color: '$gray12',
   fontFamily: '$untitled',
   cursor: 'pointer',
   variants: {
@@ -30,7 +31,7 @@ const StyledCheckboxRoot = styled(CheckboxPrimitive.Root, {
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
-  backgroundColor: 'white',
+  backgroundColor: 'transparent',
   outline: 'none',
   border: '1px solid $inputDefaultBorder',
   borderRadius: '.1em',
@@ -39,8 +40,8 @@ const StyledCheckboxRoot = styled(CheckboxPrimitive.Root, {
   height: '1em',
   '&:disabled': {
     cursor: 'not-allowed',
-    backgroundColor: '#F4F6F7 !important',
     border: '1px solid $inputDefaultBorder  !important',
+    backgroundColor: '$gray3 !important',
   },
   '&:hover': {
     border: '1px solid $$bgCheck',
@@ -51,7 +52,7 @@ const StyledCheckboxRoot = styled(CheckboxPrimitive.Root, {
   },
 });
 const StyledCheckboxIndicator = styled(CheckboxPrimitive.Indicator, {
-  color: 'white',
+  color: '$gray12',
   height: '1em',
   fontSize: '.7em',
   '&[data-disabled=""]': {

@@ -13,7 +13,7 @@ const Box = styled('div', {
 });
 
 const StyledCard = styled(Box, {
-  background: 'white',
+  background: '$gray1',
   border: 'none',
   margin: 0,
   padding: 0,
@@ -26,7 +26,7 @@ const StyledCard = styled(Box, {
     bordered: {
       true: {
         boxShadow: 'unset',
-        border: '1px solid #f0f0f0',
+        border: '1px solid $gray7',
       },
     },
   },
@@ -37,10 +37,10 @@ const StyledHead = styled(Box, {
   justifyContent: 'center',
   flexDirection: 'column',
   marginBottom: '-1px',
-  color: '$blackA12',
+  color: '$gray12',
   fontSize: '16px',
   background: 'transparent',
-  borderBottom: '1px solid #f0f0f0',
+  borderBottom: '1px solid $gray7',
   variants: {
     size: {
       sm: {
@@ -77,6 +77,7 @@ const StyledExtra = styled('div', {
 });
 
 const StyledBody = styled(Box, {
+  color: '$gray12',
   variants: {
     size: {
       sm: {
@@ -114,10 +115,10 @@ const StyledActions = styled('ul', {
   minHeight: '40px',
   margin: 0,
   padding: 0,
-  color: '$blackA9',
+  color: '$gray9',
   fontSize: '16px',
   background: 'transparent',
-  borderTop: '1px solid #f0f0f0',
+  borderTop: '1px solid $gray7',
   listStyle: 'none',
 });
 
@@ -126,7 +127,7 @@ const StyledActionLi = styled('li', {
   margin: '12px 0',
   textAlign: 'center',
   '&:not(:last-child)': {
-    borderInlineEnd: '1px solid #f0f0f0',
+    borderInlineEnd: '1px solid $gray7',
   },
 });
 

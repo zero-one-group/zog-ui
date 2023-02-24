@@ -10,6 +10,7 @@ const StyledTextArea = styled(Space, {
     height: '$6',
     border: '1px solid $inputDefaultBorder',
     transition: 'border .1s ease-in-out',
+    backgroundColor: 'transparent',
   },
   'textarea:focus': {
     borderColor: '$blue9',

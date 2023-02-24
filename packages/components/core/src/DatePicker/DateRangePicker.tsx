@@ -21,6 +21,21 @@ const getColorSchemeVariants = (colorScheme?: string) => {
 const PREFIX_CLS = 'zero-picker';
 
 const StyledWrapperPicker = styled('div', {
+  input: {
+    backgroundColor: 'transparent',
+  },
+  '.zero-picker-panel': {
+    background: '$gray1 !important',
+  },
+  'button, th, td': {
+    color: '$gray12 !important',
+  },
+  '.zero-picker-time-panel-cell-inner': {
+    color: '$gray12 !important',
+  },
+  'input::placeholder, .zero-picker-suffix, .zero-picker-range-separator': {
+    color: '$gray9 !important',
+  },
   width: 350,
   position: 'relative',
   [`.${PREFIX_CLS}`]: {

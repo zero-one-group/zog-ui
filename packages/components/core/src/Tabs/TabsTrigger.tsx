@@ -13,10 +13,11 @@ type TabsTriggerProps = {
 
 const StyledTabsTrigger = styled(TabsPrimitive.Trigger, {
   position: 'relative',
-  backgroundColor: 'red',
-
   '&[data-state=active]': {
     color: '$blue9',
+    span: {
+      color: '$blue9',
+    },
     boxShadow: 'inset 0 -1px 0 0 currentColor, 0 1px 0 0 currentColor',
   },
   '&[data-orientation=vertical]': {
@@ -27,6 +28,7 @@ const StyledTabsTrigger = styled(TabsPrimitive.Trigger, {
     },
   },
   span: {
+    color: '$gray12',
     width: 'max-content',
   },
 });

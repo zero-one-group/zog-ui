@@ -84,7 +84,7 @@ const StyledSliderDot = styled('span', {
   display: 'block',
   width: 3,
   height: 3,
-  backgroundColor: 'white',
+  backgroundColor: '$gray1',
   boxShadow: `0 0 0 2px $$bgSliderDisabled`,
   borderRadius: 3,
   transform: 'translateY(-50%)',

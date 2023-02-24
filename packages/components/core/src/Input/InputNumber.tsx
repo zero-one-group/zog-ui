@@ -90,7 +90,7 @@ const StyledInputNumber = styled(Space, {
     },
     disabled: {
       true: {
-        backgroundColor: '#f8f8f8',
+        backgroundColor: '$gray3',
       },
     },
     isInvalid: {

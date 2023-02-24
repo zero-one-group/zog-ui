@@ -17,6 +17,7 @@ import {
   useState,
 } from 'react';
 import { useFormDisabledContext, useFormItemContext } from '../Form';
+import { Input } from '../Input';
 import { Space } from '../Space';
 import { styled } from '../stitches.config';
 
@@ -78,7 +79,7 @@ const StyledSelect = styled('div', {
   border: '1px solid $inputDefaultBorder',
   boxSizing: 'border-box',
   padding: '0 12px',
-  background: 'white',
+  background: 'transparent',
   cursor: 'pointer',
   fontSize: '14px',
   transition:
@@ -101,7 +102,7 @@ const StyledSelect = styled('div', {
           pointerEvents: 'none',
         },
         borderColor: '$inputDefaultBorder !important',
-        background: '#F5F5F5',
+        background: '$gray3',
       },
     },
     size: {
@@ -135,7 +136,7 @@ const StyledArrow = styled(Box, {
   display: 'flex',
   alignItems: 'center',
   paddingInlineStart: '6px',
-  color: '$blackA9',
+  color: '$gray9',
   position: 'relative',
 });
 const StyledClear = styled(Box, {
@@ -143,11 +144,12 @@ const StyledClear = styled(Box, {
   position: 'absolute',
   right: '0',
   cursor: 'pointer',
-  background: 'white',
-  color: '$blackA8',
+  borderRadius: '100%',
+  background: '$gray1',
+  color: '$gray9',
   opacity: 0,
   ':hover': {
-    color: '$blackA11',
+    color: '$gray11',
   },
 });
 
@@ -169,10 +171,10 @@ const StyledSelectedSingleItem = styled('span', {
 });
 
 const StyledPlaceholder = styled('span', {
-  color: '$blackA9',
   whiteSpace: 'nowrap',
   pointerEvents: 'none',
   display: 'block',
+  color: '$gray10',
   variants: {
     hide: {
       true: {
@@ -192,7 +194,7 @@ const StyledPlaceholder = styled('span', {
     },
   },
 });
-const StyledInput = styled('input', {
+const StyledInput = styled(Input, {
   position: 'absolute',
   top: 0,
   inset: 0,
@@ -249,12 +251,13 @@ const StyledSelectedMultipleItem = styled('span', {
   gridTemplateColumns: 'auto auto',
   borderRadius: '2px',
   padding: '0 5px 0 8px',
-  border: '1px solid #F0F0F0',
-  background: '#F5F5F5',
+  border: '1px solid $gray4',
+  background: '$gray3',
   height: '24px',
   gap: '4px',
   alignItems: 'center',
   whiteSpace: 'nowrap',
+  color: '$gray12',
   variants: {
     size: {
       sm: {
@@ -278,10 +281,10 @@ const StyledBtnRemove = styled('span', {
   display: 'inline-flex',
   alignItems: 'center',
   fontSize: '10px',
-  color: '$blackA8',
+  color: '$gray9',
   cursor: 'pointer',
   '&:hover': {
-    color: '$blackA12',
+    color: '$gray12',
   },
 });
 
@@ -368,7 +371,7 @@ const StyledOptionItem = styled(Box, {
   padding: '5px 12px',
   cursor: 'pointer',
   '&:hover': {
-    background: '#F5F5F5',
+    background: '$gray3',
   },
   variants: {
     selected: {
