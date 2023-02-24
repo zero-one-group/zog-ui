@@ -111,9 +111,9 @@ WidgetbookComponent dropdownMenuWidgetbookComponent = WidgetbookComponent(
               textfieldSize:
                   context.knobs.options(label: 'Size', options: sizeOptions),
               leadingIcon: context.knobs
-                  .options(label: 'Suffix Icon', options: suffixOptions),
+                  .options(label: 'Leading Icon', options: iconsOptions),
               trailingIcon: context.knobs
-                  .options(label: 'Suffix Icon', options: suffixOptions),
+                  .options(label: 'Trailing Icon', options: suffixOptions),
               items: items,
               onSelected: (value) {},
             ),
