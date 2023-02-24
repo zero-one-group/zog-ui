@@ -51,7 +51,7 @@ class __GridViewState extends State<_GridView> {
     return List.generate(
       widget.children.length,
       (index) {
-        Widget toRender = Container();
+        Widget toRender = const SizedBox();
         ZeroGridItem item = widget.children[index];
         assert(item.mainAxisCount <= numColumns, 'Main axis count must be less than or equal to numColumns');
         assert(item.mainAxisCount > 0, 'Main axis count must be greater than 0');
