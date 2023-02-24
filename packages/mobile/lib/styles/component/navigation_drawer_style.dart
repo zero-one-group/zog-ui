@@ -83,8 +83,10 @@ class ZeroNavigationDrawerStyle with Diagnosticable {
 
     return copyWith(
       backgroundColor: other.backgroundColor,
-      headerTitleStyle: other.headerTitleStyle,
-      sectionTitleStyle: other.sectionTitleStyle,
+      headerTitleStyle: headerTitleStyle?.merge(other.headerTitleStyle) ??
+          other.headerTitleStyle,
+      sectionTitleStyle: sectionTitleStyle?.merge(other.sectionTitleStyle) ??
+          other.sectionTitleStyle,
       separatorDrawer: other.separatorDrawer,
       shape: other.shape,
       width: other.width,

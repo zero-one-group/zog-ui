@@ -136,10 +136,12 @@ class _ZeroSpeedDialEndTopExample extends StatefulWidget {
   });
 
   @override
-  State<_ZeroSpeedDialEndTopExample> createState() => __ZeroSpeedDialEndTopExampleState();
+  State<_ZeroSpeedDialEndTopExample> createState() =>
+      __ZeroSpeedDialEndTopExampleState();
 }
 
-class __ZeroSpeedDialEndTopExampleState extends State<_ZeroSpeedDialEndTopExample> {
+class __ZeroSpeedDialEndTopExampleState
+    extends State<_ZeroSpeedDialEndTopExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -147,7 +149,7 @@ class __ZeroSpeedDialEndTopExampleState extends State<_ZeroSpeedDialEndTopExampl
         title: const Text('Zero Speed Dial Example'),
       ),
       floatingActionButton: ZeroSpeedDial(
-        style: ZeroSpeedDialStyle(
+        style: const ZeroSpeedDialStyle(
           inactiveColor: Colors.green,
           activeColor: Colors.purple,
           size: 50,
@@ -173,7 +175,7 @@ class __ZeroSpeedDialEndTopExampleState extends State<_ZeroSpeedDialEndTopExampl
           ),
           ZeroSpeedDialItem(
             backgroundColor: Colors.red,
-            child: Icon(Icons.add),
+            child: const Icon(Icons.add),
             onTap: () {
               log('Hello');
             },

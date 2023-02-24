@@ -54,7 +54,7 @@ class ZeroButtonStyle with Diagnosticable {
   ButtonStyle toButtonStyle() {
     return TextButton.styleFrom(
       backgroundColor: backgroundColor,
-      foregroundColor: foregroundColor,
+      foregroundColor: backgroundColor,
       disabledBackgroundColor: disabledForegroundColor,
       disabledForegroundColor: disabledBackgroundColor,
       surfaceTintColor: surfaceTintColor,
@@ -192,7 +192,7 @@ class ZeroButtonStyle with Diagnosticable {
       shadowColor: other.shadowColor,
       surfaceTintColor: other.surfaceTintColor,
       elevation: other.elevation,
-      textStyle: other.textStyle,
+      textStyle: textStyle?.merge(other.textStyle) ?? other.textStyle,
       padding: other.padding,
       minimumSize: other.minimumSize,
       fixedSize: other.fixedSize,

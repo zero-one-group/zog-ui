@@ -25,7 +25,7 @@ class ZeroCardStyle with Diagnosticable {
   /// If false, the border is painted behind the card's child.
   final bool? borderOnForeground;
 
-  ZeroCardStyle({
+  const ZeroCardStyle({
     this.backgroundColor,
     this.elevation,
     this.borderRadius,
@@ -48,7 +48,8 @@ class ZeroCardStyle with Diagnosticable {
       ZeroCardStyle(
         backgroundColor: backgroundColor ?? Colors.white,
         elevation: elevation ?? 4,
-        borderRadius: borderRadius ?? const BorderRadius.all(Radius.circular(8)),
+        borderRadius:
+            borderRadius ?? const BorderRadius.all(Radius.circular(8)),
         side: side ?? BorderSide.none,
         shadowColor: shadowColor ?? Colors.black,
         margin: margin ?? const EdgeInsets.all(0),
@@ -91,14 +92,18 @@ class ZeroCardStyle with Diagnosticable {
   }
 
   /// lerp between two [ZeroCardStyle]
-  static ZeroCardStyle lerp(ZeroCardStyle? a, ZeroCardStyle? b, double t) => ZeroCardStyle(
+  static ZeroCardStyle lerp(ZeroCardStyle? a, ZeroCardStyle? b, double t) =>
+      ZeroCardStyle(
         backgroundColor: Color.lerp(a?.backgroundColor, b?.backgroundColor, t),
         elevation: t < 0.5 ? a?.elevation : b?.elevation,
-        borderRadius: BorderRadiusGeometry.lerp(a?.borderRadius, b?.borderRadius, t),
-        side: BorderSide.lerp(a?.side ?? BorderSide.none, b?.side ?? BorderSide.none, t),
+        borderRadius:
+            BorderRadiusGeometry.lerp(a?.borderRadius, b?.borderRadius, t),
+        side: BorderSide.lerp(
+            a?.side ?? BorderSide.none, b?.side ?? BorderSide.none, t),
         shadowColor: Color.lerp(a?.shadowColor, b?.shadowColor, t),
         margin: EdgeInsetsGeometry.lerp(a?.margin, b?.margin, t),
-        borderOnForeground: t < 0.5 ? a?.borderOnForeground : b?.borderOnForeground,
+        borderOnForeground:
+            t < 0.5 ? a?.borderOnForeground : b?.borderOnForeground,
       );
 
   @override
@@ -106,17 +111,19 @@ class ZeroCardStyle with Diagnosticable {
     super.debugFillProperties(properties);
     properties.add(ColorProperty('backgroundColor', backgroundColor));
     properties.add(DoubleProperty('elevation', elevation));
-    properties.add(DiagnosticsProperty<BorderRadiusGeometry>('borderRadius', borderRadius));
+    properties.add(DiagnosticsProperty<BorderRadiusGeometry>(
+        'borderRadius', borderRadius));
     properties.add(DiagnosticsProperty<BorderSide>('side', side));
     properties.add(ColorProperty('shadowColor', shadowColor));
     properties.add(DiagnosticsProperty<EdgeInsetsGeometry>('margin', margin));
-    properties.add(FlagProperty('borderOnForeground', value: borderOnForeground, ifTrue: 'borderOnForeground'));
+    properties.add(FlagProperty('borderOnForeground',
+        value: borderOnForeground, ifTrue: 'borderOnForeground'));
   }
 }
 
 /// a style for [ZeroCard] with border line and no shadow/elevation
 class ZeroCardOutlinedStyle extends ZeroCardStyle {
-  ZeroCardOutlinedStyle({
+  const ZeroCardOutlinedStyle({
     Color? backgroundColor,
     BorderRadiusGeometry? borderRadius,
     BorderSide? side,
@@ -134,7 +141,7 @@ class ZeroCardOutlinedStyle extends ZeroCardStyle {
 
 /// a style for [ZeroCard] with elevation
 class ZeroCardElevatedStyle extends ZeroCardStyle {
-  ZeroCardElevatedStyle({
+  const ZeroCardElevatedStyle({
     Color? backgroundColor,
     double? elevation,
     BorderRadiusGeometry? borderRadius,
@@ -155,7 +162,7 @@ class ZeroCardElevatedStyle extends ZeroCardStyle {
 
 /// a style for [ZeroCard] with background color and no border line and no shadow/elevation
 class ZeroCardFilledStyle extends ZeroCardStyle {
-  ZeroCardFilledStyle({
+  const ZeroCardFilledStyle({
     required Color? backgroundColor,
     BorderRadiusGeometry? borderRadius,
     BorderSide? side,
