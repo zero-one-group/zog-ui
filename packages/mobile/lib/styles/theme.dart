@@ -227,10 +227,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroSliderStyle? sliderStyle,
     ZeroAvatarStyle? avatarStyle,
     ZeroExpansionTileStyle? expansionTileStyle,
-<<<<<<< HEAD
     ZeroButtonGroupStyleSet? buttonGroupStyle,
-=======
->>>>>>> bb5c897 (feat: added widgetbook for dropdown menu)
     ZeroMenuStyle? menuStyle,
   }) {
     // TODO: Finalize the default style of theme
@@ -297,8 +294,6 @@ class ZeroThemeData with Diagnosticable {
 
     textfieldSize ??= ZeroTextfieldSize.small;
     inputDecorationType ??= InputDecorationType.underline;
-
-    menuStyle ??= ZeroMenuStyle();
 
     textfieldStyleSet ??= ZeroTextfieldStyleSet(
         outline: ZeroTextfieldStyle.outline(

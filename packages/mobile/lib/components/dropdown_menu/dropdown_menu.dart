@@ -467,11 +467,7 @@ class _CustomDropdownMenuState<T> extends State<CustomDropdownMenu<T>> {
     }
 
     if (widget.menuHeight != null) {
-<<<<<<< HEAD
       effectiveMenuStyle = effectiveMenuStyle.copyWith(
-=======
-      effectiveMenuStyle = effectiveMenuStyle?.copyWith(
->>>>>>> bb5c897 (feat: added widgetbook for dropdown menu)
           maximumSize: MaterialStatePropertyAll<Size>(
               Size(double.infinity, widget.menuHeight!)));
     }
