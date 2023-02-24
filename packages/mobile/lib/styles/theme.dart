@@ -109,6 +109,7 @@ class ZeroThemeData with Diagnosticable {
   final ZeroSliderStyle sliderStyle;
   final ZeroAvatarStyle avatarStyle;
   final ZeroMenuStyle menuStyle;
+
   final ZeroButtonGroupStyleSet buttonGroupStyle;
 
   final Brightness brightness;
@@ -224,6 +225,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroRatingStyle? ratingStyle,
     ZeroSliderStyle? sliderStyle,
     ZeroAvatarStyle? avatarStyle,
+    ZeroButtonGroupStyleSet? buttonGroupStyle,
     ZeroExpansionTileStyle? expansionTileStyle,
     ZeroButtonGroupStyleSet? buttonGroupStyle,
     ZeroMenuStyle? menuStyle,
@@ -355,7 +357,7 @@ class ZeroThemeData with Diagnosticable {
     );
 
     final secondaryButtonStyleFallback = ZeroButtonStyle.secondaryStyle(
-      backgroundColor: cardColor,
+      backgroundColor: Colors.transparent,
       foregroundColor: solidTextColor,
       surfaceTintColor: primaryColor.lighter,
       animatingColor: primaryColor.lighter,
@@ -363,7 +365,9 @@ class ZeroThemeData with Diagnosticable {
     );
 
     final textButtonStyleFallback = secondaryButtonStyleFallback.copyWith(
-        elevation: 0, side: BorderSide.none);
+      elevation: 0,
+      side: BorderSide.none,
+    );
 
     final dividerStyleFallback = ZeroDividerStyle.fallback(color: dividerColor);
 
