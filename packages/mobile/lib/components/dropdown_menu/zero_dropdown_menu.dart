@@ -1,4 +1,3 @@
-
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
@@ -133,7 +132,7 @@ class _ZeroDropdownMenuState<T> extends State<ZeroDropdownMenu<T>> {
     switch (widget.inputDecorationType) {
       case InputDecorationType.outline:
         inputDecorationTheme =
-            context.theme.textfieldStyleSet.filled.toInputDecorationTheme();
+            context.theme.textfieldStyleSet.outline.toInputDecorationTheme();
         break;
       case InputDecorationType.rounded:
         inputDecorationTheme =
