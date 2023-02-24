@@ -1,6 +1,7 @@
 import React, {
   createContext,
-  ReactNode,
+  FC,
+  PropsWithChildren,
   useCallback,
   useContext,
   useRef,
@@ -10,7 +11,7 @@ import { NotificationPlacement } from './NotificationViewport';
 
 const NotificationSpot = React.lazy(() => import('./NotificationSpot'));
 
-type NotifyArg = NotificationData & { placement: NotificationPlacement };
+type NotifyArg = NotificationData & { placement?: NotificationPlacement };
 
 type NotificationContextType = {
   notify: (data: NotifyArg) => void;
@@ -24,19 +25,22 @@ const NotificationContext = createContext<NotificationContextType>({
 
 export type NotificationProviderProps = {
   placements?: NotificationPlacement[] | 'all';
-  children?: ReactNode;
 };
 
-export const NotificationProvider = ({
-  placements = ['bottom-right'],
-  children,
-}: NotificationProviderProps) => {
+const DEFAULT_PLACEMENT = 'bottom-right';
+
+export const NotificationProvider: FC<
+  PropsWithChildren<NotificationProviderProps>
+> = ({ placements = [DEFAULT_PLACEMENT], children }) => {
   const topLeftSpotRef = useRef<NotificationSpotHandle>(null);
   const topRightSpotRef = useRef<NotificationSpotHandle>(null);
   const bottomLeftSpotRef = useRef<NotificationSpotHandle>(null);
   const bottomRightSpotRef = useRef<NotificationSpotHandle>(null);
 
   const notify = ({ placement, ...notifData }: NotifyArg) => {
+    if (!placement) {
+      placement = DEFAULT_PLACEMENT;
+    }
     switch (placement) {
       case 'top-left':
         topLeftSpotRef.current?.addNotif(notifData);
@@ -73,11 +77,13 @@ export const NotificationProvider = ({
   );
 };
 
-export const useNotification = ({
-  placement,
-}: {
-  placement?: NotificationPlacement;
-}) => {
+export type UseNotificationArg = { placement?: NotificationPlacement };
+
+const defaultUseNotificationArg = {
+  placement: DEFAULT_PLACEMENT,
+} as UseNotificationArg;
+
+export const useNotification = ({ placement } = defaultUseNotificationArg) => {
   const { notify: baseNotify } = useContext(NotificationContext);
 
   const placementNotify = useCallback(
