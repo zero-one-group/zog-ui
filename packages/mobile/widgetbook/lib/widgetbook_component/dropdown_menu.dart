@@ -85,11 +85,67 @@ List<Option<double>> widths = [
   const Option(label: '400', value: 400.0),
 ];
 
+<<<<<<< HEAD
 WidgetbookComponent dropdownMenuWidgetbookComponent = WidgetbookComponent(
   name: 'Dropdown Menu',
   useCases: [
     WidgetbookUseCase(
         name: 'Dropdown Menu',
+=======
+WidgetbookComponent dropdownWidgetbookComponent = WidgetbookComponent(
+  name: 'Dropdown Menu',
+  useCases: [
+    WidgetbookUseCase(
+        name: 'Default',
+        builder: (context) {
+          return PreviewWidget(
+              child: ZeroDropdown(
+            items: items,
+            hintText: context.knobs
+                .text(
+                  label: 'Hint Text',
+                  initialValue: 'Hint ',
+                )
+                .toString(),
+            labelText: context.knobs
+                .text(
+                  label: 'Label Text',
+                  initialValue: 'Label Text',
+                )
+                .toString(),
+            inputDecorationType: context.knobs
+                .options(label: 'Decoration', options: decorationOptions),
+            onChanged: (value) {},
+            textfieldSize:
+                context.knobs.options(label: 'Size', options: sizeOptions),
+            suffixIcon: context.knobs
+                .options(label: 'Suffix Icon', options: suffixOptions),
+          ));
+        }),
+    WidgetbookUseCase(
+        name: 'Default (No Label)',
+        builder: (context) {
+          return PreviewWidget(
+              child: ZeroDropdown(
+            items: items,
+            hintText: context.knobs
+                .text(
+                  label: 'Hint Text',
+                  initialValue: 'Hint ',
+                )
+                .toString(),
+            inputDecorationType: context.knobs
+                .options(label: 'Decoration', options: decorationOptions),
+            onChanged: (value) {},
+            textfieldSize:
+                context.knobs.options(label: 'Size', options: sizeOptions),
+            suffixIcon: context.knobs
+                .options(label: 'Suffix Icon', options: suffixOptions),
+          ));
+        }),
+    WidgetbookUseCase(
+        name: 'Multiple',
+>>>>>>> bb5c897 (feat: added widgetbook for dropdown menu)
         builder: (context) {
           return PreviewWidget(
             child: ZeroDropdownMenu(
@@ -111,9 +167,15 @@ WidgetbookComponent dropdownMenuWidgetbookComponent = WidgetbookComponent(
               textfieldSize:
                   context.knobs.options(label: 'Size', options: sizeOptions),
               leadingIcon: context.knobs
+<<<<<<< HEAD
                   .options(label: 'Leading Icon', options: iconsOptions),
               trailingIcon: context.knobs
                   .options(label: 'Trailing Icon', options: suffixOptions),
+=======
+                  .options(label: 'Suffix Icon', options: suffixOptions),
+              trailingIcon: context.knobs
+                  .options(label: 'Suffix Icon', options: suffixOptions),
+>>>>>>> bb5c897 (feat: added widgetbook for dropdown menu)
               items: items,
               onSelected: (value) {},
             ),

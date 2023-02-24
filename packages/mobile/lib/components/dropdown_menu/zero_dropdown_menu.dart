@@ -158,17 +158,13 @@ class ZeroDropdownMenu<T> extends StatelessWidget {
       inputDecorationTheme: inputDecorationTheme,
       menuHeight: menuHeight,
       enableFilter: enableFilter,
-      enableSearch: enableSearch,
       onSelected: onSelected,
-      controller: controller,
-      initialSelection: value,
-      dropdownMenuEntries: entries ??
-          items!.map((item) {
-            return ZeroDropdownMenuEntry<T>(
-              value: item,
-              label: item.toString(),
-            );
-          }).toList(),
+      items!.map((item) {
+        return ZeroDropdownMenuEntry<T>(
+          value: item,
+          label: item.toString(),
+        );
+      }).toList(),
     );
   }
 }
