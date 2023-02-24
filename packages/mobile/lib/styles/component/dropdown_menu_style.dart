@@ -296,6 +296,28 @@ class ZeroMenuStyle with Diagnosticable {
     );
   }
 
+  /// Default [ZeroMenuStyle] falls back to [MenuStyle]
+  /// TODO: specify default style values for [ZeroMenuStyle]
+  static ZeroMenuStyle fallback() {
+    const MenuStyle defaultStyle = MenuStyle();
+
+    return ZeroMenuStyle(
+      backgroundColor: defaultStyle.backgroundColor,
+      shadowColor: defaultStyle.shadowColor,
+      surfaceTintColor: defaultStyle.surfaceTintColor,
+      elevation: defaultStyle.elevation,
+      padding: defaultStyle.padding,
+      minimumSize: defaultStyle.minimumSize,
+      fixedSize: defaultStyle.fixedSize,
+      maximumSize: defaultStyle.maximumSize,
+      side: defaultStyle.side,
+      shape: defaultStyle.shape,
+      mouseCursor: defaultStyle.mouseCursor,
+      visualDensity: defaultStyle.visualDensity,
+      alignment: defaultStyle.alignment,
+    );
+  }
+
   /// Linearly interpolate between two [ZeroMenuStyle]s.
   static ZeroMenuStyle? lerp(ZeroMenuStyle? a, ZeroMenuStyle? b, double t) {
     if (a == null && b == null) {

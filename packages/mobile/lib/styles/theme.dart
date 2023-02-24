@@ -290,8 +290,6 @@ class ZeroThemeData with Diagnosticable {
     textfieldSize ??= ZeroTextfieldSize.small;
     inputDecorationType ??= InputDecorationType.underline;
 
-    menuStyle ??= ZeroMenuStyle();
-
     textfieldStyleSet ??= ZeroTextfieldStyleSet(
         outline: ZeroTextfieldStyle.outline(
             textfieldSize: textfieldSize,
@@ -455,6 +453,8 @@ class ZeroThemeData with Diagnosticable {
     final avatarStyleFallback =
         ZeroAvatarStyle.fallback(backgroundColor: primaryColor);
 
+    final menuStyleFallback = ZeroMenuStyle.fallback();
+
     useMaterial3 ??= false;
 
     return ZeroThemeData.raw(
@@ -509,7 +509,7 @@ class ZeroThemeData with Diagnosticable {
         ratingStyle: ratingStyleFallback.merge(ratingStyle),
         sliderStyle: sliderStyleFallback.merge(sliderStyle),
         avatarStyle: avatarStyleFallback.merge(avatarStyle),
-        menuStyle: menuStyle);
+        menuStyle: menuStyleFallback.merge(menuStyle));
   }
 
   static ZeroThemeData lerp(ZeroThemeData a, ZeroThemeData b, double t) {
