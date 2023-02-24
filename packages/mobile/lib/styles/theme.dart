@@ -115,6 +115,8 @@ class ZeroThemeData with Diagnosticable {
   final DialogTheme dialogTheme;
   final ButtonThemeData? buttonTheme;
 
+  final ZeroExpansionTileStyle expansionTileStyle;
+
   final ColorScheme colorScheme;
 
   final bool useMaterial3;
@@ -132,6 +134,7 @@ class ZeroThemeData with Diagnosticable {
     required this.scaffoldBackgroundColor,
     required this.iconTheme,
     required this.dialogTheme,
+    required this.expansionTileStyle,
     this.buttonTheme,
     required this.cardColor,
     required this.disabledBackgroundColor,
@@ -220,6 +223,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroSliderStyle? sliderStyle,
     ZeroAvatarStyle? avatarStyle,
     ZeroButtonGroupStyleSet? buttonGroupStyle,
+    ZeroExpansionTileStyle? expansionTileStyle,
   }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
@@ -269,6 +273,19 @@ class ZeroThemeData with Diagnosticable {
     buttonTheme ??= const ButtonThemeData(
       alignedDropdown: true,
     );
+
+    final expansionTileStyleFallback = ZeroExpansionTileStyle.fallback(
+        backgroundColor: scaffoldBackgroundColor,
+        collapsedBackgroundColor: scaffoldBackgroundColor,
+        childrenBackgroundColor: scaffoldBackgroundColor,
+        iconColor: typography.subtitle1?.color ?? ZeroColors.neutral[10],
+        collapsedIconColor:
+            typography.subtitle1?.color ?? ZeroColors.neutral[10],
+        titleColor: ZeroColors.neutral[5],
+        collapsedTitleColor: ZeroColors.neutral[3],
+        textColor: typography.subtitle1?.color ?? ZeroColors.neutral[10],
+        collapsedTextColor:
+            typography.subtitle1?.color ?? ZeroColors.neutral[10]);
 
     textfieldSize ??= ZeroTextfieldSize.small;
     inputDecorationType ??= InputDecorationType.underline;
@@ -454,6 +471,7 @@ class ZeroThemeData with Diagnosticable {
       iconTheme: iconTheme,
       dialogTheme: dialogTheme,
       buttonTheme: buttonTheme,
+      expansionTileStyle: expansionTileStyleFallback.merge(expansionTileStyle),
       colorScheme: colorScheme,
       typography: typography,
       cardColor: cardColor,
@@ -511,6 +529,8 @@ class ZeroThemeData with Diagnosticable {
       colorScheme: ColorScheme.lerp(a.colorScheme, b.colorScheme, t),
       iconTheme: IconThemeData.lerp(a.iconTheme, b.iconTheme, t),
       dialogTheme: DialogTheme.lerp(a.dialogTheme, b.dialogTheme, t),
+      expansionTileStyle: ZeroExpansionTileStyle.lerp(
+          a.expansionTileStyle, b.expansionTileStyle, t)!,
       disabledBackgroundColor:
           Color.lerp(a.disabledBackgroundColor, b.disabledBackgroundColor, t)!,
       errorColor: Color.lerp(a.errorColor, b.errorColor, t)!,
@@ -626,6 +646,7 @@ class ZeroThemeData with Diagnosticable {
       iconTheme: this.iconTheme.merge(iconTheme),
       buttonTheme: buttonTheme ?? this.buttonTheme,
       dialogTheme: dialogTheme ?? this.dialogTheme,
+      expansionTileStyle: expansionTileStyle,
       cardColor: cardColor ?? this.cardColor,
       errorColor: errorColor ?? this.errorColor,
       disabledBackgroundColor:
