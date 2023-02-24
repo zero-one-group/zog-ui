@@ -395,7 +395,6 @@ class Examples extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-<<<<<<< HEAD
                 builder: (context) => const ZeroGridExample(),
               ),
             );
@@ -406,8 +405,6 @@ class Examples extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-=======
->>>>>>> 990e0e6 (feat(mobile): Refactor & implement global theme button group)
                 builder: (context) => const ZeroButtonGroupExample(),
               ),
             );
