@@ -52,8 +52,20 @@ class ZeroGrid extends StatelessWidget {
 /// [ZeroGridItem] is a widget that can be used to display a widget in a grid.
 /// used in child of [ZeroGrid]
 class ZeroGridItem {
+  /// The widget below this widget in the tree.
   final Widget child;
+
+  /// The number of columns to display.
+  /// this is the number of columns that the child will occupy
+  /// same like colSpan table in html which is horizontal merge of columns
+  /// default is 1 and max reference to [ZeroGrid.columnCount] value
+  /// this value cannot be greater than [ZeroGrid.columnCount] and cannot be less than 1
   final int mainAxisCount;
+
+  /// The number of rows to display.
+  /// this is the number of rows that the child will occupy
+  /// same like rowSpan table in html which is vertical merge of rows
+  /// default is 1 and cannot be less than 1
   final int crossAxisCount;
   const ZeroGridItem({
     this.child = const SizedBox(),

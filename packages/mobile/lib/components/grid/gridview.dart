@@ -19,7 +19,10 @@ class _GridView extends StatefulWidget {
 }
 
 class __GridViewState extends State<_GridView> {
+  /// dynamic height for stack based on sum of height of children or rows
   double parentHeight = 0;
+
+  /// list of grid which will be rendered in stack widget
   List<Widget> grids = [];
 
   List<Widget> createGrid() {
@@ -32,6 +35,8 @@ class __GridViewState extends State<_GridView> {
     int numColumns = widget.columnCount;
     double widthOfItem = maxWidth / numColumns;
 
+    /// this function used in [List.generate] to create grid
+    /// this for checking if the space of current column grid is available or not
     void nextColumn() {
       while (true) {
         if (reservedColumns[currentRow].isNotEmpty && reservedColumns[currentRow].first == currentColumn) {
