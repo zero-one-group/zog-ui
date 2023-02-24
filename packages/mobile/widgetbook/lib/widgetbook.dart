@@ -3,6 +3,7 @@ import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_demo/widgetbook_component/accordion.dart';
 import 'package:widgetbook_demo/widgetbook_component/alert_dialog.dart';
 import 'package:widgetbook_demo/widgetbook_component/card.dart';
+import 'package:widgetbook_demo/widgetbook_component/grid.dart';
 import 'package:widgetbook_demo/widgetbook_component/speed_dial.dart';
 import 'package:widgetbook_demo/widgetbook_component/stepper.dart';
 import 'package:zero_ui_mobile/styles/theme.dart';
@@ -90,6 +91,7 @@ class HotReload extends StatelessWidget {
             stepperWidgetbookComponent,
             speedDialWidgetbookComponent,
             accordionWidgetbookComponent,
+            gridWidgetbookComponent,
           ],
         ),
       ],
