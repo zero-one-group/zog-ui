@@ -1,92 +1,7 @@
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
-
-// Examples can assume:
-// late Widget child;
-// late BuildContext context;
-// late MenuStyle style;
-// @immutable
-// class MyAppHome extends StatelessWidget {
-//   const MyAppHome({super.key});
-//   @override
-//   Widget build(BuildContext context) => const SizedBox();
-// }
-
-/// The visual properties that menus have in common.
-///
-/// Menus created by [MenuBar] and [MenuAnchor] and their themes have a
-/// [ZeroMenuStyle] property which defines the visual properties whose default
-/// values are to be overridden. The default values are defined by the
-/// individual menu widgets and are typically based on overall theme's
-/// [ThemeData.colorScheme] and [ThemeData.textTheme].
-///
-/// All of the [ZeroMenuStyle] properties are null by default.
-///
-/// Many of the [MenuStyle] properties are [MaterialStateProperty] objects which
-/// resolve to different values depending on the menu's state. For example the
-/// [Color] properties are defined with `MaterialStateProperty<Color>` and can
-/// resolve to different colors depending on if the menu is pressed, hovered,
-/// focused, disabled, etc.
-///
-/// These properties can override the default value for just one state or all of
-/// them. For example to create a [SubmenuButton] whose background color is the
-/// color scheme’s primary color with 50% opacity, but only when the menu is
-/// pressed, one could write:
-///
-/// ```dart
-/// SubmenuButton(
-///   menuStyle: ZeroMenuStyle(
-///     backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-///       (Set<MaterialState> states) {
-///         if (states.contains(MaterialState.focused)) {
-///           return Theme.of(context).colorScheme.primary.withOpacity(0.5);
-///         }
-///         return null; // Use the component's default.
-///       },
-///     ),
-///   ),
-///   menuChildren: const <Widget>[ /* ... */ ],
-///   child: const Text('Fly me to the moon'),
-/// ),
-/// ```
-///
-/// In this case the background color for all other menu states would fall back
-/// to the [SubmenuButton]'s default values. To unconditionally set the menu's
-/// [backgroundColor] for all states one could write:
-///
-/// ```dart
-/// const SubmenuButton(
-///   menuStyle: ZeroMenuStyle(
-///     backgroundColor: MaterialStatePropertyAll<Color>(Colors.green),
-///   ),
-///   menuChildren: <Widget>[ /* ... */ ],
-///   child: Text('Let me play among the stars'),
-/// ),
-/// ```
-///
-/// To configure all of the application's menus in the same way, specify the
-/// overall theme's `menuTheme`:
-///
-/// ```dart
-/// ZeroApp(
-///   theme: ZeroThemeData(
-///     menuTheme: const MenuThemeData(
-///       style: ZeroMenuStyle(backgroundColor: MaterialStatePropertyAll<Color>(Colors.red)),
-///     ),
-///   ),
-///   home: const MyAppHome(),
-/// ),
-/// ```
-///
-/// See also:
-///
-/// * [MenuAnchor], a widget which hosts cascading menus.
-/// * [MenuBar], a widget which defines a menu bar of buttons hosting cascading
-///   menus.
-/// * [MenuButtonTheme], the theme for [SubmenuButton]s and [MenuItemButton]s.
-/// * [ButtonStyle], a similar configuration object for button styles.
-typedef ZeroMenuStyle = MenuStyle;
 
 /// [ZeroDropdownMenu] is built on top of [DropdownButtonFormField2] and [ZeroTextField]
 /// This uses decoration taken from [InputDecorationType].
@@ -119,9 +34,6 @@ class ZeroDropdownMenu<T> extends StatefulWidget {
   /// Default value: [ZeroTextField.outline]
   final InputDecorationType? inputDecorationType;
 
-  /// Indicates whether it is a form [ZeroDropdownButton] or an icon one.
-  final DropdownVariant? variant;
-
   /// Default value: [ZeroTextfieldSize.small]
   final ZeroTextfieldSize textfieldSize;
 
@@ -152,8 +64,8 @@ class ZeroDropdownMenu<T> extends StatefulWidget {
   /// List containing only all the values, not the [ZeroDropdownMenuItem]
   final List<T>? items;
 
-  /// List containing only all the [DropdownMenuEntry]
-  final List<DropdownMenuEntry<T>>? entries;
+  /// List containing only all the [ZeroDropdownMenuEntry]
+  final List<ZeroDropdownMenuEntry<T>>? entries;
 
   /// The [ZeroMenuStyle] that defines the visual attributes of the menu.
   ///
@@ -181,7 +93,6 @@ class ZeroDropdownMenu<T> extends StatefulWidget {
       this.enabled,
       this.focusNode,
       this.value,
-      this.variant = DropdownVariant.form,
       this.alignedDropdown = true,
       this.controller,
       this.enableFilter = true,
@@ -248,7 +159,7 @@ class _ZeroDropdownMenuState<T> extends State<ZeroDropdownMenu<T>> {
       alignLabelWithHint: true,
     );
 
-    return DropdownMenu<T>(
+    return CustomDropdownMenu<T>(
       leadingIcon: widget.leadingIcon,
       label: widget.labelText != null
           ? Text(
@@ -271,10 +182,10 @@ class _ZeroDropdownMenuState<T> extends State<ZeroDropdownMenu<T>> {
       initialSelection: widget.value,
       dropdownMenuEntries: widget.entries ??
           widget.items!.map((item) {
-            return DropdownMenuEntry<T>(
+            return ZeroDropdownMenuEntry<T>(
               value: item,
               label: item.toString(),
-              style: context.theme.textButtonStyle.toButtonStyle(),
+              style: context.theme.textButtonStyle,
             );
           }).toList(),
     );

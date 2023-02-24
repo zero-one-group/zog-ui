@@ -22,12 +22,17 @@ class ZeroDropdownMenuExample extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: SizedBox(
             height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.start, children: [
               ZeroDropdownMenu(
                 inputDecorationType: InputDecorationType.fill,
                 onSelected: (p0) {},
-                trailingIcon: const Icon(Icons.account_box),
+                width: 400,
+                enableFilter: true,
+                trailingIcon: const Icon(Icons.close_outlined),
+                leadingIcon: const Icon(Icons.account_box),
+                hintText: 'Hint text',
                 items: items,
               ),
               const SizedBox(

@@ -106,6 +106,7 @@ export './styles/component/card_style.dart';
 export './styles/component/checkbox_style.dart';
 export './styles/component/chip_style.dart';
 export './styles/component/divider_style.dart';
+export './styles/component/dropdown_menu_style.dart';
 export './styles/component/expansion_tile_style.dart';
 export './styles/component/list_tile_style.dart';
 export './styles/component/navigation_bar_style.dart';
@@ -139,6 +140,8 @@ export './utils/extensions/num_extensions.dart';
 // utils
 export './utils/extensions/theme_extensions.dart';
 // dropdown button
-export 'components/dropdown/dropdown_button.dart';
-export 'components/dropdown/zero_dropdown_button.dart';
-export 'components/dropdown/zero_dropdown_menu.dart';
+export 'components/dropdown_button/dropdown_button.dart';
+export 'components/dropdown_button/zero_dropdown_button.dart';
+// dropdown menu
+export 'components/dropdown_menu/dropdown_menu.dart';
+export 'components/dropdown_menu/zero_dropdown_menu.dart';

@@ -371,6 +371,24 @@ class ZeroMenuStyle with Diagnosticable {
         'alignment', alignment,
         defaultValue: null));
   }
+
+  MenuStyle toMenuStyle() {
+    return MenuStyle(
+      alignment: alignment,
+      backgroundColor: backgroundColor,
+      elevation: elevation,
+      fixedSize: fixedSize,
+      maximumSize: maximumSize,
+      minimumSize: minimumSize,
+      mouseCursor: mouseCursor,
+      padding: padding,
+      shadowColor: backgroundColor,
+      shape: shape,
+      side: side,
+      surfaceTintColor: surfaceTintColor,
+      visualDensity: visualDensity,
+    );
+  }
 }
 
 /// A required helper class because [BorderSide.lerp] doesn't support passing or
