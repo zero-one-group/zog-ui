@@ -40,6 +40,8 @@ export './components/divider/divider.dart';
 export './components/dropdowns/dropdown.dart';
 export './components/dropdowns/zero_dropdown.dart';
 export './components/icons/two_tone_icons.dart';
+// grid
+export './components/grid/zero_grid.dart';
 // icons
 export './components/icons/zero_icons.dart';
 // list
