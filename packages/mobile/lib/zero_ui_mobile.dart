@@ -101,11 +101,9 @@ export './styles/color_accent.dart';
 // styles
 export './styles/colors.dart';
 export './styles/component/app_bar_style.dart';
-export './styles/component/app_bar_style.dart';
 export './styles/component/avatar_style.dart';
 export './styles/component/button_group_style.dart';
 export './styles/component/button_icon_style.dart';
-export './styles/component/button_style.dart';
 export './styles/component/button_style.dart';
 export './styles/component/card_style.dart';
 export './styles/component/checkbox_style.dart';

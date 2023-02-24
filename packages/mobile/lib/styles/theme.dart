@@ -460,8 +460,7 @@ class ZeroThemeData with Diagnosticable {
         ZeroAvatarStyle.fallback(backgroundColor: primaryColor);
 
     final menuStyleFallback = ZeroMenuStyle.fallback();
-    final buttonGroupStyleFallback =
-        ZeroButtonGroupStyleSet.fallback(primaryColor: primaryColor);
+
     useMaterial3 ??= false;
 
     return ZeroThemeData.raw(
