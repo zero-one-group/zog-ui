@@ -368,30 +368,43 @@ export const Cascader = ({
     [handleValueCheck, indeterminateValues, options, traverseAndHandleValue]
   );
 
+  const handleSelectMultipleValues = (path: CascaderValue[]) => {
+    setMultipleValues((prev) => {
+      const newValues = [...prev, path];
+      return newValues;
+    });
+  };
+
   const selectAllChildren = (
     root: CascaderOption,
     currentValue: CascaderValue,
     path: CascaderValue[]
   ) => {
     const selected = new Set(selectedValues);
+    let newValue = [...multipleValue];
     traverseCascader(path, root, (option, path) => {
       selected.add(option.value);
-      setMultipleValues((prev) => {
-        const newValues = [...prev, path];
-        handleOnChangeCallback(newValues);
-        return newValues;
-      });
+      newValue = [...newValue, path];
+      handleSelectMultipleValues(path);
       conductValueCheck(selected);
     });
     selected.add(currentValue);
     if (!root.children) {
-      setMultipleValues((prev) => {
-        const newValues = [...prev, path];
-        handleOnChangeCallback(newValues);
-        return newValues;
-      });
+      handleSelectMultipleValues(path);
+      newValue = [...newValue, path];
     }
+    handleOnChangeCallback(newValue);
     conductValueCheck(selected);
+  };
+
+  const handleDeleteMultipleValues = (path: CascaderValue[]) => {
+    setMultipleValues((prev) => {
+      const newValues = prev.filter(
+        (val) => JSON.stringify(val) !== JSON.stringify(path)
+      );
+
+      return newValues;
+    });
   };
 
   const deselectAllChildren = (
@@ -400,25 +413,23 @@ export const Cascader = ({
     path: CascaderValue[]
   ) => {
     const selected = new Set(selectedValues);
+    let newValue = [...multipleValue];
     traverseCascader(path, root, (option, path) => {
       selected.delete(option.value);
-      setMultipleValues((prev) => {
-        const newValues = prev.filter(
-          (val) => JSON.stringify(val) !== JSON.stringify(path)
-        );
-        handleOnChangeCallback(newValues);
-        return newValues;
-      });
+      newValue = newValue.filter(
+        (val) => JSON.stringify(val) !== JSON.stringify(path)
+      );
+      handleDeleteMultipleValues(path);
       conductValueCheck(selected);
     });
     if (!root.children) {
-      setMultipleValues((prev) => {
-        const newValues = [...prev, path];
-        handleOnChangeCallback(newValues);
-        return newValues;
-      });
+      handleDeleteMultipleValues(path);
+      newValue = newValue.filter(
+        (val) => JSON.stringify(val) !== JSON.stringify(path)
+      );
     }
     selected.delete(currentValue);
+    handleOnChangeCallback(newValue);
     conductValueCheck(selected);
   };
 

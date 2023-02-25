@@ -13,7 +13,8 @@ import { Cascader } from '@01group-ui/core';
       options: ['click', 'hover'],
     },
     colorScheme: {
-      options: ['red', 'blue', 'green', 'pink', 'teal'],
+      options: ['amber', 'red', 'blue', 'green', 'pink', 'teal'],
+      defaultValue: 'blue',
       control: { type: 'select' },
     },
   }}
@@ -173,7 +174,6 @@ export const optionsMultiple = [
   <Story
     name="Multiple"
     args={{
-      colorScheme: 'amber',
       multiple: true,
       options: optionsMultiple,
       onValueChange: (value) => {
