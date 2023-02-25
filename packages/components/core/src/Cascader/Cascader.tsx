@@ -284,39 +284,40 @@ export const Cascader = ({
 
   const handleSelect = (
     value: CascaderValue,
-    option: CascaderOption,
+    root: CascaderOption,
     isSelected: CheckedState,
     path: CascaderValue[]
   ) => {
     const selected = new Set(selectedValues);
     let newValue = [...multipleValue];
 
-    traverseCascader(path, option, (option, path) => {
+    checkAndUpdateSelectedValues(path, root, ({ option, newPath }) => {
       updateSetSelected(selected, option.value, isSelected);
-      newValue = updateNewSelectedValue(newValue, path, isSelected);
+      newValue = updateNewSelectedValue(newValue, newPath, isSelected);
       conductValueCheck(selected);
     });
 
     updateSetSelected(selected, value, isSelected);
-
-    if (!option.children) {
+    if (!root.children) {
       newValue = updateNewSelectedValue(newValue, path, isSelected);
     }
-
     conductValueCheck(selected);
     handleOnChangeCallback(newValue);
   };
 
-  const traverseCascader = (
+  const checkAndUpdateSelectedValues = (
     parentPath: CascaderValue[],
     root: CascaderOption,
-    callback: (option: CascaderOption, path: CascaderValue[]) => void
+    callback: (args: {
+      option: CascaderOption;
+      newPath: CascaderValue[];
+    }) => void
   ) => {
     if (root.children) {
       root.children.forEach((option) => {
         const currentPath = [...parentPath, option.value];
-        callback(option, currentPath);
-        traverseCascader(currentPath, option, callback);
+        callback({ option, newPath: currentPath });
+        checkAndUpdateSelectedValues(currentPath, option, callback);
       });
     }
   };
