@@ -137,6 +137,9 @@ export const optionsMultiple = [
       options,
       trigger: 'click',
       changeOnSelect: false,
+      onValueChange: (value) => {
+        console.log(value);
+      },
     }}
   >
     {CascaderStory.bind()}
@@ -146,6 +149,9 @@ export const optionsMultiple = [
     args={{
       defaultValue: ['zhejiang', 'hangzhou', 'xihu'],
       options,
+      onValueChange: (value) => {
+        console.log(value);
+      },
     }}
   >
     {CascaderStory.bind()}
@@ -155,6 +161,9 @@ export const optionsMultiple = [
     args={{
       displayRender: (labels) => {
         return labels[labels.length - 1];
+      },
+      onValueChange: (value) => {
+        console.log(value);
       },
       options,
     }}
@@ -167,6 +176,9 @@ export const optionsMultiple = [
       colorScheme: 'amber',
       multiple: true,
       options: optionsMultiple,
+      onValueChange: (value) => {
+        console.log(value);
+      },
     }}
   >
     {CascaderStory.bind()}

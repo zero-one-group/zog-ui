@@ -75,7 +75,8 @@ export type CascaderColumnProps = {
   handleSelectCell: (
     value: CascaderValue,
     option: CascaderOption,
-    isSelected: CheckedState
+    isSelected: CheckedState,
+    path: CascaderValue[]
   ) => void;
   selectedValues: Set<CascaderValue>;
   indeterminateValues: Set<CascaderValue>;
@@ -97,14 +98,13 @@ const CascaderColumn = ({
   multiple,
   colorScheme,
 }: CascaderColumnProps) => {
-  const currentOptions = options;
   const optionList = useMemo(
     () =>
       options.map((option) => {
         const { children, disabled, label, value } = option;
         const isLeaf = !Array.isArray(children);
 
-        const path: CascaderOption['value'][] = [...parentPath, value];
+        const path: CascaderValue[] = [...parentPath, value];
         const pathString = path.join('/');
         const isActive = value === active;
         const isIndeterminated = indeterminateValues.has(value);
@@ -164,16 +164,28 @@ const CascaderColumn = ({
                       colorScheme={colorScheme}
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleSelectCell(value, option, isSelected);
-                      }}
-                    />
-                    <StyledCascaderMenuContent
-                      css={{
-                        width: '80px',
+                        handleSelectCell(value, option, isSelected, path);
                       }}
                     >
-                      {label}
-                    </StyledCascaderMenuContent>
+                      {isLeaf ? (
+                        <StyledCascaderMenuContent
+                          css={{
+                            width: '80px',
+                          }}
+                        >
+                          {label}
+                        </StyledCascaderMenuContent>
+                      ) : null}
+                    </Checkbox>
+                    {!isLeaf ? (
+                      <StyledCascaderMenuContent
+                        css={{
+                          width: '80px',
+                        }}
+                      >
+                        {label}
+                      </StyledCascaderMenuContent>
+                    ) : null}
                   </StyledCascaderMenuWrapperMultiple>
                 ) : (
                   <StyledCascaderMenuContent>{label}</StyledCascaderMenuContent>

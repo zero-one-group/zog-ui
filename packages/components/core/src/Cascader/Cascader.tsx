@@ -140,6 +140,7 @@ export type CascaderProps = {
   changeOnSelect?: boolean;
   displayRender?: (labels: string[]) => string;
   multiple?: boolean;
+  onValueChange: (value: CascaderValue[] | CascaderValue[][]) => void;
 } & ComponentProps<typeof StyledCascader>;
 
 export const Cascader = ({
@@ -151,6 +152,7 @@ export const Cascader = ({
   displayRender,
   multiple = false,
   css,
+  onValueChange,
   ...props
 }: CascaderProps) => {
   const [activeValues, setActiveValues] = useState<CascaderValue[]>(
@@ -158,6 +160,7 @@ export const Cascader = ({
   );
 
   const [value, setValue] = useState('');
+  const [multipleValue, setMultipleValues] = useState<CascaderValue[][]>([]);
 
   const [open, setOpen] = useState(false);
 
@@ -209,6 +212,16 @@ export const Cascader = ({
 
   const handleInputChange = (path: CascaderValue[]) => {
     setValue(handleRenderLabel(getActiveLabels(path) as string[]));
+    if (!multiple) {
+      handleOnChangeCallback(path);
+    }
+  };
+
+  const handleOnChangeCallback = (
+    path: CascaderValue[] | CascaderValue[][]
+  ) => {
+    if (typeof onValueChange !== 'function') return;
+    onValueChange(path);
   };
 
   useEffect(() => {
@@ -229,23 +242,26 @@ export const Cascader = ({
   const handleSelect = (
     value: CascaderValue,
     option: CascaderOption,
-    isSelected: CheckedState
+    isSelected: CheckedState,
+    path: CascaderValue[]
   ) => {
     if (typeof isSelected === 'boolean' && isSelected) {
-      deselectAllChildren(option, value);
+      deselectAllChildren(option, value, path);
     } else {
-      selectAllChildren(option, value);
+      selectAllChildren(option, value, path);
     }
   };
 
   const traverseCascader = (
+    parentPath: CascaderValue[],
     root: CascaderOption,
-    callback: (option: CascaderOption) => void
+    callback: (option: CascaderOption, path: CascaderValue[]) => void
   ) => {
     if (root.children) {
       root.children.forEach((option) => {
-        callback(option);
-        traverseCascader(option, callback);
+        const currentPath = [...parentPath, option.value];
+        callback(option, currentPath);
+        traverseCascader(currentPath, option, callback);
       });
     }
   };
@@ -277,94 +293,131 @@ export const Cascader = ({
     []
   );
 
-  const handleValueCheck = (
-    indeterminate: Set<CascaderValue>,
-    selected: Set<CascaderValue>,
-    option: CascaderOption
-  ) => {
-    const { value } = option;
-    const newIndeterminate = new Set(indeterminate);
-    const newSelected = new Set(selected);
-    const isSomeSelected = checkSomeSelected(option, indeterminate, selected);
-    const isAllSelected = checkAllSelected(option, selected);
+  const handleValueCheck = useCallback(
+    (
+      indeterminate: Set<CascaderValue>,
+      selected: Set<CascaderValue>,
+      option: CascaderOption
+    ) => {
+      const { value } = option;
+      const newIndeterminate = new Set(indeterminate);
+      const newSelected = new Set(selected);
+      const isSomeSelected = checkSomeSelected(option, indeterminate, selected);
+      const isAllSelected = checkAllSelected(option, selected);
 
-    if (isSomeSelected && !isAllSelected) {
-      newIndeterminate.add(value);
-      newSelected.delete(value);
-    } else {
-      newIndeterminate.delete(value);
-    }
+      if (isSomeSelected && !isAllSelected) {
+        newIndeterminate.add(value);
+        newSelected.delete(value);
+      } else {
+        newIndeterminate.delete(value);
+      }
 
-    if (isAllSelected) {
-      newSelected.add(value);
-      newIndeterminate.delete(value);
-    }
+      if (isAllSelected) {
+        newSelected.add(value);
+        newIndeterminate.delete(value);
+      }
 
-    return [newIndeterminate, newSelected] as const;
-  };
+      return [newIndeterminate, newSelected] as const;
+    },
+    [checkAllSelected, checkSomeSelected]
+  );
 
-  const traverseAndHandleValue = (
-    root: CascaderOption,
-    indeterminate: Set<CascaderValue>,
-    selected: Set<CascaderValue>
-  ) => {
-    let newIndeterminate = new Set(indeterminate);
-    let newSelected = new Set(selected);
-    if (root.children) {
-      root.children.forEach((option) => {
-        [newIndeterminate, newSelected] = handleValueCheck(
+  const traverseAndHandleValue = useCallback(
+    (
+      root: CascaderOption,
+      indeterminate: Set<CascaderValue>,
+      selected: Set<CascaderValue>
+    ) => {
+      let newIndeterminate = new Set(indeterminate);
+      let newSelected = new Set(selected);
+      if (root.children) {
+        root.children.forEach((option) => {
+          [newIndeterminate, newSelected] = handleValueCheck(
+            newIndeterminate,
+            newSelected,
+            option
+          );
+
+          return traverseAndHandleValue(option, newIndeterminate, newSelected);
+        });
+      }
+      return [newIndeterminate, newSelected] as const;
+    },
+    [handleValueCheck]
+  );
+
+  const conductValueCheck = useCallback(
+    (selectedVal: Set<CascaderValue>) => {
+      let indeterminate = new Set(indeterminateValues);
+      let selected = new Set(selectedVal);
+      options.forEach((option) => {
+        const [newIndeterminate, newSelected] = traverseAndHandleValue(
+          option,
+          indeterminate,
+          selected
+        );
+        [indeterminate, selected] = handleValueCheck(
           newIndeterminate,
           newSelected,
           option
         );
-
-        return traverseAndHandleValue(option, newIndeterminate, newSelected);
       });
-    }
-    return [newIndeterminate, newSelected] as const;
-  };
-
-  const conductValueCheck = (selectedVal: Set<CascaderValue>) => {
-    let indeterminate = new Set(indeterminateValues);
-    let selected = new Set(selectedVal);
-    options.forEach((option) => {
-      const [newIndeterminate, newSelected] = traverseAndHandleValue(
-        option,
-        indeterminate,
-        selected
-      );
-      [indeterminate, selected] = handleValueCheck(
-        newIndeterminate,
-        newSelected,
-        option
-      );
-    });
-    setIndeterminateValues(new Set(indeterminate));
-    setSelectedValues(new Set(selected));
-  };
+      setIndeterminateValues(new Set(indeterminate));
+      setSelectedValues(new Set(selected));
+    },
+    [handleValueCheck, indeterminateValues, options, traverseAndHandleValue]
+  );
 
   const selectAllChildren = (
     root: CascaderOption,
-    currentValue: CascaderValue
+    currentValue: CascaderValue,
+    path: CascaderValue[]
   ) => {
     const selected = new Set(selectedValues);
-    traverseCascader(root, (option) => {
+    traverseCascader(path, root, (option, path) => {
       selected.add(option.value);
+      setMultipleValues((prev) => {
+        const newValues = [...prev, path];
+        handleOnChangeCallback(newValues);
+        return newValues;
+      });
       conductValueCheck(selected);
     });
     selected.add(currentValue);
+    if (!root.children) {
+      setMultipleValues((prev) => {
+        const newValues = [...prev, path];
+        handleOnChangeCallback(newValues);
+        return newValues;
+      });
+    }
     conductValueCheck(selected);
   };
 
   const deselectAllChildren = (
     root: CascaderOption,
-    currentValue: CascaderValue
+    currentValue: CascaderValue,
+    path: CascaderValue[]
   ) => {
     const selected = new Set(selectedValues);
-    traverseCascader(root, (option) => {
+    traverseCascader(path, root, (option, path) => {
       selected.delete(option.value);
+      setMultipleValues((prev) => {
+        const newValues = prev.filter(
+          (val) => JSON.stringify(val) !== JSON.stringify(path)
+        );
+        handleOnChangeCallback(newValues);
+        return newValues;
+      });
       conductValueCheck(selected);
     });
+    if (!root.children) {
+      setMultipleValues((prev) => {
+        const newValues = [...prev, path];
+        handleOnChangeCallback(newValues);
+        return newValues;
+      });
+    }
     selected.delete(currentValue);
     conductValueCheck(selected);
   };
