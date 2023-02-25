@@ -171,6 +171,13 @@ export const Cascader = ({
     Set<CascaderValue>
   >(new Set());
 
+  const handleOnChangeCallback = (
+    path: CascaderValue[] | CascaderValue[][]
+  ) => {
+    if (typeof onValueChange !== 'function') return;
+    onValueChange(path);
+  };
+
   const columns = useMemo(() => {
     const columnList = [{ options }];
     let currentOption = options;
@@ -217,13 +224,6 @@ export const Cascader = ({
     }
   };
 
-  const handleOnChangeCallback = (
-    path: CascaderValue[] | CascaderValue[][]
-  ) => {
-    if (typeof onValueChange !== 'function') return;
-    onValueChange(path);
-  };
-
   useEffect(() => {
     if (defaultValue && defaultValue.length > 0) {
       setValue(handleRenderLabel(getActiveLabels(defaultValue) as string[]));
@@ -239,17 +239,72 @@ export const Cascader = ({
     isLeaf && !multiple && setOpen(false);
   };
 
+  const updateSetSelected = (
+    set: Set<CascaderValue>,
+    value: CascaderValue,
+    isSelected: CheckedState
+  ) => {
+    if (!isSelected) {
+      set.add(value);
+    } else {
+      set.delete(value);
+    }
+  };
+
+  const updateNewSelectedValue = (
+    prev: CascaderValue[][],
+    next: CascaderValue[],
+    isSelected: CheckedState
+  ) => {
+    if (!isSelected) {
+      handleSelectMultipleValues(next);
+      return [...prev, next];
+    } else {
+      handleDeleteMultipleValues(next);
+      return prev.filter((val) => JSON.stringify(val) !== JSON.stringify(next));
+    }
+  };
+
+  const handleSelectMultipleValues = (path: CascaderValue[]) => {
+    setMultipleValues((prev) => {
+      const newValues = [...prev, path];
+      return newValues;
+    });
+  };
+
+  const handleDeleteMultipleValues = (path: CascaderValue[]) => {
+    setMultipleValues((prev) => {
+      const newValues = prev.filter(
+        (val) => JSON.stringify(val) !== JSON.stringify(path)
+      );
+
+      return newValues;
+    });
+  };
+
   const handleSelect = (
     value: CascaderValue,
     option: CascaderOption,
     isSelected: CheckedState,
     path: CascaderValue[]
   ) => {
-    if (typeof isSelected === 'boolean' && isSelected) {
-      deselectAllChildren(option, value, path);
-    } else {
-      selectAllChildren(option, value, path);
+    const selected = new Set(selectedValues);
+    let newValue = [...multipleValue];
+
+    traverseCascader(path, option, (option, path) => {
+      updateSetSelected(selected, option.value, isSelected);
+      newValue = updateNewSelectedValue(newValue, path, isSelected);
+      conductValueCheck(selected);
+    });
+
+    updateSetSelected(selected, value, isSelected);
+
+    if (!option.children) {
+      newValue = updateNewSelectedValue(newValue, path, isSelected);
     }
+
+    conductValueCheck(selected);
+    handleOnChangeCallback(newValue);
   };
 
   const traverseCascader = (
@@ -367,71 +422,6 @@ export const Cascader = ({
     },
     [handleValueCheck, indeterminateValues, options, traverseAndHandleValue]
   );
-
-  const handleSelectMultipleValues = (path: CascaderValue[]) => {
-    setMultipleValues((prev) => {
-      const newValues = [...prev, path];
-      return newValues;
-    });
-  };
-
-  const selectAllChildren = (
-    root: CascaderOption,
-    currentValue: CascaderValue,
-    path: CascaderValue[]
-  ) => {
-    const selected = new Set(selectedValues);
-    let newValue = [...multipleValue];
-    traverseCascader(path, root, (option, path) => {
-      selected.add(option.value);
-      newValue = [...newValue, path];
-      handleSelectMultipleValues(path);
-      conductValueCheck(selected);
-    });
-    selected.add(currentValue);
-    if (!root.children) {
-      handleSelectMultipleValues(path);
-      newValue = [...newValue, path];
-    }
-    handleOnChangeCallback(newValue);
-    conductValueCheck(selected);
-  };
-
-  const handleDeleteMultipleValues = (path: CascaderValue[]) => {
-    setMultipleValues((prev) => {
-      const newValues = prev.filter(
-        (val) => JSON.stringify(val) !== JSON.stringify(path)
-      );
-
-      return newValues;
-    });
-  };
-
-  const deselectAllChildren = (
-    root: CascaderOption,
-    currentValue: CascaderValue,
-    path: CascaderValue[]
-  ) => {
-    const selected = new Set(selectedValues);
-    let newValue = [...multipleValue];
-    traverseCascader(path, root, (option, path) => {
-      selected.delete(option.value);
-      newValue = newValue.filter(
-        (val) => JSON.stringify(val) !== JSON.stringify(path)
-      );
-      handleDeleteMultipleValues(path);
-      conductValueCheck(selected);
-    });
-    if (!root.children) {
-      handleDeleteMultipleValues(path);
-      newValue = newValue.filter(
-        (val) => JSON.stringify(val) !== JSON.stringify(path)
-      );
-    }
-    selected.delete(currentValue);
-    handleOnChangeCallback(newValue);
-    conductValueCheck(selected);
-  };
 
   const handleClear = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
