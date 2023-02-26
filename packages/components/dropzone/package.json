@@ -1,7 +1,7 @@
 {
-  "name": "@zero-ui/dropzone",
+  "name": "@01group-ui/dropzone",
   "version": "0.0.1",
-  "homepage": "https://zero-one-group.com/",
+  "homepage": "https://zero-one-group.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/zero-one-group/zero-ui"

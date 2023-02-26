@@ -1,4 +1,4 @@
-// THIS FILE IS AUTO GENERATED (Tue, 07 Feb 2023 02:43:47 GMT)
+// THIS FILE IS AUTO GENERATED (Sun, 26 Feb 2023 10:14:33 GMT)
 import * as React from 'react';
 import { SVGProps } from 'react';
 export const AntTwoToneBuild = (props: SVGProps<SVGSVGElement>) => {

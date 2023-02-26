@@ -5,9 +5,10 @@
   "projectType": "library",
   "tags": [],
   "targets": {
-    "build-packages": {
+    "build": {
       "executor": "@nrwl/web:rollup",
       "outputs": ["{options.outputPath}"],
+      "dependsOn": ["update-version", "compile"],
       "options": {
         "outputPath": "dist/packages/icons",
         "tsConfig": "packages/icons/tsconfig.lib.json",
@@ -30,17 +31,6 @@
         ]
       }
     },
-    "build": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          "nx run icons:compile",
-          "nx run icons:build-packages --prod",
-          "cd dist/packages/icons/ && npm pack"
-        ],
-        "parallel": false
-      }
-    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
@@ -56,14 +46,6 @@
         "passWithNoTests": true
       }
     },
-    "publish": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": ["npm publish"],
-        "cwd": "dist/packages/icons",
-        "parallel": false
-      }
-    },
     "fetch": {
       "executor": "nx:run-commands",
       "options": {
@@ -77,6 +59,28 @@
       "options": {
         "commands": ["node -r esbuild-register scripts/build.ts"],
         "cwd": "packages/icons",
+        "parallel": false
+      }
+    },
+    "update-version": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "npm pkg set 'version'=$(node -p \"require('../../package.json').version\")"
+        ],
+        "cwd": "packages/icons",
+        "parallel": false
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "echo 'Publishing Icons Package to npm version $(npm pkg get version)'",
+          "npm pack",
+          "npm publish"
+        ],
+        "cwd": "dist/packages/icons",
         "parallel": false
       }
     }

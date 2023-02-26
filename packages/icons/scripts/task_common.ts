@@ -56,7 +56,7 @@ export async function writeIconVersions({ DIST, LIB, rootDir }) {
     let version: string;
     if (
       packageJson?.version &&
-      !packageJson.name?.includes('@zero-ui/icons-pack')
+      !packageJson.name?.includes('@01group-ui/icons-pack')
     ) {
       version = packageJson.version;
     } else {

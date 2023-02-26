@@ -1,10 +1,10 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import { Button } from '@zero-ui/core'
-import './App.css'
+import { useState } from 'react';
+import reactLogo from './assets/react.svg';
+import { Button } from '@01group-ui/core';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <div className="App">
@@ -18,7 +18,12 @@ function App() {
       </div>
       <h1>ZeroUI React Demo</h1>
       <div className="card">
-        <Button type='button' variant='green' size='3' onClick={() => setCount((count) => count + 1)}>
+        <Button
+          type="button"
+          variant="green"
+          size="3"
+          onClick={() => setCount((count) => count + 1)}
+        >
           count is {count}
         </Button>
         <p>
@@ -29,7 +34,7 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

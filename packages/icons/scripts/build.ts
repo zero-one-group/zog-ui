@@ -22,7 +22,7 @@ async function main() {
       DIST: path.resolve(ROOT_DIR, 'icons'),
     };
 
-    await task('✅ -- compiling @zero-ui/icons', async () => {
+    await task('✅ -- compiling @01group-ui/icons', async () => {
       await taskFiles.dirInit(twsIconsOpt);
       await taskCommon.writeLicense(twsIconsOpt);
       // Write the icons components

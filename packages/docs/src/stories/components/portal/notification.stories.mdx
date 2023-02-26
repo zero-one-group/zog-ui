@@ -2,7 +2,7 @@ import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
 import { BADGE } from '@geometricpanda/storybook-addon-badges';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { NotificationProvider, useNotification } from '@zero-ui/core';
+import { NotificationProvider, useNotification } from '@01group-ui/core';
 import { SmileOutlined } from '@ant-design/icons';
 
 <Meta
@@ -126,7 +126,7 @@ export const NotificationStory = () => {
 ## Example Usage
 
 ```jsx
-import { Notification, useNotification } from '@zero-ui/core';
+import { Notification, useNotification } from '@01group-ui/core';
 
 const ChildComponent = () => {
   const [notify] = useNotification({ placement: 'bottom-left' });
