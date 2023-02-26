@@ -1,4 +1,4 @@
-// THIS FILE IS AUTO GENERATED (Sun, 26 Feb 2023 10:51:43 GMT)
+// THIS FILE IS AUTO GENERATED (Sun, 26 Feb 2023 11:08:09 GMT)
 import * as React from 'react';
 import { SVGProps } from 'react';
 export const AntOutlinedMessage = (props: SVGProps<SVGSVGElement>) => {

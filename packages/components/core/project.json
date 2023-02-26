@@ -75,6 +75,7 @@
       "options": {
         "commands": [
           "echo 'Publishing Core Package to npm version $(npm pkg get version)'",
+          "cp ../../../../LICENSE ."
           "npm pack",
           "npm publish"
         ],
