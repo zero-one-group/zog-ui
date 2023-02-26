@@ -9,7 +9,7 @@
     "build": "nx run-many --target=build --projects=components-*,icons --exclude=docs,components-dropzone",
     "build:docs": "nx run docs:build",
     "release": "nx run-many --parallel --target=publish --projects=components-* --exclude=components-dropzone",
-    "postinstall": "nx run icons:fetch",
+    "postinstall": "NX_CLOUD_DISTRIBUTED_EXECUTION=false nx run icons:fetch",
     "prepare": "husky install",
     "lint:affected": "nx affected --base=remotes/origin/main --target=lint",
     "build:affected": "nx affected --base=remotes/origin/main --target=build",
