@@ -7,7 +7,7 @@
     "demo-react": "(cd examples/vite-react && pnpm install && pnpm run dev)",
     "demo-nextjs": "(cd examples/nextjs && pnpm install && pnpm run dev)",
     "build": "nx run-many --target=build --projects=components-*,icons,docs --exclude=components-dropzone",
-    "publish": "nx run-many --parallel --target=publish --projects=components-* --exclude=components-dropzone",
+    "release": "nx run-many --parallel --target=publish --projects=components-* --exclude=components-dropzone",
     "postinstall": "nx run icons:fetch",
     "prepare": "husky install",
     "lint:affected": "nx affected --base=remotes/origin/main --target=lint",
