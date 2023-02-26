@@ -1,15 +1,15 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { useState } from 'react'
-import { Inter } from '@next/font/google'
-import { Button } from '@zero-ui/core'
+import Head from 'next/head';
+import Image from 'next/image';
+import { useState } from 'react';
+import { Inter } from '@next/font/google';
+import { Button } from '@01group-ui/core';
 
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Home.module.css';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <>
@@ -45,7 +45,12 @@ export default function Home() {
         </div>
 
         <div className={styles.center}>
-          <Button type='button' variant='green' size='3' onClick={() => setCount((count) => count + 1)}>
+          <Button
+            type="button"
+            variant="green"
+            size="3"
+            onClick={() => setCount((count) => count + 1)}
+          >
             count is {count}
           </Button>
         </div>
@@ -110,5 +115,5 @@ export default function Home() {
         </div>
       </main>
     </>
-  )
+  );
 }

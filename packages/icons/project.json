@@ -1,19 +1,14 @@
 {
   "name": "icons",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/icons/src",
   "projectType": "library",
   "tags": [],
   "targets": {
-    "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["packages/icons/**/*.{ts,tsx,js,jsx}"]
-      }
-    },
     "build": {
-      "executor": "@nrwl/rollup:rollup",
+      "executor": "@nrwl/web:rollup",
       "outputs": ["{options.outputPath}"],
+      "dependsOn": ["update-version", "compile"],
       "options": {
         "outputPath": "dist/packages/icons",
         "tsConfig": "packages/icons/tsconfig.lib.json",
@@ -27,8 +22,20 @@
             "glob": "packages/icons/README.md",
             "input": ".",
             "output": "."
+          },
+          {
+            "glob": "packages/icons/LICENSE",
+            "input": ".",
+            "output": "."
           }
         ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/icons/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
@@ -37,6 +44,44 @@
       "options": {
         "jestConfig": "packages/icons/jest.config.ts",
         "passWithNoTests": true
+      }
+    },
+    "fetch": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["node -r esbuild-register scripts/fetcher.ts"],
+        "cwd": "packages/icons",
+        "parallel": false
+      }
+    },
+    "compile": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["node -r esbuild-register scripts/build.ts"],
+        "cwd": "packages/icons",
+        "parallel": false
+      }
+    },
+    "update-version": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "npm pkg set 'version'=$(node -p \"require('../../package.json').version\")"
+        ],
+        "cwd": "packages/icons",
+        "parallel": false
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "echo 'Publishing Icons Package to npm version $(npm pkg get version)'",
+          "npm pack",
+          "npm publish"
+        ],
+        "cwd": "dist/packages/icons",
+        "parallel": false
       }
     }
   }

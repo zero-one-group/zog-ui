@@ -15,11 +15,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@zero-ui/core": ["packages/components/core/src/index.ts"],
-      "@zero-ui/docs": ["packages/docs/src/index.ts"],
-      "@zero-ui/dropzone": ["packages/components/dropzone/src/index.ts"],
-      "@zero-ui/helpers": ["packages/helpers/src/index.ts"],
-      "@zero-ui/icons": ["packages/icons/src/index.ts"]
+      "@01group-ui/core": ["packages/components/core/src/index.ts"],
+      "@01group-ui/docs": ["packages/docs/src/index.ts"],
+      "@01group-ui/dropzone": ["packages/components/dropzone/src/index.ts"],
+      "@01group-ui/helpers": ["packages/helpers/src/index.ts"],
+      "@01group-ui/icons": ["packages/icons/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

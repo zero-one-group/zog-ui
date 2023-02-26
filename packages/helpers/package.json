@@ -1,8 +1,8 @@
 {
-  "name": "@zero-ui/helpers",
+  "name": "@01group-ui/helpers",
   "version": "0.0.1",
   "type": "commonjs",
-  "homepage": "https://zero-one-group.com/",
+  "homepage": "https://zero-one-group.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/zero-one-group/zero-ui"
