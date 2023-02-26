@@ -89,11 +89,12 @@ export const getDateRangePickerOnlyStyle = ({
     '&-cell': getCellStyle(),
     '&-range': {
       position: 'relative',
-      display: 'inline-flex',
-      border: '1px solid #D9D9D9',
+      display: 'flex',
+      border: '1px solid $inputDefaultBorder',
       borderRadius: '2px',
       padding: '5px 12px',
       [`${cls}-input`]: renderCSS({
+        flex: 1,
         padding: '0',
         display: 'inline',
         width: 'auto',
@@ -111,7 +112,6 @@ export const getDateRangePickerOnlyStyle = ({
       '&-arrow': renderCSS({
         position: 'absolute',
         zIndex: 1,
-        // display: 'none',
         marginInlineStart: '16.5px',
         transition: 'left .3s ease-out',
         borderRadius: '0 0 2px',

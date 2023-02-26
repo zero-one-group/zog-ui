@@ -1,286 +1,279 @@
-import { CaretDownOutlined } from '@ant-design/icons';
-import * as RadixMenu from '@radix-ui/react-navigation-menu';
-import { ComponentProps, forwardRef } from 'react';
-import { keyframes, styled } from '../stitches.config';
-import { RemoveAsProps } from '../types';
+import { RightOutlined } from '@ant-design/icons';
+import {
+  autoUpdate,
+  flip,
+  FloatingFocusManager,
+  FloatingNode,
+  FloatingPortal,
+  FloatingTree,
+  offset,
+  Placement,
+  safePolygon,
+  shift,
+  useClick,
+  useDismiss,
+  useFloating,
+  useFloatingNodeId,
+  useFloatingParentNodeId,
+  useFloatingTree,
+  useHover,
+  useInteractions,
+  useListNavigation,
+  useMergeRefs,
+  useRole,
+  useTypeahead,
+} from '@floating-ui/react';
+import {
+  Children,
+  cloneElement,
+  ComponentProps,
+  forwardRef,
+  isValidElement,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import {
+  StyledMenuContent,
+  StyledMenuItem,
+  StyledMenuRoot,
+} from './Menu.styles';
 
-const enterFromRight = keyframes({
-  from: { transform: 'translateX(200px)', opacity: 0 },
-  to: { transform: 'translateX(0)', opacity: 1 },
-});
+// #region Types
+export type MenuRootProps = ComponentProps<typeof StyledMenuRoot> & {
+  open?: boolean;
+  placement?: Placement;
+  icon?: ReactNode;
+};
 
-const enterFromLeft = keyframes({
-  from: { transform: 'translateX(-200px)', opacity: 0 },
-  to: { transform: 'translateX(0)', opacity: 1 },
-});
+export type MenuItemProps = ComponentProps<typeof StyledMenuItem> & {
+  icon?: ReactNode;
+};
+// #endregion Types
 
-const exitToRight = keyframes({
-  from: { transform: 'translateX(0)', opacity: 1 },
-  to: { transform: 'translateX(200px)', opacity: 0 },
-});
-
-const exitToLeft = keyframes({
-  from: { transform: 'translateX(0)', opacity: 1 },
-  to: { transform: 'translateX(-200px)', opacity: 0 },
-});
-
-const scaleIn = keyframes({
-  from: { transform: 'rotateX(-30deg) scale(0.9)', opacity: 0 },
-  to: { transform: 'rotateX(0deg) scale(1)', opacity: 1 },
-});
-
-const scaleOut = keyframes({
-  from: { transform: 'rotateX(0deg) scale(1)', opacity: 1 },
-  to: { transform: 'rotateX(-10deg) scale(0.95)', opacity: 0 },
-});
-
-const fadeIn = keyframes({
-  from: { opacity: 0 },
-  to: { opacity: 1 },
-});
-
-const fadeOut = keyframes({
-  from: { opacity: 1 },
-  to: { opacity: 0 },
-});
-
-const StyledMenuRoot = styled(RadixMenu.Root, {
-  position: 'relative',
-  display: 'flex',
-  justifyContent: 'center',
-  width: '100vw',
-  zIndex: 1,
-});
-
-const StyledMenuList = styled(RadixMenu.List, {
-  $$shadowBlack: '$colors$blackA7',
-  display: 'flex',
-  justifyContent: 'center',
-  backgroundColor: 'white',
-  padding: 4,
-  borderRadius: 6,
-  listStyle: 'none',
-  boxShadow: '0 2px 10px $$shadowBlack',
-  margin: 0,
-  fontFamily: '$untitled',
-});
-
-const StyledMenuTrigger = styled(RadixMenu.Trigger, {
-  all: 'unset',
-  fontFamily: '$untitled',
-  $$shadowViolet: '$colors$violet7',
-  padding: '8px 12px',
-  outline: 'none',
-  userSelect: 'none',
-  fontWeight: 500,
-  lineHeight: 1,
-  borderRadius: 4,
-  fontSize: 15,
-  color: '$violet11',
-  '&:focus': { boxShadow: '0 0 0 2px $shadowViolet' },
-  '&:hover': { backgroundColor: '$violet3' },
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  gap: 2,
-});
-
-const StyledMenuLink = styled(RadixMenu.Link, {
-  $$shadowViolet: '$colors$violet7',
-  padding: '8px 12px',
-  outline: 'none',
-  userSelect: 'none',
-  fontWeight: 500,
-  borderRadius: 4,
-  color: '$violet11',
-  '&:focus': { boxShadow: '0 0 0 2px $$shadowViolet' },
-  '&:hover': { backgroundColor: '$violet3' },
-  display: 'block',
-  textDecoration: 'none',
-  fontSize: 15,
-  lineHeight: 1,
-});
-
-const StyledMenuContent = styled(RadixMenu.Content, {
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  width: '100%',
-  '@media only screen and (min-width: 600px)': { width: 'auto' },
-  animationDuration: '250ms',
-  animationTimingFunction: 'ease',
-  '&[data-motion="from-start"]': { animationName: enterFromLeft },
-  '&[data-motion="from-end"]': { animationName: enterFromRight },
-  '&[data-motion="to-start"]': { animationName: exitToLeft },
-  '&[data-motion="to-end"]': { animationName: exitToRight },
-});
-
-const StyledMenuIndicator = styled(RadixMenu.Indicator, {
-  display: 'flex',
-  alignItems: 'flex-end',
-  justifyContent: 'center',
-  height: 10,
-  top: '100%',
-  overflow: 'hidden',
-  zIndex: 1,
-  transition: 'width, transform 250ms ease',
-  '&[data-state="visible"]': { animation: `${fadeIn} 200ms ease` },
-  '&[data-state="hidden"]': { animation: `${fadeOut} 200ms ease` },
-});
-
-const StyledMenuViewport = styled(RadixMenu.Viewport, {
-  position: 'relative',
-  transformOrigin: 'top center',
-  marginTop: 10,
-  width: '100%',
-  backgroundColor: 'white',
-  borderRadius: 6,
-  overflow: 'hidden',
-  boxShadow:
-    'hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px',
-  height: 'var(--radix-navigation-menu-viewport-height)',
-  transition: 'width, height, 300ms ease',
-  '&[data-state="open"]': { animation: `${scaleIn} 200ms ease` },
-  '&[data-state="closed"]': { animation: `${scaleOut} 200ms ease` },
-  '@media only screen and (min-width: 600px)': {
-    width: 'var(--radix-navigation-menu-viewport-width)',
-  },
-});
-
-const StyledMenuContentList = styled('ul', {
-  display: 'grid',
-  padding: 22,
-  margin: 0,
-  columnGap: 10,
-  listStyle: 'none',
-  variants: {
-    layout: {
-      single: {
-        width: 500,
-        gridTemplateColumns: '1fr',
-      },
-      one: {
-        '@media only screen and (min-width: 600px)': {
-          width: 500,
-          gridTemplateColumns: '.75fr 1fr',
-        },
-      },
-      two: {
-        '@media only screen and (min-width: 600px)': {
-          width: 600,
-          gridAutoFlow: 'column',
-          gridTemplateRows: 'repeat(3, 1fr)',
-        },
-      },
+// #region MenuComponent
+const MenuComponent = forwardRef<HTMLButtonElement, MenuRootProps>(
+  (
+    {
+      title,
+      open = false,
+      icon,
+      placement = 'bottom-start',
+      children,
+      disabled,
+      size = 'md',
+      ...props
     },
-  },
-  defaultVariants: {
-    layout: 'one',
-  },
-});
+    forwardedRef
+  ) => {
+    // #region State
+    const [isOpen, setIsOpen] = useState(open);
+    const [activeIndex, setActiveIndex] = useState<number | null>(null);
+    // #endregion State
 
-const StyledMenuContentListItemLink = styled('a', {
-  fontFamily: '$untitled',
-  $$shadowViolet: '$colors$violet7',
-  display: 'block',
-  outline: 'none',
-  textDecoration: 'none',
-  userSelect: 'none',
-  padding: 12,
-  borderRadius: 6,
-  fontSize: 15,
-  lineHeight: 1,
-  '&:focus': { boxShadow: '0 0 0 2px $$shadowViolet' },
-  '&:hover': { backgroundColor: '$mauve3' },
-});
+    // #region Refs
+    const listItemRefs = useRef<(HTMLButtonElement | null)[]>([]);
+    const listContentRefs = useRef(
+      Children.map(children, (child) => {
+        return isValidElement(child) ? child.props.title : null;
+      }) as (string | null)[]
+    );
+    // #endregion Refs
 
-const StyledMenuContentListItemHeading = styled('div', {
-  fontWeight: 500,
-  lineHeight: 1.2,
-  marginBottom: 5,
-  color: '$violet12',
-});
+    // #region Floating Node
+    const tree = useFloatingTree();
+    const nodeId = useFloatingNodeId();
+    const parentId = useFloatingParentNodeId();
+    const isNested = parentId !== null;
+    // #endregion Floating Node
 
-const StyledMenuContentListItemText = styled('p', {
-  all: 'unset',
-  fontFamily: '$untitled',
-  color: '$mauve11',
-  lineHeight: 1.4,
-  fontWeight: 'initial',
-});
+    // #region Floating
+    const { x, y, strategy, refs, context } = useFloating({
+      nodeId,
+      open: isOpen,
+      onOpenChange: setIsOpen,
+      placement: isNested ? 'right-start' : placement,
+      middleware: [offset(), flip(), shift()],
+      whileElementsMounted: autoUpdate,
+    });
+    // #endregion Floating
 
-const StyledMenuViewportPosition = styled('div', {
-  position: 'absolute',
-  display: 'flex',
-  justifyContent: 'center',
-  width: '100%',
-  top: '100%',
-  left: 0,
-  perspective: '2000px',
-});
+    // #region Floating Interactions
+    const hover = useHover(context, {
+      delay: {
+        open: 50,
+      },
+      handleClose: safePolygon({
+        restMs: 25,
+        blockPointerEvents: true,
+      }),
+    });
+    const click = useClick(context, {
+      event: 'mousedown',
+      toggle: !isNested,
+      ignoreMouse: isNested,
+    });
+    const role = useRole(context, {
+      role: 'menu',
+    });
+    const dismiss = useDismiss(context);
+    const listNavigation = useListNavigation(context, {
+      listRef: listItemRefs,
+      activeIndex,
+      nested: isNested,
+      onNavigate: setActiveIndex,
+    });
+    const typeahead = useTypeahead(context, {
+      listRef: listContentRefs,
+      onMatch: isOpen ? setActiveIndex : undefined,
+      activeIndex,
+    });
 
-const StyledMenuCaretDownIcon = styled(CaretDownOutlined, {
-  position: 'relative',
-  color: '$violet10',
-  top: 1,
-  transition: 'transform 250ms ease',
-  '[data-state=open] &': { transform: 'rotate(-180deg)' },
-});
+    const { getReferenceProps, getFloatingProps, getItemProps } =
+      useInteractions([hover, click, role, listNavigation, typeahead, dismiss]);
+    // #endregion Floating Interactions
 
-const StyledMenuArrow = styled('div', {
-  position: 'relative',
-  top: '70%',
-  backgroundColor: 'white',
-  width: 10,
-  height: 10,
-  transform: 'rotate(45deg)',
-  borderTopLeftRadius: 2,
-});
+    const referenceRef = useMergeRefs([forwardedRef, refs.setReference]);
 
-const MenuForwardRef = forwardRef<
-  HTMLElement,
-  ComponentProps<typeof StyledMenuRoot>
->(({ children, ...props }, ref) => {
-  return (
-    <StyledMenuRoot ref={ref} {...props}>
-      {children}
-    </StyledMenuRoot>
-  );
-});
+    // #region Effects
+    useEffect(() => {
+      if (!tree) return;
 
-const MenuContentListItem = forwardRef<
-  HTMLAnchorElement,
-  RemoveAsProps<ComponentProps<typeof StyledMenuContentListItemLink>>
->(({ children, title, ...props }, ref) => {
-  return (
-    <li>
-      <StyledMenuLink asChild>
-        <StyledMenuContentListItemLink {...props} ref={ref}>
-          <StyledMenuContentListItemHeading>
-            {title}
-          </StyledMenuContentListItemHeading>
-          <StyledMenuContentListItemText>
-            {children}
-          </StyledMenuContentListItemText>
-        </StyledMenuContentListItemLink>
-      </StyledMenuLink>
-    </li>
-  );
-});
+      const handleTreeClick = () => {
+        setIsOpen(false);
+      };
 
-export const Menu = Object.assign(MenuForwardRef, {
-  List: StyledMenuList,
-  Trigger: StyledMenuTrigger,
-  Link: StyledMenuLink,
-  Content: StyledMenuContent,
-  Indicator: StyledMenuIndicator,
-  Viewport: StyledMenuViewport,
-  ContentList: StyledMenuContentList,
-  ContentListItem: MenuContentListItem,
-  ContentListItemHeading: StyledMenuContentListItemHeading,
-  ContentListItemText: StyledMenuContentListItemText,
-  ViewportPosition: StyledMenuViewportPosition,
-  CaretDownIcon: StyledMenuCaretDownIcon,
-  Arrow: StyledMenuArrow,
-  Item: RadixMenu.Item,
+      const onSubMenuOpen = (event: { nodeId: string; parentId: string }) => {
+        if (event.nodeId !== nodeId && event.parentId === parentId) {
+          setIsOpen(false);
+        }
+      };
+
+      tree.events.on('click', handleTreeClick);
+      tree.events.on('menuopen', onSubMenuOpen);
+
+      return () => {
+        tree.events.off('click', handleTreeClick);
+        tree.events.off('menuopen', onSubMenuOpen);
+      };
+    }, [tree, nodeId, parentId]);
+
+    useEffect(() => {
+      if (isOpen && tree) {
+        tree.events.emit('menuopen', { nodeId, parentId });
+      }
+    }, [tree, isOpen, nodeId, parentId]);
+    // #endregion Effects
+
+    return (
+      <FloatingNode id={nodeId}>
+        <StyledMenuRoot
+          ref={referenceRef}
+          as={isNested ? StyledMenuItem : undefined}
+          disabled={disabled}
+          size={size}
+          data-open={isOpen}
+          {...getReferenceProps({
+            ...props,
+            onClick: (event) => {
+              event.stopPropagation();
+            },
+            role: isNested ? 'menuitem' : undefined,
+            title,
+          })}
+        >
+          {icon ?? null}
+          <p>{title}</p>
+          {isNested ? <RightOutlined className="right-icon" /> : null}
+        </StyledMenuRoot>
+        <FloatingPortal>
+          {isOpen ? (
+            <FloatingFocusManager
+              context={context}
+              modal={false}
+              initialFocus={isNested ? -1 : 0}
+              returnFocus={!isNested}
+            >
+              <StyledMenuContent
+                ref={refs.setFloating}
+                css={{
+                  position: strategy,
+                  top: y ?? 0,
+                  left: x ?? 0,
+                  width: 'max-content',
+                }}
+                {...getFloatingProps()}
+              >
+                {Children.map(children, (child, index) => {
+                  if (!isValidElement(child)) return null;
+
+                  return cloneElement(
+                    child,
+                    getItemProps({
+                      tabIndex: activeIndex === index ? 0 : -1,
+                      role: 'menuitem',
+                      ref: (node: HTMLButtonElement) => {
+                        listItemRefs.current[index] = node;
+                      },
+                      onClick: (event) => {
+                        child.props.onClick?.(event);
+                        tree?.events.emit('click');
+                      },
+                      onMouseEnter: () => {
+                        if (isOpen) {
+                          setActiveIndex(index);
+                        }
+                      },
+                    })
+                  );
+                })}
+              </StyledMenuContent>
+            </FloatingFocusManager>
+          ) : null}
+        </FloatingPortal>
+      </FloatingNode>
+    );
+  }
+);
+// #endregion MenuComponent
+
+// #region MenuItem
+const Item = forwardRef<HTMLButtonElement, MenuItemProps>(
+  (
+    { children, role = 'menuitem', size = 'md', title, icon, ...props },
+    ref
+  ) => {
+    return (
+      <StyledMenuItem
+        ref={ref}
+        role={role}
+        size={size}
+        title={title}
+        {...props}
+      >
+        {icon ?? null}
+        {title}
+      </StyledMenuItem>
+    );
+  }
+);
+// #endregion MenuItem
+
+// #region Root
+const Root = forwardRef<HTMLButtonElement, MenuRootProps>((props, ref) => {
+  const parentId = useFloatingParentNodeId();
+
+  if (parentId === null) {
+    return (
+      <FloatingTree>
+        <MenuComponent ref={ref} {...props} />
+      </FloatingTree>
+    );
+  }
+
+  return <MenuComponent ref={ref} {...props} />;
 });
+// #endregion Root
+
+export const Menu = Object.assign(Root, { Item });

@@ -7,63 +7,60 @@ class ButtonGroupItem extends StatelessWidget {
 
   /// Whether or not it has select Icon
   final bool withIcon;
-
   final IconData? selectIcon;
-
-  final double fontSize;
   final double padding;
-  final Color? selectedColor;
-  final Color? textColor;
+  final TextStyle labelStyle;
+  final Color? activeColor;
+  final Color? inactiveColor;
 
-  const ButtonGroupItem(
-      {super.key,
-      required this.label,
-      this.icon,
-      this.selectIcon,
-      required this.isSelected,
-      required this.withIcon,
-      this.fontSize = 14,
-      this.padding = 20,
-      this.selectedColor,
-      this.textColor});
+  const ButtonGroupItem({
+    super.key,
+    required this.label,
+    this.icon,
+    this.selectIcon,
+    required this.isSelected,
+    required this.withIcon,
+    this.padding = 20,
+    required this.labelStyle,
+    this.activeColor,
+    this.inactiveColor,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final baseStyle = TextStyle(
+      fontSize: labelStyle.fontSize,
+      color: isSelected ? activeColor : inactiveColor,
+    );
+
     return Container(
       margin: EdgeInsets.symmetric(horizontal: padding),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if (withIcon)
+          if (withIcon && isSelected)
             Padding(
-                padding: const EdgeInsets.only(right: 6),
-                child: Visibility(
-                  maintainSize: true,
-                  maintainAnimation: true,
-                  maintainState: true,
-                  visible: isSelected,
-                  child: Icon(
-                    selectIcon,
-                    color: selectedColor,
-                    size: fontSize,
-                  ),
-                )),
+              padding: const EdgeInsets.only(right: 6),
+              child: Icon(
+                selectIcon,
+                color: baseStyle.color,
+                size: baseStyle.fontSize,
+              ),
+            ),
           if (icon != null)
             Padding(
               padding: const EdgeInsets.only(right: 6),
               child: Icon(
                 icon,
-                color: isSelected ? selectedColor : textColor,
-                size: fontSize,
+                color: baseStyle.color,
+                size: baseStyle.fontSize,
               ),
             ),
           Text(
             label,
             textAlign: TextAlign.center,
-            style: TextStyle(
-                color: isSelected ? selectedColor : textColor,
-                fontSize: fontSize),
+            style: labelStyle.merge(baseStyle),
           ),
         ],
       ),

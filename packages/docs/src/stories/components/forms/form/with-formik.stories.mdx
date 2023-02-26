@@ -1,0 +1,130 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { BADGE } from '@geometricpanda/storybook-addon-badges';
+import { within, userEvent } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
+import { Form, FormItem, DatePicker, Button } from '@zero-ui/core';
+import { Formik, Form as FormikForm, useField, useFormikContext } from 'formik';
+import { HomeOutlined } from '@ant-design/icons';
+
+<Meta
+  title="Components/Forms/Form/WithFormik"
+  component={[Form]}
+  argTypes={{}}
+/>
+
+export const DatePickerField = ({ name }) => {
+  const [field] = useField(name);
+  const { setFieldValue } = useFormikContext();
+  return (
+    <DatePicker
+      value={field.value}
+      onChange={(val) => setFieldValue(name, val)}
+    />
+  );
+};
+
+export const WithFormikStory = (args) => {
+  const validate = (values) => {
+    const errors = {};
+    if (!values.birthDate) {
+      errors.birthDate = 'Birth Date Required';
+    }
+    return errors;
+  };
+  return (
+    <Formik
+      initialValues={{
+        birthDate: null,
+      }}
+      onSubmit={(values) => {
+        if (!!values) {
+          alert(JSON.stringify(values));
+        }
+      }}
+      validate={validate}
+    >
+      {({ errors }) => (
+        <Form asChild>
+          <FormikForm>
+            <FormItem
+              isInvalid={!!errors.birthDate}
+              errorMessage={errors.birthDate}
+            >
+              <DatePickerField name="birthDate" />
+            </FormItem>
+            <FormItem>
+              <Button type="submit">Submit</Button>
+            </FormItem>
+          </FormikForm>
+        </Form>
+      )}
+    </Formik>
+  );
+};
+
+# With Formik
+
+Example usage with formik
+
+## Example Usage
+
+```jsx
+import { Form, FormItem } from '@zero-ui/core';
+import { Formik, Form as FormikForm, useField, useFormikContext } from 'formik';
+
+export const DatePickerField = ({ name }) => {
+  const [field] = useField(name);
+  const { setFieldValue } = useFormikContext();
+  return (
+    <DatePicker
+      value={field.value}
+      onChange={(val) => setFieldValue(name, val)}
+    />
+  );
+};
+
+export const WithFormik = (args) => {
+  const validate = (values) => {
+    const errors = {};
+    if (!values.birthDate) {
+      errors.birthDate = 'Birth Date Required';
+    }
+    return errors;
+  };
+  return (
+    <Formik
+      initialValues={{
+        birthDate: null,
+      }}
+      onSubmit={(values) => {
+        if (!!values) {
+          alert(JSON.stringify(values));
+        }
+      }}
+      validate={validate}
+    >
+      {({ errors }) => (
+        <Form asChild>
+          <FormikForm>
+            <FormItem
+              isInvalid={!!errors.birthDate}
+              errorMessage={errors.birthDate}
+            >
+              <DatePickerField name="birthDate" />
+            </FormItem>
+            <FormItem>
+              <Button type="submit">Submit</Button>
+            </FormItem>
+          </FormikForm>
+        </Form>
+      )}
+    </Formik>
+  );
+};
+```
+
+<Canvas columns={2} withSource="close">
+  <Story args={{}} name="WithFormik">
+    {WithFormikStory.bind()}
+  </Story>
+</Canvas>

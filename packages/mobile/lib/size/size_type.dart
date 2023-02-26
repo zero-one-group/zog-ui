@@ -9,11 +9,11 @@ enum ZeroSizeType {
   EdgeInsets get padding {
     switch (this) {
       case small:
-        return const EdgeInsets.symmetric(horizontal: 12, vertical: 4);
-      case medium:
         return const EdgeInsets.symmetric(horizontal: 20, vertical: 6);
+      case medium:
+        return const EdgeInsets.symmetric(horizontal: 30, vertical: 10);
       case large:
-        return const EdgeInsets.symmetric(horizontal: 24, vertical: 8);
+        return const EdgeInsets.symmetric(horizontal: 34, vertical: 12);
     }
   }
 
@@ -36,45 +36,6 @@ enum ZeroSizeType {
         return 22.0;
       case large:
         return 28.0;
-    }
-  }
-
-  double get height {
-    switch (this) {
-      case small:
-        return 24;
-      case medium:
-        return 32;
-      case large:
-        return 40;
-      default:
-        return 32;
-    }
-  }
-
-  double get width {
-    switch (this) {
-      case small:
-        return 56;
-      case medium:
-        return 76;
-      case large:
-        return 90;
-      default:
-        return 76;
-    }
-  }
-
-  double get bottomBorderWidth {
-    switch (this) {
-      case small:
-        return 1;
-      case medium:
-        return 2;
-      case large:
-        return 3;
-      default:
-        return 2;
     }
   }
 

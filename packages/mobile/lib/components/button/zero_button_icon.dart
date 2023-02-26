@@ -1,466 +1,148 @@
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
-import 'button_animating.dart';
+enum _ZeroButtonIconType {
+  primary,
+  secondary,
+  disabled;
 
-/// ZeroButton created based on [ElevatedButton] and [TextButton] with some customizations
-/// how to use this widget is almost the same as [ElevatedButton], [TextButton], [OutlinedButton]
-class ZeroButtonIcon extends ElevatedButton {
-  ZeroButtonIcon({
-    super.key,
-    required super.onPressed,
-    super.onLongPress,
-    super.onHover,
-    super.onFocusChange,
-    required ZeroButtonStyle style,
-    super.focusNode,
-    super.autofocus = false,
-    super.clipBehavior = Clip.none,
-    super.statesController,
-    required super.child,
-  }) : super(
-          style: style.toButtonStyle(),
-        );
+  /// Get state current type is primary or not
+  ///
+  /// If primary return true, otherwise return false
+  bool get isPrimary => this == _ZeroButtonIconType.primary;
 
-  static Widget primary({
+  /// Get state current type is secondary or not
+  ///
+  /// If secondary return true, otherwise return false
+  bool get isSecondary => this == _ZeroButtonIconType.secondary;
+}
+
+class ZeroButtonIcon extends StatelessWidget {
+  /// The child icon of button
+  ///
+  /// As usually [icon] use widget [Icon]
+  final Widget icon;
+
+  /// Callback when button tap/pressed
+  final VoidCallback? onPressed;
+
+  /// Allow to cutomize style by preferences
+  final ZeroButtonIconStyle? style;
+
+  /// Size of button
+  final ZeroButtonSize size;
+
+  /// Local type button primary, secondary, or disabeld
+  final _ZeroButtonIconType _type;
+
+  /// Border radius of [ZeroButtonIcon]
+  final ZeroButtonRadiusType borderRadiusType;
+
+  /// Build button icon with primary style
+  ///
+  /// By default when [onPressed] is null, automatically style is disabled
+  const ZeroButtonIcon.primary({
     Key? key,
-    required Icon icon,
+    required this.icon,
+    required this.onPressed,
+    this.style,
+    this.size = ZeroButtonSize.medium,
+    this.borderRadiusType = ZeroButtonRadiusType.rectangle,
+  })  : _type = _ZeroButtonIconType.primary,
+        super(key: key);
 
-    /// [width] is the width for [ZeroButtonIcon]
-    /// if this value is null, widget will be sized to fit its contents
-    double? width,
+  /// Build button icon with secondary style
+  ///
+  /// By default when [onPressed] is null, automatically style is disabled
+  const ZeroButtonIcon.secondary({
+    Key? key,
+    required this.icon,
+    required this.onPressed,
+    this.style,
+    this.size = ZeroButtonSize.medium,
+    this.borderRadiusType = ZeroButtonRadiusType.rectangle,
+  })  : _type = _ZeroButtonIconType.secondary,
+        super(key: key);
 
-    /// [height] is the height for [ZeroButtonIcon]
-    /// if this value is null, the default height get from [defaultButtonHeight] which is the value based on [buttonSizeType]
-    double? height,
-    ZeroSizeType buttonSizeType = ZeroSizeType.medium,
+  /// Build disabled button
+  ///
+  /// This button can't tap/pressed
+  const ZeroButtonIcon.disabled({
+    Key? key,
+    required this.icon,
+    this.style,
+    this.size = ZeroButtonSize.medium,
+    this.borderRadiusType = ZeroButtonRadiusType.rectangle,
+  })  : onPressed = null,
+        _type = _ZeroButtonIconType.disabled,
+        super(key: key);
 
-    /// [buttonRadiusType] is the type of radius for [ZeroButtonIcon]
-    /// [ZeroButtonRadiusType.rectangle] is the type of radius for [ZeroButtonIcon] that has rectangle shape
-    /// [ZeroButtonRadiusType.rounded] is the type of radius for [ZeroButtonIcon] that has rounded shape
-    /// [ZeroButtonRadiusType.curved] is the type of radius for [ZeroButtonIcon] that has curved shape
-    ZeroButtonRadiusType buttonRadiusType = ZeroButtonRadiusType.rectangle,
+  @override
+  Widget build(BuildContext context) {
+    final theme = context.theme;
+    final themeStyle = theme.buttonIconStyle;
+    ZeroButtonIconStyle? localStyle;
 
-    /// [isDisabled] is the flag to determine if the button is disabled or not
-    bool isDisabled = false,
-    required VoidCallback onPressed,
-    VoidCallback? onLongPress,
+    switch (_type) {
+      case _ZeroButtonIconType.primary:
+        localStyle = themeStyle.primaryStyle;
+        break;
+      case _ZeroButtonIconType.secondary:
+        localStyle = themeStyle.secondaryStyle;
+        break;
+      default:
+        localStyle = themeStyle.primaryStyle;
+    }
+    final isDisabled = onPressed == null;
 
-    /// [ZeroButtonStyle] is the style for [ZeroButtonIcon]
-    /// if this value is null, the default style will be used
-    /// which is defined in [primaryDefaultStyle]
-    ///
-    /// [style] used for customizing [ZeroButtonIcon]
-    ZeroButtonStyle? style,
-    FocusNode? focusNode,
-    bool autofocus = false,
-  }) {
-    return Builder(builder: (context) {
-      final theme = context.theme;
-      final buttonStyle = theme.primaryButtonStyle;
+    final adaptiveStyle =
+        (localStyle ?? ZeroButtonIconStyle.fallback()).merge(style);
+    final backgroundColor = isDisabled
+        ? theme.disabledBackgroundColor
+        : _type.isPrimary
+            ? adaptiveStyle.color
+            : Colors.transparent;
+    final iconColor = isDisabled
+        ? (themeStyle.disabledColor ?? theme.disabledColor)
+        : (_type.isPrimary
+            ? adaptiveStyle.iconColor ?? Colors.white
+            : adaptiveStyle.iconColor ??
+                adaptiveStyle.color ??
+                theme.primaryColor);
 
-      /// [primaryDefaultStyle] is the default style for [ZeroButton.primary]
-      final ZeroButtonStyle primaryDefaultStyle = buttonStyle.merge(
-        ZeroButtonStyle(
-          backgroundColor: theme.primaryColor,
-          elevation: 0,
-          fixedSize: (width != null)
-              ? Size(width, height ?? buttonSizeType.defaultButtonHeight)
+    final borderColor = isDisabled
+        ? theme.dividerColor
+        : _type.isSecondary
+            ? iconColor
+            : null;
+
+    return InkWell(
+      onTap: onPressed,
+      borderRadius: borderRadiusType.borderRadius,
+      child: Ink(
+        width: size.getSize(themeStyle),
+        height: size.getSize(themeStyle),
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          borderRadius: borderRadiusType != ZeroButtonRadiusType.rounded
+              ? borderRadiusType.borderRadius
               : null,
-          padding: buttonSizeType.padding,
-          shape: RoundedRectangleBorder(
-            borderRadius: buttonRadiusSize(buttonRadiusType),
+          shape: borderRadiusType == ZeroButtonRadiusType.rounded
+              ? BoxShape.circle
+              : BoxShape.rectangle,
+          border: borderColor != null ? Border.all(color: borderColor) : null,
+        ),
+        child: IconTheme(
+          data: IconThemeData(
+            size: (adaptiveStyle.iconSize ?? 16) +
+                size.iconSizeCorrection(themeStyle),
+            color: iconColor,
+          ),
+          child: Center(
+            child: icon,
           ),
         ),
-      );
-
-      /// if [style] is not null, merge [style] with [primaryDefaultStyle]
-      /// combine customizations from [style] with default style [primaryDefaultStyle]
-      final adaptiveStyle = primaryDefaultStyle.merge(style);
-
-      /// [updateAnimating] is the callback function to update the state of [ZeroButtonIcon]
-      /// this function will be called when [ZeroButtonIcon] is pressed
-      /// this function will be called from [_ButtonAnimating] widget
-      late Function updateAnimating;
-
-      /// [animatingColor] is the color that will be used for [ZeroButtonIcon] when it is pressed
-      /// this value will be used as [backgroundColor] for [_ButtonAnimating] widget
-      final animatingColor = buttonStyle.animatingColor ??
-          adaptiveStyle.animatingColor ??
-          ZeroColors.transparent;
-
-      return isDisabled
-          ? disabled(
-              icon: icon,
-              width: width,
-              height: height,
-              buttonSizeType: buttonSizeType,
-              buttonRadiusType: buttonRadiusType,
-            )
-          : ButtonAnimating(
-              callback: (void Function() update) {
-                updateAnimating = update;
-              },
-              buttonRadiusType: buttonRadiusType,
-              height: height ?? buttonSizeType.defaultButtonHeight,
-              animatingColor: animatingColor,
-              child: ZeroButtonIcon(
-                key: key,
-                onPressed: () {
-                  updateAnimating();
-                  onPressed();
-                },
-                onLongPress: onLongPress,
-                style: adaptiveStyle,
-                focusNode: focusNode,
-                autofocus: autofocus,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Icon(
-                    icon.icon,
-                    color: icon.color ?? ZeroColors.white,
-                    size: buttonSizeType.iconSize,
-                  ),
-                ),
-              ),
-            );
-    });
-  }
-
-  static Widget secondary({
-    Key? key,
-    required Icon icon,
-
-    /// [selectedBorderColor] is the border color for [ZeroButtonIcon]
-    Color? borderColor,
-
-    /// [width] is the width for [ZeroButtonIcon]
-    /// if this value is null, widget will be sized to fit its contents
-    double? width,
-
-    /// [height] is the height for [ZeroButtonIcon]
-    /// if this value is null, the default height get from [defaultButtonHeight] which is the value based on [buttonSizeType]
-    double? height,
-    ZeroSizeType buttonSizeType = ZeroSizeType.medium,
-
-    /// [buttonRadiusType] is the type of radius for [ZeroButtonIcon]
-    /// [ZeroButtonRadiusType.rectangle] is the type of radius for [ZeroButtonIcon] that has rectangle shape
-    /// [ZeroButtonRadiusType.rounded] is the type of radius for [ZeroButtonIcon] that has rounded shape
-    /// [ZeroButtonRadiusType.curved] is the type of radius for [ZeroButtonIcon] that has curved shape
-    ZeroButtonRadiusType buttonRadiusType = ZeroButtonRadiusType.rectangle,
-
-    /// [isDisabled] is the flag to determine if the button is disabled or not
-    bool isDisabled = false,
-    required VoidCallback onPressed,
-    VoidCallback? onLongPress,
-
-    /// [ZeroButtonStyle] is the style for [ZeroButtonIcon]
-    /// if this value is null, the default style will be used
-    /// which is defined in [secondaryDefaultStyle]
-    ///
-    /// [style] used for customizing [ZeroButtonIcon]
-    ZeroButtonStyle? style,
-    FocusNode? focusNode,
-    bool autofocus = false,
-  }) {
-    return Builder(builder: (context) {
-      final theme = context.theme;
-      final buttonStyle = theme.secondaryButtonStyle;
-      final adaptiveBorderColor = borderColor ?? theme.dividerColor;
-
-      /// [secondaryDefaultStyle] is the default style for [ZeroButton.secondary]
-      final ZeroButtonStyle secondaryDefaultStyle = buttonStyle.merge(
-        ZeroButtonStyle(
-          backgroundColor: buttonStyle.backgroundColor,
-          foregroundColor:
-              buttonStyle.foregroundColor ?? theme.disabledBackgroundColor,
-          animatingColor:
-              buttonStyle.animatingColor ?? theme.primaryColor.lighter,
-          elevation: 0,
-          fixedSize: (width != null)
-              ? Size(width, height ?? buttonSizeType.defaultButtonHeight)
-              : null,
-          padding: buttonSizeType.padding,
-          shape: RoundedRectangleBorder(
-            side: BorderSide(
-              color: adaptiveBorderColor,
-              width: 1,
-            ),
-            borderRadius: buttonRadiusSize(buttonRadiusType),
-          ),
-        ),
-      );
-
-      /// if [style] is not null, merge [style] with [secondaryDefaultStyle]
-      /// combine customizations from [style] with default style [secondaryDefaultStyle]
-      final adaptiveStyle = secondaryDefaultStyle.merge(style);
-
-      /// [updateAnimating] is the callback function to update the state of [ZeroButtonIcon]
-      late Function updateAnimating;
-
-      /// [animatingColor] is the color that will be used for [ZeroButtonIcon] when it is pressed
-      final animatingColor = style?.animatingColor ??
-          buttonStyle.animatingColor ??
-          Colors.transparent;
-
-      return isDisabled
-          ? disabled(
-              icon: icon,
-              width: width,
-              height: height,
-              buttonSizeType: buttonSizeType,
-              buttonRadiusType: buttonRadiusType,
-            )
-          : ButtonAnimating(
-              callback: (void Function() update) {
-                updateAnimating = update;
-              },
-              buttonRadiusType: buttonRadiusType,
-              height: height ?? buttonSizeType.defaultButtonHeight,
-              animatingColor: animatingColor,
-              child: ZeroButtonIcon(
-                key: key,
-                onPressed: () {
-                  updateAnimating();
-                  onPressed();
-                },
-                onLongPress: onLongPress,
-                style: adaptiveStyle,
-                focusNode: focusNode,
-                autofocus: autofocus,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Icon(
-                    icon.icon,
-                    color: icon.color ?? theme.solidTextColor,
-                    size: buttonSizeType.iconSize,
-                  ),
-                ),
-              ),
-            );
-    });
-  }
-
-  static Widget text({
-    Key? key,
-    required Icon icon,
-
-    /// [width] is the width for [ZeroButtonIcon]
-    /// if this value is null, widget will be sized to fit its contents
-    double? width,
-
-    /// [height] is the height for [ZeroButtonIcon]
-    /// if this value is null, the default height get from [defaultButtonHeight] which is the value based on [buttonSizeType]
-    double? height,
-    ZeroSizeType buttonSizeType = ZeroSizeType.medium,
-
-    /// [buttonRadiusType] is the type of radius for [ZeroButtonIcon]
-    /// [ZeroButtonRadiusType.rectangle] is the type of radius for [ZeroButtonIcon] that has rectangle shape
-    /// [ZeroButtonRadiusType.rounded] is the type of radius for [ZeroButtonIcon] that has rounded shape
-    /// [ZeroButtonRadiusType.curved] is the type of radius for [ZeroButtonIcon] that has curved shape
-    ZeroButtonRadiusType buttonRadiusType = ZeroButtonRadiusType.rectangle,
-
-    /// [isDisabled] is the flag to determine if the button is disabled or not
-    bool isDisabled = false,
-    required VoidCallback onPressed,
-    VoidCallback? onLongPress,
-
-    /// [ZeroButtonStyle] is the style for [ZeroButtonIcon]
-    /// if this value is null, the default style will be used
-    /// which is defined in [secondaryDefaultStyle]
-    ///
-    /// [style] used for customizing [ZeroButtonIcon]
-    ZeroButtonStyle? style,
-    FocusNode? focusNode,
-    bool autofocus = false,
-  }) {
-    return Builder(builder: (context) {
-      final theme = context.theme;
-      final buttonStyle = theme.secondaryButtonStyle;
-
-      /// [secondaryDefaultStyle] is the default style for [ZeroButton.secondary]
-      final ZeroButtonStyle secondaryDefaultStyle = buttonStyle.merge(
-        ZeroButtonStyle(
-          foregroundColor: buttonStyle.foregroundColor ?? ZeroColors.neutral,
-          elevation: 0,
-          fixedSize: (width != null)
-              ? Size(width, height ?? buttonSizeType.defaultButtonHeight)
-              : null,
-          padding: buttonSizeType.padding,
-          shape: RoundedRectangleBorder(
-            borderRadius: buttonRadiusSize(buttonRadiusType),
-          ),
-        ),
-      );
-
-      /// if [style] is not null, merge [style] with [secondaryDefaultStyle]
-      /// combine customizations from [style] with default style [secondaryDefaultStyle]
-      final adaptiveStyle = secondaryDefaultStyle.merge(style);
-
-      return isDisabled
-          ? disabled(
-              icon: icon,
-              width: width,
-              height: height,
-              buttonSizeType: buttonSizeType,
-              buttonRadiusType: buttonRadiusType,
-              style: ZeroButtonStyle(
-                elevation: 0,
-                fixedSize: (width != null)
-                    ? Size(width, height ?? buttonSizeType.defaultButtonHeight)
-                    : null,
-                padding: buttonSizeType.padding,
-                shape: RoundedRectangleBorder(
-                  borderRadius: buttonRadiusSize(buttonRadiusType),
-                ),
-              ),
-            )
-          : SizedBox(
-              height: height ?? buttonSizeType.defaultButtonHeight,
-              child: ZeroButtonIcon(
-                key: key,
-                onPressed: onPressed,
-                onLongPress: onLongPress,
-                style: adaptiveStyle,
-                focusNode: focusNode,
-                autofocus: autofocus,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Icon(
-                    icon.icon,
-                    color: icon.color ?? theme.solidTextColor,
-                    size: buttonSizeType.iconSize,
-                  ),
-                ),
-              ),
-            );
-    });
-  }
-
-  static Widget disabled({
-    Key? key,
-    required Icon icon,
-
-    /// [width] is the width for [ZeroButtonIcon]
-    /// if this value is null, widget will be sized to fit its contents
-    double? width,
-
-    /// [height] is the height for [ZeroButtonIcon]
-    /// if this value is null, the default height get from [defaultButtonHeight] which is the value based on [buttonSizeType]
-    double? height,
-    ZeroSizeType buttonSizeType = ZeroSizeType.medium,
-
-    /// [buttonRadiusType] is the type of radius for [ZeroButtonIcon]
-    /// [ZeroButtonRadiusType.rectangle] is the type of radius for [ZeroButtonIcon] that has rectangle shape
-    /// [ZeroButtonRadiusType.rounded] is the type of radius for [ZeroButtonIcon] that has rounded shape
-    /// [ZeroButtonRadiusType.curved] is the type of radius for [ZeroButtonIcon] that has curved shape
-    ZeroButtonRadiusType buttonRadiusType = ZeroButtonRadiusType.rectangle,
-
-    /// [style] for customizing button style
-    /// if this value is null, the default style will be used
-    ZeroButtonStyle? style,
-  }) {
-    return Builder(builder: (context) {
-      final theme = context.theme;
-
-      /// [disabledDefaultStyle] is the default style for [ZeroButton.disabled]
-      final ZeroButtonStyle disabledDefaultStyle = ZeroButtonStyle(
-        backgroundColor: theme.disabledBackgroundColor,
-        foregroundColor: ZeroColors.transparentWhite,
-        elevation: 0,
-        fixedSize: (width != null)
-            ? Size(width, height ?? buttonSizeType.defaultButtonHeight)
-            : null,
-        padding: buttonSizeType.padding,
-        shape: RoundedRectangleBorder(
-          side: BorderSide(
-            color: theme.disabledColor.withOpacity(0.5),
-            width: 1,
-          ),
-          borderRadius: buttonRadiusSize(buttonRadiusType),
-        ),
-      );
-
-      /// [style] is the style for [ZeroButtonIcon]
-      final adaptiveButtonStyle = disabledDefaultStyle.merge(style);
-
-      /// [animatingColor] is the color that will be used for [ZeroButtonIcon] when it is pressed
-      final animatingColor =
-          adaptiveButtonStyle.animatingColor ?? ZeroColors.transparent;
-      return ButtonAnimating(
-        callback: (update) {
-          // do nothing
-        },
-        buttonRadiusType: buttonRadiusType,
-        height: height ?? buttonSizeType.defaultButtonHeight,
-        animatingColor: animatingColor,
-        child: ZeroButtonIcon(
-          key: key,
-          onPressed: () {
-            // do nothing
-          },
-          style: adaptiveButtonStyle,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Icon(
-              icon.icon,
-              color: icon.color ?? theme.disabledColor,
-              size: buttonSizeType.iconSize,
-            ),
-          ),
-        ),
-      );
-    });
-  }
-
-  /// ZeroButtonStyle is the style for [ZeroButtonIcon]
-  /// styleFrom is the function to create [ButtonStyle] from [ZeroButtonStyle]
-  /// [ZeroButtonStyle] is the style for [ZeroButtonIcon]
-  static ZeroButtonStyle styleFrom({
-    Color? foregroundColor,
-    Color? backgroundColor,
-    Color? disabledForegroundColor,
-    Color? disabledBackgroundColor,
-    Color? shadowColor,
-    Color? surfaceTintColor,
-    double? elevation,
-    TextStyle? textStyle,
-    EdgeInsetsGeometry? padding,
-    Size? minimumSize,
-    Size? fixedSize,
-    Size? maximumSize,
-    BorderSide? side,
-    OutlinedBorder? shape,
-    VisualDensity? visualDensity,
-    MaterialTapTargetSize? tapTargetSize,
-    Duration? animationDuration,
-    bool? enableFeedback,
-    AlignmentGeometry? alignment,
-    InteractiveInkFeatureFactory? splashFactory,
-    Color? animatingColor,
-  }) {
-    return ZeroButtonStyle(
-      backgroundColor: backgroundColor,
-      foregroundColor: foregroundColor,
-      disabledBackgroundColor: disabledForegroundColor,
-      disabledForegroundColor: disabledBackgroundColor,
-      surfaceTintColor: surfaceTintColor,
-      shadowColor: shadowColor,
-      elevation: elevation,
-      textStyle: textStyle,
-      padding: padding,
-      minimumSize: minimumSize,
-      fixedSize: fixedSize,
-      maximumSize: maximumSize,
-      side: side,
-      shape: shape,
-      visualDensity: visualDensity,
-      tapTargetSize: tapTargetSize,
-      animationDuration: animationDuration,
-      enableFeedback: enableFeedback,
-      alignment: alignment,
-      splashFactory: splashFactory,
-      animatingColor: animatingColor,
+      ),
     );
   }
 }

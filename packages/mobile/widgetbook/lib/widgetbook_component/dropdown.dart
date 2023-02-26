@@ -13,7 +13,7 @@ List<Option<InputDecorationType>> decorationOptions = [
   ),
   const Option(
     label: 'Round',
-    value: InputDecorationType.round,
+    value: InputDecorationType.rounded,
   ),
   const Option(
     label: 'Fill',
@@ -25,14 +25,14 @@ List<Option<InputDecorationType>> decorationOptions = [
   ),
 ];
 
-List<Option<TextfieldSize>> sizeOptions = [
+List<Option<ZeroTextfieldSize>> sizeOptions = [
   const Option(
     label: 'Small',
-    value: TextfieldSize.small,
+    value: ZeroTextfieldSize.small,
   ),
   const Option(
     label: 'Large',
-    value: TextfieldSize.large,
+    value: ZeroTextfieldSize.large,
   ),
 ];
 
@@ -81,6 +81,36 @@ List<Option<Widget?>> suffixOptions = [
   ),
 ];
 
+List<Option<Widget?>> iconsOptions = [
+  const Option(
+    label: 'Icons.arrow_drop_down',
+    value: Icon(
+      Icons.arrow_drop_down,
+      color: Colors.white,
+    ),
+  ),
+  const Option(
+    label: 'Icons.date_range',
+    value: Icon(
+      Icons.date_range,
+      color: Colors.white,
+    ),
+  ),
+  const Option(
+    label: 'Icons.question_answer',
+    value: Icon(
+      Icons.question_answer,
+      color: Colors.white,
+    ),
+  ),
+];
+
+List<Option<double>> widths = [
+  const Option(label: '100', value: 100.0),
+  const Option(label: '200', value: 200.0),
+  const Option(label: '300', value: 300.0),
+];
+
 WidgetbookComponent dropdownWidgetbookComponent = WidgetbookComponent(
   name: 'Dropdown',
   useCases: [
@@ -102,16 +132,19 @@ WidgetbookComponent dropdownWidgetbookComponent = WidgetbookComponent(
                   initialValue: 'Label Text',
                 )
                 .toString(),
-            inputDecorationType: context.knobs.options(label: 'Decoration', options: decorationOptions),
+            inputDecorationType: context.knobs
+                .options(label: 'Decoration', options: decorationOptions),
             onChanged: (value) {},
-            textfieldSize: context.knobs.options(label: 'Size', options: sizeOptions),
-            suffixIcon: context.knobs.options(label: 'Suffix Icon', options: suffixOptions),
+            textfieldSize:
+                context.knobs.options(label: 'Size', options: sizeOptions),
+            suffixIcon: context.knobs
+                .options(label: 'Suffix Icon', options: suffixOptions),
           ));
         }),
     WidgetbookUseCase(
         name: 'Default (No Label)',
         builder: (context) {
-          return Center(
+          return PreviewWidget(
               child: ZeroDropdown(
             items: items,
             hintText: context.knobs
@@ -120,16 +153,19 @@ WidgetbookComponent dropdownWidgetbookComponent = WidgetbookComponent(
                   initialValue: 'Hint ',
                 )
                 .toString(),
-            inputDecorationType: context.knobs.options(label: 'Decoration', options: decorationOptions),
+            inputDecorationType: context.knobs
+                .options(label: 'Decoration', options: decorationOptions),
             onChanged: (value) {},
-            textfieldSize: context.knobs.options(label: 'Size', options: sizeOptions),
-            suffixIcon: context.knobs.options(label: 'Suffix Icon', options: suffixOptions),
+            textfieldSize:
+                context.knobs.options(label: 'Size', options: sizeOptions),
+            suffixIcon: context.knobs
+                .options(label: 'Suffix Icon', options: suffixOptions),
           ));
         }),
     WidgetbookUseCase(
         name: 'Multiple',
         builder: (context) {
-          return Center(
+          return PreviewWidget(
             child: ZeroDropdown.multiple(
               hintText: context.knobs
                   .text(
@@ -143,20 +179,27 @@ WidgetbookComponent dropdownWidgetbookComponent = WidgetbookComponent(
                     initialValue: 'Label Text',
                   )
                   .toString(),
-              inputDecorationType: context.knobs.options(label: 'Decoration', options: decorationOptions),
-              textfieldSize: context.knobs.options(label: 'Size', options: sizeOptions),
-              suffixIcon: context.knobs.options(label: 'Suffix Icon', options: suffixOptions),
-              multipleItemsVariant: context.knobs.options(label: 'Multiple Item Variant', options: multipleItemVariantOptions),
+              inputDecorationType: context.knobs
+                  .options(label: 'Decoration', options: decorationOptions),
+              textfieldSize:
+                  context.knobs.options(label: 'Size', options: sizeOptions),
+              suffixIcon: context.knobs
+                  .options(label: 'Suffix Icon', options: suffixOptions),
+              multipleItemsVariant: context.knobs.options(
+                  label: 'Multiple Item Variant',
+                  options: multipleItemVariantOptions),
               items: items,
               onChanged: (value) {},
-              selectedItemsStyle: context.knobs.options(label: 'Selected Items Style', options: selectedItemsStyleOptions),
+              selectedItemsStyle: context.knobs.options(
+                  label: 'Selected Items Style',
+                  options: selectedItemsStyleOptions),
             ),
           );
         }),
     WidgetbookUseCase(
         name: 'Multiple (No Label)',
         builder: (context) {
-          return Center(
+          return PreviewWidget(
             child: ZeroDropdown.multiple(
               hintText: context.knobs
                   .text(
@@ -164,13 +207,50 @@ WidgetbookComponent dropdownWidgetbookComponent = WidgetbookComponent(
                     initialValue: 'Hint Text',
                   )
                   .toString(),
-              inputDecorationType: context.knobs.options(label: 'Decoration', options: decorationOptions),
-              textfieldSize: context.knobs.options(label: 'Size', options: sizeOptions),
-              suffixIcon: context.knobs.options(label: 'Suffix Icon', options: suffixOptions),
-              multipleItemsVariant: context.knobs.options(label: 'Multiple Item Variant', options: multipleItemVariantOptions),
+              inputDecorationType: context.knobs
+                  .options(label: 'Decoration', options: decorationOptions),
+              textfieldSize:
+                  context.knobs.options(label: 'Size', options: sizeOptions),
+              suffixIcon: context.knobs
+                  .options(label: 'Suffix Icon', options: suffixOptions),
+              multipleItemsVariant: context.knobs.options(
+                  label: 'Multiple Item Variant',
+                  options: multipleItemVariantOptions),
               items: items,
               onChanged: (value) {},
-              selectedItemsStyle: context.knobs.options(label: 'Selected Items Style', options: selectedItemsStyleOptions),
+              selectedItemsStyle: context.knobs.options(
+                  label: 'Selected Items Style',
+                  options: selectedItemsStyleOptions),
+            ),
+          );
+        }),
+    WidgetbookUseCase(
+        name: 'Icon Button',
+        builder: (context) {
+          return PreviewWidget.builder(
+            builder: (context) => SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ZeroDropdown.icon(
+                      onChanged: (p0) {},
+                      items: items,
+                      dropdownWidth: context.knobs
+                          .options(label: 'Dropdown Width', options: widths),
+                      icon: ClipOval(
+                        child: Material(
+                          color: context.theme.primaryColor,
+                          child: InkWell(
+                            child: context.knobs
+                                .options(label: 'Icon', options: iconsOptions),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ]),
             ),
           );
         }),

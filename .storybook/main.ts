@@ -8,6 +8,7 @@ export const rootMain: StorybookConfig = {
     '@storybook/addon-interactions',
     '@storybook/addon-a11y',
     '@geometricpanda/storybook-addon-badges',
+    'storybook-dark-mode',
   ],
   core: {
     builder: 'webpack5',

@@ -9,6 +9,28 @@ class ZeroSliderExample extends StatefulWidget {
 }
 
 class _ZeroSliderExampleState extends State<ZeroSliderExample> {
+  double value1 = 10;
+  double value2 = 0;
+  ZeroRangeValues value3 = const ZeroRangeValues(40, 60);
+
+  void _onChangeValue1(double newValue) {
+    setState(() {
+      value1 = newValue;
+    });
+  }
+
+  void _onChangeValue2(double newValue) {
+    setState(() {
+      value2 = newValue;
+    });
+  }
+
+  void _onChangeValue3(ZeroRangeValues newValue) {
+    setState(() {
+      value3 = newValue;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,10 +49,12 @@ class _ZeroSliderExampleState extends State<ZeroSliderExample> {
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: ZeroSlider(
-                    activeColor: Colors.black,
-                    tickInterval: 25,
-                    tickBehavior: false,
-                    initialValue: 50,
+                    style: const ZeroSliderStyle(
+                      activeColor: Colors.black,
+                      thumbColor: Colors.black,
+                    ),
+                    value: value1,
+                    onChanged: _onChangeValue1,
                     size: ZeroSliderSize.large,
                     isDisabled: false,
                   ),
@@ -40,42 +64,55 @@ class _ZeroSliderExampleState extends State<ZeroSliderExample> {
               ZeroSlider(
                 tickInterval: 25,
                 showTicks: true,
+                style: const ZeroSliderStyle(tickBehavior: true),
+                value: value2,
+                onChanged: _onChangeValue2,
               ),
               const SizedBox(height: 20),
               ZeroSlider(
                 tickInterval: 25,
-                tickBehavior: true,
+                style: const ZeroSliderStyle(tickBehavior: true),
                 showTicks: true,
+                value: value1,
+                onChanged: _onChangeValue1,
               ),
               const SizedBox(height: 20),
               ZeroSlider(
                 tickInterval: 25,
-                tickBehavior: true,
+                style: const ZeroSliderStyle(tickBehavior: true),
                 showTicks: true,
                 size: ZeroSliderSize.small,
+                value: value2,
+                onChanged: _onChangeValue2,
               ),
               const SizedBox(height: 20),
               ZeroSlider(
-                activeColor: ZeroColors.danger,
-                thumbColor: ZeroColors.polarGreen,
-                inactiveColor: ZeroColors.sunriseYellow.withOpacity(.3),
-                tickInterval: 25,
-                tickBehavior: false,
+                style: ZeroSliderStyle(
+                  activeColor: ZeroColors.danger,
+                  thumbColor: ZeroColors.polarGreen,
+                  inactiveColor: ZeroColors.sunriseYellow.withOpacity(.3),
+                ),
                 size: ZeroSliderSize.large,
                 isDisabled: false,
+                value: value1,
+                onChanged: _onChangeValue1,
               ),
               const SizedBox(height: 20),
               ZeroSlider(
                 tickInterval: 25,
-                tickBehavior: false,
                 size: ZeroSliderSize.large,
                 isDisabled: false,
-                tooltipVariant: ZeroTooltipVariant.custom,
+                style: const ZeroSliderStyle(
+                  tooltipVariant: ZeroTooltipVariant.custom,
+                ),
+                value: value2,
+                onChanged: _onChangeValue2,
               ),
               const SizedBox(height: 20),
-              ZeroSlider(
+              const ZeroSlider(
                 isDisabled: true,
-                initialValue: 33,
+                value: 40,
+                onChanged: null,
               ),
               const SizedBox(height: 20),
 
@@ -84,29 +121,33 @@ class _ZeroSliderExampleState extends State<ZeroSliderExample> {
                 padding: const EdgeInsets.all(20.0),
                 width: 300,
                 child: ZeroRangeSlider(
-                  initialvalues: const ZeroRangeValues(40, 60),
+                  values: value3,
+                  onChanged: _onChangeValue3,
                   size: ZeroSliderSize.small,
                   isDisabled: false,
-                  tickInterval: 5,
+                  tickInterval: 25,
                 ),
               ),
               const SizedBox(height: 20),
               ZeroRangeSlider(
-                initialvalues: const ZeroRangeValues(40, 55),
+                values: value3,
+                onChanged: _onChangeValue3,
                 showTicks: true,
-                tickBehavior: true,
-                tickInterval: 5,
+                style: const ZeroSliderStyle(tickBehavior: true),
+                tickInterval: 25,
               ),
               const SizedBox(height: 20),
               ZeroRangeSlider(
-                initialvalues: const ZeroRangeValues(40, 55),
+                values: value3,
+                onChanged: _onChangeValue3,
                 showTicks: true,
-                tickBehavior: true,
+                style: const ZeroSliderStyle(tickBehavior: true),
                 size: ZeroSliderSize.small,
               ),
               const SizedBox(height: 20),
-              ZeroRangeSlider(
-                initialvalues: const ZeroRangeValues(40, 80),
+              const ZeroRangeSlider(
+                values: ZeroRangeValues(40, 80),
+                onChanged: null,
                 isDisabled: true,
               ),
             ],

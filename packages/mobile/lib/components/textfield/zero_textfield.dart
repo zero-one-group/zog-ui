@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
+typedef OnFocusChanged = Function(bool hasFocus);
+
 /// [ZeroTextField] is the the simplified version of [TextField] with the default implemented design guidelines of
 /// Zero One Design System. Pretty much all the fields are inheritted from [TextField]
 /// except that it provides `labelText`, `hintText`, `errorText`, and `supportText` upfront instead of under [InputDecoration].
@@ -8,9 +10,9 @@ import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 /// There are 4 variants represented as 4 factory constructors:
 ///
 ///   1.  [ZeroTextField.outline] which uses [OutlineInputBorder] under the hood.
-///   2.  [ZeroTextField.fill] which uses [UnderlineInputBorder] under the hood with `fillColor` provided.
+///   2.  [ZeroTextField.filled] which uses [UnderlineInputBorder] under the hood with `fillColor` provided.
 ///   3.  [ZeroTextField.underline] which uses [UnderlineInputBorder] under the hood.
-class ZeroTextField extends StatelessWidget {
+class ZeroTextField extends StatefulWidget {
   final String? labelText;
   final String? helperText;
   final String? hintText;
@@ -32,17 +34,16 @@ class ZeroTextField extends StatelessWidget {
   /// If set, this will override `suffix` that is defined in [InputDecoration]
   final Widget? suffix;
 
-  /// Values: [InputDecorationType.outline], [InputDecorationType.underline], and [InputDecorationType.fill]
+  /// Values: [inputDecorationType.outline], [inputDecorationType.underline], and [inputDecorationType.fill]
   /// This affects how the widget renders [OutlineInputBorder] in terms of fill color, border colors, and fill color
-  final InputDecorationType inputDecorationType;
+  final InputDecorationType? inputDecorationType;
 
-  /// [TextField]'s size; large or small. Default value: [TextfieldSize.small]
-  final TextfieldSize textfieldSize;
+  /// [TextField]'s size; large or small. Default value: [ZeroTextfieldSize.small]
+  final ZeroTextfieldSize textfieldSize;
 
-  /// If set, this will be merged with the default [InputDecoration] defined in the default ZeroOne design system
-  final InputDecoration? _decoration;
+  final void Function(String text)? onFieldSubmitted;
 
-  InputDecoration? get decoration => _decoration;
+  final void Function(String? text)? onSaved;
 
   final AutovalidateMode? autovalidateMode;
   final bool? enabled;
@@ -56,8 +57,13 @@ class ZeroTextField extends StatelessWidget {
   final int? maxLines;
   final int? minLines;
   final TextAlignVertical? textAlignVertical;
+  final bool? autofocus;
 
-  ZeroTextField(
+  final Function()? onTap;
+  final Function(PointerDownEvent event)? onTapOutside;
+  final OnFocusChanged? onFocusChanged;
+
+  const ZeroTextField(
       {super.key,
       this.hintText,
       this.helperText,
@@ -66,8 +72,8 @@ class ZeroTextField extends StatelessWidget {
       this.labelStyle,
       this.errorStyle,
       this.helperStyle,
-      this.inputDecorationType = InputDecorationType.outline,
-      this.textfieldSize = TextfieldSize.small,
+      this.inputDecorationType,
+      this.textfieldSize = ZeroTextfieldSize.small,
       this.prefixIcon,
       this.suffixIcon,
       this.prefix,
@@ -84,66 +90,42 @@ class ZeroTextField extends StatelessWidget {
       this.textInputAction = TextInputAction.next,
       this.minLines,
       this.maxLines,
-      this.textAlignVertical})
-      : _decoration = decoration ??
-            InputDecoration(
-              helperText: helperText,
-              hintText: hintText,
-              labelText: labelText,
-              hintStyle: inputDecorationType
-                  .textStyle(enabled ?? true)
-                  .merge(labelStyle),
-              helperStyle: helperStyle,
-              floatingLabelAlignment: FloatingLabelAlignment.start,
-              floatingLabelBehavior: FloatingLabelBehavior.auto,
-              floatingLabelStyle: inputDecorationType.floatingLabelStyle(
-                  enabled: enabled ?? true, error: errorText != null),
-              alignLabelWithHint: false,
-              labelStyle: inputDecorationType
-                  .textStyle(enabled ?? true)
-                  .merge(labelStyle),
-              isDense: textfieldSize.isDense,
-              contentPadding: textfieldSize.contentPadding,
-              focusColor: inputDecorationType.focusedColor,
-              fillColor: inputDecorationType.fillColor(
-                  enabled: enabled ?? true, error: errorText != null),
-              filled: inputDecorationType.filled,
-              focusedBorder: inputDecorationType.focusedBorder(textfieldSize),
-              border: inputDecorationType.border(textfieldSize),
-              disabledBorder: inputDecorationType.disabledBorder(textfieldSize),
-              errorText: errorText,
-              errorBorder: inputDecorationType.errorBorder(textfieldSize),
-              focusedErrorBorder:
-                  inputDecorationType.errorBorder(textfieldSize),
-              errorStyle: errorStyle,
-              prefixIcon: prefixIcon,
-              suffixIcon: textfieldSize.suffixIcon(suffixIcon,
-                  error: errorText != null),
-            );
+      this.textAlignVertical,
+      this.autofocus = false,
+      this.onFieldSubmitted,
+      this.onSaved,
+      this.onTap,
+      this.onTapOutside,
+      this.onFocusChanged});
 
   /// This already uses [OutlineInputBorder] under the hood with the properties
   /// defined in the standard ZeroOne design guideline.
-  factory ZeroTextField.outline({
-    Key? key,
-    String? hintText,
-    String? labelText,
-    TextfieldSize? textfielSizeType,
-    TextEditingController? controller,
-    FocusNode? focusNode,
-    TextInputType? inputType,
-    Function(String)? onChanged,
-    Function()? onEditingComplete,
-    String? Function(String?)? validator,
-    Widget? prefixIcon,
-    Widget? suffixIcon,
-    Widget? prefix,
-    Widget? suffix,
-    AutovalidateMode? autovalidateMode,
-    InputDecoration? decoration,
-    String? helperText,
-    String? errorText,
-    bool? enabled,
-  }) =>
+  factory ZeroTextField.outline(
+          {Key? key,
+          String? hintText,
+          String? labelText,
+          ZeroTextfieldSize? textfielSizeType,
+          TextEditingController? controller,
+          FocusNode? focusNode,
+          TextInputType? inputType,
+          Function(String)? onChanged,
+          Function()? onEditingComplete,
+          String? Function(String?)? validator,
+          Widget? prefixIcon,
+          Widget? suffixIcon,
+          Widget? prefix,
+          Widget? suffix,
+          AutovalidateMode? autovalidateMode,
+          InputDecoration? decoration,
+          String? helperText,
+          String? errorText,
+          bool? enabled,
+          bool? autofocus,
+          void Function(String text)? onFieldSubmitted,
+          void Function(String? text)? onSaved,
+          void Function()? onTap,
+          void Function(PointerDownEvent event)? onTapOutside,
+          OnFocusChanged? onFocusChanged}) =>
       ZeroTextField(
         key: key,
         labelText: labelText,
@@ -154,9 +136,9 @@ class ZeroTextField extends StatelessWidget {
         onChanged: onChanged,
         onEditingComplete: onEditingComplete,
         validator: validator,
-        inputDecorationType: InputDecorationType.outline,
-        textfieldSize: textfielSizeType ?? TextfieldSize.small,
+        textfieldSize: textfielSizeType ?? ZeroTextfieldSize.small,
         autovalidateMode: autovalidateMode,
+        inputDecorationType: InputDecorationType.outline,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         prefix: prefix,
@@ -165,30 +147,41 @@ class ZeroTextField extends StatelessWidget {
         helperText: helperText,
         errorText: errorText,
         enabled: enabled,
+        autofocus: autofocus,
+        onFieldSubmitted: onFieldSubmitted,
+        onSaved: onSaved,
+        onTap: onTap,
+        onTapOutside: onTapOutside,
+        onFocusChanged: onFocusChanged,
       );
 
   /// This already uses [OutlineInputBorder] under the hood with `borderRadius` set so much so that it shapes rounded.
-  factory ZeroTextField.rounded({
-    Key? key,
-    String? hintText,
-    String? labelText,
-    TextfieldSize? textfielSizeType,
-    TextEditingController? controller,
-    FocusNode? focusNode,
-    TextInputType? inputType,
-    Function(String)? onChanged,
-    Function()? onEditingComplete,
-    String? Function(String?)? validator,
-    Widget? prefixIcon,
-    Widget? suffixIcon,
-    Widget? prefix,
-    Widget? suffix,
-    AutovalidateMode? autovalidateMode,
-    InputDecoration? decoration,
-    String? helperText,
-    String? errorText,
-    bool? enabled,
-  }) =>
+  factory ZeroTextField.rounded(
+          {Key? key,
+          String? hintText,
+          String? labelText,
+          ZeroTextfieldSize? textfielSizeType,
+          TextEditingController? controller,
+          FocusNode? focusNode,
+          TextInputType? inputType,
+          Function(String)? onChanged,
+          Function()? onEditingComplete,
+          String? Function(String?)? validator,
+          Widget? prefixIcon,
+          Widget? suffixIcon,
+          Widget? prefix,
+          Widget? suffix,
+          AutovalidateMode? autovalidateMode,
+          InputDecoration? decoration,
+          String? helperText,
+          String? errorText,
+          bool? enabled,
+          bool? autofocus,
+          void Function(String text)? onFieldSubmitted,
+          void Function(String? text)? onSaved,
+          void Function()? onTap,
+          void Function(PointerDownEvent event)? onTapOutside,
+          OnFocusChanged? onFocusChanged}) =>
       ZeroTextField(
         key: key,
         labelText: labelText,
@@ -199,9 +192,9 @@ class ZeroTextField extends StatelessWidget {
         onChanged: onChanged,
         onEditingComplete: onEditingComplete,
         validator: validator,
-        inputDecorationType: InputDecorationType.round,
-        textfieldSize: textfielSizeType ?? TextfieldSize.small,
+        textfieldSize: textfielSizeType ?? ZeroTextfieldSize.small,
         autovalidateMode: autovalidateMode,
+        inputDecorationType: InputDecorationType.rounded,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         prefix: prefix,
@@ -210,6 +203,12 @@ class ZeroTextField extends StatelessWidget {
         helperText: helperText,
         errorText: errorText,
         enabled: enabled,
+        autofocus: autofocus,
+        onFieldSubmitted: onFieldSubmitted,
+        onSaved: onSaved,
+        onTap: onTap,
+        onTapOutside: onTapOutside,
+        onFocusChanged: onFocusChanged,
       );
 
   /// This already uses [UnderlineInputBorder] under the hood with fillColor set
@@ -218,7 +217,7 @@ class ZeroTextField extends StatelessWidget {
           {Key? key,
           String? hintText,
           String? labelText,
-          TextfieldSize? textfielSizeType,
+          ZeroTextfieldSize? textfielSizeType,
           TextEditingController? controller,
           FocusNode? focusNode,
           TextInputType? inputType,
@@ -233,7 +232,13 @@ class ZeroTextField extends StatelessWidget {
           InputDecoration? decoration,
           String? helperText,
           String? errorText,
-          bool? enabled}) =>
+          bool? enabled,
+          bool? autofocus,
+          void Function(String text)? onFieldSubmitted,
+          void Function(String? text)? onSaved,
+          void Function()? onTap,
+          void Function(PointerDownEvent event)? onTapOutside,
+          OnFocusChanged? onFocusChanged}) =>
       ZeroTextField(
         key: key,
         labelText: labelText,
@@ -244,8 +249,8 @@ class ZeroTextField extends StatelessWidget {
         onChanged: onChanged,
         onEditingComplete: onEditingComplete,
         validator: validator,
-        inputDecorationType: InputDecorationType.underline,
         autovalidateMode: autovalidateMode,
+        inputDecorationType: InputDecorationType.underline,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         prefix: prefix,
@@ -254,15 +259,21 @@ class ZeroTextField extends StatelessWidget {
         helperText: helperText,
         errorText: errorText,
         enabled: enabled,
+        autofocus: autofocus,
+        onFieldSubmitted: onFieldSubmitted,
+        onSaved: onSaved,
+        onTap: onTap,
+        onTapOutside: onTapOutside,
+        onFocusChanged: onFocusChanged,
       );
 
   /// This already uses [UnderlineInputBorder] under the hood with fillColor set
   /// as per defined in the standard ZeroOne design guideline.
-  factory ZeroTextField.fill(
+  factory ZeroTextField.filled(
           {Key? key,
           String? hintText,
           String? labelText,
-          TextfieldSize? textfielSizeType,
+          ZeroTextfieldSize? textfielSizeType,
           TextEditingController? controller,
           FocusNode? focusNode,
           TextInputType? inputType,
@@ -277,7 +288,13 @@ class ZeroTextField extends StatelessWidget {
           InputDecoration? decoration,
           String? errorText,
           String? helperText,
-          bool? enabled}) =>
+          bool? enabled,
+          bool? autofocus,
+          void Function(String text)? onFieldSubmitted,
+          void Function(String? text)? onSaved,
+          void Function()? onTap,
+          void Function(PointerDownEvent event)? onTapOutside,
+          OnFocusChanged? onFocusChanged}) =>
       ZeroTextField(
         key: key,
         labelText: labelText,
@@ -288,9 +305,9 @@ class ZeroTextField extends StatelessWidget {
         onChanged: onChanged,
         onEditingComplete: onEditingComplete,
         validator: validator,
-        inputDecorationType: InputDecorationType.fill,
-        textfieldSize: textfielSizeType ?? TextfieldSize.small,
+        textfieldSize: textfielSizeType ?? ZeroTextfieldSize.small,
         autovalidateMode: autovalidateMode,
+        inputDecorationType: InputDecorationType.fill,
         decoration: decoration,
         helperText: helperText,
         errorText: errorText,
@@ -299,12 +316,70 @@ class ZeroTextField extends StatelessWidget {
         suffixIcon: suffixIcon,
         prefix: prefix,
         suffix: suffix,
+        autofocus: autofocus,
+        onFieldSubmitted: onFieldSubmitted,
+        onSaved: onSaved,
+        onTap: onTap,
+        onTapOutside: onTapOutside,
+        onFocusChanged: onFocusChanged,
       );
 
   @override
+  State<ZeroTextField> createState() => _ZeroTextFieldState();
+}
+
+class _ZeroTextFieldState extends State<ZeroTextField> {
+  final FocusNode _focusNode = FocusNode();
+  @override
+  void initState() {
+    _focusNode
+        .addListener(() => widget.onFocusChanged?.call(_focusNode.hasFocus));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return TextFormField(
-        textAlignVertical: textAlignVertical ?? TextAlignVertical.center,
-        decoration: decoration);
+    return Theme(
+      data: context.theme
+          .copyWith(
+            inputDecorationType: widget.inputDecorationType,
+            textfieldSize: widget.textfieldSize,
+          )
+          .toThemeData(),
+      child: TextFormField(
+        key: widget.key,
+        controller: widget.controller,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        enabled: widget.enabled,
+        textAlignVertical: widget.textAlignVertical ?? TextAlignVertical.center,
+        decoration: InputDecoration(
+          helperText: widget.helperText,
+          hintText: widget.hintText,
+          labelText: widget.labelText,
+          prefixIcon: widget.prefixIcon,
+          errorText: widget.errorText,
+          floatingLabelStyle: widget.errorStyle,
+          suffixIcon: widget.textfieldSize
+              .suffixIcon(widget.suffixIcon, error: widget.errorText != null),
+        ),
+        onChanged: widget.onChanged,
+        onEditingComplete: widget.onEditingComplete,
+        onFieldSubmitted: widget.onFieldSubmitted,
+        autofocus: widget.autofocus ?? false,
+        focusNode: _focusNode,
+        onSaved: widget.onSaved,
+        keyboardType: widget.keyboardType,
+        maxLines: widget.maxLines,
+        minLines: widget.minLines,
+        onTap: widget.onTap,
+        onTapOutside: widget.onTapOutside,
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    widget.focusNode?.dispose();
+    super.dispose();
   }
 }

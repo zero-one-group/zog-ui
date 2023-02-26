@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 /// A rating component that allows users to rate something.
@@ -10,16 +9,14 @@ class ZeroRating extends StatefulWidget {
   const ZeroRating({
     super.key,
     this.itemCount = 5,
-    this.spacing = 0,
     this.initialValue = 1,
     this.minValue = 0,
     this.allowHalfRating = true,
     this.onRatingUpdate,
-    this.activeColor = ZeroColors.sunriseYellow,
-    this.inactiveColor = ZeroColors.neutral,
     this.isDisabled = false,
     this.sizeType = ZeroSizeType.medium,
     this.ratingWidget,
+    this.style,
   })  : assert(itemCount > 0),
         assert(initialValue >= minValue),
         assert(initialValue <= itemCount),
@@ -30,10 +27,6 @@ class ZeroRating extends StatefulWidget {
   /// The default value is 5.
   /// The minimum value is 0.
   final int itemCount;
-
-  /// The spacing between the items in the rating.
-  /// The default value is 0.
-  final double spacing;
 
   /// The initial value of the rating.
   /// The default value is 1.
@@ -54,15 +47,10 @@ class ZeroRating extends StatefulWidget {
   /// The callback function that is called when the rating is updated.
   /// The default value is null.
   /// The callback function will be called with the new rating value.
-  final Function(double)? onRatingUpdate;
+  final ValueChanged<double>? onRatingUpdate;
 
-  /// The color of the active items in the rating.
-  /// The default value is [ZeroColors.sunriseYellow[6]].
-  final Color activeColor;
-
-  /// The color of the inactive items in the rating.
-  /// The default value is [ZeroColors.neutral].
-  final Color inactiveColor;
+  /// The style of rating.
+  final ZeroRatingStyle? style;
 
   /// Whether the rating is disabled.
   /// The default value is false.
@@ -83,12 +71,6 @@ class ZeroRating extends StatefulWidget {
 }
 
 class _ZeroRatingState extends State<ZeroRating> {
-  /// [activeColor] defaults to [ZeroColors.sunriseYellow] and then will be defined by [widget.activeColor] when state is initialized.
-  Color activeColor = ZeroColors.sunriseYellow;
-
-  /// [inactiveColor] defaults to [ZeroColors.neutral] and then will be defined by [widget.inactiveColor] when state is initialized.
-  Color inactiveColor = ZeroColors.neutral;
-
   /// [value] defaults to [widget.initialValue] and then will be defined by [_onRatingDrag] and [_onRatingTap] when state is initialized.
   double value = 0;
 
@@ -109,27 +91,20 @@ class _ZeroRatingState extends State<ZeroRating> {
   void initState() {
     super.initState();
     value = widget.initialValue;
-    activeColor = widget.isDisabled
-        ? widget.activeColor.withOpacity(0.5)
-        : widget.activeColor;
-    inactiveColor = widget.isDisabled
-        ? widget.inactiveColor.withOpacity(0.5)
-        : widget.inactiveColor;
-  }
-
-  @override
-  void didUpdateWidget(covariant ZeroRating oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    activeColor = widget.isDisabled
-        ? widget.activeColor.withOpacity(0.5)
-        : widget.activeColor;
-    inactiveColor = widget.isDisabled
-        ? widget.inactiveColor.withOpacity(0.5)
-        : widget.inactiveColor;
   }
 
   @override
   Widget build(BuildContext context) {
+    final themeStyle = context.theme.ratingStyle;
+    final adaptiveStyle = themeStyle.merge(widget.style);
+
+    final activeColor = widget.isDisabled
+        ? adaptiveStyle.activeColor?.withOpacity(0.5)
+        : adaptiveStyle.activeColor;
+    final inactiveColor = widget.isDisabled
+        ? adaptiveStyle.inactiveColor?.withOpacity(0.5)
+        : adaptiveStyle.inactiveColor;
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
@@ -150,15 +125,27 @@ class _ZeroRatingState extends State<ZeroRating> {
           key: _widgetKey,
           mainAxisSize: MainAxisSize.min,
           children: [
-            for (double i = 0; i < widget.itemCount; i++)
+            for (double i = 0; i < widget.itemCount; i++) ...[
               if (widget.allowHalfRating &&
                   i == value.floor() &&
                   value % 1 != 0)
-                _starHalf()
+                _starHalf(
+                  style: adaptiveStyle,
+                  activeColor: activeColor,
+                  inactiveColor: inactiveColor,
+                )
               else if (i < value)
-                _starFull(i)
+                _starFull(i,
+                    activeColor: activeColor, inactiveColor: inactiveColor)
               else
-                _starOutlined(i),
+                _starOutlined(
+                  i,
+                  activeColor: activeColor,
+                  inactiveColor: inactiveColor,
+                ),
+              if (i < widget.itemCount - 1)
+                SizedBox(width: adaptiveStyle.spacing ?? 0)
+            ]
           ],
         ),
       ),
@@ -167,69 +154,130 @@ class _ZeroRatingState extends State<ZeroRating> {
 
   /// [_starHalf] is used to render a half star.
   /// [_starHalf] is called when [widget.allowHalfRating] is true and the rating is a half number.
-  Widget _starHalf() {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: widget.spacing),
+  Widget _starHalf({
+    required ZeroRatingStyle style,
+    Color? activeColor,
+    Color? inactiveColor,
+  }) {
+    final size = _ratingSize(widget.sizeType);
+    return IconTheme(
+      data: IconThemeData(
+        size: size,
+        color: activeColor,
+      ),
       child: widget.ratingWidget?.half ??
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 0.4),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SvgPicture.asset(
-                  Assets.icons.starHalf,
-                  package: 'zero_ui_mobile',
-                  color: activeColor,
-                  width: _ratingSize(widget.sizeType),
-                  height: _ratingSize(widget.sizeType),
-                ),
-                SvgPicture.asset(
-                  Assets.icons.starOutlinedHalf,
-                  package: 'zero_ui_mobile',
-                  color: inactiveColor,
-                  width: _ratingSize(widget.sizeType),
-                  height: _ratingSize(widget.sizeType),
-                ),
-              ],
+          ShaderMask(
+            blendMode: BlendMode.srcATop,
+            shaderCallback: (Rect rect) {
+              return LinearGradient(
+                stops: const [0, 0.5, 0.5],
+                colors: [
+                  activeColor ?? Colors.transparent,
+                  activeColor ?? Colors.transparent,
+                  Colors.transparent
+                ],
+              ).createShader(rect);
+            },
+            child: Builder(
+              builder: (context) {
+                final halfWidth = _ratingSize(widget.sizeType) / 2;
+
+                return SizedBox(
+                  width: size,
+                  height: size,
+                  child: Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: SizedBox(
+                          width: halfWidth,
+                          height: size,
+                          child: Stack(
+                            fit: StackFit.loose,
+                            clipBehavior: Clip.antiAlias,
+                            children: [
+                              Positioned(
+                                left: -halfWidth,
+                                top: 0,
+                                bottom: 0,
+                                child: Icon(
+                                  ZeroIcons.star,
+                                  color: inactiveColor,
+                                  size: size,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: SizedBox(
+                          width: halfWidth,
+                          height: size,
+                          child: Stack(
+                            fit: StackFit.loose,
+                            clipBehavior: Clip.antiAlias,
+                            children: [
+                              Positioned(
+                                right: -halfWidth,
+                                top: 0,
+                                bottom: 0,
+                                child: Icon(
+                                  ZeroIcons.starFilled,
+                                  color: inactiveColor,
+                                  size: size,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
           ),
     );
   }
 
   /// [_starFull] is used to display the rating when the user has rated.
-  Widget _starFull(double index) {
+  Widget _starFull(
+    double index, {
+    Color? activeColor,
+    Color? inactiveColor,
+  }) {
     return InkWell(
       overlayColor: MaterialStateProperty.all(Colors.transparent),
       onTap: () => _onRatingTap(index),
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: widget.spacing),
-        child: widget.ratingWidget?.full ??
-            SvgPicture.asset(
-              Assets.icons.star,
-              package: 'zero_ui_mobile',
-              color: index < value ? activeColor : inactiveColor,
-              width: _ratingSize(widget.sizeType),
-              height: _ratingSize(widget.sizeType),
-            ),
+      child: IconTheme(
+        data: IconThemeData(
+          size: _ratingSize(widget.sizeType),
+          color: activeColor,
+        ),
+        child: widget.ratingWidget?.full ?? const Icon(ZeroIcons.starFilled),
       ),
     );
   }
 
   /// [_starOutlined] is used to display the rating when the user has not yet rated.
-  Widget _starOutlined(double index) {
+  Widget _starOutlined(
+    double index, {
+    Color? activeColor,
+    Color? inactiveColor,
+  }) {
     return InkWell(
       overlayColor: MaterialStateProperty.all(Colors.transparent),
       onTap: () => _onRatingTap(index),
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: widget.spacing),
-        child: widget.ratingWidget?.empty ??
-            SvgPicture.asset(
-              Assets.icons.starOutlined,
-              package: 'zero_ui_mobile',
-              color: index < value ? activeColor : inactiveColor,
-              width: _ratingSize(widget.sizeType),
-              height: _ratingSize(widget.sizeType),
-            ),
+      child: IconTheme(
+        data: IconThemeData(
+          size: _ratingSize(widget.sizeType),
+          color: inactiveColor,
+        ),
+        child: SizedBox(
+          child: widget.ratingWidget?.empty ?? const Icon(ZeroIcons.star),
+        ),
       ),
     );
   }

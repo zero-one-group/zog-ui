@@ -10,6 +10,7 @@ class ZeroSwitchExample extends StatefulWidget {
 
 class _ZeroSwitchExampleState extends State<ZeroSwitchExample> {
   bool value = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,29 +20,37 @@ class _ZeroSwitchExampleState extends State<ZeroSwitchExample> {
       body: SafeArea(
         child: Center(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               ZeroSwitch(
-                onChanged: (val) {},
-                isDisabled: true,
-                initialValue: true,
+                onChanged: (val) {
+                  setState(() {
+                    value = val;
+                  });
+                },
+                value: value,
+                isDisabled: false,
                 activeIcon: const Icon(Icons.sunny),
                 inactiveIcon: const Icon(Icons.nightlight_round),
               ),
               ZeroSwitchAndroid(
-                onChanged: (val) {},
-                isDisabled: true,
-                initialValue: true,
+                value: value,
+                onChanged: (val) {
+                  setState(() {
+                    value = val;
+                  });
+                },
+                isDisabled: false,
                 activeIcon: const Icon(Icons.check),
                 inactiveIcon: const Icon(Icons.close),
               ),
               ZeroSwitchIOS(
-                onChanged: (val) {},
-                isDisabled: true,
-                initialValue: true,
-                // inactiveColor: Colors.red,
-                // activeColor: Colors.green,
-
-                // activeThumbColor: Colors.greenAccent,
+                onChanged: (val) {
+                  setState(() {
+                    value = val;
+                  });
+                },
+                value: value,
               ),
             ],
           ),

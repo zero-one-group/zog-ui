@@ -316,19 +316,20 @@ WidgetbookComponent buttonWidgetbookComponent = WidgetbookComponent(
       builder: (context) => PreviewWidget(
         child: ZeroButtonIcon.primary(
           icon: context.knobs.options(label: 'Icon', options: icons),
-          buttonSizeType: context.knobs.options(
-            options: buttonSizeTypes,
+          size: context.knobs.options(
+            options: buttonSize,
             label: 'Button Size Type',
           ),
-          buttonRadiusType: context.knobs.options(
+          borderRadiusType: context.knobs.options(
             options: buttonRadiusTypes,
             label: 'Button Radius Type',
           ),
-          isDisabled: context.knobs.boolean(
+          onPressed: context.knobs.boolean(
             label: 'Is Disabled',
             initialValue: false,
-          ),
-          onPressed: () {},
+          )
+              ? null
+              : () {},
         ),
       ),
     ),
@@ -337,40 +338,21 @@ WidgetbookComponent buttonWidgetbookComponent = WidgetbookComponent(
       builder: (context) => PreviewWidget(
         child: ZeroButtonIcon.secondary(
           icon: context.knobs.options(label: 'Icon', options: icons),
-          buttonSizeType: context.knobs.options(
-            options: buttonSizeTypes,
+          size: context.knobs.options(
+            options: buttonSize,
             label: 'Button Size Type',
           ),
-          buttonRadiusType: context.knobs.options(
+          borderRadiusType: context.knobs.options(
             options: buttonRadiusTypes,
             label: 'Button Radius Type',
           ),
-          isDisabled: context.knobs.boolean(
-            label: 'Is Disabled',
-            initialValue: false,
-          ),
-          onPressed: () {},
-        ),
-      ),
-    ),
-    WidgetbookUseCase(
-      name: 'Icon Text',
-      builder: (context) => PreviewWidget(
-        child: ZeroButtonIcon.text(
-          icon: context.knobs.options(label: 'Icon', options: icons),
-          buttonSizeType: context.knobs.options(
-            options: buttonSizeTypes,
-            label: 'Button Size Type',
-          ),
-          buttonRadiusType: context.knobs.options(
-            options: buttonRadiusTypes,
-            label: 'Button Radius Type',
-          ),
-          isDisabled: context.knobs.boolean(
-            label: 'Is Disabled',
-            initialValue: false,
-          ),
-          onPressed: () {},
+          onPressed: context.knobs.boolean(
+                    label: 'Is Disabled',
+                    initialValue: false,
+                  ) ==
+                  true
+              ? null
+              : () {},
         ),
       ),
     ),
@@ -432,6 +414,12 @@ List<Option<ZeroSizeType>> buttonSizeTypes = [
   const Option(label: 'Small', value: ZeroSizeType.small),
   const Option(label: 'Medium', value: ZeroSizeType.medium),
   const Option(label: 'Large', value: ZeroSizeType.large),
+];
+
+List<Option<ZeroButtonSize>> buttonSize = [
+  const Option(label: 'Small', value: ZeroButtonSize.small),
+  const Option(label: 'Medium', value: ZeroButtonSize.medium),
+  const Option(label: 'Large', value: ZeroButtonSize.large),
 ];
 
 List<Option<ZeroButtonRadiusType>> buttonRadiusTypes = [

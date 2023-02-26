@@ -20,7 +20,6 @@ const StyledStepItemDot = styled(Space, {
         'div:first-child': {
           display: 'flex',
           alignItems: 'center',
-          marginLeft: '77px',
         },
         hr: {
           width: '147px',
@@ -31,6 +30,7 @@ const StyledStepItemDot = styled(Space, {
         'div:last-child': {
           flexDirection: 'column',
           textAlign: 'center',
+          marginLeft: '-138px',
         },
       },
       vertical: {

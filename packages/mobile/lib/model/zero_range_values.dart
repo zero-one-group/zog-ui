@@ -9,7 +9,7 @@ class ZeroRangeValues {
     return 'ZeroRangeValues{start: $start, end: $end}';
   }
 
-  copyWith({int? start, int? end}) {
+  ZeroRangeValues copyWith({int? start, int? end}) {
     return ZeroRangeValues(start ?? this.start, end ?? this.end);
   }
 }

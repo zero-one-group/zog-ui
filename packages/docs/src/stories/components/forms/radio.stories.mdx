@@ -6,20 +6,30 @@ import { Radio } from '@zero-ui/core';
 
 <Meta title="Components/Forms/Radio" component={[Radio]} argTypes={{}} />
 
-export const RadioStory = () => <Radio />;
+export const RadioStory = (args) => <Radio {...args} />;
 
 # Radio
 
-> WIP
+> A radio button is a graphical user interface element that allows a user to choose only one option from a predefined set of mutually exclusive options
 
 ## Example Usage
 
-```jsx
+```tsx
 import { Radio } from '@zero-ui/core';
 ```
 
 <Canvas columns={2} withSource="close">
-  <Story name="Radio">{RadioStory.bind()}</Story>
+  <Story
+    args={{
+      name: 'list',
+      id: 'list-radio',
+      label: 'html',
+      disabled: false,
+    }}
+    name="Radio"
+  >
+    {RadioStory.bind()}
+  </Story>
 </Canvas>
 
 <ArgsTable of={Radio} />

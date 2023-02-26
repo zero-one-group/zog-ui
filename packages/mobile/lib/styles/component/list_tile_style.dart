@@ -121,13 +121,19 @@ class ZeroListTileStyle with Diagnosticable {
       selectedColor: other.selectedColor,
       hoverColor: other.hoverColor,
       backgroundColor: other.backgroundColor,
-      titleTextStyle: other.titleTextStyle,
-      subTitleTextStyle: other.subTitleTextStyle,
+      titleTextStyle:
+          titleTextStyle?.merge(other.titleTextStyle) ?? other.titleTextStyle,
+      subTitleTextStyle: subTitleTextStyle?.merge(other.subTitleTextStyle) ??
+          other.subTitleTextStyle,
       dividerColor: other.dividerColor,
       contentPadding: other.contentPadding,
       smallContentPadding: other.smallContentPadding,
-      smallTitleTextStyle: other.smallTitleTextStyle,
-      smallSubTitleTextStyle: other.smallSubTitleTextStyle,
+      smallTitleTextStyle:
+          smallTitleTextStyle?.merge(other.smallTitleTextStyle) ??
+              other.smallSubTitleTextStyle,
+      smallSubTitleTextStyle:
+          smallSubTitleTextStyle?.merge(other.smallSubTitleTextStyle) ??
+              other.smallSubTitleTextStyle,
     );
   }
 

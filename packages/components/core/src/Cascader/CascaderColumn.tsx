@@ -10,6 +10,7 @@ const StyledCascaderMenu = styled('ul', {
   height: '180px',
   padding: '$1',
   listStyle: 'none',
+  backgroundColor: '$gray1',
 });
 
 const StyledCascaderMenuItem = styled('li', {
@@ -34,11 +35,11 @@ const StyledCascaderMenuItem = styled('li', {
     },
     disabled: {
       true: {
-        backgroundColor: 'white',
+        backgroundColor: '$gray1',
         color: '$gray6',
         pointerEvents: 'none',
         '&:hover': {
-          backgroundColor: 'white',
+          backgroundColor: '$gray1',
         },
       },
     },
@@ -105,7 +106,7 @@ const CascaderColumn = ({
                 role="menuitem"
                 onClick={() => handleChangeCell(path, isLeaf)}
                 onMouseEnter={() => {
-                  if (trigger === 'hover') {
+                  if (trigger === 'hover' && !isLeaf) {
                     handleChangeCell(path, isLeaf);
                   }
                 }}

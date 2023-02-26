@@ -2,7 +2,7 @@ import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
 import { BADGE } from '@geometricpanda/storybook-addon-badges';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { StepItemDot } from '@zero-ui/core';
+import { StepItemDot, Space } from '@zero-ui/core';
 import { MinusCircleFilled } from '@ant-design/icons';
 
 <Meta
@@ -11,7 +11,11 @@ import { MinusCircleFilled } from '@ant-design/icons';
   argTypes={{}}
 />
 
-export const StepItemDotStory = (args) => <StepItemDot {...args} />;
+export const StepItemDotStory = (args) => (
+  <Space direction="row" wrap="wrap" justify="center" gap="4px">
+    <StepItemDot {...args} />
+  </Space>
+);
 
 # StepItemDot
 

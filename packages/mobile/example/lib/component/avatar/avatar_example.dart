@@ -10,38 +10,91 @@ class ZeroAvatarExample extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Zero Avatar Example'),
       ),
-      body: ListView(
+      body: Column(
         children: [
+          const SizedBox(height: 30),
           SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: ZeroAvatarGroup(moreNumber: 1000, avatars: [
-                ZeroAvatar.url(
-                  'https://shorturl.at/dknSY',
-                  size: AvatarSize.xs,
+            width: MediaQuery.of(context).size.width,
+            child: const Center(
+              child: ZeroAvatarGroup(
+                moreNumber: 1000,
+                avatars: _items,
+                size: AvatarSize.xxs,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: const Center(
+              child: ZeroAvatarGroup(
+                size: AvatarSize.xs,
+                moreNumber: 1000,
+                avatars: _items,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: const Center(
+              child: ZeroAvatarGroup(
+                size: AvatarSize.s,
+                moreNumber: 1000,
+                avatars: _items,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: const Center(
+              child: ZeroAvatarGroup(
+                size: AvatarSize.m,
+                moreNumber: 1000,
+                avatars: _items,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: const Center(
+              child: ZeroAvatarGroup(
+                moreAvatarStyle: ZeroAvatarStyle(
+                  backgroundColor: Colors.yellow,
+                  initialColor: Colors.cyan,
                 ),
-                ZeroAvatar.initial(
-                  'Muhammad R Kahfi',
-                  size: AvatarSize.xs,
-                ),
-                ZeroAvatar.url(
-                  'https://shorturl.at/dknSY',
-                  size: AvatarSize.xs,
-                ),
-                ZeroAvatar.initial(
-                  'Muhammad R Kahfi',
-                  size: AvatarSize.xs,
-                ),
-                ZeroAvatar.url(
-                  'https://shorturl.at/dknSY',
-                  size: AvatarSize.xs,
-                ),
-                ZeroAvatar.initial(
-                  'Muhammad R Kahfi',
-                  size: AvatarSize.xs,
-                ),
-              ]))
+                moreNumber: 1000,
+                avatars: _items,
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 }
+
+const _items = [
+  ZeroAvatar.url(
+    'https://s.id/1Ad0k',
+    size: AvatarSize.xs,
+  ),
+  ZeroAvatar.initial(
+    'Muhammad R Kahfi',
+    size: AvatarSize.xs,
+  ),
+  ZeroAvatar.url(
+    'https://s.id/1Ad0k',
+    size: AvatarSize.xs,
+  ),
+  ZeroAvatar.initial(
+    'Muhammad R Kahfi',
+    size: AvatarSize.xs,
+  ),
+  ZeroAvatar.url(
+    'https://s.id/1Ad0k',
+    size: AvatarSize.xs,
+  ),
+  ZeroAvatar.initial(
+    'Muhammad R Kahfi',
+    size: AvatarSize.xs,
+  ),
+];

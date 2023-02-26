@@ -28,7 +28,12 @@ WidgetbookComponent badgeWidgetbookComponent = WidgetbookComponent(
             label: 'Badge Text Color',
             options: _textColorOptions,
           ),
-          child: const Icon(Icons.mail),
+          padding: EdgeInsets.zero,
+          childSize: 24,
+          child: const Icon(
+            Icons.mail,
+            size: 24,
+          ),
         ),
       ),
     ),

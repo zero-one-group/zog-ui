@@ -2,15 +2,23 @@ import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
 import { BADGE } from '@geometricpanda/storybook-addon-badges';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { Skeleton } from '@zero-ui/core';
+import { Skeleton, Space } from '@zero-ui/core';
 
-<Meta title="Components/Display/Skeleton" component={[Skeleton]} argTypes={{}} />
+<Meta
+  title="Components/Display/Skeleton"
+  component={[Skeleton]}
+  argTypes={{
+    width: {
+      control: 'text',
+    },
+  }}
+/>
 
-export const SkeletonStory = () => <Skeleton />;
+export const SkeletonStory = (args) => <Skeleton {...args} />;
 
 # Skeleton
 
-> WIP
+> Provide a placeholder while you wait for content to load, or to visualise content that doesn't exist yet.
 
 ## Example Usage
 
@@ -19,7 +27,42 @@ import { Skeleton } from '@zero-ui/core';
 ```
 
 <Canvas columns={2} withSource="close">
-  <Story name="Skeleton">{SkeletonStory.bind()}</Story>
+  <Story
+    name="Skeleton Basic"
+    args={{
+      circle: false,
+      square: false,
+      image: false,
+      baseColor: '#F5F5F5',
+      highlightColor: '#FBFAFA',
+      animationDuration: '1.5s',
+    }}
+  >
+    {SkeletonStory.bind()}
+  </Story>
+  <Story name="Skeleton Circle" args={{ circle: true }}>
+    {SkeletonStory.bind()}
+  </Story>
+  <Story name="Skeleton Square" args={{ square: true }}>
+    {SkeletonStory.bind()}
+  </Story>
+  <Story
+    name="Skeleton Image"
+    args={{ image: true, width: '100px', height: '100px' }}
+  >
+    {SkeletonStory.bind()}
+  </Story>
+  <Story
+    name="Custom Children"
+    args={{
+      circle: false,
+      square: false,
+      height: '2em',
+      children: 'Loading...',
+    }}
+  >
+    {SkeletonStory.bind()}
+  </Story>
 </Canvas>
 
 <ArgsTable of={Skeleton} />

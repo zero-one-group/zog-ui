@@ -4,7 +4,9 @@ import Radio from './Radio';
 
 describe('Radio', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Radio />);
+    const { baseElement } = render(
+      <Radio name="list" id="html" label="html" />
+    );
     expect(baseElement).toBeTruthy();
   });
 });

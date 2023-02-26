@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
-import 'button_animating.dart';
-
 /// ZeroButton created based on [ElevatedButton] and [TextButton] with some customizations
 /// how to use this widget is almost the same as [ElevatedButton], [TextButton], [OutlinedButton]
 ///
@@ -98,17 +96,6 @@ class ZeroButton extends ElevatedButton {
       /// combine customizations from [style] with default style [primaryDefaultStyle]
       final adaptiveStyle = primaryDefaultStyle.merge(style);
 
-      /// [updateAnimating] is the callback function to update the state of [ZeroButton]
-      /// this function will be called when [ZeroButton] is pressed
-      /// this function will be called from [_ButtonAnimating] widge  t
-      late Function updateAnimating;
-
-      /// [animatingColor] is the color that will be used for [ZeroButton] when it is pressed
-      /// this value will be used as [backgroundColor] for [_ButtonAnimating] widget
-      final animatingColor = buttonStyle.animatingColor ??
-          adaptiveStyle.animatingColor ??
-          ZeroColors.transparent;
-
       return isDisabled
           ? disabled(
               text: text,
@@ -118,34 +105,23 @@ class ZeroButton extends ElevatedButton {
               buttonSizeType: buttonSizeType,
               buttonRadiusType: buttonRadiusType,
             )
-          : ButtonAnimating(
-              callback: (update) {
-                updateAnimating = update;
-              },
-              buttonRadiusType: buttonRadiusType,
-              height: height ?? buttonSizeType.defaultButtonHeight,
-              animatingColor: animatingColor,
-              child: ZeroButton._(
-                key: key,
-                onPressed: () {
-                  updateAnimating();
-                  onPressed();
-                },
-                onLongPress: onLongPress,
-                style: adaptiveStyle,
-                focusNode: focusNode,
-                autofocus: autofocus,
-                child: Padding(
-                  padding: const EdgeInsets.all(0),
-                  child: Text(
-                    text,
-                    style: theme.typography.button?.merge(
-                      textStyle?.copyWith(color: Colors.white) ??
-                          TextStyle(
-                            fontSize: buttonSizeType.fontSize,
-                            color: ZeroColors.white,
-                          ),
-                    ),
+          : ZeroButton._(
+              key: key,
+              onPressed: onPressed,
+              onLongPress: onLongPress,
+              style: adaptiveStyle,
+              focusNode: focusNode,
+              autofocus: autofocus,
+              child: Padding(
+                padding: const EdgeInsets.all(0),
+                child: Text(
+                  text,
+                  style: theme.typography.button?.merge(
+                    textStyle?.copyWith(color: Colors.white) ??
+                        TextStyle(
+                          fontSize: buttonSizeType.fontSize,
+                          color: ZeroColors.white,
+                        ),
                   ),
                 ),
               ),
@@ -228,14 +204,6 @@ class ZeroButton extends ElevatedButton {
       /// combine customizations from [style] with default style [secondaryDefaultStyle]
       final adaptiveStyle = secondaryDefaultStyle.merge(style);
 
-      /// [updateAnimating] is the callback function to update the state of [ZeroButton]
-      late Function updateAnimating;
-
-      /// [animatingColor] is the color that will be used for [ZeroButton] when it is pressed
-      final animatingColor = style?.animatingColor ??
-          buttonStyle.animatingColor ??
-          Colors.transparent;
-
       return isDisabled
           ? disabled(
               text: text,
@@ -245,33 +213,22 @@ class ZeroButton extends ElevatedButton {
               buttonSizeType: buttonSizeType,
               buttonRadiusType: buttonRadiusType,
             )
-          : ButtonAnimating(
-              callback: (update) {
-                updateAnimating = update;
-              },
-              buttonRadiusType: buttonRadiusType,
-              height: height ?? buttonSizeType.defaultButtonHeight,
-              animatingColor: animatingColor,
-              child: ZeroButton._(
-                key: key,
-                onPressed: () {
-                  updateAnimating();
-                  onPressed();
-                },
-                onLongPress: onLongPress,
-                style: adaptiveStyle,
-                focusNode: focusNode,
-                autofocus: autofocus,
-                child: Padding(
-                  padding: const EdgeInsets.all(0),
-                  child: Text(
-                    text,
-                    style: theme.typography.button?.merge(
-                      textStyle ??
-                          TextStyle(
-                            fontSize: buttonSizeType.fontSize,
-                          ),
-                    ),
+          : ZeroButton._(
+              key: key,
+              onPressed: onPressed,
+              onLongPress: onLongPress,
+              style: adaptiveStyle,
+              focusNode: focusNode,
+              autofocus: autofocus,
+              child: Padding(
+                padding: const EdgeInsets.all(0),
+                child: Text(
+                  text,
+                  style: theme.typography.button?.merge(
+                    textStyle ??
+                        TextStyle(
+                          fontSize: buttonSizeType.fontSize,
+                        ),
                   ),
                 ),
               ),
@@ -447,29 +404,17 @@ class ZeroButton extends ElevatedButton {
       /// [style] is the style for [ZeroButton]
       final adaptiveButtonStyle = disabledDefaultStyle.merge(style);
 
-      /// [animatingColor] is the color that will be used for [ZeroButton] when it is pressed
-      final animatingColor =
-          adaptiveButtonStyle.animatingColor ?? ZeroColors.transparent;
-
-      return ButtonAnimating(
-        callback: (update) {
+      return ZeroButton._(
+        key: key,
+        onPressed: () {
           // do nothing
         },
-        buttonRadiusType: buttonRadiusType,
-        height: height ?? buttonSizeType.defaultButtonHeight,
-        animatingColor: animatingColor,
-        child: ZeroButton._(
-          key: key,
-          onPressed: () {
-            // do nothing
-          },
-          style: adaptiveButtonStyle,
-          child: Padding(
-            padding: const EdgeInsets.all(0),
-            child: Text(
-              text,
-              style: textStyle,
-            ),
+        style: adaptiveButtonStyle,
+        child: Padding(
+          padding: const EdgeInsets.all(0),
+          child: Text(
+            text,
+            style: textStyle,
           ),
         ),
       );

@@ -1,8 +1,8 @@
-import { CSSProperties } from '@stitches/react';
+import type Stitches from '@stitches/react';
+import { CSS, CSSProperties } from '@stitches/react';
 import { forwardRef } from 'react';
 import { Box, BoxProps } from '../Box';
 import { MergeProps } from '../types';
-import type Stitches from '@stitches/react';
 
 export interface SpaceOptions {
   /**
@@ -44,6 +44,7 @@ export interface SpaceOptions {
    * Shorthand prop for `gridColumn
    * @type CSSProperties['gridColumn']
    */
+  css?: CSS;
 }
 
 export type SpaceProps = Omit<MergeProps<BoxProps<'div'>, SpaceOptions>, 'as'>;
@@ -59,6 +60,7 @@ export const Space = forwardRef<HTMLDivElement, SpaceProps>(
       gap,
       rowGap,
       columnGap,
+      css,
       ...props
     },
     ref
@@ -88,6 +90,7 @@ export const Space = forwardRef<HTMLDivElement, SpaceProps>(
       gap: setGap(),
       rowGap,
       columnGap,
+      ...css,
     };
 
     return (

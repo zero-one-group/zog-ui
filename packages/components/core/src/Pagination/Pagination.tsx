@@ -113,9 +113,13 @@ export const Pagination = ({
         {previousIcon ? previousIcon : <LeftOutlined />}
       </ItemPagination>
       {paginationRange &&
-        paginationRange.map((item) => {
+        paginationRange.map((item, index) => {
           if (item === DOTS) {
-            return <Box css={{ color: '$gray7' }}>{DOTS}</Box>;
+            return (
+              <Box css={{ color: '$gray7' }} key={index}>
+                {DOTS}
+              </Box>
+            );
           }
           return (
             <ItemPagination
@@ -125,6 +129,7 @@ export const Pagination = ({
               size="lg"
               variant="outlined"
               colorScheme={colorScheme}
+              key={index}
             >
               {item}
             </ItemPagination>
@@ -148,8 +153,10 @@ export const Pagination = ({
           }}
         >
           {listCustomSizePage ? (
-            listCustomSizePage.map((item) => (
-              <option value={item}>{item}/page</option>
+            listCustomSizePage.map((item, index) => (
+              <option value={item} key={index}>
+                {item}/page
+              </option>
             ))
           ) : (
             <option value="10">10/page</option>
