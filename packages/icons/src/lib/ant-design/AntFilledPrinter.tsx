@@ -1,4 +1,4 @@
-// THIS FILE IS AUTO GENERATED (Sun, 26 Feb 2023 10:14:33 GMT)
+// THIS FILE IS AUTO GENERATED (Sun, 26 Feb 2023 10:51:43 GMT)
 import * as React from 'react';
 import { SVGProps } from 'react';
 export const AntFilledPrinter = (props: SVGProps<SVGSVGElement>) => {
