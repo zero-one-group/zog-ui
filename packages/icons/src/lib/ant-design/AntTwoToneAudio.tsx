@@ -1,4 +1,4 @@
-// THIS FILE IS AUTO GENERATED (Sun, 26 Feb 2023 11:08:09 GMT)
+// THIS FILE IS AUTO GENERATED (Sun, 26 Feb 2023 11:36:41 GMT)
 import * as React from 'react';
 import { SVGProps } from 'react';
 export const AntTwoToneAudio = (props: SVGProps<SVGSVGElement>) => {

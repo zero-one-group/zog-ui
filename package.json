@@ -6,7 +6,8 @@
   "scripts": {
     "demo-react": "(cd examples/vite-react && pnpm install && pnpm run dev)",
     "demo-nextjs": "(cd examples/nextjs && pnpm install && pnpm run dev)",
-    "build": "nx run-many --target=build --projects=components-*,icons,docs --exclude=components-dropzone",
+    "build": "nx run-many --target=build --projects=components-*,icons --exclude=docs,components-dropzone",
+    "build:docs": "nx run docs:build",
     "release": "nx run-many --parallel --target=publish --projects=components-* --exclude=components-dropzone",
     "postinstall": "nx run icons:fetch",
     "prepare": "husky install",
