@@ -73,6 +73,22 @@ const StyledCascaderInput = styled('input', {
   textOverflow: 'ellipsis',
   color: '$gray12',
   pointerEvents: 'none',
+  variants: {
+    size: {
+      sm: {
+        height: 'calc(20px + $1)',
+      },
+      md: {
+        height: 'calc(28px + $1)',
+      },
+      lg: {
+        height: 'calc(36px + $1)',
+      },
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+  },
 });
 
 const StyledTrigger = styled('div', {
@@ -143,7 +159,7 @@ const StyledIcons = styled('div', {
 });
 
 const StyledSelectedItems = styled('div', {
-  minWidth: '150px',
+  minWidth: '155px',
   height: 'calc(100% - $1)',
   display: 'flex',
   flexWrap: 'wrap',
