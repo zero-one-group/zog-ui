@@ -9,6 +9,7 @@ import { keyframes } from '@stitches/react';
 import {
   ComponentProps,
   MouseEvent,
+  ReactNode,
   useCallback,
   useEffect,
   useMemo,
@@ -226,6 +227,7 @@ export type CascaderProps = {
   displayRender?: (labels: string[]) => string;
   multiple?: boolean;
   onValueChange: (value: CascaderValue[] | CascaderValue[][]) => void;
+  arrowIcon?: ReactNode;
 } & ComponentProps<typeof StyledCascader>;
 
 export const Cascader = ({
@@ -236,6 +238,7 @@ export const Cascader = ({
   changeOnSelect = false,
   displayRender,
   multiple = false,
+  arrowIcon,
   css,
   onValueChange,
   ...props
@@ -616,6 +619,7 @@ export const Cascader = ({
                   colorScheme={colorScheme}
                   selectedValues={selectedValues}
                   indeterminateValues={indeterminateValues}
+                  arrowIcon={arrowIcon}
                 />
               ))}
             </StyledCascaderMenus>

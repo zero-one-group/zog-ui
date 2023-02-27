@@ -3,6 +3,7 @@ import { BADGE } from '@geometricpanda/storybook-addon-badges';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { Cascader } from '@01group-ui/core';
+import { CaretRightOutlined } from '@ant-design/icons';
 
 <Meta
   title="Components/Forms/Cascader"
@@ -166,6 +167,21 @@ export const optionsMultiple = [
       onValueChange: (value) => {
         console.log(value);
       },
+      options,
+    }}
+  >
+    {CascaderStory.bind()}
+  </Story>
+  <Story
+    name="Custom Arrow Icon"
+    args={{
+      displayRender: (labels) => {
+        return labels[labels.length - 1];
+      },
+      onValueChange: (value) => {
+        console.log(value);
+      },
+      arrowIcon: <CaretRightOutlined />,
       options,
     }}
   >

@@ -1,6 +1,6 @@
 import { RightOutlined } from '@ant-design/icons';
 import { CheckedState } from '@radix-ui/react-checkbox';
-import { useMemo } from 'react';
+import { ReactNode, useMemo } from 'react';
 import { Checkbox } from '../Checkbox';
 import { styled } from '../stitches.config';
 import { CascaderOption, CascaderProps, CascaderValue } from './Cascader';
@@ -83,6 +83,7 @@ export type CascaderColumnProps = {
   trigger: CascaderProps['trigger'];
   multiple?: boolean;
   colorScheme?: string;
+  arrowIcon?: ReactNode;
 };
 
 const CascaderColumn = ({
@@ -96,6 +97,7 @@ const CascaderColumn = ({
   trigger,
   multiple,
   colorScheme,
+  arrowIcon,
 }: CascaderColumnProps) => {
   const optionList = useMemo(
     () =>
@@ -191,7 +193,7 @@ const CascaderColumn = ({
                 )}
                 {!isLeaf ? (
                   <StyledCascaderMenuExpandIcon>
-                    <RightOutlined />
+                    {arrowIcon ? arrowIcon : <RightOutlined />}
                   </StyledCascaderMenuExpandIcon>
                 ) : null}
               </StyledCascaderMenuItem>
