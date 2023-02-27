@@ -1,7 +1,7 @@
 name: zero_ui_mobile
 description: A new Flutter package project.
 version: 0.0.1
-homepage: "https://zero-ui-mobile.web.app/"
+homepage: 'https://zero-ui-mobile.web.app/'
 
 environment:
   sdk: '>=2.18.1 <3.0.0'
