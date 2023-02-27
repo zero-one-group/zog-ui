@@ -161,6 +161,7 @@ const StyledIcons = styled('div', {
 const StyledSelectedItems = styled('div', {
   minWidth: '155px',
   height: 'calc(100% - $1)',
+  marginRight: '16px',
   display: 'flex',
   flexWrap: 'wrap',
   padding: '$1 0',
