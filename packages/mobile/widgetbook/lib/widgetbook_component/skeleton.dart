@@ -110,7 +110,8 @@ WidgetbookComponent skeletonWidgetbookComponent = WidgetbookComponent(
                     width: 64,
                     height: 64,
                     shape: context.knobs.options(
-                        label: 'Leading Shape', options: _shapeOptions)),
+                        label: 'Leading Shape',
+                        options: _shapeOptions.reversed.toList())),
                 titleStyle: SkeletonLineStyle(
                     height: 16,
                     minLength: 200,
@@ -132,6 +133,8 @@ WidgetbookComponent skeletonWidgetbookComponent = WidgetbookComponent(
                         .toDouble())),
                 trailing: ZeroSkeletonAvatar(
                     style: SkeletonAvatarStyle(
+                        width: 60,
+                        height: 50,
                         shape: context.knobs.options(
                             label: 'Trailing Shape', options: _shapeOptions))),
                 hasSubtitle: context.knobs
