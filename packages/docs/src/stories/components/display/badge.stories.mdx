@@ -4,9 +4,18 @@ import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { Badge } from '@01group-ui/core';
 
-<Meta title="Components/Display/Badge" component={[Badge]} argTypes={{}} />
+<Meta
+  title="Components/Display/Badge"
+  component={[Badge]}
+  argTypes={{
+    size: {
+      type: 'radio',
+      options: ['', 'sm', 'md', 'lg'],
+    },
+  }}
+/>
 
-export const BadgeStory = () => <Badge />;
+export const BadgeStory = (args) => <Badge {...args} />;
 
 # Badge
 
@@ -19,7 +28,22 @@ import { Badge } from '@01group-ui/core';
 ```
 
 <Canvas columns={2} withSource="close">
-  <Story name="Badge">{BadgeStory.bind()}</Story>
+  <Story
+    args={{
+      count: '',
+      label: '',
+      roundedFull: false,
+      size: '',
+      css: {
+        backgroundColor: '$gray12',
+        color: '$gray1',
+        borderColor: '$gray12',
+      },
+    }}
+    name="Badge"
+  >
+    {BadgeStory.bind()}
+  </Story>
 </Canvas>
 
 <ArgsTable of={Badge} />
