@@ -741,6 +741,9 @@ class ZeroThemeData with Diagnosticable {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: secondaryButtonStyle.toButtonStyle(),
       ),
+      textButtonTheme: TextButtonThemeData(
+        style: textButtonStyle.toButtonStyle(),
+      ),
       buttonTheme: buttonTheme,
       inputDecorationTheme:
           textfieldStyleSet.mainStyle.toInputDecorationTheme(),
