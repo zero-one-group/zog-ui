@@ -1,4 +1,8 @@
-import { CloseCircleFilled, DownOutlined } from '@ant-design/icons';
+import {
+  CloseCircleFilled,
+  CloseOutlined,
+  DownOutlined,
+} from '@ant-design/icons';
 import { CheckedState } from '@radix-ui/react-checkbox';
 import * as Popover from '@radix-ui/react-popover';
 import { keyframes } from '@stitches/react';
@@ -62,7 +66,6 @@ const StyledCascaderInput = styled('input', {
   border: 'none',
   outline: 'none',
   appearance: 'none',
-  height: '31px',
   background: 'transparent',
   width: 'calc(100% - 11px)',
   overflow: 'hidden',
@@ -96,14 +99,30 @@ const StyledCascaderDropdown = styled(Popover.Content, {
 });
 
 const StyledCascaderSelector = styled('div', {
+  position: 'relative',
   width: '100%',
-  height: '32px',
   padding: '0 11px',
   border: '1px solid $grayA8',
   borderRadius: '$2',
   cursor: 'pointer',
   backgroundColor: '$gray1',
   boxSizing: 'border-box',
+  variants: {
+    size: {
+      sm: {
+        minHeight: 'calc(20px + $1)',
+      },
+      md: {
+        minHeight: 'calc(28px + $1)',
+      },
+      lg: {
+        minHeight: 'calc(36px + $1)',
+      },
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+  },
 });
 
 const StyledCascaderMenus = styled('div', {
@@ -121,6 +140,55 @@ const StyledIcons = styled('div', {
   insetInlineEnd: '11px',
   transform: 'translateY(-50%)',
   color: '$gray8',
+});
+
+const StyledSelectedItems = styled('div', {
+  minWidth: '150px',
+  height: 'calc(100% - $1)',
+  display: 'flex',
+  flexWrap: 'wrap',
+  padding: '$1 0',
+  gap: '$1',
+  background: 'transparent',
+});
+
+const StyledPlaceholder = styled('span', {
+  width: 'calc(100% - 11px)',
+  position: 'absolute',
+  top: '50%',
+  transform: 'translateY(-50%)',
+  fontFamily: '$untitled',
+  fontSize: '13px',
+  color: '$gray10',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+  overflow: 'hidden',
+});
+
+const StyledSelectedMultipleItem = styled('span', {
+  display: 'inline-grid',
+  gridTemplateColumns: 'auto auto',
+  borderRadius: '2px',
+  padding: '0 5px 0 8px',
+  border: '1px solid $gray4',
+  background: '$gray3',
+  height: '24px',
+  gap: '4px',
+  alignItems: 'center',
+  whiteSpace: 'nowrap',
+  color: '$gray12',
+});
+
+const StyledBtnRemove = styled('span', {
+  height: '100%',
+  display: 'inline-flex',
+  alignItems: 'center',
+  fontSize: '10px',
+  color: '$gray9',
+  cursor: 'pointer',
+  '&:hover': {
+    color: '$gray12',
+  },
 });
 
 export type CascaderValue = string | number;
@@ -207,6 +275,27 @@ export const Cascader = ({
     return [];
   };
 
+  const getLabelsFromPath = (path: CascaderValue[]) => {
+    const labels: string[] = [];
+    let currentOption = options;
+    path.forEach((active) => {
+      const currentCell = currentOption.find(
+        (option) => option.value === active
+      );
+
+      if (currentCell) {
+        labels.push(currentCell.label);
+      }
+
+      const childrenOption = currentCell?.children;
+
+      if (childrenOption?.length) {
+        currentOption = childrenOption;
+      }
+    });
+    return labels;
+  };
+
   const handleRenderLabel = (labels: string[]) => {
     if (labels.length > 0) {
       if (typeof displayRender === 'function') {
@@ -282,27 +371,47 @@ export const Cascader = ({
     });
   };
 
+  const findRootFromPath = (path: CascaderValue[]) => {
+    let currentOption = options;
+    let root: CascaderOption | undefined;
+    path.forEach((active) => {
+      const currentCell = currentOption.find(
+        (option) => option.value === active
+      );
+      root = currentCell;
+      const childrenOption = currentCell?.children;
+
+      if (childrenOption?.length) {
+        currentOption = childrenOption;
+      }
+    });
+
+    return root;
+  };
+
   const handleSelect = (
     value: CascaderValue,
-    root: CascaderOption,
     isSelected: CheckedState,
     path: CascaderValue[]
   ) => {
-    const selected = new Set(selectedValues);
-    let newValue = [...multipleValue];
+    const root = findRootFromPath(path);
+    if (root) {
+      const selected = new Set(selectedValues);
+      let newValue = [...multipleValue];
 
-    checkAndUpdateSelectedValues(path, root, ({ option, newPath }) => {
-      updateSetSelected(selected, option.value, isSelected);
-      newValue = updateNewSelectedValue(newValue, newPath, isSelected);
+      checkAndUpdateSelectedValues(path, root, ({ option, newPath }) => {
+        updateSetSelected(selected, option.value, isSelected);
+        newValue = updateNewSelectedValue(newValue, newPath, isSelected);
+        conductValueCheck(selected);
+      });
+
+      updateSetSelected(selected, value, isSelected);
+      if (!root.children) {
+        newValue = updateNewSelectedValue(newValue, path, isSelected);
+      }
       conductValueCheck(selected);
-    });
-
-    updateSetSelected(selected, value, isSelected);
-    if (!root.children) {
-      newValue = updateNewSelectedValue(newValue, path, isSelected);
+      handleOnChangeCallback(newValue);
     }
-    conductValueCheck(selected);
-    handleOnChangeCallback(newValue);
   };
 
   const checkAndUpdateSelectedValues = (
@@ -424,10 +533,33 @@ export const Cascader = ({
     [handleValueCheck, indeterminateValues, options, traverseAndHandleValue]
   );
 
+  const renderMultipleItems = multipleValue.map((path, idx) => {
+    const values = getLabelsFromPath(path);
+    const childValue = path[path.length - 1];
+    const childLabel = values[values.length - 1];
+    const key = `${childValue}-${idx}`;
+    return (
+      <StyledSelectedMultipleItem key={key}>
+        <span>{childLabel}</span>
+        <StyledBtnRemove
+          onClick={(e) => {
+            e.stopPropagation();
+            handleSelect(childValue, true, path);
+          }}
+        >
+          <CloseOutlined />
+        </StyledBtnRemove>
+      </StyledSelectedMultipleItem>
+    );
+  });
+
   const handleClear = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     setValue('');
     setActiveValues([]);
+    setMultipleValues([]);
+    setIndeterminateValues(new Set());
+    setSelectedValues(new Set());
   };
 
   return (
@@ -477,13 +609,17 @@ export const Cascader = ({
         onClick={() => setOpen(true)}
         className="cascader-selector"
       >
-        <StyledCascaderInput
-          value={value}
-          readOnly
-          placeholder="Please Select"
-        />
+        {!value && selectedValues.size === 0 ? (
+          <StyledPlaceholder>Please Select</StyledPlaceholder>
+        ) : null}
+
+        {!multiple ? (
+          <StyledCascaderInput value={value} readOnly />
+        ) : (
+          <StyledSelectedItems>{renderMultipleItems}</StyledSelectedItems>
+        )}
       </StyledCascaderSelector>
-      {value ? (
+      {value || selectedValues.size !== 0 ? (
         <StyledIcons onClick={handleClear}>
           <CloseCircleFilled />
         </StyledIcons>

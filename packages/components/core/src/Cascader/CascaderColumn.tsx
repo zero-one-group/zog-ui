@@ -14,7 +14,7 @@ const StyledCascaderMenu = styled('ul', {
   listStyle: 'none',
   overflowY: 'auto',
   overflowX: 'none',
-  backgroundColor: '$gray1',
+  backgroundColor: 'transparent',
 });
 
 const StyledCascaderMenuItem = styled('li', {
@@ -74,7 +74,6 @@ export type CascaderColumnProps = {
   handleChangeCell: (path: CascaderValue[], isLeaf: boolean) => void;
   handleSelectCell: (
     value: CascaderValue,
-    option: CascaderOption,
     isSelected: CheckedState,
     path: CascaderValue[]
   ) => void;
@@ -164,7 +163,7 @@ const CascaderColumn = ({
                       colorScheme={colorScheme}
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleSelectCell(value, option, isSelected, path);
+                        handleSelectCell(value, isSelected, path);
                       }}
                     >
                       {isLeaf ? (

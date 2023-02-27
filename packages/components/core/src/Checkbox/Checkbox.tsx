@@ -52,7 +52,7 @@ const StyledCheckboxRoot = styled(CheckboxPrimitive.Root, {
   },
 });
 const StyledCheckboxIndicator = styled(CheckboxPrimitive.Indicator, {
-  color: '$gray12',
+  color: '$gray1',
   height: '1em',
   fontSize: '.7em',
   '&[data-disabled=""]': {
