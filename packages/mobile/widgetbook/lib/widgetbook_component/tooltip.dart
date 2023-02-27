@@ -15,7 +15,7 @@ WidgetbookComponent tooltipWidgetbookComponent = WidgetbookComponent(
             label: 'Text',
             initialValue: 'Tooltip Text',
           ),
-          type: context.knobs.options(
+          brightness: context.knobs.options(
             label: 'Type',
             options: _types,
           ),
@@ -34,9 +34,9 @@ WidgetbookComponent tooltipWidgetbookComponent = WidgetbookComponent(
   ],
 );
 
-List<Option<ZeroTooltipType>> _types = [
-  const Option(label: 'Dark', value: ZeroTooltipType.dark),
-  const Option(label: 'Light', value: ZeroTooltipType.light),
+List<Option<Brightness>> _types = [
+  const Option(label: 'Dark', value: Brightness.dark),
+  const Option(label: 'Light', value: Brightness.light),
 ];
 
 List<Option<ZeroTooltipVariant>> _variants = [

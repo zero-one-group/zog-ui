@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 // TODO: Add more properties
 
@@ -13,6 +14,7 @@ class ZeroSpeedDialStyle with Diagnosticable {
   final double? elevation;
   final Color? shadowColor;
   final BorderRadius? borderRadius;
+  final ZeroTooltipStyle? tooltipStyle;
 
   const ZeroSpeedDialStyle({
     this.activeColor,
@@ -24,10 +26,14 @@ class ZeroSpeedDialStyle with Diagnosticable {
     this.elevation,
     this.shadowColor,
     this.borderRadius,
+    this.tooltipStyle,
   });
 
-  static ZeroSpeedDialStyle fallback(
-          {Color? activeColor, Color? inactiveColor}) =>
+  static ZeroSpeedDialStyle fallback({
+    Color? activeColor,
+    Color? inactiveColor,
+    ZeroTooltipStyle? tooltipStyle,
+  }) =>
       ZeroSpeedDialStyle(
         activeColor: activeColor ?? Colors.white,
         inactiveColor: inactiveColor ?? activeColor ?? Colors.white,
@@ -36,6 +42,7 @@ class ZeroSpeedDialStyle with Diagnosticable {
         elevation: 4,
         shadowColor: Colors.black.withOpacity(0.75),
         borderRadius: BorderRadius.circular(28),
+        tooltipStyle: tooltipStyle ?? ZeroTooltipStyle.fallback(),
       );
 
   ZeroSpeedDialStyle copyWith({
@@ -48,6 +55,7 @@ class ZeroSpeedDialStyle with Diagnosticable {
     double? elevation,
     Color? shadowColor,
     BorderRadius? borderRadius,
+    ZeroTooltipStyle? tooltipStyle,
   }) {
     return ZeroSpeedDialStyle(
       activeColor: activeColor ?? this.activeColor,
@@ -60,6 +68,7 @@ class ZeroSpeedDialStyle with Diagnosticable {
       elevation: elevation ?? this.elevation,
       shadowColor: shadowColor ?? this.shadowColor,
       borderRadius: borderRadius ?? this.borderRadius,
+      tooltipStyle: tooltipStyle ?? this.tooltipStyle,
     );
   }
 
@@ -76,6 +85,7 @@ class ZeroSpeedDialStyle with Diagnosticable {
       elevation: other.elevation,
       shadowColor: other.shadowColor,
       borderRadius: other.borderRadius,
+      tooltipStyle: other.tooltipStyle,
     );
   }
 
@@ -93,6 +103,7 @@ class ZeroSpeedDialStyle with Diagnosticable {
       elevation: t < 0.5 ? a?.elevation : b?.elevation,
       shadowColor: Color.lerp(a?.shadowColor, b?.shadowColor, t),
       borderRadius: BorderRadius.lerp(a?.borderRadius, b?.borderRadius, t),
+      tooltipStyle: ZeroTooltipStyle.lerp(a?.tooltipStyle, b?.tooltipStyle, t),
     );
   }
 
@@ -110,5 +121,7 @@ class ZeroSpeedDialStyle with Diagnosticable {
     properties.add(ColorProperty('shadowColor', shadowColor));
     properties
         .add(DiagnosticsProperty<BorderRadius>('borderRadius', borderRadius));
+    properties.add(
+        DiagnosticsProperty<ZeroTooltipStyle>('tooltipStyle', tooltipStyle));
   }
 }

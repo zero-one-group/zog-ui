@@ -38,9 +38,9 @@ export './components/datepicker/modal/zero_datepicker_input.dart';
 export './components/divider/divider.dart';
 // grid
 export './components/grid/zero_grid.dart';
-export './components/icons/two_tone_icons.dart';
 // grid
 export './components/grid/zero_grid.dart';
+export './components/icons/two_tone_icons.dart';
 // icons
 export './components/icons/zero_icons.dart';
 // list
@@ -125,7 +125,7 @@ export './styles/component/speed_dial_style.dart';
 export './styles/component/switch_style.dart';
 export './styles/component/tab_bar_style.dart';
 export './styles/component/textfield_style.dart';
-// component styles
+export './styles/component/tooltip_style.dart';
 export './styles/theme.dart';
 export './styles/typography.dart';
 // types
@@ -139,7 +139,6 @@ export './types/navigation_rail_type.dart';
 export './types/snackbar_alert_type.dart';
 export './types/snackbar_alert_variant.dart';
 export './types/snackbar_type.dart';
-export './types/tooltip_type.dart';
 // utils
 export './utils/extensions/color_extension.dart';
 export './utils/extensions/num_extensions.dart';

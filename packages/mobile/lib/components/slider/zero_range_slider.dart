@@ -354,8 +354,10 @@ class _ZeroRangeSliderState extends State<ZeroRangeSlider> {
     return Positioned(
       left: (distance - widget.size.lineWidth),
       child: ZeroTooltip(
-        backgroundColor: style.activeColor,
-        borderColor: style.activeColor?.withOpacity(0.2),
+        style: ZeroTooltipStyle(
+          backgroundColor: style.activeColor,
+          borderColor: style.activeColor?.withOpacity(0.2),
+        ),
         variant: style.tooltipVariant ?? ZeroTooltipVariant.rounded,
         onCreated: (controller) {
           _thumbStartTooltipController = controller;
@@ -409,8 +411,10 @@ class _ZeroRangeSliderState extends State<ZeroRangeSlider> {
     return Positioned(
       left: (distance - widget.size.lineWidth),
       child: ZeroTooltip(
-        backgroundColor: style.activeColor,
-        borderColor: style.activeColor?.withOpacity(0.2),
+        style: ZeroTooltipStyle(
+          backgroundColor: style.activeColor,
+          borderColor: style.activeColor?.withOpacity(0.2),
+        ),
         variant: style.tooltipVariant ?? ZeroTooltipVariant.rounded,
         onCreated: (controller) {
           _thumbEndTooltipController = controller;
