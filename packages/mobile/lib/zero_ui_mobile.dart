@@ -38,10 +38,8 @@ export './components/datepicker/modal/zero_datepicker_input.dart';
 export './components/divider/divider.dart';
 // grid
 export './components/grid/zero_grid.dart';
-// grid
-export './components/grid/zero_grid.dart';
-export './components/icons/two_tone_icons.dart';
 // icons
+export './components/icons/two_tone_icons.dart';
 export './components/icons/zero_icons.dart';
 // list
 export './components/list/list_tile.dart';
@@ -99,8 +97,8 @@ export './size/list_tile_size.dart';
 export './size/size_type.dart';
 export './size/text_field_size.dart';
 export './size/zero_slider_size.dart';
-export './styles/color_accent.dart';
 // styles
+export './styles/color_accent.dart';
 export './styles/colors.dart';
 export './styles/component/app_bar_style.dart';
 export './styles/component/avatar_style.dart';
