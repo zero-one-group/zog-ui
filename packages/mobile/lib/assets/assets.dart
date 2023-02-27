@@ -15,4 +15,5 @@ class _Icons {
   String get ratingCustom5 => 'assets/icons/rating_custom5.svg';
 
   String get errorDefault => 'assets/icons/error_default.svg';
+  String get userAvatar => 'assets/icons/user_avatar.svg';
 }
