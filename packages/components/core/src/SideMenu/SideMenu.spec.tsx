@@ -5,7 +5,7 @@ describe('SideMenu', () => {
   it('should render successfuly', () => {
     const { baseElement } = render(
       <SideMenu>
-        <SideMenu.Item>Hello World</SideMenu.Item>
+        <SideMenu.Item title="Hello World" />
       </SideMenu>
     );
 

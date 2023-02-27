@@ -44,4 +44,5 @@ export const StyledMenuContent = styled('div', {
   flexDirection: 'column',
   gap: 4,
   outline: 'none',
+  zIndex: 2,
 });
