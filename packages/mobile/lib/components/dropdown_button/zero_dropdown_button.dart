@@ -332,8 +332,7 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
           _selectedItems.join(', '),
           style: widget.labelStyle,
           overflow: TextOverflow.ellipsis,
-          maxLines:
-              1, // TODO: Revisit later check whether this limit is necessary
+          maxLines: 1,
         );
 
       case SelectedItemsStyle.chip:

@@ -18,7 +18,8 @@ import 'widgetbook_component/chip.dart';
 import 'widgetbook_component/colors.dart';
 import 'widgetbook_component/datepicker.dart';
 import 'widgetbook_component/divider.dart';
-import 'widgetbook_component/dropdown.dart';
+import 'widgetbook_component/dropdown_button.dart';
+import 'widgetbook_component/dropdown_menu.dart';
 import 'widgetbook_component/icons.dart';
 import 'widgetbook_component/list_tile.dart';
 import 'widgetbook_component/navigation_bar.dart';
@@ -58,6 +59,7 @@ class HotReload extends StatelessWidget {
               textFieldWidgetbookComponent,
               radioGroupWidgetbookComponent,
               dropdownWidgetbookComponent,
+              dropdownMenuWidgetbookComponent,
               checkboxWidgetbookComponent,
               switchWidgetbookComponent,
               sliderWidgetbookComponenet,

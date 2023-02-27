@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
 import 'dart:math' as math;
-import 'package:intl/intl.dart' show DateFormat;
-import 'package:flutter/foundation.dart' show kIsWeb;
 
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart' show DateFormat;
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 const Size _calendarPortraitDialogSize = Size(328.0, 420.0);
@@ -216,7 +216,7 @@ class _ZeroDatePickerDockedState extends State<ZeroDatePickerDocked>
             readOnly: true,
             decoration: InputDecoration(
               helperText: widget.helperText ??
-                  'DD/MM/YY', // TODO: hadcoded, make localizations
+                  'DD/MM/YY', // TODO: hardcoded, make localizations
               hintText: widget.hintText,
               labelText: widget.labelText,
               suffixIcon: widget.suffixIcon ?? const Icon(Icons.calendar_month),

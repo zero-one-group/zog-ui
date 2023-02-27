@@ -108,6 +108,8 @@ class ZeroThemeData with Diagnosticable {
   final ZeroRatingStyle ratingStyle;
   final ZeroSliderStyle sliderStyle;
   final ZeroAvatarStyle avatarStyle;
+  final ZeroMenuStyle menuStyle;
+
   final ZeroButtonGroupStyleSet buttonGroupStyle;
 
   final Brightness brightness;
@@ -170,6 +172,7 @@ class ZeroThemeData with Diagnosticable {
     required this.ratingStyle,
     required this.sliderStyle,
     required this.avatarStyle,
+    required this.menuStyle,
     required this.buttonGroupStyle,
 
     // Others
@@ -224,6 +227,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroAvatarStyle? avatarStyle,
     ZeroButtonGroupStyleSet? buttonGroupStyle,
     ZeroExpansionTileStyle? expansionTileStyle,
+    ZeroMenuStyle? menuStyle,
   }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
@@ -289,6 +293,8 @@ class ZeroThemeData with Diagnosticable {
 
     textfieldSize ??= ZeroTextfieldSize.small;
     inputDecorationType ??= InputDecorationType.underline;
+
+    menuStyle ??= ZeroMenuStyle();
 
     textfieldStyleSet ??= ZeroTextfieldStyleSet(
         outline: ZeroTextfieldStyle.outline(
@@ -455,62 +461,66 @@ class ZeroThemeData with Diagnosticable {
     final avatarStyleFallback =
         ZeroAvatarStyle.fallback(backgroundColor: primaryColor);
 
+    final menuStyleFallback = ZeroMenuStyle.fallback();
     final buttonGroupStyleFallback =
         ZeroButtonGroupStyleSet.fallback(primaryColor: primaryColor);
 
     useMaterial3 ??= false;
 
     return ZeroThemeData.raw(
-      brightness: brightness,
-      useMaterial3: useMaterial3,
-      primaryColor: primaryColor,
-      disabledColor: disabledColor,
-      scaffoldBackgroundColor: scaffoldBackgroundColor,
-      uncheckedColor: uncheckedColor,
-      checkedColor: checkedColor,
-      iconTheme: iconTheme,
-      dialogTheme: dialogTheme,
-      buttonTheme: buttonTheme,
-      expansionTileStyle: expansionTileStyleFallback.merge(expansionTileStyle),
-      colorScheme: colorScheme,
-      typography: typography,
-      cardColor: cardColor,
-      errorColor: errorColor,
-      disabledBackgroundColor: disabledBackgroundColor,
-      dividerColor: dividerColor,
-      solidTextColor: solidTextColor,
-      regularTextColor: regularTextColor,
-      fontFamily: fontFamily,
-      listTileStyle: listTileFallback.merge(listTileStyle),
-      primaryButtonStyle: primaryButtonStyleFallback.merge(primaryButtonStyle),
-      secondaryButtonStyle:
-          secondaryButtonStyleFallback.merge(secondaryButtonStyle),
-      textButtonStyle: textButtonStyleFallback.merge(textButtonStyle),
-      dividerStyle: dividerStyleFallback.merge(dividerStyle),
-      chipFilledStyle: chipFilledStyleFallback.merge(chipFilledStyle),
-      chipOutlinedStyle: chipOutlinedStyleFallback.merge(chipOutlinedStyle),
-      navigationBarStyle: navigationBarStyleFallback.merge(navigationBarStyle),
-      textfieldStyleSet: textfieldStyleSet,
-      inputDecorationType: inputDecorationType,
-      textfieldSize: textfieldSize,
-      navigationDrawerStyle:
-          navigationDrawerStyleFallback.merge(navigationDrawerStyle),
-      appBarStyle: appBarStyleFallback.merge(appBarStyleFallback),
-      cardStyle: cardStyle.merge(cardStyle),
-      buttonIconStyle: buttonIconStyleFallback.merge(buttonIconStyle),
-      navigationRailStyle:
-          navigationRailStyleFallback.merge(navigationRailStyle),
-      switchStyle: switchStyleFallback.merge(switchStyle),
-      tabBarStyle: tabBarStyleFallback.merge(tabBarStyle),
-      speedDialStyle: speedDialStyleFallback.merge(speedDialStyle),
-      checkboxStyle: checkboxStyleFallback.merge(checkboxStyle),
-      radioStyle: radioStyleFallback.merge(radioStyle),
-      progressStyle: progeressStyleFallback.merge(progressStyle),
-      ratingStyle: ratingStyleFallback.merge(ratingStyle),
-      sliderStyle: sliderStyleFallback.merge(sliderStyle),
-      avatarStyle: avatarStyleFallback.merge(avatarStyle),
-      buttonGroupStyle: buttonGroupStyleFallback.merge(buttonGroupStyle),
-    );
+        brightness: brightness,
+        useMaterial3: useMaterial3,
+        primaryColor: primaryColor,
+        disabledColor: disabledColor,
+        scaffoldBackgroundColor: scaffoldBackgroundColor,
+        uncheckedColor: uncheckedColor,
+        checkedColor: checkedColor,
+        iconTheme: iconTheme,
+        dialogTheme: dialogTheme,
+        buttonTheme: buttonTheme,
+        expansionTileStyle:
+            expansionTileStyleFallback.merge(expansionTileStyle),
+        colorScheme: colorScheme,
+        typography: typography,
+        cardColor: cardColor,
+        errorColor: errorColor,
+        disabledBackgroundColor: disabledBackgroundColor,
+        dividerColor: dividerColor,
+        solidTextColor: solidTextColor,
+        regularTextColor: regularTextColor,
+        fontFamily: fontFamily,
+        listTileStyle: listTileFallback.merge(listTileStyle),
+        primaryButtonStyle:
+            primaryButtonStyleFallback.merge(primaryButtonStyle),
+        secondaryButtonStyle:
+            secondaryButtonStyleFallback.merge(secondaryButtonStyle),
+        textButtonStyle: textButtonStyleFallback.merge(textButtonStyle),
+        dividerStyle: dividerStyleFallback.merge(dividerStyle),
+        chipFilledStyle: chipFilledStyleFallback.merge(chipFilledStyle),
+        chipOutlinedStyle: chipOutlinedStyleFallback.merge(chipOutlinedStyle),
+        navigationBarStyle:
+            navigationBarStyleFallback.merge(navigationBarStyle),
+        textfieldStyleSet: textfieldStyleSet,
+        inputDecorationType: inputDecorationType,
+        textfieldSize: textfieldSize,
+        navigationDrawerStyle:
+            navigationDrawerStyleFallback.merge(navigationDrawerStyle),
+        appBarStyle: appBarStyleFallback.merge(appBarStyleFallback),
+        cardStyle: cardStyle.merge(cardStyle),
+        buttonIconStyle: buttonIconStyleFallback.merge(buttonIconStyle),
+        navigationRailStyle:
+            navigationRailStyleFallback.merge(navigationRailStyle),
+        switchStyle: switchStyleFallback.merge(switchStyle),
+        tabBarStyle: tabBarStyleFallback.merge(tabBarStyle),
+        speedDialStyle: speedDialStyleFallback.merge(speedDialStyle),
+        checkboxStyle: checkboxStyleFallback.merge(checkboxStyle),
+        radioStyle: radioStyleFallback.merge(radioStyle),
+        progressStyle: progeressStyleFallback.merge(progressStyle),
+        ratingStyle: ratingStyleFallback.merge(ratingStyle),
+        sliderStyle: sliderStyleFallback.merge(sliderStyle),
+        avatarStyle: avatarStyleFallback.merge(avatarStyle),
+        buttonGroupStyle: buttonGroupStyleFallback.merge(buttonGroupStyle),
+        menuStyle: menuStyleFallback.merge(menuStyle));
   }
 
   static ZeroThemeData lerp(ZeroThemeData a, ZeroThemeData b, double t) {
@@ -562,6 +572,7 @@ class ZeroThemeData with Diagnosticable {
           a.navigationRailStyle, b.navigationRailStyle, t),
       switchStyle: ZeroSwitchStyleSet.lerp(a.switchStyle, b.switchStyle, t),
       tabBarStyle: ZeroTabBarStyle.lerp(a.tabBarStyle, b.tabBarStyle, t),
+      menuStyle: ZeroMenuStyle.lerp(a.menuStyle, b.menuStyle, t)!,
       inputDecorationType:
           t < 0.5 ? a.inputDecorationType : b.inputDecorationType,
       textfieldSize: t < 0.5 ? a.textfieldSize : b.textfieldSize,
@@ -631,6 +642,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroSliderStyle? sliderStyle,
     ZeroAvatarStyle? avatarStyle,
     ZeroButtonGroupStyleSet? buttonGroupStyle,
+    ZeroMenuStyle? menuStyle,
   }) {
     return ZeroThemeData.raw(
       brightness: brightness ?? this.brightness,
@@ -662,6 +674,7 @@ class ZeroThemeData with Diagnosticable {
       chipFilledStyle: chipFilledStyle ?? this.chipFilledStyle,
       chipOutlinedStyle: chipOutlinedStyle ?? this.chipOutlinedStyle,
       navigationBarStyle: navigationBarStyle ?? this.navigationBarStyle,
+      menuStyle: menuStyle ?? this.menuStyle,
       inputDecorationType: inputDecorationType ?? this.inputDecorationType,
       textfieldStyleSet: this.textfieldStyleSet.copyWith(
           inputDecorationType: inputDecorationType,
