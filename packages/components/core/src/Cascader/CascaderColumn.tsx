@@ -1,7 +1,9 @@
 import { RightOutlined } from '@ant-design/icons';
-import { useMemo } from 'react';
+import { CheckedState } from '@radix-ui/react-checkbox';
+import { ReactNode, useMemo } from 'react';
+import { Checkbox } from '../Checkbox';
 import { styled } from '../stitches.config';
-import { CascaderOption, CascaderProps } from './Cascader';
+import { CascaderOption, CascaderProps, CascaderValue } from './Cascader';
 
 const StyledCascaderMenu = styled('ul', {
   all: 'unset',
@@ -10,7 +12,9 @@ const StyledCascaderMenu = styled('ul', {
   height: '180px',
   padding: '$1',
   listStyle: 'none',
-  backgroundColor: '$gray1',
+  overflowY: 'auto',
+  overflowX: 'none',
+  backgroundColor: 'transparent',
 });
 
 const StyledCascaderMenuItem = styled('li', {
@@ -53,6 +57,12 @@ const StyledCascaderMenuContent = styled('div', {
   fontFamily: '$untitled',
 });
 
+const StyledCascaderMenuWrapperMultiple = styled('div', {
+  display: 'flex',
+  gap: '$1',
+  alignItems: 'center',
+});
+
 const StyledCascaderMenuExpandIcon = styled('div', {
   fontSize: '.7rem',
   color: '$gray9',
@@ -60,29 +70,51 @@ const StyledCascaderMenuExpandIcon = styled('div', {
 
 export type CascaderColumnProps = {
   options: CascaderOption[];
-  parentPath: string[];
-  handleChangeCell: (path: string[], isLeaf: boolean) => void;
-  active: string;
+  parentPath: CascaderValue[];
+  handleChangeCell: (path: CascaderValue[], isLeaf: boolean) => void;
+  handleSelectCell: (
+    value: CascaderValue,
+    isSelected: CheckedState,
+    path: CascaderValue[]
+  ) => void;
+  selectedValues: Set<CascaderValue>;
+  indeterminateValues: Set<CascaderValue>;
+  active: CascaderValue;
   trigger: CascaderProps['trigger'];
+  multiple?: boolean;
+  colorScheme?: string;
+  arrowIcon?: ReactNode;
 };
 
 const CascaderColumn = ({
   options,
   parentPath,
   handleChangeCell,
+  handleSelectCell,
+  selectedValues,
+  indeterminateValues,
   active,
   trigger,
+  multiple,
+  colorScheme,
+  arrowIcon,
 }: CascaderColumnProps) => {
   const optionList = useMemo(
     () =>
-      options.map(({ children, disabled, label, value }) => {
+      options.map((option) => {
+        const { children, disabled, label, value } = option;
         const isLeaf = !Array.isArray(children);
 
-        const path: string[] = [...parentPath, value as string];
+        const path: CascaderValue[] = [...parentPath, value];
         const pathString = path.join('/');
         const isActive = value === active;
+        const isIndeterminated = indeterminateValues.has(value);
+        const isSelected: CheckedState = isIndeterminated
+          ? 'indeterminate'
+          : selectedValues.has(value);
 
         return {
+          option,
           children,
           label,
           value,
@@ -91,16 +123,27 @@ const CascaderColumn = ({
           isLeaf,
           isActive,
           isDisabled: disabled,
+          isSelected,
         };
       }),
-    [options, parentPath, active]
+    [options, parentPath, active, selectedValues, indeterminateValues]
   );
 
   return (
     <StyledCascaderMenu role="menu">
       {optionList
         ? optionList.map(
-            ({ pathString, path, label, isDisabled, isLeaf, isActive }) => (
+            ({
+              pathString,
+              path,
+              label,
+              isDisabled,
+              isLeaf,
+              isActive,
+              value,
+              option,
+              isSelected,
+            }) => (
               <StyledCascaderMenuItem
                 key={pathString}
                 role="menuitem"
@@ -114,10 +157,43 @@ const CascaderColumn = ({
                 disabled={isDisabled}
                 active={isActive}
               >
-                <StyledCascaderMenuContent>{label}</StyledCascaderMenuContent>
+                {multiple ? (
+                  <StyledCascaderMenuWrapperMultiple>
+                    <Checkbox
+                      checked={isSelected}
+                      boxSize="$3"
+                      colorScheme={colorScheme}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleSelectCell(value, isSelected, path);
+                      }}
+                    >
+                      {isLeaf ? (
+                        <StyledCascaderMenuContent
+                          css={{
+                            width: '80px',
+                          }}
+                        >
+                          {label}
+                        </StyledCascaderMenuContent>
+                      ) : null}
+                    </Checkbox>
+                    {!isLeaf ? (
+                      <StyledCascaderMenuContent
+                        css={{
+                          width: '80px',
+                        }}
+                      >
+                        {label}
+                      </StyledCascaderMenuContent>
+                    ) : null}
+                  </StyledCascaderMenuWrapperMultiple>
+                ) : (
+                  <StyledCascaderMenuContent>{label}</StyledCascaderMenuContent>
+                )}
                 {!isLeaf ? (
                   <StyledCascaderMenuExpandIcon>
-                    <RightOutlined />
+                    {arrowIcon ? arrowIcon : <RightOutlined />}
                   </StyledCascaderMenuExpandIcon>
                 ) : null}
               </StyledCascaderMenuItem>

@@ -3,6 +3,7 @@ import { BADGE } from '@geometricpanda/storybook-addon-badges';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { Cascader } from '@01group-ui/core';
+import { CaretRightOutlined } from '@ant-design/icons';
 
 <Meta
   title="Components/Forms/Cascader"
@@ -13,7 +14,8 @@ import { Cascader } from '@01group-ui/core';
       options: ['click', 'hover'],
     },
     colorScheme: {
-      options: ['red', 'blue', 'green', 'pink', 'teal'],
+      options: ['amber', 'red', 'blue', 'green', 'pink', 'teal'],
+      defaultValue: 'blue',
       control: { type: 'select' },
     },
   }}
@@ -21,7 +23,7 @@ import { Cascader } from '@01group-ui/core';
 
 export const CascaderStory = (args) => <Cascader {...args} />;
 
-# Cascader
+# Cascader Basic
 
 Cascade selection box. Select from a set of associated data set. Such as province/city/district, company level, things classification.
 
@@ -77,6 +79,58 @@ export const options = [
   },
 ];
 
+export const optionsMultiple = [
+  {
+    label: 'Light',
+    value: 'light',
+    children: new Array(10)
+      .fill(null)
+      .map((_, index) => ({ label: `Number ${index}`, value: index })),
+  },
+  {
+    label: 'Bamboo',
+    value: 'bamboo',
+    children: [
+      {
+        label: 'Little',
+        value: 'little',
+        children: [
+          {
+            label: 'Toy Fish',
+            value: 'fish',
+          },
+          {
+            label: 'Toy Cards',
+            value: 'cards',
+          },
+          {
+            label: 'Toy Bird',
+            value: 'bird',
+          },
+        ],
+      },
+      {
+        label: 'Little 2',
+        value: 'little2',
+        children: [
+          {
+            label: 'Toy Fish 2',
+            value: 'fish2',
+          },
+          {
+            label: 'Toy Cards 2',
+            value: 'cards2',
+          },
+          {
+            label: 'Toy Bird 2',
+            value: 'bird2',
+          },
+        ],
+      },
+    ],
+  },
+];
+
 <Canvas columns={2} withSource="close">
   <Story
     name="Basic"
@@ -85,6 +139,9 @@ export const options = [
       options,
       trigger: 'click',
       changeOnSelect: false,
+      onValueChange: (value) => {
+        console.log(value);
+      },
     }}
   >
     {CascaderStory.bind()}
@@ -94,6 +151,9 @@ export const options = [
     args={{
       defaultValue: ['zhejiang', 'hangzhou', 'xihu'],
       options,
+      onValueChange: (value) => {
+        console.log(value);
+      },
     }}
   >
     {CascaderStory.bind()}
@@ -104,7 +164,37 @@ export const options = [
       displayRender: (labels) => {
         return labels[labels.length - 1];
       },
+      onValueChange: (value) => {
+        console.log(value);
+      },
       options,
+    }}
+  >
+    {CascaderStory.bind()}
+  </Story>
+  <Story
+    name="Custom Arrow Icon"
+    args={{
+      displayRender: (labels) => {
+        return labels[labels.length - 1];
+      },
+      onValueChange: (value) => {
+        console.log(value);
+      },
+      arrowIcon: <CaretRightOutlined />,
+      options,
+    }}
+  >
+    {CascaderStory.bind()}
+  </Story>
+  <Story
+    name="Multiple"
+    args={{
+      multiple: true,
+      options: optionsMultiple,
+      onValueChange: (value) => {
+        console.log(value);
+      },
     }}
   >
     {CascaderStory.bind()}
