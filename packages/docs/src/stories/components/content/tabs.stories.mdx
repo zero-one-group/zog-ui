@@ -2,7 +2,13 @@ import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
 import { BADGE } from '@geometricpanda/storybook-addon-badges';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@01group-ui/core';
+import {
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+  Badge,
+} from '@01group-ui/core';
 import { AndroidOutlined } from '@ant-design/icons';
 
 <Meta
@@ -33,7 +39,17 @@ export const TabsStory = (args) => (
             {...args}
             value={`tab${item}`}
             leftIcon={<AndroidOutlined />}
-            rightIcon={<AndroidOutlined />}
+            rightIcon={
+              <Badge
+                count="99"
+                css={{
+                  backgroundColor: '$blue11',
+                  borderColor: '$blue11',
+                  color: '$blue4',
+                }}
+                size="sm"
+              />
+            }
           >
             Tab {item}
           </TabsTrigger>
