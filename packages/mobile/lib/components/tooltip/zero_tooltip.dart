@@ -109,6 +109,7 @@ class _ZeroTooltipState extends State<ZeroTooltip> {
         Colors.transparent;
 
     final textColor = context.theme.brightness != widget.brightness &&
+                adaptiveStyle.textStyle?.color == null ||
             adaptiveStyle.textStyle?.color == null
         ? (widget.brightness?.isDark == true
             ? ZeroColors.white
@@ -159,9 +160,8 @@ class _ZeroTooltipState extends State<ZeroTooltip> {
                             : const EdgeInsets.symmetric(
                                 horizontal: 8, vertical: 8),
                         child: DefaultTextStyle(
-                          style: DefaultTextStyle.of(context).style.merge(
-                              adaptiveStyle.textStyle
-                                  ?.copyWith(color: textColor)),
+                          style: (adaptiveStyle.textStyle ?? const TextStyle())
+                              .copyWith(color: textColor),
                           child: Center(
                             child: widget.variant == ZeroTooltipVariant.rounded
                                 ? SizedBox(
