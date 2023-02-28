@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
-import 'zero_shimmer.dart';
+part 'zero_shimmer.dart';
 
 /// Wrapper of your entire widget that need to have skeleton
 /// Set your entire widget in [child] parameter and whether it shows
@@ -48,7 +48,7 @@ class _ZeroSkeletonState extends State<ZeroSkeleton> {
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 150),
       child: widget.isLoading
-          ? ZeroShimmer(
+          ? _ZeroShimmer(
               shimmerGradient: widget.lightShimmerGradient,
               darkShimmerGradient: widget.darkShimmerGradient,
               duration: widget.duration,
@@ -86,7 +86,7 @@ class __SkeletonWidgetState extends State<_SkeletonWidget> {
     if (_shimmerChanges != null) {
       _shimmerChanges!.removeListener(_onShimmerChange);
     }
-    _shimmerChanges = Shimmer.of(context)?.shimmerChanges;
+    _shimmerChanges = _Shimmer.of(context)?.shimmerChanges;
     if (_shimmerChanges != null) {
       _shimmerChanges!.addListener(_onShimmerChange);
     }
@@ -100,16 +100,14 @@ class __SkeletonWidgetState extends State<_SkeletonWidget> {
 
   void _onShimmerChange() {
     if (widget.isLoading) {
-      setState(() {
-        // update the shimmer painting.
-      });
+      setState(() {});
     }
   }
 
   @override
   Widget build(BuildContext context) {
     // Collect ancestor shimmer info.
-    final shimmer = Shimmer.of(context)!;
+    final shimmer = _Shimmer.of(context)!;
     if (!shimmer.isSized) {
       // The ancestor Shimmer widget has not laid
       // itself out yet. Return an empty box.
@@ -147,8 +145,8 @@ class SkeletonItem extends StatelessWidget {
   const SkeletonItem({super.key, required this.child});
   @override
   Widget build(BuildContext context) {
-    if (Shimmer.of(context) == null) {
-      return ZeroShimmer(
+    if (_Shimmer.of(context) == null) {
+      return _ZeroShimmer(
         child: _SkeletonWidget(
           isLoading: true,
           skeleton: child,

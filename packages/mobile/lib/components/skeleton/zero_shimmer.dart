@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+part of 'zero_skeleton.dart';
 
-class ZeroShimmer extends StatefulWidget {
-  const ZeroShimmer({
+class _ZeroShimmer extends StatefulWidget {
+  const _ZeroShimmer({
     Key? key,
     this.shimmerGradient,
     this.darkShimmerGradient,
@@ -23,10 +22,10 @@ class ZeroShimmer extends StatefulWidget {
   final Widget? child;
 
   @override
-  ShimmerState createState() => ShimmerState();
+  ZeroShimmerState createState() => ZeroShimmerState();
 }
 
-class ShimmerState extends State<ZeroShimmer>
+class ZeroShimmerState extends State<_ZeroShimmer>
     with SingleTickerProviderStateMixin {
   late AnimationController _shimmerController;
 
@@ -95,7 +94,7 @@ class ShimmerState extends State<ZeroShimmer>
   @override
   Widget build(BuildContext context) {
     return widget.child != null
-        ? Shimmer(
+        ? _Shimmer(
             shimmer: this,
             child: widget.child!,
           )
@@ -116,17 +115,17 @@ class _SlidingGradientTransform extends GradientTransform {
   }
 }
 
-class Shimmer extends InheritedWidget {
-  final ShimmerState shimmer;
-  const Shimmer({
+class _Shimmer extends InheritedWidget {
+  final ZeroShimmerState shimmer;
+  const _Shimmer({
     Key? key,
     required Widget child,
     required this.shimmer,
   }) : super(key: key, child: child);
 
-  static ShimmerState? of(BuildContext context) =>
-      context.dependOnInheritedWidgetOfExactType<Shimmer>()?.shimmer;
+  static ZeroShimmerState? of(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<_Shimmer>()?.shimmer;
 
   @override
-  bool updateShouldNotify(Shimmer oldWidget) => shimmer != oldWidget.shimmer;
+  bool updateShouldNotify(_Shimmer oldWidget) => shimmer != oldWidget.shimmer;
 }
