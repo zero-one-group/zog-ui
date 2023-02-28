@@ -1,4 +1,4 @@
-// THIS FILE IS AUTO GENERATED (Tue, 28 Feb 2023 05:14:18 GMT)
+// THIS FILE IS AUTO GENERATED (Tue, 28 Feb 2023 05:37:02 GMT)
 import * as React from 'react';
 import { SVGProps } from 'react';
 export const AntTwoTonePushpin = (props: SVGProps<SVGSVGElement>) => {

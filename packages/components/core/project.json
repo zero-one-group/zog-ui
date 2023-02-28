@@ -63,8 +63,8 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "echo 'Publishing Core Package to npm version $(npm pkg get version)'",
           "npm pkg set 'version'=$(node -p \"require('../../../../package.json').version\")",
+          "echo 'Publishing Core Package to npm version $(npm pkg get version)'",
           "cp ../../../../LICENSE .",
           "npm pack",
           "npm publish"
