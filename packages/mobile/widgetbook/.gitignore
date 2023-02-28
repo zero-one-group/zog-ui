@@ -32,7 +32,7 @@ migrate_working_dir/
 .pub/
 /build/
 .metadata
-pubspec.lock
+# pubspec.lock
 
 # Symbolication related
 app.*.symbols
