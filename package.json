@@ -14,7 +14,8 @@
     "lint:affected": "nx affected --base=remotes/origin/main --target=lint",
     "build:affected": "nx affected --base=remotes/origin/main --target=build",
     "test:affected": "nx affected --base=remotes/origin/main --target=test",
-    "test": "nx run-many --parallel --target=test --projects=components-*"
+    "test": "nx run-many --parallel --target=test --projects=components-*",
+    "chromatic": "chromatic --project-token=1957f9b06b46 --build-script-name=build:docs"
   },
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
@@ -131,6 +132,7 @@
     "camelcase": "^7.0.1",
     "chalk": "^5.2.0",
     "cheerio": "1.0.0-rc.12",
+    "chromatic": "^6.17.1",
     "esbuild": "^0.15.18",
     "esbuild-register": "^3.4.2",
     "eslint": "~8.15.0",
@@ -161,5 +163,7 @@
   },
   "volta": {
     "node": "18.13.0"
-  }
+  },
+  "readme": "ERROR: No README data found!",
+  "_id": "zero-ui@0.0.1-alpha.2"
 }
