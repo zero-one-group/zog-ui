@@ -6,7 +6,7 @@ import 'package:zog_ui/zog_ui.dart';
 import '../utils.dart';
 
 WidgetbookComponent tabBarWidgetbookComponenet = WidgetbookComponent(
-  name: 'TapBar',
+  name: 'Tab Bar',
   useCases: [
     WidgetbookUseCase(
       name: 'Basic',
