@@ -485,6 +485,8 @@ class ZeroThemeData with Diagnosticable {
       activeColor: isLight ? ZeroColors.white : ZeroColors.black,
       inactiveColor: isLight ? ZeroColors.white : ZeroColors.black,
       tooltipStyle: tooltipStyleFallback.merge(tooltipStyle),
+    );
+
     final stepStyleFallback = ZeroStepStyle.fallback(
       activeColor: primaryColor,
       inactiveColor: isLight ? ZeroColors.neutral[7] : ZeroColors.neutral[9],
@@ -564,8 +566,7 @@ class ZeroThemeData with Diagnosticable {
         buttonGroupStyle: buttonGroupStyleFallback.merge(buttonGroupStyle),
         tooltipStyle: tooltipStyleFallback.merge(tooltipStyle),
         menuStyle: menuStyleFallback.merge(menuStyle),
-        skeletonStyle: skeletonStyle);
-        menuStyle: menuStyleFallback.merge(menuStyle),
+        skeletonStyle: skeletonStyle,
         stepStyle: stepStyleFallback.merge(stepStyle),
         stepperStyle: stepperStyleFallback.merge(stepperStyle));
   }
@@ -640,6 +641,7 @@ class ZeroThemeData with Diagnosticable {
           a.buttonGroupStyle, b.buttonGroupStyle, t),
       stepStyle: ZeroStepStyle.lerp(a.stepStyle, b.stepStyle, t),
       stepperStyle: ZeroStepperStyle.lerp(a.stepperStyle, b.stepperStyle, t),
+      tooltipStyle: ZeroTooltipStyle.lerp(a.tooltipStyle, b.tooltipStyle, t),
     );
   }
 
@@ -694,6 +696,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroMenuStyle? menuStyle,
     ZeroStepStyle? stepStyle,
     ZeroStepperStyle? stepperStyle,
+    ZeroTooltipStyle? tooltipStyle,
   }) {
     return ZeroThemeData.raw(
       brightness: brightness ?? this.brightness,
@@ -762,6 +765,7 @@ class ZeroThemeData with Diagnosticable {
       buttonGroupStyle: buttonGroupStyle ?? this.buttonGroupStyle,
       stepStyle: stepStyle ?? this.stepStyle,
       stepperStyle: stepperStyle ?? this.stepperStyle,
+      tooltipStyle: tooltipStyle ?? this.tooltipStyle,
     );
   }
 
