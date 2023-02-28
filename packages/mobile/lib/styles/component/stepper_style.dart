@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../../zero_ui_mobile.dart';
+import '../../zog_ui.dart';
 
 class ZeroStepperStyle with Diagnosticable {
   final Color? dividerColor;
