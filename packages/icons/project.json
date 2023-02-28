@@ -58,7 +58,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "npm pkg set 'version'=$(node -p \"require('../../package.json').version\")"
+          "NX_CLOUD_DISTRIBUTED_EXECUTION=false npm pkg set 'version'=$(node -p \"require('../../package.json').version\")"
         ],
         "cwd": "packages/icons",
         "parallel": false
