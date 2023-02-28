@@ -40,6 +40,6 @@
         "jestConfig": "packages/components/dropzone/jest.config.ts",
         "passWithNoTests": true
       }
-    }
+    },
   }
 }

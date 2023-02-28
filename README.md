@@ -24,7 +24,7 @@
 
 <hr>
 
-This repository contains monorepo for React UI library provided by us, Zero One Group.
+This repository contains monorepo for React and Flutter UI library provided by us, Zero One Group.
 
 ## Introduction
 
