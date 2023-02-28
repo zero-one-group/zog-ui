@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../zero_ui_mobile.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 part 'zero_step.dart';
 part 'triangle_painter.dart';
