@@ -1,2 +1,2 @@
-// THIS FILE IS AUTO GENERATED (Mon, 27 Feb 2023 01:52:20 GMT)
+// THIS FILE IS AUTO GENERATED (Tue, 28 Feb 2023 05:39:06 GMT)
 export * from './lib/ant-design';

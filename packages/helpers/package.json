@@ -1,14 +1,14 @@
 {
-  "name": "@01group-ui/helpers",
-  "version": "0.0.1",
+  "name": "@zog-ui/helpers",
+  "version": "0.0.0",
   "type": "commonjs",
   "homepage": "https://zero-one-group.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/zero-one-group/zero-ui"
+    "url": "https://github.com/zero-one-group/zog-ui"
   },
   "bugs": {
-    "url": "https://github.com/zero-one-group/zero-ui/issues"
+    "url": "https://github.com/zero-one-group/zog-ui/issues"
   },
   "peerDependencies": {
     "react": ">=16.3 <= 18",

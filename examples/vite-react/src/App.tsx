@@ -1,7 +1,7 @@
+import { Button } from '@zog-ui/core';
 import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import { Button } from '@01group-ui/core';
 import './App.css';
+import reactLogo from './assets/react.svg';
 
 function App() {
   const [count, setCount] = useState(0);

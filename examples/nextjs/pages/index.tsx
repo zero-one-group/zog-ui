@@ -1,8 +1,8 @@
+import { Inter } from '@next/font/google';
+import { Button } from '@zog-ui/core';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useState } from 'react';
-import { Inter } from '@next/font/google';
-import { Button } from '@01group-ui/core';
 
 import styles from '../styles/Home.module.css';
 

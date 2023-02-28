@@ -3,14 +3,14 @@
 ## Generate JS Library
 
 ```sh
-pnpm exec nx generate @nrwl/js:library helpers --importPath=@01group-ui/helpers \
+pnpm exec nx generate @nrwl/js:library helpers --importPath=@zog-ui/helpers \
  --unitTestRunner=jest --bundler=esbuild --publishable --no-interactive
 ```
 
 ## Generate React Library
 
 ```sh
-pnpm exec nx generate @nrwl/react:library core --importPath=@01group-ui/core \
+pnpm exec nx generate @nrwl/react:library core --importPath=@zog-ui/core \
   --style=none --bundler=rollup --compiler=swc --unitTestRunner=jest \
   --pascalCaseFiles --publishable --no-interactive --directory=components
 ```
