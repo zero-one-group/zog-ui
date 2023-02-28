@@ -161,7 +161,6 @@ class __ZeroSpeedDialEndTopExampleState
         activeChild: const Center(child: Icon(Icons.close)),
         inactiveChild: const Icon(Icons.add),
         tooltipVariant: ZeroTooltipVariant.custom,
-        tooltipType: ZeroTooltipType.light,
         children: [
           ZeroSpeedDialItem(
             tooltipText: const Text('Tooltip Text'),

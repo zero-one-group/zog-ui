@@ -4,8 +4,9 @@ part of 'zero_speed_dial.dart';
 class ZeroSpeedDialItem {
   final Text? tooltipText;
   final Widget child;
-  final Function()? onTap;
+  final VoidCallback? onTap;
   final Color? backgroundColor;
+
   const ZeroSpeedDialItem({
     this.tooltipText,
     required this.child,
@@ -17,19 +18,18 @@ class ZeroSpeedDialItem {
 class _SpeedDialItem extends StatelessWidget {
   final Text? tooltipText;
   final Widget child;
-  final Function()? onTap;
+  final VoidCallback? onTap;
   final double size;
   final FloatingActionButtonLocation location;
-  final ZeroTooltipType type;
+  final Brightness? tooltipBrightness;
   final ZeroTooltipVariant variant;
   final ZeroTooltipPosition position;
-  final Color tooltipBackgroundColor;
-  final Color tooltipBorderColor;
+  final ZeroTooltipStyle? tooltipStyle;
   final Color backgroundColor;
   final ZeroSpeedDialDirection direction;
   final BorderRadius borderRadius;
 
-  _SpeedDialItem({
+  const _SpeedDialItem({
     this.tooltipText,
     required this.child,
     this.onTap,
@@ -37,17 +37,22 @@ class _SpeedDialItem extends StatelessWidget {
     required this.location,
     this.variant = ZeroTooltipVariant.rectangle,
     required this.position,
-    Color? tooltipBackgroundColor,
-    Color? tooltipBorderColor,
-    required this.backgroundColor,
-    required this.type,
+    this.tooltipBrightness,
     required this.direction,
     required this.borderRadius,
-  })  : tooltipBackgroundColor = tooltipBackgroundColor ?? type.backgroundColor,
-        tooltipBorderColor = tooltipBorderColor ?? type.borderColor;
+    required this.backgroundColor,
+    this.tooltipStyle,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
+    final themeTooltipStyle = theme.tooltipStyle.merge(tooltipStyle);
+    final tooltipBackgroundColor = themeTooltipStyle.backgroundColor ??
+        (theme.brightness.isDark == true
+            ? themeTooltipStyle.darkBackgroundColor
+            : themeTooltipStyle.lightBackgroundColor);
+
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
@@ -89,16 +94,19 @@ class _SpeedDialItem extends StatelessWidget {
                 : null,
             child: CustomPaint(
               painter: variant.toPainter(
-                backgroundColor: tooltipBackgroundColor,
+                backgroundColor: tooltipBackgroundColor ?? Colors.transparent,
                 position: position,
-                borderColor: tooltipBorderColor,
+                borderColor:
+                    themeTooltipStyle.borderColor ?? Colors.transparent,
               ),
               child: Padding(
                 padding: variant == ZeroTooltipVariant.rounded
                     ? const EdgeInsets.symmetric(horizontal: 0, vertical: 8)
                     : const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 child: DefaultTextStyle(
-                  style: TextStyle(color: type.textColor),
+                  style: DefaultTextStyle.of(context)
+                      .style
+                      .merge(themeTooltipStyle.textStyle),
                   child: Center(
                     child: variant == ZeroTooltipVariant.rounded
                         ? SizedBox(

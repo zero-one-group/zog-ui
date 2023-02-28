@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/components/tooltip/zero_tooltip_style.dart';
+import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
-import '../../position/tooltip_position.dart';
-import '../../types/tooltip_type.dart';
+typedef OnTooltipCreatedCallback = Function(
+    bool Function(bool show) controller);
 
 /// [ZeroTooltip] is a widget that shows a tooltip when the widget got a gesture.
 /// the tooltip is customizable with [ZeroTooltipStyle] and [ZeroTooltipType]
@@ -26,66 +26,48 @@ class ZeroTooltip extends StatefulWidget {
   /// [child] is the widget that will show the tooltip when the user has a gesture on it
   final Widget child;
 
-  /// [backgroundColor] is the background color of the tooltip
-  /// if the user didn't pass any color, the color will be the default color of the [type]
-  final Color backgroundColor;
-
-  /// [textColor] is the text color of the tooltip
-  /// if the user didn't pass any color, the color will be the default color of the [type]
-  final Color textColor;
-
-  /// [borderColor] is the border color of the tooltip
-  /// if the user didn't pass any color, the color will be the default color of the [type]
-  final Color borderColor;
-
   /// [text] is the text that will show in the tooltip
   /// this text is required
   final String text;
-
-  /// [textStyle] for customizing the text style of the tooltip text
-  final TextStyle? textStyle;
 
   /// [onCreated] is a callback that will return a function that will show the tooltip
   /// this function for special cases that the user want to show the tooltip manually
   /// for example, the user want to show the tooltip when the user click on a button
   /// the user can use this function to show the tooltip
-  final Function(bool Function(bool show) controller)? onCreated;
+  final OnTooltipCreatedCallback? onCreated;
 
   /// [position] is the position of the tooltip
   /// the default position is [ZeroTooltipPosition.top]
   /// the user can change the position to [ZeroTooltipPosition.bottom], [ZeroTooltipPosition.left], [ZeroTooltipPosition.right]
   final ZeroTooltipPosition position;
 
-  /// [showDuration] is the duration that the tooltip will show
-  /// the default duration is 2 seconds
-  final Duration showDuration;
-
   /// [variant] is the variant of the tooltip
   /// the default variant is [ZeroTooltipVariant.rectangle]
   /// the user can change the variant to [ZeroTooltipVariant.rounded], [ZeroTooltipVariant.custom]
   final ZeroTooltipVariant variant;
 
-  /// [type] is the type of the tooltip
-  /// the default type is [ZeroTooltipType.dark]
-  /// the user can change the type to [ZeroTooltipType.light]
-  final ZeroTooltipType type;
+  /// Identify the tooltip using a dark or light brightness.
+  ///
+  /// By default brightness adjusts to the current theme
+  final Brightness? brightness;
 
-  ZeroTooltip({
+  /// Customize the tooltip style
+  ///
+  /// By default style is taken from global [ZeroThemeData.tooltipStyle]
+  ///
+  /// And if the style is not null, then the style will override the global theme
+  final ZeroTooltipStyle? style;
+
+  const ZeroTooltip({
     super.key,
     required this.child,
     required this.text,
-    Color? backgroundColor,
-    Color? textColor,
-    Color? borderColor,
-    this.textStyle,
     this.onCreated,
     this.position = ZeroTooltipPosition.top,
-    this.showDuration = const Duration(milliseconds: 2000),
     this.variant = ZeroTooltipVariant.rectangle,
-    this.type = ZeroTooltipType.dark,
-  })  : backgroundColor = backgroundColor ?? type.backgroundColor,
-        textColor = textColor ?? type.textColor,
-        borderColor = borderColor ?? type.borderColor;
+    this.brightness,
+    this.style,
+  });
 
   @override
   State<ZeroTooltip> createState() => _ZeroTooltipState();
@@ -94,6 +76,7 @@ class ZeroTooltip extends StatefulWidget {
 class _ZeroTooltipState extends State<ZeroTooltip> {
   bool _showTooltip = false;
   OverlayEntry? _overlayEntry;
+  late ZeroTooltipStyle adaptiveStyle;
 
   /// [_widgetKey] is the key of the widget for getting the size of child widget
   /// this key is used for calculating the position of the tooltip in [_getChildSize]
@@ -116,6 +99,22 @@ class _ZeroTooltipState extends State<ZeroTooltip> {
     RenderBox box = _widgetKey.currentContext!.findRenderObject() as RenderBox;
     Offset position = box.localToGlobal(Offset.zero);
     Size childSize = box.size;
+    final currentBrightness = widget.brightness ?? context.theme.brightness;
+
+    final backgroundColor = (widget.style?.backgroundColor == null
+            ? (currentBrightness.isDark
+                ? adaptiveStyle.darkBackgroundColor
+                : adaptiveStyle.lightBackgroundColor)
+            : widget.style?.backgroundColor!) ??
+        Colors.transparent;
+
+    final textColor = context.theme.brightness != widget.brightness &&
+                adaptiveStyle.textStyle?.color == null ||
+            adaptiveStyle.textStyle?.color == null
+        ? (widget.brightness?.isDark == true
+            ? ZeroColors.white
+            : ZeroColors.black)
+        : null;
 
     OverlayState overlayState = Overlay.of(context, rootOverlay: true);
     _overlayEntry = OverlayEntry(
@@ -149,9 +148,10 @@ class _ZeroTooltipState extends State<ZeroTooltip> {
                         : null,
                     child: CustomPaint(
                       painter: widget.variant.toPainter(
-                        backgroundColor: widget.backgroundColor,
+                        backgroundColor: backgroundColor,
                         position: widget.position,
-                        borderColor: widget.borderColor,
+                        borderColor:
+                            adaptiveStyle.borderColor ?? Colors.transparent,
                       ),
                       child: Padding(
                         padding: widget.variant == ZeroTooltipVariant.rounded
@@ -160,26 +160,19 @@ class _ZeroTooltipState extends State<ZeroTooltip> {
                             : const EdgeInsets.symmetric(
                                 horizontal: 8, vertical: 8),
                         child: DefaultTextStyle(
-                          style: TextStyle(
-                            color: widget.textColor,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
+                          style: (adaptiveStyle.textStyle ?? const TextStyle())
+                              .copyWith(color: textColor),
                           child: Center(
                             child: widget.variant == ZeroTooltipVariant.rounded
                                 ? SizedBox(
                                     width: 35,
                                     child: Text(
                                       widget.text,
-                                      style: widget.textStyle ??
-                                          TextStyle(color: widget.textColor),
                                       textAlign: TextAlign.center,
                                     ),
                                   )
                                 : Text(
                                     widget.text,
-                                    style: widget.textStyle ??
-                                        TextStyle(color: widget.textColor),
                                     textAlign: TextAlign.center,
                                   ),
                           ),
@@ -211,6 +204,9 @@ class _ZeroTooltipState extends State<ZeroTooltip> {
 
   @override
   Widget build(BuildContext context) {
+    final themeStyle = context.theme.tooltipStyle;
+    adaptiveStyle = themeStyle.merge(widget.style);
+
     return GestureDetector(
       onLongPress: () {
         showTooltip(true);
@@ -220,13 +216,14 @@ class _ZeroTooltipState extends State<ZeroTooltip> {
       },
       onTap: () {
         if (_showTooltip == false) {
-          Future.delayed(widget.showDuration, () {
+          Future.delayed(adaptiveStyle.duration ?? const Duration(seconds: 2),
+              () {
             showTooltip(false);
           });
           showTooltip(true);
         }
       },
-      child: Container(
+      child: SizedBox(
         key: _widgetKey,
         child: widget.child,
       ),

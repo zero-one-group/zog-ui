@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 import 'dart:math' as math;
 
+import 'package:flutter/material.dart';
+import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+
 part 'animate_icons.dart';
-part 'zero_speed_dial_item.dart';
 part 'zero_speed_dial_alignment.dart';
+part 'zero_speed_dial_item.dart';
 
 class ZeroSpeedDial extends StatefulWidget {
   /// [activeChild] is widget that will be shown when the floating button is tapped and the children are shown.
@@ -24,10 +25,7 @@ class ZeroSpeedDial extends StatefulWidget {
   /// if you want to use rectangle tooltip, you can set it to [ZeroTooltipVariant.rectangle]
   final ZeroTooltipVariant? tooltipVariant;
 
-  /// [tooltipType] is a type for children tooltip
-  /// by default it will be [ZeroTooltipType.dark]
-  /// if you want to use light tooltip, you can set it to [ZeroTooltipType.light]
-  final ZeroTooltipType? tooltipType;
+  final Brightness? tooltipBrightness;
 
   /// [direction] is a direction for children expansion
   /// by default it will be [ZeroSpeedDialDirection.vertical]
@@ -52,7 +50,7 @@ class ZeroSpeedDial extends StatefulWidget {
     this.children = const [],
     this.style,
     this.tooltipVariant,
-    this.tooltipType,
+    this.tooltipBrightness,
     this.direction = ZeroSpeedDialDirection.vertical,
     this.curve = Curves.easeOutCubic,
     this.duration = const Duration(milliseconds: 400),
@@ -63,7 +61,8 @@ class ZeroSpeedDial extends StatefulWidget {
   State<ZeroSpeedDial> createState() => _ZeroSpeedDialState();
 }
 
-class _ZeroSpeedDialState extends State<ZeroSpeedDial> with SingleTickerProviderStateMixin {
+class _ZeroSpeedDialState extends State<ZeroSpeedDial>
+    with SingleTickerProviderStateMixin {
   /// [showChildren] is a state for showing children
   bool showChildren = false;
 
@@ -98,11 +97,18 @@ class _ZeroSpeedDialState extends State<ZeroSpeedDial> with SingleTickerProvider
 
     double offset = (adaptiveStyle.size ?? 0) + (adaptiveStyle.spacing ?? 0);
     ScaffoldState? scaffold = Scaffold.of(context);
-    FloatingActionButtonLocation location = scaffold.widget.floatingActionButtonLocation ?? FloatingActionButtonLocation.endFloat;
-    double adjustTopPositioning = (MediaQuery.of(context).size.height / 2 - (adaptiveStyle.size ?? 0) / 2);
-    double adjustHorizontalPositioningForLabel = widget.label == null ? 0 : _dynamicButtonWidth - (adaptiveStyle.size ?? 0);
+    FloatingActionButtonLocation location =
+        scaffold.widget.floatingActionButtonLocation ??
+            FloatingActionButtonLocation.endFloat;
+    double adjustTopPositioning = (MediaQuery.of(context).size.height / 2 -
+        (adaptiveStyle.size ?? 0) / 2);
+    double adjustHorizontalPositioningForLabel = widget.label == null
+        ? 0
+        : _dynamicButtonWidth - (adaptiveStyle.size ?? 0);
 
-    final ZeroSpeedDialDirection direction = location.isCenter() ? ZeroSpeedDialDirection.vertical : widget.direction;
+    final ZeroSpeedDialDirection direction = location.isCenter()
+        ? ZeroSpeedDialDirection.vertical
+        : widget.direction;
 
     return Stack(
       alignment: location.getAlignment(),
@@ -119,13 +125,15 @@ class _ZeroSpeedDialState extends State<ZeroSpeedDial> with SingleTickerProvider
                 : null,
             top: direction == ZeroSpeedDialDirection.vertical
                 ? location.isTop()
-                    ? (showChildren ? offset * (index + 1) : 0) + adjustTopPositioning
+                    ? (showChildren ? offset * (index + 1) : 0) +
+                        adjustTopPositioning
                     : null
                 : null,
             left: direction == ZeroSpeedDialDirection.horizontal
                 ? location.isLeft()
                     ? showChildren
-                        ? offset * (index + 1) + adjustHorizontalPositioningForLabel
+                        ? offset * (index + 1) +
+                            adjustHorizontalPositioningForLabel
                         : 0
                     : null
                 : null,
@@ -133,7 +141,8 @@ class _ZeroSpeedDialState extends State<ZeroSpeedDial> with SingleTickerProvider
                 ? location.isLeft()
                     ? null
                     : showChildren
-                        ? offset * (index + 1) + adjustHorizontalPositioningForLabel
+                        ? offset * (index + 1) +
+                            adjustHorizontalPositioningForLabel
                         : 0
                 : null,
             curve: widget.curve,
@@ -156,9 +165,10 @@ class _ZeroSpeedDialState extends State<ZeroSpeedDial> with SingleTickerProvider
                     tooltipText: children[index].tooltipText,
                     size: adaptiveStyle.size ?? 0,
                     location: location,
-                    tooltipBackgroundColor: adaptiveStyle.tooltipBackgroundColor,
-                    tooltipBorderColor: adaptiveStyle.tooltipBorderColor,
-                    variant: widget.tooltipVariant ?? ZeroTooltipVariant.rectangle,
+                    tooltipBrightness: widget.tooltipBrightness,
+                    variant:
+                        widget.tooltipVariant ?? ZeroTooltipVariant.rectangle,
+                    tooltipStyle: adaptiveStyle.tooltipStyle,
                     position: direction == ZeroSpeedDialDirection.vertical
                         ? location.isLeft()
                             ? ZeroTooltipPosition.right
@@ -167,8 +177,8 @@ class _ZeroSpeedDialState extends State<ZeroSpeedDial> with SingleTickerProvider
                             ? ZeroTooltipPosition.bottom
                             : ZeroTooltipPosition.top,
                     direction: direction,
-                    backgroundColor: children[index].backgroundColor ?? context.theme.scaffoldBackgroundColor,
-                    type: widget.tooltipType ?? ZeroTooltipType.dark,
+                    backgroundColor: children[index].backgroundColor ??
+                        context.theme.scaffoldBackgroundColor,
                     borderRadius: adaptiveStyle.borderRadius!,
                     child: children[index].child,
                   ),
@@ -189,7 +199,9 @@ class _ZeroSpeedDialState extends State<ZeroSpeedDial> with SingleTickerProvider
               borderRadius: adaptiveStyle.borderRadius,
               child: Container(
                 decoration: BoxDecoration(
-                  color: showChildren ? adaptiveStyle.activeColor : adaptiveStyle.inactiveColor,
+                  color: showChildren
+                      ? adaptiveStyle.activeColor
+                      : adaptiveStyle.inactiveColor,
                   borderRadius: adaptiveStyle.borderRadius,
                 ),
                 child: ConstrainedBox(
@@ -199,21 +211,26 @@ class _ZeroSpeedDialState extends State<ZeroSpeedDial> with SingleTickerProvider
                   child: SizedBox(
                     height: adaptiveStyle.size,
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: adaptiveStyle.size! / 5),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: adaptiveStyle.size! / 5),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           _AnimateIcons(
-                            active: widget.activeChild ?? const Icon(Icons.close),
-                            inactive: widget.inactiveChild ?? const Icon(Icons.add),
+                            active:
+                                widget.activeChild ?? const Icon(Icons.close),
+                            inactive:
+                                widget.inactiveChild ?? const Icon(Icons.add),
                             controller: animateIconoController,
                             duration: widget.duration,
                             clockwise: true,
                           ),
                           if (widget.label != null)
                             Container(
-                              padding: EdgeInsets.symmetric(horizontal: adaptiveStyle.size! / 8),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: adaptiveStyle.size! / 8,
+                              ),
                               child: widget.label,
                             ),
                         ],
