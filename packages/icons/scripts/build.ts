@@ -8,7 +8,10 @@ import * as taskFiles from './task_files';
 // file path
 const ROOT_DIR = path.resolve(__dirname, '../../');
 
-async function task(name: string, fn: any) {
+async function task(
+  name: string,
+  fn: (...args: unknown[]) => Promise<unknown>
+) {
   const start = performance.now();
   await fn();
   const end = performance.now();
