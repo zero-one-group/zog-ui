@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 import 'list_tile_left_icon.dart';
 import 'list_tile_right_icon.dart';
@@ -72,16 +72,20 @@ class ZeroListTile extends StatelessWidget {
     final theme = context.theme;
     final listTileStyle = context.theme.listTileStyle.merge(style);
     final fallbackStyle = ZeroListTileStyle.fallback();
-    final selectedColor = listTileStyle.selectedColor ?? theme.primaryColor.lightest;
-    final backgroundColor = selected ? selectedColor : listTileStyle.backgroundColor;
+    final selectedColor =
+        listTileStyle.selectedColor ?? theme.primaryColor.lightest;
+    final backgroundColor =
+        selected ? selectedColor : listTileStyle.backgroundColor;
     final dividerColor = listTileStyle.dividerColor ?? theme.dividerColor;
 
     final isSmall = size == ZeroListTileSize.small;
 
     // title text style with merge from fallback style
     final titleStyle = (isSmall
-                ? fallbackStyle.smallTitleTextStyle?.merge(listTileStyle.smallTitleTextStyle)
-                : fallbackStyle.titleTextStyle?.merge(listTileStyle.titleTextStyle))
+                ? fallbackStyle.smallTitleTextStyle
+                    ?.merge(listTileStyle.smallTitleTextStyle)
+                : fallbackStyle.titleTextStyle
+                    ?.merge(listTileStyle.titleTextStyle))
             ?.copyWith(
           color: disabled ? theme.disabledColor : null,
         ) ??
@@ -89,14 +93,18 @@ class ZeroListTile extends StatelessWidget {
 
     // Subtitle text style with merge from fallback style
     final subTitleStyle = (isSmall
-                ? fallbackStyle.smallSubTitleTextStyle?.merge(listTileStyle.smallSubTitleTextStyle)
-                : fallbackStyle.subTitleTextStyle?.merge(listTileStyle.subTitleTextStyle))
+                ? fallbackStyle.smallSubTitleTextStyle
+                    ?.merge(listTileStyle.smallSubTitleTextStyle)
+                : fallbackStyle.subTitleTextStyle
+                    ?.merge(listTileStyle.subTitleTextStyle))
             ?.copyWith(
           color: disabled ? theme.disabledColor.withOpacity(0.8) : null,
         ) ??
         const TextStyle();
 
-    final contentPadding = isSmall ? listTileStyle.smallContentPadding : listTileStyle.contentPadding;
+    final contentPadding = isSmall
+        ? listTileStyle.smallContentPadding
+        : listTileStyle.contentPadding;
 
     return _buildSlidable(
       child: DecoratedBox(

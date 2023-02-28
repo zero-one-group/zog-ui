@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 import '../utils.dart';
 
@@ -86,21 +86,24 @@ WidgetbookComponent alertDialogWidgetbookComponent = WidgetbookComponent(
                         contentPadding: const EdgeInsets.all(0),
                         title: const Text('List Tile 1'),
                         leading: const Icon(Icons.person),
-                        trailing: ZeroCheckbox(value: false, onChanged: (val) {}),
+                        trailing:
+                            ZeroCheckbox(value: false, onChanged: (val) {}),
                         onTap: () {},
                       ),
                       ListTile(
                         contentPadding: const EdgeInsets.all(0),
                         title: const Text('List Tile 2'),
                         leading: const Icon(Icons.person),
-                        trailing: ZeroCheckbox(value: false, onChanged: (val) {}),
+                        trailing:
+                            ZeroCheckbox(value: false, onChanged: (val) {}),
                         onTap: () {},
                       ),
                       ListTile(
                         contentPadding: const EdgeInsets.all(0),
                         title: const Text('List Tile 3'),
                         leading: const Icon(Icons.person),
-                        trailing: ZeroCheckbox(value: false, onChanged: (val) {}),
+                        trailing:
+                            ZeroCheckbox(value: false, onChanged: (val) {}),
                         onTap: () {},
                       ),
                     ]

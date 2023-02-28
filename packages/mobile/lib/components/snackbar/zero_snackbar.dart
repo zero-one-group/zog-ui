@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 /// A custom snackbar that can be used to display a message to the user.
 /// [ZeroSnackbar] have 2 types of snackbar, [ZeroSnackbarType.singleline] and [ZeroSnackbarType.multiline].
@@ -65,14 +65,16 @@ class ZeroSnackbar {
             Align(
               alignment: position.alignment,
               child: Container(
-                margin: const EdgeInsets.symmetric(vertical: 48, horizontal: 16),
+                margin:
+                    const EdgeInsets.symmetric(vertical: 48, horizontal: 16),
                 child: Material(
                   elevation: 4,
                   borderRadius: BorderRadius.circular(4),
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(4),
-                      color: backgroundColor ?? context.theme.scaffoldBackgroundColor,
+                      color: backgroundColor ??
+                          context.theme.scaffoldBackgroundColor,
                     ),
                     padding: const EdgeInsets.all(16),
                     child: Column(
@@ -90,23 +92,40 @@ class ZeroSnackbar {
                             if (type == ZeroSnackbarType.singleline)
                               Row(
                                 children: [
-                                  _actionButton(actionButton, actionText, actionOnPressed,
-                                      actionButtonTextColor ?? context.theme.primaryColor),
-                                  _closeButton(closeButton, onClose, closeIconColor ?? context.theme.solidTextColor),
+                                  _actionButton(
+                                      actionButton,
+                                      actionText,
+                                      actionOnPressed,
+                                      actionButtonTextColor ??
+                                          context.theme.primaryColor),
+                                  _closeButton(
+                                      closeButton,
+                                      onClose,
+                                      closeIconColor ??
+                                          context.theme.solidTextColor),
                                 ],
                               ),
                           ],
                         ),
-                        if (type == ZeroSnackbarType.multiline) const SizedBox(height: 20),
+                        if (type == ZeroSnackbarType.multiline)
+                          const SizedBox(height: 20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             if (type == ZeroSnackbarType.multiline)
                               Row(
                                 children: [
-                                  _actionButton(actionButton, actionText, actionOnPressed,
-                                      actionButtonTextColor ?? context.theme.primaryColor),
-                                  _closeButton(closeButton, onClose, closeIconColor ?? context.theme.solidTextColor),
+                                  _actionButton(
+                                      actionButton,
+                                      actionText,
+                                      actionOnPressed,
+                                      actionButtonTextColor ??
+                                          context.theme.primaryColor),
+                                  _closeButton(
+                                      closeButton,
+                                      onClose,
+                                      closeIconColor ??
+                                          context.theme.solidTextColor),
                                 ],
                               ),
                           ],
@@ -158,7 +177,8 @@ class ZeroSnackbar {
   }
 
   /// [closeButton] is a boolean that determines if the snackbar will have a close button, this is a close icon where appears on the bottom right corner of the snackbar.
-  Widget _closeButton(bool closeButton, VoidCallback? onClose, Color iconColor) {
+  Widget _closeButton(
+      bool closeButton, VoidCallback? onClose, Color iconColor) {
     if (closeButton) {
       return Container(
         margin: const EdgeInsets.only(left: 14),

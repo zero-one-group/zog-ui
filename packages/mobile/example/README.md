@@ -1,4 +1,4 @@
-# zero_ui_mobile_example
+# zog_ui_example
 
 A new Flutter project.
 

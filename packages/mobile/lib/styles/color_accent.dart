@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 /// An accent color is a color that can have multiple shades. It's
 /// similar to [ShadedColor] and [ColorSwatch], but it has helper

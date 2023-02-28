@@ -8,7 +8,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:zero_ui_mobile/utils/extensions/theme_extensions.dart';
+import 'package:zog_ui/utils/extensions/theme_extensions.dart';
 
 const Duration _monthScrollDuration = Duration(milliseconds: 200);
 

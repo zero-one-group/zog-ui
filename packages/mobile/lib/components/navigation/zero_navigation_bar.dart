@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../zero_ui_mobile.dart';
+import '../../zog_ui.dart';
 
 const double _kIndicatorOvalHeight = 32;
 const double _kIndicatorCircleSize = 48;

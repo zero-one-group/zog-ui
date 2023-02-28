@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/styles/color_accent.dart';
-import 'package:zero_ui_mobile/styles/colors.dart';
+import 'package:zog_ui/styles/color_accent.dart';
+import 'package:zog_ui/styles/colors.dart';
 
 /// A basic class for button group styles
 class ZeroButtonGroupStyle with Diagnosticable {

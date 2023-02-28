@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/components/textfield/zero_textfield.dart';
+import 'package:zog_ui/components/textfield/zero_textfield.dart';
 
 /// A [ZeroTextField] configured to accept and validate a date entered by a user.
 ///

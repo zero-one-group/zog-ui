@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/styles/theme.dart';
+import 'package:zog_ui/styles/theme.dart';
 
 extension BrightnessExtension on Brightness {
   /// Detects when the theme is light or not, if so returns true
