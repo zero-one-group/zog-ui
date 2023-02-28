@@ -23,6 +23,7 @@ import 'component/navigation/tabs_example.dart';
 import 'component/progress_indicator/zero_progress_indicator_example.dart';
 import 'component/radio/radio_example.dart';
 import 'component/rating/zero_rating_example.dart';
+import 'component/skeleton/zero_skeleton_example.dart';
 import 'component/slider/zero_slider_example.dart';
 import 'component/snackbar/zero_snackbar_example.dart';
 import 'component/speed_dial/zero_speed_dial_example.dart';
@@ -440,6 +441,16 @@ class Examples extends StatelessWidget {
             );
           },
           text: 'Zero Button Group Example',
+        ),
+        ZeroButton.primary(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ZeroSkeletonExample(),
+              ),
+            );
+          },
+          text: 'Zero Skeleton Example',
         ),
         const SizedBox(
           height: 100,

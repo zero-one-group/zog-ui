@@ -111,6 +111,7 @@ class ZeroThemeData with Diagnosticable {
   final ZeroMenuStyle menuStyle;
 
   final ZeroButtonGroupStyleSet buttonGroupStyle;
+  final ZeroSkeletonStyleSet? skeletonStyle;
   final ZeroTooltipStyle tooltipStyle;
   final ZeroExpansionTileStyle expansionTileStyle;
 
@@ -174,6 +175,7 @@ class ZeroThemeData with Diagnosticable {
     required this.avatarStyle,
     required this.menuStyle,
     required this.buttonGroupStyle,
+    this.skeletonStyle,
     required this.tooltipStyle,
 
     // Others
@@ -230,6 +232,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroExpansionTileStyle? expansionTileStyle,
     ZeroMenuStyle? menuStyle,
     ZeroTooltipStyle? tooltipStyle,
+    ZeroSkeletonStyleSet? skeletonStyle,
   }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
@@ -296,8 +299,6 @@ class ZeroThemeData with Diagnosticable {
     textfieldSize ??= ZeroTextfieldSize.small;
     inputDecorationType ??= InputDecorationType.underline;
 
-    menuStyle ??= const ZeroMenuStyle();
-
     textfieldStyleSet ??= ZeroTextfieldStyleSet(
         outline: ZeroTextfieldStyle.outline(
             textfieldSize: textfieldSize,
@@ -317,6 +318,12 @@ class ZeroThemeData with Diagnosticable {
             focusedBorderColor: primaryColor,
             focusedColor: primaryColor),
         inputDecorationType: inputDecorationType);
+
+    skeletonStyle ??= ZeroSkeletonStyleSet(
+        avatar: const SkeletonAvatarStyle(),
+        line: const SkeletonLineStyle(),
+        listTile: const SkeletonListTileStyle(),
+        paragraph: const SkeletonParagraphStyle());
 
     colorScheme ??= ColorScheme.fromSwatch(
       brightness: brightness,
@@ -477,58 +484,61 @@ class ZeroThemeData with Diagnosticable {
     useMaterial3 ??= false;
 
     return ZeroThemeData.raw(
-      brightness: brightness,
-      useMaterial3: useMaterial3,
-      primaryColor: primaryColor,
-      disabledColor: disabledColor,
-      scaffoldBackgroundColor: scaffoldBackgroundColor,
-      uncheckedColor: uncheckedColor,
-      checkedColor: checkedColor,
-      iconTheme: iconTheme,
-      dialogTheme: dialogTheme,
-      buttonTheme: buttonTheme,
-      expansionTileStyle: expansionTileStyleFallback.merge(expansionTileStyle),
-      colorScheme: colorScheme,
-      typography: typography,
-      cardColor: cardColor,
-      errorColor: errorColor,
-      disabledBackgroundColor: disabledBackgroundColor,
-      dividerColor: dividerColor,
-      solidTextColor: solidTextColor,
-      regularTextColor: regularTextColor,
-      fontFamily: fontFamily,
-      listTileStyle: listTileFallback.merge(listTileStyle),
-      primaryButtonStyle: primaryButtonStyleFallback.merge(primaryButtonStyle),
-      secondaryButtonStyle:
-          secondaryButtonStyleFallback.merge(secondaryButtonStyle),
-      textButtonStyle: textButtonStyleFallback.merge(textButtonStyle),
-      dividerStyle: dividerStyleFallback.merge(dividerStyle),
-      chipFilledStyle: chipFilledStyleFallback.merge(chipFilledStyle),
-      chipOutlinedStyle: chipOutlinedStyleFallback.merge(chipOutlinedStyle),
-      navigationBarStyle: navigationBarStyleFallback.merge(navigationBarStyle),
-      textfieldStyleSet: textfieldStyleSet,
-      inputDecorationType: inputDecorationType,
-      textfieldSize: textfieldSize,
-      navigationDrawerStyle:
-          navigationDrawerStyleFallback.merge(navigationDrawerStyle),
-      appBarStyle: appBarStyleFallback.merge(appBarStyleFallback),
-      cardStyle: cardStyle.merge(cardStyle),
-      buttonIconStyle: buttonIconStyleFallback.merge(buttonIconStyle),
-      navigationRailStyle:
-          navigationRailStyleFallback.merge(navigationRailStyle),
-      switchStyle: switchStyleFallback.merge(switchStyle),
-      tabBarStyle: tabBarStyleFallback.merge(tabBarStyle),
-      speedDialStyle: speedDialStyleFallback.merge(speedDialStyle),
-      checkboxStyle: checkboxStyleFallback.merge(checkboxStyle),
-      radioStyle: radioStyleFallback.merge(radioStyle),
-      progressStyle: progeressStyleFallback.merge(progressStyle),
-      ratingStyle: ratingStyleFallback.merge(ratingStyle),
-      sliderStyle: sliderStyleFallback.merge(sliderStyle),
-      avatarStyle: avatarStyleFallback.merge(avatarStyle),
-      buttonGroupStyle: buttonGroupStyleFallback.merge(buttonGroupStyle),
-      tooltipStyle: tooltipStyleFallback.merge(tooltipStyle),
-      menuStyle: menuStyleFallback.merge(menuStyle),
-    );
+        brightness: brightness,
+        useMaterial3: useMaterial3,
+        primaryColor: primaryColor,
+        disabledColor: disabledColor,
+        scaffoldBackgroundColor: scaffoldBackgroundColor,
+        uncheckedColor: uncheckedColor,
+        checkedColor: checkedColor,
+        iconTheme: iconTheme,
+        dialogTheme: dialogTheme,
+        buttonTheme: buttonTheme,
+        expansionTileStyle:
+            expansionTileStyleFallback.merge(expansionTileStyle),
+        colorScheme: colorScheme,
+        typography: typography,
+        cardColor: cardColor,
+        errorColor: errorColor,
+        disabledBackgroundColor: disabledBackgroundColor,
+        dividerColor: dividerColor,
+        solidTextColor: solidTextColor,
+        regularTextColor: regularTextColor,
+        fontFamily: fontFamily,
+        listTileStyle: listTileFallback.merge(listTileStyle),
+        primaryButtonStyle:
+            primaryButtonStyleFallback.merge(primaryButtonStyle),
+        secondaryButtonStyle:
+            secondaryButtonStyleFallback.merge(secondaryButtonStyle),
+        textButtonStyle: textButtonStyleFallback.merge(textButtonStyle),
+        dividerStyle: dividerStyleFallback.merge(dividerStyle),
+        chipFilledStyle: chipFilledStyleFallback.merge(chipFilledStyle),
+        chipOutlinedStyle: chipOutlinedStyleFallback.merge(chipOutlinedStyle),
+        navigationBarStyle:
+            navigationBarStyleFallback.merge(navigationBarStyle),
+        textfieldStyleSet: textfieldStyleSet,
+        inputDecorationType: inputDecorationType,
+        textfieldSize: textfieldSize,
+        navigationDrawerStyle:
+            navigationDrawerStyleFallback.merge(navigationDrawerStyle),
+        appBarStyle: appBarStyleFallback.merge(appBarStyleFallback),
+        cardStyle: cardStyle.merge(cardStyle),
+        buttonIconStyle: buttonIconStyleFallback.merge(buttonIconStyle),
+        navigationRailStyle:
+            navigationRailStyleFallback.merge(navigationRailStyle),
+        switchStyle: switchStyleFallback.merge(switchStyle),
+        tabBarStyle: tabBarStyleFallback.merge(tabBarStyle),
+        speedDialStyle: speedDialStyleFallback.merge(speedDialStyle),
+        checkboxStyle: checkboxStyleFallback.merge(checkboxStyle),
+        radioStyle: radioStyleFallback.merge(radioStyle),
+        progressStyle: progeressStyleFallback.merge(progressStyle),
+        ratingStyle: ratingStyleFallback.merge(ratingStyle),
+        sliderStyle: sliderStyleFallback.merge(sliderStyle),
+        avatarStyle: avatarStyleFallback.merge(avatarStyle),
+        buttonGroupStyle: buttonGroupStyleFallback.merge(buttonGroupStyle),
+        tooltipStyle: tooltipStyleFallback.merge(tooltipStyle),
+        menuStyle: menuStyleFallback.merge(menuStyle),
+        skeletonStyle: skeletonStyle);
   }
 
   static ZeroThemeData lerp(ZeroThemeData a, ZeroThemeData b, double t) {
@@ -603,124 +613,124 @@ class ZeroThemeData with Diagnosticable {
     );
   }
 
-  ZeroThemeData copyWith({
-    Brightness? brightness,
-    ZeroTypography? typography,
-    bool? useMaterial3,
-    String? fontFamily,
-    AccentColor? primaryColor,
-    Color? inactiveBackgroundColor,
-    Color? disabledColor,
-    Color? scaffoldBackgroundColor,
-    Color? uncheckedColor,
-    Color? checkedColor,
-    Color? cardColor,
-    Color? disabledBackgroundColor,
-    Color? errorColor,
-    Color? dividerColor,
-    Color? solidTextColor,
-    Color? regularTextColor,
-    ColorScheme? colorScheme,
-    IconThemeData? iconTheme,
-    DialogTheme? dialogTheme,
-    ButtonThemeData? buttonTheme,
-    InputDecorationTheme? inputDecorationTheme,
-    ZeroListTileStyle? listTileStyle,
-    ZeroButtonStyle? primaryButtonStyle,
-    ZeroButtonStyle? secondaryButtonStyle,
-    ZeroButtonStyle? textButtonStyle,
-    ZeroDividerStyle? dividerStyle,
-    ZeroChipFilledStyle? chipFilledStyle,
-    ZeroChipOutlinedStyle? chipOutlinedStyle,
-    ZeroNavigationBarStyle? navigationBarStyle,
-    ZeroTextfieldStyleSet? textfieldStyleSet,
-    InputDecorationType? inputDecorationType,
-    ZeroTextfieldSize? textfieldSize,
-    ZeroNavigationDrawerStyle? navigationDrawerStyle,
-    ZeroAppBarStyle? appBarStyle,
-    ZeroCardStyle? cardStyle,
-    ZeroButtonIconStyleSet? buttonIconStyle,
-    ZeroNavigationRailStyle? navigationRailStyle,
-    ZeroSwitchStyleSet? switchStyle,
-    ZeroTabBarStyle? tabBarStyle,
-    ZeroSpeedDialStyle? speedDialStyle,
-    ZeroCheckboxStyle? checkboxStyle,
-    ZeroRadioStyle? radioStyle,
-    ZeroProgressStyle? progressStyle,
-    ZeroRatingStyle? ratingStyle,
-    ZeroSliderStyle? sliderStyle,
-    ZeroAvatarStyle? avatarStyle,
-    ZeroButtonGroupStyleSet? buttonGroupStyle,
-    ZeroMenuStyle? menuStyle,
-    ZeroTooltipStyle? tooltipStyle,
-  }) {
+  ZeroThemeData copyWith(
+      {Brightness? brightness,
+      ZeroTypography? typography,
+      bool? useMaterial3,
+      String? fontFamily,
+      AccentColor? primaryColor,
+      Color? inactiveBackgroundColor,
+      Color? disabledColor,
+      Color? scaffoldBackgroundColor,
+      Color? uncheckedColor,
+      Color? checkedColor,
+      Color? cardColor,
+      Color? disabledBackgroundColor,
+      Color? errorColor,
+      Color? dividerColor,
+      Color? solidTextColor,
+      Color? regularTextColor,
+      ColorScheme? colorScheme,
+      IconThemeData? iconTheme,
+      DialogTheme? dialogTheme,
+      ButtonThemeData? buttonTheme,
+      InputDecorationTheme? inputDecorationTheme,
+      ZeroListTileStyle? listTileStyle,
+      ZeroButtonStyle? primaryButtonStyle,
+      ZeroButtonStyle? secondaryButtonStyle,
+      ZeroButtonStyle? textButtonStyle,
+      ZeroDividerStyle? dividerStyle,
+      ZeroChipFilledStyle? chipFilledStyle,
+      ZeroChipOutlinedStyle? chipOutlinedStyle,
+      ZeroNavigationBarStyle? navigationBarStyle,
+      ZeroTextfieldStyleSet? textfieldStyleSet,
+      InputDecorationType? inputDecorationType,
+      ZeroTextfieldSize? textfieldSize,
+      ZeroNavigationDrawerStyle? navigationDrawerStyle,
+      ZeroAppBarStyle? appBarStyle,
+      ZeroCardStyle? cardStyle,
+      ZeroButtonIconStyleSet? buttonIconStyle,
+      ZeroNavigationRailStyle? navigationRailStyle,
+      ZeroSwitchStyleSet? switchStyle,
+      ZeroTabBarStyle? tabBarStyle,
+      ZeroSpeedDialStyle? speedDialStyle,
+      ZeroCheckboxStyle? checkboxStyle,
+      ZeroRadioStyle? radioStyle,
+      ZeroProgressStyle? progressStyle,
+      ZeroRatingStyle? ratingStyle,
+      ZeroSliderStyle? sliderStyle,
+      ZeroAvatarStyle? avatarStyle,
+      ZeroButtonGroupStyleSet? buttonGroupStyle,
+      ZeroMenuStyle? menuStyle,
+      ZeroTooltipStyle? tooltipStyle,
+      ZeroSkeletonStyleSet? skeletonStyle}) {
     return ZeroThemeData.raw(
-      brightness: brightness ?? this.brightness,
-      typography: typography ?? this.typography,
-      fontFamily: fontFamily ?? this.fontFamily,
-      primaryColor: primaryColor ?? this.primaryColor,
-      uncheckedColor: uncheckedColor ?? this.uncheckedColor,
-      checkedColor: checkedColor ?? this.checkedColor,
-      disabledColor: disabledColor ?? this.disabledColor,
-      scaffoldBackgroundColor:
-          scaffoldBackgroundColor ?? this.scaffoldBackgroundColor,
-      colorScheme: colorScheme ?? this.colorScheme,
-      iconTheme: this.iconTheme.merge(iconTheme),
-      buttonTheme: buttonTheme ?? this.buttonTheme,
-      dialogTheme: dialogTheme ?? this.dialogTheme,
-      expansionTileStyle: expansionTileStyle,
-      cardColor: cardColor ?? this.cardColor,
-      errorColor: errorColor ?? this.errorColor,
-      disabledBackgroundColor:
-          disabledBackgroundColor ?? this.disabledBackgroundColor,
-      dividerColor: dividerColor ?? this.dividerColor,
-      solidTextColor: solidTextColor ?? this.solidTextColor,
-      regularTextColor: regularTextColor ?? this.regularTextColor,
-      listTileStyle: listTileStyle ?? this.listTileStyle,
-      primaryButtonStyle: primaryButtonStyle ?? this.primaryButtonStyle,
-      secondaryButtonStyle: secondaryButtonStyle ?? this.secondaryButtonStyle,
-      textButtonStyle: textButtonStyle ?? this.textButtonStyle,
-      dividerStyle: dividerStyle ?? this.dividerStyle,
-      chipFilledStyle: chipFilledStyle ?? this.chipFilledStyle,
-      chipOutlinedStyle: chipOutlinedStyle ?? this.chipOutlinedStyle,
-      navigationBarStyle: navigationBarStyle ?? this.navigationBarStyle,
-      menuStyle: menuStyle ?? this.menuStyle,
-      inputDecorationType: inputDecorationType ?? this.inputDecorationType,
-      textfieldStyleSet: this.textfieldStyleSet.copyWith(
-          inputDecorationType: inputDecorationType,
-          outline: this
-              .textfieldStyleSet
-              .outline
-              .copyWith(textfieldSize: textfieldSize),
-          rounded: this.textfieldStyleSet.rounded.copyWith(
-                textfieldSize: textfieldSize,
-              ),
-          filled: this.textfieldStyleSet.filled.copyWith(
-                textfieldSize: textfieldSize,
-              ),
-          underline: this.textfieldStyleSet.underline.copyWith(
-                textfieldSize: textfieldSize,
-              )),
-      textfieldSize: textfieldSize ?? this.textfieldSize,
-      useMaterial3: useMaterial3 ?? this.useMaterial3,
-      navigationDrawerStyle:
-          navigationDrawerStyle ?? this.navigationDrawerStyle,
-      appBarStyle: appBarStyle ?? this.appBarStyle,
-      cardStyle: cardStyle ?? this.cardStyle,
-      buttonIconStyle: buttonIconStyle ?? this.buttonIconStyle,
-      navigationRailStyle: navigationRailStyle ?? this.navigationRailStyle,
-      switchStyle: switchStyle ?? this.switchStyle,
-      tabBarStyle: tabBarStyle ?? this.tabBarStyle,
-      speedDialStyle: speedDialStyle ?? this.speedDialStyle,
-      checkboxStyle: checkboxStyle ?? this.checkboxStyle,
-      radioStyle: radioStyle ?? this.radioStyle,
-      progressStyle: progressStyle ?? this.progressStyle,
-      ratingStyle: ratingStyle ?? this.ratingStyle,
-      sliderStyle: sliderStyle ?? this.sliderStyle,
-      avatarStyle: avatarStyle ?? this.avatarStyle,
-      buttonGroupStyle: buttonGroupStyle ?? this.buttonGroupStyle,
-      tooltipStyle: tooltipStyle ?? this.tooltipStyle,
-    );
+        brightness: brightness ?? this.brightness,
+        typography: typography ?? this.typography,
+        fontFamily: fontFamily ?? this.fontFamily,
+        primaryColor: primaryColor ?? this.primaryColor,
+        uncheckedColor: uncheckedColor ?? this.uncheckedColor,
+        checkedColor: checkedColor ?? this.checkedColor,
+        disabledColor: disabledColor ?? this.disabledColor,
+        scaffoldBackgroundColor:
+            scaffoldBackgroundColor ?? this.scaffoldBackgroundColor,
+        colorScheme: colorScheme ?? this.colorScheme,
+        iconTheme: this.iconTheme.merge(iconTheme),
+        buttonTheme: buttonTheme ?? this.buttonTheme,
+        dialogTheme: dialogTheme ?? this.dialogTheme,
+        expansionTileStyle: expansionTileStyle,
+        cardColor: cardColor ?? this.cardColor,
+        errorColor: errorColor ?? this.errorColor,
+        disabledBackgroundColor:
+            disabledBackgroundColor ?? this.disabledBackgroundColor,
+        dividerColor: dividerColor ?? this.dividerColor,
+        solidTextColor: solidTextColor ?? this.solidTextColor,
+        regularTextColor: regularTextColor ?? this.regularTextColor,
+        listTileStyle: listTileStyle ?? this.listTileStyle,
+        primaryButtonStyle: primaryButtonStyle ?? this.primaryButtonStyle,
+        secondaryButtonStyle: secondaryButtonStyle ?? this.secondaryButtonStyle,
+        textButtonStyle: textButtonStyle ?? this.textButtonStyle,
+        dividerStyle: dividerStyle ?? this.dividerStyle,
+        chipFilledStyle: chipFilledStyle ?? this.chipFilledStyle,
+        chipOutlinedStyle: chipOutlinedStyle ?? this.chipOutlinedStyle,
+        navigationBarStyle: navigationBarStyle ?? this.navigationBarStyle,
+        menuStyle: menuStyle ?? this.menuStyle,
+        inputDecorationType: inputDecorationType ?? this.inputDecorationType,
+        textfieldStyleSet: this.textfieldStyleSet.copyWith(
+            inputDecorationType: inputDecorationType,
+            outline: this
+                .textfieldStyleSet
+                .outline
+                .copyWith(textfieldSize: textfieldSize),
+            rounded: this.textfieldStyleSet.rounded.copyWith(
+                  textfieldSize: textfieldSize,
+                ),
+            filled: this.textfieldStyleSet.filled.copyWith(
+                  textfieldSize: textfieldSize,
+                ),
+            underline: this.textfieldStyleSet.underline.copyWith(
+                  textfieldSize: textfieldSize,
+                )),
+        textfieldSize: textfieldSize ?? this.textfieldSize,
+        useMaterial3: useMaterial3 ?? this.useMaterial3,
+        navigationDrawerStyle:
+            navigationDrawerStyle ?? this.navigationDrawerStyle,
+        appBarStyle: appBarStyle ?? this.appBarStyle,
+        cardStyle: cardStyle ?? this.cardStyle,
+        buttonIconStyle: buttonIconStyle ?? this.buttonIconStyle,
+        navigationRailStyle: navigationRailStyle ?? this.navigationRailStyle,
+        switchStyle: switchStyle ?? this.switchStyle,
+        tabBarStyle: tabBarStyle ?? this.tabBarStyle,
+        speedDialStyle: speedDialStyle ?? this.speedDialStyle,
+        checkboxStyle: checkboxStyle ?? this.checkboxStyle,
+        radioStyle: radioStyle ?? this.radioStyle,
+        progressStyle: progressStyle ?? this.progressStyle,
+        ratingStyle: ratingStyle ?? this.ratingStyle,
+        sliderStyle: sliderStyle ?? this.sliderStyle,
+        avatarStyle: avatarStyle ?? this.avatarStyle,
+        buttonGroupStyle: buttonGroupStyle ?? this.buttonGroupStyle,
+        tooltipStyle: tooltipStyle ?? this.tooltipStyle,
+        skeletonStyle: skeletonStyle ?? this.skeletonStyle);
   }
 
   ThemeData toThemeData() {
