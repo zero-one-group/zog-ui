@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
+import 'package:widgetbook_demo/options/color_options.dart';
 import 'package:zero_ui_mobile/zero_ui_mobile.dart';
 
 import '../utils.dart';
@@ -15,7 +16,7 @@ WidgetbookComponent tooltipWidgetbookComponent = WidgetbookComponent(
             label: 'Text',
             initialValue: 'Tooltip Text',
           ),
-          type: context.knobs.options(
+          brightness: context.knobs.options(
             label: 'Type',
             options: _types,
           ),
@@ -27,6 +28,22 @@ WidgetbookComponent tooltipWidgetbookComponent = WidgetbookComponent(
             label: 'Position',
             options: _positions,
           ),
+          style: ZeroTooltipStyle(
+            backgroundColor: context.knobs.options(
+              label: 'Background Color',
+              options: _colors,
+            ),
+            borderColor: context.knobs.options(
+              label: 'Border Color',
+              options: _colors,
+            ),
+            textStyle: TextStyle(
+              color: context.knobs.options(
+                label: 'Text Color',
+                options: _colors,
+              ),
+            ),
+          ),
           child: const Text('Tooltip'),
         ),
       ),
@@ -34,9 +51,9 @@ WidgetbookComponent tooltipWidgetbookComponent = WidgetbookComponent(
   ],
 );
 
-List<Option<ZeroTooltipType>> _types = [
-  const Option(label: 'Dark', value: ZeroTooltipType.dark),
-  const Option(label: 'Light', value: ZeroTooltipType.light),
+List<Option<Brightness>> _types = [
+  const Option(label: 'Dark', value: Brightness.dark),
+  const Option(label: 'Light', value: Brightness.light),
 ];
 
 List<Option<ZeroTooltipVariant>> _variants = [
@@ -50,4 +67,9 @@ List<Option<ZeroTooltipPosition>> _positions = [
   const Option(label: 'Bottom', value: ZeroTooltipPosition.bottom),
   const Option(label: 'Left', value: ZeroTooltipPosition.left),
   const Option(label: 'Right', value: ZeroTooltipPosition.right),
+];
+
+List<Option<Color?>> _colors = [
+  const Option(label: 'Default', value: null),
+  ...colorOptions,
 ];

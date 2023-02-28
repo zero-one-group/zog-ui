@@ -28,14 +28,16 @@ class PreviewWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ZeroApp(
-        theme: theme,
-        home: Scaffold(
-            body: Center(
+      theme: theme,
+      home: Scaffold(
+        body: Center(
           child: ZeroWidget(
             builder: builder,
             child: child,
           ),
-        )));
+        ),
+      ),
+    );
   }
 }
 

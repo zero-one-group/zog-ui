@@ -97,8 +97,8 @@ export './size/list_tile_size.dart';
 export './size/size_type.dart';
 export './size/text_field_size.dart';
 export './size/zero_slider_size.dart';
-export './styles/color_accent.dart';
 // styles
+export './styles/color_accent.dart';
 export './styles/colors.dart';
 export './styles/component/app_bar_style.dart';
 export './styles/component/avatar_style.dart';
@@ -124,7 +124,7 @@ export './styles/component/speed_dial_style.dart';
 export './styles/component/switch_style.dart';
 export './styles/component/tab_bar_style.dart';
 export './styles/component/textfield_style.dart';
-// component styles
+export './styles/component/tooltip_style.dart';
 export './styles/theme.dart';
 export './styles/typography.dart';
 // types
@@ -138,7 +138,6 @@ export './types/navigation_rail_type.dart';
 export './types/snackbar_alert_type.dart';
 export './types/snackbar_alert_variant.dart';
 export './types/snackbar_type.dart';
-export './types/tooltip_type.dart';
 // utils
 export './utils/extensions/color_extension.dart';
 export './utils/extensions/num_extensions.dart';

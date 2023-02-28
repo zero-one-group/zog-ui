@@ -35,7 +35,7 @@ WidgetbookComponent speedDialWidgetbookComponent = WidgetbookComponent(
               )
               .toDouble();
 
-          final ZeroTooltipType tooltipType = context.knobs.options(
+          final tooltipBrightness = context.knobs.options(
             label: 'Tooltip Type',
             options: [..._types],
           );
@@ -69,7 +69,8 @@ WidgetbookComponent speedDialWidgetbookComponent = WidgetbookComponent(
 
           Text? label;
           if (context.knobs.boolean(label: 'Show Label')) {
-            label = Text(context.knobs.text(label: 'Label Text', initialValue: 'Label'));
+            label = Text(
+                context.knobs.text(label: 'Label Text', initialValue: 'Label'));
           }
 
           return PreviewWidget(
@@ -82,7 +83,7 @@ WidgetbookComponent speedDialWidgetbookComponent = WidgetbookComponent(
                 elevation: elevation,
                 shadowColor: shadowColor,
                 direction: direction,
-                tooltipType: tooltipType,
+                tooltipBrightness: tooltipBrightness,
                 tooltipVariant: tooltipVariant,
                 position: position,
                 label: label,
@@ -93,9 +94,9 @@ WidgetbookComponent speedDialWidgetbookComponent = WidgetbookComponent(
   ],
 );
 
-List<Option<ZeroTooltipType>> _types = [
-  const Option(label: 'Dark', value: ZeroTooltipType.dark),
-  const Option(label: 'Light', value: ZeroTooltipType.light),
+List<Option<Brightness>> _types = [
+  const Option(label: 'Dark', value: Brightness.dark),
+  const Option(label: 'Light', value: Brightness.light),
 ];
 
 List<Option<ZeroTooltipVariant>> _variants = [
@@ -109,11 +110,15 @@ List<Option<ZeroSpeedDialDirection>> _directions = [
 ];
 
 List<Option<FloatingActionButtonLocation>> _positions = [
-  const Option(label: 'CenterBottom', value: FloatingActionButtonLocation.centerFloat),
-  const Option(label: 'CenterTop', value: FloatingActionButtonLocation.centerTop),
-  const Option(label: 'EndBottom', value: FloatingActionButtonLocation.endFloat),
+  const Option(
+      label: 'CenterBottom', value: FloatingActionButtonLocation.centerFloat),
+  const Option(
+      label: 'CenterTop', value: FloatingActionButtonLocation.centerTop),
+  const Option(
+      label: 'EndBottom', value: FloatingActionButtonLocation.endFloat),
   const Option(label: 'EndTop', value: FloatingActionButtonLocation.endTop),
-  const Option(label: 'StartBottom', value: FloatingActionButtonLocation.startFloat),
+  const Option(
+      label: 'StartBottom', value: FloatingActionButtonLocation.startFloat),
   const Option(label: 'StartTop', value: FloatingActionButtonLocation.startTop),
 ];
 
@@ -125,7 +130,7 @@ class _SpeedDialExample extends StatefulWidget {
   final double elevation;
   final Color shadowColor;
   final ZeroSpeedDialDirection direction;
-  final ZeroTooltipType tooltipType;
+  final Brightness tooltipBrightness;
   final ZeroTooltipVariant tooltipVariant;
   final FloatingActionButtonLocation position;
   final Text? label;
@@ -137,7 +142,7 @@ class _SpeedDialExample extends StatefulWidget {
     required this.elevation,
     required this.shadowColor,
     required this.direction,
-    required this.tooltipType,
+    required this.tooltipBrightness,
     required this.tooltipVariant,
     required this.position,
     this.label,
@@ -168,7 +173,7 @@ class __SpeedDialExampleState extends State<_SpeedDialExample> {
         activeChild: const Icon(Icons.close),
         inactiveChild: const Icon(Icons.menu),
         tooltipVariant: widget.tooltipVariant,
-        tooltipType: widget.tooltipType,
+        tooltipBrightness: widget.tooltipBrightness,
         children: [
           ZeroSpeedDialItem(
             tooltipText: const Text('Tooltip Text'),
