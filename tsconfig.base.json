@@ -15,11 +15,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@01group-ui/core": ["packages/components/core/src/index.ts"],
-      "@01group-ui/docs": ["packages/docs/src/index.ts"],
-      "@01group-ui/dropzone": ["packages/components/dropzone/src/index.ts"],
-      "@01group-ui/helpers": ["packages/helpers/src/index.ts"],
-      "@01group-ui/icons": ["packages/icons/src/index.ts"]
+      "@zog-ui/core": ["packages/components/core/src/index.ts"],
+      "@zog-ui/docs": ["packages/docs/src/index.ts"],
+      "@zog-ui/dropzone": ["packages/components/dropzone/src/index.ts"],
+      "@zog-ui/helpers": ["packages/helpers/src/index.ts"],
+      "@zog-ui/icons": ["packages/icons/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

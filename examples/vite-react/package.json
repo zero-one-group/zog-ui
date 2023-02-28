@@ -9,8 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@01group-ui/core": "../../dist/packages/components/core",
-    "@01group-ui/icons": "../../dist/packages/icons",
+    "@zog-ui/core": "../../dist/packages/components/core",
+    "@zog-ui/icons": "../../dist/packages/icons",
     "react-dom": "^18.2.0",
     "react": "^18.2.0"
   },

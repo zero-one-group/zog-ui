@@ -17,8 +17,8 @@
 <div align="center">
 
 [![Contributions](https://img.shields.io/badge/Contributor-Guideline-blue.svg?style=flat-square)](./CONTRIBUTING.md)
-[![GitHub contributors](https://img.shields.io/github/contributors/zero-one-group/zero-ui?style=flat-square)](https://github.com/zero-one-group/zero-ui/graphs/contributors)
-[![License](https://img.shields.io/github/license/zero-one-group/zero-ui?style=flat-square)][choosealicense]
+[![GitHub contributors](https://img.shields.io/github/contributors/zero-one-group/zog-ui?style=flat-square)](https://github.com/zero-one-group/zog-ui/graphs/contributors)
+[![License](https://img.shields.io/github/license/zero-one-group/zog-ui?style=flat-square)][choosealicense]
 
 </div>
 
