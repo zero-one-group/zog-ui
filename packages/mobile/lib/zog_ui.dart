@@ -1,4 +1,4 @@
-library zero_ui_mobile;
+library zog_ui;
 
 // assets
 export './assets/assets.dart';

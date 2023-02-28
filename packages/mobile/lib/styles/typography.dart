@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 /// The typography applied to a [ZeroThemeData].
 ///

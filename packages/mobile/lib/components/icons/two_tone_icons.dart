@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 class ZeroTwoToneIcons extends StatelessWidget {
   /// The main color of the icon,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_demo/utils.dart';
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 WidgetbookComponent timepickerWidgetbookComponent = WidgetbookComponent(
   name: 'Time Picker',

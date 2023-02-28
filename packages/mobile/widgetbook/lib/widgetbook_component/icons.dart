@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_demo/options/color_options.dart';
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 import '../utils.dart';
 
@@ -30,7 +30,8 @@ WidgetbookComponent iconWidgetbookComponent = WidgetbookComponent(
                     Icon(
                       item.value,
                       size: 24,
-                      color: knobContext.knobs.options(label: 'Color', options: colorOptions),
+                      color: knobContext.knobs
+                          .options(label: 'Color', options: colorOptions),
                     ),
                     const SizedBox(height: 4),
                     Text(

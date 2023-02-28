@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 import '../utils.dart';
 
@@ -32,7 +32,8 @@ WidgetbookComponent stepperWidgetbookComponent = WidgetbookComponent(
             label: 'Subtitle Position',
             options: [
               const Option(label: 'Top', value: ZeroStepSubtitlePosition.top),
-              const Option(label: 'Bottom', value: ZeroStepSubtitlePosition.bottom),
+              const Option(
+                  label: 'Bottom', value: ZeroStepSubtitlePosition.bottom),
             ],
           );
         }
@@ -108,28 +109,34 @@ class __ZeroStepperExampleState extends State<_ZeroStepperExample> {
         ZeroStep(
           isActive: currentStep == 0,
           title: widget.title ? const Text('Step 1') : const SizedBox(),
-          subtitle: widget.subtitlePosition == null ? null : const Text('Subtitle 1'),
+          subtitle:
+              widget.subtitlePosition == null ? null : const Text('Subtitle 1'),
           content: Text(widget.content),
           state: widget.stepState,
-          subtitlePosition: widget.subtitlePosition ?? ZeroStepSubtitlePosition.top,
+          subtitlePosition:
+              widget.subtitlePosition ?? ZeroStepSubtitlePosition.top,
           label: widget.label,
         ),
         ZeroStep(
           isActive: currentStep == 1,
           title: widget.title ? const Text('Step 2') : const SizedBox(),
-          subtitle: widget.subtitlePosition == null ? null : const Text('Subtitle 2'),
+          subtitle:
+              widget.subtitlePosition == null ? null : const Text('Subtitle 2'),
           content: Text(widget.content),
           state: widget.stepState,
-          subtitlePosition: widget.subtitlePosition ?? ZeroStepSubtitlePosition.top,
+          subtitlePosition:
+              widget.subtitlePosition ?? ZeroStepSubtitlePosition.top,
           label: widget.label,
         ),
         ZeroStep(
           isActive: currentStep == 2,
           title: widget.title ? const Text('Step 3') : const SizedBox(),
-          subtitle: widget.subtitlePosition == null ? null : const Text('Subtitle 3'),
+          subtitle:
+              widget.subtitlePosition == null ? null : const Text('Subtitle 3'),
           content: Text(widget.content),
           state: widget.stepState,
-          subtitlePosition: widget.subtitlePosition ?? ZeroStepSubtitlePosition.top,
+          subtitlePosition:
+              widget.subtitlePosition ?? ZeroStepSubtitlePosition.top,
           label: widget.label,
         ),
       ],

@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 class ZeroNavigationBarStyle with Diagnosticable {
   /// Background of Navigation Bar, by default use white/black by theme

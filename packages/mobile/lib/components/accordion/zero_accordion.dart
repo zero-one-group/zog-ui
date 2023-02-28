@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 enum AccordionVariant {
   /// With single background color, and only has 1 border at the bottom of the [ZeroExpansionTile]

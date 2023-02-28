@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 /// A card widget with custom style.
 /// there are 3 styles for [ZeroCard]:

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/styles/theme.dart';
+import 'package:zog_ui/styles/theme.dart';
 
 /// An application that uses zero-ui design.
 ///

@@ -6,7 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 const Duration _kDialogSizeAnimationDuration = Duration(milliseconds: 200);
 const Duration _kDialAnimateDuration = Duration(milliseconds: 200);

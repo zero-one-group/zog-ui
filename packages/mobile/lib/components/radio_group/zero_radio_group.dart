@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 /// [ZeroRadioGroup] is a custom radio button that can be used to select one option from a set.
 /// this widget is based on zero ui design system

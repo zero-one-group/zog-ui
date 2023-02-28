@@ -6,7 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart' show DateFormat;
 
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 const Duration _monthScrollDuration = Duration(milliseconds: 200);
 const Duration _yearScrollDuration = Duration(milliseconds: 400);

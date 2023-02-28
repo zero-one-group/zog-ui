@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 enum ZeroTextfieldSize {
   small,
@@ -45,7 +45,7 @@ enum ZeroTextfieldSize {
     if (error && suffixIcon == null) {
       return IconButton(
           icon: SvgPicture.asset(Assets.icons.errorDefault,
-              package: 'zero_ui_mobile', color: ZeroColors.dustRed[7]),
+              package: 'zog_ui', color: ZeroColors.dustRed[7]),
           onPressed: null);
     }
 

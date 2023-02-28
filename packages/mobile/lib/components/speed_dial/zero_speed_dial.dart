@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 part 'animate_icons.dart';
 part 'zero_speed_dial_alignment.dart';

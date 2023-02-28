@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 /// [ZeroStepper] is widget that can be used to display a list of steps based on [Stepper] widget.
 /// Steppers are particularly useful in the case of forms where one step requires

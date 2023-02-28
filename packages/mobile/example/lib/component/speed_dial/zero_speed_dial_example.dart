@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 class ZeroSpeedDialExample extends StatelessWidget {
   const ZeroSpeedDialExample({super.key});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 class ZeroStep extends Step {
   ZeroStep({
@@ -31,7 +31,8 @@ class ZeroStep extends Step {
               ? Builder(
                   builder: (context) {
                     return DefaultTextStyle(
-                      style: context.theme.typography.caption ?? const TextStyle(),
+                      style:
+                          context.theme.typography.caption ?? const TextStyle(),
                       child: subtitle ?? const SizedBox(),
                     );
                   },
@@ -41,7 +42,8 @@ class ZeroStep extends Step {
               ? Builder(
                   builder: (context) {
                     return DefaultTextStyle(
-                      style: context.theme.typography.body1 ?? const TextStyle(),
+                      style:
+                          context.theme.typography.body1 ?? const TextStyle(),
                       child: title,
                     );
                   },

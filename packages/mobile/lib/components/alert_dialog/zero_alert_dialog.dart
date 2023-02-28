@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 class ZeroAlertDialog {
   /// private construnctor to make this a singleton class
@@ -46,7 +46,8 @@ class ZeroAlertDialog {
 
     /// padding of the actions
     /// default is const EdgeInsets.only(bottom: 16, right: 16, left: 16)
-    EdgeInsetsGeometry actionsPadding = const EdgeInsets.only(bottom: 16, right: 16, left: 16),
+    EdgeInsetsGeometry actionsPadding =
+        const EdgeInsets.only(bottom: 16, right: 16, left: 16),
     EdgeInsetsGeometry? titlePadding,
     EdgeInsetsGeometry? contentPadding,
     EdgeInsetsGeometry? iconPadding,
