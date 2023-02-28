@@ -6,7 +6,7 @@ import {
 } from '@ant-design/icons';
 import * as Dialog from '@radix-ui/react-dialog';
 import { keyframes } from '@stitches/react';
-import { ReactNode } from 'react';
+import { ComponentProps, createContext, ReactNode, useContext } from 'react';
 import { Space } from '../Space';
 import { styled } from '../stitches.config';
 
@@ -104,6 +104,31 @@ const ContentWithIntent = styled('div', {
   flex: 1,
 });
 
+const ModalTitle = styled(DialogTitle, {
+  variants: {
+    withIntent: {
+      true: {
+        marginTop: '5px',
+      },
+    },
+  },
+});
+
+export type ModalIntentState =
+  | 'info'
+  | 'success'
+  | 'warning'
+  | 'error'
+  | 'default';
+
+export type ModalContextProps = {
+  intent: ModalIntentState;
+};
+
+const ModalContext = createContext<ModalContextProps>({
+  intent: 'default',
+});
+
 export function Modal({ children, ...props }: Dialog.DialogProps) {
   return <Dialog.Root {...props}>{children}</Dialog.Root>;
 }
@@ -115,13 +140,6 @@ Modal.Trigger = ({ children, ...props }: Dialog.DialogTriggerProps) => {
     </Dialog.Trigger>
   );
 };
-
-export type ModalIntentState =
-  | 'info'
-  | 'success'
-  | 'warning'
-  | 'error'
-  | 'default';
 
 export type ModalContent = {
   intent?: ModalIntentState;
@@ -154,19 +172,23 @@ Modal.Content = ({
   };
 
   return (
-    <Dialog.Portal>
-      <ModalOverlay />
-      <ModalContent {...props}>
-        {intent !== 'default' ? (
-          <Space>
-            <IntentIcon intent={intent}>{renderIntentIcons(intent)}</IntentIcon>
-            <ContentWithIntent>{children}</ContentWithIntent>
-          </Space>
-        ) : (
-          children
-        )}
-      </ModalContent>
-    </Dialog.Portal>
+    <ModalContext.Provider value={{ intent }}>
+      <Dialog.Portal>
+        <ModalOverlay />
+        <ModalContent {...props}>
+          {intent !== 'default' ? (
+            <Space>
+              <IntentIcon intent={intent}>
+                {renderIntentIcons(intent)}
+              </IntentIcon>
+              <ContentWithIntent>{children}</ContentWithIntent>
+            </Space>
+          ) : (
+            children
+          )}
+        </ModalContent>
+      </Dialog.Portal>
+    </ModalContext.Provider>
   );
 };
 
@@ -188,5 +210,14 @@ Modal.CloseIcon = ({ children }: ModalCloseIconProps) => {
   );
 };
 
-Modal.Title = DialogTitle;
+Modal.Title = ({ children, ...props }: ComponentProps<typeof ModalTitle>) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { intent } = useContext(ModalContext);
+  return (
+    <ModalTitle withIntent={intent !== 'default'} {...props}>
+      {children}
+    </ModalTitle>
+  );
+};
+
 Modal.Description = DialogDescription;
