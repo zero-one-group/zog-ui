@@ -187,7 +187,7 @@ class __SpeedDialExampleState extends State<_SpeedDialExample> {
             child: Icon(Icons.add),
           ),
           const ZeroSpeedDialItem(
-            tooltipText: Text('Add', style: TextStyle(color: Colors.green)),
+            tooltipText: Text('Add'),
             child: Text('data'),
           )
         ],
