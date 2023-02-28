@@ -319,25 +319,22 @@ class ZeroButton extends ElevatedButton {
                 ),
               ),
             )
-          : SizedBox(
-              height: height ?? buttonSizeType.defaultButtonHeight,
-              child: ZeroButton._(
-                key: key,
-                onPressed: onPressed,
-                onLongPress: onLongPress,
-                style: adaptiveStyle,
-                focusNode: focusNode,
-                autofocus: autofocus,
-                child: Padding(
-                  padding: const EdgeInsets.all(0),
-                  child: Text(
-                    text,
-                    style: theme.typography.button?.merge(
-                      textStyle ??
-                          TextStyle(
-                            fontSize: buttonSizeType.fontSize,
-                          ),
-                    ),
+          : ZeroButton._(
+              key: key,
+              onPressed: onPressed,
+              onLongPress: onLongPress,
+              style: adaptiveStyle,
+              focusNode: focusNode,
+              autofocus: autofocus,
+              child: Padding(
+                padding: const EdgeInsets.all(0),
+                child: Text(
+                  text,
+                  style: theme.typography.button?.merge(
+                    textStyle ??
+                        TextStyle(
+                          fontSize: buttonSizeType.fontSize,
+                        ),
                   ),
                 ),
               ),

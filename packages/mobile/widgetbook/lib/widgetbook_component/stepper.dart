@@ -26,18 +26,6 @@ WidgetbookComponent stepperWidgetbookComponent = WidgetbookComponent(
               'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
         );
 
-        ZeroStepSubtitlePosition? subtitlePosition;
-        if (context.knobs.boolean(label: 'Subtitle', initialValue: true)) {
-          subtitlePosition = context.knobs.options(
-            label: 'Subtitle Position',
-            options: [
-              const Option(label: 'Top', value: ZeroStepSubtitlePosition.top),
-              const Option(
-                  label: 'Bottom', value: ZeroStepSubtitlePosition.bottom),
-            ],
-          );
-        }
-
         Text? label;
         if (context.knobs.boolean(label: 'Label', initialValue: false)) {
           label = const Text('Label');
@@ -57,7 +45,6 @@ WidgetbookComponent stepperWidgetbookComponent = WidgetbookComponent(
         return PreviewWidget(
           child: _ZeroStepperExample(
             type: type,
-            subtitlePosition: subtitlePosition,
             stepState: stepState,
             label: label,
             title: title,
@@ -70,14 +57,12 @@ WidgetbookComponent stepperWidgetbookComponent = WidgetbookComponent(
 );
 
 class _ZeroStepperExample extends StatefulWidget {
-  final ZeroStepSubtitlePosition? subtitlePosition;
   final StepperType type;
   final StepState stepState;
   final Text? label;
   final bool title;
   final String content;
   const _ZeroStepperExample({
-    this.subtitlePosition,
     this.type = StepperType.vertical,
     this.stepState = StepState.indexed,
     this.label,
@@ -109,34 +94,25 @@ class __ZeroStepperExampleState extends State<_ZeroStepperExample> {
         ZeroStep(
           isActive: currentStep == 0,
           title: widget.title ? const Text('Step 1') : const SizedBox(),
-          subtitle:
-              widget.subtitlePosition == null ? null : const Text('Subtitle 1'),
+          subtitle: const Text('Subtitle 1'),
           content: Text(widget.content),
           state: widget.stepState,
-          subtitlePosition:
-              widget.subtitlePosition ?? ZeroStepSubtitlePosition.top,
           label: widget.label,
         ),
         ZeroStep(
           isActive: currentStep == 1,
           title: widget.title ? const Text('Step 2') : const SizedBox(),
-          subtitle:
-              widget.subtitlePosition == null ? null : const Text('Subtitle 2'),
+          subtitle: const Text('Subtitle 2'),
           content: Text(widget.content),
           state: widget.stepState,
-          subtitlePosition:
-              widget.subtitlePosition ?? ZeroStepSubtitlePosition.top,
           label: widget.label,
         ),
         ZeroStep(
           isActive: currentStep == 2,
           title: widget.title ? const Text('Step 3') : const SizedBox(),
-          subtitle:
-              widget.subtitlePosition == null ? null : const Text('Subtitle 3'),
+          subtitle: const Text('Subtitle 3'),
           content: Text(widget.content),
           state: widget.stepState,
-          subtitlePosition:
-              widget.subtitlePosition ?? ZeroStepSubtitlePosition.top,
           label: widget.label,
         ),
       ],
