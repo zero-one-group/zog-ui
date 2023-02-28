@@ -73,7 +73,7 @@ export async function convertIconData(svg, multiColor) {
   return tree[0]; // like: [ { tag: 'path', attr: { d: 'M436 160c6.6 ...', ... }, child: { ... } } ]
 }
 
-export async function copyRecursive(src: any, dest: any) {
+export async function copyRecursive(src: string, dest: string) {
   await fs.mkdir(dest, { recursive: true });
   for (const entry of await fs.readdir(src, { withFileTypes: true })) {
     const sPath = path.join(src, entry.name);
@@ -86,7 +86,7 @@ export async function copyRecursive(src: any, dest: any) {
   }
 }
 
-export async function rmDirRecursive(dest: any) {
+export async function rmDirRecursive(dest: string) {
   try {
     for (const entry of await fs.readdir(dest, { withFileTypes: true })) {
       const dPath = path.join(dest, entry.name);
