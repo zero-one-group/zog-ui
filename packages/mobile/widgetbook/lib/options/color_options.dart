@@ -1,5 +1,5 @@
 import 'package:widgetbook/widgetbook.dart';
-import 'package:zero_ui_mobile/styles/colors.dart';
+import 'package:zog_ui/styles/colors.dart';
 
 List<Option<ShadedColor>> colorOptions = [
   const Option(label: 'Primary', value: ZeroColors.primary),

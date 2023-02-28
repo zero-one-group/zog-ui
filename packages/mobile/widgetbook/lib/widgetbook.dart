@@ -7,7 +7,7 @@ import 'package:widgetbook_demo/widgetbook_component/grid.dart';
 import 'package:widgetbook_demo/widgetbook_component/skeleton.dart';
 import 'package:widgetbook_demo/widgetbook_component/speed_dial.dart';
 import 'package:widgetbook_demo/widgetbook_component/stepper.dart';
-import 'package:zero_ui_mobile/styles/theme.dart';
+import 'package:zog_ui/styles/theme.dart';
 
 import 'widgetbook_component/app_bar.dart';
 import 'widgetbook_component/avatar.dart';

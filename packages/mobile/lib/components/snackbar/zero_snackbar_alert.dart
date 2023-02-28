@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 /// A class that provides a function to display a alert message
 /// [ZeroSnackbarAlert] have 2 methods:
@@ -65,12 +65,14 @@ class ZeroSnackbarAlert {
             Align(
               alignment: position.alignment,
               child: Container(
-                margin: const EdgeInsets.symmetric(vertical: 48, horizontal: 16),
+                margin:
+                    const EdgeInsets.symmetric(vertical: 48, horizontal: 16),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4),
                     border: border ?? _border(variant, type),
-                    color: backgroundColor ?? _getBackgroundColor(variant, type),
+                    color:
+                        backgroundColor ?? _getBackgroundColor(variant, type),
                   ),
                   padding: const EdgeInsets.all(16),
                   child: Row(
@@ -91,14 +93,20 @@ class ZeroSnackbarAlert {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             DefaultTextStyle(
-                              style: TextStyle(color: _titleColor(variant, type), fontSize: 16, fontWeight: FontWeight.w600)
+                              style: TextStyle(
+                                      color: _titleColor(variant, type),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600)
                                   .merge(titleTextStyle),
                               child: Text(
                                 title,
                               ),
                             ),
                             DefaultTextStyle(
-                              style: TextStyle(color: _subtitleColor(variant, type), fontSize: 14).merge(subtitleTextStyle),
+                              style: TextStyle(
+                                      color: _subtitleColor(variant, type),
+                                      fontSize: 14)
+                                  .merge(subtitleTextStyle),
                               child: Text(
                                 subtitle,
                               ),
@@ -133,7 +141,8 @@ class ZeroSnackbarAlert {
 
   /// [_border] return the border of the alert
   /// border only for [ZeroSnackbarAlertType.outlined]
-  BoxBorder _border(ZeroSnackbarAlertVariant variant, ZeroSnackbarAlertType type) {
+  BoxBorder _border(
+      ZeroSnackbarAlertVariant variant, ZeroSnackbarAlertType type) {
     switch (type) {
       case ZeroSnackbarAlertType.solidFilled:
         return Border.all(color: Colors.transparent);
@@ -146,7 +155,8 @@ class ZeroSnackbarAlert {
 
   /// [_iconColor] return the color of the icon
   /// icon color only for [ZeroSnackbarAlertType.outlined]
-  Color _iconColor(ZeroSnackbarAlertVariant variant, ZeroSnackbarAlertType type) {
+  Color _iconColor(
+      ZeroSnackbarAlertVariant variant, ZeroSnackbarAlertType type) {
     switch (type) {
       case ZeroSnackbarAlertType.solidFilled:
         return Colors.white;
@@ -158,7 +168,8 @@ class ZeroSnackbarAlert {
   }
 
   /// [_getBackgroundColor] return the background color of the alert
-  Color _getBackgroundColor(ZeroSnackbarAlertVariant variant, ZeroSnackbarAlertType type) {
+  Color _getBackgroundColor(
+      ZeroSnackbarAlertVariant variant, ZeroSnackbarAlertType type) {
     switch (type) {
       case ZeroSnackbarAlertType.solidFilled:
         return variant.color;
@@ -170,7 +181,8 @@ class ZeroSnackbarAlert {
   }
 
   /// [_titleColor] return the color of the title
-  Color _titleColor(ZeroSnackbarAlertVariant variant, ZeroSnackbarAlertType type) {
+  Color _titleColor(
+      ZeroSnackbarAlertVariant variant, ZeroSnackbarAlertType type) {
     switch (type) {
       case ZeroSnackbarAlertType.solidFilled:
         return Colors.white;
@@ -182,7 +194,8 @@ class ZeroSnackbarAlert {
   }
 
   /// [_subtitleColor] return the color of the subtitle
-  Color _subtitleColor(ZeroSnackbarAlertVariant variant, ZeroSnackbarAlertType type) {
+  Color _subtitleColor(
+      ZeroSnackbarAlertVariant variant, ZeroSnackbarAlertType type) {
     switch (type) {
       case ZeroSnackbarAlertType.solidFilled:
         return Colors.white;

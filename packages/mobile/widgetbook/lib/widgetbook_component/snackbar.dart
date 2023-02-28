@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 import '../utils.dart';
 
@@ -12,15 +12,20 @@ WidgetbookComponent snackbarWidgetbookComponent = WidgetbookComponent(
       builder: (context) {
         final String text = context.knobs.text(
           label: 'Text',
-          initialValue: 'this is a snackbar with a lot of text to show how it looks like when it is multiline',
+          initialValue:
+              'this is a snackbar with a lot of text to show how it looks like when it is multiline',
         );
-        final bool closeButton = context.knobs.boolean(label: 'Close Button', initialValue: false);
-        final bool actionButton = context.knobs.boolean(label: 'Action Button', initialValue: false);
-        final String actionText = context.knobs.text(label: 'Action Text', initialValue: 'Action');
+        final bool closeButton =
+            context.knobs.boolean(label: 'Close Button', initialValue: false);
+        final bool actionButton =
+            context.knobs.boolean(label: 'Action Button', initialValue: false);
+        final String actionText =
+            context.knobs.text(label: 'Action Text', initialValue: 'Action');
         final ZeroSnackbarType types = context.knobs.options(
           label: 'Type',
           options: [
-            const Option(label: 'Singleline', value: ZeroSnackbarType.singleline),
+            const Option(
+                label: 'Singleline', value: ZeroSnackbarType.singleline),
             const Option(label: 'Multiline', value: ZeroSnackbarType.multiline),
           ],
         );
@@ -86,18 +91,24 @@ WidgetbookComponent snackbarWidgetbookComponent = WidgetbookComponent(
         final ZeroSnackbarAlertType types = context.knobs.options(
           label: 'Type',
           options: [
-            const Option(label: 'Solid Filled', value: ZeroSnackbarAlertType.solidFilled),
+            const Option(
+                label: 'Solid Filled',
+                value: ZeroSnackbarAlertType.solidFilled),
             const Option(label: 'Filled', value: ZeroSnackbarAlertType.filled),
-            const Option(label: 'Outlined', value: ZeroSnackbarAlertType.outlined),
+            const Option(
+                label: 'Outlined', value: ZeroSnackbarAlertType.outlined),
           ],
         );
         final ZeroSnackbarAlertVariant variant = context.knobs.options(
           label: 'Variant',
           options: [
-            const Option(label: 'Danger', value: ZeroSnackbarAlertVariant.danger),
-            const Option(label: 'Warning', value: ZeroSnackbarAlertVariant.warning),
+            const Option(
+                label: 'Danger', value: ZeroSnackbarAlertVariant.danger),
+            const Option(
+                label: 'Warning', value: ZeroSnackbarAlertVariant.warning),
             const Option(label: 'Info', value: ZeroSnackbarAlertVariant.info),
-            const Option(label: 'Success', value: ZeroSnackbarAlertVariant.success),
+            const Option(
+                label: 'Success', value: ZeroSnackbarAlertVariant.success),
           ],
         );
         final SnackbarPosition position = context.knobs.options(
@@ -108,7 +119,8 @@ WidgetbookComponent snackbarWidgetbookComponent = WidgetbookComponent(
             const Option(label: 'Center', value: SnackbarPosition.center),
           ],
         );
-        final Widget actionWidget = context.knobs.options(label: 'Action Widget', options: [
+        final Widget actionWidget =
+            context.knobs.options(label: 'Action Widget', options: [
           const Option(label: 'None', value: SizedBox()),
           const Option(label: 'Icon', value: Icon(Icons.close)),
           const Option(label: 'Text', value: Text('Action')),
@@ -122,8 +134,10 @@ WidgetbookComponent snackbarWidgetbookComponent = WidgetbookComponent(
           options: _colorOptions.sublist(1),
         );
         final BoxBorder boxBorder = Border.all(
-          color: context.knobs
-              .options(label: 'Border Color', options: [..._colorOptions.sublist(_colorOptions.length - 1), ..._colorOptions]),
+          color: context.knobs.options(label: 'Border Color', options: [
+            ..._colorOptions.sublist(_colorOptions.length - 1),
+            ..._colorOptions
+          ]),
         );
         return PreviewWidget(
           child: GestureDetector(

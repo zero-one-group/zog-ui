@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../zero_ui_mobile.dart';
+import '../zog_ui.dart';
 
 enum ZeroCardVariant {
   outline,

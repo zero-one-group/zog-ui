@@ -4,7 +4,7 @@ class ZeroIcons {
   ZeroIcons._();
 
   static const _kFontFam = 'ZeroIcons';
-  static const String _kFontPkg = 'zero_ui_mobile';
+  static const String _kFontPkg = 'zog_ui';
 
   static const IconData accountBook =
       IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);

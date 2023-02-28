@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 /// [ZeroButtonStyle] is the class that will be used to style [ZeroButton], [ZeroButtonRightIcon], [ZeroButtonLeftIcon], [ZeroButtonRightLeftIcon], [ZeroButtonIcon]
 class ZeroButtonStyle with Diagnosticable {

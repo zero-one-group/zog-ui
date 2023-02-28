@@ -2,7 +2,7 @@ import 'dart:math' show min;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 /// Class for calculating [ZeroAppBar] size
 class _PreferredAppBarSize extends Size {

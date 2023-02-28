@@ -9,7 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  zero_ui_mobile:
+  zog_ui:
     path: ../
   widgetbook: ^2.4.1
 

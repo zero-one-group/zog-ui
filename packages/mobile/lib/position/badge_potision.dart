@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:zero_ui_mobile/zero_ui_mobile.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 /// [ZeroBadge] component position options
 ///
