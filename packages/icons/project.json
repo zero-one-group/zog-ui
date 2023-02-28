@@ -67,7 +67,7 @@
       "options": {
         "commands": [
           "npm pkg set 'version'=$(node -p \"require('../../../package.json').version\")",
-          "echo 'Publishing Icons Package to npm version $(npm pkg get version)'",
+          "echo 'Publishing Icons Package to npmjs...'",
           "npm pack",
           "npm publish"
         ],

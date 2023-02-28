@@ -8,7 +8,7 @@
     "demo-nextjs": "(cd examples/nextjs && pnpm install && pnpm run dev)",
     "build": "nx run-many --target=build --projects=components-*,icons --exclude=docs,components-dropzone",
     "build:docs": "nx run docs:build",
-    "release": "nx run-many --parallel --target=publish --projects=components-* --exclude=components-dropzone",
+    "release": "nx run-many --parallel --target=publish --projects=components-*,icons --exclude=components-dropzone",
     "postinstall": "NX_CLOUD_DISTRIBUTED_EXECUTION=false nx run icons:fetch",
     "prepare": "husky install",
     "lint:affected": "nx affected --base=remotes/origin/main --target=lint",

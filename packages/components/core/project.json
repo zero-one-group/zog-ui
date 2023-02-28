@@ -64,8 +64,7 @@
       "options": {
         "commands": [
           "npm pkg set 'version'=$(node -p \"require('../../../../package.json').version\")",
-          "echo 'Publishing Core Package to npm version $(npm pkg get version)'",
-          "cp ../../../../LICENSE .",
+          "echo 'Publishing Core Package to npmjs...'",
           "npm pack",
           "npm publish"
         ],
