@@ -2,8 +2,9 @@ import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
 import { BADGE } from '@geometricpanda/storybook-addon-badges';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { Breadcrumb } from '@zog-ui/core';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbSeparator } from '@zog-ui/core';
 import { HomeOutlined } from '@ant-design/icons';
+import { CaretRightOutlined } from '@ant-design/icons';
 
 <Meta
   title="Components/Navigation/Breadcrumb"
@@ -11,31 +12,126 @@ import { HomeOutlined } from '@ant-design/icons';
   argTypes={{}}
 />
 
-export const BreadcrumbStory = (args) => <Breadcrumb {...args} />;
-
 # Breadcrumb
 
-Breadcrumb
+Displays the current location within a hierarchy.
+
+# Structures
+
+Breadcrumbs uses a fully composable API to freely customize each component.
+
+## `<Breadcrumb />`
+
+The `Breadcrumb` root component
+
+| Prop        | Type                | Default | Description                               |
+| ----------- | ------------------- | ------- | ----------------------------------------- |
+| `separator` | `React.ReactNode`   | `/`     | Set the separator of our breadcrumb items |
+| `css`       | `Stitches.CSS`      | -       | Customize breadcrumb style using stitches |
+| `children`  | `React.ReactNode[]` | -       | Pass in `<BreadcrumbItem />` components   |
+
+## `<BreadcrumbItem />`
+
+Used to render the breadcrumbs items
+
+| Prop       | Type              | Default | Description                               |
+| ---------- | ----------------- | ------- | ----------------------------------------- |
+| `css`      | `Stitches.CSS`    | -       | Customize breadcrumb style using stitches |
+| `children` | `React.ReactNode` | -       | Render the breadcrumb contents            |
+
+## `<BreadcrumbSeparator />`
+
+The separator can be customized by setting the each separator
+
+> When using BreadcrumbSeparator, the `separator` props must not be passed or set it to `separator=""`.
+> Otherwise, the default separator will be rendered
+
+| Prop       | Type              | Default | Description                               |
+| ---------- | ----------------- | ------- | ----------------------------------------- |
+| `css`      | `Stitches.CSS`    | -       | Customize breadcrumb style using stitches |
+| `children` | `React.ReactNode` | -       | Render the breadcrumb separator           |
 
 ## Example Usage
 
 ```jsx
 import { Breadcrumb } from '@zog-ui/core';
+
+// Basic Example
+const App = () => (
+  <Breadcrumb separator="/">
+    <BreadcrumbItem>
+      <a href="#">zero-one-group</a>
+    </BreadcrumbItem>
+    <BreadcrumbItem>
+      <a href="#">zero-one-software</a>
+    </BreadcrumbItem>
+    <BreadcrumbItem>zog-design-system</BreadcrumbItem>
+  </Breadcrumb>
+);
 ```
 
 <Canvas columns={2} withSource="close">
   <Story
     args={{
-      items: [
-        { title: 'Mantine', href: '#', current: false },
-        { title: 'Mantine hooks', href: '#', current: false },
-        { title: 'use-id', href: '#', current: true },
-      ],
       separator: '/',
     }}
-    name="Breadcrumb"
+    name="Basic"
   >
-    {BreadcrumbStory.bind()}
+    {(args) => {
+      return (
+        <Breadcrumb {...args}>
+          <BreadcrumbItem>
+            <a href="#">zero-one-group</a>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            <a href="#">zero-one-software</a>
+          </BreadcrumbItem>
+          <BreadcrumbItem>zog-design-system</BreadcrumbItem>
+        </Breadcrumb>
+      );
+    }}
+  </Story>
+  <Story name="Configuring the Separator">
+    {(args) => {
+      return (
+        <Breadcrumb {...args}>
+          <BreadcrumbItem>
+            <a href="#">zero-one-group</a>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator>:</BreadcrumbSeparator>
+          <BreadcrumbItem>
+            <a href="#">zero-one-software</a>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator>
+            <CaretRightOutlined />
+          </BreadcrumbSeparator>
+          <BreadcrumbItem>zog-design-system</BreadcrumbItem>
+        </Breadcrumb>
+      );
+    }}
+  </Story>
+  <Story
+    args={{
+      separator: '/',
+      css: {
+        fontFamily: "'Arial', sans-serif",
+      },
+    }}
+    name="Custom CSS"
+  >
+    {(args) => {
+      return (
+        <Breadcrumb {...args}>
+          <BreadcrumbItem>
+            <a href="#">zero-one-group</a>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            <a href="#">zero-one-software</a>
+          </BreadcrumbItem>
+          <BreadcrumbItem>zog-design-system</BreadcrumbItem>
+        </Breadcrumb>
+      );
+    }}
   </Story>
 </Canvas>
 

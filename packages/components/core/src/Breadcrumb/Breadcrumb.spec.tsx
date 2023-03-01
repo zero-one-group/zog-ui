@@ -1,18 +1,15 @@
 import { render } from '@testing-library/react';
 
-import { Breadcrumb } from './Breadcrumb';
+import { Breadcrumb, BreadcrumbItem } from './Breadcrumb';
 
 describe('Breadcrumb', () => {
   it('should render successfully', () => {
     const { baseElement } = render(
-      <Breadcrumb
-        items={[
-          { title: 'Mantine', href: '#', current: false },
-          { title: 'Mantine hooks', href: '#', current: false },
-          { title: 'use-id', href: '#', current: true },
-        ]}
-        separator="/"
-      />
+      <Breadcrumb>
+        <BreadcrumbItem>zero-one-group</BreadcrumbItem>
+        <BreadcrumbItem>zero-one-software</BreadcrumbItem>
+        <BreadcrumbItem>zog-design-system</BreadcrumbItem>
+      </Breadcrumb>
     );
     expect(baseElement).toBeTruthy();
   });
