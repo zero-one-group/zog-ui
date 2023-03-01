@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:zog_ui/zog_ui.dart';
 
 import 'component/alert_dialog/zero_alert_dialog_example.dart';
@@ -55,12 +56,14 @@ class _MyAppState extends State<MyApp> {
   ];
 
   ShadedColor _selectedColor = ZeroColors.primary;
+  bool _customFont = false;
 
   @override
   Widget build(BuildContext context) {
     return ZeroApp(
       title: 'Flutter Demo',
       theme: ZeroThemeData(
+        fontFamily: _customFont ? GoogleFonts.dancingScript().fontFamily : null,
         brightness: Brightness.light,
         primaryColor: _selectedColor.toAccentColor(),
         inputDecorationType: InputDecorationType.outline,
@@ -69,29 +72,45 @@ class _MyAppState extends State<MyApp> {
         body: SafeArea(
           child: Column(
             children: [
-              DropdownButton<ShadedColor>(
-                  hint: Row(
-                    children: [
-                      const Text('Primary Color'),
-                      const SizedBox(width: 10),
-                      Container(width: 20, height: 20, color: _selectedColor)
-                    ],
-                  ),
-                  items: _colors
-                      .map(
-                        (e) => DropdownMenuItem(
-                          value: e,
-                          child: Container(color: e, height: 50),
+              Row(
+                children: [
+                  Expanded(
+                    child: DropdownButton<ShadedColor>(
+                        hint: Row(
+                          children: [
+                            const Text('Primary Color'),
+                            const SizedBox(width: 10),
+                            Container(
+                                width: 20, height: 20, color: _selectedColor)
+                          ],
                         ),
-                      )
-                      .toList(),
-                  onChanged: (v) {
-                    if (v != null) {
+                        items: _colors
+                            .map(
+                              (e) => DropdownMenuItem(
+                                value: e,
+                                child: Container(color: e, height: 50),
+                              ),
+                            )
+                            .toList(),
+                        onChanged: (v) {
+                          if (v != null) {
+                            setState(() {
+                              _selectedColor = v;
+                            });
+                          }
+                        }),
+                  ),
+                  const Text('Custom Font'),
+                  ZeroCheckbox(
+                    value: _customFont,
+                    onChanged: (value) {
                       setState(() {
-                        _selectedColor = v;
+                        _customFont = value ?? false;
                       });
-                    }
-                  }),
+                    },
+                  )
+                ],
+              ),
               const Expanded(
                 child: Examples(),
               ),

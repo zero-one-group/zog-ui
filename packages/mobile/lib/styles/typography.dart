@@ -64,6 +64,7 @@ class ZeroTypography with Diagnosticable {
   factory ZeroTypography.fromBrightness({
     Brightness? brightness,
     Color? color,
+    String? fontFamily,
   }) {
     assert(
       brightness != null || color != null,
@@ -79,46 +80,55 @@ class ZeroTypography with Diagnosticable {
         fontWeight: FontWeight.w400,
         fontSize: 24,
         color: color,
+        fontFamily: fontFamily,
       ),
       heading6: TextStyle(
         fontWeight: FontWeight.w400,
         fontSize: 20,
         color: color,
+        fontFamily: fontFamily,
       ),
       subtitle1: TextStyle(
         fontWeight: FontWeight.w400,
         fontSize: 16,
         color: color,
+        fontFamily: fontFamily,
       ),
       subtitle2: TextStyle(
         fontWeight: FontWeight.w400,
         fontSize: 14,
         color: color,
+        fontFamily: fontFamily,
       ),
       body1: TextStyle(
         fontWeight: FontWeight.w400,
         fontSize: 16,
         color: color,
+        fontFamily: fontFamily,
       ),
       body2: TextStyle(
         fontWeight: FontWeight.w400,
         fontSize: 14,
         color: color,
+        fontFamily: fontFamily,
       ),
       button: TextStyle(
         fontWeight: FontWeight.w500,
         fontSize: 14,
         color: color,
+        fontFamily: fontFamily,
       ),
       caption: TextStyle(
         fontWeight: FontWeight.w400,
         fontSize: 12,
         color: color,
+        fontFamily: fontFamily,
       ),
       overline: TextStyle(
         fontWeight: FontWeight.w400,
         fontSize: 10,
         color: color,
+        fontFamily: fontFamily,
       ),
     );
   }

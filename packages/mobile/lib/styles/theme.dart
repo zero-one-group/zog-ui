@@ -278,8 +278,10 @@ class ZeroThemeData with Diagnosticable {
     regularTextColor ??=
         isLight ? ZeroColors.neutral[7] : ZeroColors.neutral[6];
 
-    typography ??=
-        ZeroTypography.fromBrightness(color: solidTextColor).merge(typography);
+    typography ??= ZeroTypography.fromBrightness(
+      color: solidTextColor,
+      fontFamily: fontFamily,
+    ).merge(typography);
 
     iconTheme ??= isLight
         ? const IconThemeData(color: ZeroColors.black, size: 24.0)
