@@ -128,6 +128,7 @@ export './styles/component/radio_style.dart';
 export './styles/component/rating_style.dart';
 export './styles/component/skeleton_style.dart';
 export './styles/component/slider_style.dart';
+export './styles/component/snackbar_style.dart';
 export './styles/component/speed_dial_style.dart';
 export './styles/component/switch_style.dart';
 export './styles/component/tab_bar_style.dart';

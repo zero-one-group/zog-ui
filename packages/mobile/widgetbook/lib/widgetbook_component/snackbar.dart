@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
+import 'package:widgetbook_demo/options/color_options.dart';
 import 'package:zog_ui/zog_ui.dart';
 
 import '../utils.dart';
@@ -31,49 +32,65 @@ WidgetbookComponent snackbarWidgetbookComponent = WidgetbookComponent(
         );
         final SnackbarPosition position = context.knobs.options(
           label: 'Position',
-          options: [
-            const Option(label: 'Bottom', value: SnackbarPosition.bottom),
-            const Option(label: 'Top', value: SnackbarPosition.top),
-            const Option(label: 'Center', value: SnackbarPosition.center),
-          ],
+          options: _positionOptions,
         );
-        final Color backgroundColor = context.knobs.options(
+        final backgroundColor = context.knobs.options(
           label: 'Background Color',
-          options: _colorOptions.sublist(1),
+          options: _colorOptions,
         );
-        final Color actionButtonTextColor = context.knobs.options(
+        final actionButtonTextColor = context.knobs.options(
           label: 'Button Text Color',
-          options: _colorOptions.sublist(3),
+          options: _colorOptions,
         );
-        final Color closeIconColor = context.knobs.options(
+        final closeIconColor = context.knobs.options(
           label: 'Close Icon Color',
-          options: _colorOptions.sublist(2),
+          options: _colorOptions,
         );
-        final Color textColor = context.knobs.options(
+        final textColor = context.knobs.options(
           label: 'Text Color',
-          options: _colorOptions.sublist(2),
+          options: _colorOptions,
         );
+        final borderRadus = context.knobs
+            .number(label: 'Border Radius', initialValue: 4)
+            .toDouble();
+        final elevation = context.knobs
+            .number(label: 'Elevation', initialValue: 4)
+            .toDouble();
+        final icon =
+            context.knobs.options(label: 'Close Icon', options: _iconOptions);
 
         return PreviewWidget(
-          child: GestureDetector(
-            onTap: () {
-              ZeroSnackbar().show(
-                context,
-                text,
-                duration: const Duration(seconds: 2),
-                closeButton: closeButton,
-                actionButton: actionButton,
-                actionText: actionText,
-                type: types,
-                backgroundColor: backgroundColor,
-                textStyle: TextStyle(color: textColor),
-                actionButtonTextColor: actionButtonTextColor,
-                closeIconColor: closeIconColor,
-                position: position,
-              );
-            },
-            child: const Text('Show Snackbar'),
-          ),
+          child: Builder(builder: (context) {
+            return GestureDetector(
+              onTap: () {
+                ZeroSnackbar().show(
+                  context,
+                  text,
+                  closeButton: closeButton,
+                  actionButton: actionButton,
+                  actionText: actionText,
+                  type: types,
+                  onClose: () {
+                    ZeroSnackbar().hide();
+                  },
+                  actionOnPressed: () {
+                    ZeroSnackbar().hide();
+                  },
+                  style: ZeroSnackbarStyle(
+                    backgroundColor: backgroundColor,
+                    textStyle: TextStyle(color: textColor),
+                    borderRadius: BorderRadius.circular(borderRadus),
+                    elevation: elevation,
+                    actionStyle: TextStyle(color: actionButtonTextColor),
+                    closeIcon:
+                        icon != null ? Icon(icon, color: closeIconColor) : null,
+                  ),
+                  position: position,
+                );
+              },
+              child: const Text('Show Snackbar'),
+            );
+          }),
         );
       },
     ),
@@ -88,98 +105,111 @@ WidgetbookComponent snackbarWidgetbookComponent = WidgetbookComponent(
           label: 'Subtitle',
           initialValue: 'Subtitle',
         );
+
+        final titleColor = context.knobs.options(
+          label: 'Title Color',
+          options: _colorOptions,
+        );
+        final subtitleColor = context.knobs.options(
+          label: 'Subtitle Color',
+          options: _colorOptions,
+        );
         final ZeroSnackbarAlertType types = context.knobs.options(
           label: 'Type',
-          options: [
-            const Option(
-                label: 'Solid Filled',
-                value: ZeroSnackbarAlertType.solidFilled),
-            const Option(label: 'Filled', value: ZeroSnackbarAlertType.filled),
-            const Option(
-                label: 'Outlined', value: ZeroSnackbarAlertType.outlined),
-          ],
+          options: _alertTypeOptions,
         );
         final ZeroSnackbarAlertVariant variant = context.knobs.options(
           label: 'Variant',
-          options: [
-            const Option(
-                label: 'Danger', value: ZeroSnackbarAlertVariant.danger),
-            const Option(
-                label: 'Warning', value: ZeroSnackbarAlertVariant.warning),
-            const Option(label: 'Info', value: ZeroSnackbarAlertVariant.info),
-            const Option(
-                label: 'Success', value: ZeroSnackbarAlertVariant.success),
-          ],
+          options: _alertVariantOptions,
         );
-        final SnackbarPosition position = context.knobs.options(
-          label: 'Position',
-          options: [
-            const Option(label: 'Bottom', value: SnackbarPosition.bottom),
-            const Option(label: 'Top', value: SnackbarPosition.top),
-            const Option(label: 'Center', value: SnackbarPosition.center),
-          ],
-        );
-        final Widget actionWidget =
-            context.knobs.options(label: 'Action Widget', options: [
-          const Option(label: 'None', value: SizedBox()),
-          const Option(label: 'Icon', value: Icon(Icons.close)),
-          const Option(label: 'Text', value: Text('Action')),
-        ]);
-        final Color backgroundColor = context.knobs.options(
+        final SnackbarPosition position =
+            context.knobs.options(label: 'Position', options: _positionOptions);
+        final actionWidget = context.knobs
+            .options(label: 'Action Widget', options: _actionOptions);
+        final backgroundColor = context.knobs.options(
           label: 'Background Color',
-          options: _colorOptions.sublist(8),
+          options: _colorOptions,
         );
-        final Color iconColor = context.knobs.options(
-          label: 'Icon Color',
-          options: _colorOptions.sublist(1),
+
+        final BorderSide boxBorder = BorderSide(
+          color: context.knobs
+                  .options(label: 'Border Color', options: _colorOptions) ??
+              Colors.transparent,
         );
-        final BoxBorder boxBorder = Border.all(
-          color: context.knobs.options(label: 'Border Color', options: [
-            ..._colorOptions.sublist(_colorOptions.length - 1),
-            ..._colorOptions
-          ]),
-        );
+
+        final borderRadus = context.knobs
+            .number(label: 'Border Radius', initialValue: 4)
+            .toDouble();
+
+        final iconSize = context.knobs
+            .number(label: 'Icon Size', initialValue: 22)
+            .toDouble();
+
         return PreviewWidget(
-          child: GestureDetector(
-            onTap: () {
-              ZeroSnackbarAlert().show(
-                context,
-                title: title,
-                subtitle: subtitle,
-                duration: const Duration(seconds: 2),
-                type: types,
-                variant: variant,
-                backgroundColor: backgroundColor,
-                iconColor: iconColor,
-                actionWidget: actionWidget,
-                subtitleTextStyle: const TextStyle(),
-                titleTextStyle: const TextStyle(),
-                border: boxBorder,
-                position: position,
-              );
-            },
-            child: const Text('Show Snackbar Alert'),
-          ),
+          child: Builder(builder: (context) {
+            return GestureDetector(
+              onTap: () {
+                ZeroSnackbarAlert().show(
+                  context,
+                  title: title,
+                  subtitle: subtitle,
+                  type: types,
+                  variant: variant,
+                  style: ZeroSnackbarAlertStyle(
+                    color: backgroundColor,
+                    border: boxBorder,
+                    borderRadius: BorderRadius.circular(borderRadus),
+                    subtitleStyle: TextStyle(color: subtitleColor),
+                    titleStyle: TextStyle(color: titleColor),
+                    iconSize: iconSize,
+                  ),
+                  action: actionWidget,
+                  position: position,
+                );
+              },
+              child: const Text('Show Snackbar Alert'),
+            );
+          }),
         );
       },
     ),
   ],
 );
 
-List<Option<Color>> _colorOptions = [
-  const Option(label: 'Neutral', value: ZeroColors.neutral),
-  const Option(label: 'White', value: ZeroColors.white),
-  const Option(label: 'black', value: ZeroColors.black),
-  const Option(label: 'Primary', value: ZeroColors.primary),
-  const Option(label: 'Calendula Gold', value: ZeroColors.calendulaGold),
-  const Option(label: 'Sunrise Yellow', value: ZeroColors.sunriseYellow),
-  const Option(label: 'Lime', value: ZeroColors.lime),
-  const Option(label: 'Polar Green', value: ZeroColors.polarGreen),
-  const Option(label: 'Dust Red', value: ZeroColors.dustRed),
-  const Option(label: 'Vocano', value: ZeroColors.vocano),
-  const Option(label: 'Sunset Orange', value: ZeroColors.sunsetOrange),
-  const Option(label: 'Geek Blue', value: ZeroColors.geekBlue),
-  const Option(label: 'Golden Purple', value: ZeroColors.goldenPurple),
-  const Option(label: 'Magenta', value: ZeroColors.magenta),
-  const Option(label: 'Transparent', value: ZeroColors.transparent),
+List<Option<Color?>> _colorOptions = [
+  const Option(label: 'Default', value: null),
+  ...colorOptions,
+];
+
+List<Option<IconData?>> _iconOptions = [
+  const Option(label: 'Default', value: null),
+  const Option(label: 'Close', value: ZeroIcons.close),
+  const Option(label: 'Clear', value: ZeroIcons.clear),
+  const Option(label: 'Folder Open', value: ZeroIcons.folderOpen),
+  const Option(label: 'Compass', value: ZeroIcons.compass),
+];
+
+List<Option<ZeroSnackbarAlertType>> _alertTypeOptions = [
+  const Option(label: 'Solid Filled', value: ZeroSnackbarAlertType.solidFilled),
+  const Option(label: 'Filled', value: ZeroSnackbarAlertType.filled),
+  const Option(label: 'Outlined', value: ZeroSnackbarAlertType.outlined),
+];
+
+List<Option<ZeroSnackbarAlertVariant>> _alertVariantOptions = [
+  const Option(label: 'Danger', value: ZeroSnackbarAlertVariant.danger),
+  const Option(label: 'Warning', value: ZeroSnackbarAlertVariant.warning),
+  const Option(label: 'Info', value: ZeroSnackbarAlertVariant.info),
+  const Option(label: 'Success', value: ZeroSnackbarAlertVariant.success),
+];
+
+List<Option<SnackbarPosition>> _positionOptions = [
+  const Option(label: 'Bottom', value: SnackbarPosition.bottom),
+  const Option(label: 'Top', value: SnackbarPosition.top),
+  const Option(label: 'Center', value: SnackbarPosition.center),
+];
+
+List<Option<Widget?>> _actionOptions = [
+  const Option(label: 'None', value: null),
+  const Option(label: 'Icon', value: Icon(Icons.close)),
+  const Option(label: 'Text', value: Text('Action')),
 ];
