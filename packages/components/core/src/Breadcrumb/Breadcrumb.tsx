@@ -106,11 +106,12 @@ export const BreadcrumbSeparator = forwardRef<
 export const BreadcrumbItem = forwardRef<
   ElementRef<typeof StyledBreadcrumbItem>,
   BreadcrumbItemProps
->(({ children, className, ...props }) => {
+>(({ children, className, ...props }, ref) => {
   const { separator } = useContext(BreadcrumbContext);
   return (
     <StyledBreadcrumbItem
       className={clsx('breadcrumb-item', className)}
+      ref={ref}
       {...props}
     >
       {children}
