@@ -748,8 +748,6 @@ class ZeroThemeData with Diagnosticable {
     ZeroAlertDialogStyle? alertDialogStyle,
     ZeroStepStyle? stepStyle,
     ZeroStepperStyle? stepperStyle,
-    ZeroTooltipStyle? tooltipStyle,
-    ZeroSkeletonStyleSet? skeletonStyle,
     ZeroSnackbarStyleSet? snackBarStyle,
   }) {
     return ZeroThemeData.raw(
@@ -825,8 +823,6 @@ class ZeroThemeData with Diagnosticable {
       alertDialogStyle: alertDialogStyle ?? this.alertDialogStyle,
       stepStyle: stepStyle ?? this.stepStyle,
       stepperStyle: stepperStyle ?? this.stepperStyle,
-      tooltipStyle: tooltipStyle ?? this.tooltipStyle,
-      skeletonStyle: skeletonStyle ?? this.skeletonStyle,
       snackBarStyle: snackBarStyle ?? this.snackBarStyle,
     );
   }
