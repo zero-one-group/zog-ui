@@ -1,57 +1,55 @@
-import 'package:flutter/material.dart';
-import 'package:zog_ui/zog_ui.dart';
+part of 'zero_stepper.dart';
 
-class ZeroStep extends Step {
-  ZeroStep({
-    /// [title] is the title of the step.
-    required Widget title,
+enum ZeroStepState {
+  indexed,
+  disabled,
+  error,
+  customIcon,
+}
 
-    /// [subtitle] is the subtitle of the step.
-    Widget? subtitle,
+@immutable
+class ZeroStep {
+  /// Creates a step for a [Stepper].
+  ///
+  /// The [title], [content], and [state] arguments must not be null.
+  const ZeroStep({
+    required this.title,
+    this.subtitle,
+    required this.content,
+    this.state = ZeroStepState.indexed,
+    this.customIcon,
+    this.isActive = false,
+    this.label,
+    this.style,
+  });
 
-    /// [content] is the content of the step.
-    required Widget content,
+  final ZeroStepStyle? style;
 
-    /// [state] is the state of the step.
-    /// The default value is [StepState.indexed].
-    /// the [StepState] can be [StepState.indexed], [StepState.editing], [StepState.complete], [StepState.disabled], [StepState.error]
-    StepState state = StepState.indexed,
+  /// The title of the step that typically describes it.
+  final Widget title;
 
-    /// [isActive] is the boolean value to determine whether the step is active or not.
-    bool isActive = false,
+  /// The subtitle of the step that appears below the title and has a smaller
+  /// font size. It typically gives more details that complement the title.
+  ///
+  /// If null, the subtitle is not shown.
+  final Widget? subtitle;
 
-    /// [label] is the label of the step.
-    Widget? label,
+  /// The content of the step that appears below the [title] and [subtitle].
+  ///
+  /// Below the content, every step has a 'continue' and 'cancel' button.
+  final Widget content;
 
-    /// [subtitlePosition] is the position of the subtitle.
-    /// when [subtitlePosition] is [ZeroStepSubtitlePosition.top], the [subtitle] will be shown above the [title].
-    ZeroStepSubtitlePosition subtitlePosition = ZeroStepSubtitlePosition.bottom,
-  }) : super(
-          title: subtitlePosition == ZeroStepSubtitlePosition.top
-              ? Builder(
-                  builder: (context) {
-                    return DefaultTextStyle(
-                      style:
-                          context.theme.typography.caption ?? const TextStyle(),
-                      child: subtitle ?? const SizedBox(),
-                    );
-                  },
-                )
-              : title,
-          subtitle: subtitlePosition == ZeroStepSubtitlePosition.top
-              ? Builder(
-                  builder: (context) {
-                    return DefaultTextStyle(
-                      style:
-                          context.theme.typography.body1 ?? const TextStyle(),
-                      child: title,
-                    );
-                  },
-                )
-              : subtitle,
-          content: content,
-          state: state,
-          isActive: isActive,
-          label: label,
-        );
+  /// The state of the step which determines the styling of its components
+  /// and whether steps are interactive.
+  final ZeroStepState state;
+
+  /// customizes the icon of the step when [state] is set to [ZeroStepState.customIcon]
+  final Widget? customIcon;
+
+  /// Whether or not the step is active. The flag only influences styling.
+  final bool isActive;
+
+  /// Only [StepperType.horizontal], Optional widget that appears under the [title].
+  /// By default, uses the `bodyLarge` theme.
+  final Widget? label;
 }

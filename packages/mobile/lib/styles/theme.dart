@@ -113,6 +113,8 @@ class ZeroThemeData with Diagnosticable {
   final ZeroSliderStyle sliderStyle;
   final ZeroAvatarStyle avatarStyle;
   final ZeroMenuStyle menuStyle;
+  final ZeroStepStyle stepStyle;
+  final ZeroStepperStyle stepperStyle;
   final ZeroButtonGroupStyleSet buttonGroupStyle;
   final ZeroSkeletonStyleSet? skeletonStyle;
   final ZeroTooltipStyle tooltipStyle;
@@ -184,6 +186,8 @@ class ZeroThemeData with Diagnosticable {
     required this.buttonGroupStyle,
     required this.skeletonStyle,
     required this.tooltipStyle,
+    required this.stepStyle,
+    required this.stepperStyle,
     required this.snackBarStyle,
 
     // Others
@@ -244,6 +248,8 @@ class ZeroThemeData with Diagnosticable {
     ZeroMenuStyle? menuStyle,
     ZeroTooltipStyle? tooltipStyle,
     ZeroSkeletonStyleSet? skeletonStyle,
+    ZeroStepStyle? stepStyle,
+    ZeroStepperStyle? stepperStyle,
     ZeroSnackbarStyleSet? snackBarStyle,
   }) {
     // TODO: Finalize the default style of theme
@@ -497,6 +503,28 @@ class ZeroThemeData with Diagnosticable {
       tooltipStyle: tooltipStyleFallback.merge(tooltipStyle),
     );
 
+    final stepStyleFallback = ZeroStepStyle.fallback(
+      activeColor: primaryColor,
+      inactiveColor: isLight ? ZeroColors.neutral[7] : ZeroColors.neutral[9],
+      errorColor: errorColor,
+      iconColor: ZeroColors.white,
+      indexTextStyle: typography.body2?.copyWith(color: ZeroColors.white),
+      titleTextStyle: typography.body1,
+      subtitleTextStyle: typography.subtitle2,
+      contentTextStyle: typography.body1,
+      labelTextStyle: typography.body2,
+    );
+
+    final stepperStyleFallback = ZeroStepperStyle.fallback(
+      dividerColor: dividerColor,
+      elevation: 0,
+      margin: const EdgeInsetsDirectional.only(
+        start: 60.0,
+        end: 24.0,
+        bottom: 24.0,
+      ),
+    );
+
     final snackBarStyleFallback = ZeroSnackbarStyleSet.fallback(
       textStyle: typography.body2,
       titleStyle: typography.subtitle1,
@@ -512,6 +540,9 @@ class ZeroThemeData with Diagnosticable {
       scaffoldBackgroundColor: scaffoldBackgroundColor,
       uncheckedColor: uncheckedColor,
       checkedColor: checkedColor,
+      successColor: successColor,
+      infoColor: infoColor,
+      warningColor: warningColor,
       iconTheme: iconTheme,
       dialogTheme: dialogTheme,
       buttonTheme: buttonTheme,
@@ -519,9 +550,6 @@ class ZeroThemeData with Diagnosticable {
       colorScheme: colorScheme,
       typography: typography,
       cardColor: cardColor,
-      successColor: successColor,
-      infoColor: infoColor,
-      warningColor: warningColor,
       errorColor: errorColor,
       disabledBackgroundColor: disabledBackgroundColor,
       dividerColor: dividerColor,
@@ -560,6 +588,8 @@ class ZeroThemeData with Diagnosticable {
       tooltipStyle: tooltipStyleFallback.merge(tooltipStyle),
       menuStyle: menuStyleFallback.merge(menuStyle),
       skeletonStyle: skeletonStyle,
+      stepStyle: stepStyleFallback.merge(stepStyle),
+      stepperStyle: stepperStyleFallback.merge(stepperStyle),
       snackBarStyle: snackBarStyleFallback.merge(snackBarStyle),
     );
   }
@@ -635,6 +665,8 @@ class ZeroThemeData with Diagnosticable {
       buttonTheme: t < 0.5 ? a.buttonTheme : b.buttonTheme,
       buttonGroupStyle: ZeroButtonGroupStyleSet.lerp(
           a.buttonGroupStyle, b.buttonGroupStyle, t),
+      stepStyle: ZeroStepStyle.lerp(a.stepStyle, b.stepStyle, t),
+      stepperStyle: ZeroStepperStyle.lerp(a.stepperStyle, b.stepperStyle, t),
       tooltipStyle: ZeroTooltipStyle.lerp(a.tooltipStyle, b.tooltipStyle, t),
       skeletonStyle:
           ZeroSkeletonStyleSet.lerp(a.skeletonStyle, b.skeletonStyle, t),
@@ -695,6 +727,8 @@ class ZeroThemeData with Diagnosticable {
     ZeroAvatarStyle? avatarStyle,
     ZeroButtonGroupStyleSet? buttonGroupStyle,
     ZeroMenuStyle? menuStyle,
+    ZeroStepStyle? stepStyle,
+    ZeroStepperStyle? stepperStyle,
     ZeroTooltipStyle? tooltipStyle,
     ZeroSkeletonStyleSet? skeletonStyle,
     ZeroSnackbarStyleSet? snackBarStyle,
@@ -767,6 +801,8 @@ class ZeroThemeData with Diagnosticable {
       sliderStyle: sliderStyle ?? this.sliderStyle,
       avatarStyle: avatarStyle ?? this.avatarStyle,
       buttonGroupStyle: buttonGroupStyle ?? this.buttonGroupStyle,
+      stepStyle: stepStyle ?? this.stepStyle,
+      stepperStyle: stepperStyle ?? this.stepperStyle,
       tooltipStyle: tooltipStyle ?? this.tooltipStyle,
       skeletonStyle: skeletonStyle ?? this.skeletonStyle,
       snackBarStyle: snackBarStyle ?? this.snackBarStyle,
