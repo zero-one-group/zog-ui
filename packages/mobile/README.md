@@ -11,29 +11,76 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+This is a collection of component widgets developed by Zero One Group.
 
 ## Features
+This package consists of components and a theme extension.
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+### Components
 
-## Getting started
+#### Forms
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+- ZeroTextfield
+- ZeroDropdown
+- ZeroRadioGroup
+- ZeroDropdownButton
+- ZeroDropdownMenu
+- ZeroCheckbox
+- ZeroSwitch
+- ZeroSlider
+
+#### Buttons
+
+- ZeroButton
+- ZeroButtonGroup
+
+#### Navigations
+
+- ZeroNavigationBar
+- ZeroNavigationDrawer
+- ZeroAppBar
+- ZeroNavigationRail
+- ZeroTabBar
+
+
+### Theme
+
+- ZeroTheme
+- ZeroThemeData
+
+### Foundation
+- Colors
+- Typography
+
+#### Forms
+
+- ZeroTextfield
+- ZeroButton
+- ZeroButtonGroup
+- ZeroDropdown
+
+For more information about the available components, please refer: [](https://zero-ui-mobile.web.app/#/)
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+### Add dependency 
+Please check the latest version before installation. If there is any problem with the new version, please use the previous version
 
 ```dart
-const like = 'sample';
+    dependencies:
+    flutter:
+        sdk: flutter
+    zog_ui: ^{latest version}
 ```
 
-## Additional information
+### Import the package
+Add the following imports to your Dart code. The first file  that need this to be imported in is the file contains `MaterialApp`
+import 'package:zog_ui/zog_ui.dart';
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+### Use ZeroApp
+Replace your `MaterialApp` with `ZeroApp`. Otherwise it will not work. All the build-in Flutter widgets are fully supported here as well.
+
+## Additional information
+If you want to browse all the available widget, on you VS Code editor, just type "Zero" and then hold cmd+space. It will show the suggestion of what are available.
+
+For more informationa and previews of the available components, please refer: [](https://zero-ui-mobile.web.app/#/)
