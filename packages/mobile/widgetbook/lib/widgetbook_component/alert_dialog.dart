@@ -73,6 +73,12 @@ WidgetbookComponent alertDialogWidgetbookComponent = WidgetbookComponent(
                     Text(title),
                   ],
                 ),
+                style: ZeroAlertDialogStyle(
+                  elevation: elevation,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(borderRadius),
+                  ),
+                ),
                 content: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
@@ -109,12 +115,8 @@ WidgetbookComponent alertDialogWidgetbookComponent = WidgetbookComponent(
                     ]
                   ],
                 ),
-                elevation: elevation,
                 actionsAlignment: actionsAlignment,
                 barrierDismissible: barrierDismissible,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(borderRadius),
-                ),
                 actions: [
                   TextButton(
                     onPressed: () {
