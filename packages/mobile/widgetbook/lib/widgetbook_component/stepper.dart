@@ -31,14 +31,68 @@ WidgetbookComponent stepperWidgetbookComponent = WidgetbookComponent(
           label = const Text('Label');
         }
 
-        final StepState stepState = context.knobs.options(
+        final ZeroStepState stepState = context.knobs.options(
           label: 'Step State',
           options: [
-            const Option(label: 'Indexed', value: StepState.indexed),
-            const Option(label: 'Editing', value: StepState.editing),
-            const Option(label: 'Complete', value: StepState.complete),
-            const Option(label: 'Disabled', value: StepState.disabled),
-            const Option(label: 'Error', value: StepState.error),
+            const Option(label: 'Indexed', value: ZeroStepState.indexed),
+            const Option(label: 'Icon', value: ZeroStepState.customIcon),
+            const Option(label: 'Disabled', value: ZeroStepState.disabled),
+            const Option(label: 'Error', value: ZeroStepState.error),
+          ],
+        );
+
+        Icon icon = context.knobs.options(
+          label: 'Icon',
+          options: [
+            const Option(
+              label: 'Edit',
+              value: Icon(
+                Icons.edit,
+                size: 14,
+              ),
+            ),
+            const Option(
+              label: 'Add',
+              value: Icon(
+                Icons.add,
+                size: 14,
+              ),
+            ),
+            const Option(
+              label: 'Delete',
+              value: Icon(
+                Icons.delete,
+                size: 14,
+              ),
+            ),
+            const Option(
+              label: 'Done',
+              value: Icon(
+                Icons.done,
+                size: 14,
+              ),
+            ),
+            const Option(
+              label: 'Close',
+              value: Icon(
+                Icons.close,
+                size: 14,
+              ),
+            ),
+            const Option(
+              label: 'Arrow Back',
+              value: Icon(
+                Icons.arrow_back,
+                size: 14,
+              ),
+            ),
+            const Option(
+              label: 'Arrow Forward',
+              value: Icon(
+                Icons.arrow_forward,
+                size: 14,
+              ),
+            ),
           ],
         );
 
@@ -49,6 +103,7 @@ WidgetbookComponent stepperWidgetbookComponent = WidgetbookComponent(
             label: label,
             title: title,
             content: content,
+            cutomIcon: icon,
           ),
         );
       },
@@ -58,16 +113,18 @@ WidgetbookComponent stepperWidgetbookComponent = WidgetbookComponent(
 
 class _ZeroStepperExample extends StatefulWidget {
   final StepperType type;
-  final StepState stepState;
+  final ZeroStepState stepState;
   final Text? label;
   final bool title;
   final String content;
+  final Icon cutomIcon;
   const _ZeroStepperExample({
     this.type = StepperType.vertical,
-    this.stepState = StepState.indexed,
+    this.stepState = ZeroStepState.indexed,
     this.label,
     this.title = true,
     this.content = 'Content',
+    this.cutomIcon = const Icon(Icons.edit),
   });
 
   @override
@@ -97,6 +154,7 @@ class __ZeroStepperExampleState extends State<_ZeroStepperExample> {
           subtitle: const Text('Subtitle 1'),
           content: Text(widget.content),
           state: widget.stepState,
+          customIcon: widget.cutomIcon,
           label: widget.label,
         ),
         ZeroStep(
@@ -105,6 +163,7 @@ class __ZeroStepperExampleState extends State<_ZeroStepperExample> {
           subtitle: const Text('Subtitle 2'),
           content: Text(widget.content),
           state: widget.stepState,
+          customIcon: widget.cutomIcon,
           label: widget.label,
         ),
         ZeroStep(
@@ -113,6 +172,7 @@ class __ZeroStepperExampleState extends State<_ZeroStepperExample> {
           subtitle: const Text('Subtitle 3'),
           content: Text(widget.content),
           state: widget.stepState,
+          customIcon: widget.cutomIcon,
           label: widget.label,
         ),
       ],

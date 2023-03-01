@@ -91,7 +91,7 @@ class ZeroStepper extends StatefulWidget {
 class _ZeroStepperState extends State<ZeroStepper>
     with TickerProviderStateMixin {
   late List<GlobalKey> _keys;
-  final Map<int, StepState> _oldStates = <int, StepState>{};
+  final Map<int, ZeroStepState> _oldStates = <int, ZeroStepState>{};
 
   @override
   void initState() {
@@ -153,30 +153,22 @@ class _ZeroStepperState extends State<ZeroStepper>
     final themeStyle = theme.stepStyle;
     final adaptiveStyle = themeStyle.merge(widget.steps[index].style);
 
-    final StepState state =
+    final ZeroStepState state =
         oldState ? _oldStates[index]! : widget.steps[index].state;
     switch (state) {
-      case StepState.indexed:
-      case StepState.disabled:
+      case ZeroStepState.indexed:
+      case ZeroStepState.disabled:
         return DefaultTextStyle(
           style: adaptiveStyle.indexTextStyle!,
           child: Text(
             '${index + 1}',
           ),
         );
-      case StepState.editing:
-        return Icon(
-          Icons.edit,
-          color: adaptiveStyle.iconColor,
-          size: 18.0,
-        );
-      case StepState.complete:
-        return Icon(
-          Icons.check,
-          color: adaptiveStyle.iconColor,
-          size: 18.0,
-        );
-      case StepState.error:
+      case ZeroStepState.customIcon:
+        assert(widget.steps[index].customIcon != null,
+            'customIcon must not be null');
+        return widget.steps[index].customIcon!;
+      case ZeroStepState.error:
         return Text('!', style: adaptiveStyle.indexTextStyle);
     }
   }
@@ -332,13 +324,12 @@ class _ZeroStepperState extends State<ZeroStepper>
     final adaptiveStyle = themeStyle.merge(widget.steps[index].style);
 
     switch (widget.steps[index].state) {
-      case StepState.indexed:
-      case StepState.editing:
-      case StepState.complete:
+      case ZeroStepState.indexed:
+      case ZeroStepState.customIcon:
         return adaptiveStyle.titleTextStyle!;
-      case StepState.disabled:
+      case ZeroStepState.disabled:
         return adaptiveStyle.titleTextStyle!;
-      case StepState.error:
+      case ZeroStepState.error:
         return adaptiveStyle.titleTextStyle!;
     }
   }
@@ -349,13 +340,12 @@ class _ZeroStepperState extends State<ZeroStepper>
     final adaptiveStyle = themeStyle.merge(widget.steps[index].style);
 
     switch (widget.steps[index].state) {
-      case StepState.indexed:
-      case StepState.editing:
-      case StepState.complete:
+      case ZeroStepState.indexed:
+      case ZeroStepState.customIcon:
         return adaptiveStyle.subtitleTextStyle!;
-      case StepState.disabled:
+      case ZeroStepState.disabled:
         return adaptiveStyle.subtitleTextStyle!;
-      case StepState.error:
+      case ZeroStepState.error:
         return adaptiveStyle.subtitleTextStyle!;
     }
   }
@@ -366,13 +356,12 @@ class _ZeroStepperState extends State<ZeroStepper>
     final adaptiveStyle = themeStyle.merge(widget.steps[index].style);
 
     switch (widget.steps[index].state) {
-      case StepState.indexed:
-      case StepState.editing:
-      case StepState.complete:
+      case ZeroStepState.indexed:
+      case ZeroStepState.customIcon:
         return adaptiveStyle.labelTextStyle!;
-      case StepState.disabled:
+      case ZeroStepState.disabled:
         return adaptiveStyle.labelTextStyle!;
-      case StepState.error:
+      case ZeroStepState.error:
         return adaptiveStyle.labelTextStyle!;
     }
   }

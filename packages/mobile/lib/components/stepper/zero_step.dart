@@ -1,13 +1,12 @@
 part of 'zero_stepper.dart';
 
-/// A material step used in [Stepper]. The step can have a title and subtitle,
-/// an icon within its circle, some content and a state that governs its
-/// styling.
-///
-/// See also:
-///
-///  * [Stepper]
-///  * <https://material.io/archive/guidelines/components/steppers.html>
+enum ZeroStepState {
+  indexed,
+  disabled,
+  error,
+  customIcon,
+}
+
 @immutable
 class ZeroStep {
   /// Creates a step for a [Stepper].
@@ -17,7 +16,8 @@ class ZeroStep {
     required this.title,
     this.subtitle,
     required this.content,
-    this.state = StepState.indexed,
+    this.state = ZeroStepState.indexed,
+    this.customIcon,
     this.isActive = false,
     this.label,
     this.style,
@@ -41,7 +41,10 @@ class ZeroStep {
 
   /// The state of the step which determines the styling of its components
   /// and whether steps are interactive.
-  final StepState state;
+  final ZeroStepState state;
+
+  /// customizes the icon of the step when [state] is set to [ZeroStepState.customIcon]
+  final Widget? customIcon;
 
   /// Whether or not the step is active. The flag only influences styling.
   final bool isActive;
