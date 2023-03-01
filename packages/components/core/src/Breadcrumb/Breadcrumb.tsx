@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { ComponentProps, createContext, ReactNode, useContext } from 'react';
 import { styled } from '../stitches.config';
 
@@ -63,13 +64,14 @@ const BreadcrumbContext = createContext<BreadcrumbContextProps>({
 export const Breadcrumb = ({
   separator = '/',
   children,
+  className,
   ...props
 }: BreadcrumbProps) => {
   return (
     <BreadcrumbContext.Provider value={{ separator }}>
       <StyedBreadcrumb
         aria-label="Breadcrumb"
-        className="breadcrumb"
+        className={clsx('breadcrumb', className)}
         {...props}
       >
         <StyedBreadcrumbWrapper className="breadcrumb-wrapper">
@@ -82,19 +84,30 @@ export const Breadcrumb = ({
 
 export const BreadcrumbSeparator = ({
   children,
+  className,
   ...props
 }: BreadcrumbItemProps) => {
   return (
-    <StyledBreadcrumbItemSeparator className="breadcrumb-separator" {...props}>
+    <StyledBreadcrumbItemSeparator
+      className={clsx('breadcrumb-separator', className)}
+      {...props}
+    >
       {children}
     </StyledBreadcrumbItemSeparator>
   );
 };
 
-export const BreadcrumbItem = ({ children, ...props }: BreadcrumbItemProps) => {
+export const BreadcrumbItem = ({
+  children,
+  className,
+  ...props
+}: BreadcrumbItemProps) => {
   const { separator } = useContext(BreadcrumbContext);
   return (
-    <StyledBreadcrumbItem className="breadcrumb-item" {...props}>
+    <StyledBreadcrumbItem
+      className={clsx('breadcrumb-item', className)}
+      {...props}
+    >
       {children}
       {separator ? (
         <BreadcrumbSeparator>{separator}</BreadcrumbSeparator>
