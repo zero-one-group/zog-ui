@@ -70,7 +70,6 @@ Please check the latest version before installation. If there is any problem wit
     dependencies:
     flutter:
         sdk: flutter
-    # add flutter_screenutil
     zog_ui: ^{latest version}
 ```
 
