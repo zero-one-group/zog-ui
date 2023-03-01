@@ -60,7 +60,7 @@ const BreadcrumbContext = createContext<BreadcrumbContextProps>({
 });
 
 export const Breadcrumb = ({
-  separator,
+  separator = '/',
   children,
   ...props
 }: BreadcrumbProps) => {

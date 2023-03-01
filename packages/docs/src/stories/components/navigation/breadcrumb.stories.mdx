@@ -91,7 +91,12 @@ const App = () => (
       );
     }}
   </Story>
-  <Story name="Configuring the Separator">
+  <Story
+    name="Configuring the Separator"
+    args={{
+      separator: '',
+    }}
+  >
     {(args) => {
       return (
         <Breadcrumb {...args}>
