@@ -2,11 +2,11 @@ import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
 import { BADGE } from '@geometricpanda/storybook-addon-badges';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { ProgressBar } from '@zog-ui/core';
+import { CircleBar } from '@zog-ui/core';
 
 <Meta
   title="Components/Display/ProgressBar"
-  component={[ProgressBar]}
+  component={[CircleBar]}
   argTypes={{
     size: {
       control: 'radio',
@@ -19,16 +19,16 @@ import { ProgressBar } from '@zog-ui/core';
   }}
 />
 
-export const ProgressBarStory = (args) => <ProgressBar {...args} />;
+export const CircleBarStory = (args) => <CircleBar {...args} />;
 
-# ProgressBar
+# CircleBar
 
-> A progress bar is a graphical representation of the progress of a task, typically used to indicate the completion status of a process or operation. Progress bars are commonly used in software applications, web applications, and other digital interfaces to provide feedback to users on the status of a task.
+> A circle bar is a type of progress bar that represents progress as a percentage of a full circle. This type of progress bar can be used to provide visual feedback on the progress of a task or process, and is often used in user interfaces for games, fitness apps, and other applications where progress is represented as a circular or radial element.
 
 ## Example Usage
 
 ```tsx
-import { ProgressBar } from '@zog-ui/core';
+import { CircleBar } from '@zog-ui/core';
 ```
 
 <Canvas columns={2} withSource="close">
@@ -36,12 +36,11 @@ import { ProgressBar } from '@zog-ui/core';
     args={{
       value: 100,
       status: '',
-      hiddenProgress: false,
     }}
-    name="ProgressBar"
+    name="CircleBar"
   >
-    {ProgressBarStory.bind()}
+    {CircleBarStory.bind()}
   </Story>
 </Canvas>
 
-<ArgsTable of={ProgressBar} />
+<ArgsTable of={CircleBar} />
