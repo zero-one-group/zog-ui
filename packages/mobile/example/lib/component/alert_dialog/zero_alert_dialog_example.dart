@@ -19,12 +19,12 @@ class _ZeroAlertDialogExampleState extends State<ZeroAlertDialogExample> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextButton(
+            ZeroButton.primary(
               onPressed: () {
                 ZeroAlertDialog().show(
                   context,
-
                   title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
                         width: double.infinity,
@@ -38,38 +38,40 @@ class _ZeroAlertDialogExampleState extends State<ZeroAlertDialogExample> {
                       const Text('Basic dialog title'),
                     ],
                   ),
-                  elevation: 4,
+                  style: ZeroAlertDialogStyle(
+                    alignment: Alignment.centerRight,
+                    elevation: 1,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(0),
+                    ),
+                    barrierColor: Colors.amber.withOpacity(0.2),
+                  ),
                   content: const Text(
                     'A dialog is a type of modal window that appears in front of app content to provide critical information, or prompt for a decision to be made.',
-                    textAlign: TextAlign.center,
+                    textAlign: TextAlign.start,
                   ),
-                  // backgroundColor: Colors.black,
-                  shadowColor: Colors.amber,
-                  barrierDismissible: false,
-                  alignment: Alignment.centerRight,
+                  barrierDismissible: true,
                   actionsAlignment: MainAxisAlignment.center,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
                   actions: [
-                    TextButton(
+                    ZeroButton.primary(
                       onPressed: () {
                         ZeroAlertDialog().hide();
                       },
-                      child: const Text('Cancel'),
+                      text: 'Cancel',
                     ),
-                    TextButton(
+                    ZeroButton.primary(
                       onPressed: () {
                         ZeroAlertDialog().hide();
                       },
-                      child: const Text('OK'),
+                      text: 'OK',
                     ),
                   ],
                 );
               },
-              child: const Text('Show Alert Dialog'),
+              text: 'Show Alert Dialog',
             ),
-            TextButton(
+            const SizedBox(height: 16),
+            ZeroButton.primary(
               onPressed: () {
                 ZeroAlertDialog().show(
                   context,
@@ -78,22 +80,22 @@ class _ZeroAlertDialogExampleState extends State<ZeroAlertDialogExample> {
                     'A dialog is a type of modal window that appears in front of app content to provide critical information, or prompt for a decision to be made.',
                   ),
                   actions: [
-                    TextButton(
+                    ZeroButton.primary(
                       onPressed: () {
                         ZeroAlertDialog().hide();
                       },
-                      child: const Text('Cancel'),
+                      text: 'Cancel',
                     ),
-                    TextButton(
+                    ZeroButton.primary(
                       onPressed: () {
                         ZeroAlertDialog().hide();
                       },
-                      child: const Text('OK'),
+                      text: 'OK',
                     ),
                   ],
                 );
               },
-              child: const Text('Show Simple Alert Dialog'),
+              text: 'Show Simple Alert Dialog',
             ),
           ],
         ),
