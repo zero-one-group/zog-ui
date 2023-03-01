@@ -49,9 +49,13 @@ class _SpeedDialItem extends StatelessWidget {
     final theme = context.theme;
     final themeTooltipStyle = theme.tooltipStyle.merge(tooltipStyle);
     final tooltipBackgroundColor = themeTooltipStyle.backgroundColor ??
-        (theme.brightness.isDark == true
+        ((tooltipBrightness ?? theme.brightness).isDark == true
             ? themeTooltipStyle.darkBackgroundColor
             : themeTooltipStyle.lightBackgroundColor);
+    final tooltipTextColor = themeTooltipStyle.textStyle?.color ??
+        ((tooltipBrightness ?? theme.brightness).isDark == true
+            ? ZeroColors.white
+            : ZeroColors.black);
 
     return Stack(
       clipBehavior: Clip.none,
@@ -104,9 +108,10 @@ class _SpeedDialItem extends StatelessWidget {
                     ? const EdgeInsets.symmetric(horizontal: 0, vertical: 8)
                     : const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 child: DefaultTextStyle(
-                  style: DefaultTextStyle.of(context)
-                      .style
-                      .merge(themeTooltipStyle.textStyle),
+                  style: DefaultTextStyle.of(context).style.merge(
+                        themeTooltipStyle.textStyle
+                            ?.copyWith(color: tooltipTextColor),
+                      ),
                   child: Center(
                     child: variant == ZeroTooltipVariant.rounded
                         ? SizedBox(

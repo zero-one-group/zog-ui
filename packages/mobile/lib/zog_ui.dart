@@ -72,8 +72,7 @@ export './components/snackbar/zero_snackbar_alert.dart';
 // speed dial
 export './components/speed_dial/zero_speed_dial.dart';
 // stepper
-export './components/stepper/zero_step.dart';
-export './components/stepper/zero_stepper.dart';
+export 'components/stepper/zero_stepper.dart';
 // switch
 export './components/switch/zero_switch.dart';
 export './components/switch/zero_switch_android.dart';
@@ -128,12 +127,15 @@ export './styles/component/radio_style.dart';
 export './styles/component/rating_style.dart';
 export './styles/component/skeleton_style.dart';
 export './styles/component/slider_style.dart';
+export './styles/component/snackbar_style.dart';
 export './styles/component/speed_dial_style.dart';
 export './styles/component/switch_style.dart';
 export './styles/component/tab_bar_style.dart';
 export './styles/component/textfield_style.dart';
 export './styles/component/tooltip_style.dart';
 export './styles/component/alert_dialog_style.dart';
+export './styles/component/step_style.dart';
+export './styles/component/stepper_style.dart';
 export './styles/theme.dart';
 export './styles/typography.dart';
 // types

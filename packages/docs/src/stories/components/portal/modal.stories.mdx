@@ -169,6 +169,38 @@ export const buttonStyle = {
       </Modal>
     )}
   </Story>
+  <Story name="No Content">
+    {(args) => (
+      <Modal>
+        <Modal.Trigger>
+          <Button>Open Modal</Button>
+        </Modal.Trigger>
+        <Modal.Content intent={args.intent}>
+          <Modal.Title>
+            Modal Title
+            <Modal.CloseIcon>
+              <CloseOutlined />
+            </Modal.CloseIcon>
+          </Modal.Title>
+          <Modal.Description>Modal Description</Modal.Description>
+          <ButtonGroup
+            css={{
+              justifyContent: 'flex-end',
+            }}
+          >
+            <Modal.Close>
+              <Button css={{ ...buttonStyle }}>Cancel</Button>
+            </Modal.Close>
+            <Modal.Close>
+              <Button intent="primary" css={{ ...buttonStyle }}>
+                OK
+              </Button>
+            </Modal.Close>
+          </ButtonGroup>
+        </Modal.Content>
+      </Modal>
+    )}
+  </Story>
   <Story name="Controlled">
     {(args) => {
       const [open, setOpen] = useState(false);

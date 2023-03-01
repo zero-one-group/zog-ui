@@ -77,10 +77,14 @@ class ZeroThemeData with Diagnosticable {
   final Color checkedColor;
   final Color scaffoldBackgroundColor;
   final Color cardColor;
-  final Color errorColor;
+
   final Color dividerColor;
   final Color solidTextColor;
   final Color regularTextColor;
+  final Color successColor;
+  final Color infoColor;
+  final Color warningColor;
+  final Color errorColor;
 
   // Component Styles
   final ZeroListTileStyle listTileStyle;
@@ -110,11 +114,13 @@ class ZeroThemeData with Diagnosticable {
   final ZeroAvatarStyle avatarStyle;
   final ZeroMenuStyle menuStyle;
   final ZeroAlertDialogStyle alertDialogStyle;
-
+  final ZeroStepStyle stepStyle;
+  final ZeroStepperStyle stepperStyle;
   final ZeroButtonGroupStyleSet buttonGroupStyle;
   final ZeroSkeletonStyleSet? skeletonStyle;
   final ZeroTooltipStyle tooltipStyle;
   final ZeroExpansionTileStyle expansionTileStyle;
+  final ZeroSnackbarStyleSet snackBarStyle;
 
   final Brightness brightness;
   final IconThemeData iconTheme;
@@ -142,6 +148,9 @@ class ZeroThemeData with Diagnosticable {
     this.buttonTheme,
     required this.cardColor,
     required this.disabledBackgroundColor,
+    required this.successColor,
+    required this.infoColor,
+    required this.warningColor,
     required this.errorColor,
     required this.dividerColor,
     required this.solidTextColor,
@@ -176,9 +185,12 @@ class ZeroThemeData with Diagnosticable {
     required this.avatarStyle,
     required this.menuStyle,
     required this.buttonGroupStyle,
-    this.skeletonStyle,
+    required this.skeletonStyle,
     required this.tooltipStyle,
     required this.alertDialogStyle,
+    required this.stepStyle,
+    required this.stepperStyle,
+    required this.snackBarStyle,
 
     // Others
     this.useMaterial3 = false,
@@ -196,6 +208,9 @@ class ZeroThemeData with Diagnosticable {
     Color? checkedColor,
     Color? cardColor,
     Color? disabledBackgroundColor,
+    Color? successColor,
+    Color? infoColor,
+    Color? warningColor,
     Color? errorColor,
     Color? dividerColor,
     Color? solidTextColor,
@@ -236,6 +251,9 @@ class ZeroThemeData with Diagnosticable {
     ZeroTooltipStyle? tooltipStyle,
     ZeroSkeletonStyleSet? skeletonStyle,
     ZeroAlertDialogStyle? alertDialogStyle,
+    ZeroStepStyle? stepStyle,
+    ZeroStepperStyle? stepperStyle,
+    ZeroSnackbarStyleSet? snackBarStyle,
   }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
@@ -251,6 +269,9 @@ class ZeroThemeData with Diagnosticable {
     uncheckedColor ??= isLight ? ZeroColors.neutral[7] : ZeroColors.neutral[9];
     checkedColor ??= primaryColor;
     cardColor ??= isLight ? ZeroColors.white : ZeroColors.neutral[9];
+    successColor ??= ZeroColors.success;
+    infoColor ??= ZeroColors.info;
+    warningColor ??= ZeroColors.warning;
     errorColor ??= ZeroColors.danger;
     dividerColor ??= isLight ? ZeroColors.neutral[5] : ZeroColors.neutral[10];
     solidTextColor ??= isLight ? ZeroColors.neutral[10] : ZeroColors.neutral[5];
@@ -322,11 +343,11 @@ class ZeroThemeData with Diagnosticable {
             focusedColor: primaryColor),
         inputDecorationType: inputDecorationType);
 
-    skeletonStyle ??= ZeroSkeletonStyleSet(
-        avatar: const SkeletonAvatarStyle(),
-        line: const SkeletonLineStyle(),
-        listTile: const SkeletonListTileStyle(),
-        paragraph: const SkeletonParagraphStyle());
+    skeletonStyle ??= const ZeroSkeletonStyleSet(
+        avatar: SkeletonAvatarStyle(),
+        line: SkeletonLineStyle(),
+        listTile: SkeletonListTileStyle(),
+        paragraph: SkeletonParagraphStyle());
 
     colorScheme ??= ColorScheme.fromSwatch(
       brightness: brightness,
@@ -378,6 +399,7 @@ class ZeroThemeData with Diagnosticable {
     final textButtonStyleFallback = secondaryButtonStyleFallback.copyWith(
       elevation: 0,
       side: BorderSide.none,
+      foregroundColor: solidTextColor,
     );
 
     final dividerStyleFallback = ZeroDividerStyle.fallback(color: dividerColor);
@@ -494,6 +516,33 @@ class ZeroThemeData with Diagnosticable {
       ),
     );
 
+    final stepStyleFallback = ZeroStepStyle.fallback(
+      activeColor: primaryColor,
+      inactiveColor: isLight ? ZeroColors.neutral[7] : ZeroColors.neutral[9],
+      errorColor: errorColor,
+      iconColor: ZeroColors.white,
+      indexTextStyle: typography.body2?.copyWith(color: ZeroColors.white),
+      titleTextStyle: typography.body1,
+      subtitleTextStyle: typography.subtitle2,
+      contentTextStyle: typography.body1,
+      labelTextStyle: typography.body2,
+    );
+
+    final stepperStyleFallback = ZeroStepperStyle.fallback(
+      dividerColor: dividerColor,
+      elevation: 0,
+      margin: const EdgeInsetsDirectional.only(
+        start: 60.0,
+        end: 24.0,
+        bottom: 24.0,
+      ),
+    );
+
+    final snackBarStyleFallback = ZeroSnackbarStyleSet.fallback(
+      textStyle: typography.body2,
+      titleStyle: typography.subtitle1,
+    );
+
     useMaterial3 ??= false;
 
     return ZeroThemeData.raw(
@@ -504,6 +553,9 @@ class ZeroThemeData with Diagnosticable {
       scaffoldBackgroundColor: scaffoldBackgroundColor,
       uncheckedColor: uncheckedColor,
       checkedColor: checkedColor,
+      successColor: successColor,
+      infoColor: infoColor,
+      warningColor: warningColor,
       iconTheme: iconTheme,
       dialogTheme: dialogTheme,
       buttonTheme: buttonTheme,
@@ -550,6 +602,9 @@ class ZeroThemeData with Diagnosticable {
       menuStyle: menuStyleFallback.merge(menuStyle),
       skeletonStyle: skeletonStyle,
       alertDialogStyle: alertDialogFallback.merge(alertDialogStyle),
+      stepStyle: stepStyleFallback.merge(stepStyle),
+      stepperStyle: stepperStyleFallback.merge(stepperStyle),
+      snackBarStyle: snackBarStyleFallback.merge(snackBarStyle),
     );
   }
 
@@ -573,6 +628,9 @@ class ZeroThemeData with Diagnosticable {
           a.expansionTileStyle, b.expansionTileStyle, t)!,
       disabledBackgroundColor:
           Color.lerp(a.disabledBackgroundColor, b.disabledBackgroundColor, t)!,
+      successColor: Color.lerp(a.successColor, b.successColor, t)!,
+      infoColor: Color.lerp(a.infoColor, b.infoColor, t)!,
+      warningColor: Color.lerp(a.warningColor, b.warningColor, t)!,
       errorColor: Color.lerp(a.errorColor, b.errorColor, t)!,
       dividerColor: Color.lerp(a.dividerColor, b.dividerColor, t)!,
       solidTextColor: Color.lerp(a.solidTextColor, b.solidTextColor, t)!,
@@ -621,9 +679,15 @@ class ZeroThemeData with Diagnosticable {
       buttonTheme: t < 0.5 ? a.buttonTheme : b.buttonTheme,
       buttonGroupStyle: ZeroButtonGroupStyleSet.lerp(
           a.buttonGroupStyle, b.buttonGroupStyle, t),
+      stepStyle: ZeroStepStyle.lerp(a.stepStyle, b.stepStyle, t),
+      stepperStyle: ZeroStepperStyle.lerp(a.stepperStyle, b.stepperStyle, t),
       tooltipStyle: ZeroTooltipStyle.lerp(a.tooltipStyle, b.tooltipStyle, t),
       alertDialogStyle:
           ZeroAlertDialogStyle.lerp(a.alertDialogStyle, b.alertDialogStyle, t),
+      skeletonStyle:
+          ZeroSkeletonStyleSet.lerp(a.skeletonStyle, b.skeletonStyle, t),
+      snackBarStyle:
+          ZeroSnackbarStyleSet.lerp(a.snackBarStyle, b.snackBarStyle, t),
     );
   }
 
@@ -640,6 +704,9 @@ class ZeroThemeData with Diagnosticable {
     Color? checkedColor,
     Color? cardColor,
     Color? disabledBackgroundColor,
+    Color? successColor,
+    Color? infoColor,
+    Color? warningColor,
     Color? errorColor,
     Color? dividerColor,
     Color? solidTextColor,
@@ -679,6 +746,11 @@ class ZeroThemeData with Diagnosticable {
     ZeroTooltipStyle? tooltipStyle,
     ZeroSkeletonStyleSet? skeletonStyle,
     ZeroAlertDialogStyle? alertDialogStyle,
+    ZeroStepStyle? stepStyle,
+    ZeroStepperStyle? stepperStyle,
+    ZeroTooltipStyle? tooltipStyle,
+    ZeroSkeletonStyleSet? skeletonStyle,
+    ZeroSnackbarStyleSet? snackBarStyle,
   }) {
     return ZeroThemeData.raw(
       brightness: brightness ?? this.brightness,
@@ -696,6 +768,9 @@ class ZeroThemeData with Diagnosticable {
       dialogTheme: dialogTheme ?? this.dialogTheme,
       expansionTileStyle: expansionTileStyle,
       cardColor: cardColor ?? this.cardColor,
+      successColor: successColor ?? this.successColor,
+      infoColor: infoColor ?? this.infoColor,
+      warningColor: warningColor ?? this.warningColor,
       errorColor: errorColor ?? this.errorColor,
       disabledBackgroundColor:
           disabledBackgroundColor ?? this.disabledBackgroundColor,
@@ -748,6 +823,11 @@ class ZeroThemeData with Diagnosticable {
       tooltipStyle: tooltipStyle ?? this.tooltipStyle,
       skeletonStyle: skeletonStyle ?? this.skeletonStyle,
       alertDialogStyle: alertDialogStyle ?? this.alertDialogStyle,
+      stepStyle: stepStyle ?? this.stepStyle,
+      stepperStyle: stepperStyle ?? this.stepperStyle,
+      tooltipStyle: tooltipStyle ?? this.tooltipStyle,
+      skeletonStyle: skeletonStyle ?? this.skeletonStyle,
+      snackBarStyle: snackBarStyle ?? this.snackBarStyle,
     );
   }
 
@@ -802,7 +882,68 @@ class ZeroThemeData with Diagnosticable {
       ..add(EnumProperty('brightness', brightness))
       ..add(StringProperty('fontFamily', fontFamily))
       ..add(ColorProperty('disabledBackgroundColor', disabledBackgroundColor))
+      ..add(ColorProperty('successColor', successColor))
+      ..add(ColorProperty('infoColor', infoColor))
+      ..add(ColorProperty('warningColor', warningColor))
       ..add(ColorProperty('errorColor', errorColor))
-      ..add(ColorProperty('dividerColor', dividerColor));
+      ..add(ColorProperty('dividerColor', dividerColor))
+      ..add(DiagnosticsProperty<Brightness>('brightness', brightness))
+      ..add(DiagnosticsProperty<ZeroTypography>('typography', typography))
+      ..add(DiagnosticsProperty<ZeroListTileStyle>(
+          'listTileStyle', listTileStyle))
+      ..add(DiagnosticsProperty<ZeroButtonStyle>(
+          'primaryButtonStyle', primaryButtonStyle))
+      ..add(DiagnosticsProperty<ZeroButtonStyle>(
+          'secondaryButtonStyle', secondaryButtonStyle))
+      ..add(DiagnosticsProperty<ZeroButtonStyle>(
+          'textButtonStyle', textButtonStyle))
+      ..add(DiagnosticsProperty<ZeroDividerStyle>('dividerStyle', dividerStyle))
+      ..add(DiagnosticsProperty<ZeroChipFilledStyle>(
+          'chipFilledStyle', chipFilledStyle))
+      ..add(DiagnosticsProperty<ZeroChipOutlinedStyle>(
+          'chipOutlinedStyle', chipOutlinedStyle))
+      ..add(DiagnosticsProperty<ZeroNavigationBarStyle>(
+          'navigationBarStyle', navigationBarStyle))
+      ..add(DiagnosticsProperty<ZeroTextfieldStyleSet>(
+          'textfieldStyleSet', textfieldStyleSet))
+      ..add(DiagnosticsProperty<ZeroTextfieldSize>(
+          'textfieldSize', textfieldSize))
+      ..add(DiagnosticsProperty<InputDecorationType>(
+          'inputDecorationType', inputDecorationType))
+      ..add(DiagnosticsProperty<ZeroNavigationDrawerStyle>(
+          'navigationDrawerStyle', navigationDrawerStyle))
+      ..add(DiagnosticsProperty<ZeroAppBarStyle>('appBarStyle', appBarStyle))
+      ..add(DiagnosticsProperty<ZeroCardStyle>('cardStyle', cardStyle))
+      ..add(DiagnosticsProperty<ZeroButtonIconStyleSet>(
+          'buttonIconStyle', buttonIconStyle))
+      ..add(DiagnosticsProperty<ZeroNavigationRailStyle>(
+          'navigationRailStyle', navigationRailStyle))
+      ..add(DiagnosticsProperty<ZeroSwitchStyleSet>('switchStyle', switchStyle))
+      ..add(DiagnosticsProperty<ZeroTabBarStyle>('tabBarStyle', tabBarStyle))
+      ..add(DiagnosticsProperty<ZeroSpeedDialStyle>(
+          'speedDialStyle', speedDialStyle))
+      ..add(DiagnosticsProperty<ZeroCheckboxStyle>(
+          'checkboxStyle', checkboxStyle))
+      ..add(DiagnosticsProperty<ZeroRadioStyle>('radioStyle', radioStyle))
+      ..add(DiagnosticsProperty<ZeroProgressStyle>(
+          'progressStyle', progressStyle))
+      ..add(DiagnosticsProperty<ZeroRatingStyle>('ratingStyle', ratingStyle))
+      ..add(DiagnosticsProperty<ZeroSliderStyle>('sliderStyle', sliderStyle))
+      ..add(DiagnosticsProperty<ZeroAvatarStyle>('avatarStyle', avatarStyle))
+      ..add(DiagnosticsProperty<ZeroMenuStyle>('menuStyle', menuStyle))
+      ..add(DiagnosticsProperty<ZeroButtonGroupStyleSet>(
+          'buttonGroupStyle', buttonGroupStyle))
+      ..add(DiagnosticsProperty<ZeroSkeletonStyleSet>(
+          'skeletonStyle', skeletonStyle))
+      ..add(DiagnosticsProperty<ZeroTooltipStyle>('tooltipStyle', tooltipStyle))
+      ..add(DiagnosticsProperty<ZeroExpansionTileStyle>(
+          'expansionTileStyle', expansionTileStyle))
+      ..add(DiagnosticsProperty<ZeroSnackbarStyleSet>(
+          'snackBarStyle', snackBarStyle))
+      ..add(DiagnosticsProperty<IconThemeData>('iconTheme', iconTheme))
+      ..add(DiagnosticsProperty<DialogTheme>('dialogTheme', dialogTheme))
+      ..add(DiagnosticsProperty<ButtonThemeData>('buttonTheme', buttonTheme))
+      ..add(DiagnosticsProperty<ColorScheme>('colorScheme', colorScheme))
+      ..add(DiagnosticsProperty<bool>('useMaterial3', useMaterial3));
   }
 }
