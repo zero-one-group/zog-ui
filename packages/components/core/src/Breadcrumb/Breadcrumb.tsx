@@ -8,6 +8,7 @@ const StyedBreadcrumb = styled('nav', {
 const StyedBreadcrumbWrapper = styled('ol', {
   boxSizing: 'border-box',
   display: 'flex',
+  flexWrap: 'wrap',
   alignItems: 'center',
   gap: '$1',
   listStyle: 'none',
@@ -41,7 +42,7 @@ export type BreadcrumbSeparator = ReactNode;
 export type BreadcrumbProps = {
   separator?: BreadcrumbSeparator;
   children: ReactNode[];
-} & ComponentProps<typeof StyedBreadcrumbWrapper>;
+} & ComponentProps<typeof StyedBreadcrumb>;
 
 export type BreadcrumbItemProps = {
   children: ReactNode;
@@ -66,24 +67,16 @@ export const Breadcrumb = ({
 }: BreadcrumbProps) => {
   return (
     <BreadcrumbContext.Provider value={{ separator }}>
-      <StyedBreadcrumb aria-label="Breadcrumb">
-        <StyedBreadcrumbWrapper {...props}>{children}</StyedBreadcrumbWrapper>
+      <StyedBreadcrumb
+        aria-label="Breadcrumb"
+        className="breadcrumb"
+        {...props}
+      >
+        <StyedBreadcrumbWrapper className="breadcrumb-wrapper">
+          {children}
+        </StyedBreadcrumbWrapper>
       </StyedBreadcrumb>
     </BreadcrumbContext.Provider>
-  );
-};
-
-export const BreadcrumbItem = ({ children, ...props }: BreadcrumbItemProps) => {
-  const { separator } = useContext(BreadcrumbContext);
-  return (
-    <StyledBreadcrumbItem {...props}>
-      {children}
-      {separator ? (
-        <StyledBreadcrumbItemSeparator>
-          {separator}
-        </StyledBreadcrumbItemSeparator>
-      ) : null}
-    </StyledBreadcrumbItem>
   );
 };
 
@@ -92,8 +85,20 @@ export const BreadcrumbSeparator = ({
   ...props
 }: BreadcrumbItemProps) => {
   return (
-    <StyledBreadcrumbItemSeparator {...props}>
+    <StyledBreadcrumbItemSeparator className="breadcrumb-separator" {...props}>
       {children}
     </StyledBreadcrumbItemSeparator>
+  );
+};
+
+export const BreadcrumbItem = ({ children, ...props }: BreadcrumbItemProps) => {
+  const { separator } = useContext(BreadcrumbContext);
+  return (
+    <StyledBreadcrumbItem className="breadcrumb-item" {...props}>
+      {children}
+      {separator ? (
+        <BreadcrumbSeparator>{separator}</BreadcrumbSeparator>
+      ) : null}
+    </StyledBreadcrumbItem>
   );
 };
