@@ -133,6 +133,7 @@ export './styles/component/switch_style.dart';
 export './styles/component/tab_bar_style.dart';
 export './styles/component/textfield_style.dart';
 export './styles/component/tooltip_style.dart';
+export './styles/component/alert_dialog_style.dart';
 export './styles/theme.dart';
 export './styles/typography.dart';
 // types

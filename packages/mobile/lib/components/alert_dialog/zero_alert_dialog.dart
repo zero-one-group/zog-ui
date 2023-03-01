@@ -22,20 +22,11 @@ class ZeroAlertDialog {
     /// icon of the dialog
     /// positioned at the top of the dialog
     Icon? icon,
+    ZeroAlertDialogStyle? style,
 
     /// if the dialog is dismissible by tapping outside the dialog
     /// default is true
     bool barrierDismissible = true,
-
-    /// color of the barrier
-    /// default is Colors.black54
-    Color barrierColor = Colors.black54,
-
-    /// text style of the title
-    TextStyle? titleStyle,
-
-    /// text style of the content
-    TextStyle? contentStyle,
 
     /// actions of the dialog (buttons)
     List<Widget> actions = const [],
@@ -43,49 +34,15 @@ class ZeroAlertDialog {
     /// alignment of the actions
     /// default is MainAxisAlignment.end
     MainAxisAlignment actionsAlignment = MainAxisAlignment.end,
-
-    /// padding of the actions
-    /// default is const EdgeInsets.only(bottom: 16, right: 16, left: 16)
-    EdgeInsetsGeometry actionsPadding =
-        const EdgeInsets.only(bottom: 16, right: 16, left: 16),
-    EdgeInsetsGeometry? titlePadding,
-    EdgeInsetsGeometry? contentPadding,
-    EdgeInsetsGeometry? iconPadding,
-    double elevation = 4,
-
-    /// background color of the dialog
-    /// default is based on the theme background color
-    Color? backgroundColor,
-
-    /// shadow color of the dialog
-    Color? shadowColor,
-
-    /// icon color of the dialog
-    Color? iconColor,
-
-    /// alignment of the dialog
-    /// default is based on the theme alignment
-    AlignmentGeometry? alignment,
-
-    /// shape of the dialog
-    /// default is based on the theme shape
-    ShapeBorder? shape,
   }) {
     /// if the dialog is already shown, return
     if (_overlayEntry != null) return;
 
     /// create the overlay entry
     _overlayEntry = OverlayEntry(builder: (context) {
-      /// create the dialog theme based on the context theme
-      DialogTheme dialogTheme = context.theme.dialogTheme.copyWith(
-        backgroundColor: backgroundColor,
-        elevation: elevation,
-        shape: shape,
-        alignment: alignment,
-        titleTextStyle: titleStyle,
-        contentTextStyle: contentStyle,
-        actionsPadding: actionsPadding,
-      );
+      /// merge the style with the theme style
+      final themeStyle = context.theme.alertDialogStyle;
+      final adaptiveStyle = themeStyle.merge(style);
 
       /// barrier widget that will be shown behind the dialog
       /// if the dialog is dismissible, it will call the hide method
@@ -94,7 +51,7 @@ class ZeroAlertDialog {
         return GestureDetector(
           onTap: () => barrierDismissible ? hide() : {},
           child: Container(
-            color: barrierColor,
+            color: adaptiveStyle.barrierColor,
             height: double.infinity,
             width: double.infinity,
           ),
@@ -110,20 +67,20 @@ class ZeroAlertDialog {
             title: title,
             content: content,
             actions: actions,
-            titlePadding: titlePadding,
-            contentPadding: contentPadding,
+            titlePadding: adaptiveStyle.titlePadding,
+            contentPadding: adaptiveStyle.contentPadding,
             actionsAlignment: actionsAlignment,
-            shadowColor: shadowColor,
+            shadowColor: adaptiveStyle.shadowColor,
             icon: icon,
-            iconColor: iconColor,
-            iconPadding: iconPadding,
-            alignment: dialogTheme.alignment,
-            backgroundColor: dialogTheme.backgroundColor,
-            actionsPadding: dialogTheme.actionsPadding,
-            elevation: dialogTheme.elevation,
-            shape: dialogTheme.shape,
-            titleTextStyle: dialogTheme.titleTextStyle,
-            contentTextStyle: dialogTheme.contentTextStyle,
+            iconColor: adaptiveStyle.iconColor,
+            iconPadding: adaptiveStyle.iconPadding,
+            alignment: adaptiveStyle.alignment,
+            backgroundColor: adaptiveStyle.backgroundColor,
+            actionsPadding: adaptiveStyle.actionsPadding,
+            elevation: adaptiveStyle.elevation,
+            shape: adaptiveStyle.shape,
+            titleTextStyle: adaptiveStyle.titleTextStyle,
+            contentTextStyle: adaptiveStyle.contentTextStyle,
           ),
         ],
       );
