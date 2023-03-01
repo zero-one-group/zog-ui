@@ -14,7 +14,6 @@
     "build": {
       "executor": "@nrwl/rollup:rollup",
       "outputs": ["{options.outputPath}"],
-      "dependsOn": ["update-version"],
       "options": {
         "outputPath": "dist/packages/components/core",
         "tsConfig": "packages/components/core/tsconfig.lib.json",
@@ -60,22 +59,12 @@
         "passWithNoTests": true
       }
     },
-    "update-version": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          "npm pkg set 'version'=$(node -p \"require('../../../package.json').version\")"
-        ],
-        "cwd": "packages/components/core",
-        "parallel": false
-      }
-    },
     "publish": {
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "echo 'Publishing Core Package to npm version $(npm pkg get version)'",
-          "cp ../../../../LICENSE .",
+          "npm pkg set 'version'=$(node -p \"require('../../../../package.json').version\")",
+          "echo 'Publishing Core Package to npmjs...'",
           "npm pack",
           "npm publish"
         ],

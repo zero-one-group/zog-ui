@@ -8,7 +8,7 @@
     "build": {
       "executor": "@nrwl/web:rollup",
       "outputs": ["{options.outputPath}"],
-      "dependsOn": ["update-version", "compile"],
+      "dependsOn": ["compile"],
       "options": {
         "outputPath": "dist/packages/icons",
         "tsConfig": "packages/icons/tsconfig.lib.json",
@@ -62,21 +62,12 @@
         "parallel": false
       }
     },
-    "update-version": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          "npm pkg set 'version'=$(node -p \"require('../../package.json').version\")"
-        ],
-        "cwd": "packages/icons",
-        "parallel": false
-      }
-    },
     "publish": {
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "echo 'Publishing Icons Package to npm version $(npm pkg get version)'",
+          "npm pkg set 'version'=$(node -p \"require('../../../package.json').version\")",
+          "echo 'Publishing Icons Package to npmjs...'",
           "npm pack",
           "npm publish"
         ],

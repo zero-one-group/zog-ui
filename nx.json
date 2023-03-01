@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "zero-ui",
+  "npmScope": "zog-ui",
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",

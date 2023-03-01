@@ -20,9 +20,6 @@ class ZeroSnackbar {
     /// [type] is the type of snackbar that will be displayed, [ZeroSnackbarType.singleline] or [ZeroSnackbarType.multiline]
     ZeroSnackbarType type = ZeroSnackbarType.singleline,
 
-    /// [duration] is the duration that the snackbar will be displayed, if duration is zero, the snackbar will not be dismissed automatically.
-    Duration? duration,
-
     /// [closeButton] is a boolean that determines if the snackbar will have a close button, this is a close icon where appears on the bottom right corner of the snackbar.
     bool closeButton = true,
 
@@ -38,23 +35,21 @@ class ZeroSnackbar {
     /// [onClose] is the callback function that will be called when the [closeButton] pressed.
     VoidCallback? onClose,
 
-    /// [backgroundColor] is the background color of the snackbar.
-    Color? backgroundColor,
-
-    /// [actionButtonTextColor] is the text color of the [actionButton].
-    Color? actionButtonTextColor,
-
-    /// [closeIconColor] is the color of the [closeButton].
-    Color? closeIconColor,
-
-    /// [textStyle] is the text style of the message.
-    TextStyle? textStyle,
+    /// [style] is a style for snackbar's custom preferences.
+    ///
+    /// By default the style is from the global theme [ZeroThemeData.snackBarStyle.snackbar],
+    /// and if [style] is not null it will be overridden
+    ZeroSnackbarStyle? style,
 
     /// [position] is the position of the snackbar, [SnackbarPosition.bottom], [SnackbarPosition.top], or [SnackbarPosition.center].
     SnackbarPosition position = SnackbarPosition.bottom,
   }) {
     /// If the snackbar is already displayed, then the snackbar will not be displayed again.
     if (_overlayEntry != null) return;
+
+    final themeStyle = context.theme.snackBarStyle.snackbar;
+    final adaptiveStyle = themeStyle?.merge(style) ?? style;
+
     _overlayEntry = OverlayEntry(builder: (context) {
       return SafeArea(
         child: Stack(
@@ -65,18 +60,20 @@ class ZeroSnackbar {
             Align(
               alignment: position.alignment,
               child: Container(
-                margin:
-                    const EdgeInsets.symmetric(vertical: 48, horizontal: 16),
+                margin: adaptiveStyle?.margin,
                 child: Material(
-                  elevation: 4,
-                  borderRadius: BorderRadius.circular(4),
+                  elevation: adaptiveStyle?.elevation ?? 0,
+                  borderRadius: adaptiveStyle?.borderRadius,
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      color: backgroundColor ??
+                      borderRadius: adaptiveStyle?.borderRadius,
+                      color: adaptiveStyle?.backgroundColor ??
                           context.theme.scaffoldBackgroundColor,
+                      border: adaptiveStyle?.border != null
+                          ? Border.fromBorderSide(adaptiveStyle!.border!)
+                          : null,
                     ),
-                    padding: const EdgeInsets.all(16),
+                    padding: adaptiveStyle?.padding,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -86,23 +83,23 @@ class ZeroSnackbar {
                             Expanded(
                               child: Text(
                                 message,
-                                style: textStyle,
+                                style: adaptiveStyle?.textStyle,
                               ),
                             ),
                             if (type == ZeroSnackbarType.singleline)
                               Row(
                                 children: [
                                   _actionButton(
-                                      actionButton,
-                                      actionText,
-                                      actionOnPressed,
-                                      actionButtonTextColor ??
-                                          context.theme.primaryColor),
+                                    actionButton,
+                                    actionText: actionText,
+                                    onPressed: actionOnPressed,
+                                    style: adaptiveStyle,
+                                  ),
                                   _closeButton(
-                                      closeButton,
-                                      onClose,
-                                      closeIconColor ??
-                                          context.theme.solidTextColor),
+                                    closeButton,
+                                    onClose: onClose,
+                                    style: adaptiveStyle,
+                                  ),
                                 ],
                               ),
                           ],
@@ -116,16 +113,16 @@ class ZeroSnackbar {
                               Row(
                                 children: [
                                   _actionButton(
-                                      actionButton,
-                                      actionText,
-                                      actionOnPressed,
-                                      actionButtonTextColor ??
-                                          context.theme.primaryColor),
+                                    actionButton,
+                                    actionText: actionText,
+                                    onPressed: actionOnPressed,
+                                    style: adaptiveStyle,
+                                  ),
                                   _closeButton(
-                                      closeButton,
-                                      onClose,
-                                      closeIconColor ??
-                                          context.theme.solidTextColor),
+                                    closeButton,
+                                    onClose: onClose,
+                                    style: adaptiveStyle,
+                                  ),
                                 ],
                               ),
                           ],
@@ -145,28 +142,30 @@ class ZeroSnackbar {
     /// hide the alert after the duration
     /// if the duration is zero, the alert will be permanent
     /// if the duration is null, the alert will be displayed for 2 seconds
-    duration == Duration.zero
+    adaptiveStyle?.duration == Duration.zero
         ? null
-        : Future.delayed(duration ?? const Duration(seconds: 2), () {
+        : Future.delayed(adaptiveStyle?.duration ?? const Duration(seconds: 2),
+            () {
             hide();
           });
   }
 
   Widget _actionButton(
-    bool actionButton,
+    bool actionButton, {
     String? actionText,
-    VoidCallback? actionOnPressed,
-    Color buttonTextColor,
-  ) {
+    ZeroSnackbarStyle? style,
+    VoidCallback? onPressed,
+  }) {
     if (actionButton) {
       return Builder(builder: (context) {
         return Container(
           margin: const EdgeInsets.symmetric(horizontal: 8),
           child: InkWell(
-            onTap: actionOnPressed,
+            onTap: onPressed,
             child: Text(
               actionText ?? '',
-              style: TextStyle(color: buttonTextColor),
+              style: style?.actionStyle ??
+                  TextStyle(color: context.theme.primaryColor),
             ),
           ),
         );
@@ -178,22 +177,26 @@ class ZeroSnackbar {
 
   /// [closeButton] is a boolean that determines if the snackbar will have a close button, this is a close icon where appears on the bottom right corner of the snackbar.
   Widget _closeButton(
-      bool closeButton, VoidCallback? onClose, Color iconColor) {
+    bool closeButton, {
+    VoidCallback? onClose,
+    ZeroSnackbarStyle? style,
+  }) {
     if (closeButton) {
-      return Container(
-        margin: const EdgeInsets.only(left: 14),
-        child: InkWell(
-          onTap: () {
-            hide();
-            onClose?.call();
-          },
-          child: Icon(
-            Icons.close,
-            size: 16,
-            color: iconColor,
+      return Builder(builder: (context) {
+        return Container(
+          margin: const EdgeInsets.only(left: 14),
+          child: InkWell(
+            onTap: () {
+              hide();
+              onClose?.call();
+            },
+            child: IconTheme(
+              data: IconTheme.of(context).copyWith(size: 16),
+              child: style?.closeIcon ?? const Icon(ZeroIcons.close),
+            ),
           ),
-        ),
-      );
+        );
+      });
     } else {
       return const SizedBox();
     }

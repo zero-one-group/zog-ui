@@ -1,8 +1,8 @@
 import { addParameters } from '@storybook/react';
-import badgeParameter from './parameter';
-import { useDarkMode } from 'storybook-dark-mode';
-import { darkTheme } from '@01group-ui/core';
+import { darkTheme } from '@zog-ui/core';
 import React from 'react';
+import { useDarkMode } from 'storybook-dark-mode';
+import badgeParameter from './parameter';
 // Register extra parameters
 addParameters(badgeParameter);
 

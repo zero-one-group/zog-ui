@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../styles/colors.dart';
+import 'package:zog_ui/styles/theme.dart';
+import 'package:zog_ui/utils/extensions/color_extension.dart';
 
 enum ZeroSnackbarAlertVariant {
   danger,
@@ -8,16 +8,16 @@ enum ZeroSnackbarAlertVariant {
   success,
   info;
 
-  Color get color {
+  Color color(ZeroThemeData theme) {
     switch (this) {
       case danger:
-        return Colors.red;
+        return theme.errorColor;
       case warning:
-        return Colors.orange;
+        return theme.warningColor;
       case success:
-        return Colors.green;
+        return theme.successColor;
       case info:
-        return Colors.blue;
+        return theme.infoColor;
     }
   }
 
@@ -34,42 +34,22 @@ enum ZeroSnackbarAlertVariant {
     }
   }
 
-  Color get iconColor {
-    switch (this) {
-      case danger:
-        return ZeroColors.dustRed[7];
-      case warning:
-        return ZeroColors.sunsetOrange[7];
-      case success:
-        return ZeroColors.polarGreen[7];
-      case info:
-        return ZeroColors.primary[7];
-    }
+  Color iconColor(ZeroThemeData theme) => color(theme);
+
+  Color titleColor(ZeroThemeData theme) {
+    return color(theme).darken(0.3);
   }
 
-  Color get titleColor {
+  Color filledBackgroundColor(ZeroThemeData theme) {
     switch (this) {
       case danger:
-        return ZeroColors.dustRed[9];
+        return theme.errorColor.lighten(0.5);
       case warning:
-        return ZeroColors.sunsetOrange[9];
+        return theme.warningColor.lighten(0.5);
       case success:
-        return ZeroColors.polarGreen[9];
+        return theme.successColor.lighten(0.5);
       case info:
-        return ZeroColors.primary[10];
-    }
-  }
-
-  Color get filledBackgroundColor {
-    switch (this) {
-      case danger:
-        return ZeroColors.dustRed[1];
-      case warning:
-        return ZeroColors.sunsetOrange[1];
-      case success:
-        return ZeroColors.polarGreen[1];
-      case info:
-        return ZeroColors.primary[1];
+        return theme.infoColor.lighten(0.5);
     }
   }
 }
