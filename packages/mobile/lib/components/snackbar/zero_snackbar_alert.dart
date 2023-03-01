@@ -45,10 +45,10 @@ class ZeroSnackbarAlert {
     final themeStyle = theme.snackBarStyle.alert;
     final adaptiveStyle = themeStyle?.merge(style) ?? style;
 
-    final titleColor =
-        _titleColor(variant: variant, type: type, theme: theme, style: style);
+    final titleColor = _getTitleColor(
+        variant: variant, type: type, theme: theme, style: style);
     final subtitleColor =
-        _subtitleColor(variant: variant, type: type, style: style);
+        _getSubtitleColor(variant: variant, type: type, style: style);
     final titleStyle = adaptiveStyle?.titleStyle?.copyWith(
           color: style?.titleStyle?.color ?? titleColor,
         ) ??
@@ -97,7 +97,7 @@ class ZeroSnackbarAlert {
                         padding: const EdgeInsets.only(right: 8.0),
                         child: Icon(
                           variant.icon,
-                          color: _iconColor(
+                          color: _getIconColor(
                             variant: variant,
                             type: type,
                             theme: theme,
@@ -169,9 +169,9 @@ class ZeroSnackbarAlert {
     }
   }
 
-  /// [_iconColor] return the color of the icon
+  /// [_getIconColor] return the color of the icon
   /// icon color only for [ZeroSnackbarAlertType.outlined]
-  Color _iconColor({
+  Color _getIconColor({
     required ZeroSnackbarAlertVariant variant,
     required ZeroSnackbarAlertType type,
     required ZeroThemeData theme,
@@ -205,8 +205,8 @@ class ZeroSnackbarAlert {
     }
   }
 
-  /// [_titleColor] return the color of the title
-  Color _titleColor({
+  /// [_getTitleColor] return the color of the title
+  Color _getTitleColor({
     required ZeroSnackbarAlertVariant variant,
     required ZeroSnackbarAlertType type,
     required ZeroThemeData theme,
@@ -223,8 +223,8 @@ class ZeroSnackbarAlert {
     }
   }
 
-  /// [_subtitleColor] return the color of the subtitle
-  Color _subtitleColor(
+  /// [_getSubtitleColor] return the color of the subtitle
+  Color _getSubtitleColor(
       {required ZeroSnackbarAlertVariant variant,
       required ZeroSnackbarAlertType type,
       ZeroSnackbarAlertStyle? style}) {
