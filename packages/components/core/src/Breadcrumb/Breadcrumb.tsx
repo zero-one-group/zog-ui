@@ -1,5 +1,12 @@
 import clsx from 'clsx';
-import { ComponentProps, createContext, ReactNode, useContext } from 'react';
+import {
+  ComponentProps,
+  createContext,
+  ElementRef,
+  forwardRef,
+  ReactNode,
+  useContext,
+} from 'react';
 import { styled } from '../stitches.config';
 
 const StyedBreadcrumb = styled('nav', {
@@ -61,17 +68,16 @@ const BreadcrumbContext = createContext<BreadcrumbContextProps>({
   separator: '/',
 });
 
-export const Breadcrumb = ({
-  separator = '/',
-  children,
-  className,
-  ...props
-}: BreadcrumbProps) => {
+export const Breadcrumb = forwardRef<
+  ElementRef<typeof StyledBreadcrumbItem>,
+  BreadcrumbProps
+>(({ separator = '/', children, className, ...props }, ref) => {
   return (
     <BreadcrumbContext.Provider value={{ separator }}>
       <StyedBreadcrumb
         aria-label="Breadcrumb"
         className={clsx('breadcrumb', className)}
+        ref={ref}
         {...props}
       >
         <StyedBreadcrumbWrapper className="breadcrumb-wrapper">
@@ -80,28 +86,27 @@ export const Breadcrumb = ({
       </StyedBreadcrumb>
     </BreadcrumbContext.Provider>
   );
-};
+});
 
-export const BreadcrumbSeparator = ({
-  children,
-  className,
-  ...props
-}: BreadcrumbItemProps) => {
+export const BreadcrumbSeparator = forwardRef<
+  ElementRef<typeof StyledBreadcrumbItemSeparator>,
+  BreadcrumbSeparatorProps
+>(({ children, className, ...props }, ref) => {
   return (
     <StyledBreadcrumbItemSeparator
       className={clsx('breadcrumb-separator', className)}
+      ref={ref}
       {...props}
     >
       {children}
     </StyledBreadcrumbItemSeparator>
   );
-};
+});
 
-export const BreadcrumbItem = ({
-  children,
-  className,
-  ...props
-}: BreadcrumbItemProps) => {
+export const BreadcrumbItem = forwardRef<
+  ElementRef<typeof StyledBreadcrumbItem>,
+  BreadcrumbItemProps
+>(({ children, className, ...props }) => {
   const { separator } = useContext(BreadcrumbContext);
   return (
     <StyledBreadcrumbItem
@@ -114,4 +119,4 @@ export const BreadcrumbItem = ({
       ) : null}
     </StyledBreadcrumbItem>
   );
-};
+});
