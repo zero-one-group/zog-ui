@@ -1,7 +1,6 @@
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { ComponentProps, ReactElement, ReactNode } from 'react';
 import { Avatar } from '../Avatar';
-import { Breadcrumb, BreadcrumbProps } from '../Breadcrumb';
 import { Space } from '../Space';
 import { styled } from '../stitches.config';
 
@@ -61,7 +60,7 @@ type PageHeaderOwnProps = {
   onBack?: () => void;
   backIcon?: ReactNode;
   /** BreadcrumbProps, See Breadcrumb component */
-  breadcrumb?: BreadcrumbProps;
+  breadcrumb?: ReactNode;
   /** AvatarProps, See Avatar component */
   avatar?: ComponentProps<typeof Avatar>;
 };
@@ -83,7 +82,7 @@ export const PageHeader: PageHeaderComponent = ({
   ...props
 }) => (
   <StyledPageHeader {...props}>
-    {breadcrumb ? <Breadcrumb {...breadcrumb} /> : null}
+    {breadcrumb ? breadcrumb : null}
     <StyledHeading
       justify="space-between"
       align="center"

@@ -1,5 +1,11 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
-import { PageHeader, Button, Space, Breadcrumb } from '@zog-ui/core';
+import {
+  PageHeader,
+  Button,
+  Space,
+  Breadcrumb,
+  BreadcrumbItem,
+} from '@zog-ui/core';
 import { LeftOutlined } from '@ant-design/icons';
 
 <Meta
@@ -53,6 +59,18 @@ import { Button, PageHeader, Space } from '@zog-ui/core';
 import { LeftOutlined } from '@ant-design/icons';
 ```
 
+export const BreadCrumbHeader = () => (
+  <Breadcrumb separator="/">
+    <BreadcrumbItem>
+      <a href="#">zero-one-group</a>
+    </BreadcrumbItem>
+    <BreadcrumbItem>
+      <a href="#">zero-one-software</a>
+    </BreadcrumbItem>
+    <BreadcrumbItem>zog-design-system</BreadcrumbItem>
+  </Breadcrumb>
+);
+
 <Canvas columns={2} withSource="close">
   <Story
     name="PageHeader"
@@ -74,14 +92,7 @@ import { LeftOutlined } from '@ant-design/icons';
       ),
       onBack: () => {},
       backIcon: <LeftOutlined />,
-      breadcrumb: {
-        items: [
-          { title: 'Mantine', href: '#', current: false },
-          { title: 'Mantine hooks', href: '#', current: false },
-          { title: 'use-id', href: '#', current: true },
-        ],
-        separator: '/',
-      },
+      breadcrumb: <BreadCrumbHeader />,
       avatar: {
         src: 'https://avatars.githubusercontent.com/u/921834?v=4&s=200',
       },
