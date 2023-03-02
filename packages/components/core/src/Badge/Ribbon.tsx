@@ -3,6 +3,7 @@ import type * as Stitches from '@stitches/react';
 
 export interface RibbonProps {
   label?: string | number;
+  css?: Stitches.CSS
 }
 const StyledRibbon = styled('span', {
   width: '150px',
@@ -58,10 +59,11 @@ const StyledRibbon = styled('span', {
 });
 export function Ribbon({
   label,
+  css,
   ...props
 }: RibbonProps & Stitches.VariantProps<typeof StyledRibbon>) {
   return (
-    <StyledRibbon {...props}>
+    <StyledRibbon {...props} css={css}>
       <span>{label}</span>
     </StyledRibbon>
   );
