@@ -246,6 +246,7 @@ class _ZeroSliderState extends State<ZeroSlider> {
         style: ZeroTooltipStyle(
           backgroundColor: style.activeColor,
           borderColor: style.activeColor?.withOpacity(0.2),
+          textStyle: TextStyle(color: style.tooltipColor),
         ),
         variant: style.tooltipVariant ?? ZeroTooltipVariant.rounded,
         onCreated: (controller) {

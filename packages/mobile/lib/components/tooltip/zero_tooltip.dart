@@ -96,7 +96,8 @@ class _ZeroTooltipState extends State<ZeroTooltip> {
   }
 
   void _createOverlayWidget() {
-    RenderBox box = _widgetKey.currentContext!.findRenderObject() as RenderBox;
+    final box = _widgetKey.currentContext?.findRenderObject() as RenderBox?;
+    if (box == null) return;
     Offset position = box.localToGlobal(Offset.zero);
     Size childSize = box.size;
     final currentBrightness = widget.brightness ?? context.theme.brightness;

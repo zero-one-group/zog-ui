@@ -3,6 +3,10 @@ import 'package:zog_ui/zog_ui.dart';
 
 /// Nums of type [ZeroText] typography
 enum _ZeroTextType {
+  heading1,
+  heading2,
+  heading3,
+  heading4,
   heading5,
   heading6,
   subtitle1,
@@ -25,6 +29,62 @@ enum _ZeroTextType {
 /// If the [softWrap] is true or null, the glyph causing overflow, and those that follow,
 /// will not be rendered. Otherwise, it will be shown with the given overflow option.
 class ZeroText extends StatelessWidget {
+  /// Creates a text widget with default style **heading1**
+  ///
+  /// The style will be merge from theme [Typography.heading1]
+  const ZeroText.heading1(
+    this.value, {
+    this.style,
+    this.align,
+    this.maxLine,
+    this.overflow,
+    this.scaleFactor,
+    this.softWrap,
+    super.key,
+  }) : _type = _ZeroTextType.heading1;
+
+  /// Creates a text widget with default style **heading2**
+  ///
+  /// The style will be merge from theme [Typography.heading2]
+  const ZeroText.heading2(
+    this.value, {
+    this.style,
+    this.align,
+    this.maxLine,
+    this.overflow,
+    this.scaleFactor,
+    this.softWrap,
+    super.key,
+  }) : _type = _ZeroTextType.heading2;
+
+  /// Creates a text widget with default style **heading3**
+  ///
+  /// The style will be merge from theme [Typography.heading3]
+  const ZeroText.heading3(
+    this.value, {
+    this.style,
+    this.align,
+    this.maxLine,
+    this.overflow,
+    this.scaleFactor,
+    this.softWrap,
+    super.key,
+  }) : _type = _ZeroTextType.heading3;
+
+  /// Creates a text widget with default style **heading4**
+  ///
+  /// The style will be merge from theme [Typography.heading4]
+  const ZeroText.heading4(
+    this.value, {
+    this.style,
+    this.align,
+    this.maxLine,
+    this.overflow,
+    this.scaleFactor,
+    this.softWrap,
+    super.key,
+  }) : _type = _ZeroTextType.heading4;
+
   /// Creates a text widget with default style **heading5**
   ///
   /// The style will be merge from theme [Typography.heading5]
@@ -94,6 +154,22 @@ class ZeroText extends StatelessWidget {
     this.softWrap,
     super.key,
   }) : _type = _ZeroTextType.body1;
+
+  /// Creates a default text widget with default style
+  ///
+  /// This widget like [Text] from Material design
+  ///
+  /// The style will be merge from theme [Typography.body2]
+  const ZeroText(
+    this.value, {
+    this.style,
+    this.align,
+    this.maxLine,
+    this.overflow,
+    this.scaleFactor,
+    this.softWrap,
+    super.key,
+  }) : _type = _ZeroTextType.body2;
 
   /// Creates a text widget with default style **body2**
   ///
@@ -200,6 +276,14 @@ class ZeroText extends StatelessWidget {
     final typography = context.theme.typography;
 
     switch (_type) {
+      case _ZeroTextType.heading1:
+        return typography.heading1?.merge(style) ?? style;
+      case _ZeroTextType.heading2:
+        return typography.heading2?.merge(style) ?? style;
+      case _ZeroTextType.heading3:
+        return typography.heading3?.merge(style) ?? style;
+      case _ZeroTextType.heading4:
+        return typography.heading4?.merge(style) ?? style;
       case _ZeroTextType.heading5:
         return typography.heading5?.merge(style) ?? style;
       case _ZeroTextType.heading6:

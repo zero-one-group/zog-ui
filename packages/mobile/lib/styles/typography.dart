@@ -13,6 +13,18 @@ import 'package:zog_ui/zog_ui.dart';
 /// | Clip text, and wrap if multiple lines are enabled.  | Use ellipses to avoid visual clutter.                                             |
 ///
 class ZeroTypography with Diagnosticable {
+  /// The Heading 1 style
+  final TextStyle? heading1;
+
+  /// The Heading 2 style
+  final TextStyle? heading2;
+
+  /// The Heading 3 style
+  final TextStyle? heading3;
+
+  /// The Heading 4 style
+  final TextStyle? heading4;
+
   /// The Heading 5 style
   final TextStyle? heading5;
 
@@ -46,6 +58,10 @@ class ZeroTypography with Diagnosticable {
 
   /// Creates a new [ZeroTypography]
   const ZeroTypography.raw({
+    this.heading1,
+    this.heading2,
+    this.heading3,
+    this.heading4,
     this.heading5,
     this.heading6,
     this.subtitle1,
@@ -64,6 +80,7 @@ class ZeroTypography with Diagnosticable {
   factory ZeroTypography.fromBrightness({
     Brightness? brightness,
     Color? color,
+    String? fontFamily,
   }) {
     assert(
       brightness != null || color != null,
@@ -75,50 +92,83 @@ class ZeroTypography with Diagnosticable {
         brightness == Brightness.light ? ZeroColors.black : ZeroColors.white;
 
     return ZeroTypography.raw(
+      heading1: TextStyle(
+        fontWeight: FontWeight.w400,
+        fontSize: 56,
+        color: color,
+        fontFamily: fontFamily,
+      ),
+      heading2: TextStyle(
+        fontWeight: FontWeight.w400,
+        fontSize: 48,
+        color: color,
+        fontFamily: fontFamily,
+      ),
+      heading3: TextStyle(
+        fontWeight: FontWeight.w400,
+        fontSize: 40,
+        color: color,
+        fontFamily: fontFamily,
+      ),
+      heading4: TextStyle(
+        fontWeight: FontWeight.w400,
+        fontSize: 30,
+        color: color,
+        fontFamily: fontFamily,
+      ),
       heading5: TextStyle(
         fontWeight: FontWeight.w400,
         fontSize: 24,
         color: color,
+        fontFamily: fontFamily,
       ),
       heading6: TextStyle(
         fontWeight: FontWeight.w400,
         fontSize: 20,
         color: color,
+        fontFamily: fontFamily,
       ),
       subtitle1: TextStyle(
         fontWeight: FontWeight.w400,
         fontSize: 16,
         color: color,
+        fontFamily: fontFamily,
       ),
       subtitle2: TextStyle(
         fontWeight: FontWeight.w400,
         fontSize: 14,
         color: color,
+        fontFamily: fontFamily,
       ),
       body1: TextStyle(
         fontWeight: FontWeight.w400,
         fontSize: 16,
         color: color,
+        fontFamily: fontFamily,
       ),
       body2: TextStyle(
         fontWeight: FontWeight.w400,
         fontSize: 14,
         color: color,
+        fontFamily: fontFamily,
       ),
       button: TextStyle(
         fontWeight: FontWeight.w500,
         fontSize: 14,
         color: color,
+        fontFamily: fontFamily,
       ),
       caption: TextStyle(
         fontWeight: FontWeight.w400,
         fontSize: 12,
         color: color,
+        fontFamily: fontFamily,
       ),
       overline: TextStyle(
         fontWeight: FontWeight.w400,
         fontSize: 10,
         color: color,
+        fontFamily: fontFamily,
       ),
     );
   }
@@ -127,6 +177,10 @@ class ZeroTypography with Diagnosticable {
   /// object that is a blend of the two input objects
   static ZeroTypography lerp(ZeroTypography? a, ZeroTypography? b, double t) {
     return ZeroTypography.raw(
+      heading1: TextStyle.lerp(a?.heading1, b?.heading1, t),
+      heading2: TextStyle.lerp(a?.heading2, b?.heading2, t),
+      heading3: TextStyle.lerp(a?.heading3, b?.heading3, t),
+      heading4: TextStyle.lerp(a?.heading4, b?.heading4, t),
       heading5: TextStyle.lerp(a?.heading5, b?.heading5, t),
       heading6: TextStyle.lerp(a?.heading6, b?.heading6, t),
       subtitle1: TextStyle.lerp(a?.subtitle1, b?.subtitle1, t),
@@ -143,6 +197,10 @@ class ZeroTypography with Diagnosticable {
     if (typography == null) return this;
 
     return copyWith(
+      heading1: typography.heading1,
+      heading2: typography.heading2,
+      heading3: typography.heading3,
+      heading4: typography.heading4,
       heading5: typography.heading5,
       heading6: typography.heading6,
       subtitle1: typography.subtitle1,
@@ -164,6 +222,42 @@ class ZeroTypography with Diagnosticable {
     TextDecorationStyle? decorationStyle,
   }) {
     return ZeroTypography.raw(
+      heading1: heading1?.apply(
+        color: color,
+        decoration: decoration,
+        decorationColor: decorationColor,
+        decorationStyle: decorationStyle,
+        fontFamily: fontFamily,
+        fontSizeFactor: fontSizeFactor,
+        fontSizeDelta: fontSizeDelta,
+      ),
+      heading2: heading2?.apply(
+        color: color,
+        decoration: decoration,
+        decorationColor: decorationColor,
+        decorationStyle: decorationStyle,
+        fontFamily: fontFamily,
+        fontSizeFactor: fontSizeFactor,
+        fontSizeDelta: fontSizeDelta,
+      ),
+      heading3: heading3?.apply(
+        color: color,
+        decoration: decoration,
+        decorationColor: decorationColor,
+        decorationStyle: decorationStyle,
+        fontFamily: fontFamily,
+        fontSizeFactor: fontSizeFactor,
+        fontSizeDelta: fontSizeDelta,
+      ),
+      heading4: heading4?.apply(
+        color: color,
+        decoration: decoration,
+        decorationColor: decorationColor,
+        decorationStyle: decorationStyle,
+        fontFamily: fontFamily,
+        fontSizeFactor: fontSizeFactor,
+        fontSizeDelta: fontSizeDelta,
+      ),
       heading5: heading5?.apply(
         color: color,
         decoration: decoration,
@@ -250,10 +344,18 @@ class ZeroTypography with Diagnosticable {
       labelSmall: overline,
       headlineSmall: heading5,
       titleLarge: heading6,
+      displayLarge: heading1,
+      displayMedium: heading2,
+      displaySmall: heading3,
+      headlineMedium: heading4,
     );
   }
 
   ZeroTypography copyWith({
+    TextStyle? heading1,
+    TextStyle? heading2,
+    TextStyle? heading3,
+    TextStyle? heading4,
     TextStyle? heading5,
     TextStyle? heading6,
     TextStyle? subtitle1,
@@ -265,6 +367,10 @@ class ZeroTypography with Diagnosticable {
     TextStyle? overline,
   }) {
     return ZeroTypography.raw(
+      heading1: heading1 ?? this.heading1,
+      heading2: heading2 ?? this.heading2,
+      heading3: heading3 ?? this.heading3,
+      heading4: heading4 ?? this.heading4,
       heading5: heading5 ?? this.heading5,
       heading6: heading6 ?? this.heading6,
       subtitle1: subtitle1 ?? this.subtitle1,
@@ -281,6 +387,10 @@ class ZeroTypography with Diagnosticable {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
+      ..add(DiagnosticsProperty<TextStyle>('heading1', heading1))
+      ..add(DiagnosticsProperty<TextStyle>('heading2', heading2))
+      ..add(DiagnosticsProperty<TextStyle>('heading3', heading3))
+      ..add(DiagnosticsProperty<TextStyle>('heading4', heading4))
       ..add(DiagnosticsProperty<TextStyle>('heading5', heading5))
       ..add(DiagnosticsProperty<TextStyle>('heading6', heading6))
       ..add(DiagnosticsProperty<TextStyle>('subtitle1', subtitle1))

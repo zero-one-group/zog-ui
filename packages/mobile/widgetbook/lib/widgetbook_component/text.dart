@@ -8,6 +8,158 @@ WidgetbookComponent textWidgetbookComponent = WidgetbookComponent(
   name: 'Typography',
   useCases: [
     WidgetbookUseCase(
+      name: 'Heading 1',
+      builder: (context) => PreviewWidget(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 300,
+              child: ZeroText.heading1(
+                context.knobs.text(
+                  label: 'Value',
+                  initialValue: 'Heading 1',
+                ),
+                align: context.knobs
+                    .options(label: 'Text Align', options: _aligns),
+                maxLine: context.knobs
+                    .number(label: 'Max Line', initialValue: 1)
+                    .toInt(),
+                overflow: context.knobs
+                    .options(label: 'Text Overflow', options: _overflows),
+                softWrap: context.knobs.nullableBoolean(label: 'Soft Wrap'),
+                style: TextStyle(
+                  color: context.knobs.options(
+                    label: 'Color',
+                    options: _colorOptions,
+                  ),
+                  fontWeight:
+                      context.knobs.nullableBoolean(label: 'Text Bold') == true
+                          ? FontWeight.bold
+                          : null,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+    WidgetbookUseCase(
+      name: 'Heading 2',
+      builder: (context) => PreviewWidget(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 300,
+              child: ZeroText.heading2(
+                context.knobs.text(
+                  label: 'Value',
+                  initialValue: 'Heading 2',
+                ),
+                align: context.knobs
+                    .options(label: 'Text Align', options: _aligns),
+                maxLine: context.knobs
+                    .number(label: 'Max Line', initialValue: 1)
+                    .toInt(),
+                overflow: context.knobs
+                    .options(label: 'Text Overflow', options: _overflows),
+                softWrap: context.knobs.nullableBoolean(label: 'Soft Wrap'),
+                style: TextStyle(
+                  color: context.knobs.options(
+                    label: 'Color',
+                    options: _colorOptions,
+                  ),
+                  fontWeight:
+                      context.knobs.nullableBoolean(label: 'Text Bold') == true
+                          ? FontWeight.bold
+                          : null,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+    WidgetbookUseCase(
+      name: 'Heading 3',
+      builder: (context) => PreviewWidget(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 300,
+              child: ZeroText.heading3(
+                context.knobs.text(
+                  label: 'Value',
+                  initialValue: 'Heading 3',
+                ),
+                align: context.knobs
+                    .options(label: 'Text Align', options: _aligns),
+                maxLine: context.knobs
+                    .number(label: 'Max Line', initialValue: 1)
+                    .toInt(),
+                overflow: context.knobs
+                    .options(label: 'Text Overflow', options: _overflows),
+                softWrap: context.knobs.nullableBoolean(label: 'Soft Wrap'),
+                style: TextStyle(
+                  color: context.knobs.options(
+                    label: 'Color',
+                    options: _colorOptions,
+                  ),
+                  fontWeight:
+                      context.knobs.nullableBoolean(label: 'Text Bold') == true
+                          ? FontWeight.bold
+                          : null,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+    WidgetbookUseCase(
+      name: 'Heading 4',
+      builder: (context) => PreviewWidget(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 300,
+              child: ZeroText.heading4(
+                context.knobs.text(
+                  label: 'Value',
+                  initialValue: 'Heading 4',
+                ),
+                align: context.knobs
+                    .options(label: 'Text Align', options: _aligns),
+                maxLine: context.knobs
+                    .number(label: 'Max Line', initialValue: 1)
+                    .toInt(),
+                overflow: context.knobs
+                    .options(label: 'Text Overflow', options: _overflows),
+                softWrap: context.knobs.nullableBoolean(label: 'Soft Wrap'),
+                style: TextStyle(
+                  color: context.knobs.options(
+                    label: 'Color',
+                    options: _colorOptions,
+                  ),
+                  fontWeight:
+                      context.knobs.nullableBoolean(label: 'Text Bold') == true
+                          ? FontWeight.bold
+                          : null,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+    WidgetbookUseCase(
       name: 'Heading 5',
       builder: (context) => PreviewWidget(
         child: Column(

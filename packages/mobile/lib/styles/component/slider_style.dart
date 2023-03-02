@@ -33,6 +33,8 @@ class ZeroSliderStyle with Diagnosticable {
   /// 3. [ZeroTooltipVariant.none] - is the variant of the tooltip that doesn't show the tooltip
   final ZeroTooltipVariant? tooltipVariant;
 
+  final Color? tooltipColor;
+
   const ZeroSliderStyle({
     this.activeColor,
     this.inactiveColor,
@@ -40,6 +42,7 @@ class ZeroSliderStyle with Diagnosticable {
     this.thumbColor,
     this.tickBehavior,
     this.tooltipVariant,
+    this.tooltipColor,
   });
 
   /// A default value style of [ZeroSliderStyle]
@@ -57,6 +60,7 @@ class ZeroSliderStyle with Diagnosticable {
         tooltipVariant: ZeroTooltipVariant.rounded,
         thumbColor: thumbColor ?? primaryColor,
         tickBehavior: tickBehavior ?? false,
+        tooltipColor: Colors.white,
       );
 
   /// If the caller passes in a value for a parameter, use that value, otherwise use the value from this
@@ -71,6 +75,7 @@ class ZeroSliderStyle with Diagnosticable {
     ZeroTooltipVariant? tooltipVariant,
     Color? thumbColor,
     bool? tickBehavior,
+    Color? tooltipColor,
   }) {
     return ZeroSliderStyle(
       activeColor: activeColor ?? this.activeColor,
@@ -79,6 +84,7 @@ class ZeroSliderStyle with Diagnosticable {
       tooltipVariant: tooltipVariant ?? this.tooltipVariant,
       thumbColor: thumbColor ?? this.thumbColor,
       tickBehavior: tickBehavior ?? this.tickBehavior,
+      tooltipColor: tooltipColor ?? this.tooltipColor,
     );
   }
 
@@ -92,6 +98,7 @@ class ZeroSliderStyle with Diagnosticable {
       tickColor: other.tickColor,
       thumbColor: other.thumbColor,
       tickBehavior: other.tickBehavior,
+      tooltipColor: other.tooltipColor,
     );
   }
 
@@ -104,6 +111,7 @@ class ZeroSliderStyle with Diagnosticable {
       thumbColor: Color.lerp(a?.thumbColor, b?.thumbColor, t),
       tooltipVariant: t < 0.5 ? a?.tooltipVariant : b?.tooltipVariant,
       tickBehavior: t < 0.5 ? a?.tickBehavior : b?.tickBehavior,
+      tooltipColor: Color.lerp(a?.tooltipColor, b?.tooltipColor, t),
     );
   }
 
@@ -123,6 +131,7 @@ class ZeroSliderStyle with Diagnosticable {
       ..add(ColorProperty('inactiveColor', inactiveColor))
       ..add(ColorProperty('tickColor', tickColor))
       ..add(ColorProperty('thumbColor', thumbColor))
-      ..add(StringProperty('tickBehavior', tickBehavior.toString()));
+      ..add(StringProperty('tickBehavior', tickBehavior.toString()))
+      ..add(ColorProperty('tooltipColor', tooltipColor));
   }
 }
