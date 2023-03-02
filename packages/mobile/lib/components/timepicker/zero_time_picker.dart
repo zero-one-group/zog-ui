@@ -29,7 +29,7 @@ const double _kTimePickerHeightPortraitCollapsed = 484.0;
 const double _kTimePickerHeightLandscapeCollapsed = 304.0;
 
 const BorderRadius _kDefaultBorderRadius =
-    BorderRadius.all(Radius.circular(4.0));
+    BorderRadius.all(Radius.circular(12.0));
 const ShapeBorder _kDefaultShape =
     RoundedRectangleBorder(borderRadius: _kDefaultBorderRadius);
 
@@ -291,10 +291,10 @@ class _HourMinuteControl extends StatelessWidget {
         MaterialStateColor.resolveWith((Set<MaterialState> states) {
           return states.contains(MaterialState.selected)
               ? themeData.colorScheme.primary.withOpacity(isDark ? 0.24 : 0.12)
-              : themeData.colorScheme.onSurface.withOpacity(0.12);
+              : themeData.colorScheme.onSurface.withOpacity(0.02);
         });
     final TextStyle textStyle =
-        adaptiveStyle.hourMinuteTextStyle ?? themeData.typography.heading6!;
+        adaptiveStyle.hourMinuteTextStyle ?? themeData.typography.heading2!;
     final ShapeBorder shape = adaptiveStyle.hourMinuteShape ?? _kDefaultShape;
 
     final Set<MaterialState> states = isSelected
@@ -1628,7 +1628,7 @@ class _TimePickerInputState extends State<_TimePickerInput>
           Text(
             widget.helpText ?? timePickerInputHelpText,
             style: context.theme.timePickerStyle.helpTextStyle ??
-                theme.textTheme.labelSmall,
+                context.theme.typography.caption,
           ),
           const SizedBox(height: 16.0),
           Row(
