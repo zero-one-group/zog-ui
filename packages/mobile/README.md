@@ -59,7 +59,7 @@ This package consists of components and a theme extension.
 - ZeroButtonGroup
 - ZeroDropdown
 
-For more information about the available components, please refer: [](https://zero-ui-mobile.web.app/#/)
+For more information about the available components, please refer: [https://zero-ui-mobile.web.app/#/](https://zero-ui-mobile.web.app/#/)
 
 ## Usage
 
@@ -83,4 +83,4 @@ Replace your `MaterialApp` with `ZeroApp`. Otherwise it will not work. All the b
 ## Additional information
 If you want to browse all the available widget, on you VS Code editor, just type "Zero" and then hold cmd+space. It will show the suggestion of what are available.
 
-For more informationa and previews of the available components, please refer: [](https://zero-ui-mobile.web.app/#/)
+For more informationa and previews of the available components, please refer: [https://zero-ui-mobile.web.app/#/](https://zero-ui-mobile.web.app/#/)
