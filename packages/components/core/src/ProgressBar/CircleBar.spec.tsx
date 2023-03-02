@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import ProgressBar from './ProgressBar';
+import CircleBar from './CircleBar';
 
 describe('ProgressBar', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<ProgressBar value={0} />);
+    const { baseElement } = render(<CircleBar value={0} />);
     expect(baseElement).toBeTruthy();
   });
 });

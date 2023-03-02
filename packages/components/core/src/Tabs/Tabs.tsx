@@ -9,6 +9,7 @@ export const Tabs = styled(TabsPrimitive.Root, {
     display: 'flex ',
     flexdirection: 'column ',
     gap: '11px',
+    alignItems: 'center',
   },
   '&[data-orientation=vertical]': {
     display: 'flex',
