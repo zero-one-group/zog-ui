@@ -1,17 +1,6 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
-
-This is a collection of component widgets developed by Zero One Group.
+# This is a collection of component widgets developed by Zero One Group.
 
 ## Features
 This package consists of components and a theme extension.
@@ -59,7 +48,7 @@ This package consists of components and a theme extension.
 - ZeroButtonGroup
 - ZeroDropdown
 
-For more information about the available components, please refer: [](https://zero-ui-mobile.web.app/#/)
+For more information about the available components, please refer: [https://zero-ui-mobile.web.app/#/](https://zero-ui-mobile.web.app/#/)
 
 ## Usage
 
@@ -83,4 +72,4 @@ Replace your `MaterialApp` with `ZeroApp`. Otherwise it will not work. All the b
 ## Additional information
 If you want to browse all the available widget, on you VS Code editor, just type "Zero" and then hold cmd+space. It will show the suggestion of what are available.
 
-For more informationa and previews of the available components, please refer: [](https://zero-ui-mobile.web.app/#/)
+For more informationa and previews of the available components, please refer: [https://zero-ui-mobile.web.app/#/](https://zero-ui-mobile.web.app/#/)
