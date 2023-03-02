@@ -8,7 +8,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { keyframes } from '@stitches/react';
 import { ComponentProps, createContext, ReactNode, useContext } from 'react';
 import { Space } from '../Space';
-import { styled } from '../stitches.config';
+import { CSS, styled } from '../stitches.config';
 
 const overlayShow = keyframes({
   '0%': { opacity: 0 },
@@ -147,6 +147,7 @@ export type ModalContent = {
   successIcon?: ReactNode;
   warningIcon?: ReactNode;
   errorIcon?: ReactNode;
+  overlayCss?: CSS;
 } & Dialog.DialogContentProps;
 
 Modal.Content = ({
@@ -156,6 +157,7 @@ Modal.Content = ({
   successIcon,
   warningIcon,
   errorIcon,
+  overlayCss,
   ...props
 }: ModalContent) => {
   const renderIntentIcons = (intent: ModalIntentState) => {
@@ -174,7 +176,7 @@ Modal.Content = ({
   return (
     <ModalContext.Provider value={{ intent }}>
       <Dialog.Portal>
-        <ModalOverlay />
+        <ModalOverlay css={{ ...overlayCss }} />
         <ModalContent {...props}>
           {intent !== 'default' ? (
             <Space>
