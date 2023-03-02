@@ -50,10 +50,12 @@ class HourMinuteControlStyle with Diagnosticable {
   HourMinuteControlStyle copyWith(
       {Color? hourMinuteTextColor,
       Color? hourMinuteColor,
+      TextStyle? hourMinuteTextStyle,
       ShapeBorder? hourMinuteShape}) {
     return HourMinuteControlStyle(
       hourMinuteTextColor: hourMinuteTextColor ?? this.hourMinuteTextColor,
       hourMinuteColor: hourMinuteColor ?? this.hourMinuteColor,
+      hourMinuteTextStyle: hourMinuteTextStyle ?? this.hourMinuteTextStyle,
       hourMinuteShape: hourMinuteShape ?? this.hourMinuteShape,
     );
   }
@@ -64,6 +66,8 @@ class HourMinuteControlStyle with Diagnosticable {
       hourMinuteTextColor:
           Color.lerp(a?.hourMinuteTextColor, b?.hourMinuteTextColor, t),
       hourMinuteColor: Color.lerp(a?.hourMinuteColor, b?.hourMinuteColor, t),
+      hourMinuteTextStyle:
+          TextStyle.lerp(a?.hourMinuteTextStyle, b?.hourMinuteTextStyle, t),
       hourMinuteShape:
           ShapeBorder.lerp(a?.hourMinuteShape, b?.hourMinuteShape, t),
     );
@@ -75,10 +79,16 @@ class HourMinuteControlStyle with Diagnosticable {
   static HourMinuteControlStyle fallback(
     Color? hourMinuteColor,
     Color? hourMinuteTextColor,
+    TextStyle? hourMinuteTextStyle,
+    ShapeBorder? hourMinuteShape,
   ) {
     return HourMinuteControlStyle(
         hourMinuteColor: hourMinuteColor,
-        hourMinuteTextColor: hourMinuteTextColor);
+        hourMinuteTextColor: hourMinuteTextColor,
+        hourMinuteTextStyle: hourMinuteTextStyle,
+        hourMinuteShape: hourMinuteShape ??
+            const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(.0))));
   }
 
   HourMinuteControlStyle merge(HourMinuteControlStyle? other) {

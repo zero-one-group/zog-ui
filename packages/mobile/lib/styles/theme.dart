@@ -549,19 +549,10 @@ class ZeroThemeData with Diagnosticable {
     );
 
     final timePickerStyleFallback = ZeroTimePickerStyle.fallback(
-        backgroundColor: scaffoldBackgroundColor,
-        hourMinute: HourMinuteControlStyle(
-          hourMinuteTextColor: colorScheme.onSurface,
-          hourMinuteColor: scaffoldBackgroundColor,
-        ),
-        dialBackgroundColor: colorScheme.primary.withOpacity(0.12),
-        dialHandColor: colorScheme.primary,
-        dayPeriodTextColor: regularTextColor,
+        hourMinute: HourMinuteControlStyle(),
         textfieldStyle: ZeroTextfieldStyle.outline(
             focusedBorderColor: colorScheme.primary,
-            focusedColor: isLight
-                ? colorScheme.primary.lighten(0.12)
-                : colorScheme.primary.lighten(0.24)));
+            focusedColor: colorScheme.primary.withOpacity( isLight ? 0.12 : 0.24)));
 
     useMaterial3 ??= false;
 
