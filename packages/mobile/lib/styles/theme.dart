@@ -123,6 +123,7 @@ class ZeroThemeData with Diagnosticable {
   final ZeroExpansionTileStyle expansionTileStyle;
   final ZeroSnackbarStyleSet snackBarStyle;
   final ZeroTimePickerStyle timePickerStyle;
+  final ZeroDatePickerStyle datePickerStyle;
 
   final Brightness brightness;
   final IconThemeData iconTheme;
@@ -194,6 +195,7 @@ class ZeroThemeData with Diagnosticable {
     required this.stepperStyle,
     required this.snackBarStyle,
     required this.timePickerStyle,
+    required this.datePickerStyle,
 
     // Others
     this.useMaterial3 = false,
@@ -257,7 +259,8 @@ class ZeroThemeData with Diagnosticable {
       ZeroStepStyle? stepStyle,
       ZeroStepperStyle? stepperStyle,
       ZeroSnackbarStyleSet? snackBarStyle,
-      ZeroTimePickerStyle? timePickerStyle}) {
+      ZeroTimePickerStyle? timePickerStyle,
+      ZeroDatePickerStyle? datePickerStyle}) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
     final isLight = brightness.isLight;
@@ -552,7 +555,10 @@ class ZeroThemeData with Diagnosticable {
         hourMinute: HourMinuteControlStyle(),
         textfieldStyle: ZeroTextfieldStyle.outline(
             focusedBorderColor: colorScheme.primary,
-            focusedColor: colorScheme.primary.withOpacity( isLight ? 0.12 : 0.24)));
+            focusedColor:
+                colorScheme.primary.withOpacity(isLight ? 0.12 : 0.24)));
+
+    final datePickerStyleFallback = ZeroDatePickerStyle.fallback();
 
     useMaterial3 ??= false;
 
@@ -619,7 +625,8 @@ class ZeroThemeData with Diagnosticable {
         stepStyle: stepStyleFallback.merge(stepStyle),
         stepperStyle: stepperStyleFallback.merge(stepperStyle),
         snackBarStyle: snackBarStyleFallback.merge(snackBarStyle),
-        timePickerStyle: timePickerStyleFallback.merge(timePickerStyle));
+        timePickerStyle: timePickerStyleFallback.merge(timePickerStyle),
+        datePickerStyle: datePickerStyleFallback.merge(datePickerStyle));
   }
 
   static ZeroThemeData lerp(ZeroThemeData a, ZeroThemeData b, double t) {
@@ -701,7 +708,8 @@ class ZeroThemeData with Diagnosticable {
             a.alertDialogStyle, b.alertDialogStyle, t),
         skeletonStyle: ZeroSkeletonStyleSet.lerp(a.skeletonStyle, b.skeletonStyle, t),
         snackBarStyle: ZeroSnackbarStyleSet.lerp(a.snackBarStyle, b.snackBarStyle, t),
-        timePickerStyle: ZeroTimePickerStyle.lerp(a.timePickerStyle, b.timePickerStyle, t));
+        timePickerStyle: ZeroTimePickerStyle.lerp(a.timePickerStyle, b.timePickerStyle, t),
+        datePickerStyle: ZeroDatePickerStyle.lerp(a.datePickerStyle, b.datePickerStyle, t));
   }
 
   ZeroThemeData copyWith({
@@ -838,7 +846,8 @@ class ZeroThemeData with Diagnosticable {
         stepStyle: stepStyle ?? this.stepStyle,
         stepperStyle: stepperStyle ?? this.stepperStyle,
         snackBarStyle: snackBarStyle ?? this.snackBarStyle,
-        timePickerStyle: timePickerStyle ?? this.timePickerStyle);
+        timePickerStyle: timePickerStyle ?? this.timePickerStyle,
+        datePickerStyle: datePickerStyle ?? this.datePickerStyle);
   }
 
   ThemeData toThemeData() {

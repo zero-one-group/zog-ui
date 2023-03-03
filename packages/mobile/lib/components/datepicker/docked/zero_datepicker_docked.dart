@@ -85,7 +85,6 @@ class _ZeroDatePickerDockedState extends State<ZeroDatePickerDocked>
       DateFormat.d().addPattern('/').add_M().addPattern('/').add_y();
 
   OverlayEntry? _overlayEntry;
-  GlobalKey globalKey = GlobalKey();
 
   bool _showActions = true;
 
@@ -96,9 +95,6 @@ class _ZeroDatePickerDockedState extends State<ZeroDatePickerDocked>
   void initState() {
     super.initState();
     OverlayState? overlayState = Overlay.of(context);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      globalKey;
-    });
 
     _focusNode.addListener(() {
       if (_focusNode.hasFocus) {
