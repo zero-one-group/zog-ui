@@ -457,7 +457,10 @@ class _ZeroDatePickerDialogState extends State<ZeroDatePickerDialog>
           TextButton(
             style: context.theme.textButtonStyle.toButtonStyle(),
             onPressed: _handleCancel,
-            child: Text(localizations.cancelButtonLabel),
+            child: Text(widget.cancelText ??
+                (theme.useMaterial3
+                    ? localizations.cancelButtonLabel
+                    : localizations.cancelButtonLabel.toUpperCase())),
           ),
           TextButton(
             style: context.theme.textButtonStyle.toButtonStyle(),
@@ -1338,9 +1341,6 @@ class _ZeroDateRangePickerDialogState extends State<ZeroDateRangePickerDialog>
     final bool showEntryModeButton =
         _entryMode.value == DatePickerEntryMode.calendar ||
             _entryMode.value == DatePickerEntryMode.input;
-
-    final adaptiveStyle = context.theme.datePickerStyle.merge(widget.style);
-
     switch (_entryMode.value) {
       case DatePickerEntryMode.calendar:
       case DatePickerEntryMode.calendarOnly:
@@ -1359,7 +1359,7 @@ class _ZeroDateRangePickerDialogState extends State<ZeroDateRangePickerDialog>
               ? IconButton(
                   icon: const Icon(Icons.edit),
                   padding: EdgeInsets.zero,
-                  color: adaptiveStyle.entryModeIconColor ?? onPrimarySurface,
+                  color: onPrimarySurface,
                   tooltip: localizations.inputDateModeButtonLabel,
                   onPressed: _handleEntryModeToggle,
                 )
@@ -1428,8 +1428,14 @@ class _ZeroDateRangePickerDialogState extends State<ZeroDateRangePickerDialog>
                 )
               : null,
           confirmText: widget.confirmText ?? localizations.okButtonLabel,
-          cancelText: localizations.cancelButtonLabel,
-          helpText: widget.helpText ?? localizations.dateRangePickerHelpText,
+          cancelText: widget.cancelText ??
+              (context.theme.useMaterial3
+                  ? localizations.cancelButtonLabel
+                  : localizations.cancelButtonLabel.toUpperCase()),
+          helpText: widget.helpText ??
+              (context.theme.useMaterial3
+                  ? localizations.dateRangePickerHelpText
+                  : localizations.dateRangePickerHelpText.toUpperCase()),
         );
         final DialogTheme dialogTheme = context.theme.dialogTheme;
         size = orientation == Orientation.portrait

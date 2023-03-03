@@ -123,7 +123,6 @@ class ZeroThemeData with Diagnosticable {
   final ZeroExpansionTileStyle expansionTileStyle;
   final ZeroSnackbarStyleSet snackBarStyle;
   final ZeroTimePickerStyle timePickerStyle;
-  final ZeroDatePickerStyle datePickerStyle;
 
   final Brightness brightness;
   final IconThemeData iconTheme;
@@ -195,7 +194,6 @@ class ZeroThemeData with Diagnosticable {
     required this.stepperStyle,
     required this.snackBarStyle,
     required this.timePickerStyle,
-    required this.datePickerStyle,
 
     // Others
     this.useMaterial3 = false,
@@ -332,30 +330,32 @@ class ZeroThemeData with Diagnosticable {
     inputDecorationType ??= InputDecorationType.underline;
 
     textfieldStyleSet ??= ZeroTextfieldStyleSet(
-        outline: ZeroTextfieldStyle.outline(
-            textfieldSize: textfieldSize,
-            focusedBorderColor: primaryColor,
-            focusedColor: primaryColor),
-        rounded: ZeroTextfieldStyle.rounded(
-            textfieldSize: textfieldSize,
-            focusedBorderColor: primaryColor,
-            focusedColor: primaryColor),
-        filled: ZeroTextfieldStyle.fill(
-            textfieldSize: textfieldSize,
-            focusedBorderColor: primaryColor,
-            focusedColor: primaryColor,
-            fillColor: primaryColor.lightest),
-        underline: ZeroTextfieldStyle.underline(
-            textfieldSize: textfieldSize,
-            focusedBorderColor: primaryColor,
-            focusedColor: primaryColor),
-        inputDecorationType: inputDecorationType);
+      outline: ZeroTextfieldStyle.outline(
+          textfieldSize: textfieldSize,
+          focusedBorderColor: primaryColor,
+          focusedColor: primaryColor),
+      rounded: ZeroTextfieldStyle.rounded(
+          textfieldSize: textfieldSize,
+          focusedBorderColor: primaryColor,
+          focusedColor: primaryColor),
+      filled: ZeroTextfieldStyle.fill(
+          textfieldSize: textfieldSize,
+          focusedBorderColor: primaryColor,
+          focusedColor: primaryColor,
+          fillColor: primaryColor.lightest),
+      underline: ZeroTextfieldStyle.underline(
+          textfieldSize: textfieldSize,
+          focusedBorderColor: primaryColor,
+          focusedColor: primaryColor),
+      inputDecorationType: inputDecorationType,
+    );
 
     skeletonStyle ??= const ZeroSkeletonStyleSet(
-        avatar: SkeletonAvatarStyle(),
-        line: SkeletonLineStyle(),
-        listTile: SkeletonListTileStyle(),
-        paragraph: SkeletonParagraphStyle());
+      avatar: SkeletonAvatarStyle(),
+      line: SkeletonLineStyle(),
+      listTile: SkeletonListTileStyle(),
+      paragraph: SkeletonParagraphStyle(),
+    );
 
     colorScheme ??= ColorScheme.fromSwatch(
       brightness: brightness,
