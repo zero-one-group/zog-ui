@@ -1,8 +1,7 @@
 import type Stitches from '@stitches/react';
 import { CSS, CSSProperties } from '@stitches/react';
-import { forwardRef } from 'react';
-import { Box, BoxProps } from '../Box';
-import { MergeProps } from '../types';
+import { forwardRef, ReactNode } from 'react';
+import { Box } from '../Box';
 
 export interface SpaceOptions {
   /**
@@ -47,7 +46,10 @@ export interface SpaceOptions {
   css?: CSS;
 }
 
-export type SpaceProps = Omit<MergeProps<BoxProps<'div'>, SpaceOptions>, 'as'>;
+export type SpaceProps = {
+  children?: ReactNode;
+  className?: string;
+} & SpaceOptions;
 
 export const Space = forwardRef<HTMLDivElement, SpaceProps>(
   (

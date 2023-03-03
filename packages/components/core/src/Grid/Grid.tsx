@@ -53,7 +53,7 @@ export interface GridOptions {
 }
 
 export type GridProps = {
-  children: ReactNode;
+  children?: ReactNode;
 } & GridOptions;
 
 export const Grid = forwardRef<HTMLDivElement, GridProps>(
