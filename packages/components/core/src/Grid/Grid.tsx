@@ -1,6 +1,6 @@
 import type Stitches from '@stitches/react';
 import { CSSProperties } from '@stitches/react';
-import { forwardRef } from 'react';
+import { forwardRef, ReactNode } from 'react';
 import { Box, BoxProps } from '../Box';
 import { MergeProps } from '../types';
 
@@ -52,7 +52,9 @@ export interface GridOptions {
   columnGap?: CSSProperties['columnGap'];
 }
 
-export type GridProps = Omit<MergeProps<BoxProps<'div'>, GridOptions>, 'as'>;
+export type GridProps = {
+  children: ReactNode;
+} & GridOptions;
 
 export const Grid = forwardRef<HTMLDivElement, GridProps>(
   (
