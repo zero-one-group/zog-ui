@@ -123,6 +123,7 @@ class ZeroThemeData with Diagnosticable {
   final ZeroExpansionTileStyle expansionTileStyle;
   final ZeroSnackbarStyleSet snackBarStyle;
   final ZeroTimePickerStyle timePickerStyle;
+  final ZeroDatePickerStyle datePickerStyle;
 
   final Brightness brightness;
   final IconThemeData iconTheme;
@@ -194,6 +195,7 @@ class ZeroThemeData with Diagnosticable {
     required this.stepperStyle,
     required this.snackBarStyle,
     required this.timePickerStyle,
+    required this.datePickerStyle,
 
     // Others
     this.useMaterial3 = false,
