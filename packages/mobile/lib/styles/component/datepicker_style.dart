@@ -23,7 +23,8 @@ class ZeroDatePickerStyle with Diagnosticable {
     this.helpTextStyle,
     this.shape,
     this.textfieldStyle,
-    this.elevation = 0,
+    this.elevation,
+    this.insetPadding,
   });
 
   /// The background color of a time picker.
@@ -63,7 +64,11 @@ class ZeroDatePickerStyle with Diagnosticable {
   final ZeroTextfieldStyle? textfieldStyle;
 
   /// The elevation of the [ZeroDatePickerDialog]
-  final double elevation;
+  final double? elevation;
+
+  /// of the dialog. This defines the minimum space between the screen's edges
+  /// and the dialog.
+  final EdgeInsetsGeometry? insetPadding;
 
   /// Creates a copy of this object with the given fields replaced with the
   /// new values.
@@ -73,6 +78,8 @@ class ZeroDatePickerStyle with Diagnosticable {
     TextStyle? helpTextStyle,
     ShapeBorder? shape,
     ZeroTextfieldStyle? textfieldStyle,
+    double? elevation,
+    EdgeInsetsGeometry? insetPadding,
   }) {
     return ZeroDatePickerStyle(
       backgroundColor: backgroundColor ?? this.backgroundColor,
@@ -80,6 +87,8 @@ class ZeroDatePickerStyle with Diagnosticable {
       helpTextStyle: helpTextStyle ?? this.helpTextStyle,
       shape: shape ?? this.shape,
       textfieldStyle: textfieldStyle ?? this.textfieldStyle,
+      elevation: elevation ?? this.elevation,
+      insetPadding: insetPadding ?? this.insetPadding,
     );
   }
 
@@ -88,8 +97,6 @@ class ZeroDatePickerStyle with Diagnosticable {
   /// The argument `t` must not be null.
   static ZeroDatePickerStyle lerp(
       ZeroDatePickerStyle? a, ZeroDatePickerStyle? b, double t) {
-    // Workaround since BorderSide's lerp does not allow for null arguments.
-
     return ZeroDatePickerStyle(
       backgroundColor: Color.lerp(a?.backgroundColor, b?.backgroundColor, t),
       entryModeIconColor:
@@ -101,13 +108,8 @@ class ZeroDatePickerStyle with Diagnosticable {
   }
 
   @override
-  int get hashCode => Object.hash(
-        backgroundColor,
-        entryModeIconColor,
-        helpTextStyle,
-        shape,
-        textfieldStyle,
-      );
+  int get hashCode => Object.hash(backgroundColor, entryModeIconColor,
+      helpTextStyle, shape, textfieldStyle, elevation, insetPadding);
 
   static ZeroDatePickerStyle fallback({
     Color? backgroundColor,
@@ -115,13 +117,17 @@ class ZeroDatePickerStyle with Diagnosticable {
     TextStyle? helpTextStyle,
     ShapeBorder? shape,
     ZeroTextfieldStyle? textfieldStyle,
+    double? elevation,
+    EdgeInsetsGeometry? insetPadding,
   }) {
     return ZeroDatePickerStyle(
         backgroundColor: backgroundColor,
         entryModeIconColor: entryModeIconColor,
         helpTextStyle: helpTextStyle,
         shape: shape,
-        textfieldStyle: textfieldStyle);
+        textfieldStyle: textfieldStyle,
+        elevation: elevation,
+        insetPadding: insetPadding);
   }
 
   ZeroDatePickerStyle merge(ZeroDatePickerStyle? other) {
@@ -132,7 +138,9 @@ class ZeroDatePickerStyle with Diagnosticable {
         entryModeIconColor: other.entryModeIconColor,
         helpTextStyle: other.helpTextStyle,
         shape: other.shape,
-        textfieldStyle: other.textfieldStyle);
+        textfieldStyle: other.textfieldStyle,
+        elevation: other.elevation,
+        insetPadding: other.insetPadding);
   }
 
   @override
@@ -148,7 +156,9 @@ class ZeroDatePickerStyle with Diagnosticable {
         other.entryModeIconColor == entryModeIconColor &&
         other.helpTextStyle == helpTextStyle &&
         other.shape == shape &&
-        other.textfieldStyle == textfieldStyle;
+        other.elevation == elevation &&
+        other.textfieldStyle == textfieldStyle &&
+        other.insetPadding == insetPadding;
   }
 
   @override

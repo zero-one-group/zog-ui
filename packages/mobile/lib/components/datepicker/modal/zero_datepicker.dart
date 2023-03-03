@@ -1098,6 +1098,7 @@ class ZeroDateRangePickerDialog extends StatefulWidget {
     this.fieldStartLabelText,
     this.fieldEndLabelText,
     this.restorationId,
+    this.style,
   });
 
   /// The date range that the date range picker starts with when it opens.
@@ -1216,6 +1217,8 @@ class ZeroDateRangePickerDialog extends StatefulWidget {
   ///  * [RestorationManager], which explains how state restoration works in
   ///    Flutter.
   final String? restorationId;
+
+  final ZeroDatePickerStyle? style;
 
   @override
   State<ZeroDateRangePickerDialog> createState() =>
@@ -1437,8 +1440,8 @@ class _ZeroDateRangePickerDialogState extends State<ZeroDateRangePickerDialog>
             : _inputRangeLandscapeDialogSize;
         insetPadding =
             const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0);
-        shape = dialogTheme.shape;
-        elevation = dialogTheme.elevation ?? 24;
+        shape = dialogTheme.shape ?? widget.style?.shape;
+        elevation = dialogTheme.elevation ?? widget.style?.elevation ?? 24;
         break;
     }
 
