@@ -40,18 +40,19 @@ class HourMinuteControlStyle with Diagnosticable {
   /// `RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4.0)))`.
   final ShapeBorder? hourMinuteShape;
 
-  HourMinuteControlStyle({
+  const HourMinuteControlStyle({
     this.hourMinuteTextColor,
     this.hourMinuteColor,
     this.hourMinuteTextStyle,
     this.hourMinuteShape,
   });
 
-  HourMinuteControlStyle copyWith(
-      {Color? hourMinuteTextColor,
-      Color? hourMinuteColor,
-      TextStyle? hourMinuteTextStyle,
-      ShapeBorder? hourMinuteShape}) {
+  HourMinuteControlStyle copyWith({
+    Color? hourMinuteTextColor,
+    Color? hourMinuteColor,
+    TextStyle? hourMinuteTextStyle,
+    ShapeBorder? hourMinuteShape,
+  }) {
     return HourMinuteControlStyle(
       hourMinuteTextColor: hourMinuteTextColor ?? this.hourMinuteTextColor,
       hourMinuteColor: hourMinuteColor ?? this.hourMinuteColor,

@@ -279,7 +279,7 @@ class _HourMinuteControl extends StatelessWidget {
     final ZeroThemeData themeData =
         context.theme; // TODO: Figure out the issue of use ZeroTheme typography
     final HourMinuteControlStyle adaptiveStyle =
-        context.theme.timePickerStyle.hourMinute.merge(style);
+        themeData.timePickerStyle.hourMinute.merge(style);
     final bool isDark = themeData.colorScheme.brightness == Brightness.dark;
     final Color textColor = adaptiveStyle.hourMinuteTextColor ??
         MaterialStateColor.resolveWith((Set<MaterialState> states) {
