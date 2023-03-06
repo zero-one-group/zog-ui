@@ -277,7 +277,7 @@ class ZeroThemeData with Diagnosticable {
     infoColor ??= ZeroColors.info;
     warningColor ??= ZeroColors.warning;
     errorColor ??= ZeroColors.danger;
-    dividerColor ??= isLight ? ZeroColors.neutral[5] : ZeroColors.neutral[10];
+    dividerColor ??= isLight ? ZeroColors.neutral[5] : ZeroColors.neutral[6];
     solidTextColor ??= isLight ? ZeroColors.neutral[10] : ZeroColors.neutral[5];
     regularTextColor ??=
         isLight ? ZeroColors.neutral[7] : ZeroColors.neutral[6];
@@ -395,10 +395,12 @@ class ZeroThemeData with Diagnosticable {
 
     final primaryButtonStyleFallback = ZeroButtonStyle.primaryStyle(
       backgroundColor: primaryColor,
-      foregroundColor: primaryColor.darker,
+      foregroundColor: Colors.white,
       surfaceTintColor: primaryColor.lighter,
       animatingColor: primaryColor.lighter,
       textStyle: typography.button?.copyWith(color: ZeroColors.white),
+      disabledForegroundColor: disabledColor,
+      disabledBackgroundColor: disabledBackgroundColor,
     );
 
     final secondaryButtonStyleFallback = ZeroButtonStyle.secondaryStyle(
@@ -407,12 +409,17 @@ class ZeroThemeData with Diagnosticable {
       surfaceTintColor: primaryColor.lighter,
       animatingColor: primaryColor.lighter,
       textStyle: typography.button?.copyWith(color: solidTextColor),
+      disabledForegroundColor: disabledColor,
+      disabledBackgroundColor: disabledBackgroundColor,
+      side: BorderSide(color: dividerColor),
     );
 
     final textButtonStyleFallback = secondaryButtonStyleFallback.copyWith(
       elevation: 0,
       side: BorderSide.none,
       foregroundColor: solidTextColor,
+      disabledForegroundColor: disabledColor,
+      disabledBackgroundColor: ZeroColors.transparent,
     );
 
     final dividerStyleFallback = ZeroDividerStyle.fallback(color: dividerColor);

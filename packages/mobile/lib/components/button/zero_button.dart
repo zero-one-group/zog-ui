@@ -36,13 +36,8 @@ class ZeroButton extends ElevatedButton {
   static Widget primary({
     Key? key,
 
-    /// [text] is the text that will be displayed on the button
-    /// this value will be used as text value for [Text] widget inside [ZeroButton]
-    required String text,
-
-    /// [textStyle] is the style for [Text] widget inside [ZeroButton]
-    /// if this value is null, the default style will be used
-    TextStyle? textStyle,
+    /// [child] is the widget that will be displayed on the button
+    required Widget child,
 
     /// [width] is the width for [ZeroButton]
     /// if this value is null, widget will be sized to fit its contents
@@ -80,6 +75,8 @@ class ZeroButton extends ElevatedButton {
       /// [primaryDefaultStyle] is the default style for [ZeroButton.primary]
       final ZeroButtonStyle primaryDefaultStyle = buttonStyle.merge(
         ZeroButtonStyle(
+          textStyle: buttonStyle.textStyle
+              ?.copyWith(fontSize: buttonSizeType.fontSize),
           elevation: 0,
           backgroundColor: buttonStyle.backgroundColor ?? theme.primaryColor,
           fixedSize: (width != null)
@@ -95,15 +92,20 @@ class ZeroButton extends ElevatedButton {
       /// if [style] is not null, merge [style] with [primaryDefaultStyle]
       /// combine customizations from [style] with default style [primaryDefaultStyle]
       final adaptiveStyle = primaryDefaultStyle.merge(style);
+      final textStyle =
+          (theme.typography.button ?? DefaultTextStyle.of(context).style)
+              .copyWith(fontSize: buttonSizeType.fontSize)
+              .merge(adaptiveStyle.textStyle)
+              .copyWith(color: adaptiveStyle.foregroundColor);
 
       return isDisabled
           ? disabled(
-              text: text,
-              textStyle: textStyle,
+              child: child,
               width: width,
               height: height,
               buttonSizeType: buttonSizeType,
               buttonRadiusType: buttonRadiusType,
+              style: adaptiveStyle,
             )
           : ZeroButton._(
               key: key,
@@ -112,17 +114,12 @@ class ZeroButton extends ElevatedButton {
               style: adaptiveStyle,
               focusNode: focusNode,
               autofocus: autofocus,
-              child: Padding(
-                padding: const EdgeInsets.all(0),
-                child: Text(
-                  text,
-                  style: theme.typography.button?.merge(
-                    textStyle?.copyWith(color: Colors.white) ??
-                        TextStyle(
-                          fontSize: buttonSizeType.fontSize,
-                          color: ZeroColors.white,
-                        ),
-                  ),
+              child: IconTheme(
+                data: IconTheme.of(context)
+                    .copyWith(color: adaptiveStyle.foregroundColor),
+                child: DefaultTextStyle(
+                  style: textStyle,
+                  child: child,
                 ),
               ),
             );
@@ -132,16 +129,8 @@ class ZeroButton extends ElevatedButton {
   static Widget secondary({
     Key? key,
 
-    /// [text] is the text that will be displayed on the button
-    /// this value will be used as text value for [Text] widget inside [ZeroButton]
-    required String text,
-
-    /// [textStyle] is the style for [Text] widget inside [ZeroButton]
-    /// if this value is null, the default style will be used
-    TextStyle? textStyle,
-
-    /// [selectedBorderColor] is the border color for [ZeroButton]
-    Color? borderColor,
+    /// [child] is the widget that will be displayed on the button
+    required Widget child,
 
     /// [width] is the width for [ZeroButton]
     /// if this value is null, widget will be sized to fit its contents
@@ -175,11 +164,12 @@ class ZeroButton extends ElevatedButton {
     return Builder(builder: (context) {
       final theme = context.theme;
       final buttonStyle = theme.secondaryButtonStyle;
-      final adaptiveBorderColor = borderColor ?? theme.dividerColor;
 
       /// [secondaryDefaultStyle] is the default style for [ZeroButton.secondary]
       final ZeroButtonStyle secondaryDefaultStyle = buttonStyle.merge(
         ZeroButtonStyle(
+          textStyle: buttonStyle.textStyle
+              ?.copyWith(fontSize: buttonSizeType.fontSize),
           backgroundColor: buttonStyle.backgroundColor,
           foregroundColor:
               buttonStyle.foregroundColor ?? theme.disabledBackgroundColor,
@@ -191,10 +181,11 @@ class ZeroButton extends ElevatedButton {
               : null,
           padding: buttonSizeType.padding,
           shape: RoundedRectangleBorder(
-            side: BorderSide(
-              color: adaptiveBorderColor,
-              width: 1,
-            ),
+            side: buttonStyle.side ??
+                BorderSide(
+                  color: theme.dividerColor,
+                  width: 1,
+                ),
             borderRadius: buttonRadiusSize(buttonRadiusType),
           ),
         ),
@@ -203,15 +194,20 @@ class ZeroButton extends ElevatedButton {
       /// if [style] is not null, merge [style] with [secondaryDefaultStyle]
       /// combine customizations from [style] with default style [secondaryDefaultStyle]
       final adaptiveStyle = secondaryDefaultStyle.merge(style);
+      final textStyle =
+          (theme.typography.button ?? DefaultTextStyle.of(context).style)
+              .copyWith(fontSize: buttonSizeType.fontSize)
+              .merge(adaptiveStyle.textStyle)
+              .copyWith(color: adaptiveStyle.foregroundColor);
 
       return isDisabled
           ? disabled(
-              text: text,
-              textStyle: textStyle,
+              child: child,
               width: width,
               height: height,
               buttonSizeType: buttonSizeType,
               buttonRadiusType: buttonRadiusType,
+              style: adaptiveStyle,
             )
           : ZeroButton._(
               key: key,
@@ -220,16 +216,12 @@ class ZeroButton extends ElevatedButton {
               style: adaptiveStyle,
               focusNode: focusNode,
               autofocus: autofocus,
-              child: Padding(
-                padding: const EdgeInsets.all(0),
-                child: Text(
-                  text,
-                  style: theme.typography.button?.merge(
-                    textStyle ??
-                        TextStyle(
-                          fontSize: buttonSizeType.fontSize,
-                        ),
-                  ),
+              child: IconTheme(
+                data: IconTheme.of(context)
+                    .copyWith(color: adaptiveStyle.foregroundColor),
+                child: DefaultTextStyle(
+                  style: textStyle,
+                  child: child,
                 ),
               ),
             );
@@ -239,13 +231,8 @@ class ZeroButton extends ElevatedButton {
   static Widget text({
     Key? key,
 
-    /// [text] is the text that will be displayed on the button
-    /// this value will be used as text value for [Text] widget inside [ZeroButton]
-    required String text,
-
-    /// [textStyle] is the style for [Text] widget inside [ZeroButton]
-    /// if this value is null, the default style will be used
-    TextStyle? textStyle,
+    /// [child] is the widget that will be displayed on the button
+    required Widget child,
 
     /// [width] is the width for [ZeroButton]
     /// if this value is null, widget will be sized to fit its contents
@@ -278,11 +265,13 @@ class ZeroButton extends ElevatedButton {
   }) {
     return Builder(builder: (context) {
       final theme = context.theme;
-      final buttonStyle = theme.secondaryButtonStyle;
+      final buttonStyle = theme.textButtonStyle;
 
-      /// [secondaryDefaultStyle] is the default style for [ZeroButton.secondary]
-      final ZeroButtonStyle secondaryDefaultStyle = buttonStyle.merge(
+      /// [textDefaultStyle] is the default style for [ZeroButton.text]
+      final ZeroButtonStyle textDefaultStyle = buttonStyle.merge(
         ZeroButtonStyle(
+          textStyle: buttonStyle.textStyle
+              ?.copyWith(fontSize: buttonSizeType.fontSize),
           foregroundColor: buttonStyle.foregroundColor ?? ZeroColors.neutral,
           animatingColor:
               buttonStyle.animatingColor ?? theme.primaryColor.lighter,
@@ -297,27 +286,23 @@ class ZeroButton extends ElevatedButton {
         ),
       );
 
-      /// if [style] is not null, merge [style] with [secondaryDefaultStyle]
-      /// combine customizations from [style] with default style [secondaryDefaultStyle]
-      final adaptiveStyle = secondaryDefaultStyle.merge(style);
+      /// if [style] is not null, merge [style] with [textDefaultStyle]
+      /// combine customizations from [style] with default style [textDefaultStyle]
+      final adaptiveStyle = textDefaultStyle.merge(style);
+      final textStyle =
+          (theme.typography.button ?? DefaultTextStyle.of(context).style)
+              .copyWith(fontSize: buttonSizeType.fontSize)
+              .merge(adaptiveStyle.textStyle)
+              .copyWith(color: adaptiveStyle.foregroundColor);
 
       return isDisabled
           ? disabled(
-              text: text,
-              textStyle: textStyle,
+              child: child,
               width: width,
               height: height,
               buttonSizeType: buttonSizeType,
               buttonRadiusType: buttonRadiusType,
-              style: ZeroButtonStyle(
-                fixedSize: (width != null)
-                    ? Size(width, height ?? buttonSizeType.defaultButtonHeight)
-                    : null,
-                padding: buttonSizeType.padding,
-                shape: RoundedRectangleBorder(
-                  borderRadius: buttonRadiusSize(buttonRadiusType),
-                ),
-              ),
+              style: adaptiveStyle,
             )
           : ZeroButton._(
               key: key,
@@ -326,16 +311,12 @@ class ZeroButton extends ElevatedButton {
               style: adaptiveStyle,
               focusNode: focusNode,
               autofocus: autofocus,
-              child: Padding(
-                padding: const EdgeInsets.all(0),
-                child: Text(
-                  text,
-                  style: theme.typography.button?.merge(
-                    textStyle ??
-                        TextStyle(
-                          fontSize: buttonSizeType.fontSize,
-                        ),
-                  ),
+              child: IconTheme(
+                data: IconTheme.of(context)
+                    .copyWith(color: adaptiveStyle.foregroundColor),
+                child: DefaultTextStyle(
+                  style: textStyle,
+                  child: child,
                 ),
               ),
             );
@@ -345,11 +326,8 @@ class ZeroButton extends ElevatedButton {
   static Widget disabled({
     Key? key,
 
-    /// [text] is the text that will be displayed on the button
-    required String text,
-
-    /// [textStyle] is the style for [Text] widget inside [ZeroButton]
-    TextStyle? textStyle,
+    /// [child] is the widget that will be displayed on the button
+    required Widget child,
 
     /// [width] is the width for [ZeroButton]
     /// if this value is null, widget will be sized to fit its contents
@@ -373,17 +351,10 @@ class ZeroButton extends ElevatedButton {
     return Builder(builder: (context) {
       final theme = context.theme;
 
-      /// [textStyle] is the style for [Text] widget inside [ZeroButton]
-      /// if this value is null, the default style will be used
-      textStyle ??= TextStyle(
-        fontSize: buttonSizeType.fontSize,
-        color: theme.disabledColor,
-      );
-
       /// [disabledDefaultStyle] is the default style for [ZeroButton.disabled]
       final ZeroButtonStyle disabledDefaultStyle = ZeroButtonStyle(
-        backgroundColor: theme.disabledBackgroundColor,
-        foregroundColor: ZeroColors.transparentWhite,
+        textStyle:
+            style?.textStyle?.copyWith(fontSize: buttonSizeType.fontSize),
         elevation: 0,
         fixedSize: (width != null)
             ? Size(width, height ?? buttonSizeType.defaultButtonHeight)
@@ -399,19 +370,29 @@ class ZeroButton extends ElevatedButton {
       );
 
       /// [style] is the style for [ZeroButton]
-      final adaptiveButtonStyle = disabledDefaultStyle.merge(style);
+      final adaptiveStyle = disabledDefaultStyle.merge(style);
+      final textStyle =
+          (theme.typography.button ?? DefaultTextStyle.of(context).style)
+              .copyWith(fontSize: buttonSizeType.fontSize)
+              .merge(adaptiveStyle.textStyle)
+              .copyWith(color: adaptiveStyle.disabledForegroundColor);
 
       return ZeroButton._(
         key: key,
-        onPressed: () {
-          // do nothing
-        },
-        style: adaptiveButtonStyle,
+        onPressed: null,
+        style: adaptiveStyle.copyWith(
+          backgroundColor: adaptiveStyle.disabledBackgroundColor,
+          foregroundColor: adaptiveStyle.disabledForegroundColor,
+        ),
         child: Padding(
           padding: const EdgeInsets.all(0),
-          child: Text(
-            text,
-            style: textStyle,
+          child: IconTheme(
+            data: IconTheme.of(context)
+                .copyWith(color: adaptiveStyle.disabledForegroundColor),
+            child: DefaultTextStyle(
+              style: textStyle,
+              child: child,
+            ),
           ),
         ),
       );

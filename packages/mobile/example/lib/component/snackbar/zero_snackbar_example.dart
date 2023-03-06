@@ -32,7 +32,7 @@ class _ZeroSnackbarExampleState extends State<ZeroSnackbarExample> {
                       variant: ZeroSnackbarAlertVariant.danger,
                     );
                   },
-                  text: 'Show SnackbarAlert Danger',
+                  child: const Text('Show SnackbarAlert Danger'),
                 ),
                 TextButton(
                   onPressed: () {

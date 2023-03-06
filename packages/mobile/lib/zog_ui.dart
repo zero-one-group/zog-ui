@@ -16,9 +16,6 @@ export './components/badge/zero_badge.dart';
 // button
 export './components/button/zero_button.dart';
 export './components/button/zero_button_icon.dart';
-export './components/button/zero_button_left_icon.dart';
-export './components/button/zero_button_right_icon.dart';
-export './components/button/zero_button_right_left_icon.dart';
 // button group
 export './components/button_group/zero_button_group.dart';
 // card

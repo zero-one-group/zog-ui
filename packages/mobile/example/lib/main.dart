@@ -192,7 +192,7 @@ class Examples extends StatelessWidget {
             ),
           );
         },
-        text: data.elementAt(index).key,
+        child: Text(data.elementAt(index).key),
       ),
       separatorBuilder: (_, __) => const SizedBox(height: 12),
     );

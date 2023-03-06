@@ -20,17 +20,17 @@ class ZeroSkeletonExample extends StatelessWidget {
           child: Column(
             children: [
               ZeroButton.primary(
-                text: 'Items',
+                child: const Text('Items'),
                 onPressed: () => Navigator.of(context).push((MaterialPageRoute(
                     builder: (context) => const ItemsExamplePage()))),
               ),
               ZeroButton.primary(
-                text: 'List Tiles',
+                child: const Text('List Tiles'),
                 onPressed: () => Navigator.of(context).push((MaterialPageRoute(
                     builder: (context) => const ListTileExamplePage()))),
               ),
               ZeroButton.primary(
-                text: 'Cards',
+                child: const Text('Cards'),
                 onPressed: () => Navigator.of(context).push((MaterialPageRoute(
                     builder: (context) => const CardsExamplePage()))),
               ),
