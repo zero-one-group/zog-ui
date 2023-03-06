@@ -14,6 +14,7 @@ WidgetbookComponent timepickerWidgetbookComponent = WidgetbookComponent(
               text: 'Time Picker',
               onPressed: () => showZeroTimePicker(
                 context: context,
+                useRootNavigator: false,
                 initialTime: TimeOfDay.now(),
               ),
             ),
@@ -27,6 +28,7 @@ WidgetbookComponent timepickerWidgetbookComponent = WidgetbookComponent(
               text: 'Time Picker',
               onPressed: () => showZeroTimePicker(
                 context: context,
+                useRootNavigator: false,
                 use24hFormat: true,
                 initialTime: TimeOfDay.now(),
               ),

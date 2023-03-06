@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:zog_ui/styles/component/timepicker_style.dart';
 import 'package:zog_ui/zog_ui.dart';
 
 class ZeroTheme extends StatelessWidget {
@@ -121,6 +122,7 @@ class ZeroThemeData with Diagnosticable {
   final ZeroTooltipStyle tooltipStyle;
   final ZeroExpansionTileStyle expansionTileStyle;
   final ZeroSnackbarStyleSet snackBarStyle;
+  final ZeroTimePickerStyle timePickerStyle;
 
   final Brightness brightness;
   final IconThemeData iconTheme;
@@ -191,6 +193,7 @@ class ZeroThemeData with Diagnosticable {
     required this.stepStyle,
     required this.stepperStyle,
     required this.snackBarStyle,
+    required this.timePickerStyle,
 
     // Others
     this.useMaterial3 = false,
@@ -254,6 +257,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroStepStyle? stepStyle,
     ZeroStepperStyle? stepperStyle,
     ZeroSnackbarStyleSet? snackBarStyle,
+    ZeroTimePickerStyle? timePickerStyle,
   }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
@@ -326,30 +330,32 @@ class ZeroThemeData with Diagnosticable {
     inputDecorationType ??= InputDecorationType.underline;
 
     textfieldStyleSet ??= ZeroTextfieldStyleSet(
-        outline: ZeroTextfieldStyle.outline(
-            textfieldSize: textfieldSize,
-            focusedBorderColor: primaryColor,
-            focusedColor: primaryColor),
-        rounded: ZeroTextfieldStyle.rounded(
-            textfieldSize: textfieldSize,
-            focusedBorderColor: primaryColor,
-            focusedColor: primaryColor),
-        filled: ZeroTextfieldStyle.fill(
-            textfieldSize: textfieldSize,
-            focusedBorderColor: primaryColor,
-            focusedColor: primaryColor,
-            fillColor: primaryColor.lightest),
-        underline: ZeroTextfieldStyle.underline(
-            textfieldSize: textfieldSize,
-            focusedBorderColor: primaryColor,
-            focusedColor: primaryColor),
-        inputDecorationType: inputDecorationType);
+      outline: ZeroTextfieldStyle.outline(
+          textfieldSize: textfieldSize,
+          focusedBorderColor: primaryColor,
+          focusedColor: primaryColor),
+      rounded: ZeroTextfieldStyle.rounded(
+          textfieldSize: textfieldSize,
+          focusedBorderColor: primaryColor,
+          focusedColor: primaryColor),
+      filled: ZeroTextfieldStyle.fill(
+          textfieldSize: textfieldSize,
+          focusedBorderColor: primaryColor,
+          focusedColor: primaryColor,
+          fillColor: primaryColor.lightest),
+      underline: ZeroTextfieldStyle.underline(
+          textfieldSize: textfieldSize,
+          focusedBorderColor: primaryColor,
+          focusedColor: primaryColor),
+      inputDecorationType: inputDecorationType,
+    );
 
     skeletonStyle ??= const ZeroSkeletonStyleSet(
-        avatar: SkeletonAvatarStyle(),
-        line: SkeletonLineStyle(),
-        listTile: SkeletonListTileStyle(),
-        paragraph: SkeletonParagraphStyle());
+      avatar: SkeletonAvatarStyle(),
+      line: SkeletonLineStyle(),
+      listTile: SkeletonListTileStyle(),
+      paragraph: SkeletonParagraphStyle(),
+    );
 
     colorScheme ??= ColorScheme.fromSwatch(
       brightness: brightness,
@@ -545,6 +551,13 @@ class ZeroThemeData with Diagnosticable {
       titleStyle: typography.subtitle1,
     );
 
+    final timePickerStyleFallback = ZeroTimePickerStyle.fallback(
+        hourMinute: const HourMinuteControlStyle(),
+        textfieldStyle: ZeroTextfieldStyle.outline(
+            focusedBorderColor: colorScheme.primary,
+            focusedColor:
+                colorScheme.primary.withOpacity(isLight ? 0.12 : 0.24)));
+
     useMaterial3 ??= false;
 
     return ZeroThemeData.raw(
@@ -607,6 +620,7 @@ class ZeroThemeData with Diagnosticable {
       stepStyle: stepStyleFallback.merge(stepStyle),
       stepperStyle: stepperStyleFallback.merge(stepperStyle),
       snackBarStyle: snackBarStyleFallback.merge(snackBarStyle),
+      timePickerStyle: timePickerStyleFallback.merge(timePickerStyle),
     );
   }
 
@@ -690,6 +704,8 @@ class ZeroThemeData with Diagnosticable {
           ZeroSkeletonStyleSet.lerp(a.skeletonStyle, b.skeletonStyle, t),
       snackBarStyle:
           ZeroSnackbarStyleSet.lerp(a.snackBarStyle, b.snackBarStyle, t),
+      timePickerStyle:
+          ZeroTimePickerStyle.lerp(a.timePickerStyle, b.timePickerStyle, t),
     );
   }
 
@@ -751,6 +767,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroStepStyle? stepStyle,
     ZeroStepperStyle? stepperStyle,
     ZeroSnackbarStyleSet? snackBarStyle,
+    ZeroTimePickerStyle? timePickerStyle,
   }) {
     return ZeroThemeData.raw(
       brightness: brightness ?? this.brightness,
@@ -826,6 +843,7 @@ class ZeroThemeData with Diagnosticable {
       stepStyle: stepStyle ?? this.stepStyle,
       stepperStyle: stepperStyle ?? this.stepperStyle,
       snackBarStyle: snackBarStyle ?? this.snackBarStyle,
+      timePickerStyle: timePickerStyle ?? this.timePickerStyle,
     );
   }
 

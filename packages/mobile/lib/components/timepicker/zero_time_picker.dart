@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:math' as math;
 
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
-
+import 'package:zog_ui/styles/component/timepicker_style.dart';
 import 'package:zog_ui/zog_ui.dart';
 
 const Duration _kDialogSizeAnimationDuration = Duration(milliseconds: 200);
@@ -29,7 +29,7 @@ const double _kTimePickerHeightPortraitCollapsed = 484.0;
 const double _kTimePickerHeightLandscapeCollapsed = 304.0;
 
 const BorderRadius _kDefaultBorderRadius =
-    BorderRadius.all(Radius.circular(4.0));
+    BorderRadius.all(Radius.circular(12.0));
 const ShapeBorder _kDefaultShape =
     RoundedRectangleBorder(borderRadius: _kDefaultBorderRadius);
 
@@ -94,6 +94,7 @@ class _TimePickerHeader extends StatelessWidget {
     required this.onMinuteDoubleTapped,
     required this.use24HourDials,
     required this.helpText,
+    this.hourMinuteStyle,
   });
 
   final TimeOfDay selectedTime;
@@ -105,6 +106,7 @@ class _TimePickerHeader extends StatelessWidget {
   final GestureTapCallback onMinuteDoubleTapped;
   final bool use24HourDials;
   final String? helpText;
+  final HourMinuteControlStyle? hourMinuteStyle;
 
   void _handleChangeMode(_TimePickerMode value) {
     if (value != mode) {
@@ -122,9 +124,7 @@ class _TimePickerHeader extends StatelessWidget {
     );
     final MaterialLocalizations localizations =
         MaterialLocalizations.of(context);
-    final String timePickerDialHelpText = themeData.useMaterial3
-        ? localizations.timePickerDialHelpText
-        : localizations.timePickerDialHelpText.toUpperCase();
+    final String timePickerDialHelpText = localizations.timePickerDialHelpText;
 
     final _TimePickerFragmentContext fragmentContext =
         _TimePickerFragmentContext(
@@ -168,12 +168,17 @@ class _TimePickerHeader extends StatelessWidget {
                       textDirection: TextDirection.ltr,
                       children: <Widget>[
                         Expanded(
-                            child:
-                                _HourControl(fragmentContext: fragmentContext)),
-                        _StringFragment(timeOfDayFormat: timeOfDayFormat),
+                            child: _HourControl(
+                                fragmentContext: fragmentContext,
+                                style: hourMinuteStyle)),
+                        ZeroTheme(
+                            data: context.theme,
+                            child: _StringFragment(
+                                timeOfDayFormat: timeOfDayFormat)),
                         Expanded(
                             child: _MinuteControl(
-                                fragmentContext: fragmentContext)),
+                                fragmentContext: fragmentContext,
+                                hourMinuteStyle: hourMinuteStyle)),
                       ],
                     ),
                   ),
@@ -244,7 +249,7 @@ class _TimePickerHeader extends StatelessWidget {
           const SizedBox(height: 16.0),
           Text(
             helpText ?? timePickerDialHelpText,
-            style: TimePickerTheme.of(context).helpTextStyle ??
+            style: context.theme.timePickerStyle.helpTextStyle ??
                 themeData.textTheme.labelSmall,
           ),
           controls,
@@ -260,34 +265,37 @@ class _HourMinuteControl extends StatelessWidget {
     required this.onTap,
     required this.onDoubleTap,
     required this.isSelected,
+    this.style,
   });
 
   final String text;
   final GestureTapCallback onTap;
   final GestureTapCallback onDoubleTap;
   final bool isSelected;
+  final HourMinuteControlStyle? style;
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData themeData = Theme.of(
-        context); // TODO: Figure out the issue of use ZeroTheme typography
-    final TimePickerThemeData timePickerTheme = TimePickerTheme.of(context);
+    final ZeroThemeData themeData =
+        context.theme; // TODO: Figure out the issue of use ZeroTheme typography
+    final HourMinuteControlStyle adaptiveStyle =
+        themeData.timePickerStyle.hourMinute.merge(style);
     final bool isDark = themeData.colorScheme.brightness == Brightness.dark;
-    final Color textColor = timePickerTheme.hourMinuteTextColor ??
+    final Color textColor = adaptiveStyle.hourMinuteTextColor ??
         MaterialStateColor.resolveWith((Set<MaterialState> states) {
           return states.contains(MaterialState.selected)
               ? themeData.colorScheme.primary
               : themeData.colorScheme.onSurface;
         });
-    final Color backgroundColor = timePickerTheme.hourMinuteColor ??
+    final Color backgroundColor = adaptiveStyle.hourMinuteColor ??
         MaterialStateColor.resolveWith((Set<MaterialState> states) {
           return states.contains(MaterialState.selected)
               ? themeData.colorScheme.primary.withOpacity(isDark ? 0.24 : 0.12)
-              : themeData.colorScheme.onSurface.withOpacity(0.12);
+              : themeData.colorScheme.onSurface.withOpacity(0.02);
         });
-    final TextStyle style = timePickerTheme.hourMinuteTextStyle ??
-        themeData.textTheme.displayMedium!;
-    final ShapeBorder shape = timePickerTheme.hourMinuteShape ?? _kDefaultShape;
+    final TextStyle textStyle =
+        adaptiveStyle.hourMinuteTextStyle ?? themeData.typography.heading2!;
+    final ShapeBorder shape = adaptiveStyle.hourMinuteShape ?? _kDefaultShape;
 
     final Set<MaterialState> states = isSelected
         ? <MaterialState>{MaterialState.selected}
@@ -304,7 +312,7 @@ class _HourMinuteControl extends StatelessWidget {
           child: Center(
             child: Text(
               text,
-              style: style.copyWith(
+              style: textStyle.copyWith(
                   color: MaterialStateProperty.resolveAs(textColor, states)),
               textScaleFactor: 1.0,
             ),
@@ -319,11 +327,10 @@ class _HourMinuteControl extends StatelessWidget {
 ///
 /// When tapped changes time picker dial mode to [_TimePickerMode.hour].
 class _HourControl extends StatelessWidget {
-  const _HourControl({
-    required this.fragmentContext,
-  });
+  const _HourControl({required this.fragmentContext, this.style});
 
   final _TimePickerFragmentContext fragmentContext;
+  final HourMinuteControlStyle? style;
 
   @override
   Widget build(BuildContext context) {
@@ -381,6 +388,7 @@ class _HourControl extends StatelessWidget {
         onTap: Feedback.wrapForTap(
             () => fragmentContext.onModeChange(_TimePickerMode.hour), context)!,
         onDoubleTap: fragmentContext.onHourDoubleTapped,
+        style: style,
       ),
     );
   }
@@ -388,11 +396,10 @@ class _HourControl extends StatelessWidget {
 
 /// A passive fragment showing a string value.
 class _StringFragment extends StatelessWidget {
-  const _StringFragment({
-    required this.timeOfDayFormat,
-  });
+  const _StringFragment({required this.timeOfDayFormat, this.style});
 
   final TimeOfDayFormat timeOfDayFormat;
+  final HourMinuteControlStyle? style;
 
   String _stringFragmentValue(TimeOfDayFormat timeOfDayFormat) {
     switch (timeOfDayFormat) {
@@ -411,11 +418,12 @@ class _StringFragment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = context.theme.toThemeData();
-    final TimePickerThemeData timePickerTheme = TimePickerTheme.of(context);
+    final HourMinuteControlStyle adaptiveStyle =
+        context.theme.timePickerStyle.hourMinute.merge(style);
     final TextStyle hourMinuteStyle =
-        timePickerTheme.hourMinuteTextStyle ?? theme.textTheme.displayMedium!;
+        adaptiveStyle.hourMinuteTextStyle ?? theme.textTheme.displayMedium!;
     final Color textColor =
-        timePickerTheme.hourMinuteTextColor ?? theme.colorScheme.onSurface;
+        adaptiveStyle.hourMinuteTextColor ?? theme.colorScheme.onSurface;
 
     return ExcludeSemantics(
       child: Padding(
@@ -438,11 +446,10 @@ class _StringFragment extends StatelessWidget {
 ///
 /// When tapped changes time picker dial mode to [_TimePickerMode.minute].
 class _MinuteControl extends StatelessWidget {
-  const _MinuteControl({
-    required this.fragmentContext,
-  });
+  const _MinuteControl({required this.fragmentContext, this.hourMinuteStyle});
 
   final _TimePickerFragmentContext fragmentContext;
+  final HourMinuteControlStyle? hourMinuteStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -475,13 +482,13 @@ class _MinuteControl extends StatelessWidget {
         fragmentContext.onTimeChange(previousMinute);
       },
       child: _HourMinuteControl(
-        isSelected: fragmentContext.mode == _TimePickerMode.minute,
-        text: formattedMinute,
-        onTap: Feedback.wrapForTap(
-            () => fragmentContext.onModeChange(_TimePickerMode.minute),
-            context)!,
-        onDoubleTap: fragmentContext.onMinuteDoubleTapped,
-      ),
+          isSelected: fragmentContext.mode == _TimePickerMode.minute,
+          text: formattedMinute,
+          onTap: Feedback.wrapForTap(
+              () => fragmentContext.onModeChange(_TimePickerMode.minute),
+              context)!,
+          onDoubleTap: fragmentContext.onMinuteDoubleTapped,
+          style: hourMinuteStyle),
     );
   }
 }
@@ -527,9 +534,9 @@ class _DayPeriodControl extends StatelessWidget {
     final MaterialLocalizations materialLocalizations =
         MaterialLocalizations.of(context);
     final ColorScheme colorScheme = context.theme.colorScheme;
-    final TimePickerThemeData timePickerTheme = TimePickerTheme.of(context);
+    final timePickerStyle = context.theme.timePickerStyle;
     final bool isDark = colorScheme.brightness == Brightness.dark;
-    final Color textColor = timePickerTheme.dayPeriodTextColor ??
+    final Color textColor = timePickerStyle.dayPeriodTextColor ??
         MaterialStateColor.resolveWith((Set<MaterialState> states) {
           return states.contains(MaterialState.selected)
               ? colorScheme.onPrimary
@@ -554,7 +561,7 @@ class _DayPeriodControl extends StatelessWidget {
     final Set<MaterialState> pmStates = pmSelected
         ? <MaterialState>{MaterialState.selected}
         : <MaterialState>{};
-    final TextStyle textStyle = timePickerTheme.dayPeriodTextStyle ??
+    final TextStyle textStyle = timePickerStyle.dayPeriodTextStyle ??
         Theme.of(context).textTheme.titleMedium!;
     final TextStyle amStyle = textStyle.copyWith(
       color: MaterialStateProperty.resolveAs(textColor, amStates),
@@ -562,9 +569,9 @@ class _DayPeriodControl extends StatelessWidget {
     final TextStyle pmStyle = textStyle.copyWith(
       color: MaterialStateProperty.resolveAs(textColor, pmStates),
     );
-    OutlinedBorder shape = timePickerTheme.dayPeriodShape ??
+    OutlinedBorder shape = timePickerStyle.dayPeriodShape ??
         const RoundedRectangleBorder(borderRadius: _kDefaultBorderRadius);
-    final BorderSide borderSide = timePickerTheme.dayPeriodBorderSide ??
+    final BorderSide borderSide = timePickerStyle.dayPeriodBorderSide ??
         BorderSide(
           width: 1,
           color: colorScheme.onSurface,
@@ -1034,19 +1041,20 @@ class _DialPainter extends CustomPainter {
 }
 
 class _Dial extends StatefulWidget {
-  const _Dial({
-    required this.selectedTime,
-    required this.mode,
-    required this.use24HourDials,
-    required this.onChanged,
-    required this.onHourSelected,
-  });
+  const _Dial(
+      {required this.selectedTime,
+      required this.mode,
+      required this.use24HourDials,
+      required this.onChanged,
+      required this.onHourSelected,
+      this.style});
 
   final TimeOfDay selectedTime;
   final _TimePickerMode mode;
   final bool use24HourDials;
   final ValueChanged<TimeOfDay>? onChanged;
   final VoidCallback? onHourSelected;
+  final ZeroTimePickerStyle? style;
 
   @override
   _DialState createState() => _DialState();
@@ -1355,18 +1363,21 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = context.theme.toThemeData();
-    final TimePickerThemeData pickerTheme = TimePickerTheme.of(context);
-    final Color backgroundColor = pickerTheme.dialBackgroundColor ??
+    final ZeroTimePickerStyle timePickerStyle =
+        context.theme.timePickerStyle.merge(widget.style);
+    final Color backgroundColor = timePickerStyle.dialBackgroundColor ??
         themeData.colorScheme.primary.withOpacity(0.12);
+
     final Color accentColor =
-        pickerTheme.dialHandColor ?? themeData.colorScheme.primary;
+        timePickerStyle.dialHandColor ?? themeData.colorScheme.primary;
     final Color primaryLabelColor = MaterialStateProperty.resolveAs(
-            pickerTheme.dialTextColor, <MaterialState>{}) ??
+            timePickerStyle.dialTextColor, <MaterialState>{}) ??
         themeData.colorScheme.onSurface;
     final Color secondaryLabelColor = MaterialStateProperty.resolveAs(
-            pickerTheme.dialTextColor,
+            timePickerStyle.dialTextColor,
             <MaterialState>{MaterialState.selected}) ??
         themeData.colorScheme.onPrimary;
+
     List<_TappableLabel> primaryLabels;
     List<_TappableLabel>? primaryInnerLabels;
     List<_TappableLabel> secondaryLabels;
@@ -1436,6 +1447,7 @@ class _TimePickerInput extends StatefulWidget {
     required this.autofocusHour,
     required this.autofocusMinute,
     required this.onChanged,
+    this.hourMinuteStyle,
     this.restorationId,
   });
 
@@ -1457,6 +1469,8 @@ class _TimePickerInput extends StatefulWidget {
   final bool? autofocusHour;
 
   final bool? autofocusMinute;
+
+  final HourMinuteControlStyle? hourMinuteStyle;
 
   final ValueChanged<TimeOfDay> onChanged;
 
@@ -1595,15 +1609,16 @@ class _TimePickerInputState extends State<_TimePickerInput>
     final TimeOfDayFormat timeOfDayFormat = MaterialLocalizations.of(context)
         .timeOfDayFormat(alwaysUse24HourFormat: media.alwaysUse24HourFormat);
     final bool use24HourDials = hourFormat(of: timeOfDayFormat) != HourFormat.h;
+
     final ThemeData theme = context.theme.toThemeData();
-    final TextStyle hourMinuteStyle =
-        TimePickerTheme.of(context).hourMinuteTextStyle ??
-            theme.textTheme.displayMedium!;
+    final adaptiveStyle =
+        context.theme.timePickerStyle.hourMinute.merge(widget.hourMinuteStyle);
+    final TextStyle hourMinuteTextStyle =
+        adaptiveStyle.hourMinuteTextStyle ?? theme.textTheme.displayMedium!;
     final MaterialLocalizations localizations =
         MaterialLocalizations.of(context);
-    final String timePickerInputHelpText = theme.useMaterial3
-        ? localizations.timePickerInputHelpText
-        : localizations.timePickerInputHelpText.toUpperCase();
+    final String timePickerInputHelpText =
+        localizations.timePickerInputHelpText;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
@@ -1612,8 +1627,8 @@ class _TimePickerInputState extends State<_TimePickerInput>
         children: <Widget>[
           Text(
             widget.helpText ?? timePickerInputHelpText,
-            style: TimePickerTheme.of(context).helpTextStyle ??
-                theme.textTheme.labelSmall,
+            style: context.theme.timePickerStyle.helpTextStyle ??
+                context.theme.typography.caption,
           ),
           const SizedBox(height: 16.0),
           Row(
@@ -1643,7 +1658,7 @@ class _TimePickerInputState extends State<_TimePickerInput>
                           _HourTextField(
                             restorationId: 'hour_text_field',
                             selectedTime: _selectedTime.value,
-                            style: hourMinuteStyle,
+                            style: hourMinuteTextStyle,
                             autofocus: widget.autofocusHour,
                             inputAction: TextInputAction.next,
                             validator: _validateHour,
@@ -1669,7 +1684,12 @@ class _TimePickerInputState extends State<_TimePickerInput>
                     Container(
                       margin: const EdgeInsets.only(top: 8.0),
                       height: _kTimePickerHeaderControlHeight,
-                      child: _StringFragment(timeOfDayFormat: timeOfDayFormat),
+                      child: ZeroTheme(
+                          data: context.theme,
+                          child: _StringFragment(
+                            timeOfDayFormat: timeOfDayFormat,
+                            style: widget.hourMinuteStyle,
+                          )),
                     ),
                     Expanded(
                       child: Column(
@@ -1679,7 +1699,7 @@ class _TimePickerInputState extends State<_TimePickerInput>
                           _MinuteTextField(
                             restorationId: 'minute_text_field',
                             selectedTime: _selectedTime.value,
-                            style: hourMinuteStyle,
+                            style: hourMinuteTextStyle,
                             autofocus: widget.autofocusMinute,
                             inputAction: TextInputAction.done,
                             validator: _validateMinute,
@@ -1891,11 +1911,11 @@ class _HourMinuteTextFieldState extends State<_HourMinuteTextField>
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = context.theme.toThemeData();
-    final TimePickerThemeData timePickerTheme = TimePickerTheme.of(context);
+    final ZeroTimePickerStyle timePickerStyle = context.theme.timePickerStyle;
     final ColorScheme colorScheme = theme.colorScheme;
 
     final InputDecorationTheme? inputDecorationTheme =
-        timePickerTheme.inputDecorationTheme;
+        timePickerStyle.textfieldStyle?.toInputDecorationTheme();
     InputDecoration inputDecoration;
     if (inputDecorationTheme != null) {
       inputDecoration =
@@ -1923,8 +1943,9 @@ class _HourMinuteTextFieldState extends State<_HourMinuteTextField>
             height: 0.0), // Prevent the error text from appearing.
       );
     }
-    final Color unfocusedFillColor = timePickerTheme.hourMinuteColor ??
-        colorScheme.onSurface.withOpacity(0.12);
+    final Color unfocusedFillColor =
+        timePickerStyle.hourMinute.hourMinuteColor ??
+            colorScheme.onSurface.withOpacity(0.12);
     // If screen reader is in use, make the hint text say hours/minutes.
     // Otherwise, remove the hint text when focused because the centered cursor
     // appears odd above the hint text.
@@ -1961,7 +1982,7 @@ class _HourMinuteTextFieldState extends State<_HourMinuteTextField>
             textInputAction: widget.inputAction,
             keyboardType: TextInputType.number,
             style: widget.style.copyWith(
-                color: timePickerTheme.hourMinuteTextColor ??
+                color: timePickerStyle.hourMinute.hourMinuteTextColor ??
                     colorScheme.onSurface),
             controller: controller.value,
             decoration: inputDecoration,
@@ -2003,6 +2024,7 @@ class ZeroTimePickerDialog extends StatefulWidget {
     this.restorationId,
     this.initialEntryMode = TimePickerEntryMode.dial,
     this.onEntryModeChanged,
+    this.style,
   });
 
   /// The time initially selected when the dialog is shown.
@@ -2049,6 +2071,19 @@ class ZeroTimePickerDialog extends StatefulWidget {
 
   /// Callback called when the selected entry mode is changed.
   final EntryModeChangeCallback? onEntryModeChanged;
+
+  /// Defines the visual properties of the widget displayed with [ZeroTimePickerDialog].
+  ///
+  /// Descendant widgets obtain the current [ZeroTimePickerStyle] object using
+  /// `context.theme.timePickerStyle`. Instances of [ZeroTimePickerStyle]
+  /// can be customized with [ZeroTimePickerStyle.copyWith].
+  ///
+  /// Typically a [ZeroTimePickerStyle] is specified as part of the overall
+  /// [ZeroTheme] with [ZeroThemeData.timePickerstyle].
+  ///
+  /// All [ZeroTimePickerStyle] properties are `null` by default. When null,
+  /// [ZeroTimePickerDialog] will provide its own defaults.
+  final ZeroTimePickerStyle? style;
 
   @override
   State<ZeroTimePickerDialog> createState() => _ZeroTimePickerDialogState();
@@ -2390,13 +2425,12 @@ class _ZeroTimePickerDialogState extends State<ZeroTimePickerDialog>
   @override
   Widget build(BuildContext context) {
     assert(debugCheckHasMediaQuery(context));
+    final adaptiveStyle = context.theme.timePickerStyle.merge(widget.style);
     final MediaQueryData media = MediaQuery.of(context);
     final TimeOfDayFormat timeOfDayFormat = localizations.timeOfDayFormat(
         alwaysUse24HourFormat: media.alwaysUse24HourFormat);
     final bool use24HourDials = hourFormat(of: timeOfDayFormat) != HourFormat.h;
-    final ThemeData theme = context.theme.toThemeData();
-    final ShapeBorder shape =
-        TimePickerTheme.of(context).shape ?? _kDefaultShape;
+    final ShapeBorder shape = adaptiveStyle.shape ?? _kDefaultShape;
     final Orientation orientation =
         kIsWeb ? Orientation.portrait : media.orientation;
 
@@ -2406,9 +2440,11 @@ class _ZeroTimePickerDialogState extends State<ZeroTimePickerDialog>
         if (_entryMode.value == TimePickerEntryMode.dial ||
             _entryMode.value == TimePickerEntryMode.input)
           IconButton(
-            color: TimePickerTheme.of(context).entryModeIconColor ??
-                theme.colorScheme.onSurface.withOpacity(
-                  theme.colorScheme.brightness == Brightness.dark ? 1.0 : 0.6,
+            color: adaptiveStyle.entryModeIconColor ??
+                context.theme.colorScheme.onSurface.withOpacity(
+                  context.theme.colorScheme.brightness == Brightness.dark
+                      ? 1.0
+                      : 0.6,
                 ),
             onPressed: _handleEntryModeToggle,
             icon: Icon(_entryMode.value == TimePickerEntryMode.dial
@@ -2430,10 +2466,8 @@ class _ZeroTimePickerDialogState extends State<ZeroTimePickerDialog>
                 TextButton(
                   style: context.theme.textButtonStyle.toButtonStyle(),
                   onPressed: _handleCancel,
-                  child: Text(widget.cancelText ??
-                      (theme.useMaterial3
-                          ? localizations.cancelButtonLabel
-                          : localizations.cancelButtonLabel.toUpperCase())),
+                  child: Text(
+                      widget.cancelText ?? localizations.cancelButtonLabel),
                 ),
                 TextButton(
                   style: context.theme.textButtonStyle.toButtonStyle(),
@@ -2460,27 +2494,27 @@ class _ZeroTimePickerDialogState extends State<ZeroTimePickerDialog>
             child: AspectRatio(
               aspectRatio: 1.0,
               child: _Dial(
-                mode: _mode.value,
-                use24HourDials: use24HourDials,
-                selectedTime: _selectedTime.value,
-                onChanged: _handleTimeChanged,
-                onHourSelected: _handleHourSelected,
-              ),
+                  mode: _mode.value,
+                  use24HourDials: use24HourDials,
+                  selectedTime: _selectedTime.value,
+                  onChanged: _handleTimeChanged,
+                  onHourSelected: _handleHourSelected,
+                  style: widget.style),
             ),
           ),
         );
 
         final Widget header = _TimePickerHeader(
-          selectedTime: _selectedTime.value,
-          mode: _mode.value,
-          orientation: orientation,
-          onModeChanged: _handleModeChanged,
-          onChanged: _handleTimeChanged,
-          onHourDoubleTapped: _handleHourDoubleTapped,
-          onMinuteDoubleTapped: _handleMinuteDoubleTapped,
-          use24HourDials: use24HourDials,
-          helpText: widget.helpText,
-        );
+            selectedTime: _selectedTime.value,
+            mode: _mode.value,
+            orientation: orientation,
+            onModeChanged: _handleModeChanged,
+            onChanged: _handleTimeChanged,
+            onHourDoubleTapped: _handleHourDoubleTapped,
+            onMinuteDoubleTapped: _handleMinuteDoubleTapped,
+            use24HourDials: use24HourDials,
+            helpText: widget.helpText,
+            hourMinuteStyle: widget.style?.hourMinute);
 
         switch (orientation) {
           case Orientation.portrait:
@@ -2539,6 +2573,7 @@ class _ZeroTimePickerDialogState extends State<ZeroTimePickerDialog>
                   autofocusMinute: _autofocusMinute.value,
                   onChanged: _handleTimeChanged,
                   restorationId: 'time_picker_input',
+                  hourMinuteStyle: widget.style?.hourMinute,
                 ),
                 actions,
               ],
@@ -2551,8 +2586,8 @@ class _ZeroTimePickerDialogState extends State<ZeroTimePickerDialog>
     final Size dialogSize = _dialogSize(context);
     return Dialog(
       shape: shape,
-      backgroundColor: TimePickerTheme.of(context).backgroundColor ??
-          theme.colorScheme.surface,
+      backgroundColor:
+          adaptiveStyle.backgroundColor ?? context.theme.colorScheme.surface,
       insetPadding: EdgeInsets.symmetric(
         horizontal: 16.0,
         vertical: (_entryMode.value == TimePickerEntryMode.input ||
@@ -2614,7 +2649,7 @@ class _ZeroTimePickerDialogState extends State<ZeroTimePickerDialog>
 ///
 /// By default, the time picker gets its colors from the overall theme's
 /// [ColorScheme]. The time picker can be further customized by providing a
-/// [TimePickerThemeData] to the overall theme.
+/// [ZeroTimePickerStyle] to the overall theme.
 ///
 /// {@tool snippet}
 /// Show a dialog with the text direction overridden to be [TextDirection.rtl].
@@ -2652,9 +2687,9 @@ class _ZeroTimePickerDialogState extends State<ZeroTimePickerDialog>
 ///
 /// See also:
 ///
-///  * [showDatePicker], which shows a dialog that contains a Material Design
+///  * [showZeroDatePicker], which shows a dialog that contains a ZOG Design Design
 ///    date picker.
-///  * [TimePickerThemeData], which allows you to customize the colors,
+///  * [ZeroTimePickerStyle], which allows you to customize the colors,
 ///    typography, and shape of the time picker.
 ///  * [DisplayFeatureSubScreen], which documents the specifics of how
 ///    [DisplayFeature]s can split the screen into sub-screens.
