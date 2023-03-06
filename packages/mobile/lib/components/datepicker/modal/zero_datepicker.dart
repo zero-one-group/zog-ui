@@ -131,6 +131,7 @@ Future<DateTime?> showZeroDatePicker({
   String? fieldLabelText,
   TextInputType? keyboardType,
   Offset? anchorPoint,
+  ZeroDatePickerStyle? style,
 }) async {
   initialDate = DateUtils.dateOnly(initialDate);
   firstDate = DateUtils.dateOnly(firstDate);
@@ -154,22 +155,22 @@ Future<DateTime?> showZeroDatePicker({
   assert(debugCheckHasMaterialLocalizations(context));
 
   Widget dialog = ZeroDatePickerDialog(
-    initialDate: initialDate,
-    firstDate: firstDate,
-    lastDate: lastDate,
-    currentDate: currentDate,
-    initialEntryMode: initialEntryMode,
-    selectableDayPredicate: selectableDayPredicate,
-    helpText: helpText,
-    cancelText: cancelText,
-    confirmText: confirmText,
-    initialCalendarMode: initialDatePickerMode,
-    errorFormatText: errorFormatText,
-    errorInvalidText: errorInvalidText,
-    fieldHintText: fieldHintText,
-    fieldLabelText: fieldLabelText,
-    keyboardType: keyboardType,
-  );
+      initialDate: initialDate,
+      firstDate: firstDate,
+      lastDate: lastDate,
+      currentDate: currentDate,
+      initialEntryMode: initialEntryMode,
+      selectableDayPredicate: selectableDayPredicate,
+      helpText: helpText,
+      cancelText: cancelText,
+      confirmText: confirmText,
+      initialCalendarMode: initialDatePickerMode,
+      errorFormatText: errorFormatText,
+      errorInvalidText: errorInvalidText,
+      fieldHintText: fieldHintText,
+      fieldLabelText: fieldLabelText,
+      keyboardType: keyboardType,
+      style: style);
 
   if (textDirection != null) {
     dialog = Directionality(
@@ -226,6 +227,7 @@ class ZeroDatePickerDialog extends StatefulWidget {
     this.fieldLabelText,
     this.keyboardType,
     this.restorationId,
+    this.style,
   })  : initialDate = DateUtils.dateOnly(initialDate),
         firstDate = DateUtils.dateOnly(firstDate),
         lastDate = DateUtils.dateOnly(lastDate),
@@ -324,6 +326,19 @@ class ZeroDatePickerDialog extends StatefulWidget {
   ///    Flutter.
   final String? restorationId;
 
+  /// Defines the visual properties of the widget displayed with [showZeroDatePicker].
+  ///
+  /// Descendant widgets obtain the current [ZeroDatePickerStyle] object using
+  /// `context.theme.datePickerStyle`. Instances of [ZeroDatePickerStyle]
+  /// can be customized with [ZeroDatePickerStyle.copyWith].
+  ///
+  /// Typically a [ZeroDatePickerStyle] is specified as part of the overall
+  /// [ZeroTheme] with [ZeroThemeData.datePickerTheme].
+  ///
+  /// All [ZeroDatePickerStyle] properties are `null` by default. When null,
+  /// [showZeroDatePicker] will provide its own defaults.
+  final ZeroDatePickerStyle? style;
+
   @override
   State<ZeroDatePickerDialog> createState() => _ZeroDatePickerDialogState();
 }
@@ -393,7 +408,8 @@ class _ZeroDatePickerDialogState extends State<ZeroDatePickerDialog>
   }
 
   Size _dialogSize(BuildContext context) {
-    final Orientation orientation = MediaQuery.of(context).orientation;
+    final Orientation orientation =
+        kIsWeb ? Orientation.portrait : MediaQuery.of(context).orientation;
 
     switch (_entryMode.value) {
       case DatePickerEntryMode.calendar:
@@ -427,12 +443,10 @@ class _ZeroDatePickerDialogState extends State<ZeroDatePickerDialog>
     final ColorScheme colorScheme = theme.colorScheme;
     final MaterialLocalizations localizations =
         MaterialLocalizations.of(context);
-    Orientation orientation = MediaQuery.of(context).orientation;
+    Orientation orientation = kIsWeb
+        ? Orientation.portrait
+        : MediaQuery.of(context).orientation; // TODO: Find a better way
     final ZeroTypography typography = context.theme.typography;
-
-    if (kIsWeb) {
-      orientation = Orientation.portrait; // TODO: Find a better way
-    }
 
     // Constrain the textScaleFactor to the largest supported value to prevent
     // layout issues.
@@ -454,15 +468,13 @@ class _ZeroDatePickerDialogState extends State<ZeroDatePickerDialog>
       child: OverflowBar(
         spacing: 8,
         children: <Widget>[
-          TextButton(
-            style: context.theme.textButtonStyle.toButtonStyle(),
+          ZeroButton.text(
+            text: localizations.cancelButtonLabel,
             onPressed: _handleCancel,
-            child: Text(localizations.cancelButtonLabel),
           ),
-          TextButton(
-            style: context.theme.textButtonStyle.toButtonStyle(),
+          ZeroButton.text(
+            text: widget.confirmText ?? localizations.okButtonLabel,
             onPressed: _handleOk,
-            child: Text(widget.confirmText ?? localizations.okButtonLabel),
           ),
         ],
       ),
@@ -1218,6 +1230,17 @@ class ZeroDateRangePickerDialog extends StatefulWidget {
   ///    Flutter.
   final String? restorationId;
 
+  /// Defines the visual properties of the widget displayed with [showZeroDatePicker].
+  ///
+  /// Descendant widgets obtain the current [ZeroDatePickerStyle] object using
+  /// `context.theme.datePickerStyle`. Instances of [ZeroDatePickerStyle]
+  /// can be customized with [ZeroDatePickerStyle.copyWith].
+  ///
+  /// Typically a [ZeroDatePickerStyle] is specified as part of the overall
+  /// [ZeroTheme] with [ZeroThemeData.datePickerTheme].
+  ///
+  /// All [ZeroDatePickerStyle] properties are `null` by default. When null,
+  /// [showZeroDatePicker] will provide its own defaults.
   final ZeroDatePickerStyle? style;
 
   @override
