@@ -24,6 +24,9 @@ class ZeroAppBarStyle with Diagnosticable {
   /// Status bar icon brightness
   final Brightness? statusBarBrightness;
 
+  /// A list of shadows cast by this box behind the app bar.
+  final List<BoxShadow>? shadows;
+
   const ZeroAppBarStyle({
     this.backgroundColor,
     this.foregroundColor,
@@ -31,6 +34,7 @@ class ZeroAppBarStyle with Diagnosticable {
     this.height,
     this.centerTitle,
     this.statusBarBrightness,
+    this.shadows,
   });
 
   /// A default value style of [ZeroAppBarStyle]
@@ -59,6 +63,7 @@ class ZeroAppBarStyle with Diagnosticable {
     TextStyle? titleStyle,
     bool? centerTitle,
     Brightness? statusBarBrightness,
+    List<BoxShadow>? shadows,
   }) {
     return ZeroAppBarStyle(
       backgroundColor: backgroundColor ?? this.backgroundColor,
@@ -67,6 +72,7 @@ class ZeroAppBarStyle with Diagnosticable {
       titleStyle: titleStyle ?? this.titleStyle,
       centerTitle: centerTitle ?? this.centerTitle,
       statusBarBrightness: statusBarBrightness ?? this.statusBarBrightness,
+      shadows: shadows ?? this.shadows,
     );
   }
 
@@ -80,6 +86,7 @@ class ZeroAppBarStyle with Diagnosticable {
       titleStyle: titleStyle?.merge(other.titleStyle) ?? other.titleStyle,
       centerTitle: other.centerTitle,
       statusBarBrightness: other.statusBarBrightness,
+      shadows: other.shadows,
     );
   }
 
@@ -93,6 +100,7 @@ class ZeroAppBarStyle with Diagnosticable {
       centerTitle: t < 0.5 ? a?.centerTitle : b?.centerTitle,
       statusBarBrightness:
           t < 0.5 ? a?.statusBarBrightness : b?.statusBarBrightness,
+      shadows: t < 0.5 ? a?.shadows : b?.shadows,
     );
   }
 
@@ -117,7 +125,9 @@ class ZeroAppBarStyle with Diagnosticable {
       ..add(ColorProperty('foregroundColor', foregroundColor))
       ..add(DoubleProperty('height', height))
       ..add(StringProperty('centerTitle', centerTitle.toString()))
-      ..add(StringProperty(
-          'statusBarBrightness', statusBarBrightness.toString()));
+      ..add(DiagnosticsProperty<TextStyle>('titleStyle', titleStyle))
+      ..add(DiagnosticsProperty<Brightness>(
+          'statusBarBrightness', statusBarBrightness))
+      ..add(DiagnosticsProperty<List<BoxShadow>>('shadows', shadows));
   }
 }
