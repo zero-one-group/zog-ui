@@ -100,11 +100,16 @@ class ZeroStepStyle with Diagnosticable {
       activeColor: style.activeColor,
       errorColor: style.errorColor,
       iconColor: style.iconColor,
-      indexTextStyle: style.indexTextStyle,
-      titleTextStyle: style.titleTextStyle,
-      subtitleTextStyle: style.subtitleTextStyle,
-      contentTextStyle: style.contentTextStyle,
-      labelTextStyle: style.labelTextStyle,
+      indexTextStyle:
+          indexTextStyle?.merge(style.indexTextStyle) ?? style.indexTextStyle,
+      titleTextStyle:
+          titleTextStyle?.merge(style.titleTextStyle) ?? style.titleTextStyle,
+      subtitleTextStyle: subtitleTextStyle?.merge(style.subtitleTextStyle) ??
+          style.subtitleTextStyle,
+      contentTextStyle: contentTextStyle?.merge(style.contentTextStyle) ??
+          style.contentTextStyle,
+      labelTextStyle:
+          labelTextStyle?.merge(style.labelTextStyle) ?? style.labelTextStyle,
     );
   }
 

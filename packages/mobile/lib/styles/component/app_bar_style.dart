@@ -77,7 +77,7 @@ class ZeroAppBarStyle with Diagnosticable {
       backgroundColor: other.backgroundColor,
       foregroundColor: other.foregroundColor,
       height: other.height,
-      titleStyle: other.titleStyle,
+      titleStyle: titleStyle?.merge(other.titleStyle) ?? other.titleStyle,
       centerTitle: other.centerTitle,
       statusBarBrightness: other.statusBarBrightness,
     );

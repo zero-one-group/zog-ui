@@ -101,7 +101,7 @@ class ZeroTabBarStyle with Diagnosticable {
       indicatorColor: other.indicatorColor,
       padding: other.padding,
       iconSize: other.iconSize,
-      labelStyle: other.labelStyle,
+      labelStyle: labelStyle?.merge(other.labelStyle) ?? other.labelStyle,
       isScrollable: other.isScrollable,
     );
   }

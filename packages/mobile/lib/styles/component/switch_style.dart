@@ -160,9 +160,9 @@ class ZeroSwitchStyleSet {
     if (other == null) return this;
 
     return copyWith(
-      basic: other.basic,
-      android: other.android,
-      iOS: other.iOS,
+      basic: basic.merge(other.basic),
+      android: android.merge(other.android),
+      iOS: iOS.merge(other.iOS),
       disabledColor: other.disabledColor,
     );
   }

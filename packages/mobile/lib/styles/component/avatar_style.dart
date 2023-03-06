@@ -71,7 +71,8 @@ class ZeroAvatarStyle with Diagnosticable {
       badgeColor: other.badgeColor,
       borderColor: other.borderColor,
       initialColor: other.initialColor,
-      initialStyle: other.initialStyle,
+      initialStyle:
+          initialStyle?.merge(other.initialStyle) ?? other.initialStyle,
     );
   }
 
