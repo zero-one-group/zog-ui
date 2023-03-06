@@ -46,6 +46,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final _searchController = TextEditingController();
+  final _initialData = examplesData.entries;
+  final List<MapEntry<String, Widget>> _searchData = [];
+
   final _colors = [
     ZeroColors.lime,
     ZeroColors.primary,
@@ -124,8 +128,22 @@ class _MyAppState extends State<MyApp> {
                   )
                 ],
               ),
-              const Expanded(
-                child: Examples(),
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: ZeroTextField.outline(
+                  hintText: 'Search Component',
+                  controller: _searchController,
+                  onChanged: (v) {
+                    _search(v);
+                  },
+                ),
+              ),
+              Expanded(
+                child: Examples(
+                  data: _searchController.text.isEmpty
+                      ? _initialData
+                      : _searchData,
+                ),
               ),
             ],
           ),
@@ -133,27 +151,48 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
+
+  void _search(String query) {
+    final result = <MapEntry<String, Widget>>[];
+
+    for (final item in _initialData) {
+      if (item.key.toLowerCase().contains(query.toLowerCase().trim())) {
+        result.add(item);
+      }
+    }
+
+    setState(() {
+      _searchData.clear();
+      _searchData.addAll(result);
+    });
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 }
 
 class Examples extends StatelessWidget {
-  const Examples({super.key});
+  const Examples({super.key, required this.data});
+
+  final Iterable<MapEntry<String, Widget>> data;
 
   @override
   Widget build(BuildContext context) {
-    final items = examplesData.entries;
-
     return ListView.separated(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-      itemCount: items.length,
+      itemCount: data.length,
       itemBuilder: (context, index) => ZeroButton.primary(
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => items.elementAt(index).value,
+              builder: (context) => data.elementAt(index).value,
             ),
           );
         },
-        text: items.elementAt(index).key,
+        text: data.elementAt(index).key,
       ),
       separatorBuilder: (_, __) => const SizedBox(height: 12),
     );
