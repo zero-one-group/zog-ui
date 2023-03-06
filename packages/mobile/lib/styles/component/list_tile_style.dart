@@ -163,22 +163,27 @@ class ZeroListTileStyle with Diagnosticable {
     Color? hoverColor,
     Color? backgroundColor,
     Color? dividerColor,
+    TextStyle? titleStyle,
+    TextStyle? smallTitleStyle,
+    TextStyle? subTitleStyle,
+    TextStyle? smallSubTitleStyle,
   }) =>
       ZeroListTileStyle(
         selectedColor: selectedColor,
         hoverColor: hoverColor,
         backgroundColor: backgroundColor,
         dividerColor: dividerColor,
-        titleTextStyle: TextStyle(color: ZeroColors.neutral[10], fontSize: 16),
-        subTitleTextStyle:
+        titleTextStyle: titleStyle ??
+            TextStyle(color: ZeroColors.neutral[10], fontSize: 16),
+        subTitleTextStyle: subTitleStyle ??
             TextStyle(color: ZeroColors.neutral[7], fontSize: 14),
         contentPadding:
             const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
         smallContentPadding:
             const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-        smallTitleTextStyle:
+        smallTitleTextStyle: smallTitleStyle ??
             TextStyle(color: ZeroColors.neutral[10], fontSize: 14),
-        smallSubTitleTextStyle:
+        smallSubTitleTextStyle: smallTitleStyle ??
             TextStyle(color: ZeroColors.neutral[7], fontSize: 12),
       );
 

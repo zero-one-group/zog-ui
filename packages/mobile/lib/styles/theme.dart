@@ -386,6 +386,11 @@ class ZeroThemeData with Diagnosticable {
     final listTileFallback = ZeroListTileStyle.fallback(
       dividerColor: dividerColor,
       selectedColor: primaryColor.lightest,
+      titleStyle: typography.subtitle1?.copyWith(color: solidTextColor),
+      subTitleStyle: typography.subtitle2?.copyWith(color: regularTextColor),
+      smallTitleStyle: typography.subtitle1?.copyWith(color: solidTextColor),
+      smallSubTitleStyle:
+          typography.subtitle2?.copyWith(color: regularTextColor),
     );
 
     final primaryButtonStyleFallback = ZeroButtonStyle.primaryStyle(
