@@ -419,6 +419,7 @@ class ZeroThemeData with Diagnosticable {
 
     final chipFilledStyleFallback = ZeroChipFilledStyle.fallback(
       textStyle: TextStyle(color: solidTextColor),
+      backgroundColor: isLight ? ZeroColors.neutral[4] : ZeroColors.neutral[8],
     );
     final chipOutlinedStyleFallback = ZeroChipOutlinedStyle.fallback(
       textStyle: TextStyle(color: solidTextColor),
@@ -454,6 +455,7 @@ class ZeroThemeData with Diagnosticable {
     final navigationRailStyleFallback = ZeroNavigationRailStyle.fallback(
       backgrondColor: isLight ? ZeroColors.white : ZeroColors.black,
       activeColor: isLight ? ZeroColors.white : ZeroColors.black,
+      inactiveColor: isLight ? ZeroColors.neutral[12] : ZeroColors.neutral[3],
       indicatorColor: primaryColor,
       labelStyle: typography.caption,
     );
@@ -504,8 +506,11 @@ class ZeroThemeData with Diagnosticable {
         ZeroAvatarStyle.fallback(backgroundColor: primaryColor);
 
     final menuStyleFallback = ZeroMenuStyle.fallback();
-    final buttonGroupStyleFallback =
-        ZeroButtonGroupStyleSet.fallback(primaryColor: primaryColor);
+    final buttonGroupStyleFallback = ZeroButtonGroupStyleSet.fallback(
+      primaryColor: primaryColor,
+      textColor: solidTextColor,
+      textActiveBackgroundColor: disabledBackgroundColor,
+    );
 
     final tooltipStyleFallback = ZeroTooltipStyle.fallback(
       borderColor: dividerColor,
