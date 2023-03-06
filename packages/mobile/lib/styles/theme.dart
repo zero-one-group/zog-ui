@@ -270,7 +270,7 @@ class ZeroThemeData with Diagnosticable {
         isLight ? ZeroColors.neutral[3] : ZeroColors.neutral[8];
     scaffoldBackgroundColor ??=
         isLight ? ZeroColors.neutral[2] : ZeroColors.neutral[11];
-    uncheckedColor ??= isLight ? ZeroColors.neutral[7] : ZeroColors.neutral[9];
+    uncheckedColor ??= isLight ? ZeroColors.neutral[7] : ZeroColors.neutral[4];
     checkedColor ??= primaryColor;
     cardColor ??= isLight ? ZeroColors.white : ZeroColors.neutral[9];
     successColor ??= ZeroColors.success;

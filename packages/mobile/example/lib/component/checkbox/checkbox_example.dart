@@ -68,6 +68,7 @@ class _ZeroCheckboxExampleState extends State<ZeroCheckboxExample> {
               borderRadius: BorderRadius.circular(8),
               checkColor: Colors.green,
               inactiveColor: Colors.blue,
+              borderSize: 4,
             ),
             onChanged: (v) {
               if (v != null) {

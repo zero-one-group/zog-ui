@@ -57,6 +57,7 @@ class _MyAppState extends State<MyApp> {
 
   ShadedColor _selectedColor = ZeroColors.primary;
   bool _customFont = false;
+  bool _dark = false;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +65,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter Demo',
       theme: ZeroThemeData(
         fontFamily: _customFont ? GoogleFonts.dancingScript().fontFamily : null,
-        brightness: Brightness.light,
+        brightness: _dark ? Brightness.dark : Brightness.light,
         primaryColor: _selectedColor.toAccentColor(),
         inputDecorationType: InputDecorationType.outline,
       ),
@@ -81,7 +82,10 @@ class _MyAppState extends State<MyApp> {
                             const Text('Primary Color'),
                             const SizedBox(width: 10),
                             Container(
-                                width: 20, height: 20, color: _selectedColor)
+                              width: 20,
+                              height: 20,
+                              color: _selectedColor,
+                            )
                           ],
                         ),
                         items: _colors
@@ -106,6 +110,15 @@ class _MyAppState extends State<MyApp> {
                     onChanged: (value) {
                       setState(() {
                         _customFont = value ?? false;
+                      });
+                    },
+                  ),
+                  const Text('Dark'),
+                  ZeroCheckbox(
+                    value: _dark,
+                    onChanged: (value) {
+                      setState(() {
+                        _dark = value ?? false;
                       });
                     },
                   )
