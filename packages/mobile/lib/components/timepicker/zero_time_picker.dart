@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:zog_ui/styles/component/timepicker_style.dart';
 import 'package:zog_ui/zog_ui.dart';
 
 const Duration _kDialogSizeAnimationDuration = Duration(milliseconds: 200);
@@ -279,7 +278,7 @@ class _HourMinuteControl extends StatelessWidget {
     final ZeroThemeData themeData =
         context.theme; // TODO: Figure out the issue of use ZeroTheme typography
     final HourMinuteControlStyle adaptiveStyle =
-        context.theme.timePickerStyle.hourMinute.merge(style);
+        themeData.timePickerStyle.hourMinute.merge(style);
     final bool isDark = themeData.colorScheme.brightness == Brightness.dark;
     final Color textColor = adaptiveStyle.hourMinuteTextColor ??
         MaterialStateColor.resolveWith((Set<MaterialState> states) {

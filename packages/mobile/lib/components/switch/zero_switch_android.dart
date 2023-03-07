@@ -40,7 +40,7 @@ class ZeroSwitchAndroid extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.theme;
     final themeStyle = theme.switchStyle.android;
-    final adaptiveStyle = themeStyle.merge(style);
+    final adaptiveStyle = themeStyle?.merge(style);
 
     return InkWell(
       overlayColor: MaterialStateProperty.resolveWith<Color?>(
@@ -86,18 +86,18 @@ class _Thumb extends StatelessWidget {
 
   final bool isActive;
   final bool isDisabled;
-  final ZeroSwitchStyle style;
+  final ZeroSwitchStyle? style;
 
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
     final thumbEnableColor = isActive
-        ? (style.activeThumbColor ?? theme.primaryColor)
-        : (style.inactiveThumbColor ?? theme.disabledColor);
+        ? (style?.activeThumbColor ?? theme.primaryColor)
+        : (style?.inactiveThumbColor ?? theme.disabledColor);
     final thumbDisabledColor = ZeroColors.neutral[1];
     final thumbColor = isDisabled ? thumbDisabledColor : thumbEnableColor;
 
-    final size = style.thumbSize ?? _kThumbSize;
+    final size = style?.thumbSize ?? _kThumbSize;
 
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 200),
@@ -131,7 +131,7 @@ class _Line extends StatelessWidget {
   });
 
   final bool isActive;
-  final ZeroSwitchStyle style;
+  final ZeroSwitchStyle? style;
   final bool isDisabled;
   final Icon? activeIcon;
   final Icon? inactiveIcon;
@@ -140,11 +140,11 @@ class _Line extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.theme;
     final switchStyleSet = theme.switchStyle;
-    final enableColor = isActive ? style.activeColor : style.inactiveColor;
+    final enableColor = isActive ? style?.activeColor : style?.inactiveColor;
     final disableColor = switchStyleSet.disabledColor;
 
     final color = isDisabled ? disableColor : enableColor;
-    final size = style.thumbSize ?? _kThumbSize;
+    final size = style?.thumbSize ?? _kThumbSize;
 
     return IconTheme(
       data: IconThemeData(

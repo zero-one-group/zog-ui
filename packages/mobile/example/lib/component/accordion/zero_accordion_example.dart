@@ -16,7 +16,6 @@ class _ZeroAccordionExampleState extends State<ZeroAccordionExample> {
         title: const Text('Zero Accordion Example'),
       ),
       body: Container(
-        color: Colors.white,
         padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(
           child: Column(

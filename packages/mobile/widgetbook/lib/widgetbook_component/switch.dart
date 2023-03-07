@@ -140,9 +140,9 @@ WidgetbookComponent switchWidgetbookComponent = WidgetbookComponent(
               return ZeroTheme(
                 data: context.theme.copyWith(
                   switchStyle: context.theme.switchStyle.copyWith(
-                    basic: context.theme.switchStyle.basic.merge(style),
-                    android: context.theme.switchStyle.android.merge(style),
-                    iOS: context.theme.switchStyle.iOS.merge(style),
+                    basic: context.theme.switchStyle.basic?.merge(style),
+                    android: context.theme.switchStyle.android?.merge(style),
+                    iOS: context.theme.switchStyle.iOS?.merge(style),
                   ),
                 ),
                 child: Column(

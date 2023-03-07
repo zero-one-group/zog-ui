@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:zog_ui/zog_ui.dart';
 
-part 'zero_step.dart';
 part 'triangle_painter.dart';
+part 'zero_step.dart';
 
 const double _kStepSize = 24.0;
 // Triangle height. sqrt(3.0) / 2.0
@@ -297,7 +297,7 @@ class _ZeroStepperState extends State<ZeroStepper>
                   widget.onStepContinue!();
                 }
               },
-              text: 'Continue',
+              child: const Text('Continue'),
             ),
             const SizedBox(width: 8.0),
             ZeroButton.text(
@@ -305,7 +305,7 @@ class _ZeroStepperState extends State<ZeroStepper>
                 shape: buttonShape,
                 padding: buttonPadding,
               ),
-              text: 'Cancel',
+              child: const Text('Cancel'),
               onPressed: () {
                 if (widget.onStepCancel != null) {
                   widget.onStepCancel!();

@@ -57,18 +57,18 @@ class _ZeroAlertDialogExampleState extends State<ZeroAlertDialogExample> {
                       onPressed: () {
                         ZeroAlertDialog().hide();
                       },
-                      text: 'Cancel',
+                      child: const Text('Cancel'),
                     ),
                     ZeroButton.primary(
                       onPressed: () {
                         ZeroAlertDialog().hide();
                       },
-                      text: 'OK',
+                      child: const Text('OK'),
                     ),
                   ],
                 );
               },
-              text: 'Show Alert Dialog',
+              child: const Text('Show Alert Dialog'),
             ),
             const SizedBox(height: 16),
             ZeroButton.primary(
@@ -84,18 +84,18 @@ class _ZeroAlertDialogExampleState extends State<ZeroAlertDialogExample> {
                       onPressed: () {
                         ZeroAlertDialog().hide();
                       },
-                      text: 'Cancel',
+                      child: const Text('Cancel'),
                     ),
                     ZeroButton.primary(
                       onPressed: () {
                         ZeroAlertDialog().hide();
                       },
-                      text: 'OK',
+                      child: const Text('OK'),
                     ),
                   ],
                 );
               },
-              text: 'Show Simple Alert Dialog',
+              child: const Text('Show Simple Alert Dialog'),
             ),
           ],
         ),

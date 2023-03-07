@@ -17,7 +17,7 @@ class ZeroSpeedDialExample extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ZeroButton.primary(
-              text: 'Speed Dial End Top Horizontal',
+              child: const Text('Speed Dial End Top Horizontal'),
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -30,7 +30,7 @@ class ZeroSpeedDialExample extends StatelessWidget {
               },
             ),
             ZeroButton.primary(
-              text: 'Speed Dial End Bottom Horizontal',
+              child: const Text('Speed Dial End Bottom Horizontal'),
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -43,7 +43,7 @@ class ZeroSpeedDialExample extends StatelessWidget {
               },
             ),
             ZeroButton.primary(
-              text: 'Speed Dial Start Top Horizontal',
+              child: const Text('Speed Dial Start Top Horizontal'),
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -56,7 +56,7 @@ class ZeroSpeedDialExample extends StatelessWidget {
               },
             ),
             ZeroButton.primary(
-              text: 'Speed Dial Start Bottom Horizontal',
+              child: const Text('Speed Dial Start Bottom Horizontal'),
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -69,7 +69,7 @@ class ZeroSpeedDialExample extends StatelessWidget {
               },
             ),
             ZeroButton.primary(
-              text: 'Speed Dial End Top Vertical',
+              child: const Text('Speed Dial End Top Vertical'),
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -82,7 +82,7 @@ class ZeroSpeedDialExample extends StatelessWidget {
               },
             ),
             ZeroButton.primary(
-              text: 'Speed Dial End Bottom Vertical',
+              child: const Text('Speed Dial End Bottom Vertical'),
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -95,7 +95,7 @@ class ZeroSpeedDialExample extends StatelessWidget {
               },
             ),
             ZeroButton.primary(
-              text: 'Speed Dial Start Top Vertical',
+              child: const Text('Speed Dial Start Top Vertical'),
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -108,7 +108,7 @@ class ZeroSpeedDialExample extends StatelessWidget {
               },
             ),
             ZeroButton.primary(
-              text: 'Speed Dial Start Bottom Vertical',
+              child: const Text('Speed Dial Start Bottom Vertical'),
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(

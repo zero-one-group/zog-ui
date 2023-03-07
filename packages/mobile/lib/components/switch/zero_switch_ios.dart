@@ -41,7 +41,7 @@ class ZeroSwitchIOS extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.theme;
     final themeStyle = theme.switchStyle.iOS;
-    final adaptiveStyle = themeStyle.merge(style);
+    final adaptiveStyle = themeStyle?.merge(style);
 
     return InkWell(
       overlayColor: MaterialStateProperty.resolveWith<Color?>(
@@ -83,15 +83,15 @@ class _Line extends StatelessWidget {
     required this.isActive,
   });
 
-  final ZeroSwitchStyle style;
+  final ZeroSwitchStyle? style;
   final bool isDisabled;
   final bool isActive;
 
   @override
   Widget build(BuildContext context) {
     final switchStyleSet = context.theme.switchStyle;
-    final size = style.thumbSize ?? _kThumbSize;
-    final enableColor = isActive ? style.activeColor : style.inactiveColor;
+    final size = style?.thumbSize ?? _kThumbSize;
+    final enableColor = isActive ? style?.activeColor : style?.inactiveColor;
     final disableColor = switchStyleSet.disabledColor;
     final color = isDisabled ? disableColor : enableColor;
 
@@ -113,15 +113,15 @@ class _Thumb extends StatelessWidget {
     required this.isDisabled,
   });
 
-  final ZeroSwitchStyle style;
+  final ZeroSwitchStyle? style;
   final bool isActive;
   final bool isDisabled;
 
   @override
   Widget build(BuildContext context) {
-    final size = style.thumbSize ?? _kThumbSize;
+    final size = style?.thumbSize ?? _kThumbSize;
     final enableColor =
-        isActive ? style.activeThumbColor : style.inactiveThumbColor;
+        isActive ? style?.activeThumbColor : style?.inactiveThumbColor;
     final disableColor = ZeroColors.neutral[1];
     final color = isDisabled ? disableColor : enableColor;
 

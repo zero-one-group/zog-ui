@@ -110,11 +110,6 @@ class _ZeroDatePickerDockedState extends State<ZeroDatePickerDocked>
     super.initState();
     OverlayState? overlayState = Overlay.of(context);
 
-    Future.delayed(const Duration(microseconds: 500), () {
-      _overlayEntry = _createOverlay();
-      overlayState.insert(_overlayEntry!);
-    });
-
     _focusNode.addListener(() {
       if (_focusNode.hasFocus) {
         _overlayEntry = _createOverlay();
@@ -139,7 +134,6 @@ class _ZeroDatePickerDockedState extends State<ZeroDatePickerDocked>
   OverlayEntry _createOverlay() {
     RenderBox renderBox = context.findRenderObject() as RenderBox;
 
-    final theme = context.theme.toThemeData();
     final MaterialLocalizations localizations =
         MaterialLocalizations.of(context);
 
@@ -160,13 +154,13 @@ class _ZeroDatePickerDockedState extends State<ZeroDatePickerDocked>
         spacing: 8,
         overflowAlignment: OverflowBarAlignment.center,
         children: <Widget>[
-          TextButton(
-            style: context.theme.textButtonStyle.toButtonStyle(),
+          ZeroButton.text(
+            style: context.theme.textButtonStyle,
             onPressed: _handleCancel,
             child: Text(widget.cancelText ?? localizations.cancelButtonLabel),
           ),
-          TextButton(
-            style: context.theme.textButtonStyle.toButtonStyle(),
+          ZeroButton.text(
+            style: context.theme.textButtonStyle,
             onPressed: _handleOk,
             child: Text(widget.confirmText ?? localizations.okButtonLabel),
           ),

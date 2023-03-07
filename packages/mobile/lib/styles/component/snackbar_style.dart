@@ -168,7 +168,20 @@ class ZeroSnackbarAlertStyle {
   /// The icon size of snackbar alert type
   final double? iconSize;
 
+  /// Background color
   final Color? color;
+
+  /// Default style when variant is success
+  final Color? defaultSuccessColor;
+
+  /// Default style when variant is warning
+  final Color? defaultWarningColor;
+
+  /// Default style when variant is info
+  final Color? defaultInfoColor;
+
+  /// Default style when variant is danger
+  final Color? defaultDangerColor;
 
   const ZeroSnackbarAlertStyle({
     this.titleStyle,
@@ -180,11 +193,19 @@ class ZeroSnackbarAlertStyle {
     this.subtitleStyle,
     this.iconSize,
     this.color,
+    this.defaultDangerColor,
+    this.defaultWarningColor,
+    this.defaultInfoColor,
+    this.defaultSuccessColor,
   });
 
   static ZeroSnackbarAlertStyle fallback({
     TextStyle? subtitleStyle,
     TextStyle? titleStyle,
+    Color? defaultDangerColor,
+    Color? defaultWarningColor,
+    Color? defaultInfoColor,
+    Color? defaultSuccessColor,
   }) {
     return ZeroSnackbarAlertStyle(
       duration: const Duration(seconds: 2),
@@ -195,6 +216,10 @@ class ZeroSnackbarAlertStyle {
       margin: const EdgeInsets.symmetric(vertical: 48, horizontal: 16),
       borderRadius: BorderRadius.circular(4),
       iconSize: 22,
+      defaultDangerColor: defaultDangerColor ?? ZeroColors.dustRed,
+      defaultWarningColor: defaultWarningColor ?? ZeroColors.sunriseYellow,
+      defaultInfoColor: defaultInfoColor ?? ZeroColors.primary,
+      defaultSuccessColor: defaultSuccessColor ?? ZeroColors.polarGreen,
     );
   }
 
@@ -212,6 +237,10 @@ class ZeroSnackbarAlertStyle {
       borderRadius: other.borderRadius,
       iconSize: other.iconSize,
       color: other.color,
+      defaultDangerColor: defaultDangerColor,
+      defaultWarningColor: defaultWarningColor,
+      defaultInfoColor: defaultInfoColor,
+      defaultSuccessColor: defaultSuccessColor,
     );
   }
 
@@ -225,6 +254,10 @@ class ZeroSnackbarAlertStyle {
     BorderRadiusGeometry? borderRadius,
     double? iconSize,
     Color? color,
+    Color? defaultDangerColor,
+    Color? defaultWarningColor,
+    Color? defaultInfoColor,
+    Color? defaultSuccessColor,
   }) =>
       ZeroSnackbarAlertStyle(
         duration: duration ?? this.duration,
@@ -232,9 +265,14 @@ class ZeroSnackbarAlertStyle {
         padding: padding ?? this.padding,
         margin: margin ?? this.margin,
         borderRadius: borderRadius ?? this.borderRadius,
+        titleStyle: titleStyle ?? this.titleStyle,
         subtitleStyle: subtitleStyle ?? this.subtitleStyle,
         iconSize: iconSize ?? this.iconSize,
         color: color ?? this.color,
+        defaultDangerColor: defaultDangerColor ?? this.defaultDangerColor,
+        defaultWarningColor: defaultWarningColor ?? this.defaultWarningColor,
+        defaultInfoColor: defaultInfoColor ?? this.defaultInfoColor,
+        defaultSuccessColor: defaultSuccessColor ?? this.defaultSuccessColor,
       );
 
   static ZeroSnackbarAlertStyle lerp(
@@ -251,6 +289,13 @@ class ZeroSnackbarAlertStyle {
           BorderRadiusGeometry.lerp(a?.borderRadius, b?.borderRadius, t),
       iconSize: t < 0.5 ? a?.iconSize : b?.iconSize,
       color: Color.lerp(a?.color, b?.color, t),
+      defaultDangerColor:
+          Color.lerp(a?.defaultDangerColor, b?.defaultDangerColor, t),
+      defaultWarningColor:
+          Color.lerp(a?.defaultWarningColor, b?.defaultWarningColor, t),
+      defaultInfoColor: Color.lerp(a?.defaultInfoColor, b?.defaultInfoColor, t),
+      defaultSuccessColor:
+          Color.lerp(a?.defaultSuccessColor, b?.defaultSuccessColor, t),
     );
   }
 }
@@ -267,12 +312,24 @@ class ZeroSnackbarStyleSet with Diagnosticable {
   static ZeroSnackbarStyleSet fallback({
     TextStyle? textStyle,
     TextStyle? titleStyle,
+    Color? snackbarBackgroundColor,
+    Color? defaultDangerColor,
+    Color? defaultWarningColor,
+    Color? defaultInfoColor,
+    Color? defaultSuccessColor,
   }) {
     return ZeroSnackbarStyleSet(
-      snackbar: ZeroSnackbarStyle.fallback(textStyle: textStyle),
+      snackbar: ZeroSnackbarStyle.fallback(
+        textStyle: textStyle,
+        backgroundColor: snackbarBackgroundColor,
+      ),
       alert: ZeroSnackbarAlertStyle.fallback(
         subtitleStyle: textStyle,
         titleStyle: titleStyle,
+        defaultDangerColor: defaultDangerColor,
+        defaultWarningColor: defaultWarningColor,
+        defaultInfoColor: defaultInfoColor,
+        defaultSuccessColor: defaultSuccessColor,
       ),
     );
   }

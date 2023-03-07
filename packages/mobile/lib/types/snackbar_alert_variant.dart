@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zog_ui/styles/theme.dart';
-import 'package:zog_ui/utils/extensions/color_extension.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 enum ZeroSnackbarAlertVariant {
   danger,
@@ -8,16 +7,18 @@ enum ZeroSnackbarAlertVariant {
   success,
   info;
 
-  Color color(ZeroThemeData theme) {
+  Color color(ZeroThemeData theme, ZeroSnackbarAlertStyle? alertStyle) {
+    final style = alertStyle ?? theme.snackBarStyle.alert;
+
     switch (this) {
       case danger:
-        return theme.errorColor;
+        return style?.defaultDangerColor ?? theme.errorColor;
       case warning:
-        return theme.warningColor;
+        return style?.defaultWarningColor ?? theme.warningColor;
       case success:
-        return theme.successColor;
+        return style?.defaultSuccessColor ?? theme.successColor;
       case info:
-        return theme.infoColor;
+        return style?.defaultInfoColor ?? theme.infoColor;
     }
   }
 
@@ -34,22 +35,13 @@ enum ZeroSnackbarAlertVariant {
     }
   }
 
-  Color iconColor(ZeroThemeData theme) => color(theme);
+  Color iconColor(ZeroThemeData theme, ZeroSnackbarAlertStyle? alertStyle) =>
+      color(theme, alertStyle);
 
-  Color titleColor(ZeroThemeData theme) {
-    return color(theme).darken(0.3);
-  }
+  Color titleColor(ZeroThemeData theme, ZeroSnackbarAlertStyle? alertStyle) =>
+      color(theme, alertStyle).darken(0.3);
 
-  Color filledBackgroundColor(ZeroThemeData theme) {
-    switch (this) {
-      case danger:
-        return theme.errorColor.lighten(0.5);
-      case warning:
-        return theme.warningColor.lighten(0.5);
-      case success:
-        return theme.successColor.lighten(0.5);
-      case info:
-        return theme.infoColor.lighten(0.5);
-    }
-  }
+  Color filledBackgroundColor(
+          ZeroThemeData theme, ZeroSnackbarAlertStyle? alertStyle) =>
+      color(theme, alertStyle).lighten(0.3);
 }

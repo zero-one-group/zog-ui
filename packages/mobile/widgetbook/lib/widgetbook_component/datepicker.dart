@@ -12,7 +12,7 @@ WidgetbookComponent datepickerWidgetbookComponent = WidgetbookComponent(
         builder: (context) => PreviewWidget.builder(
               theme: ZeroThemeData(),
               builder: (context) => ZeroButton.primary(
-                  text: 'Date Picker',
+                  child: const Text('Date Picker'),
                   onPressed: () async {
                     showZeroDatePicker(
                       context: context,
@@ -36,7 +36,7 @@ WidgetbookComponent datepickerWidgetbookComponent = WidgetbookComponent(
         builder: (context) => PreviewWidget.builder(
               theme: ZeroThemeData(),
               builder: (context) => ZeroButton.primary(
-                  text: 'Date Range Picker',
+                  child: const Text('Date Range Picker'),
                   onPressed: () async {
                     showZeroDateRangePicker(
                       context: context,

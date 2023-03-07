@@ -15,6 +15,7 @@ class ZeroAlertDialogStyle with Diagnosticable {
   final Color? iconColor;
   final AlignmentGeometry? alignment;
   final ShapeBorder? shape;
+
   const ZeroAlertDialogStyle({
     this.titleTextStyle,
     this.contentTextStyle,
@@ -97,8 +98,10 @@ class ZeroAlertDialogStyle with Diagnosticable {
   ZeroAlertDialogStyle merge(ZeroAlertDialogStyle? style) {
     if (style == null) return this;
     return copyWith(
-      titleTextStyle: style.titleTextStyle,
-      contentTextStyle: style.contentTextStyle,
+      titleTextStyle:
+          titleTextStyle?.merge(style.titleTextStyle) ?? style.titleTextStyle,
+      contentTextStyle: contentTextStyle?.merge(style.contentTextStyle) ??
+          style.contentTextStyle,
       barrierColor: style.barrierColor,
       actionsPadding: style.actionsPadding,
       titlePadding: style.titlePadding,

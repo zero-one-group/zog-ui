@@ -474,11 +474,11 @@ class _ZeroDatePickerDialogState extends State<ZeroDatePickerDialog>
         spacing: 8,
         children: <Widget>[
           ZeroButton.text(
-            text: localizations.cancelButtonLabel,
+            child: Text(localizations.cancelButtonLabel),
             onPressed: _handleCancel,
           ),
           ZeroButton.text(
-            text: widget.confirmText ?? localizations.okButtonLabel,
+            child: Text(widget.confirmText ?? localizations.okButtonLabel),
             onPressed: _handleOk,
           ),
         ],

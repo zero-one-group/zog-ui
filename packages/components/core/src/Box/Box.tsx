@@ -1,30 +1,30 @@
-import { ComponentProps, ElementType, forwardRef, ReactElement } from 'react';
-import { styled } from '../stitches.config';
-import { PolymorphicComponentPropsWithRef, PolymorphicRef } from '../types';
+import { forwardRef, ReactNode } from 'react';
+import { css } from '../stitches.config';
+import type * as Stitches from '@stitches/react';
+import { Slot } from '@radix-ui/react-slot';
 
-const StyledBox = styled('div', {
+const StyledBox = css('div', {
   boxSizing: 'border-box',
   fontFamily: '$untitled',
 });
 
-export type BoxProps<T extends ElementType> = PolymorphicComponentPropsWithRef<
-  T,
-  ComponentProps<typeof StyledBox>
->;
+export type BoxProps = {
+  children?: ReactNode;
+  css?: Stitches.CSS;
+  role?: string;
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
+  onMouseEnter?: (e: React.MouseEvent<HTMLDivElement>) => void;
+  className?: string;
+  asChild?: boolean;
+};
 
-export type BoxComponent = <T extends ElementType = typeof StyledBox>(
-  props: BoxProps<T>
-) => ReactElement | null;
-
-export const Box: BoxComponent = forwardRef(
-  <T extends ElementType = typeof StyledBox>(
-    { children, ...props }: BoxProps<T>,
-    ref?: PolymorphicRef<T>
-  ) => {
+export const Box = forwardRef<HTMLDivElement, BoxProps>(
+  ({ children, css, asChild, ...props }, ref) => {
+    const Comp = asChild ? Slot : 'div';
     return (
-      <StyledBox ref={ref} {...props}>
+      <Comp {...props} ref={ref} className={StyledBox({ css })}>
         {children}
-      </StyledBox>
+      </Comp>
     );
   }
 );

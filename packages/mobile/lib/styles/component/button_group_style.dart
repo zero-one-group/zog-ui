@@ -263,15 +263,30 @@ class ZeroButtonGroupStyleSet {
 
   static ZeroButtonGroupStyleSet fallback({
     AccentColor? primaryColor,
-  }) =>
-      ZeroButtonGroupStyleSet(
-        filled: ZeroButtonGroupFilledStyle.fallback(primaryColor: primaryColor),
-        outlined:
-            ZeroButtonGroupOutlinedStyle.fallback(primaryColor: primaryColor),
-        text: ZeroButtonGroupTextStyle.fallback(),
-        underline:
-            ZeroButtonGroupUnderlineStyle.fallback(primaryColor: primaryColor),
-      );
+    Color? textColor,
+    Color? textActiveBackgroundColor,
+  }) {
+    final textStyle = TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w500,
+      color: textColor ?? ZeroColors.neutral[10],
+    );
+    return ZeroButtonGroupStyleSet(
+      filled: ZeroButtonGroupFilledStyle.fallback(primaryColor: primaryColor),
+      outlined: ZeroButtonGroupOutlinedStyle.fallback(
+        primaryColor: primaryColor,
+        textStyle: textStyle,
+      ),
+      text: ZeroButtonGroupTextStyle.fallback(
+        textStyle: textStyle,
+        activeBackgroundColor: textActiveBackgroundColor,
+      ),
+      underline: ZeroButtonGroupUnderlineStyle.fallback(
+        primaryColor: primaryColor,
+        textStyle: textStyle,
+      ),
+    );
+  }
 
   /// Copy the current instance with the new value given
   ZeroButtonGroupStyleSet copyWith({

@@ -1,4 +1,5 @@
 import { ArrowLeftOutlined } from '@ant-design/icons';
+import clsx from 'clsx';
 import { ComponentProps, ReactElement, ReactNode } from 'react';
 import { Avatar } from '../Avatar';
 import { Space } from '../Space';
@@ -79,9 +80,10 @@ export const PageHeader: PageHeaderComponent = ({
   backIcon,
   breadcrumb,
   avatar,
+  className,
   ...props
 }) => (
-  <StyledPageHeader {...props}>
+  <StyledPageHeader className={clsx('page-header', className)} {...props}>
     {breadcrumb ? breadcrumb : null}
     <StyledHeading
       justify="space-between"
@@ -91,23 +93,38 @@ export const PageHeader: PageHeaderComponent = ({
       css={{
         mt: breadcrumb ? '$2' : undefined,
       }}
+      className="page-header-heading"
     >
       <Space align="center">
         {onBack ? (
-          <StyledPageHeaderBack>
-            <StyledPageHeaderBackButton role="button" onClick={onBack}>
+          <StyledPageHeaderBack className="page-header-back">
+            <StyledPageHeaderBackButton
+              className="page-header-back-btn"
+              role="button"
+              onClick={onBack}
+            >
               {backIcon ?? <ArrowLeftOutlined />}
             </StyledPageHeaderBackButton>
           </StyledPageHeaderBack>
         ) : null}
         {avatar ? <StyledPageHeaderAvatar size="3" {...avatar} /> : null}
-        <StyledHeadingTitle>{title}</StyledHeadingTitle>
-        <StyledHeadingSubtitle>{subtitle}</StyledHeadingSubtitle>
+        <StyledHeadingTitle className="page-header-title">
+          {title}
+        </StyledHeadingTitle>
+        <StyledHeadingSubtitle className="page-header-subtitle">
+          {subtitle}
+        </StyledHeadingSubtitle>
       </Space>
-      {extra ? <StyledHeadingExtra>{extra}</StyledHeadingExtra> : null}
+      {extra ? (
+        <StyledHeadingExtra className="page-header-extra">
+          {extra}
+        </StyledHeadingExtra>
+      ) : null}
     </StyledHeading>
     {children ? (
-      <StyledPageHeaderContent>{children}</StyledPageHeaderContent>
+      <StyledPageHeaderContent className="page-header-content">
+        {children}
+      </StyledPageHeaderContent>
     ) : null}
   </StyledPageHeader>
 );

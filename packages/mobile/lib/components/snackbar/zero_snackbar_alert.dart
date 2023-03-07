@@ -46,9 +46,19 @@ class ZeroSnackbarAlert {
     final adaptiveStyle = themeStyle?.merge(style) ?? style;
 
     final titleColor = _getTitleColor(
-        variant: variant, type: type, theme: theme, style: style);
-    final subtitleColor =
-        _getSubtitleColor(variant: variant, type: type, style: style);
+      variant: variant,
+      type: type,
+      theme: theme,
+      style: style,
+    );
+
+    final subtitleColor = _getSubtitleColor(
+      variant: variant,
+      type: type,
+      style: style,
+      theme: theme,
+    );
+
     final titleStyle = adaptiveStyle?.titleStyle?.copyWith(
           color: style?.titleStyle?.color ?? titleColor,
         ) ??
@@ -165,7 +175,7 @@ class ZeroSnackbarAlert {
       case ZeroSnackbarAlertType.filled:
         return Border.all(color: Colors.transparent);
       case ZeroSnackbarAlertType.outlined:
-        return Border.all(color: variant.color(theme));
+        return Border.all(color: variant.color(theme, style));
     }
   }
 
@@ -182,7 +192,7 @@ class ZeroSnackbarAlert {
         return Colors.white;
       case ZeroSnackbarAlertType.filled:
       case ZeroSnackbarAlertType.outlined:
-        return style?.color ?? variant.iconColor(theme);
+        return style?.color ?? variant.iconColor(theme, style);
     }
   }
 
@@ -196,12 +206,13 @@ class ZeroSnackbarAlert {
     switch (type) {
       case ZeroSnackbarAlertType.solidFilled:
         if (style?.color != null) return style!.color!;
-        return variant.color(theme);
+        return variant.color(theme, style);
       case ZeroSnackbarAlertType.filled:
         if (style?.color != null) return style!.color!.lighten(0.5);
-        return variant.filledBackgroundColor(theme);
+        return variant.filledBackgroundColor(theme, style);
       case ZeroSnackbarAlertType.outlined:
-        return ZeroColors.neutral[1];
+        if (style?.color != null) return style!.color!;
+        return theme.cardColor;
     }
   }
 
@@ -213,29 +224,34 @@ class ZeroSnackbarAlert {
     ZeroSnackbarAlertStyle? style,
   }) {
     final customStyle = style?.titleStyle?.color;
+
     switch (type) {
       case ZeroSnackbarAlertType.solidFilled:
-        return customStyle ?? theme.cardColor;
+        return customStyle ?? Colors.white;
       case ZeroSnackbarAlertType.filled:
-        return customStyle ?? variant.titleColor(theme);
+        return customStyle ?? variant.titleColor(theme, style);
       case ZeroSnackbarAlertType.outlined:
-        return customStyle ?? variant.titleColor(theme);
+        return customStyle ?? variant.titleColor(theme, style);
     }
   }
 
   /// [_getSubtitleColor] return the color of the subtitle
-  Color _getSubtitleColor(
-      {required ZeroSnackbarAlertVariant variant,
-      required ZeroSnackbarAlertType type,
-      ZeroSnackbarAlertStyle? style}) {
+  Color _getSubtitleColor({
+    required ZeroSnackbarAlertVariant variant,
+    required ZeroSnackbarAlertType type,
+    required ZeroThemeData theme,
+    ZeroSnackbarAlertStyle? style,
+  }) {
     final customColor = style?.subtitleStyle?.color;
+    final defaultColor = customColor ?? variant.titleColor(theme, style);
+
     switch (type) {
       case ZeroSnackbarAlertType.solidFilled:
         return customColor ?? Colors.white;
       case ZeroSnackbarAlertType.filled:
-        return customColor ?? ZeroColors.neutral[10];
+        return defaultColor;
       case ZeroSnackbarAlertType.outlined:
-        return customColor ?? ZeroColors.neutral[10];
+        return defaultColor;
     }
   }
 

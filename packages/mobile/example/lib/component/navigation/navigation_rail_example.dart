@@ -33,9 +33,12 @@ class _ZeroNavigationRailExampleState extends State<ZeroNavigationRailExample> {
                     )),
             type: ZeroNavigationRailType.iconLabelOnActive,
             activeIndex: selectedIndex,
-            leading: IconButton(
-              onPressed: () {},
-              icon: const Icon(ZeroIcons.menu),
+            leading: IconTheme(
+              data: context.theme.iconTheme,
+              child: IconButton(
+                onPressed: () {},
+                icon: const Icon(ZeroIcons.menu),
+              ),
             ),
             action: ZeroButtonIcon.primary(
               icon: const Icon(ZeroIcons.search),

@@ -340,15 +340,16 @@ class ZeroTextfieldStyle {
 
   ZeroTextfieldStyle merge(ZeroTextfieldStyle? other) {
     if (other == null) return this;
-    debugPrint('merge');
+
     return ZeroTextfieldStyle(
-        inputDecorationType: other.inputDecorationType,
-        textfieldSize: other.textfieldSize,
-        enabled: other.enabled,
-        error: other.error,
-        focusedBorderColor: other.focusedBorderColor,
-        focusedColor: other.focusedColor,
-        fillColor: other.fillColor);
+      inputDecorationType: other.inputDecorationType,
+      textfieldSize: other.textfieldSize,
+      enabled: other.enabled,
+      error: other.error,
+      focusedBorderColor: other.focusedBorderColor,
+      focusedColor: other.focusedColor,
+      fillColor: other.fillColor,
+    );
   }
 
   InputDecorationTheme toInputDecorationTheme() {

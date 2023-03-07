@@ -52,7 +52,7 @@ class ZeroChipFilledStyle with Diagnosticable {
     return copyWith(
       backgroundColor: other.backgroundColor,
       iconColor: other.iconColor,
-      textStyle: other.textStyle,
+      textStyle: textStyle?.merge(other.textStyle) ?? other.textStyle,
     );
   }
 
@@ -135,7 +135,7 @@ class ZeroChipOutlinedStyle with Diagnosticable {
     return copyWith(
       borderColor: other.borderColor,
       iconColor: other.iconColor,
-      textStyle: other.textStyle,
+      textStyle: textStyle?.merge(other.textStyle) ?? other.textStyle,
     );
   }
 

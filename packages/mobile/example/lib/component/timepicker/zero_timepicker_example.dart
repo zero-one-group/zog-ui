@@ -17,7 +17,7 @@ class ZeroTimePickerExample extends StatelessWidget {
                 context: context,
                 initialTime: TimeOfDay.now(),
               ),
-              text: 'Time Picker',
+              child: const Text('Time Picker'),
             ),
             const SizedBox(height: 12),
             ZeroButton.primary(
@@ -25,7 +25,7 @@ class ZeroTimePickerExample extends StatelessWidget {
                   context: context,
                   initialTime: TimeOfDay.now(),
                   use24hFormat: true),
-              text: 'Time Picker 24 Hour',
+              child: const Text('Time Picker 24 Hour'),
             ),
           ],
         ),

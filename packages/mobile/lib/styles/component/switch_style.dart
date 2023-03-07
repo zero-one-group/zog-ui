@@ -101,16 +101,16 @@ class ZeroSwitchStyle with Diagnosticable {
 }
 
 class ZeroSwitchStyleSet {
-  final ZeroSwitchStyle basic;
-  final ZeroSwitchStyle android;
-  final ZeroSwitchStyle iOS;
-  final Color disabledColor;
+  final ZeroSwitchStyle? basic;
+  final ZeroSwitchStyle? android;
+  final ZeroSwitchStyle? iOS;
+  final Color? disabledColor;
 
   const ZeroSwitchStyleSet({
-    required this.basic,
-    required this.android,
-    required this.iOS,
-    required this.disabledColor,
+    this.basic,
+    this.android,
+    this.iOS,
+    this.disabledColor,
   });
 
   static ZeroSwitchStyleSet fallback({
@@ -160,9 +160,9 @@ class ZeroSwitchStyleSet {
     if (other == null) return this;
 
     return copyWith(
-      basic: other.basic,
-      android: other.android,
-      iOS: other.iOS,
+      basic: basic?.merge(other.basic) ?? other.basic,
+      android: android?.merge(other.android) ?? other.android,
+      iOS: iOS?.merge(other.iOS) ?? other.iOS,
       disabledColor: other.disabledColor,
     );
   }
