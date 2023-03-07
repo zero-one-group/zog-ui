@@ -18,94 +18,120 @@ class ZeroButtonExample extends StatelessWidget {
               children: [
                 /// basic button
                 ZeroButton.primary(
-                  text: 'Button Primary',
+                  child: const Text('Button Primary'),
                   onPressed: () {},
-                ),
-                ZeroButton.secondary(
-                  text: 'Button Secondary',
-                  onPressed: () {},
-                ),
-                ZeroButton.disabled(
-                  text: 'Button Disabled',
                 ),
                 ZeroButton.primary(
-                  text: 'Button Disabled by isDisabled Property',
+                  child: const Text('Button Primary disabled'),
                   onPressed: () {},
                   isDisabled: true,
                 ),
-                ZeroButton.text(
-                  text: 'Button Text',
+                ZeroButton.secondary(
+                  child: const Text('Button Secondary'),
                   onPressed: () {},
+                ),
+                ZeroButton.secondary(
+                  child: const Text('Button Secondary disabled'),
+                  onPressed: () {},
+                  isDisabled: true,
+                ),
+                ZeroButton.secondary(
+                  child: const Text('Button Disabled by isDisabled Property'),
+                  onPressed: () {},
+                  isDisabled: true,
+                  style: const ZeroButtonStyle(),
+                  buttonRadiusType: ZeroButtonRadiusType.rounded,
+                ),
+                ZeroButton.text(
+                  child: const Text('Button Text'),
+                  onPressed: () {},
+                ),
+                ZeroButton.text(
+                  child: const Text('Button Text disabled'),
+                  onPressed: () {},
+                  isDisabled: true,
+                ),
+
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: ZeroDivider(),
                 ),
 
                 /// left icon button
-                ZeroButtonLIcon.primary(
-                  icon: const Icon(Icons.search),
-                  text: 'Button Left Icon Primary',
+                ZeroButton.primary(
+                  child: _leftIcon('Button Left Icon Primary'),
                   onPressed: () {},
                 ),
-                ZeroButtonLIcon.secondary(
-                  icon: const Icon(Icons.search),
-                  text: 'Button Left Icon Secondary',
+                ZeroButton.primary(
+                  child: _leftIcon('Button Left Icon Primar Disabled'),
+                  isDisabled: true,
                   onPressed: () {},
                 ),
-                ZeroButtonLIcon.disabled(
-                  icon: const Icon(Icons.search),
-                  text: 'Button Left Icon Disabled',
-                ),
-                ZeroButtonLIcon.text(
-                  icon: const Icon(Icons.search),
-                  text: 'Button Left Icon Text',
+                ZeroButton.secondary(
+                  child: _leftIcon('Button Left Icon Secondary'),
                   onPressed: () {},
+                ),
+                ZeroButton.disabled(
+                  child: _leftIcon('Button Left Icon Disabled'),
+                ),
+                ZeroButton.text(
+                  child: _leftIcon('Button Left Icon Text'),
+                  onPressed: () {},
+                ),
+                ZeroButton.text(
+                  child: _leftIcon('Button Left Icon Text disabled'),
+                  onPressed: () {},
+                  isDisabled: true,
+                ),
+
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: ZeroDivider(),
                 ),
 
                 /// right icon button
-                ZeroButtonRIcon.primary(
-                  icon: const Icon(Icons.search),
-                  text: 'Button Right Icon Primary',
+                ZeroButton.primary(
+                  child: _rightIcon('Button Right Icon Primary'),
                   onPressed: () {},
                 ),
-                ZeroButtonRIcon.secondary(
-                  icon: const Icon(Icons.search),
-                  text: 'Button Right Icon Secondary',
+                ZeroButton.secondary(
+                  child: _rightIcon('Button Right Icon Secondary'),
                   onPressed: () {},
                 ),
-                ZeroButtonRIcon.disabled(
-                  icon: const Icon(Icons.search),
-                  text: 'Button Right Icon Disabled',
+                ZeroButton.disabled(
+                  child: _rightIcon('Button Right Icon Disabled'),
                 ),
-                ZeroButtonRIcon.text(
-                  icon: const Icon(Icons.search),
-                  text: 'Button Right Icon Text',
+                ZeroButton.text(
+                  child: _rightIcon('Button Right Icon Text'),
                   onPressed: () {},
+                ),
+
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: ZeroDivider(),
                 ),
 
                 /// right and left icon button
-                ZeroButtonRLIcon.primary(
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: const Icon(Icons.search),
-                  text: 'Button Right and Left Icon Primary',
+                ZeroButton.primary(
+                  child: _leftRightIcon('Button Right and Left Icon Primary'),
                   onPressed: () {},
                 ),
-                ZeroButtonRLIcon.secondary(
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: const Icon(Icons.search),
-                  text: 'Button Right and Left Icon Secondary',
+                ZeroButton.secondary(
+                  child: _leftRightIcon('Button Right and Left Icon Secondary'),
                   onPressed: () {},
                 ),
-                ZeroButtonRLIcon.disabled(
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: const Icon(Icons.search),
-                  text: 'Button Right and Left Icon Disabled',
+                ZeroButton.disabled(
+                  child: _leftRightIcon('Button Right and Left Icon Disabled'),
                 ),
-                ZeroButtonRLIcon.text(
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: const Icon(Icons.search),
-                  text: 'Button Right and Left Icon Text',
+                ZeroButton.text(
+                  child: _leftRightIcon('Button Right and Left Icon Text'),
                   onPressed: () {},
                 ),
 
-                const SizedBox(height: 16),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: ZeroDivider(),
+                ),
 
                 /// button with icon only
                 Row(
@@ -278,60 +304,65 @@ class ZeroButtonExample extends StatelessWidget {
                   ],
                 ),
 
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: ZeroDivider(),
+                ),
+
                 /// button size type
                 ZeroButton.primary(
-                  text: 'Button Small',
+                  child: const Text('Button Small'),
                   onPressed: () {},
                   buttonSizeType: ZeroSizeType.small,
                 ),
                 ZeroButton.primary(
-                  text: 'Button Medium',
+                  child: const Text('Button Medium'),
                   onPressed: () {},
                   buttonSizeType: ZeroSizeType.medium,
                 ),
                 ZeroButton.primary(
-                  text: 'Button Small',
+                  child: const Text('Button Small'),
                   onPressed: () {},
                   buttonSizeType: ZeroSizeType.large,
                 ),
 
                 /// button radius type
                 ZeroButton.primary(
-                  text: 'Button Rectangle',
+                  child: const Text('Button Rectangle'),
                   onPressed: () {},
                   buttonRadiusType: ZeroButtonRadiusType.rectangle,
                 ),
                 ZeroButton.primary(
-                  text: 'Button Curved',
+                  child: const Text('Button Curved'),
                   onPressed: () {},
                   buttonRadiusType: ZeroButtonRadiusType.curved,
                 ),
                 ZeroButton.primary(
-                  text: 'Button Rounded',
+                  child: const Text('Button Rounded'),
                   onPressed: () {},
                   buttonRadiusType: ZeroButtonRadiusType.rounded,
                 ),
 
                 /// button custom color
                 ZeroButton.primary(
-                  text: 'Button Color Red',
+                  child: const Text('Button Color Red'),
                   onPressed: () {},
                   style: const ZeroButtonStyle(backgroundColor: Colors.red),
                 ),
                 ZeroButton.primary(
-                  text: 'Button Color Green',
+                  child: const Text('Button Color Green'),
                   onPressed: () {},
                   style: const ZeroButtonStyle(backgroundColor: Colors.green),
                 ),
                 ZeroButton.primary(
-                  text: 'Button Color Orange',
+                  child: const Text('Button Color Orange'),
                   onPressed: () {},
                   style: const ZeroButtonStyle(backgroundColor: Colors.orange),
                 ),
 
                 /// custom style
                 ZeroButton.primary(
-                  text: 'Button Custom Style',
+                  child: const Text('Button Custom Style'),
                   onPressed: () {},
                   style: const ZeroButtonStyle(
                     backgroundColor: Colors.black,
@@ -355,6 +386,41 @@ class ZeroButtonExample extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _leftIcon(String text) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Icon(ZeroIcons.search),
+        const SizedBox(width: 10),
+        Text(text),
+      ],
+    );
+  }
+
+  Widget _rightIcon(String text) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(text),
+        const SizedBox(width: 10),
+        const Icon(ZeroIcons.search),
+      ],
+    );
+  }
+
+  Widget _leftRightIcon(String text) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Icon(ZeroIcons.search),
+        const SizedBox(width: 10),
+        Text(text),
+        const SizedBox(width: 10),
+        const Icon(ZeroIcons.search),
+      ],
     );
   }
 }

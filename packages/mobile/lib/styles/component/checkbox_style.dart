@@ -19,12 +19,16 @@ class ZeroCheckboxStyle with Diagnosticable {
   /// Border radius of checkbox
   final BorderRadius? borderRadius;
 
+  /// The border size of checkbox
+  final double? borderSize;
+
   const ZeroCheckboxStyle({
     this.activeColor,
     this.inactiveColor,
     this.disabledColor,
     this.checkColor,
     this.borderRadius,
+    this.borderSize,
   });
 
   /// A default value style of [ZeroCheckboxStyle]
@@ -41,6 +45,7 @@ class ZeroCheckboxStyle with Diagnosticable {
         disabledColor: disabledColor ?? ZeroColors.neutral[8],
         inactiveColor: inactiveColor ?? ZeroColors.neutral[7],
         checkColor: checkColor ?? ZeroColors.white,
+        borderSize: 2,
       );
 
   /// If the caller passes in a value for a parameter, use that value, otherwise use the value from this
@@ -54,6 +59,7 @@ class ZeroCheckboxStyle with Diagnosticable {
     Color? disabledColor,
     Color? checkColor,
     BorderRadius? borderRadius,
+    double? borderSize,
   }) {
     return ZeroCheckboxStyle(
       activeColor: activeColor ?? this.activeColor,
@@ -61,6 +67,7 @@ class ZeroCheckboxStyle with Diagnosticable {
       disabledColor: disabledColor ?? this.disabledColor,
       checkColor: checkColor ?? this.checkColor,
       borderRadius: borderRadius ?? this.borderRadius,
+      borderSize: borderSize ?? this.borderSize,
     );
   }
 
@@ -73,6 +80,7 @@ class ZeroCheckboxStyle with Diagnosticable {
       checkColor: other.checkColor,
       inactiveColor: other.inactiveColor,
       borderRadius: other.borderRadius,
+      borderSize: other.borderSize,
     );
   }
 
@@ -84,6 +92,7 @@ class ZeroCheckboxStyle with Diagnosticable {
       disabledColor: Color.lerp(a?.disabledColor, b?.disabledColor, t),
       checkColor: Color.lerp(a?.checkColor, b?.checkColor, t),
       borderRadius: BorderRadius.lerp(a?.borderRadius, b?.borderRadius, t),
+      borderSize: t < 0.5 ? a?.borderSize : b?.borderSize,
     );
   }
 
@@ -101,7 +110,10 @@ class ZeroCheckboxStyle with Diagnosticable {
         side: BorderSide(color: inactiveColor ?? Colors.transparent),
         borderRadius: borderRadius ?? BorderRadius.zero,
       ),
-      side: BorderSide(color: inactiveColor ?? Colors.transparent),
+      side: BorderSide(
+        color: inactiveColor ?? Colors.transparent,
+        width: borderSize ?? 1,
+      ),
     );
   }
 
@@ -113,6 +125,7 @@ class ZeroCheckboxStyle with Diagnosticable {
       ..add(ColorProperty('activeColor', activeColor))
       ..add(ColorProperty('inactiveColor', inactiveColor))
       ..add(ColorProperty('disabledColor', disabledColor))
-      ..add(ColorProperty('checkColor', checkColor));
+      ..add(ColorProperty('checkColor', checkColor))
+      ..add(DoubleProperty('borderSize', borderSize));
   }
 }

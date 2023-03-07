@@ -85,7 +85,8 @@ class ZeroSpeedDialStyle with Diagnosticable {
       elevation: other.elevation,
       shadowColor: other.shadowColor,
       borderRadius: other.borderRadius,
-      tooltipStyle: other.tooltipStyle,
+      tooltipStyle:
+          tooltipStyle?.merge(other.tooltipStyle) ?? other.tooltipStyle,
     );
   }
 

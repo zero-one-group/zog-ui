@@ -56,14 +56,15 @@ class ZeroCheckbox extends StatelessWidget {
       child: Checkbox(
         key: key,
         value: value,
-        onChanged: isDisabled ? (_) {} : onChanged,
+        onChanged: isDisabled ? null : onChanged,
         tristate: tristate,
         activeColor: isDisabled
             ? adaptiveStyle.disabledColor
             : adaptiveStyle.activeColor,
         fillColor: isDisabled
             ? MaterialStateProperty.all(
-                adaptiveStyle.disabledColor?.withOpacity(0.5))
+                adaptiveStyle.disabledColor?.withOpacity(0.5),
+              )
             : MaterialStateProperty.all(adaptiveStyle.activeColor),
         checkColor: adaptiveStyle.checkColor,
         materialTapTargetSize: materialTapTargetSize,
@@ -75,7 +76,10 @@ class ZeroCheckbox extends StatelessWidget {
           side: BorderSide(color: borderColor ?? Colors.transparent),
           borderRadius: adaptiveStyle.borderRadius ?? BorderRadius.zero,
         ),
-        side: BorderSide(color: borderColor ?? Colors.transparent),
+        side: BorderSide(
+          color: borderColor ?? Colors.transparent,
+          width: adaptiveStyle.borderSize ?? 1,
+        ),
       ),
     );
   }

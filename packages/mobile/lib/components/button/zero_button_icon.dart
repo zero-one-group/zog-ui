@@ -102,6 +102,7 @@ class ZeroButtonIcon extends StatelessWidget {
         : _type.isPrimary
             ? adaptiveStyle.color
             : Colors.transparent;
+
     final iconColor = isDisabled
         ? (themeStyle.disabledColor ?? theme.disabledColor)
         : (_type.isPrimary
@@ -116,30 +117,37 @@ class ZeroButtonIcon extends StatelessWidget {
             ? iconColor
             : null;
 
-    return InkWell(
-      onTap: onPressed,
-      borderRadius: borderRadiusType.borderRadius,
-      child: Ink(
-        width: size.getSize(themeStyle),
-        height: size.getSize(themeStyle),
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          borderRadius: borderRadiusType != ZeroButtonRadiusType.rounded
-              ? borderRadiusType.borderRadius
-              : null,
-          shape: borderRadiusType == ZeroButtonRadiusType.rounded
-              ? BoxShape.circle
-              : BoxShape.rectangle,
-          border: borderColor != null ? Border.all(color: borderColor) : null,
-        ),
-        child: IconTheme(
-          data: IconThemeData(
-            size: (adaptiveStyle.iconSize ?? 16) +
-                size.iconSizeCorrection(themeStyle),
-            color: iconColor,
-          ),
-          child: Center(
-            child: icon,
+    final isRounded = borderRadiusType == ZeroButtonRadiusType.rounded;
+
+    return Material(
+      color: backgroundColor,
+      elevation: 0,
+      type: isRounded ? MaterialType.circle : MaterialType.canvas,
+      shape: isRounded
+          ? null
+          : RoundedRectangleBorder(
+              side: borderColor != null
+                  ? BorderSide(color: borderColor)
+                  : BorderSide.none,
+              borderRadius: borderRadiusType != ZeroButtonRadiusType.rectangle
+                  ? borderRadiusType.borderRadius
+                  : BorderRadius.zero,
+            ),
+      child: InkWell(
+        onTap: onPressed,
+        borderRadius: borderRadiusType.borderRadius,
+        child: SizedBox(
+          width: size.getSize(themeStyle),
+          height: size.getSize(themeStyle),
+          child: IconTheme(
+            data: IconThemeData(
+              size: (adaptiveStyle.iconSize ?? 16) +
+                  size.iconSizeCorrection(themeStyle),
+              color: iconColor,
+            ),
+            child: Center(
+              child: icon,
+            ),
           ),
         ),
       ),

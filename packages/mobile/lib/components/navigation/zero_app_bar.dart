@@ -105,7 +105,10 @@ class ZeroAppBar extends StatelessWidget implements PreferredSizeWidget {
           excludeSemantics: true,
           child: ClipRect(
             child: Ink(
-              color: adaptiveStyle.backgroundColor,
+              decoration: BoxDecoration(
+                color: adaptiveStyle.backgroundColor,
+                boxShadow: adaptiveStyle.shadows,
+              ),
               child: SafeArea(
                 left: false,
                 right: false,

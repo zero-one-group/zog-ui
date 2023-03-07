@@ -28,7 +28,7 @@ class ZeroDatePickerExample extends StatelessWidget {
               height: 20,
             ),
             ZeroButton.primary(
-                text: 'Date Picker',
+                child: const Text('Date Picker'),
                 onPressed: () async {
                   showZeroDatePicker(
                     context: context,
@@ -40,7 +40,7 @@ class ZeroDatePickerExample extends StatelessWidget {
                   );
                 }),
             ZeroButton.primary(
-                text: 'Date Range Picker',
+                child: const Text('Date Range Picker'),
                 onPressed: () async {
                   showZeroDateRangePicker(
                     context: context,

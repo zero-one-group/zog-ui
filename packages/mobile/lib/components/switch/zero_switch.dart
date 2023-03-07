@@ -40,7 +40,7 @@ class ZeroSwitch extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.theme;
     final themeStyle = theme.switchStyle.basic;
-    final adaptiveStyle = themeStyle.merge(style);
+    final adaptiveStyle = themeStyle?.merge(style);
 
     return InkWell(
       overlayColor: MaterialStateProperty.resolveWith<Color?>(
@@ -89,19 +89,19 @@ class _InactiveLine extends StatelessWidget {
     required this.isActive,
   });
 
-  final ZeroSwitchStyle style;
+  final ZeroSwitchStyle? style;
   final bool isDisabled;
   final bool isActive;
 
   @override
   Widget build(BuildContext context) {
     final switchStyleSet = context.theme.switchStyle;
-    final size = style.thumbSize ?? _kThumbSize;
+    final size = style?.thumbSize ?? _kThumbSize;
     final color = isDisabled
         ? switchStyleSet.disabledColor
         : isActive
-            ? style.activeColor
-            : style.inactiveColor;
+            ? style?.activeColor
+            : style?.inactiveColor;
 
     return Container(
       width: size * 1.5,
@@ -120,7 +120,7 @@ class _ActiveLine extends StatelessWidget {
     required this.isDisabled,
     required this.isActive,
   });
-  final ZeroSwitchStyle style;
+  final ZeroSwitchStyle? style;
   final bool isDisabled;
   final bool isActive;
 
@@ -130,9 +130,9 @@ class _ActiveLine extends StatelessWidget {
     final color = isDisabled
         ? switchStyleSet.disabledColor
         : isActive
-            ? style.activeColor
-            : style.inactiveColor;
-    final size = style.thumbSize ?? _kThumbSize;
+            ? style?.activeColor
+            : style?.inactiveColor;
+    final size = style?.thumbSize ?? _kThumbSize;
 
     return AnimatedContainer(
       alignment: Alignment.centerLeft,
@@ -157,7 +157,7 @@ class _Thumb extends StatelessWidget {
     this.inactiveIcon,
   });
 
-  final ZeroSwitchStyle style;
+  final ZeroSwitchStyle? style;
   final bool isActive;
   final bool isDisabled;
   final Icon? activeIcon;
@@ -166,10 +166,10 @@ class _Thumb extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final enableColor =
-        isActive ? style.activeThumbColor : style.inactiveThumbColor;
+        isActive ? style?.activeThumbColor : style?.inactiveThumbColor;
     const disableColor = Colors.white;
     final color = isDisabled ? disableColor : enableColor;
-    final size = style.thumbSize ?? _kThumbSize;
+    final size = style?.thumbSize ?? _kThumbSize;
 
     return IconTheme(
       data: IconThemeData(

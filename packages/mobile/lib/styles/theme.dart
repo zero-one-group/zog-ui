@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:zog_ui/styles/component/timepicker_style.dart';
 import 'package:zog_ui/zog_ui.dart';
 
 class ZeroTheme extends StatelessWidget {
@@ -123,6 +122,7 @@ class ZeroThemeData with Diagnosticable {
   final ZeroExpansionTileStyle expansionTileStyle;
   final ZeroSnackbarStyleSet snackBarStyle;
   final ZeroTimePickerStyle timePickerStyle;
+  final ZeroBottomSheetStyle bottomSheetStyle;
 
   final Brightness brightness;
   final IconThemeData iconTheme;
@@ -194,6 +194,7 @@ class ZeroThemeData with Diagnosticable {
     required this.stepperStyle,
     required this.snackBarStyle,
     required this.timePickerStyle,
+    required this.bottomSheetStyle,
 
     // Others
     this.useMaterial3 = false,
@@ -258,6 +259,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroStepperStyle? stepperStyle,
     ZeroSnackbarStyleSet? snackBarStyle,
     ZeroTimePickerStyle? timePickerStyle,
+    ZeroBottomSheetStyle? bottomSheetStyle,
   }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
@@ -270,14 +272,14 @@ class ZeroThemeData with Diagnosticable {
         isLight ? ZeroColors.neutral[3] : ZeroColors.neutral[8];
     scaffoldBackgroundColor ??=
         isLight ? ZeroColors.neutral[2] : ZeroColors.neutral[11];
-    uncheckedColor ??= isLight ? ZeroColors.neutral[7] : ZeroColors.neutral[9];
+    uncheckedColor ??= isLight ? ZeroColors.neutral[7] : ZeroColors.neutral[4];
     checkedColor ??= primaryColor;
     cardColor ??= isLight ? ZeroColors.white : ZeroColors.neutral[9];
     successColor ??= ZeroColors.success;
     infoColor ??= ZeroColors.info;
     warningColor ??= ZeroColors.warning;
     errorColor ??= ZeroColors.danger;
-    dividerColor ??= isLight ? ZeroColors.neutral[5] : ZeroColors.neutral[10];
+    dividerColor ??= isLight ? ZeroColors.neutral[5] : ZeroColors.neutral[6];
     solidTextColor ??= isLight ? ZeroColors.neutral[10] : ZeroColors.neutral[5];
     regularTextColor ??=
         isLight ? ZeroColors.neutral[7] : ZeroColors.neutral[6];
@@ -386,14 +388,21 @@ class ZeroThemeData with Diagnosticable {
     final listTileFallback = ZeroListTileStyle.fallback(
       dividerColor: dividerColor,
       selectedColor: primaryColor.lightest,
+      titleStyle: typography.subtitle1?.copyWith(color: solidTextColor),
+      subTitleStyle: typography.subtitle2?.copyWith(color: regularTextColor),
+      smallTitleStyle: typography.subtitle1?.copyWith(color: solidTextColor),
+      smallSubTitleStyle:
+          typography.subtitle2?.copyWith(color: regularTextColor),
     );
 
     final primaryButtonStyleFallback = ZeroButtonStyle.primaryStyle(
       backgroundColor: primaryColor,
-      foregroundColor: primaryColor.darker,
+      foregroundColor: Colors.white,
       surfaceTintColor: primaryColor.lighter,
       animatingColor: primaryColor.lighter,
       textStyle: typography.button?.copyWith(color: ZeroColors.white),
+      disabledForegroundColor: disabledColor,
+      disabledBackgroundColor: disabledBackgroundColor,
     );
 
     final secondaryButtonStyleFallback = ZeroButtonStyle.secondaryStyle(
@@ -402,18 +411,24 @@ class ZeroThemeData with Diagnosticable {
       surfaceTintColor: primaryColor.lighter,
       animatingColor: primaryColor.lighter,
       textStyle: typography.button?.copyWith(color: solidTextColor),
+      disabledForegroundColor: disabledColor,
+      disabledBackgroundColor: disabledBackgroundColor,
+      side: BorderSide(color: dividerColor),
     );
 
     final textButtonStyleFallback = secondaryButtonStyleFallback.copyWith(
       elevation: 0,
       side: BorderSide.none,
       foregroundColor: solidTextColor,
+      disabledForegroundColor: disabledColor,
+      disabledBackgroundColor: ZeroColors.transparent,
     );
 
     final dividerStyleFallback = ZeroDividerStyle.fallback(color: dividerColor);
 
     final chipFilledStyleFallback = ZeroChipFilledStyle.fallback(
       textStyle: TextStyle(color: solidTextColor),
+      backgroundColor: isLight ? ZeroColors.neutral[4] : ZeroColors.neutral[8],
     );
     final chipOutlinedStyleFallback = ZeroChipOutlinedStyle.fallback(
       textStyle: TextStyle(color: solidTextColor),
@@ -449,6 +464,7 @@ class ZeroThemeData with Diagnosticable {
     final navigationRailStyleFallback = ZeroNavigationRailStyle.fallback(
       backgrondColor: isLight ? ZeroColors.white : ZeroColors.black,
       activeColor: isLight ? ZeroColors.white : ZeroColors.black,
+      inactiveColor: isLight ? ZeroColors.neutral[12] : ZeroColors.neutral[3],
       indicatorColor: primaryColor,
       labelStyle: typography.caption,
     );
@@ -499,8 +515,11 @@ class ZeroThemeData with Diagnosticable {
         ZeroAvatarStyle.fallback(backgroundColor: primaryColor);
 
     final menuStyleFallback = ZeroMenuStyle.fallback();
-    final buttonGroupStyleFallback =
-        ZeroButtonGroupStyleSet.fallback(primaryColor: primaryColor);
+    final buttonGroupStyleFallback = ZeroButtonGroupStyleSet.fallback(
+      primaryColor: primaryColor,
+      textColor: solidTextColor,
+      textActiveBackgroundColor: disabledBackgroundColor,
+    );
 
     final tooltipStyleFallback = ZeroTooltipStyle.fallback(
       borderColor: dividerColor,
@@ -549,14 +568,25 @@ class ZeroThemeData with Diagnosticable {
     final snackBarStyleFallback = ZeroSnackbarStyleSet.fallback(
       textStyle: typography.body2,
       titleStyle: typography.subtitle1,
+      snackbarBackgroundColor: cardColor,
+      defaultDangerColor: errorColor,
+      defaultInfoColor: infoColor,
+      defaultSuccessColor: successColor,
+      defaultWarningColor: warningColor,
     );
 
     final timePickerStyleFallback = ZeroTimePickerStyle.fallback(
-        hourMinute: const HourMinuteControlStyle(),
-        textfieldStyle: ZeroTextfieldStyle.outline(
-            focusedBorderColor: colorScheme.primary,
-            focusedColor:
-                colorScheme.primary.withOpacity(isLight ? 0.12 : 0.24)));
+      hourMinute: const HourMinuteControlStyle(),
+      textfieldStyle: ZeroTextfieldStyle.outline(
+        focusedBorderColor: colorScheme.primary,
+        focusedColor: colorScheme.primary.withOpacity(isLight ? 0.12 : 0.24),
+      ),
+    );
+
+    final bottomSheetStyleFallback = ZeroBottomSheetStyle.fallback(
+      handleColor: dividerColor,
+      backgroundColor: cardColor,
+    );
 
     useMaterial3 ??= false;
 
@@ -621,6 +651,7 @@ class ZeroThemeData with Diagnosticable {
       stepperStyle: stepperStyleFallback.merge(stepperStyle),
       snackBarStyle: snackBarStyleFallback.merge(snackBarStyle),
       timePickerStyle: timePickerStyleFallback.merge(timePickerStyle),
+      bottomSheetStyle: bottomSheetStyleFallback.merge(bottomSheetStyle),
     );
   }
 
@@ -706,6 +737,8 @@ class ZeroThemeData with Diagnosticable {
           ZeroSnackbarStyleSet.lerp(a.snackBarStyle, b.snackBarStyle, t),
       timePickerStyle:
           ZeroTimePickerStyle.lerp(a.timePickerStyle, b.timePickerStyle, t),
+      bottomSheetStyle:
+          ZeroBottomSheetStyle.lerp(a.bottomSheetStyle, b.bottomSheetStyle, t),
     );
   }
 
@@ -768,6 +801,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroStepperStyle? stepperStyle,
     ZeroSnackbarStyleSet? snackBarStyle,
     ZeroTimePickerStyle? timePickerStyle,
+    ZeroBottomSheetStyle? bottomSheetStyle,
   }) {
     return ZeroThemeData.raw(
       brightness: brightness ?? this.brightness,
@@ -844,6 +878,7 @@ class ZeroThemeData with Diagnosticable {
       stepperStyle: stepperStyle ?? this.stepperStyle,
       snackBarStyle: snackBarStyle ?? this.snackBarStyle,
       timePickerStyle: timePickerStyle ?? this.timePickerStyle,
+      bottomSheetStyle: bottomSheetStyle ?? this.bottomSheetStyle,
     );
   }
 
@@ -882,6 +917,7 @@ class ZeroThemeData with Diagnosticable {
       checkboxTheme: checkboxStyle.toCheckBoxTheme(),
       radioTheme: radioStyle.toRadioTheme(),
       sliderTheme: sliderStyle.toSliderTheme(),
+      bottomSheetTheme: bottomSheetStyle.toBottomSheetTheme(),
     );
   }
 
@@ -956,6 +992,8 @@ class ZeroThemeData with Diagnosticable {
           'expansionTileStyle', expansionTileStyle))
       ..add(DiagnosticsProperty<ZeroSnackbarStyleSet>(
           'snackBarStyle', snackBarStyle))
+      ..add(DiagnosticsProperty<ZeroBottomSheetStyle>(
+          'bottomSheetStyle', bottomSheetStyle))
       ..add(DiagnosticsProperty<IconThemeData>('iconTheme', iconTheme))
       ..add(DiagnosticsProperty<DialogTheme>('dialogTheme', dialogTheme))
       ..add(DiagnosticsProperty<ButtonThemeData>('buttonTheme', buttonTheme))

@@ -55,8 +55,8 @@ class ZeroButtonStyle with Diagnosticable {
     return TextButton.styleFrom(
       backgroundColor: backgroundColor,
       foregroundColor: foregroundColor,
-      disabledBackgroundColor: disabledForegroundColor,
-      disabledForegroundColor: disabledBackgroundColor,
+      disabledBackgroundColor: disabledBackgroundColor,
+      disabledForegroundColor: disabledForegroundColor,
       surfaceTintColor: surfaceTintColor,
       shadowColor: shadowColor,
       elevation: elevation,
@@ -124,6 +124,10 @@ class ZeroButtonStyle with Diagnosticable {
       alignment: alignment,
       splashFactory: splashFactory,
       animatingColor: animatingColor ?? ZeroColors.primary[3],
+      side: side,
+      fixedSize: fixedSize,
+      maximumSize: maximumSize,
+      minimumSize: minimumSize,
     );
   }
 
@@ -176,6 +180,10 @@ class ZeroButtonStyle with Diagnosticable {
       alignment: alignment,
       splashFactory: splashFactory,
       animatingColor: animatingColor ?? ZeroColors.primary[3],
+      side: side,
+      fixedSize: fixedSize,
+      maximumSize: maximumSize,
+      minimumSize: minimumSize,
     );
   }
 

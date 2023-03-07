@@ -23,10 +23,10 @@ WidgetbookComponent buttonWidgetbookComponent = WidgetbookComponent(
             label: 'Is Disabled',
             initialValue: false,
           ),
-          text: context.knobs.text(
+          child: Text(context.knobs.text(
             label: 'Text',
             initialValue: 'Button',
-          ),
+          )),
           onPressed: () {},
         ),
       ),
@@ -47,9 +47,11 @@ WidgetbookComponent buttonWidgetbookComponent = WidgetbookComponent(
             label: 'Is Disabled',
             initialValue: false,
           ),
-          text: context.knobs.text(
-            label: 'Text',
-            initialValue: 'Button',
+          child: Text(
+            context.knobs.text(
+              label: 'Text',
+              initialValue: 'Button',
+            ),
           ),
           onPressed: () {},
         ),
@@ -71,10 +73,10 @@ WidgetbookComponent buttonWidgetbookComponent = WidgetbookComponent(
             label: 'Is Disabled',
             initialValue: false,
           ),
-          text: context.knobs.text(
+          child: Text(context.knobs.text(
             label: 'Text',
             initialValue: 'Button',
-          ),
+          )),
           onPressed: () {},
         ),
       ),
@@ -82,8 +84,7 @@ WidgetbookComponent buttonWidgetbookComponent = WidgetbookComponent(
     WidgetbookUseCase(
       name: 'L-Icon Primary',
       builder: (context) => PreviewWidget(
-        child: ZeroButtonLIcon.primary(
-          icon: context.knobs.options(label: 'Icon', options: icons),
+        child: ZeroButton.primary(
           buttonSizeType: context.knobs.options(
             options: buttonSizeTypes,
             label: 'Button Size Type',
@@ -96,10 +97,7 @@ WidgetbookComponent buttonWidgetbookComponent = WidgetbookComponent(
             label: 'Is Disabled',
             initialValue: false,
           ),
-          text: context.knobs.text(
-            label: 'Text',
-            initialValue: 'Button',
-          ),
+          child: _leftIcon(context),
           onPressed: () {},
         ),
       ),
@@ -107,8 +105,7 @@ WidgetbookComponent buttonWidgetbookComponent = WidgetbookComponent(
     WidgetbookUseCase(
       name: 'L-Icon Secondary',
       builder: (context) => PreviewWidget(
-        child: ZeroButtonLIcon.secondary(
-          icon: context.knobs.options(label: 'Icon', options: icons),
+        child: ZeroButton.secondary(
           buttonSizeType: context.knobs.options(
             options: buttonSizeTypes,
             label: 'Button Size Type',
@@ -121,10 +118,7 @@ WidgetbookComponent buttonWidgetbookComponent = WidgetbookComponent(
             label: 'Is Disabled',
             initialValue: false,
           ),
-          text: context.knobs.text(
-            label: 'Text',
-            initialValue: 'Button',
-          ),
+          child: _leftIcon(context),
           onPressed: () {},
         ),
       ),
@@ -132,8 +126,7 @@ WidgetbookComponent buttonWidgetbookComponent = WidgetbookComponent(
     WidgetbookUseCase(
       name: 'L-Icon Text',
       builder: (context) => PreviewWidget(
-        child: ZeroButtonLIcon.text(
-          icon: context.knobs.options(label: 'Icon', options: icons),
+        child: ZeroButton.text(
           buttonSizeType: context.knobs.options(
             options: buttonSizeTypes,
             label: 'Button Size Type',
@@ -146,10 +139,7 @@ WidgetbookComponent buttonWidgetbookComponent = WidgetbookComponent(
             label: 'Is Disabled',
             initialValue: false,
           ),
-          text: context.knobs.text(
-            label: 'Text',
-            initialValue: 'Button',
-          ),
+          child: _leftIcon(context),
           onPressed: () {},
         ),
       ),
@@ -157,8 +147,7 @@ WidgetbookComponent buttonWidgetbookComponent = WidgetbookComponent(
     WidgetbookUseCase(
       name: 'R-Icon Primary',
       builder: (context) => PreviewWidget(
-        child: ZeroButtonRIcon.primary(
-          icon: context.knobs.options(label: 'Icon', options: icons),
+        child: ZeroButton.primary(
           buttonSizeType: context.knobs.options(
             options: buttonSizeTypes,
             label: 'Button Size Type',
@@ -171,10 +160,7 @@ WidgetbookComponent buttonWidgetbookComponent = WidgetbookComponent(
             label: 'Is Disabled',
             initialValue: false,
           ),
-          text: context.knobs.text(
-            label: 'Text',
-            initialValue: 'Button',
-          ),
+          child: _rightIcon(context),
           onPressed: () {},
         ),
       ),
@@ -182,8 +168,7 @@ WidgetbookComponent buttonWidgetbookComponent = WidgetbookComponent(
     WidgetbookUseCase(
       name: 'R-Icon Secondary',
       builder: (context) => PreviewWidget(
-        child: ZeroButtonRIcon.secondary(
-          icon: context.knobs.options(label: 'Icon', options: icons),
+        child: ZeroButton.secondary(
           buttonSizeType: context.knobs.options(
             options: buttonSizeTypes,
             label: 'Button Size Type',
@@ -196,10 +181,7 @@ WidgetbookComponent buttonWidgetbookComponent = WidgetbookComponent(
             label: 'Is Disabled',
             initialValue: false,
           ),
-          text: context.knobs.text(
-            label: 'Text',
-            initialValue: 'Button',
-          ),
+          child: _rightIcon(context),
           onPressed: () {},
         ),
       ),
@@ -207,8 +189,7 @@ WidgetbookComponent buttonWidgetbookComponent = WidgetbookComponent(
     WidgetbookUseCase(
       name: 'R-Icon Text',
       builder: (context) => PreviewWidget(
-        child: ZeroButtonRIcon.text(
-          icon: context.knobs.options(label: 'Icon', options: icons),
+        child: ZeroButton.text(
           buttonSizeType: context.knobs.options(
             options: buttonSizeTypes,
             label: 'Button Size Type',
@@ -221,10 +202,7 @@ WidgetbookComponent buttonWidgetbookComponent = WidgetbookComponent(
             label: 'Is Disabled',
             initialValue: false,
           ),
-          text: context.knobs.text(
-            label: 'Text',
-            initialValue: 'Button',
-          ),
+          child: _rightIcon(context),
           onPressed: () {},
         ),
       ),
@@ -232,9 +210,7 @@ WidgetbookComponent buttonWidgetbookComponent = WidgetbookComponent(
     WidgetbookUseCase(
       name: 'RL-Icon Primary',
       builder: (context) => PreviewWidget(
-        child: ZeroButtonRLIcon.primary(
-          prefixIcon: context.knobs.options(label: 'Icon', options: icons),
-          suffixIcon: context.knobs.options(label: 'Icon', options: icons),
+        child: ZeroButton.primary(
           buttonSizeType: context.knobs.options(
             options: buttonSizeTypes,
             label: 'Button Size Type',
@@ -247,10 +223,7 @@ WidgetbookComponent buttonWidgetbookComponent = WidgetbookComponent(
             label: 'Is Disabled',
             initialValue: false,
           ),
-          text: context.knobs.text(
-            label: 'Text',
-            initialValue: 'Button',
-          ),
+          child: _leftRightIcon(context),
           onPressed: () {},
         ),
       ),
@@ -260,9 +233,7 @@ WidgetbookComponent buttonWidgetbookComponent = WidgetbookComponent(
       builder: (context) => PreviewWidget(
         child: Scaffold(
           body: Center(
-            child: ZeroButtonRLIcon.secondary(
-              prefixIcon: context.knobs.options(label: 'Icon', options: icons),
-              suffixIcon: context.knobs.options(label: 'Icon', options: icons),
+            child: ZeroButton.secondary(
               buttonSizeType: context.knobs.options(
                 options: buttonSizeTypes,
                 label: 'Button Size Type',
@@ -275,10 +246,7 @@ WidgetbookComponent buttonWidgetbookComponent = WidgetbookComponent(
                 label: 'Is Disabled',
                 initialValue: false,
               ),
-              text: context.knobs.text(
-                label: 'Text',
-                initialValue: 'Button',
-              ),
+              child: _leftRightIcon(context),
               onPressed: () {},
             ),
           ),
@@ -288,9 +256,7 @@ WidgetbookComponent buttonWidgetbookComponent = WidgetbookComponent(
     WidgetbookUseCase(
       name: 'RL-Icon Text',
       builder: (context) => PreviewWidget(
-        child: ZeroButtonRLIcon.text(
-          prefixIcon: context.knobs.options(label: 'Icon', options: icons),
-          suffixIcon: context.knobs.options(label: 'Icon', options: icons),
+        child: ZeroButton.text(
           buttonSizeType: context.knobs.options(
             options: buttonSizeTypes,
             label: 'Button Size Type',
@@ -303,10 +269,7 @@ WidgetbookComponent buttonWidgetbookComponent = WidgetbookComponent(
             label: 'Is Disabled',
             initialValue: false,
           ),
-          text: context.knobs.text(
-            label: 'Text',
-            initialValue: 'Button',
-          ),
+          child: _leftRightIcon(context),
           onPressed: () {},
         ),
       ),
@@ -358,6 +321,50 @@ WidgetbookComponent buttonWidgetbookComponent = WidgetbookComponent(
     ),
   ],
 );
+
+Widget _leftIcon(BuildContext context) {
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      context.knobs.options(label: 'Left Icon', options: icons),
+      const SizedBox(width: 10),
+      Text(context.knobs.text(
+        label: 'Text',
+        initialValue: 'Button',
+      )),
+    ],
+  );
+}
+
+Widget _rightIcon(BuildContext context) {
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text(context.knobs.text(
+        label: 'Text',
+        initialValue: 'Button',
+      )),
+      const SizedBox(width: 10),
+      context.knobs.options(label: 'Right Icon', options: icons)
+    ],
+  );
+}
+
+Widget _leftRightIcon(BuildContext context) {
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      context.knobs.options(label: 'Left Icon', options: icons),
+      const SizedBox(width: 10),
+      Text(context.knobs.text(
+        label: 'Text',
+        initialValue: 'Button',
+      )),
+      const SizedBox(width: 10),
+      context.knobs.options(label: 'Right Icon', options: icons)
+    ],
+  );
+}
 
 List<Option<Icon>> icons = [
   const Option(

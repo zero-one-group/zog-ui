@@ -149,8 +149,10 @@ class ZeroButtonIconStyleSet with Diagnosticable {
     if (other == null) return this;
 
     return copyWith(
-      primaryStyle: other.primaryStyle,
-      secondaryStyle: other.secondaryStyle,
+      primaryStyle:
+          primaryStyle?.merge(other.primaryStyle) ?? other.primaryStyle,
+      secondaryStyle:
+          secondaryStyle?.merge(other.secondaryStyle) ?? other.secondaryStyle,
       largeSize: other.largeSize,
       mediumSize: other.mediumSize,
       smallSize: other.smallSize,

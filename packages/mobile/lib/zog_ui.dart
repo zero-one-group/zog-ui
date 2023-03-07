@@ -16,9 +16,6 @@ export './components/badge/zero_badge.dart';
 // button
 export './components/button/zero_button.dart';
 export './components/button/zero_button_icon.dart';
-export './components/button/zero_button_left_icon.dart';
-export './components/button/zero_button_right_icon.dart';
-export './components/button/zero_button_right_left_icon.dart';
 // button group
 export './components/button_group/zero_button_group.dart';
 // card
@@ -108,6 +105,7 @@ export './styles/colors.dart';
 export './styles/component/alert_dialog_style.dart';
 export './styles/component/app_bar_style.dart';
 export './styles/component/avatar_style.dart';
+export './styles/component/bottom_sheet_style.dart';
 export './styles/component/button_group_style.dart';
 export './styles/component/button_icon_style.dart';
 export './styles/component/button_style.dart';
@@ -133,6 +131,7 @@ export './styles/component/stepper_style.dart';
 export './styles/component/switch_style.dart';
 export './styles/component/tab_bar_style.dart';
 export './styles/component/textfield_style.dart';
+export './styles/component/timepicker_style.dart';
 export './styles/component/tooltip_style.dart';
 export './styles/theme.dart';
 export './styles/typography.dart';
@@ -151,5 +150,7 @@ export './types/snackbar_type.dart';
 export './utils/extensions/color_extension.dart';
 export './utils/extensions/num_extensions.dart';
 export './utils/extensions/theme_extensions.dart';
+// bottom sheet
+export 'components/bottom_sheet/zero_bottom_sheet.dart';
 // stepper
 export 'components/stepper/zero_stepper.dart';

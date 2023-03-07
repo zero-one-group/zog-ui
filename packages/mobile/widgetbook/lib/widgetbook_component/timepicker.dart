@@ -11,7 +11,7 @@ WidgetbookComponent timepickerWidgetbookComponent = WidgetbookComponent(
         builder: (context) {
           return PreviewWidget.builder(
             builder: (context) => ZeroButton.primary(
-              text: 'Time Picker',
+              child: const Text('Time Picker'),
               onPressed: () => showZeroTimePicker(
                 context: context,
                 useRootNavigator: false,
@@ -25,7 +25,7 @@ WidgetbookComponent timepickerWidgetbookComponent = WidgetbookComponent(
         builder: (context) {
           return PreviewWidget.builder(
             builder: (context) => ZeroButton.primary(
-              text: 'Time Picker',
+              child: const Text('Time Picker'),
               onPressed: () => showZeroTimePicker(
                 context: context,
                 useRootNavigator: false,

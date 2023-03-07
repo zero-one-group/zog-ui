@@ -5,3 +5,13 @@
 ## 0.0.1-alpha.1
 
 * Add new typography variant and fontFamily
+
+## 0.0.1-alpha.2
+
+* Fix theme style radio & checkbox
+* Fix switch can't override style from global theme
+* Add shadows for app bar
+* Fix dark mode list-tile
+* Refactor button
+* Integrate dark mode snackbar 
+* Add component showModalBottomSheet & showBottomSheet

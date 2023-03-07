@@ -270,7 +270,6 @@ class ZeroTimePickerStyle with Diagnosticable {
     Color? dialBackgroundColor,
     Color? dialTextColor,
     Color? entryModeIconColor,
-    TextStyle? hourMinuteTextStyle,
     TextStyle? dayPeriodTextStyle,
     TextStyle? helpTextStyle,
     ShapeBorder? shape,
@@ -373,39 +372,45 @@ class ZeroTimePickerStyle with Diagnosticable {
     ZeroTextfieldStyle? textfieldStyle,
   }) {
     return ZeroTimePickerStyle(
-        backgroundColor: backgroundColor,
-        hourMinute: hourMinute,
-        dayPeriodBorderSide: dayPeriodBorderSide,
-        dayPeriodColor: dayPeriodColor,
-        dayPeriodShape: dayPeriodShape,
-        dayPeriodTextColor: dayPeriodTextColor,
-        dayPeriodTextStyle: dayPeriodTextStyle,
-        dialBackgroundColor: dialBackgroundColor,
-        dialHandColor: dialHandColor,
-        dialTextColor: dialTextColor,
-        entryModeIconColor: entryModeIconColor,
-        helpTextStyle: helpTextStyle,
-        shape: shape,
-        textfieldStyle: textfieldStyle);
+      backgroundColor: backgroundColor,
+      hourMinute: hourMinute,
+      dayPeriodBorderSide: dayPeriodBorderSide,
+      dayPeriodColor: dayPeriodColor,
+      dayPeriodShape: dayPeriodShape,
+      dayPeriodTextColor: dayPeriodTextColor,
+      dayPeriodTextStyle: dayPeriodTextStyle,
+      dialBackgroundColor: dialBackgroundColor,
+      dialHandColor: dialHandColor,
+      dialTextColor: dialTextColor,
+      entryModeIconColor: entryModeIconColor,
+      helpTextStyle: helpTextStyle,
+      shape: shape,
+      textfieldStyle: textfieldStyle,
+    );
   }
 
   ZeroTimePickerStyle merge(ZeroTimePickerStyle? other) {
     if (other == null) return this;
 
     return copyWith(
-        backgroundColor: other.backgroundColor,
-        dayPeriodBorderSide: other.dayPeriodBorderSide,
-        dayPeriodColor: other.dayPeriodColor,
-        dayPeriodShape: other.dayPeriodShape,
-        dayPeriodTextColor: other.dayPeriodTextColor,
-        dayPeriodTextStyle: other.dayPeriodTextStyle,
-        dialBackgroundColor: other.dialBackgroundColor,
-        dialHandColor: other.dialHandColor,
-        dialTextColor: other.dialTextColor,
-        entryModeIconColor: other.entryModeIconColor,
-        helpTextStyle: other.helpTextStyle,
-        shape: other.shape,
-        textfieldStyle: other.textfieldStyle);
+      backgroundColor: other.backgroundColor,
+      dayPeriodBorderSide: other.dayPeriodBorderSide,
+      dayPeriodColor: other.dayPeriodColor,
+      dayPeriodShape: other.dayPeriodShape,
+      dayPeriodTextColor: other.dayPeriodTextColor,
+      dayPeriodTextStyle: dayPeriodTextStyle?.merge(other.dayPeriodTextStyle) ??
+          other.dayPeriodTextStyle,
+      dialBackgroundColor: other.dialBackgroundColor,
+      dialHandColor: other.dialHandColor,
+      dialTextColor: other.dialTextColor,
+      entryModeIconColor: other.entryModeIconColor,
+      helpTextStyle:
+          helpTextStyle?.merge(other.helpTextStyle) ?? other.helpTextStyle,
+      shape: other.shape,
+      textfieldStyle:
+          textfieldStyle?.merge(other.textfieldStyle) ?? other.textfieldStyle,
+      hourMinute: other.hourMinute,
+    );
   }
 
   @override
