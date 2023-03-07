@@ -20,7 +20,7 @@ class _BottomSheetContent extends StatelessWidget {
         const SizedBox(height: 16),
         if (handleBar != null)
           handleBar!
-        else
+        else if (style.useHandle == true)
           Center(
             child: Container(
               width: 40,

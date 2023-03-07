@@ -13,8 +13,6 @@ export './components/avatar/zero_avatar.dart';
 export './components/avatar/zero_avatar_group.dart';
 // badge
 export './components/badge/zero_badge.dart';
-// bottom sheet
-export './components/bottom_sheet/bottom_sheet.dart';
 // button
 export './components/button/zero_button.dart';
 export './components/button/zero_button_icon.dart';
@@ -152,5 +150,7 @@ export './types/snackbar_type.dart';
 export './utils/extensions/color_extension.dart';
 export './utils/extensions/num_extensions.dart';
 export './utils/extensions/theme_extensions.dart';
+// bottom sheet
+export 'components/bottom_sheet/zero_bottom_sheet.dart';
 // stepper
 export 'components/stepper/zero_stepper.dart';

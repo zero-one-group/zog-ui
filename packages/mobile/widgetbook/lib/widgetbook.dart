@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_demo/widgetbook_component/accordion.dart';
 import 'package:widgetbook_demo/widgetbook_component/alert_dialog.dart';
+import 'package:widgetbook_demo/widgetbook_component/bottom_sheet.dart';
 import 'package:widgetbook_demo/widgetbook_component/card.dart';
 import 'package:widgetbook_demo/widgetbook_component/grid.dart';
 import 'package:widgetbook_demo/widgetbook_component/skeleton.dart';
@@ -95,7 +96,8 @@ class HotReload extends StatelessWidget {
             speedDialWidgetbookComponent,
             accordionWidgetbookComponent,
             gridWidgetbookComponent,
-            skeletonWidgetbookComponent
+            skeletonWidgetbookComponent,
+            bottomSheetWidgetbookComponent,
           ],
         ),
       ],
