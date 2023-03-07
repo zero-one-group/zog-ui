@@ -2,19 +2,47 @@ import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
 import { BADGE } from '@geometricpanda/storybook-addon-badges';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { Popover } from '@zog-ui/core';
+import {
+  Space,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Button,
+} from '@zog-ui/core';
 
-<Meta title="Components/Portal/Popover" component={[Popover]} argTypes={{}} />
+<Meta
+  title="Components/Portal/Popover"
+  component={[Popover]}
+  argTypes={{
+    side: {
+      type: 'radio',
+      options: ['top', 'bottom', 'left', 'right'],
+    },
+  }}
+/>
 
-export const PopoverStory = () => <Popover />;
+export const PopoverStory = (args) => (
+  <Space justify="center" css={{ marginTop: '100px' }}>
+    <Popover>
+      <PopoverTrigger>
+        <Button intent="primary" size="md" variant="default">
+          click me!
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent side={args.side}>
+        <p>I'm a content</p>
+      </PopoverContent>
+    </Popover>
+  </Space>
+);
 
 # Popover
 
-> WIP
+> Displays rich content in a portal, triggered by a button.
 
 ## Example Usage
 
-```jsx
+```tsx
 import { Popover } from '@zog-ui/core';
 ```
 
