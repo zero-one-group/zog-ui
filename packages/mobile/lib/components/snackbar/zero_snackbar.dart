@@ -68,7 +68,7 @@ class ZeroSnackbar {
                     decoration: BoxDecoration(
                       borderRadius: adaptiveStyle?.borderRadius,
                       color: adaptiveStyle?.backgroundColor ??
-                          context.theme.scaffoldBackgroundColor,
+                          context.theme.cardColor,
                       border: adaptiveStyle?.border != null
                           ? Border.fromBorderSide(adaptiveStyle!.border!)
                           : null,

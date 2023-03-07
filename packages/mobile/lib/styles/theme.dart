@@ -566,14 +566,20 @@ class ZeroThemeData with Diagnosticable {
     final snackBarStyleFallback = ZeroSnackbarStyleSet.fallback(
       textStyle: typography.body2,
       titleStyle: typography.subtitle1,
+      snackbarBackgroundColor: cardColor,
+      defaultDangerColor: errorColor,
+      defaultInfoColor: infoColor,
+      defaultSuccessColor: successColor,
+      defaultWarningColor: warningColor,
     );
 
     final timePickerStyleFallback = ZeroTimePickerStyle.fallback(
-        hourMinute: const HourMinuteControlStyle(),
-        textfieldStyle: ZeroTextfieldStyle.outline(
-            focusedBorderColor: colorScheme.primary,
-            focusedColor:
-                colorScheme.primary.withOpacity(isLight ? 0.12 : 0.24)));
+      hourMinute: const HourMinuteControlStyle(),
+      textfieldStyle: ZeroTextfieldStyle.outline(
+        focusedBorderColor: colorScheme.primary,
+        focusedColor: colorScheme.primary.withOpacity(isLight ? 0.12 : 0.24),
+      ),
+    );
 
     useMaterial3 ??= false;
 
