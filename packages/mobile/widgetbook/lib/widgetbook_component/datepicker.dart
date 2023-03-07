@@ -21,6 +21,13 @@ WidgetbookComponent datepickerWidgetbookComponent = WidgetbookComponent(
                       firstDate:
                           DateTime.now().subtract(const Duration(days: 30)),
                       lastDate: DateTime.now().add(const Duration(days: 100)),
+                      style: ZeroDatePickerStyle(
+                          pickerBackgroundColor: Colors.red,
+                          headerBackgroundColor: Colors.yellow,
+                          dateTextStyle: TextStyle(fontSize: 30),
+                          insetPadding: EdgeInsets.all(30),
+                          entryModeIconColor: Colors.amber,
+                          shape: Border.all(color: Colors.white, width: 2)),
                     );
                   }),
             )),

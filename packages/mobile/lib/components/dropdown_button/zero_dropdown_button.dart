@@ -299,7 +299,10 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
         data: context.theme
             .copyWith(
                 inputDecorationType: widget.inputDecorationType,
-                textfieldSize: widget.textfieldSize)
+                textfieldSize: widget.textfieldSize,
+                buttonTheme: ButtonTheme.of(context).copyWith(
+                  alignedDropdown: widget.alignedDropdown,
+                ))
             .toThemeData(),
         child: widget.variant == DropdownVariant.form
             ? _buildDropdownForm()
@@ -373,64 +376,55 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
 
   /// Dropdown with form decoration
   Widget _buildDropdownForm() {
-    return Theme(
-      data: context.theme
-          .copyWith(
-              buttonTheme: ButtonTheme.of(context).copyWith(
-            alignedDropdown: widget.alignedDropdown,
-          ))
-          .toThemeData(),
-      child: ZeroDropdownButtonFormField(
-        isExpanded: true,
-        decoration: InputDecoration(
-            helperText: widget.helperText,
-            hintText: widget.hintText,
-            labelText: widget.labelText,
-            contentPadding: widget.textfieldSize.contentPadding,
-            alignLabelWithHint: false,
-            fillColor: context.theme.primaryColor.lightest,
-            filled:
-                widget.selectedItemsStyle == SelectedItemsStyle.chipInverted),
-        icon: widget.icon,
-        items: widget.items.map((item) {
-          return ZeroDropdownMenuItem<T>(
-            value: item,
-            child: StatefulBuilder(
-              builder: (context, menuSetState) {
-                final isSelected = _selectedItems.contains(item);
-                return Container(
-                  height: widget.itemHeight ?? widget.textfieldSize.height,
-                  color: Colors.transparent,
-                  child: InkWell(
-                      onTap: () =>
-                          _updateSelectedItems(menuSetState, item, isSelected),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: _MenuItem(
-                            item: item,
-                            isSelected: isSelected,
-                            multipleItemsVariant: widget.multipleItemsVariant,
-                            menuItemWidget: widget.menuItemBuilder?.call(item),
-                            selectedMenuItemWidget:
-                                widget.selectedMenuItemBuilder?.call(item),
-                            onClick: () => _updateSelectedItems(
-                                menuSetState, item, isSelected)),
-                      )),
-                );
-              },
-            ),
-          );
-        }).toList(),
-        value: _selectedItems.isEmpty ? null : _selectedItems.last,
-        onChanged: widget.onChanged,
-        selectedItemBuilder: (context) {
-          return widget.items
-              .map(
-                (item) => _buildSelectedItem(item),
-              )
-              .toList();
-        },
-      ),
+    return ZeroDropdownButtonFormField(
+      isExpanded: true,
+      decoration: InputDecoration(
+          helperText: widget.helperText,
+          hintText: widget.hintText,
+          labelText: widget.labelText,
+          contentPadding: widget.textfieldSize.contentPadding,
+          alignLabelWithHint: false,
+          fillColor: context.theme.primaryColor.lightest,
+          filled: widget.selectedItemsStyle == SelectedItemsStyle.chipInverted),
+      icon: widget.icon,
+      items: widget.items.map((item) {
+        return ZeroDropdownMenuItem<T>(
+          value: item,
+          child: StatefulBuilder(
+            builder: (context, menuSetState) {
+              final isSelected = _selectedItems.contains(item);
+              return Container(
+                height: widget.itemHeight ?? widget.textfieldSize.height,
+                color: Colors.transparent,
+                child: InkWell(
+                    onTap: () =>
+                        _updateSelectedItems(menuSetState, item, isSelected),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: _MenuItem(
+                          item: item,
+                          isSelected: isSelected,
+                          multipleItemsVariant: widget.multipleItemsVariant,
+                          menuItemWidget: widget.menuItemBuilder?.call(item),
+                          selectedMenuItemWidget:
+                              widget.selectedMenuItemBuilder?.call(item),
+                          onClick: () => _updateSelectedItems(
+                              menuSetState, item, isSelected)),
+                    )),
+              );
+            },
+          ),
+        );
+      }).toList(),
+      value: _selectedItems.isEmpty ? null : _selectedItems.last,
+      onChanged: widget.onChanged,
+      selectedItemBuilder: (context) {
+        return widget.items
+            .map(
+              (item) => _buildSelectedItem(item),
+            )
+            .toList();
+      },
     );
   }
 

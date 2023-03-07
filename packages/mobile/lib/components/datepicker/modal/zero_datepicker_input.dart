@@ -4,6 +4,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:zog_ui/components/textfield/zero_textfield.dart';
+import 'package:zog_ui/styles/component/datepicker_style.dart';
+import 'package:zog_ui/utils/extensions/theme_extensions.dart';
 
 /// A [ZeroTextField] configured to accept and validate a date entered by a user.
 ///
@@ -52,6 +54,7 @@ class ZeroDatePickerInput extends StatefulWidget {
     this.fieldLabelText,
     this.keyboardType,
     this.autofocus = false,
+    this.style,
   })  : initialDate =
             initialDate != null ? DateUtils.dateOnly(initialDate) : null,
         firstDate = DateUtils.dateOnly(firstDate),
@@ -126,6 +129,9 @@ class ZeroDatePickerInput extends StatefulWidget {
 
   /// {@macro flutter.widgets.editableText.autofocus}
   final bool autofocus;
+
+  /// [ZeroDatePickerStyle]'style
+  final ZeroDatePickerStyle? style;
 
   @override
   State<ZeroDatePickerInput> createState() => _ZeroDatePickerInputState();
@@ -238,12 +244,18 @@ class _ZeroDatePickerInputState extends State<ZeroDatePickerInput> {
   Widget build(BuildContext context) {
     final MaterialLocalizations localizations =
         MaterialLocalizations.of(context);
-    return ZeroTextField.outline(
+
+    final adaptiveStyle = context.theme.textfieldStyleSet.mainStyle
+        .merge(widget.style?.textfieldStyle);
+
+    return ZeroTextField(
       hintText: widget.fieldHintText ?? localizations.dateHelpText,
       labelText: widget.fieldLabelText ?? localizations.dateInputLabel,
       validator: _validateDate,
-      inputType: widget.keyboardType ?? TextInputType.datetime,
+      keyboardType: widget.keyboardType ?? TextInputType.datetime,
       onSaved: _handleSaved,
+      inputDecorationType: widget.style?.textfieldStyle?.inputDecorationType,
+      decoration: adaptiveStyle.toInputDecoration(),
       onFieldSubmitted: _handleSubmitted,
       autofocus: widget.autofocus,
       controller: _controller,

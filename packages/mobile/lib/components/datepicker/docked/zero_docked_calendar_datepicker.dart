@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart' show DateFormat;
-
 import 'package:zog_ui/zog_ui.dart';
 
 const Duration _monthScrollDuration = Duration(milliseconds: 200);
@@ -18,7 +17,7 @@ const double _maxDayPickerHeight =
     _dayPickerRowHeight * (_maxDayPickerRowCount + 1);
 const double _monthPickerHorizontalPadding = 8.0;
 
-const double _yearPickerPadding = 16.0;
+const double _yearPickerPadding = 0.0;
 const double _yearPickerRowHeight = 52.0;
 
 const double _subHeaderHeight = 60.0;
@@ -34,9 +33,9 @@ int get totalDaysInGrid => DateTime.daysPerWeek * kNumOfGridRows;
 ///
 /// See also:
 ///
-///  * [showZeroDatePicker], which shows a dialog that contains a ZeroOne Design
+///  * [showZeroDatePicker], which shows a dialog that contains a ZOG Design
 ///    date picker.
-///  * [ZeroCalendarDatePicker], widget which implements the ZeroOne Design date picker.
+///  * [ZeroCalendarDatePicker], widget which implements the ZOG Design date picker.
 enum ZeroDatePickerMode {
   /// Choosing a month and day.
   day,
@@ -106,6 +105,7 @@ class ZeroDockedCalendarDatePicker extends StatefulWidget {
     this.initialCalendarMode = ZeroDatePickerMode.day,
     this.selectableDayPredicate,
     this.onModeChanged,
+    this.style,
   })  : initialDate = DateUtils.dateOnly(initialDate),
         firstDate = DateUtils.dateOnly(firstDate),
         lastDate = DateUtils.dateOnly(lastDate),
@@ -155,6 +155,8 @@ class ZeroDockedCalendarDatePicker extends StatefulWidget {
 
   /// Event triggered when [ZeroDatePickerMode] is changed
   final Function(ZeroDatePickerMode mode)? onModeChanged;
+
+  final ZeroCalendarPickerStyle? style;
 
   @override
   State<ZeroDockedCalendarDatePicker> createState() =>
@@ -300,6 +302,7 @@ class _ZeroDockedCalendarDatePickerState
           onChanged: _handleDayChanged,
           onDisplayedMonthChanged: _handleMonthChanged,
           selectableDayPredicate: widget.selectableDayPredicate,
+          style: widget.style,
         );
       case ZeroDatePickerMode.month:
         return Padding(
@@ -311,6 +314,8 @@ class _ZeroDockedCalendarDatePickerState
             lastDate: widget.lastDate,
             initialDate: _currentDisplayedMonthDate,
             selectedDate: _selectedDate,
+            listTileStyle: widget.style?.monthListTileStyle,
+            leftIcon: widget.style?.monthLeftIcon,
             onChanged: (DateTime selectedTime) {
               _handleMonthChanged(selectedTime);
               setState(() {
@@ -330,6 +335,8 @@ class _ZeroDockedCalendarDatePickerState
             lastDate: widget.lastDate,
             initialDate: _currentDisplayedMonthDate,
             selectedDate: _selectedDate,
+            listTileStyle: widget.style?.yearListTileStyle,
+            leftIcon: widget.style?.yearLeftIcon,
             onChanged: _handleYearChanged,
           ),
         );
@@ -360,6 +367,7 @@ class _ZeroDockedCalendarDatePickerState
                   mode: _mode,
                   title: DateFormat.MMM().format(_currentDisplayedMonthDate),
                   active: _mode == ZeroDatePickerMode.month,
+                  style: widget.style,
                   onTitlePressed: () {
                     // Toggle the day/year mode.
                     _handleModeChanged(_mode != ZeroDatePickerMode.month
@@ -379,6 +387,7 @@ class _ZeroDockedCalendarDatePickerState
                   mode: _mode,
                   title: DateFormat.y().format(_currentDisplayedMonthDate),
                   active: _mode == ZeroDatePickerMode.year,
+                  style: widget.style,
                   onTitlePressed: () {
                     // Toggle the day/year mode.
                     _handleModeChanged(_mode != ZeroDatePickerMode.year
@@ -400,11 +409,13 @@ class _ZeroDockedCalendarDatePickerState
 /// This appears above the calendar grid and allows the user to toggle the
 /// [ZeroDatePickerMode] to display either the calendar view or the year list.
 class _DatePickerModeToggleButton extends StatefulWidget {
-  const _DatePickerModeToggleButton(
-      {required this.mode,
-      required this.title,
-      required this.onTitlePressed,
-      required this.active});
+  const _DatePickerModeToggleButton({
+    required this.mode,
+    required this.title,
+    required this.onTitlePressed,
+    required this.active,
+    this.style,
+  });
 
   /// The current display of the calendar picker.
   final ZeroDatePickerMode mode;
@@ -417,6 +428,9 @@ class _DatePickerModeToggleButton extends StatefulWidget {
 
   /// `true` if selected
   final bool active;
+
+  /// Style for [ZeroCalendarDatePicker]
+  final ZeroCalendarPickerStyle? style;
 
   @override
   _DatePickerModeToggleButtonState createState() =>
@@ -460,8 +474,9 @@ class _DatePickerModeToggleButtonState
     final ColorScheme colorScheme = context.theme.colorScheme;
     final TextTheme textTheme = context.theme.typography.toTextTheme();
 
-    final Color controlColor =
-        inactive ? context.theme.disabledColor : colorScheme.onSurface;
+    final Color controlColor = inactive
+        ? widget.style?.inactiveControlColor ?? context.theme.disabledColor
+        : widget.style?.controlColor ?? colorScheme.onSurface;
 
     final fullWidthButton = widget.mode != ZeroDatePickerMode.day;
 
@@ -520,6 +535,7 @@ class _MonthPicker extends StatefulWidget {
     required this.onChanged,
     required this.onDisplayedMonthChanged,
     this.selectableDayPredicate,
+    this.style,
   })  : assert(!firstDate.isAfter(lastDate)),
         assert(!selectedDate.isBefore(firstDate)),
         assert(!selectedDate.isAfter(lastDate));
@@ -555,6 +571,9 @@ class _MonthPicker extends StatefulWidget {
 
   /// Optional user supplied predicate function to customize selectable days.
   final SelectableDayPredicate? selectableDayPredicate;
+
+  /// Styles for [ZeroCalendarPicker]
+  final ZeroCalendarPickerStyle? style;
 
   @override
   _MonthPickerState createState() => _MonthPickerState();
@@ -868,12 +887,13 @@ class _MonthPickerState extends State<_MonthPicker> {
       lastDate: widget.lastDate,
       displayedMonth: month,
       selectableDayPredicate: widget.selectableDayPredicate,
+      style: widget.style,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final Color controlColor =
+    final Color controlColor = widget.style?.controlColor ??
         context.theme.colorScheme.onSurface.withOpacity(0.60);
 
     return Semantics(
@@ -1002,6 +1022,7 @@ class _DayPicker extends StatefulWidget {
     required this.lastDate,
     required this.selectedDate,
     required this.onChanged,
+    this.style,
     this.selectableDayPredicate,
   })  : assert(!firstDate.isAfter(lastDate)),
         assert(!selectedDate.isBefore(firstDate)),
@@ -1033,6 +1054,9 @@ class _DayPicker extends StatefulWidget {
 
   /// Optional user supplied predicate function to customize selectable days.
   final SelectableDayPredicate? selectableDayPredicate;
+
+  /// Styles for [ZeroCalendarDatePicker]
+  final ZeroCalendarPickerStyle? style;
 
   @override
   _DayPickerState createState() => _DayPickerState();
@@ -1107,20 +1131,27 @@ class _DayPickerState extends State<_DayPicker> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('widget.selectedDate ${widget.selectedDate}');
     final ColorScheme colorScheme = context.theme.colorScheme;
     final MaterialLocalizations localizations =
         MaterialLocalizations.of(context);
     final TextTheme textTheme = context.theme.toThemeData().textTheme;
-    final TextStyle? headerStyle = textTheme.bodySmall?.apply(
-      color: colorScheme.onSurface,
-    );
-    final TextStyle dayStyle = textTheme.bodySmall!;
-    final Color enabledDayColor = colorScheme.onSurface.withOpacity(0.87);
-    final Color disabledDayColor = colorScheme.onSurface.withOpacity(0.38);
-    final Color selectedDayColor = colorScheme.onPrimary;
-    final Color selectedDayBackground = colorScheme.primary;
-    final Color todayColor = colorScheme.primary;
+
+    final adaptiveStyle = widget.style;
+    final TextStyle? headerStyle = adaptiveStyle?.headerTextStyle ??
+        textTheme.bodySmall?.apply(
+          color: colorScheme.onSurface,
+        );
+    final TextStyle dayStyle =
+        adaptiveStyle?.dayTextStyle ?? textTheme.bodySmall!;
+    final Color enabledDayColor = adaptiveStyle?.enabledDayColor ??
+        colorScheme.onSurface.withOpacity(0.87);
+    final Color disabledDayColor = adaptiveStyle?.disabledDayColor ??
+        colorScheme.onSurface.withOpacity(0.38);
+    final Color selectedDayColor =
+        adaptiveStyle?.selectedDayColor ?? colorScheme.onPrimary;
+    final Color selectedDayBackground =
+        adaptiveStyle?.selectedDayBackground ?? colorScheme.primary;
+    final Color todayColor = adaptiveStyle?.todayColor ?? colorScheme.primary;
 
     final int year = widget.displayedMonth.year;
     final int month = widget.displayedMonth.month;
@@ -1295,6 +1326,8 @@ class DockedMonthPicker extends StatefulWidget {
     required this.selectedDate,
     required this.onChanged,
     this.dragStartBehavior = DragStartBehavior.start,
+    this.listTileStyle,
+    this.leftIcon,
   })  : assert(!firstDate.isAfter(lastDate)),
         currentDate = DateUtils.dateOnly(currentDate ?? DateTime.now()),
         initialDate = DateUtils.dateOnly(initialDate ?? selectedDate);
@@ -1323,6 +1356,12 @@ class DockedMonthPicker extends StatefulWidget {
 
   /// {@macro flutter.widgets.scrollable.dragStartBehavior}
   final DragStartBehavior dragStartBehavior;
+
+  /// [ZeroListTileStyle] for month list. If null it defaults to [ZeroListTileStyle.fallback]
+  final ZeroListTileStyle? listTileStyle;
+
+  /// A Widget indicating that an item is selected. It defaults to [Icon(Icons.check)]
+  final Widget? leftIcon;
 
   @override
   State<DockedMonthPicker> createState() => _DockedMonthPickerState();
@@ -1370,13 +1409,14 @@ class _DockedMonthPickerState extends State<DockedMonthPicker> {
       key: ValueKey<int>(index),
       title: month,
       selected: isSelected,
-      style: ZeroListTileStyle(selectedColor: ZeroColors.neutral[4]),
+      style: widget.listTileStyle ??
+          ZeroListTileStyle(selectedColor: ZeroColors.neutral[4]),
       leftIcon: Visibility(
         visible: isSelected,
         maintainSize: true,
         maintainAnimation: true,
         maintainState: true,
-        child: const Icon(Icons.check),
+        child: widget.leftIcon ?? const Icon(Icons.check),
       ),
       onTap: () =>
           widget.onChanged(DateTime(widget.selectedDate.year, monthIndex)),
@@ -1437,6 +1477,8 @@ class DockedYearPicker extends StatefulWidget {
     required this.selectedDate,
     required this.onChanged,
     this.dragStartBehavior = DragStartBehavior.start,
+    this.listTileStyle,
+    this.leftIcon,
   })  : assert(!firstDate.isAfter(lastDate)),
         currentDate = DateUtils.dateOnly(currentDate ?? DateTime.now()),
         initialDate = DateUtils.dateOnly(initialDate ?? selectedDate);
@@ -1465,6 +1507,12 @@ class DockedYearPicker extends StatefulWidget {
 
   /// {@macro flutter.widgets.scrollable.dragStartBehavior}
   final DragStartBehavior dragStartBehavior;
+
+  /// [ZeroListTileStyle] for years list. If null it defaults to [ZeroListTileStyle.fallback]
+  final ZeroListTileStyle? listTileStyle;
+
+  /// A Widget indicating that an item is selected. It defaults to [Icon(Icons.check)]
+  final Widget? leftIcon;
 
   @override
   State<DockedYearPicker> createState() => _DockedYearPickerState();
@@ -1512,13 +1560,16 @@ class _DockedYearPickerState extends State<DockedYearPicker> {
       title: year.toString(),
       selected: isSelected,
       disabled: isDisabled,
-      style: ZeroListTileStyle(selectedColor: ZeroColors.neutral[4]),
+      style: widget.listTileStyle ??
+          ZeroListTileStyle(
+            selectedColor: ZeroColors.neutral[4],
+          ),
       leftIcon: Visibility(
         visible: isSelected,
         maintainSize: true,
         maintainAnimation: true,
         maintainState: true,
-        child: const Icon(Icons.check),
+        child: widget.leftIcon ?? const Icon(Icons.check),
       ),
       onTap: () => widget.onChanged(
           DateTime(year, widget.initialDate.month, widget.initialDate.day)),

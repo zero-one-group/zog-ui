@@ -818,8 +818,14 @@ class ZeroThemeData with Diagnosticable {
                 textfieldSize: textfieldSize,
               ),
           filled: this.textfieldStyleSet.filled.copyWith(
-                textfieldSize: textfieldSize,
-              ),
+              textfieldSize: textfieldSize,
+              enabled: this.textfieldStyleSet.mainStyle.enabled,
+              error: this.textfieldStyleSet.mainStyle.error,
+              fillColor: this.textfieldStyleSet.mainStyle.fillColor,
+              focusedBorderColor:
+                  this.textfieldStyleSet.mainStyle.focusedBorderColor,
+              focusedColor:
+                  this.textfieldStyleSet.mainStyle.focusedBorderColor),
           underline: this.textfieldStyleSet.underline.copyWith(
                 textfieldSize: textfieldSize,
               )),

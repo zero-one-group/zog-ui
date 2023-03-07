@@ -1,14 +1,10 @@
-// Copyright 2014 The Flutter Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'dart:math' as math;
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:zog_ui/utils/extensions/theme_extensions.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 const Duration _monthScrollDuration = Duration(milliseconds: 200);
 
@@ -43,7 +39,7 @@ const double _monthNavButtonsWidth = 108.0;
 ///  * [showZeroDatePicker], which creates a Dialog that contains a
 ///    [ZeroCalendarDatePicker] and provides an optional compact view where the
 ///    user can enter a date as a line of text.
-///  * [showTimePicker], which shows a dialog that contains a Material Design
+///  * [showZeroTimePicker], which shows a dialog that contains a ZOG Design
 ///    time picker.
 ///
 class ZeroCalendarDatePicker extends StatefulWidget {
@@ -84,6 +80,7 @@ class ZeroCalendarDatePicker extends StatefulWidget {
     this.onDisplayedMonthChanged,
     this.initialCalendarMode = DatePickerMode.day,
     this.selectableDayPredicate,
+    this.style,
   })  : initialDate = DateUtils.dateOnly(initialDate),
         firstDate = DateUtils.dateOnly(firstDate),
         lastDate = DateUtils.dateOnly(lastDate),
@@ -130,6 +127,8 @@ class ZeroCalendarDatePicker extends StatefulWidget {
 
   /// Function to provide full control over which dates in the calendar can be selected.
   final SelectableDayPredicate? selectableDayPredicate;
+
+  final ZeroCalendarPickerStyle? style;
 
   @override
   State<ZeroCalendarDatePicker> createState() => _ZeroCalendarDatePickerState();
@@ -262,6 +261,7 @@ class _ZeroCalendarDatePickerState extends State<ZeroCalendarDatePicker> {
           onChanged: _handleDayChanged,
           onDisplayedMonthChanged: _handleMonthChanged,
           selectableDayPredicate: widget.selectableDayPredicate,
+          style: widget.style,
         );
       case DatePickerMode.year:
         return Padding(
@@ -284,6 +284,7 @@ class _ZeroCalendarDatePickerState extends State<ZeroCalendarDatePicker> {
     assert(debugCheckHasMaterial(context));
     assert(debugCheckHasMaterialLocalizations(context));
     assert(debugCheckHasDirectionality(context));
+
     return Stack(
       children: <Widget>[
         SizedBox(
@@ -294,6 +295,7 @@ class _ZeroCalendarDatePickerState extends State<ZeroCalendarDatePicker> {
         _DatePickerModeToggleButton(
           mode: _mode,
           title: _localizations.formatMonthYear(_currentDisplayedMonthDate),
+          style: widget.style,
           onTitlePressed: () {
             // Toggle the day/year mode.
             _handleModeChanged(_mode == DatePickerMode.day
@@ -315,6 +317,7 @@ class _DatePickerModeToggleButton extends StatefulWidget {
     required this.mode,
     required this.title,
     required this.onTitlePressed,
+    this.style,
   });
 
   /// The current display of the calendar picker.
@@ -325,6 +328,9 @@ class _DatePickerModeToggleButton extends StatefulWidget {
 
   /// The callback when the title is pressed.
   final VoidCallback onTitlePressed;
+
+  /// Styles for [ZeroCalendarPicker]
+  final ZeroCalendarPickerStyle? style;
 
   @override
   _DatePickerModeToggleButtonState createState() =>
@@ -365,7 +371,9 @@ class _DatePickerModeToggleButtonState
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = context.theme.colorScheme;
     final TextTheme textTheme = context.theme.typography.toTextTheme();
-    final Color controlColor = colorScheme.onSurface;
+
+    final Color controlColor =
+        widget.style?.controlColor ?? colorScheme.onSurface;
 
     return Container(
       padding: const EdgeInsetsDirectional.only(start: 16, end: 4),
@@ -435,6 +443,7 @@ class _MonthPicker extends StatefulWidget {
     required this.onChanged,
     required this.onDisplayedMonthChanged,
     this.selectableDayPredicate,
+    this.style,
   })  : assert(!firstDate.isAfter(lastDate)),
         assert(!selectedDate.isBefore(firstDate)),
         assert(!selectedDate.isAfter(lastDate));
@@ -470,6 +479,9 @@ class _MonthPicker extends StatefulWidget {
 
   /// Optional user supplied predicate function to customize selectable days.
   final SelectableDayPredicate? selectableDayPredicate;
+
+  /// Style for [ZeroCalendarDatePicker]
+  final ZeroCalendarPickerStyle? style;
 
   @override
   _MonthPickerState createState() => _MonthPickerState();
@@ -735,6 +747,7 @@ class _MonthPickerState extends State<_MonthPicker> {
   Widget _buildItems(BuildContext context, int index) {
     final DateTime month =
         DateUtils.addMonthsToMonthDate(widget.firstDate, index);
+
     return _DayPicker(
       key: ValueKey<DateTime>(month),
       selectedDate: widget.selectedDate,
@@ -744,12 +757,13 @@ class _MonthPickerState extends State<_MonthPicker> {
       lastDate: widget.lastDate,
       displayedMonth: month,
       selectableDayPredicate: widget.selectableDayPredicate,
+      style: widget.style,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final Color controlColor =
+    final Color controlColor = widget.style?.controlColor ??
         context.theme.colorScheme.onSurface.withOpacity(0.60);
 
     return Semantics(
@@ -846,6 +860,7 @@ class _DayPicker extends StatefulWidget {
     required this.selectedDate,
     required this.onChanged,
     this.selectableDayPredicate,
+    this.style,
   })  : assert(!firstDate.isAfter(lastDate)),
         assert(!selectedDate.isBefore(firstDate)),
         assert(!selectedDate.isAfter(lastDate));
@@ -876,6 +891,9 @@ class _DayPicker extends StatefulWidget {
 
   /// Optional user supplied predicate function to customize selectable days.
   final SelectableDayPredicate? selectableDayPredicate;
+
+  /// Style for [ZeroCalendarPicker]
+  final ZeroCalendarPickerStyle? style;
 
   @override
   _DayPickerState createState() => _DayPickerState();
@@ -954,15 +972,23 @@ class _DayPickerState extends State<_DayPicker> {
     final MaterialLocalizations localizations =
         MaterialLocalizations.of(context);
     final TextTheme textTheme = context.theme.toThemeData().textTheme;
-    final TextStyle? headerStyle = textTheme.bodySmall?.apply(
-      color: colorScheme.onSurface,
-    );
-    final TextStyle dayStyle = textTheme.bodySmall!;
-    final Color enabledDayColor = colorScheme.onSurface.withOpacity(0.87);
-    final Color disabledDayColor = colorScheme.onSurface.withOpacity(0.38);
-    final Color selectedDayColor = colorScheme.onPrimary;
-    final Color selectedDayBackground = colorScheme.primary;
-    final Color todayColor = colorScheme.primary;
+
+    final adaptiveStyle = widget.style;
+    final TextStyle? headerStyle = adaptiveStyle?.headerTextStyle ??
+        textTheme.bodySmall?.apply(
+          color: colorScheme.onSurface,
+        );
+    final TextStyle dayStyle =
+        adaptiveStyle?.dayTextStyle ?? textTheme.bodySmall!;
+    final Color enabledDayColor = adaptiveStyle?.enabledDayColor ??
+        colorScheme.onSurface.withOpacity(0.87);
+    final Color disabledDayColor = adaptiveStyle?.disabledDayColor ??
+        colorScheme.onSurface.withOpacity(0.38);
+    final Color selectedDayColor =
+        adaptiveStyle?.selectedDayColor ?? colorScheme.onPrimary;
+    final Color selectedDayBackground =
+        adaptiveStyle?.selectedDayBackground ?? colorScheme.primary;
+    final Color todayColor = adaptiveStyle?.todayColor ?? colorScheme.primary;
 
     final int year = widget.displayedMonth.year;
     final int month = widget.displayedMonth.month;
