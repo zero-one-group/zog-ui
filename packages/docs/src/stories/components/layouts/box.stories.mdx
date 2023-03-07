@@ -3,7 +3,11 @@ import { Box, BoxProps } from '@zog-ui/core';
 
 <Meta title="Components/Layouts/Box" component={[Box]} argTypes={{}} />
 
-export const BoxStory = (args) => <Box {...args}>{args.children}</Box>;
+export const BoxStory = (args) => (
+  <Box {...args}>
+    <p>{args.children}</p>
+  </Box>
+);
 
 # Box
 
@@ -20,6 +24,7 @@ import { Box } from '@zog-ui/core';
     name="Box"
     args={{
       children: 'Box',
+      asChild: false,
       css: {
         backgroundColor: '$gray4',
         padding: '$4',
