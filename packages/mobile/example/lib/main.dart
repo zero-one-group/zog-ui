@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:zog_ui/zog_ui.dart';
 
+import 'component/accordion/zero_accordion_example.dart';
 import 'component/alert_dialog/zero_alert_dialog_example.dart';
 import 'component/avatar/avatar_example.dart';
+import 'component/bottom_sheet/bottom_sheet_example.dart';
 import 'component/button/button_group_example.dart';
 import 'component/button/zero_button_example.dart';
 import 'component/card/zero_card_example.dart';
@@ -231,4 +233,6 @@ final examplesData = {
   'Zero Grid Example': const ZeroGridExample(),
   'Zero Button Group Example': const ZeroButtonGroupExample(),
   'Zero Skeleton Example': const ZeroSkeletonExample(),
+  'Zero Accordion Example': const ZeroAccordionExample(),
+  'Zero BottomSheet Example': const ZeroBottomSheetExample(),
 };

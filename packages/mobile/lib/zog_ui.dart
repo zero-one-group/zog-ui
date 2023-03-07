@@ -13,6 +13,8 @@ export './components/avatar/zero_avatar.dart';
 export './components/avatar/zero_avatar_group.dart';
 // badge
 export './components/badge/zero_badge.dart';
+// bottom sheet
+export './components/bottom_sheet/bottom_sheet.dart';
 // button
 export './components/button/zero_button.dart';
 export './components/button/zero_button_icon.dart';
@@ -105,6 +107,7 @@ export './styles/colors.dart';
 export './styles/component/alert_dialog_style.dart';
 export './styles/component/app_bar_style.dart';
 export './styles/component/avatar_style.dart';
+export './styles/component/bottom_sheet_style.dart';
 export './styles/component/button_group_style.dart';
 export './styles/component/button_icon_style.dart';
 export './styles/component/button_style.dart';
@@ -130,6 +133,7 @@ export './styles/component/stepper_style.dart';
 export './styles/component/switch_style.dart';
 export './styles/component/tab_bar_style.dart';
 export './styles/component/textfield_style.dart';
+export './styles/component/timepicker_style.dart';
 export './styles/component/tooltip_style.dart';
 export './styles/theme.dart';
 export './styles/typography.dart';

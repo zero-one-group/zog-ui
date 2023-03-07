@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:zog_ui/styles/component/timepicker_style.dart';
 import 'package:zog_ui/zog_ui.dart';
 
 class ZeroTheme extends StatelessWidget {
@@ -123,6 +122,7 @@ class ZeroThemeData with Diagnosticable {
   final ZeroExpansionTileStyle expansionTileStyle;
   final ZeroSnackbarStyleSet snackBarStyle;
   final ZeroTimePickerStyle timePickerStyle;
+  final ZeroBottomSheetStyle bottomSheetStyle;
 
   final Brightness brightness;
   final IconThemeData iconTheme;
@@ -194,6 +194,7 @@ class ZeroThemeData with Diagnosticable {
     required this.stepperStyle,
     required this.snackBarStyle,
     required this.timePickerStyle,
+    required this.bottomSheetStyle,
 
     // Others
     this.useMaterial3 = false,
@@ -258,6 +259,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroStepperStyle? stepperStyle,
     ZeroSnackbarStyleSet? snackBarStyle,
     ZeroTimePickerStyle? timePickerStyle,
+    ZeroBottomSheetStyle? bottomSheetStyle,
   }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
@@ -581,6 +583,11 @@ class ZeroThemeData with Diagnosticable {
       ),
     );
 
+    final bottomSheetStyleFallback = ZeroBottomSheetStyle.fallback(
+      handleColor: dividerColor,
+      backgroundColor: cardColor,
+    );
+
     useMaterial3 ??= false;
 
     return ZeroThemeData.raw(
@@ -644,6 +651,7 @@ class ZeroThemeData with Diagnosticable {
       stepperStyle: stepperStyleFallback.merge(stepperStyle),
       snackBarStyle: snackBarStyleFallback.merge(snackBarStyle),
       timePickerStyle: timePickerStyleFallback.merge(timePickerStyle),
+      bottomSheetStyle: bottomSheetStyleFallback.merge(bottomSheetStyle),
     );
   }
 
@@ -729,6 +737,8 @@ class ZeroThemeData with Diagnosticable {
           ZeroSnackbarStyleSet.lerp(a.snackBarStyle, b.snackBarStyle, t),
       timePickerStyle:
           ZeroTimePickerStyle.lerp(a.timePickerStyle, b.timePickerStyle, t),
+      bottomSheetStyle:
+          ZeroBottomSheetStyle.lerp(a.bottomSheetStyle, b.bottomSheetStyle, t),
     );
   }
 
@@ -791,6 +801,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroStepperStyle? stepperStyle,
     ZeroSnackbarStyleSet? snackBarStyle,
     ZeroTimePickerStyle? timePickerStyle,
+    ZeroBottomSheetStyle? bottomSheetStyle,
   }) {
     return ZeroThemeData.raw(
       brightness: brightness ?? this.brightness,
@@ -867,6 +878,7 @@ class ZeroThemeData with Diagnosticable {
       stepperStyle: stepperStyle ?? this.stepperStyle,
       snackBarStyle: snackBarStyle ?? this.snackBarStyle,
       timePickerStyle: timePickerStyle ?? this.timePickerStyle,
+      bottomSheetStyle: bottomSheetStyle ?? this.bottomSheetStyle,
     );
   }
 
@@ -905,6 +917,7 @@ class ZeroThemeData with Diagnosticable {
       checkboxTheme: checkboxStyle.toCheckBoxTheme(),
       radioTheme: radioStyle.toRadioTheme(),
       sliderTheme: sliderStyle.toSliderTheme(),
+      bottomSheetTheme: bottomSheetStyle.toBottomSheetTheme(),
     );
   }
 
@@ -979,6 +992,8 @@ class ZeroThemeData with Diagnosticable {
           'expansionTileStyle', expansionTileStyle))
       ..add(DiagnosticsProperty<ZeroSnackbarStyleSet>(
           'snackBarStyle', snackBarStyle))
+      ..add(DiagnosticsProperty<ZeroBottomSheetStyle>(
+          'bottomSheetStyle', bottomSheetStyle))
       ..add(DiagnosticsProperty<IconThemeData>('iconTheme', iconTheme))
       ..add(DiagnosticsProperty<DialogTheme>('dialogTheme', dialogTheme))
       ..add(DiagnosticsProperty<ButtonThemeData>('buttonTheme', buttonTheme))
