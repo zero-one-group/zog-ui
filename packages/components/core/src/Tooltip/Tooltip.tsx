@@ -1,11 +1,20 @@
-/* eslint-disable-next-line */
-export interface TooltipProps {}
+import * as TooltipPrimitive from '@radix-ui/react-tooltip';
+import { ReactNode } from 'react';
+import type * as Stitches from '@stitches/react';
 
-export function Tooltip(props: TooltipProps) {
+export interface TooltipProps {
+  children: ReactNode;
+  css?: Stitches.CSS;
+}
+
+export function Tooltip({
+  children,
+  ...props
+}: TooltipProps & TooltipPrimitive.TooltipProps) {
   return (
-    <div>
-      <h1>This is Tooltip!</h1>
-    </div>
+    <TooltipPrimitive.Provider>
+      <TooltipPrimitive.Root {...props}>{children}</TooltipPrimitive.Root>
+    </TooltipPrimitive.Provider>
   );
 }
 
