@@ -628,7 +628,7 @@ class ZeroThemeData with Diagnosticable {
       textfieldSize: textfieldSize,
       navigationDrawerStyle:
           navigationDrawerStyleFallback.merge(navigationDrawerStyle),
-      appBarStyle: appBarStyleFallback.merge(appBarStyleFallback),
+      appBarStyle: appBarStyleFallback.merge(appBarStyle),
       cardStyle: cardStyle.merge(cardStyle),
       buttonIconStyle: buttonIconStyleFallback.merge(buttonIconStyle),
       navigationRailStyle:
