@@ -24,8 +24,8 @@ WidgetbookComponent datepickerWidgetbookComponent = WidgetbookComponent(
                       style: ZeroDatePickerStyle(
                           pickerBackgroundColor: Colors.red,
                           headerBackgroundColor: Colors.yellow,
-                          dateTextStyle: TextStyle(fontSize: 30),
-                          insetPadding: EdgeInsets.all(30),
+                          dateTextStyle: const TextStyle(fontSize: 30),
+                          insetPadding: const EdgeInsets.all(30),
                           entryModeIconColor: Colors.amber,
                           shape: Border.all(color: Colors.white, width: 2)),
                     );
@@ -48,7 +48,7 @@ WidgetbookComponent datepickerWidgetbookComponent = WidgetbookComponent(
                   }),
             )),
     WidgetbookUseCase(
-        name: 'Date Range Docked',
+        name: 'Date Picker Docked',
         builder: (context) => PreviewWidget(
               theme: ZeroThemeData(),
               child: Container(
