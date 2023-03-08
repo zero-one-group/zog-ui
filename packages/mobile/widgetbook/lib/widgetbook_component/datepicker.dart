@@ -56,7 +56,7 @@ WidgetbookComponent datepickerWidgetbookComponent = WidgetbookComponent(
                 padding: const EdgeInsets.symmetric(
                     horizontal: 20.0, vertical: 100.0),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ZeroDatePickerDocked(
                       inputDecorationType: InputDecorationType.outline,

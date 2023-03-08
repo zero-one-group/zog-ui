@@ -12,6 +12,7 @@ class ZeroCalendarPickerStyle with Diagnosticable {
     this.disabledDayColor,
     this.selectedDayColor,
     this.selectedDayBackground,
+    this.highlightColor,
     this.todayColor,
     this.controlColor,
     this.inactiveControlColor,
@@ -43,6 +44,9 @@ class ZeroCalendarPickerStyle with Diagnosticable {
 
   /// If this is null the color defaults to [ColorScheme.onPrimary]
   final Color? selectedDayBackground;
+
+  /// If this is null the color defaults to [ColorScheme.primary.withOpacity(0.12)]
+  final Color? highlightColor;
 
   /// If this is null the color defaults to [ColorScheme.primary]
   final Color? todayColor;
@@ -78,6 +82,7 @@ class ZeroCalendarPickerStyle with Diagnosticable {
       Color? disabledDayColor,
       Color? selectedDayColor,
       Color? selectedDayBackground,
+      Color? highlightColor,
       Color? todayColor,
       Color? controlColor,
       Color? inactiveControlColor,
@@ -94,6 +99,7 @@ class ZeroCalendarPickerStyle with Diagnosticable {
         selectedDayBackground:
             selectedDayBackground ?? this.selectedDayBackground,
         selectedDayColor: selectedDayColor ?? this.selectedDayColor,
+        highlightColor: highlightColor ?? this.highlightColor,
         todayColor: todayColor ?? this.todayColor,
         controlColor: controlColor ?? this.controlColor,
         inactiveControlColor: inactiveControlColor ?? this.inactiveControlColor,
@@ -118,6 +124,7 @@ class ZeroCalendarPickerStyle with Diagnosticable {
           Color.lerp(a?.selectedDayBackground, b?.selectedDayBackground, t),
       selectedDayColor: Color.lerp(a?.selectedDayColor, b?.selectedDayColor, t),
       todayColor: Color.lerp(a?.todayColor, b?.todayColor, t),
+      highlightColor: Color.lerp(a?.highlightColor, b?.highlightColor, t),
       controlColor: Color.lerp(a?.controlColor, b?.controlColor, t),
       inactiveControlColor:
           Color.lerp(a?.inactiveControlColor, b?.inactiveControlColor, t),
@@ -140,6 +147,7 @@ class ZeroCalendarPickerStyle with Diagnosticable {
       disabledDayColor: other.disabledDayColor,
       selectedDayBackground: other.selectedDayBackground,
       selectedDayColor: other.selectedDayColor,
+      highlightColor: other.highlightColor,
       todayColor: other.todayColor,
       controlColor: other.controlColor,
       inactiveControlColor: other.inactiveControlColor,
@@ -163,6 +171,7 @@ class ZeroCalendarPickerStyle with Diagnosticable {
         other.disabledDayColor == disabledDayColor &&
         other.selectedDayBackground == selectedDayBackground &&
         other.todayColor == todayColor &&
+        other.highlightColor == highlightColor &&
         other.controlColor == controlColor &&
         other.inactiveControlColor == inactiveControlColor &&
         other.headerTextStyle == headerTextStyle &&
@@ -179,6 +188,7 @@ class ZeroCalendarPickerStyle with Diagnosticable {
         disabledDayColor,
         selectedDayBackground,
         todayColor,
+        highlightColor,
         controlColor,
         inactiveControlColor,
         headerTextStyle,
@@ -198,6 +208,8 @@ class ZeroCalendarPickerStyle with Diagnosticable {
         defaultValue: null));
     properties.add(ColorProperty('selectedDayColor', selectedDayColor,
         defaultValue: null));
+    properties.add(
+        ColorProperty('highlightColor', highlightColor, defaultValue: null));
     properties.add(ColorProperty('todayColor', todayColor, defaultValue: null));
     properties.add(ColorProperty('selectedDayBackground', selectedDayBackground,
         defaultValue: null));
@@ -220,6 +232,8 @@ class ZeroCalendarPickerStyle with Diagnosticable {
 ///
 /// All [ZeroDatePickerStyle] properties are `null` by default. When null,
 /// [showZeroDatePicker] will provide its own defaults.
+///
+/// TODO: separate styles between picker body and header
 class ZeroDatePickerStyle with Diagnosticable {
   /// Creates a theme that can be used for [ZeroDatePickerStyle] or
   /// [ZeroThemeData.datePickerStyle].

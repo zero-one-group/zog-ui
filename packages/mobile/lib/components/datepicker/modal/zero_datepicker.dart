@@ -981,6 +981,7 @@ Future<DateTimeRange?> showZeroDateRangePicker({
   TextDirection? textDirection,
   TransitionBuilder? builder,
   Offset? anchorPoint,
+  ZeroDatePickerStyle? style,
 }) async {
   assert(
     initialDateRange == null,
@@ -1035,6 +1036,7 @@ Future<DateTimeRange?> showZeroDateRangePicker({
     fieldEndHintText: fieldEndHintText,
     fieldStartLabelText: fieldStartLabelText,
     fieldEndLabelText: fieldEndLabelText,
+    style: style,
   );
 
   if (textDirection != null) {
@@ -1583,8 +1585,10 @@ class _CalendarRangePickerDialog extends StatelessWidget {
       left: false,
       right: false,
       child: Scaffold(
+        backgroundColor: adaptiveStyle.pickerBackgroundColor,
         appBar: AppBar(
-          backgroundColor: theme.dialogBackgroundColor,
+          backgroundColor: adaptiveStyle.headerBackgroundColor ??
+              theme.dialogBackgroundColor,
           elevation: 0,
           leading: CloseButton(
             color: headerForeground,
@@ -1662,6 +1666,7 @@ class _CalendarRangePickerDialog extends StatelessWidget {
           currentDate: currentDate,
           onStartDateChanged: onStartDateChanged,
           onEndDateChanged: onEndDateChanged,
+          style: adaptiveStyle.calendarStyle,
         ),
       ),
     );
@@ -1690,6 +1695,7 @@ class _CalendarDateRangePicker extends StatefulWidget {
     DateTime? currentDate,
     required this.onStartDateChanged,
     required this.onEndDateChanged,
+    required this.style,
   })  : initialStartDate = initialStartDate != null
             ? DateUtils.dateOnly(initialStartDate)
             : null,
@@ -1730,6 +1736,8 @@ class _CalendarDateRangePicker extends StatefulWidget {
 
   /// Called when the user changes the end date of the selected range.
   final ValueChanged<DateTime?>? onEndDateChanged;
+
+  final ZeroCalendarPickerStyle? style;
 
   @override
   _CalendarDateRangePickerState createState() =>
@@ -1842,6 +1850,7 @@ class _CalendarDateRangePickerState extends State<_CalendarDateRangePicker> {
       lastDate: widget.lastDate,
       displayedMonth: month,
       onChanged: _updateSelection,
+      style: widget.style,
     );
   }
 
@@ -2259,6 +2268,7 @@ class _MonthItem extends StatefulWidget {
     required this.firstDate,
     required this.lastDate,
     required this.displayedMonth,
+    this.style,
   })  : assert(!firstDate.isAfter(lastDate)),
         assert(selectedDateStart == null ||
             !selectedDateStart.isBefore(firstDate)),
@@ -2294,6 +2304,9 @@ class _MonthItem extends StatefulWidget {
 
   /// The month whose days are displayed by this picker.
   final DateTime displayedMonth;
+
+  /// Styles for [ZeroCalendarRangePirkcer]
+  final ZeroCalendarPickerStyle? style;
 
   @override
   _MonthItemState createState() => _MonthItemState();
@@ -2335,7 +2348,8 @@ class _MonthItemState extends State<_MonthItem> {
   }
 
   Color _highlightColor(BuildContext context) {
-    return context.theme.colorScheme.primary.withOpacity(0.12);
+    return widget.style?.highlightColor ??
+        context.theme.colorScheme.primary.withOpacity(0.12);
   }
 
   void _dayFocusChanged(bool focused) {
@@ -2377,6 +2391,8 @@ class _MonthItemState extends State<_MonthItem> {
     final bool isDisabled = dayToBuild.isAfter(widget.lastDate) ||
         dayToBuild.isBefore(widget.firstDate);
 
+    final calendarStyle = widget.style;
+
     BoxDecoration? decoration;
     TextStyle? itemStyle = textTheme.bodyMedium;
 
@@ -2393,9 +2409,10 @@ class _MonthItemState extends State<_MonthItem> {
     if (isSelectedDayStart || isSelectedDayEnd) {
       // The selected start and end dates gets a circle background
       // highlight, and a contrasting text color.
-      itemStyle = textTheme.bodyMedium?.apply(color: colorScheme.onPrimary);
+      itemStyle = textTheme.bodyMedium?.apply(
+          color: calendarStyle?.selectedDayColor ?? colorScheme.onPrimary);
       decoration = BoxDecoration(
-        color: colorScheme.primary,
+        color: calendarStyle?.selectedDayBackground ?? colorScheme.primary,
         shape: BoxShape.circle,
       );
     } else if (isInRange) {
@@ -2410,7 +2427,8 @@ class _MonthItemState extends State<_MonthItem> {
     } else if (DateUtils.isSameDay(widget.currentDate, dayToBuild)) {
       // The current day gets a different text color and a circle stroke
       // border.
-      itemStyle = textTheme.bodyMedium?.apply(color: colorScheme.primary);
+      itemStyle = textTheme.bodyMedium
+          ?.apply(color: calendarStyle?.todayColor ?? colorScheme.primary);
       decoration = BoxDecoration(
         border: Border.all(color: colorScheme.primary),
         shape: BoxShape.circle,
