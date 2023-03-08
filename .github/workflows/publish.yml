@@ -10,4 +10,4 @@ jobs:
     uses: dart-lang/setup-dart/.github/workflows/publish.yml
     with:
       working-directory: packages/mobile
-      environment: pub.dev
+      environment: 'pub.dev'
