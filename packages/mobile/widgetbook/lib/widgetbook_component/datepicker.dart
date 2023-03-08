@@ -44,6 +44,13 @@ WidgetbookComponent datepickerWidgetbookComponent = WidgetbookComponent(
                       firstDate:
                           DateTime.now().subtract(const Duration(days: 30)),
                       lastDate: DateTime.now().add(const Duration(days: 100)),
+                      style: ZeroDatePickerStyle(
+                          pickerBackgroundColor: Colors.red,
+                          headerBackgroundColor: Colors.yellow,
+                          dateTextStyle: const TextStyle(fontSize: 30),
+                          insetPadding: const EdgeInsets.all(30),
+                          entryModeIconColor: Colors.amber,
+                          shape: Border.all(color: Colors.white, width: 2)),
                     );
                   }),
             )),
@@ -66,6 +73,13 @@ WidgetbookComponent datepickerWidgetbookComponent = WidgetbookComponent(
                           DateTime.now().add(const Duration(days: 365 * 10)),
                       initialDate: DateTime.now(),
                       onDateChanged: (dateTime) {},
+                      style: ZeroDatePickerStyle(
+                          pickerBackgroundColor: Colors.red,
+                          headerBackgroundColor: Colors.yellow,
+                          dateTextStyle: const TextStyle(fontSize: 30),
+                          insetPadding: const EdgeInsets.all(30),
+                          entryModeIconColor: Colors.amber,
+                          shape: Border.all(color: Colors.white, width: 2)),
                     ),
                   ],
                 ),
