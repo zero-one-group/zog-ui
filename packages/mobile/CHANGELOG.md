@@ -16,3 +16,8 @@
 * Integrate dark mode snackbar 
 * Add component showModalBottomSheet & showBottomSheet
 * Add global styles for time picker
+
+## 0.0.1-alpha.3
+
+* Add global styles for date picker, docked date picker, and date range picker
+* Issues fix on global theme 
