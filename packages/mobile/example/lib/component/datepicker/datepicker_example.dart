@@ -101,6 +101,16 @@ class ZeroDatePickerExample extends StatelessWidget {
                         DateTime.now().subtract(const Duration(days: 365 * 10)),
                     lastDate:
                         DateTime.now().add(const Duration(days: 365 * 10)),
+                    style: const ZeroDatePickerStyle(
+                      pickerBackgroundColor: Colors.black,
+                      headerBackgroundColor: Colors.black,
+                      dateTextStyle: TextStyle(fontSize: 30),
+                      insetPadding: EdgeInsets.all(30),
+                      entryModeIconColor: Colors.amber,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(0)),
+                      ),
+                    ),
                   );
                 }),
             const SizedBox(

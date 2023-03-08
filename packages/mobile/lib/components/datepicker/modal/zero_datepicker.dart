@@ -1420,7 +1420,7 @@ class _ZeroDateRangePickerDialogState extends State<ZeroDateRangePickerDialog>
         );
         size = mediaQuery.size;
         insetPadding = adaptiveStyle.insetPadding ?? EdgeInsets.zero;
-        shape = const RoundedRectangleBorder();
+        shape = adaptiveStyle.shape ?? const RoundedRectangleBorder();
         elevation = adaptiveStyle.elevation ?? 0;
         break;
 
