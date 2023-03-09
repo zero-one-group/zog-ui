@@ -59,7 +59,7 @@ export function PopoverContent({
     <PopoverPrimitive.Portal>
       <StyledPopoverContent {...props} sideOffset={5}>
         {children}
-        <StyledPopoverArrow css={arrowProps.css} />
+        <StyledPopoverArrow css={arrowProps?.css} />
       </StyledPopoverContent>
     </PopoverPrimitive.Portal>
   );

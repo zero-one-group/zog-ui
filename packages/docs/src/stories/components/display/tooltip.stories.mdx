@@ -2,19 +2,47 @@ import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
 import { BADGE } from '@geometricpanda/storybook-addon-badges';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { Tooltip } from '@zog-ui/core';
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  Space,
+  Button,
+} from '@zog-ui/core';
 
-<Meta title="Components/Display/Tooltip" component={[Tooltip]} argTypes={{}} />
+<Meta
+  title="Components/Display/Tooltip"
+  component={[Tooltip]}
+  argTypes={{
+    side: {
+      type: 'radio',
+      options: ['top', 'bottom', 'left', 'right'],
+    },
+  }}
+/>
 
-export const TooltipStory = () => <Tooltip />;
+export const TooltipStory = (args) => (
+  <Space justify="center" css={{ marginTop: '100px' }}>
+    <Tooltip>
+      <TooltipTrigger>
+        <Button intent="primary" size="md" variant="default">
+          hover me!
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent side={args.side}>
+        <p>I'm a content</p>
+      </TooltipContent>
+    </Tooltip>
+  </Space>
+);
 
 # Tooltip
 
-> WIP
+> A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
 
 ## Example Usage
 
-```jsx
+```tsx
 import { Tooltip } from '@zog-ui/core';
 ```
 
