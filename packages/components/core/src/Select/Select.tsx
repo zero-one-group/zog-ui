@@ -206,6 +206,10 @@ const StyledInput = styled(Input, {
   background: 'transparent',
   fontSize: '14px',
   fontFamily: '$untitled',
+  input: {
+    border: 'none',
+    padding: '0 !important',
+  },
   variants: {
     size: {
       sm: {

@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   ComponentPropsWithoutRef,
   ComponentPropsWithRef,
   ElementType,
   PropsWithChildren,
 } from 'react';
+import { CSS } from './stitches.config';
 
 /**
  * @deprecated Use `asChild` instead
@@ -40,3 +42,12 @@ export type PolymorphicComponentPropsWithRef<
 export type MergeProps<T, P> = Omit<T, keyof P> & P;
 
 export type RemoveAsProps<Props> = Omit<Props, 'as'>;
+
+export type AsChildProps<
+  ReactElementType extends React.ElementType<any>,
+  VariantType = any
+> = {
+  asChild?: boolean;
+  css?: CSS;
+} & ComponentPropsWithoutRef<ReactElementType> &
+  VariantType;
