@@ -1,8 +1,7 @@
 import type Stitches from '@stitches/react';
 import { CSSProperties } from '@stitches/react';
 import { forwardRef, ReactNode } from 'react';
-import { Box, BoxProps } from '../Box';
-import { MergeProps } from '../types';
+import { Box } from '../Box';
 
 export interface GridOptions {
   /**

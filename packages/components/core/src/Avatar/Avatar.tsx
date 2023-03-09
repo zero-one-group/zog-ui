@@ -1,8 +1,8 @@
-import React from 'react';
-import { styled, VariantProps, CSS } from '../stitches.config';
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
+import React from 'react';
 import { Box } from '../Box';
 import { Status } from '../Status';
+import { CSS, styled, VariantProps } from '../stitches.config';
 
 const StyledAvatar = styled(AvatarPrimitive.Root, {
   alignItems: 'center',
@@ -20,7 +20,7 @@ const StyledAvatar = styled(AvatarPrimitive.Root, {
   margin: '0',
   outline: 'none',
   padding: '0',
-  fontWeight: '500' as any,
+  fontWeight: 500,
   color: '$hiContrast',
 
   '&::before': {

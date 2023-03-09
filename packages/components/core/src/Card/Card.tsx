@@ -142,6 +142,7 @@ const StyledActionItem = styled('span', {
   },
 });
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isExist(variable: any) {
   return variable !== undefined && variable !== null;
 }
