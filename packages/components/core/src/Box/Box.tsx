@@ -1,28 +1,28 @@
-import { forwardRef, ReactNode } from 'react';
-import { css } from '../stitches.config';
-import type * as Stitches from '@stitches/react';
 import { Slot } from '@radix-ui/react-slot';
+import type * as Stitches from '@stitches/react';
+import { forwardRef } from 'react';
+import { css } from '../stitches.config';
+import { AsChildProps } from '../types';
 
-const StyledBox = css('div', {
+const styledBoxClassName = css('div', {
   boxSizing: 'border-box',
   fontFamily: '$untitled',
 });
 
-export type BoxProps = {
-  children?: ReactNode;
-  css?: Stitches.CSS;
-  role?: string;
-  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
-  onMouseEnter?: (e: React.MouseEvent<HTMLDivElement>) => void;
-  className?: string;
-  asChild?: boolean;
-};
+export type BoxProps = AsChildProps<
+  'div',
+  Stitches.VariantProps<typeof styledBoxClassName>
+>;
 
 export const Box = forwardRef<HTMLDivElement, BoxProps>(
-  ({ children, css, asChild, ...props }, ref) => {
+  ({ children, css, asChild, className, ...props }, ref) => {
     const Comp = asChild ? Slot : 'div';
     return (
-      <Comp {...props} ref={ref} className={StyledBox({ css })}>
+      <Comp
+        ref={ref}
+        className={[className, styledBoxClassName({ css })].join(' ')}
+        {...props}
+      >
         {children}
       </Comp>
     );

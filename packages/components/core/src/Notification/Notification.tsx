@@ -90,7 +90,7 @@ export const useNotification = ({ placement } = defaultUseNotificationArg) => {
     ({ placement: originalPlacement, ...data }: NotifyArg) => {
       baseNotify({ ...data, placement: originalPlacement ?? placement });
     },
-    [placement]
+    [baseNotify, placement]
   );
 
   return [placementNotify] as const;
