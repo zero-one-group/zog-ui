@@ -33,4 +33,16 @@ describe('Box', () => {
     // targeting the box
     expect(container.firstChild).toHaveClass(className);
   });
+  it('should render className from the child element', () => {
+    const className = 'child-classname';
+    const { container } = render(
+      <Box asChild>
+        <a href="https://google.com" className={className}>
+          Render as anchor element
+        </a>
+      </Box>
+    );
+    // targeting the box
+    expect(container.firstChild).toHaveClass(className);
+  });
 });
