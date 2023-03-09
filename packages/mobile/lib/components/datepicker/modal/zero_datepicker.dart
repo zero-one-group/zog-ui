@@ -131,6 +131,7 @@ Future<DateTime?> showZeroDatePicker({
   String? fieldLabelText,
   TextInputType? keyboardType,
   Offset? anchorPoint,
+  ZeroDatePickerStyle? style,
 }) async {
   initialDate = DateUtils.dateOnly(initialDate);
   firstDate = DateUtils.dateOnly(firstDate);
@@ -154,22 +155,22 @@ Future<DateTime?> showZeroDatePicker({
   assert(debugCheckHasMaterialLocalizations(context));
 
   Widget dialog = ZeroDatePickerDialog(
-    initialDate: initialDate,
-    firstDate: firstDate,
-    lastDate: lastDate,
-    currentDate: currentDate,
-    initialEntryMode: initialEntryMode,
-    selectableDayPredicate: selectableDayPredicate,
-    helpText: helpText,
-    cancelText: cancelText,
-    confirmText: confirmText,
-    initialCalendarMode: initialDatePickerMode,
-    errorFormatText: errorFormatText,
-    errorInvalidText: errorInvalidText,
-    fieldHintText: fieldHintText,
-    fieldLabelText: fieldLabelText,
-    keyboardType: keyboardType,
-  );
+      initialDate: initialDate,
+      firstDate: firstDate,
+      lastDate: lastDate,
+      currentDate: currentDate,
+      initialEntryMode: initialEntryMode,
+      selectableDayPredicate: selectableDayPredicate,
+      helpText: helpText,
+      cancelText: cancelText,
+      confirmText: confirmText,
+      initialCalendarMode: initialDatePickerMode,
+      errorFormatText: errorFormatText,
+      errorInvalidText: errorInvalidText,
+      fieldHintText: fieldHintText,
+      fieldLabelText: fieldLabelText,
+      keyboardType: keyboardType,
+      style: style);
 
   if (textDirection != null) {
     dialog = Directionality(
@@ -226,6 +227,7 @@ class ZeroDatePickerDialog extends StatefulWidget {
     this.fieldLabelText,
     this.keyboardType,
     this.restorationId,
+    this.style,
   })  : initialDate = DateUtils.dateOnly(initialDate),
         firstDate = DateUtils.dateOnly(firstDate),
         lastDate = DateUtils.dateOnly(lastDate),
@@ -324,6 +326,19 @@ class ZeroDatePickerDialog extends StatefulWidget {
   ///    Flutter.
   final String? restorationId;
 
+  /// Defines the visual properties of the widget displayed with [showZeroDatePicker].
+  ///
+  /// Descendant widgets obtain the current [ZeroDatePickerStyle] object using
+  /// `context.theme.datePickerStyle`. Instances of [ZeroDatePickerStyle]
+  /// can be customized with [ZeroDatePickerStyle.copyWith].
+  ///
+  /// Typically a [ZeroDatePickerStyle] is specified as part of the overall
+  /// [ZeroTheme] with [ZeroThemeData.datePickerTheme].
+  ///
+  /// All [ZeroDatePickerStyle] properties are `null` by default. When null,
+  /// [showZeroDatePicker] will provide its own defaults.
+  final ZeroDatePickerStyle? style;
+
   @override
   State<ZeroDatePickerDialog> createState() => _ZeroDatePickerDialogState();
 }
@@ -393,7 +408,8 @@ class _ZeroDatePickerDialogState extends State<ZeroDatePickerDialog>
   }
 
   Size _dialogSize(BuildContext context) {
-    final Orientation orientation = MediaQuery.of(context).orientation;
+    final Orientation orientation =
+        kIsWeb ? Orientation.portrait : MediaQuery.of(context).orientation;
 
     switch (_entryMode.value) {
       case DatePickerEntryMode.calendar:
@@ -427,12 +443,12 @@ class _ZeroDatePickerDialogState extends State<ZeroDatePickerDialog>
     final ColorScheme colorScheme = theme.colorScheme;
     final MaterialLocalizations localizations =
         MaterialLocalizations.of(context);
-    Orientation orientation = MediaQuery.of(context).orientation;
+    Orientation orientation = kIsWeb
+        ? Orientation.portrait
+        : MediaQuery.of(context).orientation; // TODO: Find a better way
     final ZeroTypography typography = context.theme.typography;
 
-    if (kIsWeb) {
-      orientation = Orientation.portrait; // TODO: Find a better way
-    }
+    final adaptiveStyle = context.theme.datePickerStyle.merge(widget.style);
 
     // Constrain the textScaleFactor to the largest supported value to prevent
     // layout issues.
@@ -443,9 +459,12 @@ class _ZeroDatePickerDialogState extends State<ZeroDatePickerDialog>
         ? colorScheme.onSurface
         : colorScheme.onPrimary;
 
-    final TextStyle? dateStyle = orientation == Orientation.landscape
-        ? typography.heading5?.apply(color: onPrimarySurface)
-        : typography.heading6?.apply(color: onPrimarySurface);
+    debugPrint('adaptiveStyle.dateTextStyle ${adaptiveStyle.dateTextStyle}');
+
+    final TextStyle? dateStyle = adaptiveStyle.dateTextStyle ??
+        ((orientation == Orientation.landscape)
+            ? typography.heading5?.apply(color: onPrimarySurface)
+            : typography.heading6?.apply(color: onPrimarySurface));
 
     final Widget actions = Container(
       alignment: AlignmentDirectional.centerEnd,
@@ -454,18 +473,13 @@ class _ZeroDatePickerDialogState extends State<ZeroDatePickerDialog>
       child: OverflowBar(
         spacing: 8,
         children: <Widget>[
-          TextButton(
-            style: context.theme.textButtonStyle.toButtonStyle(),
+          ZeroButton.text(
+            child: Text(localizations.cancelButtonLabel),
             onPressed: _handleCancel,
-            child: Text(widget.cancelText ??
-                (theme.useMaterial3
-                    ? localizations.cancelButtonLabel
-                    : localizations.cancelButtonLabel.toUpperCase())),
           ),
-          TextButton(
-            style: context.theme.textButtonStyle.toButtonStyle(),
-            onPressed: _handleOk,
+          ZeroButton.text(
             child: Text(widget.confirmText ?? localizations.okButtonLabel),
+            onPressed: _handleOk,
           ),
         ],
       ),
@@ -481,6 +495,7 @@ class _ZeroDatePickerDialogState extends State<ZeroDatePickerDialog>
         onDateChanged: _handleDateChanged,
         selectableDayPredicate: widget.selectableDayPredicate,
         initialCalendarMode: widget.initialCalendarMode,
+        style: adaptiveStyle.calendarStyle,
       );
     }
 
@@ -511,6 +526,7 @@ class _ZeroDatePickerDialogState extends State<ZeroDatePickerDialog>
                   fieldLabelText: widget.fieldLabelText,
                   keyboardType: widget.keyboardType,
                   autofocus: true,
+                  style: widget.style,
                 ),
                 const Spacer(),
               ],
@@ -523,6 +539,7 @@ class _ZeroDatePickerDialogState extends State<ZeroDatePickerDialog>
     final Widget picker;
     final Widget? entryModeButton;
     final String headerTitleText;
+
     switch (_entryMode.value) {
       case DatePickerEntryMode.calendar:
         picker = calendarDatePicker();
@@ -531,7 +548,7 @@ class _ZeroDatePickerDialogState extends State<ZeroDatePickerDialog>
           icon: const Icon(
             Icons.edit,
           ),
-          color: onPrimarySurface,
+          color: adaptiveStyle.entryModeIconColor ?? onPrimarySurface,
           tooltip: localizations.inputDateModeButtonLabel,
           onPressed: _handleEntryModeToggle,
         );
@@ -548,7 +565,7 @@ class _ZeroDatePickerDialogState extends State<ZeroDatePickerDialog>
         picker = inputDatePicker();
         entryModeButton = IconButton(
           icon: const Icon(Icons.calendar_today),
-          color: onPrimarySurface,
+          color: adaptiveStyle.entryModeIconColor ?? onPrimarySurface,
           tooltip: localizations.calendarModeButtonLabel,
           onPressed: _handleEntryModeToggle,
         );
@@ -571,15 +588,18 @@ class _ZeroDatePickerDialogState extends State<ZeroDatePickerDialog>
         orientation: orientation,
         isShort: orientation == Orientation.landscape,
         entryModeButton: entryModeButton,
-        entryMode: _entryMode.value);
+        entryMode: _entryMode.value,
+        style: widget.style);
 
     final Size dialogSize = _dialogSize(context) * textScaleFactor;
     return Dialog(
-      insetPadding:
+      shape: adaptiveStyle.shape,
+      insetPadding: adaptiveStyle.insetPadding ??
           const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
       clipBehavior: Clip.antiAlias,
       child: AnimatedContainer(
         width: dialogSize.width,
+        color: adaptiveStyle.pickerBackgroundColor,
         height: dialogSize.height,
         duration: _dialogSizeAnimationDuration,
         curve: Curves.easeIn,
@@ -706,6 +726,7 @@ class _DatePickerHeader extends StatelessWidget {
     this.isShort = false,
     this.entryModeButton,
     this.entryMode = DatePickerEntryMode.calendarOnly,
+    this.style,
   });
 
   static const double _datePickerHeaderLandscapeWidth = 152.0;
@@ -743,11 +764,14 @@ class _DatePickerHeader extends StatelessWidget {
 
   final DatePickerEntryMode? entryMode;
 
+  final ZeroDatePickerStyle? style;
+
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = context.theme.toThemeData();
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
+    final adaptiveStyle = context.theme.datePickerStyle.merge(style);
 
     // The header should use the primary color in light themes and surface color in dark
     final bool isDark = colorScheme.brightness == Brightness.dark;
@@ -756,8 +780,9 @@ class _DatePickerHeader extends StatelessWidget {
     final Color onPrimarySurfaceColor =
         isDark ? colorScheme.primary : colorScheme.onSurfaceVariant;
 
-    final TextStyle? helpStyle = textTheme.labelSmall
-        ?.copyWith(color: onPrimarySurfaceColor, fontWeight: FontWeight.bold);
+    final TextStyle? helpStyle = adaptiveStyle.helpTextStyle ??
+        textTheme.labelSmall?.copyWith(
+            color: onPrimarySurfaceColor, fontWeight: FontWeight.bold);
 
     final Text help = Text(
       helpText,
@@ -778,7 +803,7 @@ class _DatePickerHeader extends StatelessWidget {
         return SizedBox(
           height: _datePickerHeaderPortraitHeight,
           child: Material(
-            color: primarySurfaceColor,
+            color: adaptiveStyle.headerBackgroundColor ?? primarySurfaceColor,
             child: Padding(
               padding: const EdgeInsetsDirectional.only(
                 start: 24,
@@ -805,7 +830,7 @@ class _DatePickerHeader extends StatelessWidget {
         return SizedBox(
           width: _datePickerHeaderLandscapeWidth,
           child: Material(
-            color: primarySurfaceColor,
+            color: adaptiveStyle.headerBackgroundColor ?? primarySurfaceColor,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -956,6 +981,7 @@ Future<DateTimeRange?> showZeroDateRangePicker({
   TextDirection? textDirection,
   TransitionBuilder? builder,
   Offset? anchorPoint,
+  ZeroDatePickerStyle? style,
 }) async {
   assert(
     initialDateRange == null,
@@ -1010,6 +1036,7 @@ Future<DateTimeRange?> showZeroDateRangePicker({
     fieldEndHintText: fieldEndHintText,
     fieldStartLabelText: fieldStartLabelText,
     fieldEndLabelText: fieldEndLabelText,
+    style: style,
   );
 
   if (textDirection != null) {
@@ -1101,6 +1128,7 @@ class ZeroDateRangePickerDialog extends StatefulWidget {
     this.fieldStartLabelText,
     this.fieldEndLabelText,
     this.restorationId,
+    this.style,
   });
 
   /// The date range that the date range picker starts with when it opens.
@@ -1219,6 +1247,19 @@ class ZeroDateRangePickerDialog extends StatefulWidget {
   ///  * [RestorationManager], which explains how state restoration works in
   ///    Flutter.
   final String? restorationId;
+
+  /// Defines the visual properties of the widget displayed with [showZeroDatePicker].
+  ///
+  /// Descendant widgets obtain the current [ZeroDatePickerStyle] object using
+  /// `context.theme.datePickerStyle`. Instances of [ZeroDatePickerStyle]
+  /// can be customized with [ZeroDatePickerStyle.copyWith].
+  ///
+  /// Typically a [ZeroDatePickerStyle] is specified as part of the overall
+  /// [ZeroTheme] with [ZeroThemeData.datePickerTheme].
+  ///
+  /// All [ZeroDatePickerStyle] properties are `null` by default. When null,
+  /// [showZeroDatePicker] will provide its own defaults.
+  final ZeroDatePickerStyle? style;
 
   @override
   State<ZeroDateRangePickerDialog> createState() =>
@@ -1341,6 +1382,9 @@ class _ZeroDateRangePickerDialogState extends State<ZeroDateRangePickerDialog>
     final bool showEntryModeButton =
         _entryMode.value == DatePickerEntryMode.calendar ||
             _entryMode.value == DatePickerEntryMode.input;
+
+    final adaptiveStyle = context.theme.datePickerStyle.merge(widget.style);
+
     switch (_entryMode.value) {
       case DatePickerEntryMode.calendar:
       case DatePickerEntryMode.calendarOnly:
@@ -1355,11 +1399,12 @@ class _ZeroDateRangePickerDialogState extends State<ZeroDateRangePickerDialog>
           onEndDateChanged: _handleEndDateChanged,
           onConfirm: _hasSelectedDateRange ? _handleOk : null,
           onCancel: _handleCancel,
+          style: adaptiveStyle,
           entryModeButton: showEntryModeButton
               ? IconButton(
                   icon: const Icon(Icons.edit),
                   padding: EdgeInsets.zero,
-                  color: onPrimarySurface,
+                  color: adaptiveStyle.entryModeIconColor ?? onPrimarySurface,
                   tooltip: localizations.inputDateModeButtonLabel,
                   onPressed: _handleEntryModeToggle,
                 )
@@ -1374,9 +1419,9 @@ class _ZeroDateRangePickerDialogState extends State<ZeroDateRangePickerDialog>
                   : localizations.dateRangePickerHelpText.toUpperCase()),
         );
         size = mediaQuery.size;
-        insetPadding = EdgeInsets.zero;
-        shape = const RoundedRectangleBorder();
-        elevation = 0;
+        insetPadding = adaptiveStyle.insetPadding ?? EdgeInsets.zero;
+        shape = adaptiveStyle.shape ?? const RoundedRectangleBorder();
+        elevation = adaptiveStyle.elevation ?? 0;
         break;
 
       case DatePickerEntryMode.input:
@@ -1385,6 +1430,7 @@ class _ZeroDateRangePickerDialogState extends State<ZeroDateRangePickerDialog>
           selectedStartDate: _selectedStart.value,
           selectedEndDate: _selectedEnd.value,
           currentDate: widget.currentDate,
+          style: widget.style,
           picker: Container(
             padding: const EdgeInsets.symmetric(horizontal: 24),
             height: orientation == Orientation.portrait
@@ -1422,29 +1468,26 @@ class _ZeroDateRangePickerDialogState extends State<ZeroDateRangePickerDialog>
               ? IconButton(
                   icon: const Icon(Icons.calendar_today),
                   padding: EdgeInsets.zero,
-                  color: onPrimarySurface,
+                  color: adaptiveStyle.entryModeIconColor ?? onPrimarySurface,
                   tooltip: localizations.calendarModeButtonLabel,
                   onPressed: _handleEntryModeToggle,
                 )
               : null,
           confirmText: widget.confirmText ?? localizations.okButtonLabel,
-          cancelText: widget.cancelText ??
-              (context.theme.useMaterial3
-                  ? localizations.cancelButtonLabel
-                  : localizations.cancelButtonLabel.toUpperCase()),
-          helpText: widget.helpText ??
-              (context.theme.useMaterial3
-                  ? localizations.dateRangePickerHelpText
-                  : localizations.dateRangePickerHelpText.toUpperCase()),
+          cancelText: localizations.cancelButtonLabel,
+          helpText: widget.helpText ?? localizations.dateRangePickerHelpText,
         );
         final DialogTheme dialogTheme = context.theme.dialogTheme;
         size = orientation == Orientation.portrait
             ? _inputPortraitDialogSize
             : _inputRangeLandscapeDialogSize;
-        insetPadding =
+        insetPadding = adaptiveStyle.insetPadding ??
             const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0);
-        shape = dialogTheme.shape;
-        elevation = dialogTheme.elevation ?? 24;
+        shape = adaptiveStyle.shape ?? dialogTheme.shape ?? widget.style?.shape;
+        elevation = adaptiveStyle.elevation ??
+            dialogTheme.elevation ??
+            widget.style?.elevation ??
+            24;
         break;
     }
 
@@ -1458,6 +1501,7 @@ class _ZeroDateRangePickerDialogState extends State<ZeroDateRangePickerDialog>
         height: size.height,
         duration: _dialogSizeAnimationDuration,
         curve: Curves.easeIn,
+        color: adaptiveStyle.pickerBackgroundColor,
         child: MediaQuery(
           data: MediaQuery.of(context).copyWith(
             textScaleFactor: textScaleFactor,
@@ -1485,6 +1529,7 @@ class _CalendarRangePickerDialog extends StatelessWidget {
     required this.onCancel,
     required this.confirmText,
     required this.helpText,
+    required this.style,
     this.entryModeButton,
   });
 
@@ -1500,6 +1545,7 @@ class _CalendarRangePickerDialog extends StatelessWidget {
   final String confirmText;
   final String helpText;
   final Widget? entryModeButton;
+  final ZeroDatePickerStyle style;
 
   @override
   Widget build(BuildContext context) {
@@ -1509,6 +1555,9 @@ class _CalendarRangePickerDialog extends StatelessWidget {
         MaterialLocalizations.of(context);
     final Orientation orientation = MediaQuery.of(context).orientation;
     final TextTheme textTheme = theme.textTheme;
+
+    final adaptiveStyle = context.theme.datePickerStyle.merge(style);
+
     final Color headerForeground = colorScheme.brightness == Brightness.light
         ? colorScheme.onSurface
         : colorScheme.primary;
@@ -1536,8 +1585,10 @@ class _CalendarRangePickerDialog extends StatelessWidget {
       left: false,
       right: false,
       child: Scaffold(
+        backgroundColor: adaptiveStyle.pickerBackgroundColor,
         appBar: AppBar(
-          backgroundColor: theme.dialogBackgroundColor,
+          backgroundColor: adaptiveStyle.headerBackgroundColor ??
+              theme.dialogBackgroundColor,
           elevation: 0,
           leading: CloseButton(
             color: headerForeground,
@@ -1615,6 +1666,7 @@ class _CalendarRangePickerDialog extends StatelessWidget {
           currentDate: currentDate,
           onStartDateChanged: onStartDateChanged,
           onEndDateChanged: onEndDateChanged,
+          style: adaptiveStyle.calendarStyle,
         ),
       ),
     );
@@ -1643,6 +1695,7 @@ class _CalendarDateRangePicker extends StatefulWidget {
     DateTime? currentDate,
     required this.onStartDateChanged,
     required this.onEndDateChanged,
+    required this.style,
   })  : initialStartDate = initialStartDate != null
             ? DateUtils.dateOnly(initialStartDate)
             : null,
@@ -1683,6 +1736,8 @@ class _CalendarDateRangePicker extends StatefulWidget {
 
   /// Called when the user changes the end date of the selected range.
   final ValueChanged<DateTime?>? onEndDateChanged;
+
+  final ZeroCalendarPickerStyle? style;
 
   @override
   _CalendarDateRangePickerState createState() =>
@@ -1795,6 +1850,7 @@ class _CalendarDateRangePickerState extends State<_CalendarDateRangePicker> {
       lastDate: widget.lastDate,
       displayedMonth: month,
       onChanged: _updateSelection,
+      style: widget.style,
     );
   }
 
@@ -2212,6 +2268,7 @@ class _MonthItem extends StatefulWidget {
     required this.firstDate,
     required this.lastDate,
     required this.displayedMonth,
+    this.style,
   })  : assert(!firstDate.isAfter(lastDate)),
         assert(selectedDateStart == null ||
             !selectedDateStart.isBefore(firstDate)),
@@ -2247,6 +2304,9 @@ class _MonthItem extends StatefulWidget {
 
   /// The month whose days are displayed by this picker.
   final DateTime displayedMonth;
+
+  /// Styles for [ZeroCalendarRangePirkcer]
+  final ZeroCalendarPickerStyle? style;
 
   @override
   _MonthItemState createState() => _MonthItemState();
@@ -2288,7 +2348,8 @@ class _MonthItemState extends State<_MonthItem> {
   }
 
   Color _highlightColor(BuildContext context) {
-    return context.theme.colorScheme.primary.withOpacity(0.12);
+    return widget.style?.highlightColor ??
+        context.theme.colorScheme.primary.withOpacity(0.12);
   }
 
   void _dayFocusChanged(bool focused) {
@@ -2330,6 +2391,8 @@ class _MonthItemState extends State<_MonthItem> {
     final bool isDisabled = dayToBuild.isAfter(widget.lastDate) ||
         dayToBuild.isBefore(widget.firstDate);
 
+    final calendarStyle = widget.style;
+
     BoxDecoration? decoration;
     TextStyle? itemStyle = textTheme.bodyMedium;
 
@@ -2346,9 +2409,10 @@ class _MonthItemState extends State<_MonthItem> {
     if (isSelectedDayStart || isSelectedDayEnd) {
       // The selected start and end dates gets a circle background
       // highlight, and a contrasting text color.
-      itemStyle = textTheme.bodyMedium?.apply(color: colorScheme.onPrimary);
+      itemStyle = textTheme.bodyMedium?.apply(
+          color: calendarStyle?.selectedDayColor ?? colorScheme.onPrimary);
       decoration = BoxDecoration(
-        color: colorScheme.primary,
+        color: calendarStyle?.selectedDayBackground ?? colorScheme.primary,
         shape: BoxShape.circle,
       );
     } else if (isInRange) {
@@ -2363,7 +2427,8 @@ class _MonthItemState extends State<_MonthItem> {
     } else if (DateUtils.isSameDay(widget.currentDate, dayToBuild)) {
       // The current day gets a different text color and a circle stroke
       // border.
-      itemStyle = textTheme.bodyMedium?.apply(color: colorScheme.primary);
+      itemStyle = textTheme.bodyMedium
+          ?.apply(color: calendarStyle?.todayColor ?? colorScheme.primary);
       decoration = BoxDecoration(
         border: Border.all(color: colorScheme.primary),
         shape: BoxShape.circle,
@@ -2545,6 +2610,7 @@ class _InputDateRangePickerDialog extends StatelessWidget {
     required this.cancelText,
     required this.helpText,
     required this.entryModeButton,
+    required this.style,
   });
 
   final DateTime? selectedStartDate;
@@ -2557,6 +2623,7 @@ class _InputDateRangePickerDialog extends StatelessWidget {
   final String? cancelText;
   final String? helpText;
   final Widget? entryModeButton;
+  final ZeroDatePickerStyle? style;
 
   String _formatDateRange(
       BuildContext context, DateTime? start, DateTime? end, DateTime now) {
@@ -2608,6 +2675,7 @@ class _InputDateRangePickerDialog extends StatelessWidget {
       orientation: orientation,
       isShort: orientation == Orientation.landscape,
       entryModeButton: entryModeButton,
+      style: style,
     );
 
     final Widget actions = Container(

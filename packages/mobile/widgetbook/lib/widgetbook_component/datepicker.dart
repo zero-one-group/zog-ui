@@ -21,6 +21,13 @@ WidgetbookComponent datepickerWidgetbookComponent = WidgetbookComponent(
                       firstDate:
                           DateTime.now().subtract(const Duration(days: 30)),
                       lastDate: DateTime.now().add(const Duration(days: 100)),
+                      style: ZeroDatePickerStyle(
+                          pickerBackgroundColor: Colors.red,
+                          headerBackgroundColor: Colors.yellow,
+                          dateTextStyle: const TextStyle(fontSize: 30),
+                          insetPadding: const EdgeInsets.all(30),
+                          entryModeIconColor: Colors.amber,
+                          shape: Border.all(color: Colors.white, width: 2)),
                     );
                   }),
             )),
@@ -37,11 +44,18 @@ WidgetbookComponent datepickerWidgetbookComponent = WidgetbookComponent(
                       firstDate:
                           DateTime.now().subtract(const Duration(days: 30)),
                       lastDate: DateTime.now().add(const Duration(days: 100)),
+                      style: ZeroDatePickerStyle(
+                          pickerBackgroundColor: Colors.red,
+                          headerBackgroundColor: Colors.yellow,
+                          dateTextStyle: const TextStyle(fontSize: 30),
+                          insetPadding: const EdgeInsets.all(30),
+                          entryModeIconColor: Colors.amber,
+                          shape: Border.all(color: Colors.white, width: 2)),
                     );
                   }),
             )),
     WidgetbookUseCase(
-        name: 'Date Range Docked',
+        name: 'Date Picker Docked',
         builder: (context) => PreviewWidget(
               theme: ZeroThemeData(),
               child: Container(
@@ -49,7 +63,7 @@ WidgetbookComponent datepickerWidgetbookComponent = WidgetbookComponent(
                 padding: const EdgeInsets.symmetric(
                     horizontal: 20.0, vertical: 100.0),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ZeroDatePickerDocked(
                       inputDecorationType: InputDecorationType.outline,
@@ -59,6 +73,13 @@ WidgetbookComponent datepickerWidgetbookComponent = WidgetbookComponent(
                           DateTime.now().add(const Duration(days: 365 * 10)),
                       initialDate: DateTime.now(),
                       onDateChanged: (dateTime) {},
+                      style: ZeroDatePickerStyle(
+                          pickerBackgroundColor: Colors.red,
+                          headerBackgroundColor: Colors.yellow,
+                          dateTextStyle: const TextStyle(fontSize: 30),
+                          insetPadding: const EdgeInsets.all(30),
+                          entryModeIconColor: Colors.amber,
+                          shape: Border.all(color: Colors.white, width: 2)),
                     ),
                   ],
                 ),

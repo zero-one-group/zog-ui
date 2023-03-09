@@ -54,21 +54,35 @@ class ZeroDatePickerDocked extends StatefulWidget {
   /// Called when the user selects a date in the picker.
   final ValueChanged<DateTime> onDateChanged;
 
-  const ZeroDatePickerDocked(
-      {Key? key,
-      this.inputDecorationType = InputDecorationType.outline,
-      required this.initialDate,
-      required this.firstDate,
-      required this.lastDate,
-      required this.onDateChanged,
-      this.labelText,
-      this.hintText,
-      this.helperText,
-      this.errorText,
-      this.cancelText,
-      this.confirmText,
-      this.suffixIcon})
-      : super(key: key);
+  /// Defines the visual properties of the widget displayed with [showZeroDatePicker].
+  ///
+  /// Descendant widgets obtain the current [ZeroDatePickerStyle] object using
+  /// `context.theme.datePickerStyle`. Instances of [ZeroDatePickerStyle]
+  /// can be customized with [ZeroDatePickerStyle.copyWith].
+  ///
+  /// Typically a [ZeroDatePickerStyle] is specified as part of the overall
+  /// [ZeroTheme] with [ZeroThemeData.datePickerTheme].
+  ///
+  /// All [ZeroDatePickerStyle] properties are `null` by default. When null,
+  /// [showZeroDatePicker] will provide its own defaults.
+  final ZeroDatePickerStyle? style;
+
+  const ZeroDatePickerDocked({
+    Key? key,
+    this.inputDecorationType = InputDecorationType.outline,
+    required this.initialDate,
+    required this.firstDate,
+    required this.lastDate,
+    required this.onDateChanged,
+    this.labelText,
+    this.hintText,
+    this.helperText,
+    this.errorText,
+    this.cancelText,
+    this.confirmText,
+    this.suffixIcon,
+    this.style,
+  }) : super(key: key);
 
   @override
   State<ZeroDatePickerDocked> createState() => _ZeroDatePickerDockedState();
@@ -120,7 +134,6 @@ class _ZeroDatePickerDockedState extends State<ZeroDatePickerDocked>
   OverlayEntry _createOverlay() {
     RenderBox renderBox = context.findRenderObject() as RenderBox;
 
-    final theme = context.theme.toThemeData();
     final MaterialLocalizations localizations =
         MaterialLocalizations.of(context);
 
@@ -131,6 +144,8 @@ class _ZeroDatePickerDockedState extends State<ZeroDatePickerDocked>
 
     final Size dialogSize = _dialogSize(context) * textScaleFactor;
 
+    final adaptiveStyle = context.theme.datePickerStyle.merge(widget.style);
+
     final Widget actions = Container(
       alignment: AlignmentDirectional.centerEnd,
       constraints: const BoxConstraints(minHeight: 52.0),
@@ -139,16 +154,13 @@ class _ZeroDatePickerDockedState extends State<ZeroDatePickerDocked>
         spacing: 8,
         overflowAlignment: OverflowBarAlignment.center,
         children: <Widget>[
-          TextButton(
-            style: context.theme.textButtonStyle.toButtonStyle(),
+          ZeroButton.text(
+            style: context.theme.textButtonStyle,
             onPressed: _handleCancel,
-            child: Text(widget.cancelText ??
-                (theme.useMaterial3
-                    ? localizations.cancelButtonLabel
-                    : localizations.cancelButtonLabel.toUpperCase())),
+            child: Text(widget.cancelText ?? localizations.cancelButtonLabel),
           ),
-          TextButton(
-            style: context.theme.textButtonStyle.toButtonStyle(),
+          ZeroButton.text(
+            style: context.theme.textButtonStyle,
             onPressed: _handleOk,
             child: Text(widget.confirmText ?? localizations.okButtonLabel),
           ),
@@ -177,10 +189,12 @@ class _ZeroDatePickerDockedState extends State<ZeroDatePickerDocked>
                         builder: (BuildContext context, innerState) {
                       switch (orientation) {
                         case Orientation.portrait:
-                          return _buildPotrait(context, innerState, actions);
+                          return _buildPotrait(
+                              context, adaptiveStyle, innerState, actions);
 
                         case Orientation.landscape:
-                          return _buildLandscape(context, innerState, actions);
+                          return _buildLandscape(
+                              context, adaptiveStyle, innerState, actions);
                       }
                     }),
                   ),
@@ -223,29 +237,33 @@ class _ZeroDatePickerDockedState extends State<ZeroDatePickerDocked>
     );
   }
 
-  Widget _buildPotrait(
-      BuildContext context, StateSetter innerState, Widget actions) {
+  Widget _buildPotrait(BuildContext context, ZeroDatePickerStyle adaptiveStyle,
+      StateSetter innerState, Widget actions) {
     return Material(
         child: Card(
-      shape: context.theme.toThemeData().dialogTheme.shape,
+      color: adaptiveStyle.pickerBackgroundColor,
+      shape:
+          adaptiveStyle.shape ?? context.theme.toThemeData().dialogTheme.shape,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Expanded(
             child: ZeroDockedCalendarDatePicker(
-                onDateChanged: (value) {
-                  _textEditingController.text = _dateFormat.format(value);
-                  _selectedDate = value;
-                },
-                firstDate: widget.firstDate,
-                lastDate: widget.lastDate,
-                initialDate: _selectedDate ?? widget.initialDate,
-                onModeChanged: (mode) {
-                  innerState(() {
-                    _showActions = mode == ZeroDatePickerMode.day;
-                  });
-                }),
+              onDateChanged: (value) {
+                _textEditingController.text = _dateFormat.format(value);
+                _selectedDate = value;
+              },
+              firstDate: widget.firstDate,
+              lastDate: widget.lastDate,
+              initialDate: _selectedDate ?? widget.initialDate,
+              onModeChanged: (mode) {
+                innerState(() {
+                  _showActions = mode == ZeroDatePickerMode.day;
+                });
+              },
+              style: widget.style?.calendarStyle,
+            ),
           ),
           if (_showActions) actions,
         ],
@@ -254,10 +272,15 @@ class _ZeroDatePickerDockedState extends State<ZeroDatePickerDocked>
   }
 
   Widget _buildLandscape(
-      BuildContext context, StateSetter innerState, Widget actions) {
+      BuildContext context,
+      ZeroDatePickerStyle adaptiveStyle,
+      StateSetter innerState,
+      Widget actions) {
     return Material(
         child: Card(
-      shape: context.theme.toThemeData().dialogTheme.shape,
+      color: adaptiveStyle.pickerBackgroundColor,
+      shape:
+          adaptiveStyle.shape ?? context.theme.toThemeData().dialogTheme.shape,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -58,6 +58,16 @@ class ZeroTextfieldStyleSet {
               InputDecorationType.outline,
     );
   }
+
+  ZeroTextfieldStyleSet merge(ZeroTextfieldStyleSet? other) {
+    if (other == null) return this;
+    return ZeroTextfieldStyleSet(
+        filled: other.filled,
+        outline: other.outline,
+        rounded: other.rounded,
+        underline: other.underline,
+        inputDecorationType: other.inputDecorationType);
+  }
 }
 
 class ZeroTextfieldStyle {
@@ -72,52 +82,40 @@ class ZeroTextfieldStyle {
   ZeroTextfieldStyle({
     required this.inputDecorationType,
     required this.textfieldSize,
-    required this.enabled,
-    required this.error,
     required this.focusedBorderColor,
     required this.focusedColor,
     this.fillColor,
+    this.enabled = true,
+    this.error = false,
   });
 
   factory ZeroTextfieldStyle.outline(
           {ZeroTextfieldSize? textfieldSize,
-          bool? enabled,
-          bool? error,
           required Color focusedBorderColor,
           required Color? focusedColor}) =>
       ZeroTextfieldStyle(
           inputDecorationType: InputDecorationType.outline,
-          enabled: enabled ?? true,
-          error: error ?? false,
           textfieldSize: textfieldSize ?? ZeroTextfieldSize.small,
           focusedBorderColor: focusedBorderColor,
           focusedColor: focusedBorderColor);
 
   factory ZeroTextfieldStyle.rounded(
           {ZeroTextfieldSize? textfieldSize,
-          bool? enabled,
-          bool? error,
           required Color focusedBorderColor,
           required Color focusedColor}) =>
       ZeroTextfieldStyle(
           inputDecorationType: InputDecorationType.rounded,
-          enabled: enabled ?? true,
-          error: error ?? false,
           textfieldSize: textfieldSize ?? ZeroTextfieldSize.small,
           focusedBorderColor: focusedBorderColor,
           focusedColor: focusedColor);
 
   factory ZeroTextfieldStyle.fill(
           {ZeroTextfieldSize? textfieldSize,
-          bool? enabled,
-          bool? error,
           required Color focusedBorderColor,
           required Color fillColor,
           required Color focusedColor}) =>
       ZeroTextfieldStyle(
           inputDecorationType: InputDecorationType.fill,
-          enabled: enabled ?? true,
-          error: error ?? false,
           textfieldSize: textfieldSize ?? ZeroTextfieldSize.small,
           focusedBorderColor: focusedBorderColor,
           fillColor: fillColor,
@@ -125,14 +123,10 @@ class ZeroTextfieldStyle {
 
   factory ZeroTextfieldStyle.underline(
           {ZeroTextfieldSize? textfieldSize,
-          bool? enabled,
-          bool? error,
           required Color focusedBorderColor,
           required Color focusedColor}) =>
       ZeroTextfieldStyle(
           inputDecorationType: InputDecorationType.underline,
-          enabled: enabled ?? true,
-          error: error ?? false,
           textfieldSize: textfieldSize ?? ZeroTextfieldSize.small,
           focusedBorderColor: focusedBorderColor,
           focusedColor: focusedBorderColor);
@@ -156,7 +150,7 @@ class ZeroTextfieldStyle {
     }
   }
 
-  bool get filled => inputDecorationType == InputDecorationType.fill;
+  bool get filled => true;
 
   Color get borderColor => focusedBorderColor;
 
@@ -333,6 +327,7 @@ class ZeroTextfieldStyle {
       Color? focusedBorderColor,
       Color? focusedColor,
       Color? fillColor}) {
+    debugPrint('copyWith fillColor $fillColor');
     return ZeroTextfieldStyle(
         inputDecorationType: inputDecorationType ?? this.inputDecorationType,
         textfieldSize: textfieldSize ?? this.textfieldSize,
@@ -359,6 +354,26 @@ class ZeroTextfieldStyle {
 
   InputDecorationTheme toInputDecorationTheme() {
     return InputDecorationTheme(
+      floatingLabelAlignment: FloatingLabelAlignment.start,
+      floatingLabelBehavior: FloatingLabelBehavior.auto,
+      floatingLabelStyle: floatingLabelStyle(enabled: enabled, error: error),
+      alignLabelWithHint: alignLabelWithHint,
+      labelStyle: textStyle(enabled),
+      isDense: textfieldSize.isDense,
+      contentPadding: textfieldSize.contentPadding,
+      focusColor: focusedColor,
+      fillColor: getFillColor(enabled: enabled, error: error),
+      filled: filled,
+      focusedBorder: focusedBorder(textfieldSize),
+      border: border(textfieldSize),
+      disabledBorder: disabledBorder(textfieldSize),
+      errorBorder: errorBorder(textfieldSize),
+      focusedErrorBorder: errorBorder(textfieldSize),
+    );
+  }
+
+  InputDecoration toInputDecoration() {
+    return InputDecoration(
       floatingLabelAlignment: FloatingLabelAlignment.start,
       floatingLabelBehavior: FloatingLabelBehavior.auto,
       floatingLabelStyle: floatingLabelStyle(enabled: enabled, error: error),

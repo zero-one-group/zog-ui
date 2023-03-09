@@ -60,6 +60,7 @@ class ZeroDropdownExample extends StatelessWidget {
               ZeroDropdown.multiple(
                 onChanged: (p0) {},
                 items: items,
+                inputDecorationType: InputDecorationType.rounded,
                 multipleItemsVariant: MultipleItemsVariant.checkboxes,
                 suffixIcon: const Icon(Icons.search),
               ),

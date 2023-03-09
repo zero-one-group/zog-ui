@@ -58,6 +58,7 @@ class ZeroTextField extends StatefulWidget {
   final int? minLines;
   final TextAlignVertical? textAlignVertical;
   final bool? autofocus;
+  final InputDecoration? decoration;
 
   final Function()? onTap;
   final Function(PointerDownEvent event)? onTapOutside;
@@ -78,7 +79,7 @@ class ZeroTextField extends StatefulWidget {
       this.suffixIcon,
       this.prefix,
       this.suffix,
-      InputDecoration? decoration,
+      this.decoration,
       this.autovalidateMode = AutovalidateMode.onUserInteraction,
       this.enabled,
       this.onChanged,
@@ -352,16 +353,17 @@ class _ZeroTextFieldState extends State<ZeroTextField> {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         enabled: widget.enabled,
         textAlignVertical: widget.textAlignVertical ?? TextAlignVertical.center,
-        decoration: InputDecoration(
-          helperText: widget.helperText,
-          hintText: widget.hintText,
-          labelText: widget.labelText,
-          prefixIcon: widget.prefixIcon,
-          errorText: widget.errorText,
-          floatingLabelStyle: widget.errorStyle,
-          suffixIcon: widget.textfieldSize
-              .suffixIcon(widget.suffixIcon, error: widget.errorText != null),
-        ),
+        decoration: widget.decoration ??
+            InputDecoration(
+              helperText: widget.helperText,
+              hintText: widget.hintText,
+              labelText: widget.labelText,
+              prefixIcon: widget.prefixIcon,
+              errorText: widget.errorText,
+              floatingLabelStyle: widget.errorStyle,
+              suffixIcon: widget.textfieldSize.suffixIcon(widget.suffixIcon,
+                  error: widget.errorText != null),
+            ),
         onChanged: widget.onChanged,
         onEditingComplete: widget.onEditingComplete,
         onFieldSubmitted: widget.onFieldSubmitted,

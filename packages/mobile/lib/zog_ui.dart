@@ -112,6 +112,7 @@ export './styles/component/button_style.dart';
 export './styles/component/card_style.dart';
 export './styles/component/checkbox_style.dart';
 export './styles/component/chip_style.dart';
+export './styles/component/datepicker_style.dart';
 export './styles/component/divider_style.dart';
 export './styles/component/dropdown_menu_style.dart';
 export './styles/component/expansion_tile_style.dart';

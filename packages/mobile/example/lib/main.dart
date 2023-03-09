@@ -82,7 +82,7 @@ class _MyAppState extends State<MyApp> {
               Row(
                 children: [
                   Expanded(
-                    child: DropdownButton<ShadedColor>(
+                    child: ZeroDropdownButton<ShadedColor>(
                         hint: Row(
                           children: [
                             const Text('Primary Color'),
@@ -96,7 +96,7 @@ class _MyAppState extends State<MyApp> {
                         ),
                         items: _colors
                             .map(
-                              (e) => DropdownMenuItem(
+                              (e) => ZeroDropdownMenuItem(
                                 value: e,
                                 child: Container(color: e, height: 50),
                               ),

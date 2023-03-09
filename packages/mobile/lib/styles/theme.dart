@@ -122,6 +122,7 @@ class ZeroThemeData with Diagnosticable {
   final ZeroExpansionTileStyle expansionTileStyle;
   final ZeroSnackbarStyleSet snackBarStyle;
   final ZeroTimePickerStyle timePickerStyle;
+  final ZeroDatePickerStyle datePickerStyle;
   final ZeroBottomSheetStyle bottomSheetStyle;
 
   final Brightness brightness;
@@ -194,6 +195,7 @@ class ZeroThemeData with Diagnosticable {
     required this.stepperStyle,
     required this.snackBarStyle,
     required this.timePickerStyle,
+    required this.datePickerStyle,
     required this.bottomSheetStyle,
 
     // Others
@@ -588,6 +590,16 @@ class ZeroThemeData with Diagnosticable {
       backgroundColor: cardColor,
     );
 
+    final datePickerStyleFallback = ZeroDatePickerStyle.fallback(
+      textfieldStyle: ZeroTextfieldStyle.outline(
+          focusedBorderColor: colorScheme.primary,
+          focusedColor: colorScheme.primary),
+      headerBackgroundColor: scaffoldBackgroundColor,
+      pickerBackgroundColor: scaffoldBackgroundColor,
+      shape: const RoundedRectangleBorder(),
+      elevation: 0,
+    );
+
     useMaterial3 ??= false;
 
     return ZeroThemeData.raw(
@@ -628,7 +640,7 @@ class ZeroThemeData with Diagnosticable {
       textfieldSize: textfieldSize,
       navigationDrawerStyle:
           navigationDrawerStyleFallback.merge(navigationDrawerStyle),
-      appBarStyle: appBarStyleFallback.merge(appBarStyleFallback),
+      appBarStyle: appBarStyleFallback.merge(appBarStyle),
       cardStyle: cardStyle.merge(cardStyle),
       buttonIconStyle: buttonIconStyleFallback.merge(buttonIconStyle),
       navigationRailStyle:
@@ -652,6 +664,7 @@ class ZeroThemeData with Diagnosticable {
       snackBarStyle: snackBarStyleFallback.merge(snackBarStyle),
       timePickerStyle: timePickerStyleFallback.merge(timePickerStyle),
       bottomSheetStyle: bottomSheetStyleFallback.merge(bottomSheetStyle),
+      datePickerStyle: datePickerStyleFallback.merge(datePickerStyleFallback),
     );
   }
 
@@ -739,6 +752,8 @@ class ZeroThemeData with Diagnosticable {
           ZeroTimePickerStyle.lerp(a.timePickerStyle, b.timePickerStyle, t),
       bottomSheetStyle:
           ZeroBottomSheetStyle.lerp(a.bottomSheetStyle, b.bottomSheetStyle, t),
+      datePickerStyle:
+          ZeroDatePickerStyle.lerp(a.datePickerStyle, b.datePickerStyle, t),
     );
   }
 
@@ -801,6 +816,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroStepperStyle? stepperStyle,
     ZeroSnackbarStyleSet? snackBarStyle,
     ZeroTimePickerStyle? timePickerStyle,
+    ZeroDatePickerStyle? datePickerStyle,
     ZeroBottomSheetStyle? bottomSheetStyle,
   }) {
     return ZeroThemeData.raw(
@@ -848,8 +864,14 @@ class ZeroThemeData with Diagnosticable {
                 textfieldSize: textfieldSize,
               ),
           filled: this.textfieldStyleSet.filled.copyWith(
-                textfieldSize: textfieldSize,
-              ),
+              textfieldSize: textfieldSize,
+              enabled: this.textfieldStyleSet.mainStyle.enabled,
+              error: this.textfieldStyleSet.mainStyle.error,
+              fillColor: this.textfieldStyleSet.mainStyle.fillColor,
+              focusedBorderColor:
+                  this.textfieldStyleSet.mainStyle.focusedBorderColor,
+              focusedColor:
+                  this.textfieldStyleSet.mainStyle.focusedBorderColor),
           underline: this.textfieldStyleSet.underline.copyWith(
                 textfieldSize: textfieldSize,
               )),
@@ -878,6 +900,7 @@ class ZeroThemeData with Diagnosticable {
       stepperStyle: stepperStyle ?? this.stepperStyle,
       snackBarStyle: snackBarStyle ?? this.snackBarStyle,
       timePickerStyle: timePickerStyle ?? this.timePickerStyle,
+      datePickerStyle: datePickerStyle ?? this.datePickerStyle,
       bottomSheetStyle: bottomSheetStyle ?? this.bottomSheetStyle,
     );
   }
