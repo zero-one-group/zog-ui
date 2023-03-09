@@ -16,11 +16,21 @@ describe('Box', () => {
 
   it('should render anchor element', () => {
     const { getByRole } = render(
-      <Box as="a" href="https://google.com">
-        Render as anchor element
+      <Box asChild>
+        <a href="https://google.com">Render as anchor element</a>
       </Box>
     );
 
     expect(getByRole('link')).toBeInTheDocument();
+  });
+  it('should render className on the child element', () => {
+    const className = 'google-link';
+    const { container } = render(
+      <Box asChild className={className}>
+        <a href="https://google.com">Render as anchor element</a>
+      </Box>
+    );
+    // targeting the box
+    expect(container.firstChild).toHaveClass(className);
   });
 });
