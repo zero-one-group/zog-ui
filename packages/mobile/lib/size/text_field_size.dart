@@ -45,7 +45,8 @@ enum ZeroTextfieldSize {
     if (error && suffixIcon == null) {
       return IconButton(
           icon: SvgPicture.asset(Assets.icons.errorDefault,
-              package: 'zog_ui', color: ZeroColors.dustRed[7]),
+              package: 'zog_ui',
+              theme: SvgTheme(currentColor: ZeroColors.dustRed[7])),
           onPressed: null);
     }
 

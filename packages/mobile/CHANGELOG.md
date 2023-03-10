@@ -1,10 +1,13 @@
-## 0.0.1-alpha
+## 0.0.1-alpha.4
 
-* Initial alpha release
+* fix dart file convetion issues 
+* upgraded dependencies to latest
+* fix sgatic analysis issues
 
-## 0.0.1-alpha.1
+## 0.0.1-alpha.3
 
-* Add new typography variant and fontFamily
+* Add global styles for date picker, docked date picker, and date range picker
+* Issues fix on global theme 
 
 ## 0.0.1-alpha.2
 
@@ -17,7 +20,10 @@
 * Add component showModalBottomSheet & showBottomSheet
 * Add global styles for time picker
 
-## 0.0.1-alpha.3
+## 0.0.1-alpha.1
 
-* Add global styles for date picker, docked date picker, and date range picker
-* Issues fix on global theme 
+* Add new typography variant and fontFamily
+
+## 0.0.1-alpha
+
+* Initial alpha release

@@ -150,12 +150,11 @@ class ZeroSnackbarAlert {
     /// hide the alert after the duration
     /// if the duration is zero, the alert will be permanent
     /// if the duration is null, the alert will be displayed for 2 seconds
-    adaptiveStyle?.duration == Duration.zero
-        ? null
-        : Future.delayed(adaptiveStyle?.duration ?? const Duration(seconds: 2),
-            () {
-            hide();
-          });
+    if (adaptiveStyle?.duration != Duration.zero) {
+      Future.delayed(adaptiveStyle?.duration ?? const Duration(seconds: 2), () {
+        hide();
+      });
+    }
   }
 
   /// [_getBorder] return the border of the alert

@@ -1,6 +1,6 @@
 name: zog_ui
-description: UI Widgets provided by ZOG
-version: 0.0.1-alpha.3
+description: A collection of ready-to-use UI Widgets developed by Zero One Group that follows ZOG Design System to simplify the common components style implementation, yet still fully maintain their customizability
+version: 0.0.1-alpha.4
 homepage: 'https://zero-ui-mobile.web.app/'
 
 environment:
@@ -11,10 +11,10 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  flutter_svg: ^1.0.3
-  dropdown_button2: ^1.9.2
+  flutter_svg: ^2.0.2
+  dropdown_button2: ^2.0.0
   flutter_slidable: ^2.0.0
-  intl: ^0.17.0
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_test:

@@ -432,17 +432,28 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
   Widget _buildDropdownIconOnly() {
     return DropdownButton2(
       isExpanded: false,
-      buttonPadding: EdgeInsets.zero,
+      buttonStyleData: ButtonStyleData(
+        padding: EdgeInsets.zero,
+        height: widget.itemHeight ?? widget.textfieldSize.height,
+      ),
       customButton: SizedBox(
           width: widget.itemHeight ?? widget.textfieldSize.height,
           height: widget.itemHeight ?? widget.textfieldSize.height,
           child: widget.icon),
-      dropdownPadding: EdgeInsets.zero,
-      buttonHighlightColor: context.theme.primaryColor.lightest,
-      itemHighlightColor: context.theme.primaryColor.lightest,
-      selectedItemHighlightColor: context.theme.primaryColor,
-      buttonHeight: widget.itemHeight ?? widget.textfieldSize.height,
-      dropdownWidth: widget.dropdownWidth ?? double.infinity,
+      dropdownStyleData: DropdownStyleData(
+        padding: EdgeInsets.zero,
+        width: widget.dropdownWidth ?? double.infinity,
+      ),
+      menuItemStyleData: MenuItemStyleData(
+          overlayColor:
+              MaterialStateColor.resolveWith((Set<MaterialState> states) {
+            return states.contains(MaterialState.selected)
+                ? context.theme.brightness.isDark
+                    ? context.theme.primaryColor.darkest
+                    : context.theme.primaryColor.darkest
+                : context.theme.colorScheme.onSurface.withOpacity(0.02);
+          }),
+          padding: EdgeInsets.zero),
       items: widget.items.map((item) {
         return DropdownMenuItem<T>(
           value: item,
@@ -474,7 +485,6 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
       }).toList(),
       value: _selectedItems.isEmpty ? null : _selectedItems.last,
       onChanged: widget.onChanged,
-      itemPadding: EdgeInsets.zero,
     );
   }
 }
