@@ -34,6 +34,16 @@ class _ZeroSnackbarExampleState extends State<ZeroSnackbarExample> {
                   },
                   child: const Text('Show SnackbarAlert Danger'),
                 ),
+                ZeroButton.text(
+                  onPressed: () {
+                    ZeroSnackbarAlert().show(
+                      context,
+                      title: 'This is a snackbar dfkdhjfjdkjk',
+                      variant: ZeroSnackbarAlertVariant.success,
+                    );
+                  },
+                  child: const Text('Show SnackbarAlert without Subtitle'),
+                ),
                 TextButton(
                   onPressed: () {
                     ZeroSnackbarAlert().show(

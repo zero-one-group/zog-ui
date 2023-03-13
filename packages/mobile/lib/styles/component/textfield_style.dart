@@ -327,7 +327,6 @@ class ZeroTextfieldStyle {
       Color? focusedBorderColor,
       Color? focusedColor,
       Color? fillColor}) {
-    debugPrint('copyWith fillColor $fillColor');
     return ZeroTextfieldStyle(
         inputDecorationType: inputDecorationType ?? this.inputDecorationType,
         textfieldSize: textfieldSize ?? this.textfieldSize,
