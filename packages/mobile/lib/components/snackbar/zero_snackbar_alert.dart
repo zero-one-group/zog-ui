@@ -19,7 +19,7 @@ class ZeroSnackbarAlert {
     required String title,
 
     /// [subtitle] the subtitle of the alert
-    required String subtitle,
+    String? subtitle,
 
     /// [variant] the variant of the alert (danger, warning, success, info)
     ZeroSnackbarAlertVariant variant = ZeroSnackbarAlertVariant.danger,
@@ -68,6 +68,7 @@ class ZeroSnackbarAlert {
           color: style?.subtitleStyle?.color ?? subtitleColor,
         ) ??
         TextStyle(fontWeight: FontWeight.bold, color: subtitleColor);
+    final hasSubtitle = subtitle != null && subtitle.isNotEmpty;
 
     /// create a new alert
     _overlayEntry = OverlayEntry(builder: (context) {
@@ -101,7 +102,9 @@ class ZeroSnackbarAlert {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: hasSubtitle
+                        ? CrossAxisAlignment.start
+                        : CrossAxisAlignment.center,
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(right: 8.0),
@@ -125,10 +128,11 @@ class ZeroSnackbarAlert {
                               style: titleStyle,
                               child: Text(title),
                             ),
-                            DefaultTextStyle(
-                              style: subtitleStyle,
-                              child: Text(subtitle),
-                            ),
+                            if (hasSubtitle)
+                              DefaultTextStyle(
+                                style: subtitleStyle,
+                                child: Text(subtitle),
+                              ),
                           ],
                         ),
                       ),
