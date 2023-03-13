@@ -70,3 +70,4 @@ export * from './VerifiedBadge';
 export * from './ZeroProvider';
 export * from './Anchor';
 export * from './Collapse';
+export * from './Popconfirm';
