@@ -39,7 +39,8 @@ class __GridViewState extends State<_GridView> {
     /// this for checking if the space of current column grid is available or not
     void nextColumn() {
       while (true) {
-        if (reservedColumns[currentRow].isNotEmpty && reservedColumns[currentRow].first == currentColumn) {
+        if (reservedColumns[currentRow].isNotEmpty &&
+            reservedColumns[currentRow].first == currentColumn) {
           currentColumn++;
           reservedColumns[currentRow].removeAt(0);
         } else if (currentColumn >= numColumns) {
@@ -58,9 +59,12 @@ class __GridViewState extends State<_GridView> {
       (index) {
         Widget toRender = const SizedBox();
         ZeroGridItem item = widget.children[index];
-        assert(item.mainAxisCount <= numColumns, 'Main axis count must be less than or equal to numColumns');
-        assert(item.mainAxisCount > 0, 'Main axis count must be greater than 0');
-        assert(item.crossAxisCount > 0, 'Cross axis count must be greater than 0');
+        assert(item.mainAxisCount <= numColumns,
+            'Main axis count must be less than or equal to numColumns');
+        assert(
+            item.mainAxisCount > 0, 'Main axis count must be greater than 0');
+        assert(
+            item.crossAxisCount > 0, 'Cross axis count must be greater than 0');
 
         /// go to next column
         /// if current column is reserved, we need to skip it
@@ -79,7 +83,10 @@ class __GridViewState extends State<_GridView> {
             if (reservedColumns.length <= currentRow + i) {
               reservedColumns.add([]);
             }
-            reservedColumns[currentRow + i] = [...reservedColumns[currentRow + i], ...tReservedColumn];
+            reservedColumns[currentRow + i] = [
+              ...reservedColumns[currentRow + i],
+              ...tReservedColumn
+            ];
           }
         }
 
@@ -96,13 +103,15 @@ class __GridViewState extends State<_GridView> {
         double widthOfItemMain = widthRemaining / numColumns;
 
         /// calculate offset
-        offset = (widthOfItemMain * currentColumn) + (currentColumn * widget.mainAxisSpacing);
+        offset = (widthOfItemMain * currentColumn) +
+            (currentColumn * widget.mainAxisSpacing);
 
         // check if current column is reserved
         // when current column is reserved, we need to skip it
         if (item.mainAxisCount > 1) {
           currentColumn += item.mainAxisCount;
-          widthOfItemMain = widthOfItemMain * item.mainAxisCount + ((item.mainAxisCount - 1) * widget.mainAxisSpacing);
+          widthOfItemMain = widthOfItemMain * item.mainAxisCount +
+              ((item.mainAxisCount - 1) * widget.mainAxisSpacing);
         } else {
           currentColumn++;
           widthOfItemMain = widthOfItemMain * item.mainAxisCount;
