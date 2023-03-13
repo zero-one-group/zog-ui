@@ -208,7 +208,6 @@ class _ZeroExpansionTileState extends State<ZeroExpansionTile>
   @override
   Widget build(BuildContext context) {
     // force [ExpansionTile] to have only one child that can have multiple childrens
-    debugPrint('widget.variant ${widget.variant}');
     final listTileChildren = [
       Container(
           color: widget.variant == AccordionVariant.underline

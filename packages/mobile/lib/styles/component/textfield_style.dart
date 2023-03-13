@@ -10,11 +10,15 @@ class ZeroTextfieldStyleSet {
   final InputDecorationType inputDecorationType;
 
   ZeroTextfieldStyleSet(
-      {required this.outline,
-      required this.rounded,
-      required this.filled,
-      required this.underline,
-      required this.inputDecorationType});
+      {ZeroTextfieldStyle? outline,
+      ZeroTextfieldStyle? rounded,
+      ZeroTextfieldStyle? filled,
+      ZeroTextfieldStyle? underline,
+      required this.inputDecorationType})
+      : outline = ZeroTextfieldStyle.outline(),
+        filled = ZeroTextfieldStyle.fill(),
+        underline = ZeroTextfieldStyle.underline(),
+        rounded = ZeroTextfieldStyle.rounded();
 
   /// Main [ZeroTextfieldStyle] that would be applied globally
   ZeroTextfieldStyle get mainStyle {
@@ -70,6 +74,9 @@ class ZeroTextfieldStyleSet {
   }
 }
 
+const double _kDefaultSmallTextfieldRadius = 8.0;
+const double _kDefaultBorderWidth = 1.0;
+
 class ZeroTextfieldStyle {
   final InputDecorationType inputDecorationType;
   final ZeroTextfieldSize textfieldSize;
@@ -78,12 +85,14 @@ class ZeroTextfieldStyle {
   final Color focusedBorderColor;
   final Color focusedColor;
   final Color? fillColor;
+  final BorderRadius? radius;
 
   ZeroTextfieldStyle({
     required this.inputDecorationType,
     required this.textfieldSize,
     required this.focusedBorderColor,
     required this.focusedColor,
+    this.radius,
     this.fillColor,
     this.enabled = true,
     this.error = false,
@@ -91,45 +100,49 @@ class ZeroTextfieldStyle {
 
   factory ZeroTextfieldStyle.outline(
           {ZeroTextfieldSize? textfieldSize,
-          required Color focusedBorderColor,
-          required Color? focusedColor}) =>
+          Color? focusedBorderColor,
+          BorderRadius? radius,
+          Color? focusedColor}) =>
       ZeroTextfieldStyle(
           inputDecorationType: InputDecorationType.outline,
           textfieldSize: textfieldSize ?? ZeroTextfieldSize.small,
-          focusedBorderColor: focusedBorderColor,
-          focusedColor: focusedBorderColor);
+          focusedBorderColor: focusedBorderColor ?? ZeroColors.primary,
+          radius: radius ??
+              const BorderRadius.all(
+                  Radius.circular(_kDefaultSmallTextfieldRadius)),
+          focusedColor: focusedBorderColor ?? ZeroColors.primary);
 
   factory ZeroTextfieldStyle.rounded(
           {ZeroTextfieldSize? textfieldSize,
-          required Color focusedBorderColor,
-          required Color focusedColor}) =>
+          Color? focusedBorderColor,
+          Color? focusedColor}) =>
       ZeroTextfieldStyle(
           inputDecorationType: InputDecorationType.rounded,
           textfieldSize: textfieldSize ?? ZeroTextfieldSize.small,
-          focusedBorderColor: focusedBorderColor,
-          focusedColor: focusedColor);
+          focusedBorderColor: focusedBorderColor ?? ZeroColors.primary,
+          focusedColor: focusedBorderColor ?? ZeroColors.primary);
 
   factory ZeroTextfieldStyle.fill(
           {ZeroTextfieldSize? textfieldSize,
-          required Color focusedBorderColor,
-          required Color fillColor,
-          required Color focusedColor}) =>
+          Color? focusedBorderColor,
+          Color? fillColor,
+          Color? focusedColor}) =>
       ZeroTextfieldStyle(
           inputDecorationType: InputDecorationType.fill,
           textfieldSize: textfieldSize ?? ZeroTextfieldSize.small,
-          focusedBorderColor: focusedBorderColor,
-          fillColor: fillColor,
-          focusedColor: focusedBorderColor);
+          focusedBorderColor: focusedBorderColor ?? ZeroColors.primary,
+          fillColor: fillColor ?? ZeroColors.primary.lighten(0.12),
+          focusedColor: focusedBorderColor ?? ZeroColors.primary);
 
   factory ZeroTextfieldStyle.underline(
           {ZeroTextfieldSize? textfieldSize,
-          required Color focusedBorderColor,
-          required Color focusedColor}) =>
+          Color? focusedBorderColor,
+          Color? focusedColor}) =>
       ZeroTextfieldStyle(
           inputDecorationType: InputDecorationType.underline,
           textfieldSize: textfieldSize ?? ZeroTextfieldSize.small,
-          focusedBorderColor: focusedBorderColor,
-          focusedColor: focusedBorderColor);
+          focusedBorderColor: focusedBorderColor ?? ZeroColors.primary,
+          focusedColor: focusedBorderColor ?? ZeroColors.primary);
 
   Color getFillColor({
     required bool enabled,
@@ -150,28 +163,30 @@ class ZeroTextfieldStyle {
     }
   }
 
-  bool get filled => true;
+  bool get filled => inputDecorationType != InputDecorationType.underline;
 
   Color get borderColor => focusedBorderColor;
 
   BorderRadius borderRadius(ZeroTextfieldSize sizeType) {
     switch (inputDecorationType) {
       case InputDecorationType.outline:
-        return const BorderRadius.all(Radius.circular(8));
+        return const BorderRadius.all(
+            Radius.circular(_kDefaultSmallTextfieldRadius));
       case InputDecorationType.rounded:
         return BorderRadius.circular(sizeType.roundedRadius);
       case InputDecorationType.underline:
         return const BorderRadius.all(Radius.zero);
       case InputDecorationType.fill:
         return const BorderRadius.only(
-            topLeft: Radius.circular(8), topRight: Radius.circular(8));
+            topLeft: Radius.circular(_kDefaultSmallTextfieldRadius),
+            topRight: Radius.circular(_kDefaultSmallTextfieldRadius));
     }
   }
 
   double get borderWidth {
     switch (inputDecorationType) {
       case InputDecorationType.outline:
-        return 1;
+        return _kDefaultBorderWidth;
       case InputDecorationType.rounded:
         return 1;
       case InputDecorationType.underline:

@@ -1,3 +1,9 @@
+## 0.0.1-alpha.5
+
+* refactor: TextfieldStyleSet, make all style params optional, 
+* chore: downgrade intl dependency back to 0.17.0
+* chore: Set nullable subtitle of snack bar
+
 ## 0.0.1-alpha.4
 
 * fix dart file convetion issues 

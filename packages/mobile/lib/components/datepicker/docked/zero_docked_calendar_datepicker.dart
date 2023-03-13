@@ -257,13 +257,11 @@ class _ZeroDockedCalendarDatePickerState
         _currentDisplayedMonthDate =
             DateTime(date.year, date.month, _selectedDate.day);
         widget.onDisplayedMonthChanged?.call(_currentDisplayedMonthDate);
-        debugPrint('_currentDisplayedMonthDate $_currentDisplayedMonthDate');
       }
     });
   }
 
   void _handleYearChanged(DateTime value) {
-    debugPrint('_handleYearChanged $value');
     _vibrate();
 
     if (value.isBefore(widget.firstDate)) {
@@ -645,7 +643,6 @@ class _MonthPickerState extends State<_MonthPicker> {
 
   void _handleDateSelected(DateTime selectedDate) {
     _focusedDay = selectedDate;
-    debugPrint('_handleDateSelected $selectedDate');
     widget.onChanged(selectedDate);
   }
 
@@ -1401,9 +1398,6 @@ class _DockedMonthPickerState extends State<DockedMonthPicker> {
     final monthIndex = index + 1; // January starts from 1;
     final String month = DateFormat.MMMM().format(DateTime(0, monthIndex));
     final bool isSelected = monthIndex == widget.selectedDate.month;
-
-    debugPrint(
-        '$index == widget.selectedDate.month ${widget.selectedDate.month}');
 
     Widget monthItem = ZeroListTile(
       key: ValueKey<int>(index),

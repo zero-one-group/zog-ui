@@ -145,6 +145,20 @@ class ZeroDatePickerExample extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
+            ZeroButton.primary(
+                child: const Text('Date Picker'),
+                onPressed: () async {
+                  showZeroDateRangePicker(
+                    context: context,
+                    firstDate:
+                        DateTime.now().subtract(const Duration(days: 365 * 10)),
+                    lastDate:
+                        DateTime.now().add(const Duration(days: 365 * 10)),
+                  );
+                }),
+            const SizedBox(
+              height: 20,
+            ),
           ],
         ),
       ),
