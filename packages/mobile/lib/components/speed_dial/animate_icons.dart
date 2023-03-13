@@ -18,7 +18,8 @@ class _AnimateIcons extends StatefulWidget {
   _AnimateIconsState createState() => _AnimateIconsState();
 }
 
-class _AnimateIconsState extends State<_AnimateIcons> with SingleTickerProviderStateMixin {
+class _AnimateIconsState extends State<_AnimateIcons>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
   @override
