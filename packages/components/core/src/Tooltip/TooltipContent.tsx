@@ -53,7 +53,7 @@ export function TooltipContent({
   arrowProps,
   ...props
 }: TooltipProps & {
-  arrowProps: { css: Stitches.CSS };
+  arrowProps?: { css: Stitches.CSS };
 } & TooltipPrimitive.TooltipContentProps) {
   return (
     <TooltipPrimitive.Portal>

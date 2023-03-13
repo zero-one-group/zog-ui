@@ -54,7 +54,9 @@ export function PopoverContent({
   children,
   arrowProps,
   ...props
-}: PopoverProps & { arrowProps: { css: Stitches.CSS } }) {
+}: PopoverProps & {
+  arrowProps?: { css: Stitches.CSS };
+} & PopoverPrimitive.PopoverContentProps) {
   return (
     <PopoverPrimitive.Portal>
       <StyledPopoverContent {...props} sideOffset={5}>
