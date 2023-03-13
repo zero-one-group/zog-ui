@@ -1,7 +1,12 @@
 name: zog_ui
-description: A collection of ready-to-use UI Widgets developed by Zero One Group that follows ZOG Design System to simplify the common components style implementation, yet still fully maintain their customizability
+description: A collection of ready-to-use ZOG design system UI widget components, simplecity, implementation of common styles, but fully customizable according to preference
 version: 0.0.1-alpha.4
-homepage: 'https://zero-ui-mobile.web.app/'
+homepage: https://zero-ui-mobile.web.app/
+repository: https://github.com/zero-one-group/zog-ui/tree/main/packages/mobile
+issue_tracker: https://github.com/zero-one-group/zog-ui/issues
+screenshots:
+  - description: The zog_ui package logo.
+    path: screenshot/logo.png
 
 environment:
   sdk: '>=2.18.1 <3.0.0'
