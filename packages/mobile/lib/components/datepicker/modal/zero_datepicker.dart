@@ -459,8 +459,6 @@ class _ZeroDatePickerDialogState extends State<ZeroDatePickerDialog>
         ? colorScheme.onSurface
         : colorScheme.onPrimary;
 
-    debugPrint('adaptiveStyle.dateTextStyle ${adaptiveStyle.dateTextStyle}');
-
     final TextStyle? dateStyle = adaptiveStyle.dateTextStyle ??
         ((orientation == Orientation.landscape)
             ? typography.heading5?.apply(color: onPrimarySurface)
