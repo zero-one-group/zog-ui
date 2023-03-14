@@ -79,6 +79,11 @@ class ZeroNavigationBar extends StatelessWidget {
                     return _Segment(
                       icon: active ? item.activeIcon ?? item.icon : item.icon,
                       isActive: active,
+                      iconColor: active
+                          ? (adaptiveStyle.selectedIconColor ??
+                              adaptiveStyle.selectedColor)
+                          : (adaptiveStyle.unselectedIconColor ??
+                              adaptiveStyle.unselectedColor),
                       color: active
                           ? adaptiveStyle.selectedColor
                           : adaptiveStyle.unselectedColor,
@@ -125,6 +130,7 @@ class _Segment extends StatelessWidget {
     this.label,
     this.onTap,
     this.color,
+    this.iconColor,
     required this.indicatorColor,
     required this.indicatorType,
   });
@@ -134,6 +140,7 @@ class _Segment extends StatelessWidget {
   final bool isActive;
   final VoidCallback? onTap;
   final Color? color;
+  final Color? iconColor;
   final Color indicatorColor;
   final ZeroNavigationBarIndicatorType indicatorType;
 
@@ -173,7 +180,7 @@ class _Segment extends StatelessWidget {
                         ),
                         IconTheme(
                           data: IconThemeData(
-                            color: color,
+                            color: iconColor,
                             size: 24,
                           ),
                           child: icon,

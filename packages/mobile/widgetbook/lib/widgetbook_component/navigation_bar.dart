@@ -37,6 +37,10 @@ class __NavigationBarWidgetState extends State<_NavigationBarWidget> {
               .options(label: 'Selected Color', options: _defaultColorOptions),
           unselectedColor: context.knobs.options(
               label: 'Unselected Color', options: _defaultColorOptions),
+          selectedIconColor: context.knobs
+              .options(label: 'Selected Icon Color', options: _defaultColorOptions),
+          unselectedIconColor: context.knobs.options(
+              label: 'Unselected Icon Color', options: _defaultColorOptions),
           indicatorColor: context.knobs
               .options(label: 'Indicator Color', options: colorOptions)
               .withOpacity(0.3),
@@ -98,7 +102,8 @@ List<Option<ZeroNavigationBarIndicatorType>> _indicatorOptions = [
   const Option(label: 'Circle', value: ZeroNavigationBarIndicatorType.circle),
 ];
 
-List<Option<Color>> _defaultColorOptions = [
+List<Option<Color?>> _defaultColorOptions = [
+  const Option(label: 'None', value: null),
   const Option(label: 'Black', value: Colors.black),
   ...colorOptions,
 ];
