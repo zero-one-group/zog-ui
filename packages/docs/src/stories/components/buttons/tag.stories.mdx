@@ -3,10 +3,10 @@ import { BADGE } from '@geometricpanda/storybook-addon-badges';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { Button } from '@zog-ui/core';
-import { TwitterOutlined } from '@ant-design/icons';
+import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 
 <Meta
-  title="Components/Buttons/Button"
+  title="Components/Buttons/Tag"
   argTypes={{
     variant: {
       options: ['dashed', 'default', 'outlined', 'circle', 'square'],
@@ -16,17 +16,21 @@ import { TwitterOutlined } from '@ant-design/icons';
       options: ['sm', 'md', 'lg'],
       control: { type: 'radio' },
     },
+    intent: {
+      options: ['default', 'primary', 'secondary', 'danger'],
+      control: { type: 'radio' },
+    },
     disabled: { control: 'boolean' },
     ghost: { control: 'boolean' },
   }}
   component={[Button]}
 />
 
-export const ButtonStory = (args) => <Button {...args}>{args.children}</Button>;
+export const TagStory = (args) => <Button {...args}>{args.children}</Button>;
 
 # Button
 
-Buttons are elements requesting user action. They look simple but have numerous important details like primary, secondary, focused, disabled, accessible, form integration, and more.
+Tag are elements requesting user action. They look simple but have numerous important details like primary, secondary, focused, disabled, accessible, form integration, and more.
 
 ## Example Usage
 
@@ -39,12 +43,19 @@ import { Button } from '@zog-ui/core';
     args={{
       intent: 'default',
       variant: 'default',
-      size: 'sm',
+      size: 'md',
       children: 'Simple Button',
+      css: {
+        color: '$gray12',
+        backgroundColor: '$gray1',
+        borderColor: '$gray4',
+      },
+      prefix: <CheckCircleOutlined />,
+      suffix: <CloseCircleOutlined />,
     }}
-    name="Button"
+    name="Tag"
   >
-    {ButtonStory.bind()}
+    {TagStory.bind()}
   </Story>
 </Canvas>
 
