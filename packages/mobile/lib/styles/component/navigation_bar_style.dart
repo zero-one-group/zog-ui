@@ -20,6 +20,12 @@ class ZeroNavigationBarStyle with Diagnosticable {
   /// Label color when state is selected/active
   final Color? selectedColor;
 
+  /// Icon color when state is unselected/inactive
+  final Color? unselectedIconColor;
+
+  /// Icon color when state is selected/active
+  final Color? selectedIconColor;
+
   /// Type indicator on active
   final ZeroNavigationBarIndicatorType? indicatorType;
 
@@ -29,6 +35,8 @@ class ZeroNavigationBarStyle with Diagnosticable {
     this.indicatorColor,
     this.unselectedColor,
     this.selectedColor,
+    this.unselectedIconColor,
+    this.selectedIconColor,
     this.indicatorType,
   });
 
@@ -38,11 +46,15 @@ class ZeroNavigationBarStyle with Diagnosticable {
     Color? indicatorColor,
     Color? unselectedColor,
     Color? selectedColor,
+    Color? unselectedIconColor,
+    Color? selectedIconColor,
   }) =>
       ZeroNavigationBarStyle(
         backgroundColor: backgroundColor ?? Colors.white,
         unselectedColor: unselectedColor ?? Colors.black,
         selectedColor: selectedColor ?? Colors.black,
+        unselectedIconColor: unselectedIconColor ?? unselectedColor ?? Colors.black,
+        selectedIconColor: selectedIconColor ?? selectedColor ?? Colors.black,
         indicatorColor:
             indicatorColor ?? ZeroColors.primary.toAccentColor().lighter,
         indicatorType: ZeroNavigationBarIndicatorType.oval,
@@ -58,6 +70,8 @@ class ZeroNavigationBarStyle with Diagnosticable {
     Color? indicatorColor,
     Color? unselectedColor,
     Color? selectedColor,
+    Color? unselectedIconColor,
+    Color? selectedIconColor,
     double? height,
     ZeroNavigationBarIndicatorType? indicatorType,
   }) {
@@ -66,6 +80,8 @@ class ZeroNavigationBarStyle with Diagnosticable {
       indicatorColor: indicatorColor ?? this.indicatorColor,
       unselectedColor: unselectedColor ?? this.unselectedColor,
       selectedColor: selectedColor ?? this.selectedColor,
+      unselectedIconColor: unselectedIconColor ?? this.unselectedIconColor,
+      selectedIconColor: selectedIconColor ?? this.selectedIconColor,
       height: height ?? this.height,
       indicatorType: indicatorType ?? this.indicatorType,
     );
@@ -79,6 +95,8 @@ class ZeroNavigationBarStyle with Diagnosticable {
       indicatorColor: other.indicatorColor,
       unselectedColor: other.unselectedColor,
       selectedColor: other.selectedColor,
+      unselectedIconColor: other.unselectedIconColor,
+      selectedIconColor: other.selectedIconColor,
       height: other.height,
       indicatorType: other.indicatorType,
     );
@@ -91,6 +109,10 @@ class ZeroNavigationBarStyle with Diagnosticable {
       indicatorColor: Color.lerp(a?.indicatorColor, b?.indicatorColor, t),
       unselectedColor: Color.lerp(a?.unselectedColor, b?.unselectedColor, t),
       selectedColor: Color.lerp(a?.selectedColor, b?.selectedColor, t),
+      unselectedIconColor:
+          Color.lerp(a?.unselectedIconColor, b?.unselectedIconColor, t),
+      selectedIconColor:
+          Color.lerp(a?.selectedIconColor, b?.selectedIconColor, t),
       height: t < 0.5 ? a?.height : b?.height,
       indicatorType: t < 0.5 ? a?.indicatorType : b?.indicatorType,
     );
@@ -111,6 +133,8 @@ class ZeroNavigationBarStyle with Diagnosticable {
       ..add(ColorProperty('backgroundColor', backgroundColor))
       ..add(ColorProperty('indicatorColor', indicatorColor))
       ..add(ColorProperty('unselectedColor', unselectedColor))
+      ..add(ColorProperty('selectedIconColor', selectedIconColor))
+      ..add(ColorProperty('unselectedIconColor', unselectedIconColor))
       ..add(ColorProperty('selectedColor', selectedColor))
       ..add(DoubleProperty('height', height));
   }
