@@ -134,7 +134,8 @@ class ZeroAppBar extends StatelessWidget implements PreferredSizeWidget {
                               children: [
                                 // Build leading
                                 _Leading(
-                                  auto: automaticallyImplyLeading,
+                                  automaticallyImplyLeading:
+                                      automaticallyImplyLeading,
                                   leading: leading,
                                 ),
                                 // Build title small size
@@ -216,19 +217,22 @@ class _Title extends StatelessWidget {
 /// A widget for building leading of [ZeroAppBar]
 class _Leading extends StatelessWidget {
   const _Leading({
-    required this.auto,
+    required this.automaticallyImplyLeading,
     required this.leading,
   });
 
   /// Set automatically leading or not
-  final bool auto;
+  final bool automaticallyImplyLeading;
 
-  /// Customize leading, if null and [auto] is true leading will auto set
+  /// Customize leading, if null and [automaticallyImplyLeading] is true leading will auto set
   final Widget? leading;
 
   @override
   Widget build(BuildContext context) {
-    if (leading != null) return leading ?? const SizedBox();
+    if (automaticallyImplyLeading == false || leading != null) {
+      return leading ?? const SizedBox.shrink();
+    }
+
     final scaffold = Scaffold.maybeOf(context);
     final parentRoute = ModalRoute.of(context);
     final hasDrawer = scaffold?.hasDrawer ?? false;
@@ -258,6 +262,6 @@ class _Leading extends StatelessWidget {
       );
     }
 
-    return const SizedBox();
+    return const SizedBox.shrink();
   }
 }
