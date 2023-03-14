@@ -80,8 +80,8 @@ class ZeroNavigationBarStyle with Diagnosticable {
       indicatorColor: indicatorColor ?? this.indicatorColor,
       unselectedColor: unselectedColor ?? this.unselectedColor,
       selectedColor: selectedColor ?? this.selectedColor,
-      unselectedIconColor: unselectedIconColor ?? this.unselectedIconColor,
-      selectedIconColor: selectedIconColor ?? this.selectedIconColor,
+      unselectedIconColor: unselectedIconColor ?? unselectedColor ?? this.unselectedIconColor,
+      selectedIconColor: selectedIconColor ?? selectedColor ?? this.selectedIconColor,
       height: height ?? this.height,
       indicatorType: indicatorType ?? this.indicatorType,
     );
