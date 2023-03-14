@@ -1,3 +1,12 @@
+## 0.0.1-alpha.6
+
+* feat: added IconColor property on ZeroNavigationBar
+* fix: set default iconColor with color on copyWith method
+* fix: set automaticallyImplyLeading on leading
+* fix: spacing of title
+* feat: add new example for ZeroAppBar with centered title only
+
+
 ## 0.0.1-alpha.5
 
 * refactor: TextfieldStyleSet, make all style params optional, 
