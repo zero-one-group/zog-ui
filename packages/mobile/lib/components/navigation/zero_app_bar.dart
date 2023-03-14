@@ -97,6 +97,8 @@ class ZeroAppBar extends StatelessWidget implements PreferredSizeWidget {
       statusBarBrightness: adaptiveStyle.statusBarBrightness,
     );
 
+    final _isNoLeading = !automaticallyImplyLeading && leading == null;
+
     return Semantics(
       container: true,
       child: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -134,9 +136,19 @@ class ZeroAppBar extends StatelessWidget implements PreferredSizeWidget {
                               children: [
                                 // Build leading
                                 _Leading(
-                                  auto: automaticallyImplyLeading,
+                                  automaticallyImplyLeading:
+                                      automaticallyImplyLeading,
                                   leading: leading,
                                 ),
+
+                                // Build spacing based on conditions
+                                if (_isNoLeading)
+                                  const SizedBox(width: 16)
+                                else if (adaptiveStyle.centerTitle == true)
+                                  const SizedBox.shrink()
+                                else
+                                  const SizedBox(width: 32),
+
                                 // Build title small size
                                 Expanded(
                                   child: size == ZeroAppBarSize.small
@@ -146,8 +158,18 @@ class ZeroAppBar extends StatelessWidget implements PreferredSizeWidget {
                                         )
                                       : const SizedBox.shrink(),
                                 ),
+
                                 // Build actions
-                                Row(children: actions ?? [])
+                                Row(
+                                  children: actions ??
+                                      (adaptiveStyle.centerTitle == true
+                                          ? [
+                                              SizedBox.square(
+                                                  dimension:
+                                                      _isNoLeading ? 16 : 48)
+                                            ]
+                                          : []),
+                                )
                               ],
                             ),
                           ),
@@ -158,7 +180,9 @@ class ZeroAppBar extends StatelessWidget implements PreferredSizeWidget {
                           const Spacer(),
                           Padding(
                             padding: EdgeInsets.only(
-                                bottom: size == ZeroAppBarSize.large ? 20 : 16),
+                              bottom: size == ZeroAppBarSize.large ? 20 : 16,
+                              left: 16,
+                            ),
                             child: _Title(style: adaptiveStyle, title: title),
                           ),
                         ],
@@ -202,10 +226,7 @@ class _Title extends StatelessWidget {
       style: titleStyle,
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 16),
-        child: title ?? const SizedBox(),
-      ),
+      child: title ?? const SizedBox.shrink(),
     );
 
     /// If centerTitle, title will be wrap with [Center] widget
@@ -216,19 +237,22 @@ class _Title extends StatelessWidget {
 /// A widget for building leading of [ZeroAppBar]
 class _Leading extends StatelessWidget {
   const _Leading({
-    required this.auto,
+    required this.automaticallyImplyLeading,
     required this.leading,
   });
 
   /// Set automatically leading or not
-  final bool auto;
+  final bool automaticallyImplyLeading;
 
-  /// Customize leading, if null and [auto] is true leading will auto set
+  /// Customize leading, if null and [automaticallyImplyLeading] is true leading will auto set
   final Widget? leading;
 
   @override
   Widget build(BuildContext context) {
-    if (leading != null) return leading ?? const SizedBox();
+    if (automaticallyImplyLeading == false || leading != null) {
+      return leading ?? const SizedBox.shrink();
+    }
+
     final scaffold = Scaffold.maybeOf(context);
     final parentRoute = ModalRoute.of(context);
     final hasDrawer = scaffold?.hasDrawer ?? false;
@@ -253,11 +277,11 @@ class _Leading extends StatelessWidget {
         onPressed: () {
           Navigator.of(context).pop();
         },
-        tooltip: localization.backButtonTooltip,
         icon: const Icon(ZeroIcons.arrowLeft),
+        tooltip: localization.backButtonTooltip,
       );
     }
 
-    return const SizedBox();
+    return const SizedBox.shrink();
   }
 }

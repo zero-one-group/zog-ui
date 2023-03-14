@@ -54,6 +54,13 @@ class ZeroAppBarExample extends StatelessWidget {
                   .push(MaterialPageRoute(builder: (_) => const _AppBar6()));
             },
           ),
+          ZeroListTile(
+            title: 'Centered Title only',
+            onTap: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => const _AppBar7()));
+            },
+          ),
         ],
       ),
     );
@@ -121,6 +128,12 @@ class _AppBar3 extends StatelessWidget {
             icon: const Icon(ZeroIcons.euro),
           )
         ],
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: Navigator.of(context).pop,
+          child: const Text('Back'),
+        ),
       ),
     );
   }
@@ -205,6 +218,27 @@ class _AppBar6 extends StatelessWidget {
             icon: const Icon(ZeroIcons.euro),
           )
         ],
+      ),
+    );
+  }
+}
+
+class _AppBar7 extends StatelessWidget {
+  const _AppBar7();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: ZeroAppBar(
+        style: const ZeroAppBarStyle(centerTitle: true),
+        automaticallyImplyLeading: false,
+        title: const Text('Example 7'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: Navigator.of(context).pop,
+          child: const Text('Back'),
+        ),
       ),
     );
   }
