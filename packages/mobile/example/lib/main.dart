@@ -118,6 +118,11 @@ class _MyAppState extends State<MyApp> {
                   ],
                 ),
               ),
+              const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: const ZeroDivider.horizontal(
+                    style: ZeroDividerStyle(size: 2),
+                  )),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Row(
@@ -126,31 +131,55 @@ class _MyAppState extends State<MyApp> {
                     Flexible(
                       flex: 1,
                       fit: FlexFit.tight,
-                      child: ZeroDropdownButtonFormField<ShadedColor>(
-                        hint: Row(
-                          children: [
-                            const Text('Primary Color'),
-                            const SizedBox(width: 10),
-                            Container(
-                              width: 20,
-                              height: 20,
-                              color: _selectedColor,
-                            )
-                          ],
-                        ),
-                        items: _colors
-                            .map((e) => ZeroDropdownMenuItem<ShadedColor>(
-                                  value: e,
-                                  child: Container(color: e, height: 50),
-                                ))
-                            .toList(),
-                        onChanged: (value) {
-                          if (value == null) return;
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('Primary Color'),
+                          const SizedBox(
+                            height: 4,
+                          ),
+                          ZeroDropdownButtonFormField<ShadedColor>(
+                            hint: Row(
+                              children: [
+                                const Text('Primary Color'),
+                                const SizedBox(width: 10),
+                                Container(
+                                  width: 20,
+                                  height: 20,
+                                  color: _selectedColor,
+                                )
+                              ],
+                            ),
+                            value: _selectedColor,
+                            items: _colors
+                                .map((e) => ZeroDropdownMenuItem<ShadedColor>(
+                                      value: e,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16.0),
+                                        child: Row(
+                                          children: [
+                                            Text(e.toHex()),
+                                            const SizedBox(width: 10),
+                                            Container(
+                                              width: 20,
+                                              height: 20,
+                                              color: e,
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ))
+                                .toList(),
+                            onChanged: (value) {
+                              if (value == null) return;
 
-                          setState(() {
-                            _selectedColor = value;
-                          });
-                        },
+                              setState(() {
+                                _selectedColor = value;
+                              });
+                            },
+                          ),
+                        ],
                       ),
                     ),
                     const SizedBox(
@@ -159,27 +188,36 @@ class _MyAppState extends State<MyApp> {
                     Flexible(
                       flex: 1,
                       fit: FlexFit.tight,
-                      child: ZeroDropdownButtonFormField<InputDecorationType>(
-                        hint: const Text('Default Input Decoration'),
-                        items: InputDecorationType.values
-                            .map((e) =>
-                                ZeroDropdownMenuItem<InputDecorationType>(
-                                  value: e,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 16.0),
-                                    child: Text(e.name),
-                                  ),
-                                ))
-                            .toList(),
-                        value: _defaultDecorationType,
-                        onChanged: (value) {
-                          if (value == null) return;
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('Default Input Decoration'),
+                          const SizedBox(
+                            height: 4,
+                          ),
+                          ZeroDropdownButtonFormField<InputDecorationType>(
+                            hint: const Text('Default Input Decoration'),
+                            items: InputDecorationType.values
+                                .map((e) =>
+                                    ZeroDropdownMenuItem<InputDecorationType>(
+                                      value: e,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16.0),
+                                        child: Text(e.name),
+                                      ),
+                                    ))
+                                .toList(),
+                            value: _defaultDecorationType,
+                            onChanged: (value) {
+                              if (value == null) return;
 
-                          setState(() {
-                            _defaultDecorationType = value;
-                          });
-                        },
+                              setState(() {
+                                _defaultDecorationType = value;
+                              });
+                            },
+                          ),
+                        ],
                       ),
                     )
                   ],
