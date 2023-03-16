@@ -10,4 +10,7 @@ enum InputDecorationType {
 
   /// With fill color
   fill;
+
+  @override
+  String toString() => name;
 }

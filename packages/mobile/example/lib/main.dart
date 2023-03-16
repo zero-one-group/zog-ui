@@ -84,31 +84,43 @@ class _MyAppState extends State<MyApp> {
         body: SafeArea(
           child: Column(
             children: [
-              Row(
-                children: [
-                  const Text('Custom Font'),
-                  ZeroCheckbox(
-                    value: _customFont,
-                    onChanged: (value) {
-                      setState(() {
-                        _customFont = value ?? false;
-                      });
-                    },
-                  ),
-                  const Text('Dark'),
-                  ZeroCheckbox(
-                    value: _dark,
-                    onChanged: (value) {
-                      setState(() {
-                        _dark = value ?? false;
-                      });
-                    },
-                  )
-                ],
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    const Text('Custom Font'),
+                    Flexible(
+                      flex: 1,
+                      child: ZeroCheckbox(
+                        value: _customFont,
+                        onChanged: (value) {
+                          setState(() {
+                            _customFont = value ?? false;
+                          });
+                        },
+                      ),
+                    ),
+                    const Text('Dark'),
+                    Flexible(
+                      flex: 1,
+                      child: ZeroCheckbox(
+                        value: _dark,
+                        onChanged: (value) {
+                          setState(() {
+                            _dark = value ?? false;
+                          });
+                        },
+                      ),
+                    )
+                  ],
+                ),
               ),
               Row(
+                mainAxisSize: MainAxisSize.max,
                 children: [
                   Flexible(
+                    flex: 1,
                     child: ZeroDropdownButton<ShadedColor>(
                         hint: Row(
                           children: [
@@ -138,6 +150,7 @@ class _MyAppState extends State<MyApp> {
                         }),
                   ),
                   Flexible(
+                    flex: 1,
                     child: ZeroDropdown<InputDecorationType>(
                       hintText: 'Default Input Decoration',
                       items: InputDecorationType.values,

@@ -236,7 +236,7 @@ class ZeroTextfieldStyle {
     }
   }
 
-  bool get filled => inputDecorationType != InputDecorationType.underline;
+  bool get filled => inputDecorationType == InputDecorationType.fill;
 
   Color get borderColor => focusedBorderColor;
 
