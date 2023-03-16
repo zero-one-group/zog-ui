@@ -134,7 +134,9 @@ class ZeroTextfieldStyleSet {
       outline: ZeroTextfieldStyle.outline(
           focusedBorderColor: focusedBorderColor, focusedColor: focusedColor),
       filled: ZeroTextfieldStyle.fill(
-          focusedBorderColor: focusedBorderColor, focusedColor: focusedColor),
+          focusedBorderColor: focusedBorderColor,
+          focusedColor: focusedColor,
+          fillColor: focusedColor.lighten(0.24)),
       underline: ZeroTextfieldStyle.underline(
           focusedBorderColor: focusedBorderColor, focusedColor: focusedColor),
       rounded: ZeroTextfieldStyle.rounded(
@@ -204,7 +206,7 @@ class ZeroTextfieldStyle {
           inputDecorationType: InputDecorationType.fill,
           textfieldSize: textfieldSize ?? ZeroTextfieldSize.small,
           focusedBorderColor: focusedBorderColor ?? ZeroColors.primary,
-          fillColor: fillColor ?? ZeroColors.primary.lighten(0.12),
+          fillColor: fillColor ?? ZeroColors.primary.lighten(0.24),
           focusedColor: focusedBorderColor ?? ZeroColors.primary);
 
   factory ZeroTextfieldStyle.underline(

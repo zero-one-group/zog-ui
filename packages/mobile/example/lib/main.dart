@@ -160,9 +160,19 @@ class _MyAppState extends State<MyApp> {
                     Flexible(
                       flex: 1,
                       fit: FlexFit.tight,
-                      child: ZeroDropdown<InputDecorationType>(
-                        hintText: 'Default Input Decoration',
-                        items: InputDecorationType.values,
+                      child: ZeroDropdownButtonFormField<InputDecorationType>(
+                        hint: const Text('Default Input Decoration'),
+                        items: InputDecorationType.values
+                            .map((e) =>
+                                ZeroDropdownMenuItem<InputDecorationType>(
+                                  value: e,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 16.0),
+                                    child: Text(e.name),
+                                  ),
+                                ))
+                            .toList(),
                         value: _defaultDecorationType,
                         onChanged: (value) {
                           if (value == null) return;
@@ -181,6 +191,7 @@ class _MyAppState extends State<MyApp> {
                 child: ZeroTextField(
                   hintText: 'Search Component',
                   controller: _searchController,
+                  decoration: const InputDecoration(filled: true),
                   onChanged: (v) {
                     _search(v);
                   },
