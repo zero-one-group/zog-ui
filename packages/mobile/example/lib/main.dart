@@ -91,6 +91,7 @@ class _MyAppState extends State<MyApp> {
                   children: [
                     const Text('Custom Font'),
                     Flexible(
+                      fit: FlexFit.tight,
                       flex: 1,
                       child: ZeroCheckbox(
                         value: _customFont,
@@ -104,6 +105,7 @@ class _MyAppState extends State<MyApp> {
                     const Text('Dark'),
                     Flexible(
                       flex: 1,
+                      fit: FlexFit.tight,
                       child: ZeroCheckbox(
                         value: _dark,
                         onChanged: (value) {
@@ -116,55 +118,63 @@ class _MyAppState extends State<MyApp> {
                   ],
                 ),
               ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Flexible(
-                    flex: 1,
-                    child: ZeroDropdownButton<ShadedColor>(
-                        hint: Row(
-                          children: [
-                            const Text('Primary Color'),
-                            const SizedBox(width: 10),
-                            Container(
-                              width: 20,
-                              height: 20,
-                              color: _selectedColor,
-                            )
-                          ],
-                        ),
-                        items: _colors
-                            .map(
-                              (e) => ZeroDropdownMenuItem(
-                                value: e,
-                                child: Container(color: e, height: 50),
-                              ),
-                            )
-                            .toList(),
-                        onChanged: (v) {
-                          if (v != null) {
-                            setState(() {
-                              _selectedColor = v;
-                            });
-                          }
-                        }),
-                  ),
-                  Flexible(
-                    flex: 1,
-                    child: ZeroDropdown<InputDecorationType>(
-                      hintText: 'Default Input Decoration',
-                      items: InputDecorationType.values,
-                      value: _defaultDecorationType,
-                      onChanged: (value) {
-                        if (value == null) return;
-
-                        setState(() {
-                          _defaultDecorationType = value;
-                        });
-                      },
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Flexible(
+                      flex: 1,
+                      fit: FlexFit.tight,
+                      child: ZeroDropdownButtonFormField<ShadedColor>(
+                          hint: Row(
+                            children: [
+                              const Text('Primary Color'),
+                              const SizedBox(width: 10),
+                              Container(
+                                width: 20,
+                                height: 20,
+                                color: _selectedColor,
+                              )
+                            ],
+                          ),
+                          items: _colors
+                              .map(
+                                (e) => ZeroDropdownMenuItem(
+                                  value: e,
+                                  child: Container(color: e, height: 50),
+                                ),
+                              )
+                              .toList(),
+                          onChanged: (v) {
+                            if (v != null) {
+                              setState(() {
+                                _selectedColor = v;
+                              });
+                            }
+                          }),
                     ),
-                  )
-                ],
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Flexible(
+                      flex: 1,
+                      fit: FlexFit.tight,
+                      child: ZeroDropdown<InputDecorationType>(
+                        hintText: 'Default Input Decoration',
+                        items: InputDecorationType.values,
+                        value: _defaultDecorationType,
+                        onChanged: (value) {
+                          if (value == null) return;
+
+                          setState(() {
+                            _defaultDecorationType = value;
+                          });
+                        },
+                      ),
+                    )
+                  ],
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(16),
