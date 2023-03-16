@@ -123,41 +123,6 @@ class _MyAppState extends State<MyApp> {
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    // Flexible(
-                    //   flex: 1,
-                    //   fit: FlexFit.tight,
-                    //   child: ZeroDropdownButtonFormField<ShadedColor>(
-                    //       hint: Row(
-                    //         children: [
-                    //           const Text('Primary Color'),
-                    //           const SizedBox(width: 10),
-                    //           Container(
-                    //             width: 20,
-                    //             height: 20,
-                    //             color: _selectedColor,
-                    //           )
-                    //         ],
-                    //       ),
-                    //       value: _selectedColor,
-                    //       items: _colors
-                    //           .map(
-                    //             (e) => ZeroDropdownMenuItem(
-                    //               value: e,
-                    //               child: Container(color: e, height: 50),
-                    //             ),
-                    //           )
-                    //           .toList(),
-                    //       onChanged: (v) {
-                    //         if (v != null) {
-                    //           setState(() {
-                    //             _selectedColor = v;
-                    //           });
-                    //         }
-                    //       }),
-                    // ),
-                    // const SizedBox(
-                    //   width: 8,
-                    // ),
                     Flexible(
                       flex: 1,
                       fit: FlexFit.tight,

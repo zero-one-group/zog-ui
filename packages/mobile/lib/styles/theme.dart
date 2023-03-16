@@ -256,6 +256,7 @@ class ZeroThemeData with Diagnosticable {
     ZeroSnackbarStyleSet? snackBarStyle,
     ZeroTimePickerStyle? timePickerStyle,
     ZeroBottomSheetStyle? bottomSheetStyle,
+    ZeroDatePickerStyle? datePickerStyle,
   }) {
     // TODO: Finalize the default style of theme
     brightness ??= Brightness.light;
