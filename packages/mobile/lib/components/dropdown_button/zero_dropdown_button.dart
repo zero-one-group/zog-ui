@@ -2,7 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:zog_ui/zog_ui.dart';
 
-const kMarginBetweenChips = EdgeInsets.only(right: 4.0);
+const _kMarginBetweenChips = EdgeInsets.only(right: 4.0);
 
 enum MultipleItemsVariant {
   /// Just text with no checkbox
@@ -347,7 +347,7 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
         return Row(
             children: _selectedItems
                 .map((value) => Container(
-                      margin: kMarginBetweenChips,
+                      margin: _kMarginBetweenChips,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
@@ -364,7 +364,7 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
         return Row(
             children: _selectedItems
                 .map((value) => Container(
-                      margin: kMarginBetweenChips,
+                      margin: _kMarginBetweenChips,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
