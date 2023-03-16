@@ -120,7 +120,7 @@ class _MyAppState extends State<MyApp> {
               ),
               const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: const ZeroDivider.horizontal(
+                  child: ZeroDivider.horizontal(
                     style: ZeroDividerStyle(size: 2),
                   )),
               Padding(
