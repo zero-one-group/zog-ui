@@ -38,7 +38,8 @@ enum DropdownVariant {
   icon
 }
 
-/// [ZeroDropdown] is built on top of [DropdownButtonFormField2] and [ZeroTextField]
+/// [ZeroDropdown] is built on top of [ZeroDropdownButton] and [ZeroTextField] to simplify
+/// the implementation of the widget
 /// This uses decoration taken from [InputDecorationType].
 class ZeroDropdown<T> extends StatefulWidget {
   final String? labelText;
