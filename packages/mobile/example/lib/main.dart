@@ -143,7 +143,6 @@ class _MyAppState extends State<MyApp> {
                       items: InputDecorationType.values,
                       value: _defaultDecorationType,
                       onChanged: (value) {
-                        debugPrint('onChanged $value');
                         if (value == null) return;
 
                         setState(() {
