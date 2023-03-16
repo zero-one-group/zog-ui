@@ -96,8 +96,6 @@ class ZeroThemeData with Diagnosticable {
   final ZeroChipOutlinedStyle chipOutlinedStyle;
   final ZeroNavigationBarStyle navigationBarStyle;
   final ZeroTextfieldStyleSet textfieldStyleSet;
-  final ZeroTextfieldSize textfieldSize;
-  final InputDecorationType inputDecorationType;
   final ZeroNavigationDrawerStyle navigationDrawerStyle;
   final ZeroAppBarStyle appBarStyle;
   final ZeroCardStyle cardStyle;
@@ -170,8 +168,6 @@ class ZeroThemeData with Diagnosticable {
     required this.chipOutlinedStyle,
     required this.navigationBarStyle,
     required this.textfieldStyleSet,
-    required this.inputDecorationType,
-    required this.textfieldSize,
     required this.navigationDrawerStyle,
     required this.appBarStyle,
     required this.cardStyle,
@@ -235,8 +231,6 @@ class ZeroThemeData with Diagnosticable {
     ZeroChipOutlinedStyle? chipOutlinedStyle,
     ZeroNavigationBarStyle? navigationBarStyle,
     ZeroTextfieldStyleSet? textfieldStyleSet,
-    InputDecorationType? inputDecorationType,
-    ZeroTextfieldSize? textfieldSize,
     ZeroNavigationDrawerStyle? navigationDrawerStyle,
     ZeroAppBarStyle? appBarStyle,
     ZeroCardStyle? cardStyle,
@@ -330,29 +324,28 @@ class ZeroThemeData with Diagnosticable {
         collapsedTextColor:
             typography.subtitle1?.color ?? ZeroColors.neutral[10]);
 
-    textfieldSize ??= ZeroTextfieldSize.small;
-    inputDecorationType ??= InputDecorationType.underline;
-
-    textfieldStyleSet ??= ZeroTextfieldStyleSet(
-      outline: ZeroTextfieldStyle.outline(
-          textfieldSize: textfieldSize,
-          focusedBorderColor: primaryColor,
-          focusedColor: primaryColor),
-      rounded: ZeroTextfieldStyle.rounded(
-          textfieldSize: textfieldSize,
-          focusedBorderColor: primaryColor,
-          focusedColor: primaryColor),
-      filled: ZeroTextfieldStyle.fill(
-          textfieldSize: textfieldSize,
-          focusedBorderColor: primaryColor,
-          focusedColor: primaryColor,
-          fillColor: primaryColor.lightest),
-      underline: ZeroTextfieldStyle.underline(
-          textfieldSize: textfieldSize,
-          focusedBorderColor: primaryColor,
-          focusedColor: primaryColor),
-      inputDecorationType: inputDecorationType,
-    );
+    final textfieldStyleSetFallBack = ZeroTextfieldStyleSet.fallback(
+        defaultDecorationType: InputDecorationType.outline,
+        outline: ZeroTextfieldStyle.outline(
+            textfieldSize: ZeroTextfieldSize.small,
+            focusedBorderColor: primaryColor,
+            focusedColor: primaryColor),
+        rounded: ZeroTextfieldStyle.rounded(
+            textfieldSize: ZeroTextfieldSize.small,
+            focusedBorderColor: primaryColor,
+            focusedColor: primaryColor),
+        filled: ZeroTextfieldStyle.fill(
+            textfieldSize: ZeroTextfieldSize.small,
+            focusedBorderColor: primaryColor,
+            focusedColor: primaryColor,
+            fillColor: primaryColor.lightest),
+        underline: ZeroTextfieldStyle.underline(
+            textfieldSize: ZeroTextfieldSize.small,
+            focusedBorderColor: primaryColor,
+            focusedColor: primaryColor),
+        focusedBorderColor: primaryColor,
+        focusedColor: primaryColor,
+        textfieldSize: ZeroTextfieldSize.small);
 
     skeletonStyle ??= const ZeroSkeletonStyleSet(
       avatar: SkeletonAvatarStyle(),
@@ -635,9 +628,7 @@ class ZeroThemeData with Diagnosticable {
       chipFilledStyle: chipFilledStyleFallback.merge(chipFilledStyle),
       chipOutlinedStyle: chipOutlinedStyleFallback.merge(chipOutlinedStyle),
       navigationBarStyle: navigationBarStyleFallback.merge(navigationBarStyle),
-      textfieldStyleSet: textfieldStyleSet,
-      inputDecorationType: inputDecorationType,
-      textfieldSize: textfieldSize,
+      textfieldStyleSet: textfieldStyleSetFallBack.merge(textfieldStyleSet),
       navigationDrawerStyle:
           navigationDrawerStyleFallback.merge(navigationDrawerStyle),
       appBarStyle: appBarStyleFallback.merge(appBarStyle),
@@ -721,9 +712,6 @@ class ZeroThemeData with Diagnosticable {
       switchStyle: ZeroSwitchStyleSet.lerp(a.switchStyle, b.switchStyle, t),
       tabBarStyle: ZeroTabBarStyle.lerp(a.tabBarStyle, b.tabBarStyle, t),
       menuStyle: ZeroMenuStyle.lerp(a.menuStyle, b.menuStyle, t)!,
-      inputDecorationType:
-          t < 0.5 ? a.inputDecorationType : b.inputDecorationType,
-      textfieldSize: t < 0.5 ? a.textfieldSize : b.textfieldSize,
       speedDialStyle:
           ZeroSpeedDialStyle.lerp(a.speedDialStyle, b.speedDialStyle, t),
       textfieldStyleSet: ZeroTextfieldStyleSet.lerp(
@@ -791,8 +779,6 @@ class ZeroThemeData with Diagnosticable {
     ZeroChipOutlinedStyle? chipOutlinedStyle,
     ZeroNavigationBarStyle? navigationBarStyle,
     ZeroTextfieldStyleSet? textfieldStyleSet,
-    InputDecorationType? inputDecorationType,
-    ZeroTextfieldSize? textfieldSize,
     ZeroNavigationDrawerStyle? navigationDrawerStyle,
     ZeroAppBarStyle? appBarStyle,
     ZeroCardStyle? cardStyle,
@@ -853,29 +839,7 @@ class ZeroThemeData with Diagnosticable {
       chipOutlinedStyle: chipOutlinedStyle ?? this.chipOutlinedStyle,
       navigationBarStyle: navigationBarStyle ?? this.navigationBarStyle,
       menuStyle: menuStyle ?? this.menuStyle,
-      inputDecorationType: inputDecorationType ?? this.inputDecorationType,
-      textfieldStyleSet: this.textfieldStyleSet.copyWith(
-          inputDecorationType: inputDecorationType,
-          outline: this
-              .textfieldStyleSet
-              .outline
-              .copyWith(textfieldSize: textfieldSize),
-          rounded: this.textfieldStyleSet.rounded.copyWith(
-                textfieldSize: textfieldSize,
-              ),
-          filled: this.textfieldStyleSet.filled.copyWith(
-              textfieldSize: textfieldSize,
-              enabled: this.textfieldStyleSet.mainStyle.enabled,
-              error: this.textfieldStyleSet.mainStyle.error,
-              fillColor: this.textfieldStyleSet.mainStyle.fillColor,
-              focusedBorderColor:
-                  this.textfieldStyleSet.mainStyle.focusedBorderColor,
-              focusedColor:
-                  this.textfieldStyleSet.mainStyle.focusedBorderColor),
-          underline: this.textfieldStyleSet.underline.copyWith(
-                textfieldSize: textfieldSize,
-              )),
-      textfieldSize: textfieldSize ?? this.textfieldSize,
+      textfieldStyleSet: textfieldStyleSet ?? this.textfieldStyleSet,
       useMaterial3: useMaterial3 ?? this.useMaterial3,
       navigationDrawerStyle:
           navigationDrawerStyle ?? this.navigationDrawerStyle,
@@ -981,10 +945,6 @@ class ZeroThemeData with Diagnosticable {
           'navigationBarStyle', navigationBarStyle))
       ..add(DiagnosticsProperty<ZeroTextfieldStyleSet>(
           'textfieldStyleSet', textfieldStyleSet))
-      ..add(DiagnosticsProperty<ZeroTextfieldSize>(
-          'textfieldSize', textfieldSize))
-      ..add(DiagnosticsProperty<InputDecorationType>(
-          'inputDecorationType', inputDecorationType))
       ..add(DiagnosticsProperty<ZeroNavigationDrawerStyle>(
           'navigationDrawerStyle', navigationDrawerStyle))
       ..add(DiagnosticsProperty<ZeroAppBarStyle>('appBarStyle', appBarStyle))

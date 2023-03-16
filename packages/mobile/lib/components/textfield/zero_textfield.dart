@@ -750,8 +750,8 @@ class _ZeroTextFieldState extends State<ZeroTextField> {
     return Theme(
       data: context.theme
           .copyWith(
-            inputDecorationType: widget.inputDecorationType,
-            textfieldSize: widget.textfieldSize,
+            textfieldStyleSet: context.theme.textfieldStyleSet
+                .copyWith(textfieldSize: widget.textfieldSize),
           )
           .toThemeData(),
       child: TextFormField(

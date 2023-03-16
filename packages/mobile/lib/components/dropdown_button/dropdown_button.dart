@@ -1711,7 +1711,7 @@ class ZeroDropdownButtonFormField<T> extends FormField<T> {
         );
 
   /// {@macro flutter.material.dropdownButton.onChanged}
-  final ValueChanged<T?>? onChanged;
+  final ValueChanged<T?> onChanged;
 
   /// The decoration to show around the dropdown button form field.
   ///

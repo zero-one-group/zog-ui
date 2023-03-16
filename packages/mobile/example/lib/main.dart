@@ -51,6 +51,7 @@ class _MyAppState extends State<MyApp> {
   final _searchController = TextEditingController();
   final _initialData = examplesData.entries;
   final List<MapEntry<String, Widget>> _searchData = [];
+  InputDecorationType _defaultDecorationType = InputDecorationType.outline;
 
   final _colors = [
     ZeroColors.lime,
@@ -70,18 +71,44 @@ class _MyAppState extends State<MyApp> {
     return ZeroApp(
       title: 'Flutter Demo',
       theme: ZeroThemeData(
-        fontFamily: _customFont ? GoogleFonts.dancingScript().fontFamily : null,
-        brightness: _dark ? Brightness.dark : Brightness.light,
-        primaryColor: _selectedColor.toAccentColor(),
-        inputDecorationType: InputDecorationType.outline,
-      ),
+          fontFamily:
+              _customFont ? GoogleFonts.dancingScript().fontFamily : null,
+          brightness: _dark ? Brightness.dark : Brightness.light,
+          primaryColor: _selectedColor.toAccentColor(),
+          textfieldStyleSet: ZeroTextfieldStyleSet.fallback(
+              textfieldSize: ZeroTextfieldSize.small,
+              defaultDecorationType: _defaultDecorationType,
+              focusedBorderColor: _selectedColor,
+              focusedColor: _selectedColor)),
       home: Scaffold(
         body: SafeArea(
           child: Column(
             children: [
               Row(
                 children: [
-                  Expanded(
+                  const Text('Custom Font'),
+                  ZeroCheckbox(
+                    value: _customFont,
+                    onChanged: (value) {
+                      setState(() {
+                        _customFont = value ?? false;
+                      });
+                    },
+                  ),
+                  const Text('Dark'),
+                  ZeroCheckbox(
+                    value: _dark,
+                    onChanged: (value) {
+                      setState(() {
+                        _dark = value ?? false;
+                      });
+                    },
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  Flexible(
                     child: ZeroDropdownButton<ShadedColor>(
                         hint: Row(
                           children: [
@@ -110,29 +137,26 @@ class _MyAppState extends State<MyApp> {
                           }
                         }),
                   ),
-                  const Text('Custom Font'),
-                  ZeroCheckbox(
-                    value: _customFont,
-                    onChanged: (value) {
-                      setState(() {
-                        _customFont = value ?? false;
-                      });
-                    },
-                  ),
-                  const Text('Dark'),
-                  ZeroCheckbox(
-                    value: _dark,
-                    onChanged: (value) {
-                      setState(() {
-                        _dark = value ?? false;
-                      });
-                    },
+                  Flexible(
+                    child: ZeroDropdown<InputDecorationType>(
+                      hintText: 'Default Input Decoration',
+                      items: InputDecorationType.values,
+                      value: _defaultDecorationType,
+                      onChanged: (value) {
+                        debugPrint('onChanged $value');
+                        if (value == null) return;
+
+                        setState(() {
+                          _defaultDecorationType = value;
+                        });
+                      },
+                    ),
                   )
                 ],
               ),
               Padding(
                 padding: const EdgeInsets.all(16),
-                child: ZeroTextField.outline(
+                child: ZeroTextField(
                   hintText: 'Search Component',
                   controller: _searchController,
                   onChanged: (v) {

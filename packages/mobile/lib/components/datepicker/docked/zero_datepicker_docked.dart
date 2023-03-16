@@ -210,7 +210,11 @@ class _ZeroDatePickerDockedState extends State<ZeroDatePickerDocked>
       child: Theme(
         data: context.theme
             .copyWith(
-              inputDecorationType: widget.inputDecorationType,
+              textfieldStyleSet: ZeroTextfieldStyleSet.fallback(
+                  defaultDecorationType: widget.inputDecorationType,
+                  textfieldSize: ZeroTextfieldSize.small,
+                  focusedBorderColor: context.theme.primaryColor,
+                  focusedColor: context.theme.primaryColor),
             )
             .toThemeData(),
         child: GestureDetector(

@@ -298,8 +298,12 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
     return Theme(
         data: context.theme
             .copyWith(
-                inputDecorationType: widget.inputDecorationType,
-                textfieldSize: widget.textfieldSize,
+                textfieldStyleSet: ZeroTextfieldStyleSet.fallback(
+                    defaultDecorationType: widget.inputDecorationType ??
+                        InputDecorationType.outline,
+                    textfieldSize: widget.textfieldSize,
+                    focusedBorderColor: context.theme.primaryColor,
+                    focusedColor: context.theme.primaryColor),
                 buttonTheme: ButtonTheme.of(context).copyWith(
                   alignedDropdown: widget.alignedDropdown,
                 ))
@@ -311,6 +315,7 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
 
   void _updateSelectedItems(
       void Function(void Function()) menuSetState, T item, bool isSelected) {
+    widget.onChanged?.call(item);
     {
       if (!widget.enableMultipleItems) {
         _selectedItems.clear();
@@ -417,7 +422,9 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
         );
       }).toList(),
       value: _selectedItems.isEmpty ? null : _selectedItems.last,
-      onChanged: widget.onChanged,
+      onChanged: (value) {
+        widget.onChanged?.call(value);
+      },
       selectedItemBuilder: (context) {
         return widget.items
             .map(
