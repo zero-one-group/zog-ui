@@ -51,6 +51,7 @@ class _MyAppState extends State<MyApp> {
   final _searchController = TextEditingController();
   final _initialData = examplesData.entries;
   final List<MapEntry<String, Widget>> _searchData = [];
+  InputDecorationType _defaultDecorationType = InputDecorationType.outline;
 
   final _colors = [
     ZeroColors.lime,
@@ -70,71 +71,164 @@ class _MyAppState extends State<MyApp> {
     return ZeroApp(
       title: 'Flutter Demo',
       theme: ZeroThemeData(
-        fontFamily: _customFont ? GoogleFonts.dancingScript().fontFamily : null,
-        brightness: _dark ? Brightness.dark : Brightness.light,
-        primaryColor: _selectedColor.toAccentColor(),
-        inputDecorationType: InputDecorationType.outline,
-      ),
+          fontFamily:
+              _customFont ? GoogleFonts.dancingScript().fontFamily : null,
+          brightness: _dark ? Brightness.dark : Brightness.light,
+          primaryColor: _selectedColor.toAccentColor(),
+          textfieldStyleSet: ZeroTextfieldStyleSet.fallback(
+              textfieldSize: ZeroTextfieldSize.small,
+              defaultDecorationType: _defaultDecorationType,
+              focusedBorderColor: _selectedColor,
+              focusedColor: _selectedColor)),
       home: Scaffold(
         body: SafeArea(
           child: Column(
             children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: ZeroDropdownButton<ShadedColor>(
-                        hint: Row(
-                          children: [
-                            const Text('Primary Color'),
-                            const SizedBox(width: 10),
-                            Container(
-                              width: 20,
-                              height: 20,
-                              color: _selectedColor,
-                            )
-                          ],
-                        ),
-                        items: _colors
-                            .map(
-                              (e) => ZeroDropdownMenuItem(
-                                value: e,
-                                child: Container(color: e, height: 50),
-                              ),
-                            )
-                            .toList(),
-                        onChanged: (v) {
-                          if (v != null) {
-                            setState(() {
-                              _selectedColor = v;
-                            });
-                          }
-                        }),
-                  ),
-                  const Text('Custom Font'),
-                  ZeroCheckbox(
-                    value: _customFont,
-                    onChanged: (value) {
-                      setState(() {
-                        _customFont = value ?? false;
-                      });
-                    },
-                  ),
-                  const Text('Dark'),
-                  ZeroCheckbox(
-                    value: _dark,
-                    onChanged: (value) {
-                      setState(() {
-                        _dark = value ?? false;
-                      });
-                    },
-                  )
-                ],
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    const Text('Custom Font'),
+                    Flexible(
+                      fit: FlexFit.tight,
+                      flex: 1,
+                      child: ZeroCheckbox(
+                        value: _customFont,
+                        onChanged: (value) {
+                          setState(() {
+                            _customFont = value ?? false;
+                          });
+                        },
+                      ),
+                    ),
+                    const Text('Dark'),
+                    Flexible(
+                      flex: 1,
+                      fit: FlexFit.tight,
+                      child: ZeroCheckbox(
+                        value: _dark,
+                        onChanged: (value) {
+                          setState(() {
+                            _dark = value ?? false;
+                          });
+                        },
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: ZeroDivider.horizontal(
+                    style: ZeroDividerStyle(size: 2),
+                  )),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Flexible(
+                      flex: 1,
+                      fit: FlexFit.tight,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('Primary Color'),
+                          const SizedBox(
+                            height: 4,
+                          ),
+                          ZeroDropdownButtonFormField<ShadedColor>(
+                            hint: Row(
+                              children: [
+                                const Text('Primary Color'),
+                                const SizedBox(width: 10),
+                                Container(
+                                  width: 20,
+                                  height: 20,
+                                  color: _selectedColor,
+                                )
+                              ],
+                            ),
+                            value: _selectedColor,
+                            items: _colors
+                                .map((e) => ZeroDropdownMenuItem<ShadedColor>(
+                                      value: e,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16.0),
+                                        child: Row(
+                                          children: [
+                                            Text(e.toHex()),
+                                            const SizedBox(width: 10),
+                                            Container(
+                                              width: 20,
+                                              height: 20,
+                                              color: e,
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ))
+                                .toList(),
+                            onChanged: (value) {
+                              if (value == null) return;
+
+                              setState(() {
+                                _selectedColor = value;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Flexible(
+                      flex: 1,
+                      fit: FlexFit.tight,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('Default Input Decoration'),
+                          const SizedBox(
+                            height: 4,
+                          ),
+                          ZeroDropdownButtonFormField<InputDecorationType>(
+                            hint: const Text('Default Input Decoration'),
+                            items: InputDecorationType.values
+                                .map((e) =>
+                                    ZeroDropdownMenuItem<InputDecorationType>(
+                                      value: e,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16.0),
+                                        child: Text(e.name),
+                                      ),
+                                    ))
+                                .toList(),
+                            value: _defaultDecorationType,
+                            onChanged: (value) {
+                              if (value == null) return;
+
+                              setState(() {
+                                _defaultDecorationType = value;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(16),
-                child: ZeroTextField.outline(
+                child: ZeroTextField(
                   hintText: 'Search Component',
                   controller: _searchController,
+                  decoration: const InputDecoration(filled: true),
                   onChanged: (v) {
                     _search(v);
                   },

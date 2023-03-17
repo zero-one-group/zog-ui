@@ -1,3 +1,10 @@
+## 0.0.1-alpha.7
+
+* fix: focusedBorderColor and focusedColor on global textfieldStyle not working.
+* refactor: textfield style, added fallback method
+* feat: update example app, added global input decorator style option
+* feat: add missing params of InputDecoration on individual textstyle
+
 ## 0.0.1-alpha.6
 
 * feat: added IconColor property on ZeroNavigationBar

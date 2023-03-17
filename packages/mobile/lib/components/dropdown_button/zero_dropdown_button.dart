@@ -2,7 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:zog_ui/zog_ui.dart';
 
-const kMarginBetweenChips = EdgeInsets.only(right: 4.0);
+const _kMarginBetweenChips = EdgeInsets.only(right: 4.0);
 
 enum MultipleItemsVariant {
   /// Just text with no checkbox
@@ -38,7 +38,8 @@ enum DropdownVariant {
   icon
 }
 
-/// [ZeroDropdown] is built on top of [DropdownButtonFormField2] and [ZeroTextField]
+/// [ZeroDropdown] is built on top of [ZeroDropdownButton] and [ZeroTextField] to simplify
+/// the implementation of the widget
 /// This uses decoration taken from [InputDecorationType].
 class ZeroDropdown<T> extends StatefulWidget {
   final String? labelText;
@@ -298,8 +299,12 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
     return Theme(
         data: context.theme
             .copyWith(
-                inputDecorationType: widget.inputDecorationType,
-                textfieldSize: widget.textfieldSize,
+                textfieldStyleSet: ZeroTextfieldStyleSet.fallback(
+                    defaultDecorationType: widget.inputDecorationType ??
+                        InputDecorationType.outline,
+                    textfieldSize: widget.textfieldSize,
+                    focusedBorderColor: context.theme.primaryColor,
+                    focusedColor: context.theme.primaryColor),
                 buttonTheme: ButtonTheme.of(context).copyWith(
                   alignedDropdown: widget.alignedDropdown,
                 ))
@@ -311,6 +316,7 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
 
   void _updateSelectedItems(
       void Function(void Function()) menuSetState, T item, bool isSelected) {
+    widget.onChanged?.call(item);
     {
       if (!widget.enableMultipleItems) {
         _selectedItems.clear();
@@ -342,7 +348,7 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
         return Row(
             children: _selectedItems
                 .map((value) => Container(
-                      margin: kMarginBetweenChips,
+                      margin: _kMarginBetweenChips,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
@@ -359,7 +365,7 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
         return Row(
             children: _selectedItems
                 .map((value) => Container(
-                      margin: kMarginBetweenChips,
+                      margin: _kMarginBetweenChips,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
@@ -417,7 +423,9 @@ class _ZeroDropdownState<T> extends State<ZeroDropdown<T>> {
         );
       }).toList(),
       value: _selectedItems.isEmpty ? null : _selectedItems.last,
-      onChanged: widget.onChanged,
+      onChanged: (value) {
+        widget.onChanged?.call(value);
+      },
       selectedItemBuilder: (context) {
         return widget.items
             .map(
