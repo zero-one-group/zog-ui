@@ -1,4 +1,5 @@
-import { ComponentProps, forwardRef } from 'react';
+import { ComponentProps, forwardRef, ReactNode } from 'react';
+import { Text } from '../Text';
 import { useFormDisabledContext, useFormItemContext } from '../Form';
 import { styled } from '../stitches.config';
 
@@ -271,6 +272,8 @@ const StyledButton = styled('button', {
 export type ButtonProps = {
   colorScheme?: string;
   asChild?: boolean;
+  prefix?: ReactNode;
+  suffix?: ReactNode;
 } & ComponentProps<typeof StyledButton>;
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -282,6 +285,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       children,
       size: propSize,
       disabled: propDisabled,
+      prefix,
+      suffix,
       ...props
     },
     ref
@@ -303,7 +308,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled}
         {...props}
       >
-        {children}
+        {prefix}
+        <Text css={{ margin: '0 4px' }}>{children}</Text>
+        {suffix}
       </StyledButton>
     );
   }
