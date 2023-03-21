@@ -33,11 +33,10 @@ class ZeroTheme extends StatelessWidget {
   Widget build(BuildContext context) {
     return _ZeroTheme(
       data: data,
-      child: IconTheme(
-        data: data.iconTheme,
-        child: DefaultTextStyle(
-          style: data.typography.body2!,
-          child: child,
+      child: Theme(
+        data: data.toThemeData(),
+        child: Builder(
+          builder: (context) => child,
         ),
       ),
     );
