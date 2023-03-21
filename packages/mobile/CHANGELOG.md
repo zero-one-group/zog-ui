@@ -1,3 +1,7 @@
+## 0.0.1-alpha.8
+
+* fix: Fix ZeroTheme to apply child widget
+
 ## 0.0.1-alpha.7
 
 * fix: focusedBorderColor and focusedColor on global textfieldStyle not working.
