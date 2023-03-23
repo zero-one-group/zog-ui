@@ -97,7 +97,7 @@ class ZeroAppBar extends StatelessWidget implements PreferredSizeWidget {
       statusBarBrightness: adaptiveStyle.statusBarBrightness,
     );
 
-    final _isNoLeading = !automaticallyImplyLeading && leading == null;
+    final isNoLeading = !automaticallyImplyLeading && leading == null;
 
     return Semantics(
       container: true,
@@ -142,7 +142,7 @@ class ZeroAppBar extends StatelessWidget implements PreferredSizeWidget {
                                 ),
 
                                 // Build spacing based on conditions
-                                if (_isNoLeading)
+                                if (isNoLeading)
                                   const SizedBox(width: 16)
                                 else if (adaptiveStyle.centerTitle == true)
                                   const SizedBox.shrink()
@@ -166,7 +166,7 @@ class ZeroAppBar extends StatelessWidget implements PreferredSizeWidget {
                                           ? [
                                               SizedBox.square(
                                                   dimension:
-                                                      _isNoLeading ? 16 : 48)
+                                                      isNoLeading ? 16 : 48)
                                             ]
                                           : []),
                                 )
