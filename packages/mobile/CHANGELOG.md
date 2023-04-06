@@ -1,6 +1,6 @@
-## 0.0.1-alpha.8
+## 0.0.1-alpha.10
 
-* fix: Fix ZeroTheme to apply child widget
+* fix: ZeroApp.router() `builder` param not working
 
 ## 0.0.1-alpha.7
 
