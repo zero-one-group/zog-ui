@@ -1,3 +1,8 @@
+## 0.0.1-alpha.9
+
+* fix: set ZeroButtomSheet surfaceTintColor equal to backgroundColor value
+* feat: add titleSpacing in ZeroAppBarStyle
+
 ## 0.0.1-alpha.8
 
 * fix: Fix ZeroTheme to apply child widget
