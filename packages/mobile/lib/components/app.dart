@@ -423,7 +423,7 @@ class ZeroApp extends StatelessWidget {
   Widget _builder(BuildContext context, Widget? child) {
     final theme = _theme(context);
 
-    if (builder == null) child ?? const SizedBox.shrink();
+    if (builder == null) return child ?? const SizedBox.shrink();
 
     return ZeroTheme(
       data: theme,
