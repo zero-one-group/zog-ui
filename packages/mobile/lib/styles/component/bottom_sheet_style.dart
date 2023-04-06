@@ -101,6 +101,7 @@ class ZeroBottomSheetStyle with Diagnosticable {
         ),
         modalBarrierColor: barierColor,
         elevation: elevation,
+        surfaceTintColor: backgroundColor,
       );
 
   @override
