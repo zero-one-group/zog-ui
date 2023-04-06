@@ -1,3 +1,7 @@
+## 0.0.1-alpha.10
+
+* fix: ZeroApp.router() `builder` param not working
+
 ## 0.0.1-alpha.9
 
 * fix: set ZeroButtomSheet surfaceTintColor equal to backgroundColor value
