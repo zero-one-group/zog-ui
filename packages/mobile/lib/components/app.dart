@@ -423,26 +423,26 @@ class ZeroApp extends StatelessWidget {
   Widget _builder(BuildContext context, Widget? child) {
     final theme = _theme(context);
 
+    if (builder == null) child ?? const SizedBox.shrink();
+
     return ZeroTheme(
       data: theme,
-      child: builder != null
-          ? Builder(
-              builder: (BuildContext context) {
-                // Why are we surrounding a builder with a builder?
-                //
-                // The `builder` may contain code that invokes
-                // `context.theme`, which should return the theme we selected
-                // above in ZeroTheme. However, if we invoke
-                // `builder()` directly as the child of ZeroTheme
-                // then there is no Context separating them, and the
-                // `builder()` will not find the theme. Therefore, we
-                // surround `builder` with yet another builder so that
-                // a context separates them and `context.theme` correctly
-                // resolves to the theme we passed to ZeroTheme.
-                return builder!(context, child);
-              },
-            )
-          : child ?? const SizedBox.shrink(),
+      child: Builder(
+        builder: (BuildContext context) {
+          // Why are we surrounding a builder with a builder?
+          //
+          // The `builder` may contain code that invokes
+          // `context.theme`, which should return the theme we selected
+          // above in ZeroTheme. However, if we invoke
+          // `builder()` directly as the child of ZeroTheme
+          // then there is no Context separating them, and the
+          // `builder()` will not find the theme. Therefore, we
+          // surround `builder` with yet another builder so that
+          // a context separates them and `context.theme` correctly
+          // resolves to the theme we passed to ZeroTheme.
+          return builder!(context, child);
+        },
+      ),
     );
   }
 
