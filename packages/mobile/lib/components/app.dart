@@ -430,15 +430,15 @@ class ZeroApp extends StatelessWidget {
               builder: (BuildContext context) {
                 // Why are we surrounding a builder with a builder?
                 //
-                // The widget.builder may contain code that invokes
-                // Theme.of(), which should return the theme we selected
-                // above in AnimatedTheme. However, if we invoke
-                // widget.builder() directly as the child of AnimatedTheme
+                // The `builder` may contain code that invokes
+                // `context.theme`, which should return the theme we selected
+                // above in ZeroTheme. However, if we invoke
+                // `builder()` directly as the child of ZeroTheme
                 // then there is no Context separating them, and the
-                // widget.builder() will not find the theme. Therefore, we
-                // surround widget.builder with yet another builder so that
-                // a context separates them and Theme.of() correctly
-                // resolves to the theme we passed to AnimatedTheme.
+                // `builder()` will not find the theme. Therefore, we
+                // surround `builder` with yet another builder so that
+                // a context separates them and `context.theme` correctly
+                // resolves to the theme we passed to ZeroTheme.
                 return builder!(context, child);
               },
             )
