@@ -2,6 +2,15 @@
 
 * fix: ZeroApp.router() `builder` param not working
 
+## 0.0.1-alpha.9
+
+* fix: set ZeroButtomSheet surfaceTintColor equal to backgroundColor value
+* feat: add titleSpacing in ZeroAppBarStyle
+
+## 0.0.1-alpha.8
+
+* fix: Fix ZeroTheme to apply child widget
+
 ## 0.0.1-alpha.7
 
 * fix: focusedBorderColor and focusedColor on global textfieldStyle not working.
