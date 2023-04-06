@@ -143,9 +143,7 @@ class ZeroAppBar extends StatelessWidget implements PreferredSizeWidget {
 
                                 // Build spacing based on conditions
                                 if (isNoLeading)
-                                  SizedBox(
-                                    width: adaptiveStyle.titleSpacing ?? 16,
-                                  )
+                                  const SizedBox(width: 16)
                                 else if (adaptiveStyle.centerTitle == true)
                                   const SizedBox.shrink()
                                 else
