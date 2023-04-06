@@ -27,6 +27,9 @@ class ZeroAppBarStyle with Diagnosticable {
   /// A list of shadows cast by this box behind the app bar.
   final List<BoxShadow>? shadows;
 
+  /// spacing around title content on the horizontal axis
+  final double? titleSpacing;
+
   const ZeroAppBarStyle({
     this.backgroundColor,
     this.foregroundColor,
@@ -35,6 +38,7 @@ class ZeroAppBarStyle with Diagnosticable {
     this.centerTitle,
     this.statusBarBrightness,
     this.shadows,
+    this.titleSpacing,
   });
 
   /// A default value style of [ZeroAppBarStyle]
@@ -43,12 +47,14 @@ class ZeroAppBarStyle with Diagnosticable {
     Color? foregroundColor,
     TextStyle? titleStyle,
     Brightness? statusBarBrightness,
+    double? titleSpacing,
   }) =>
       ZeroAppBarStyle(
         backgroundColor: backgroundColor ?? ZeroColors.white,
         foregroundColor: foregroundColor ?? ZeroColors.black,
         titleStyle: titleStyle,
         statusBarBrightness: statusBarBrightness ?? Brightness.light,
+        titleSpacing: titleSpacing,
       );
 
   /// If the caller passes in a value for a parameter, use that value, otherwise use the value from this
@@ -64,6 +70,7 @@ class ZeroAppBarStyle with Diagnosticable {
     bool? centerTitle,
     Brightness? statusBarBrightness,
     List<BoxShadow>? shadows,
+    double? titleSpacing,
   }) {
     return ZeroAppBarStyle(
       backgroundColor: backgroundColor ?? this.backgroundColor,
@@ -73,6 +80,7 @@ class ZeroAppBarStyle with Diagnosticable {
       centerTitle: centerTitle ?? this.centerTitle,
       statusBarBrightness: statusBarBrightness ?? this.statusBarBrightness,
       shadows: shadows ?? this.shadows,
+      titleSpacing: titleSpacing ?? this.titleSpacing,
     );
   }
 
@@ -87,6 +95,7 @@ class ZeroAppBarStyle with Diagnosticable {
       centerTitle: other.centerTitle,
       statusBarBrightness: other.statusBarBrightness,
       shadows: other.shadows,
+      titleSpacing: other.titleSpacing,
     );
   }
 
@@ -101,6 +110,7 @@ class ZeroAppBarStyle with Diagnosticable {
       statusBarBrightness:
           t < 0.5 ? a?.statusBarBrightness : b?.statusBarBrightness,
       shadows: t < 0.5 ? a?.shadows : b?.shadows,
+      titleSpacing: t < 0.5 ? a?.titleSpacing : b?.titleSpacing,
     );
   }
 
@@ -114,6 +124,7 @@ class ZeroAppBarStyle with Diagnosticable {
           statusBarColor: Colors.transparent,
           statusBarBrightness: statusBarBrightness,
         ),
+        titleSpacing: titleSpacing,
       );
 
   @override
@@ -128,6 +139,7 @@ class ZeroAppBarStyle with Diagnosticable {
       ..add(DiagnosticsProperty<TextStyle>('titleStyle', titleStyle))
       ..add(DiagnosticsProperty<Brightness>(
           'statusBarBrightness', statusBarBrightness))
-      ..add(DiagnosticsProperty<List<BoxShadow>>('shadows', shadows));
+      ..add(DiagnosticsProperty<List<BoxShadow>>('shadows', shadows))
+      ..add(DiagnosticsProperty<double>('titleSpacing', titleSpacing));
   }
 }
