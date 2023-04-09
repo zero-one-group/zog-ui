@@ -1,3 +1,7 @@
+## 0.0.1-alpha.11
+
+* hotfix: ZeroApp.router() bug when no `builder` provided
+
 ## 0.0.1-alpha.10
 
 * fix: ZeroApp.router() `builder` param not working
