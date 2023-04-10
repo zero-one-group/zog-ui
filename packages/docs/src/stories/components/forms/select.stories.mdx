@@ -2,7 +2,7 @@ import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
 import { BADGE } from '@geometricpanda/storybook-addon-badges';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { Select } from '@zog-ui/core';
+import { Button, Select, Space } from '@zog-ui/core';
 import { useState } from 'react';
 
 <Meta
@@ -39,21 +39,25 @@ export const SelectStory = ({ renderOption, ...args }) => {
   );
 };
 
-export const ChangeOptionsStory = ({options, ...args}) => {
-  const [options, setOptions] = useState(()=>options);
-
-const changeOptions = () => {
-const arrayNumber = Array.from({length: 10}, () => Math.floor(Math.random() \* 10));
-setOptions(arrayNumber.map(n=>({value: `item-${n}`, label: `Item ${n}`})))
-}
-
-return (
-
-<div style={{ height: '100%' }}>
-  <button onClick={changeOptions}>Change Options</button>
-  <Select {...props} />
-</div>
-) }
+export const ChangeOptionsStory = ({ options = [], ...args }) => {
+  const [selectOptions, setOptions] = useState(() => options);
+  const changeOptions = () => {
+    const arrayNumber = Array.from({ length: 10 }, () =>
+      Math.floor(Math.random() * 1000)
+    );
+    setOptions(
+      arrayNumber.map((n) => ({ value: `item-${n}`, label: `Item ${n}` }))
+    );
+  };
+  return (
+    <Space style={{ height: '100%' }} gap="10px">
+      <Select options={selectOptions} {...args} />
+      <Button onClick={changeOptions} size="md">
+        Set Random Options
+      </Button>
+    </Space>
+  );
+};
 
 # Select
 
@@ -106,13 +110,6 @@ import { Select } from '@zog-ui/core';
         { value: 'Item 3', label: 'Item 3' },
         { value: 'Item 4', label: 'Item 4' },
         { value: 'Item 5', label: 'Item 5' },
-        { value: 'Item 6', label: 'Item 6' },
-        { value: 'Item 7', label: 'Item 7' },
-        { value: 'Item 8', label: 'Item 8' },
-        { value: 'Item 9', label: 'Item 9' },
-        { value: 'Item 10', label: 'Item 10' },
-        { value: 'Item 11', label: 'Item 11' },
-        { value: 'Item 12', label: 'Item 12' },
       ],
       placeholder: 'Select Item...',
     }}
