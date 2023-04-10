@@ -124,6 +124,7 @@ type RcPickerProps = Omit<
   | 'pickerRef'
   | 'transitionName'
   | 'tabIndex'
+  | 'picker'
 >;
 type StyledWrapperProps = Pick<
   ComponentProps<typeof StyledWrapperPicker>,
@@ -178,7 +179,7 @@ export const DatePicker: DatePickerComponent = ({
         superNextIcon={<span />}
         clearIcon={<CloseCircleFilled />}
         allowClear
-        placeholder={placeholder || `Select ${props.picker || 'date'}`}
+        placeholder={placeholder || `Select date`}
         showToday={showToday}
         showTime={showTime}
         showNow={false}
