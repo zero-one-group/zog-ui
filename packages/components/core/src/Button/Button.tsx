@@ -1,7 +1,7 @@
 import { ComponentProps, forwardRef, ReactNode } from 'react';
-import { Text } from '../Text';
 import { useFormDisabledContext, useFormItemContext } from '../Form';
 import { styled } from '../stitches.config';
+import { Text } from '../Text';
 
 const getColorSchemeVariants = (colorScheme?: string) => {
   return {
@@ -309,7 +309,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {prefix}
-        <Text css={{ margin: '0 4px' }}>{children}</Text>
+        {typeof children === 'number' || typeof children === 'string' ? (
+          <Text css={{ margin: '0 4px' }}>{children}</Text>
+        ) : (
+          children
+        )}
         {suffix}
       </StyledButton>
     );
