@@ -119,6 +119,7 @@ type RcRangePickerProps = Omit<
   | 'pickerRef'
   | 'transitionName'
   | 'tabIndex'
+  | 'picker'
 >;
 type StyledWrapperProps = Pick<
   ComponentProps<typeof StyledWrapperPicker>,
@@ -191,6 +192,7 @@ export const DateRangePicker: DateRangePickerComponent = ({
           </svg>
         }
         disabled={disabled}
+        picker="date"
         {...props}
       />
     </StyledWrapperPicker>

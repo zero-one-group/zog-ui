@@ -184,6 +184,7 @@ export const DatePicker: DatePickerComponent = ({
         showNow={false}
         getPopupContainer={() => wrapperRef.current}
         disabled={disabled}
+        picker="date"
         {...props}
       />
     </StyledWrapperPicker>
