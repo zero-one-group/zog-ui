@@ -53,7 +53,8 @@ class ZeroNavigationBarStyle with Diagnosticable {
         backgroundColor: backgroundColor ?? Colors.white,
         unselectedColor: unselectedColor ?? Colors.black,
         selectedColor: selectedColor ?? Colors.black,
-        unselectedIconColor: unselectedIconColor ?? unselectedColor ?? Colors.black,
+        unselectedIconColor:
+            unselectedIconColor ?? unselectedColor ?? Colors.black,
         selectedIconColor: selectedIconColor ?? selectedColor ?? Colors.black,
         indicatorColor:
             indicatorColor ?? ZeroColors.primary.toAccentColor().lighter,
@@ -80,8 +81,10 @@ class ZeroNavigationBarStyle with Diagnosticable {
       indicatorColor: indicatorColor ?? this.indicatorColor,
       unselectedColor: unselectedColor ?? this.unselectedColor,
       selectedColor: selectedColor ?? this.selectedColor,
-      unselectedIconColor: unselectedIconColor ?? unselectedColor ?? this.unselectedIconColor,
-      selectedIconColor: selectedIconColor ?? selectedColor ?? this.selectedIconColor,
+      unselectedIconColor:
+          unselectedIconColor ?? unselectedColor ?? this.unselectedIconColor,
+      selectedIconColor:
+          selectedIconColor ?? selectedColor ?? this.selectedIconColor,
       height: height ?? this.height,
       indicatorType: indicatorType ?? this.indicatorType,
     );

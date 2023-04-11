@@ -200,13 +200,8 @@ class _AppBar6 extends StatelessWidget {
           foregroundColor: Colors.white,
           centerTitle: true,
           statusBarBrightness: Brightness.dark,
-          shadows: [
-            BoxShadow(
-              color: Colors.red,
-              blurRadius: 20,
-              spreadRadius: 4,
-            )
-          ],
+          elevation: 12,
+          shadowColor: Colors.pink,
         ),
         actions: [
           IconButton(
@@ -219,6 +214,7 @@ class _AppBar6 extends StatelessWidget {
           )
         ],
       ),
+      body: const Scaffold(),
     );
   }
 }
