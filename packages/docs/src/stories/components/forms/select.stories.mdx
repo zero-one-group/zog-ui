@@ -2,7 +2,7 @@ import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
 import { BADGE } from '@geometricpanda/storybook-addon-badges';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { Select } from '@zog-ui/core';
+import { Button, Select, Space } from '@zog-ui/core';
 import { useState } from 'react';
 
 <Meta
@@ -36,6 +36,26 @@ export const SelectStory = ({ renderOption, ...args }) => {
       <h2>Custom Render Option</h2>
       <Select renderOption={renderOption} {...args} />
     </div>
+  );
+};
+
+export const ChangeOptionsStory = ({ options = [], ...args }) => {
+  const [selectOptions, setOptions] = useState(() => options);
+  const changeOptions = () => {
+    const arrayNumber = Array.from({ length: 10 }, () =>
+      Math.floor(Math.random() * 1000)
+    );
+    setOptions(
+      arrayNumber.map((n) => ({ value: `item-${n}`, label: `Item ${n}` }))
+    );
+  };
+  return (
+    <Space style={{ height: '100%' }} gap="10px">
+      <Select options={selectOptions} {...args} />
+      <Button onClick={changeOptions} size="md">
+        Set Random Options
+      </Button>
+    </Space>
   );
 };
 
@@ -80,6 +100,21 @@ import { Select } from '@zog-ui/core';
     }}
   >
     {SelectStory.bind()}
+  </Story>
+  <Story
+    name="Change Options"
+    args={{
+      options: [
+        { value: 'Item 1', label: 'Item 1' },
+        { value: 'Item 2', label: 'Item 2' },
+        { value: 'Item 3', label: 'Item 3' },
+        { value: 'Item 4', label: 'Item 4' },
+        { value: 'Item 5', label: 'Item 5' },
+      ],
+      placeholder: 'Select Item...',
+    }}
+  >
+    {ChangeOptionsStory.bind()}
   </Story>
 </Canvas>
 
