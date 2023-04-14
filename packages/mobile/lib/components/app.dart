@@ -96,8 +96,9 @@ class ZeroApp extends StatelessWidget {
     this.darkTheme,
     this.themeMode = ThemeMode.system,
     this.routeInformationProvider,
-    required this.routeInformationParser,
-    required this.routerDelegate,
+    this.routerConfig,
+    this.routeInformationParser,
+    this.routerDelegate,
     BackButtonDispatcher? backButtonDispatcher,
     this.builder,
     this.title = '',
@@ -121,8 +122,7 @@ class ZeroApp extends StatelessWidget {
     this.restorationScopeId,
     this.useInheritedMediaQuery = false,
     this.scrollBehavior,
-  })  : assert(routeInformationParser != null && routerDelegate != null,
-            'The routeInformationParser and routerDelegate cannot be null.'),
+  })  : assert(routerDelegate != null || routerConfig != null),
         assert(supportedLocales.isNotEmpty),
         navigatorObservers = null,
         backButtonDispatcher =
@@ -208,6 +208,9 @@ class ZeroApp extends StatelessWidget {
 
   /// {@macro flutter.widgets.widgetsApp.navigatorObservers}
   final List<NavigatorObserver>? navigatorObservers;
+  
+  /// {@macro flutter.widgets.widgetsApp.routerConfig}
+  final RouterConfig<Object>? routerConfig;
 
   /// {@macro flutter.widgets.widgetsApp.routeInformationProvider}
   final RouteInformationProvider? routeInformationProvider;
@@ -359,11 +362,12 @@ class ZeroApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (routerDelegate != null) {
+    if (routerDelegate != null || routerConfig != null) {
       return MaterialApp.router(
         routeInformationProvider: routeInformationProvider,
-        routeInformationParser: routeInformationParser!,
-        routerDelegate: routerDelegate!,
+        routeInformationParser: routeInformationParser,
+        routerConfig: routerConfig,
+        routerDelegate: routerDelegate,
         backButtonDispatcher: backButtonDispatcher,
         builder: _builder,
         title: title,
