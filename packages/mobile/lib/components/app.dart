@@ -100,7 +100,7 @@ class ZeroApp extends StatelessWidget {
     this.routeInformationParser,
     this.routerConfig,
     this.routerDelegate,
-    BackButtonDispatcher? backButtonDispatcher,
+    this.backButtonDispatcher,
     this.builder,
     this.title = '',
     this.onGenerateTitle,
@@ -124,10 +124,13 @@ class ZeroApp extends StatelessWidget {
     this.useInheritedMediaQuery = false,
     this.scrollBehavior,
   })  : assert(routerDelegate != null || routerConfig != null),
-        assert(supportedLocales.isNotEmpty),
+        assert(title != null),
+        assert(showPerformanceOverlay != null),
+        assert(checkerboardRasterCacheImages != null),
+        assert(checkerboardOffscreenLayers != null),
+        assert(showSemanticsDebugger != null),
+        assert(debugShowCheckedModeBanner != null),
         navigatorObservers = null,
-        backButtonDispatcher =
-            backButtonDispatcher ?? RootBackButtonDispatcher(),
         navigatorKey = null,
         onGenerateRoute = null,
         home = null,
@@ -209,7 +212,7 @@ class ZeroApp extends StatelessWidget {
 
   /// {@macro flutter.widgets.widgetsApp.navigatorObservers}
   final List<NavigatorObserver>? navigatorObservers;
-  
+
   /// {@macro flutter.widgets.widgetsApp.routerConfig}
   final RouterConfig<Object>? routerConfig;
 
