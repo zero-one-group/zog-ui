@@ -39,29 +39,34 @@ class ZeroTabBar extends StatelessWidget {
 
     return Ink(
       color: adaptiveStyle.backgroundColor,
-      child: ZeroTheme(
-        data: theme.copyWith(
-          tabBarStyle: adaptiveStyle,
-        ),
-        child: TabBar(
-          controller: controller,
-          dividerColor: Colors.transparent,
-          unselectedLabelColor: adaptiveStyle.inactiveColor,
-          labelColor: adaptiveStyle.activeColor,
-          indicator: UnderlineTabIndicator(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(3.0),
-              topRight: Radius.circular(3.0),
-            ),
-            borderSide: BorderSide(
-              color: adaptiveStyle.indicatorColor ?? theme.primaryColor,
-              width: 2,
-            ),
+      child: Container(
+        width: double.infinity,
+        alignment: Alignment.center,
+        child: ZeroTheme(
+          data: theme.copyWith(
+            tabBarStyle: adaptiveStyle,
           ),
-          isScrollable: style?.isScrollable ?? false,
-          onTap: onTap,
-          physics: physics ?? const BouncingScrollPhysics(),
-          tabs: tabs,
+          child: TabBar(
+            controller: controller,
+            dividerColor: Colors.transparent,
+            unselectedLabelColor: adaptiveStyle.inactiveColor,
+            labelColor: adaptiveStyle.activeColor,
+            labelPadding: style?.labelPadding,
+            indicator: UnderlineTabIndicator(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(3.0),
+                topRight: Radius.circular(3.0),
+              ),
+              borderSide: BorderSide(
+                color: adaptiveStyle.indicatorColor ?? theme.primaryColor,
+                width: 2,
+              ),
+            ),
+            isScrollable: style?.isScrollable ?? false,
+            onTap: onTap,
+            physics: physics ?? const BouncingScrollPhysics(),
+            tabs: tabs,
+          ),
         ),
       ),
     );
