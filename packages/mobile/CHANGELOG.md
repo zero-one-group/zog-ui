@@ -1,3 +1,9 @@
+## 0.0.1-alpha.12
+
+* fix: `AppBar` titleSpacing not working
+* fix: `ZeroTabBar` when scrollable, the position is not center
+* style: `ZeroTabBar` add property style `labelPadding`
+
 ## 0.0.1-alpha.11
 
 * hotfix: ZeroApp.router() bug when no `builder` provided
