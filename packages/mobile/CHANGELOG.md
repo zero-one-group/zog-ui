@@ -1,8 +1,12 @@
-## 0.0.1-alpha.12
+## 0.0.1-alpha.13
 
 * fix: `AppBar` titleSpacing not working
 * fix: `ZeroTabBar` when scrollable, the position is not center
 * style: `ZeroTabBar` add property style `labelPadding`
+
+## 0.0.1-alpha.12
+
+* fix: ZeroAppBar shadows does not appear when using Scaffold
 
 ## 0.0.1-alpha.11
 

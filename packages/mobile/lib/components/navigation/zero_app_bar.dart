@@ -109,98 +109,95 @@ class ZeroAppBar extends StatelessWidget implements PreferredSizeWidget {
         value: overlayStyle,
         child: Semantics(
           excludeSemantics: true,
-          child: ClipRect(
-            child: Ink(
-              decoration: BoxDecoration(
-                color: adaptiveStyle.backgroundColor,
-                boxShadow: adaptiveStyle.shadows,
-              ),
-              child: SafeArea(
-                left: false,
-                right: false,
-                bottom: false,
-                child: SizedBox(
-                  height: height,
-                  child: IconTheme(
-                    data: IconThemeData(
-                      size: 24,
-                      color: adaptiveStyle.foregroundColor,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        SizedBox(
-                          height: min(
-                            min(ZeroAppBarSize.small.getSize, size.getSize),
-                            height,
-                          ),
-                          child: Center(
-                            child: Row(
-                              children: [
-                                // Build leading
-                                _Leading(
-                                  automaticallyImplyLeading:
-                                      automaticallyImplyLeading,
-                                  leading: leading,
-                                ),
+          child: Material(
+            color: adaptiveStyle.backgroundColor,
+            elevation: adaptiveStyle.elevation ?? 0,
+            shadowColor: adaptiveStyle.shadowColor,
+            child: SafeArea(
+              left: false,
+              right: false,
+              bottom: false,
+              child: SizedBox(
+                height: height,
+                child: IconTheme(
+                  data: IconThemeData(
+                    size: 24,
+                    color: adaptiveStyle.foregroundColor,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      SizedBox(
+                        height: min(
+                          min(ZeroAppBarSize.small.getSize, size.getSize),
+                          height,
+                        ),
+                        child: Center(
+                          child: Row(
+                            children: [
+                              // Build leading
+                              _Leading(
+                                automaticallyImplyLeading:
+                                    automaticallyImplyLeading,
+                                leading: leading,
+                              ),
 
-                                // Build spacing based on conditions
-                                if (isNoLeading)
-                                  SizedBox(
-                                    width: adaptiveStyle.titleSpacing ?? 16,
-                                  )
-                                else if (adaptiveStyle.centerTitle == true)
-                                  const SizedBox.shrink()
-                                else
-                                  SizedBox(
-                                    width: adaptiveStyle.titleSpacing ?? 32,
-                                  ),
-
-                                // Build title small size
-                                Expanded(
-                                  child: size == ZeroAppBarSize.small
-                                      ? _Title(
-                                          style: adaptiveStyle,
-                                          title: title,
-                                        )
-                                      : const SizedBox.shrink(),
-                                ),
-
-                                // Build actions
-                                Row(
-                                  children: actions ??
-                                      (adaptiveStyle.centerTitle == true
-                                          ? [
-                                              SizedBox.square(
-                                                  dimension:
-                                                      isNoLeading ? 16 : 48)
-                                            ]
-                                          : []),
+                              // Build spacing based on conditions
+                              if (isNoLeading)
+                                SizedBox(
+                                  width: adaptiveStyle.titleSpacing ?? 16,
                                 )
-                              ],
-                            ),
+                              else if (adaptiveStyle.centerTitle == true)
+                                const SizedBox.shrink()
+                              else
+                                SizedBox(
+                                  width: adaptiveStyle.titleSpacing ?? 32,
+                                ),
+
+                              // Build title small size
+                              Expanded(
+                                child: size == ZeroAppBarSize.small
+                                    ? _Title(
+                                        style: adaptiveStyle,
+                                        title: title,
+                                      )
+                                    : const SizedBox.shrink(),
+                              ),
+
+                              // Build actions
+                              Row(
+                                children: actions ??
+                                    (adaptiveStyle.centerTitle == true
+                                        ? [
+                                            SizedBox.square(
+                                                dimension:
+                                                    isNoLeading ? 16 : 48)
+                                          ]
+                                        : []),
+                              )
+                            ],
                           ),
                         ),
+                      ),
 
-                        // Build title when size is not small
-                        if (size != ZeroAppBarSize.small) ...[
-                          const Spacer(),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              bottom: size == ZeroAppBarSize.large ? 20 : 16,
-                              left: 16,
-                            ),
-                            child: _Title(style: adaptiveStyle, title: title),
+                      // Build title when size is not small
+                      if (size != ZeroAppBarSize.small) ...[
+                        const Spacer(),
+                        Padding(
+                          padding: EdgeInsets.only(
+                            bottom: size == ZeroAppBarSize.large ? 20 : 16,
+                            left: 16,
                           ),
-                        ],
-
-                        if (bottom != null) ...[
-                          const Spacer(),
-                          bottom!,
-                        ],
+                          child: _Title(style: adaptiveStyle, title: title),
+                        ),
                       ],
-                    ),
+
+                      if (bottom != null) ...[
+                        const Spacer(),
+                        bottom!,
+                      ],
+                    ],
                   ),
                 ),
               ),
