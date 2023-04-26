@@ -355,7 +355,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.0.1-alpha.8"
+    version: "0.0.1-alpha.12"
 sdks:
   dart: ">=2.19.0-0 <3.0.0"
   flutter: ">=3.7.0-0"

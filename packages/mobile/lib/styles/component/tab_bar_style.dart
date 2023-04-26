@@ -22,6 +22,9 @@ class ZeroTabBarStyle with Diagnosticable {
   /// Padding item of [ZeroTab]
   final EdgeInsetsGeometry? padding;
 
+  /// The padding added to each of the tab labels.
+  final EdgeInsetsGeometry? labelPadding;
+
   /// Default icon size
   final double? iconSize;
 
@@ -39,6 +42,7 @@ class ZeroTabBarStyle with Diagnosticable {
     this.inactiveColor,
     this.indicatorColor,
     this.padding,
+    this.labelPadding,
     this.iconSize,
     this.labelStyle,
     this.isScrollable = false,
@@ -75,6 +79,7 @@ class ZeroTabBarStyle with Diagnosticable {
     Color? inactiveColor,
     Color? indicatorColor,
     EdgeInsetsGeometry? padding,
+    EdgeInsetsGeometry? labelPadding,
     double? iconSize,
     TextStyle? labelStyle,
     bool? isScrollable,
@@ -85,6 +90,7 @@ class ZeroTabBarStyle with Diagnosticable {
       inactiveColor: inactiveColor ?? this.inactiveColor,
       indicatorColor: indicatorColor ?? this.indicatorColor,
       padding: padding ?? this.padding,
+      labelPadding: labelPadding ?? this.labelPadding,
       iconSize: iconSize ?? this.iconSize,
       labelStyle: labelStyle ?? this.labelStyle,
       isScrollable: isScrollable ?? this.isScrollable,
@@ -100,6 +106,7 @@ class ZeroTabBarStyle with Diagnosticable {
       inactiveColor: other.inactiveColor,
       indicatorColor: other.indicatorColor,
       padding: other.padding,
+      labelPadding: other.labelPadding,
       iconSize: other.iconSize,
       labelStyle: labelStyle?.merge(other.labelStyle) ?? other.labelStyle,
       isScrollable: other.isScrollable,
@@ -114,6 +121,8 @@ class ZeroTabBarStyle with Diagnosticable {
       inactiveColor: Color.lerp(a?.inactiveColor, b?.inactiveColor, t),
       indicatorColor: Color.lerp(a?.indicatorColor, b?.indicatorColor, t),
       padding: EdgeInsetsGeometry.lerp(a?.padding, b?.padding, t),
+      labelPadding:
+          EdgeInsetsGeometry.lerp(a?.labelPadding, b?.labelPadding, t),
       iconSize: t < 0.5 ? a?.iconSize : b?.iconSize,
       labelStyle: TextStyle.lerp(a?.labelStyle, b?.labelStyle, t),
       isScrollable: (t < 0.5 ? a?.isScrollable : b?.isScrollable) ?? false,
@@ -127,6 +136,8 @@ class ZeroTabBarStyle with Diagnosticable {
         labelColor: activeColor,
         unselectedLabelColor: inactiveColor,
         labelStyle: labelStyle,
+        unselectedLabelStyle: labelStyle?.copyWith(color: inactiveColor),
+        labelPadding: labelPadding,
       );
 
   @override
@@ -138,6 +149,11 @@ class ZeroTabBarStyle with Diagnosticable {
       ..add(ColorProperty('activeColor', activeColor))
       ..add(ColorProperty('inactiveColor', inactiveColor))
       ..add(ColorProperty('indicatorColor', indicatorColor))
-      ..add(DoubleProperty('iconSize', iconSize));
+      ..add(DiagnosticsProperty<EdgeInsetsGeometry>('padding', padding))
+      ..add(
+          DiagnosticsProperty<EdgeInsetsGeometry>('labelPadding', labelPadding))
+      ..add(DoubleProperty('iconSize', iconSize))
+      ..add(DiagnosticsProperty<TextStyle>('labelStyle', labelStyle))
+      ..add(DiagnosticsProperty<bool>('isScrollable', isScrollable));
   }
 }

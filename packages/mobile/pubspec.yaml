@@ -1,6 +1,6 @@
 name: zog_ui
 description: A collection of ready-to-use ZOG design system UI components providing both implementation simplicity and customizability 
-version: 0.0.1-alpha.12
+version: 0.0.1-alpha.13
 homepage: https://zero-ui-mobile.web.app/
 repository: https://github.com/zero-one-group/zog-ui/tree/main/packages/mobile
 issue_tracker: https://github.com/zero-one-group/zog-ui/issues
