@@ -1,3 +1,7 @@
+## 0.0.1-alpha.12
+
+* fix: ZeroAppBar shadows does not appear when using Scaffold
+
 ## 0.0.1-alpha.11
 
 * hotfix: ZeroApp.router() bug when no `builder` provided

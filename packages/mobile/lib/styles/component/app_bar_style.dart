@@ -24,8 +24,14 @@ class ZeroAppBarStyle with Diagnosticable {
   /// Status bar icon brightness
   final Brightness? statusBarBrightness;
 
-  /// A list of shadows cast by this box behind the app bar.
-  final List<BoxShadow>? shadows;
+  /// The z-coordinate at which to place this app bar relative to its parent.
+  ///
+  /// This property controls the size of the shadow below the app bar if
+  /// [shadowColor] is not null.
+  final double? elevation;
+
+  /// The color of the shadow below the app bar.
+  final Color? shadowColor;
 
   /// spacing around title content on the horizontal axis
   final double? titleSpacing;
@@ -37,7 +43,8 @@ class ZeroAppBarStyle with Diagnosticable {
     this.height,
     this.centerTitle,
     this.statusBarBrightness,
-    this.shadows,
+    this.elevation,
+    this.shadowColor,
     this.titleSpacing,
   });
 
@@ -69,7 +76,8 @@ class ZeroAppBarStyle with Diagnosticable {
     TextStyle? titleStyle,
     bool? centerTitle,
     Brightness? statusBarBrightness,
-    List<BoxShadow>? shadows,
+    double? elevation,
+    Color? shadowColor,
     double? titleSpacing,
   }) {
     return ZeroAppBarStyle(
@@ -79,8 +87,9 @@ class ZeroAppBarStyle with Diagnosticable {
       titleStyle: titleStyle ?? this.titleStyle,
       centerTitle: centerTitle ?? this.centerTitle,
       statusBarBrightness: statusBarBrightness ?? this.statusBarBrightness,
-      shadows: shadows ?? this.shadows,
-      titleSpacing: titleSpacing ?? this.titleSpacing,
+      elevation: elevation ?? this.elevation,
+      shadowColor: shadowColor ?? this.shadowColor,
+      titleSpacing: titleSpacing ?? titleSpacing,
     );
   }
 
@@ -94,7 +103,8 @@ class ZeroAppBarStyle with Diagnosticable {
       titleStyle: titleStyle?.merge(other.titleStyle) ?? other.titleStyle,
       centerTitle: other.centerTitle,
       statusBarBrightness: other.statusBarBrightness,
-      shadows: other.shadows,
+      elevation: other.elevation,
+      shadowColor: other.shadowColor,
       titleSpacing: other.titleSpacing,
     );
   }
@@ -109,7 +119,8 @@ class ZeroAppBarStyle with Diagnosticable {
       centerTitle: t < 0.5 ? a?.centerTitle : b?.centerTitle,
       statusBarBrightness:
           t < 0.5 ? a?.statusBarBrightness : b?.statusBarBrightness,
-      shadows: t < 0.5 ? a?.shadows : b?.shadows,
+      elevation: t < 0.5 ? a?.elevation : b?.elevation,
+      shadowColor: Color.lerp(a?.shadowColor, b?.shadowColor, t),
       titleSpacing: t < 0.5 ? a?.titleSpacing : b?.titleSpacing,
     );
   }
@@ -119,7 +130,8 @@ class ZeroAppBarStyle with Diagnosticable {
         color: backgroundColor,
         foregroundColor: foregroundColor,
         titleTextStyle: titleStyle,
-        elevation: 0,
+        elevation: elevation,
+        shadowColor: shadowColor,
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           statusBarBrightness: statusBarBrightness,
@@ -139,7 +151,8 @@ class ZeroAppBarStyle with Diagnosticable {
       ..add(DiagnosticsProperty<TextStyle>('titleStyle', titleStyle))
       ..add(DiagnosticsProperty<Brightness>(
           'statusBarBrightness', statusBarBrightness))
-      ..add(DiagnosticsProperty<List<BoxShadow>>('shadows', shadows))
+      ..add(DoubleProperty('elevation', elevation))
+      ..add(ColorProperty('shadowColor', shadowColor))
       ..add(DiagnosticsProperty<double>('titleSpacing', titleSpacing));
   }
 }
