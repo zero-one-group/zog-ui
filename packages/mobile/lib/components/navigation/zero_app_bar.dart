@@ -97,7 +97,11 @@ class ZeroAppBar extends StatelessWidget implements PreferredSizeWidget {
       statusBarBrightness: adaptiveStyle.statusBarBrightness,
     );
 
-    final isNoLeading = !automaticallyImplyLeading && leading == null;
+    final isNoLeading = !_checkHasLeading(
+          context: context,
+          automaticallyImplyLeading: automaticallyImplyLeading,
+        ) &&
+        leading == null;
 
     return Semantics(
       container: true,
@@ -143,7 +147,9 @@ class ZeroAppBar extends StatelessWidget implements PreferredSizeWidget {
 
                                 // Build spacing based on conditions
                                 if (isNoLeading)
-                                  const SizedBox(width: 16)
+                                  SizedBox(
+                                    width: adaptiveStyle.titleSpacing ?? 16,
+                                  )
                                 else if (adaptiveStyle.centerTitle == true)
                                   const SizedBox.shrink()
                                 else
@@ -236,6 +242,22 @@ class _Title extends StatelessWidget {
   }
 }
 
+bool _checkHasLeading({
+  required BuildContext context,
+  required bool automaticallyImplyLeading,
+}) {
+  if (automaticallyImplyLeading == false) {
+    return false;
+  }
+
+  final scaffold = Scaffold.maybeOf(context);
+  final parentRoute = ModalRoute.of(context);
+  final hasDrawer = scaffold?.hasDrawer ?? false;
+  final canPop = parentRoute?.canPop ?? false;
+
+  return hasDrawer || canPop;
+}
+
 /// A widget for building leading of [ZeroAppBar]
 class _Leading extends StatelessWidget {
   const _Leading({
@@ -251,37 +273,42 @@ class _Leading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (automaticallyImplyLeading == false || leading != null) {
-      return leading ?? const SizedBox.shrink();
-    }
+    final hasLeading = _checkHasLeading(
+      context: context,
+      automaticallyImplyLeading: automaticallyImplyLeading,
+    );
 
-    final scaffold = Scaffold.maybeOf(context);
-    final parentRoute = ModalRoute.of(context);
-    final hasDrawer = scaffold?.hasDrawer ?? false;
-    final canPop = parentRoute?.canPop ?? false;
-    final localization = MaterialLocalizations.of(context);
+    if (leading != null) return leading!;
 
-    // Build leading when have drawer in scaffold
-    if (hasDrawer) {
-      return IconButton(
-        // Action to open drawer
-        onPressed: () {
-          Scaffold.of(context).openDrawer();
-        },
-        icon: const Icon(ZeroIcons.menu),
-        tooltip: localization.openAppDrawerTooltip,
-      );
-    }
+    if (hasLeading) {
+      final scaffold = Scaffold.maybeOf(context);
+      final parentRoute = ModalRoute.of(context);
+      final hasDrawer = scaffold?.hasDrawer ?? false;
+      final canPop = parentRoute?.canPop ?? false;
+      final localization = MaterialLocalizations.of(context);
 
-    // Build leading back button
-    if (canPop) {
-      return IconButton(
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-        icon: const Icon(ZeroIcons.arrowLeft),
-        tooltip: localization.backButtonTooltip,
-      );
+      // Build leading when have drawer in scaffold
+      if (hasDrawer) {
+        return IconButton(
+          // Action to open drawer
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+          icon: const Icon(ZeroIcons.menu),
+          tooltip: localization.openAppDrawerTooltip,
+        );
+      }
+
+      // Build leading back button
+      if (canPop) {
+        return IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(ZeroIcons.arrowLeft),
+          tooltip: localization.backButtonTooltip,
+        );
+      }
     }
 
     return const SizedBox.shrink();
