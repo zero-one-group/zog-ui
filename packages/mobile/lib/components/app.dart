@@ -91,7 +91,7 @@ class ZeroApp extends StatelessWidget {
         super(key: key);
 
   /// Creates a [ZeroApp] that uses the [Router] instead of a [Navigator].
-  ZeroApp.router({
+  const ZeroApp.router({
     Key? key,
     this.theme,
     this.darkTheme,
@@ -124,12 +124,6 @@ class ZeroApp extends StatelessWidget {
     this.useInheritedMediaQuery = false,
     this.scrollBehavior,
   })  : assert(routerDelegate != null || routerConfig != null),
-        assert(title != null),
-        assert(showPerformanceOverlay != null),
-        assert(checkerboardRasterCacheImages != null),
-        assert(checkerboardOffscreenLayers != null),
-        assert(showSemanticsDebugger != null),
-        assert(debugShowCheckedModeBanner != null),
         navigatorObservers = null,
         navigatorKey = null,
         onGenerateRoute = null,
@@ -393,6 +387,9 @@ class ZeroApp extends StatelessWidget {
         theme: theme?.toThemeData(),
         darkTheme: darkTheme?.toThemeData(),
         themeMode: themeMode,
+        scrollBehavior: scrollBehavior,
+        color: color,
+        key: key,
       );
     }
 
@@ -425,6 +422,9 @@ class ZeroApp extends StatelessWidget {
       theme: theme?.toThemeData(),
       darkTheme: darkTheme?.toThemeData(),
       themeMode: themeMode,
+      scrollBehavior: scrollBehavior,
+      color: color,
+      key: key,
     );
   }
 

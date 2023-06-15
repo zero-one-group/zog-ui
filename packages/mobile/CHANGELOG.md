@@ -1,3 +1,7 @@
+## 0.0.1-alpha.17
+
+* fix: add missing `scrollBehavior` on `ZeroApp`
+
 ## 0.0.1-alpha.13
 
 * fix: `AppBar` titleSpacing not working
