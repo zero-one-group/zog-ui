@@ -81,7 +81,6 @@ class ZeroApp extends StatelessWidget {
     this.darkTheme,
     this.themeMode = ThemeMode.system,
     this.restorationScopeId,
-    this.useInheritedMediaQuery = false,
     this.scrollBehavior,
   })  : routeInformationProvider = null,
         routeInformationParser = null,
@@ -121,7 +120,6 @@ class ZeroApp extends StatelessWidget {
     this.shortcuts,
     this.actions,
     this.restorationScopeId,
-    this.useInheritedMediaQuery = false,
     this.scrollBehavior,
   })  : assert(routerDelegate != null || routerConfig != null),
         navigatorObservers = null,
@@ -355,9 +353,6 @@ class ZeroApp extends StatelessWidget {
   ///    in a subtree.
   final ScrollBehavior? scrollBehavior;
 
-  /// {@macro flutter.widgets.widgetsApp.useInheritedMediaQuery}
-  final bool useInheritedMediaQuery;
-
   @override
   Widget build(BuildContext context) {
     if (routerDelegate != null || routerConfig != null) {
@@ -383,7 +378,6 @@ class ZeroApp extends StatelessWidget {
         actions: actions,
         restorationScopeId: restorationScopeId,
         localizationsDelegates: localizationsDelegates,
-        useInheritedMediaQuery: useInheritedMediaQuery,
         theme: theme?.toThemeData(),
         darkTheme: darkTheme?.toThemeData(),
         themeMode: themeMode,
@@ -418,7 +412,6 @@ class ZeroApp extends StatelessWidget {
       actions: actions,
       restorationScopeId: restorationScopeId,
       localizationsDelegates: localizationsDelegates,
-      useInheritedMediaQuery: useInheritedMediaQuery,
       theme: theme?.toThemeData(),
       darkTheme: darkTheme?.toThemeData(),
       themeMode: themeMode,
