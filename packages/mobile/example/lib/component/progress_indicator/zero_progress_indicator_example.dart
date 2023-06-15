@@ -10,10 +10,10 @@ class ZeroProgressIndicatorExample extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Zero Progress Indicator'),
       ),
-      body: Center(
+      body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             ZeroProgressIndicator.circular(),
             SizedBox(height: 20),
             ZeroProgressIndicator.circular(

@@ -199,7 +199,7 @@ class _ZeroStepperState extends State<ZeroStepper>
         child: Center(
           child: _buildCircleChild(
             index,
-            oldState && widget.steps[index].state == StepState.error,
+            oldState && widget.steps[index].state == ZeroStepState.error,
           ),
         ),
       ),
@@ -227,7 +227,7 @@ class _ZeroStepperState extends State<ZeroStepper>
               alignment: const Alignment(0.0, 0.8),
               child: _buildCircleChild(
                 index,
-                oldState && widget.steps[index].state != StepState.error,
+                oldState && widget.steps[index].state != ZeroStepState.error,
               ),
             ),
           ),
@@ -244,13 +244,13 @@ class _ZeroStepperState extends State<ZeroStepper>
         firstCurve: const Interval(0.0, 0.6, curve: Curves.fastOutSlowIn),
         secondCurve: const Interval(0.4, 1.0, curve: Curves.fastOutSlowIn),
         sizeCurve: Curves.fastOutSlowIn,
-        crossFadeState: widget.steps[index].state == StepState.error
+        crossFadeState: widget.steps[index].state == ZeroStepState.error
             ? CrossFadeState.showSecond
             : CrossFadeState.showFirst,
         duration: kThemeAnimationDuration,
       );
     } else {
-      if (widget.steps[index].state != StepState.error) {
+      if (widget.steps[index].state != ZeroStepState.error) {
         return _buildCircle(index, false);
       } else {
         return _buildTriangle(index, false);
@@ -492,7 +492,7 @@ class _ZeroStepperState extends State<ZeroStepper>
             key: _keys[i],
             children: <Widget>[
               InkWell(
-                onTap: widget.steps[i].state != StepState.disabled
+                onTap: widget.steps[i].state != ZeroStepState.disabled
                     ? () {
                         // In the vertical case we need to scroll to the newly tapped
                         // step.
@@ -505,7 +505,8 @@ class _ZeroStepperState extends State<ZeroStepper>
                         widget.onStepTapped?.call(i);
                       }
                     : null,
-                canRequestFocus: widget.steps[i].state != StepState.disabled,
+                canRequestFocus:
+                    widget.steps[i].state != ZeroStepState.disabled,
                 child: _buildVerticalHeader(i),
               ),
               _buildVerticalBody(i),
@@ -522,12 +523,12 @@ class _ZeroStepperState extends State<ZeroStepper>
     final List<Widget> children = <Widget>[
       for (int i = 0; i < widget.steps.length; i += 1) ...<Widget>[
         InkResponse(
-          onTap: widget.steps[i].state != StepState.disabled
+          onTap: widget.steps[i].state != ZeroStepState.disabled
               ? () {
                   widget.onStepTapped?.call(i);
                 }
               : null,
-          canRequestFocus: widget.steps[i].state != StepState.disabled,
+          canRequestFocus: widget.steps[i].state != ZeroStepState.disabled,
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[

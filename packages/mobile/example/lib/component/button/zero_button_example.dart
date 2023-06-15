@@ -284,9 +284,9 @@ class ZeroButtonExample extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 16),
-                Row(
+                const Row(
                   mainAxisSize: MainAxisSize.min,
-                  children: const [
+                  children: [
                     ZeroButtonIcon.disabled(
                       icon: Icon(Icons.search),
                       size: ZeroButtonSize.small,

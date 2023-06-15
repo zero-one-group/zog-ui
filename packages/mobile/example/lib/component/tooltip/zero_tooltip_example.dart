@@ -19,10 +19,10 @@ class _ZeroTooltipExampleState extends State<ZeroTooltipExample> {
         child: Container(
           width: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.all(8.0),
-          child: Column(
+          child: const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
+            children: [
               ZeroTooltip(
                 position: ZeroTooltipPosition.right,
                 variant: ZeroTooltipVariant.custom,

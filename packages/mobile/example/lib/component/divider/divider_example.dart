@@ -12,9 +12,9 @@ class ZeroDividerExample extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Expanded(
+          const Expanded(
               child: Column(
-            children: const [
+            children: [
               SizedBox(height: 32),
               Text('Default'),
               ZeroDivider(),
@@ -48,9 +48,9 @@ class ZeroDividerExample extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
+          const Expanded(
               child: Row(
-            children: const [
+            children: [
               SizedBox(width: 32),
               Text('Default'),
               ZeroDivider.vertical(),
