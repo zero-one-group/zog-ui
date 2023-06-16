@@ -159,6 +159,7 @@ class ZeroDropdownMenu<T> extends StatelessWidget {
       menuHeight: menuHeight,
       enableFilter: enableFilter,
       onSelected: onSelected,
+      controller: controller,
       dropdownMenuEntries: entries ??
           items!.map((item) {
             return ZeroDropdownMenuEntry<T>(
