@@ -1,46 +1,83 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
-
-# compiled output
-dist
-tmp
-/out-tsc
-
-# dependencies
-node_modules
-
-# IDEs and editors
+/.fleet
 /.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
-
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-
-# misc
-/.sass-cache
-/connect.lock
-/coverage
-/libpeerconnection.log
-npm-debug.log
-yarn-error.log
-testem.log
-/typings
-
-# System Files
+/.pnp
+/.husky
+.pnp.js
 .DS_Store
+.DS_Store?
+node_modules
 Thumbs.db
+ehthumbs.db
+Desktop.ini
+coverage/
+$RECYCLE.BIN/
+*tsbuildinfo
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
+*.bak
 
-**/.firebase
-**/.firebaserc
+.rollup.cache/
+.cache/
+.output/
+.turbo
 
-# Icons
-packages/icons/svg-files/*
-!packages/icons/svg-files/.gitkeep
+# SQLite
+*.sqlite*
+*.sqlite3*
+*.db
+
+# Nitro
+_data/
+build/
+dist/
+.data
+.dist
+.nitro
+.cache
+.output
+.client
+.build
+.wrangler
+
+# Vite config
+vite.config.*
+!vite.config.ts
+
+# envars
+.env.*
+!.env.example
+compose.env*
+!compose.env.example
+
+# Disable this line in your real app
+playwright/.cache/
+playwright-report/
+tests-results/
+blob-report/
+.playwright/
+
+# Sentry Config File
+.sentryclirc
+
+# Storybook
+*storybook.log
+storybook-static/
+
+# fly.io
+fly*.toml*
+!fly*.example.toml
+
+# Miscellaneous
+RELEASE_NOTE.md
+vite.config.ts.*
+slim.report.json
+.unikraft/
+
+# Terraform
+.terraform/
+.terraform.lock.hcl
+terraform.tfstate*
+terraform.tfvars*
+!terraform.tfvars.example

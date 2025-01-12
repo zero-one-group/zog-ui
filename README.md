@@ -29,7 +29,7 @@ This repository contains monorepo for React and Flutter UI library provided by u
 ## Introduction
 
 Zero One Group UI (_in short: Zero UI_) is a modular, extensible, styleable React components library from Zero One Group
-based on [Radix UI](https://www.radix-ui.com/) and [Stitches](https://stitches.dev/).
+based on [Ark UI](https://ark-ui.com/) and [Tailwind CSS](https://tailwindcss.com/).
 
 ## Contributing
 
@@ -51,8 +51,8 @@ Copyrights in this project are retained by their contributors.
 
 See the [license file](./LICENSE) for more information.
 
-[choosealicense]: https://choosealicense.com/licenses/apache-2.0/
-
 ---
 
 <sub>🤫 Psst! We are [hiring](https://zero-one-group.com/careers).
+
+[choosealicense]: https://choosealicense.com/licenses/apache-2.0/

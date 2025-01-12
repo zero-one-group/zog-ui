@@ -1,0 +1,36 @@
+{
+    "name": "web",
+    "version": "0.0.0",
+    "type": "module",
+    "private": true,
+    "scripts": {
+        "dev": "vite --clearScreen false",
+        "build": "tsc && vite build",
+        "start": "pnpm dlx serve dist -l 4100 -s -n -C",
+        "lint": "biome lint . --write",
+        "check": "biome check . --write",
+        "typecheck": "tsc --noEmit"
+    },
+    "dependencies": {
+        "@repo/ui-react": "workspace:*",
+        "pathe": "^2.0.1",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "std-env": "^3.8.0"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "catalog:",
+        "@repo/config-typescript": "workspace:*",
+        "@repo/core-ui": "workspace:*",
+        "@tailwindcss/vite": "4.0.0-beta.8",
+        "@types/node": "^22.10.5",
+        "@types/react-dom": "^19.0.2",
+        "@types/react": "^19.0.4",
+        "@vitejs/plugin-react": "^4.3.4",
+        "autoprefixer": "^10.4.20",
+        "tailwindcss": "4.0.0-beta.8",
+        "typescript": "catalog:",
+        "vite-tsconfig-paths": "^5.1.4",
+        "vite": "^6.0.7"
+    }
+}
