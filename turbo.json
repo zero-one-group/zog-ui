@@ -4,11 +4,14 @@
         "build": {
             "dependsOn": ["^build"],
             "inputs": ["$TURBO_DEFAULT$", ".env*"],
-            "outputs": ["dist/**"]
+            "outputs": ["dist/**", "storybook-static/**"]
         },
         "lint": {},
         "check": {},
         "typecheck": {},
+        "cleanup": {
+            "cache": false
+        },
         "start": {
             "cache": false
         },

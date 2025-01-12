@@ -19,6 +19,9 @@
         "format": "biome format . --write",
         "filter": "pnpm --silent --filter",
         "update-deps": "npm-check-updates --configFileName .ncurc.json",
+        "cleanup": "pnpm --silent cleanup:pkgs && pnpm --silent cleanup:deps",
+        "cleanup:deps": "pnpm dlx rimraf pnpm-lock.yaml node_modules",
+        "cleanup:pkgs": "turbo cleanup",
         "typecheck": "turbo typecheck"
     },
     "devDependencies": {

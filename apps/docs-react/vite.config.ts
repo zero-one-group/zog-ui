@@ -9,7 +9,7 @@ export default defineConfig({
   publicDir: resolve('public'),
   build: {
     emptyOutDir: true,
-    chunkSizeWarningLimit: 1024,
+    chunkSizeWarningLimit: 1024 * 4,
     reportCompressedSize: false,
     outDir: resolve('dist'),
     rollupOptions: {

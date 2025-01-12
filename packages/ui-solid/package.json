@@ -5,6 +5,7 @@
     "sideEffects": ["**/*.css"],
     "files": ["dist"],
     "scripts": {
+        "cleanup": "pnpm dlx rimraf dist node_modules pnpm-lock.yaml storybook-static",
         "lint": "biome lint . --write",
         "check": "biome check . --write",
         "typecheck": "tsc --noEmit"
