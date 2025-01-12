@@ -1,5 +1,5 @@
 {
-    "name": "@repo/ui-react",
+    "name": "@repo/ui-solid",
     "version": "0.0.0",
     "private": true,
     "sideEffects": ["**/*.css"],
@@ -13,15 +13,14 @@
         "./button": "./src/components/button.tsx"
     },
     "peerDependencies": {
-        "react": "^19.0.0"
+        "solid-js": "^1.9.4"
     },
     "devDependencies": {
-        "@ark-ui/react": "^4.8.0",
+        "@ark-ui/solid": "^4.8.0",
         "@biomejs/biome": "catalog:",
         "@repo/config-typescript": "workspace:*",
         "@repo/core-ui": "workspace:*",
-        "@types/react": "^19.0.4",
-        "lucide-react": "^0.471.0",
+        "lucide-solid": "^0.471.0",
         "tailwind-variants": "^0.3.0",
         "tailwindcss": "4.0.0-beta.8",
         "typescript": "catalog:"

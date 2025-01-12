@@ -1,0 +1,5 @@
+{
+    "extends": "@repo/config-typescript/solid-library.json",
+    "include": ["src"],
+    "exclude": ["dist", "build", "node_modules"]
+}

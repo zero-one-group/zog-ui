@@ -1,5 +1,5 @@
 {
     "$schema": "https://json.schemastore.org/tsconfig",
-    "extends": "@repo/config-typescript/react-vite.json",
+    "extends": "@repo/config-typescript/solid-vite.json",
     "include": ["src"]
 }
