@@ -1,50 +1,10 @@
 # Contributing Guideline
 
-## Generate JS Library
+## Prerequisites
 
-```sh
-pnpm exec nx generate @nrwl/js:library helpers --importPath=@zog-ui/helpers \
- --unitTestRunner=jest --bundler=esbuild --publishable --no-interactive
-```
+You will need `Node.js >=18.0.0 <=20.11.1` and `pnpm >=9.15.0` installed on your machine.
 
-## Generate React Library
-
-```sh
-pnpm exec nx generate @nrwl/react:library core --importPath=@zog-ui/core \
-  --style=none --bundler=rollup --compiler=swc --unitTestRunner=jest \
-  --pascalCaseFiles --publishable --no-interactive --directory=components
-```
-
-## Generate React UI Component
-
-```sh
-pnpm exec nx generate @nrwl/react:component avatar --directory=avatar \
-  --project=components-core --style=none --flat --pascalCaseDirectory \
-  --pascalCaseFiles --no-interactive
-```
-
-## Build Icons Package
-
-```sh
-# Get SVG source files
-pnpm nx run icons:fetch
-
-# Compile SVG into React component
-pnpm nx run icons:compile
-
-# Build icons npm package
-pnpm nx run icons:build
-```
-
-## Setup Storybook
-
-```sh
-pnpm exec nx generate @nrwl/workspace:library docs --unitTestRunner=none --no-interactive
-
-pnpm exec nx generate @nrwl/storybook:configuration docs --bundler=webpack \
-  --uiFramework=@storybook/react --tsConfiguration --configureCypress=false \
-  --no-interactive
-```
+TODO!
 
 ## Publish NPM Package
 

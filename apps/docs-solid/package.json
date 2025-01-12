@@ -26,7 +26,6 @@
         "@repo/config-typescript": "workspace:*",
         "@repo/core-ui": "workspace:*",
         "@storybook/addon-essentials": "^8.4.7",
-        "@storybook/addon-interactions": "^8.4.7",
         "@storybook/addon-links": "^8.4.7",
         "@storybook/addon-themes": "^8.4.7",
         "@storybook/blocks": "^8.4.7",

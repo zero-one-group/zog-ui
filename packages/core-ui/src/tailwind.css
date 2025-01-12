@@ -1,8 +1,10 @@
 /* Reference: https://tailwindcss.com/docs/v4-beta */
 
 @import "tailwindcss";
+@plugin "tailwindcss-animate";
 @plugin "tailwindcss-motion";
 @variant dark (&:where(.dark, .dark *));
+@variant dark (&:where([data-theme="dark"] *));
 
 @theme {
     /* Brand Colors */

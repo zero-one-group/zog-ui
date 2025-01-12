@@ -2,6 +2,8 @@
 import { render } from 'solid-js/web'
 import App from './app'
 
+// Import the Tailwind CSS styles.
+import '@repo/core-ui/tailwind.css'
 import './main.css'
 
 // The root element for the app.

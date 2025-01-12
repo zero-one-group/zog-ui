@@ -1,6 +1,6 @@
 import type { Assign } from '@ark-ui/solid'
 import { type HTMLArkProps, ark } from '@ark-ui/solid/factory'
-import { ButtonVariants, buttonStyles } from '@repo/core-ui/button.css'
+import { type ButtonVariants, buttonStyles } from '@repo/core-ui/button.css'
 import * as Lucide from 'lucide-solid'
 import { type Component, splitProps } from 'solid-js'
 

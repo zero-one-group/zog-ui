@@ -1,16 +1,7 @@
-import { addons } from '@storybook/manager-api'
-import type { Preview, StoryContext, StoryFn } from '@storybook/react'
-import DocumentationTemplate from './template.mdx'
-import customTheme from './theme'
+import { withThemeByClassName } from '@storybook/addon-themes'
+import type { Preview, ReactRenderer } from '@storybook/react'
+import { themes } from '@storybook/theming'
 import '@repo/core-ui/tailwind.css'
-import '../src/main.css'
-
-const withTheme = (StoryFn: StoryFn, context: StoryContext) => {
-  const isDark = context.globals.theme === 'dark'
-  document.documentElement.classList.toggle('dark', isDark)
-  addons.getChannel().emit('DARK_MODE', isDark)
-  return StoryFn(context.args, context)
-}
 
 const preview: Preview = {
   // Optional parameter to center the component in the Canvas.
@@ -24,30 +15,31 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/i,
       },
+      exclude: ['asChild', 'onClick'],
     },
     options: {
-      // https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy
+      // https://storybook.js.org/docs/writing-stories/naming-components-and-hierarchy
       storySort: {
+        method: 'alphabetical',
         order: [
           'Introduction',
           'Getting Started',
           'Basic Components',
-          'Interactive Features',
+          'Layout Components',
           'Visualizations',
           '*',
         ],
       },
     },
     backgrounds: { disable: true },
-    layout: 'centered',
+    layout: 'padded',
     docs: {
-      theme: customTheme.light,
+      theme: themes.dark,
       defaultName: 'Documentation',
-      page: DocumentationTemplate,
       toc: {
         /* Enables the table of contents */
         headingSelector: 'h2, h3',
-        ignoreSelector: '#primary',
+        ignoreSelector: '#preview',
         title: 'Table of Contents',
         disable: false,
         unsafeTocbotOptions: {
@@ -56,22 +48,28 @@ const preview: Preview = {
       },
     },
   },
-  globalTypes: {
-    theme: {
-      name: 'Theme',
-      description: 'Global theme switcher',
-      defaultValue: 'dark',
-      toolbar: {
-        items: [
-          { value: 'light', icon: 'sun', title: 'Light Theme' },
-          { value: 'dark', icon: 'moon', title: 'Dark Theme' },
-        ],
-        showName: true,
-        dynamicTitle: true,
-      },
-    },
-  },
-  decorators: [withTheme],
+  // globalTypes: {
+  //   theme: {
+  //     name: 'Theme',
+  //     description: 'Theme switcher',
+  //     defaultValue: 'light',
+  //     toolbar: {
+  //       items: [
+  //         { value: 'light', icon: 'sun', title: 'Light Theme' },
+  //         { value: 'dark', icon: 'moon', title: 'Dark Theme' },
+  //       ],
+  //       showName: false,
+  //       dynamicTitle: false,
+  //     },
+  //   },
+  // },
+  decorators: [
+    withThemeByClassName<ReactRenderer>({
+      themes: { light: 'light', dark: 'dark' },
+      defaultTheme: 'light',
+    }),
+    (Story) => Story(),
+  ],
 }
 
 export default preview

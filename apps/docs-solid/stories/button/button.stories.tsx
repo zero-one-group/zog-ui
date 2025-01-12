@@ -22,7 +22,7 @@ const meta: Meta<ButtonProps> = {
     children: {
       control: 'text',
       table: {
-        type: { summary: 'ReactNode | string' },
+        type: { summary: 'JSX.Element | string' },
       },
     },
     variant: {

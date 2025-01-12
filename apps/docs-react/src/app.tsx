@@ -30,7 +30,7 @@ export default function Page() {
         {/* Content Section */}
         <div className="text-center">
           <h1 className="mb-8 bg-gradient-to-r from-indigo-300 to-purple-600 bg-clip-text font-bold text-4xl text-transparent">
-            Docs App
+            React + Vite
           </h1>
 
           <div className="mx-auto mb-8 max-w-lg rounded-xl bg-slate-800/50 p-8 shadow-lg">
@@ -42,9 +42,11 @@ export default function Page() {
               Count is {count}
             </Button>
 
-            <p className="mt-4 text-slate-300">
+            <p className="mt-6 text-slate-300">
               Edit{' '}
-              <code className="rounded bg-slate-700 px-2 py-1 text-sm">apps/docs/src/app.tsx</code>{' '}
+              <code className="rounded bg-slate-700 px-2 py-1 text-sm">
+                apps/docs-react/src/app.tsx
+              </code>{' '}
               and save to test HMR
             </p>
           </div>

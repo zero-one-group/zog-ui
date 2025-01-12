@@ -1,17 +1,9 @@
+/* @ref: https://storybook.js.org/docs/configure/user-interface/theming/ */
 import { addons } from '@storybook/manager-api'
-import customTheme from './theme'
-
-const channel = addons.getChannel()
-let isDark = true
-
-channel.on('DARK_MODE', (darkMode: boolean) => {
-  isDark = darkMode
-  addons.setConfig({
-    theme: isDark ? customTheme.dark : customTheme.light,
-  })
-})
+import { themes } from '@storybook/theming'
 
 addons.setConfig({
+  theme: themes.dark,
   sidebar: {
     showRoots: false,
     collapsedRoots: ['other'],
@@ -30,7 +22,6 @@ addons.setConfig({
     zoom: { hidden: false },
     'storybook/viewport': { hidden: false },
     'storybook/outline': { hidden: false },
-    'storybook/theme-toggle': { hidden: true },
   },
   initialActive: 'sidebar',
   selectedPanel: 'controls',

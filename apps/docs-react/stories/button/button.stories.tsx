@@ -60,9 +60,6 @@ type Story = StoryObj<typeof meta>
 
 // Individual Stories for Controls
 export const Default: Story = {
-  parameters: {
-    controls: { exclude: ['asChild'] },
-  },
   args: { children: 'Button' },
 }
 
