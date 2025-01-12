@@ -18,7 +18,7 @@ export default defineConfig({
   },
   base: '/',
   server: {
-    port: 4200,
+    port: 3001,
     strictPort: true,
     host: true,
   },

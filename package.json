@@ -1,11 +1,15 @@
 {
     "name": "zog-ui",
-    "version": "0.0.1-alpha.2",
+    "version": "0.0.1-alpha.3",
     "license": "Apache-2.0",
     "private": true,
     "scripts": {
         "dev": "turbo dev",
         "build": "turbo build",
+        "dev:react": "turbo dev --filter=*-react",
+        "dev:solid": "turbo dev --filter=*-solid",
+        "build:react": "turbo build --filter=*-react",
+        "build:solid": "turbo build --filter=*-solid",
         "start": "turbo start",
         "lint": "turbo lint",
         "check": "turbo check",

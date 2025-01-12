@@ -1,11 +1,11 @@
 import tailwindcss from '@tailwindcss/vite'
-import react from '@vitejs/plugin-react'
 import { resolve } from 'pathe'
 import { defineConfig } from 'vite'
+import solid from 'vite-plugin-solid'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig({
-  plugins: [react(), tailwindcss(), tsconfigPaths()],
+  plugins: [solid(), tailwindcss(), tsconfigPaths()],
   publicDir: resolve('public'),
   build: {
     emptyOutDir: true,
@@ -18,7 +18,7 @@ export default defineConfig({
   },
   base: '/',
   server: {
-    port: 4100,
+    port: 3002,
     strictPort: true,
     host: true,
   },
