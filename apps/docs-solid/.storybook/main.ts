@@ -24,7 +24,7 @@ const config: StorybookConfig = {
     return mergeConfig(config, {
       plugins: [tsconfigPaths()],
       build: {
-        chunkSizeWarningLimit: 1024,
+        chunkSizeWarningLimit: 1024 * 4,
       },
       optimizeDeps: {
         esbuildOptions: {
