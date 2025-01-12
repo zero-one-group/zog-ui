@@ -34,7 +34,7 @@ export default function Page() {
           </h1>
 
           <div class="mx-auto mb-8 max-w-lg rounded-xl bg-slate-800/50 p-8 shadow-lg">
-            <Button type="button" variant="secondary" onClick={() => setCount(count() + 1)}>
+            <Button type="button" variant="destructive" onClick={() => setCount(count() + 1)}>
               Count is {count()}
             </Button>
 
