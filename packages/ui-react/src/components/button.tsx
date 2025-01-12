@@ -1,6 +1,6 @@
 import type { Assign } from '@ark-ui/react'
 import { type HTMLArkProps, ark } from '@ark-ui/react/factory'
-import { ButtonVariants, buttonStyles } from '@repo/core-ui/button.css'
+import { type ButtonVariants, buttonStyles } from '@repo/core-ui/button.css'
 import * as Lucide from 'lucide-react'
 import * as React from 'react'
 

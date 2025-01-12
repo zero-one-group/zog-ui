@@ -2,9 +2,10 @@
     "$schema": "https://json.schemastore.org/tsconfig",
     "extends": "./base.json",
     "compilerOptions": {
+        "allowJs": true,
         "jsx": "preserve",
         "jsxImportSource": "solid-js",
-        "lib": ["DOM", "DOM.Iterable", "ES2022"],
+        "lib": ["DOM", "ES2020"],
         "module": "ESNext",
         "noEmit": true,
         "noImplicitReturns": true,
@@ -12,8 +13,7 @@
         "noUnusedParameters": true,
         "resolveJsonModule": true,
         "sourceMap": true,
-        "target": "ES2022",
-        "useDefineForClassFields": true
+        "target": "ES2020"
     },
     "exclude": ["node_modules"]
 }
