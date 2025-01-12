@@ -6,6 +6,8 @@
     "scripts": {
         "dev": "turbo dev",
         "build": "turbo build",
+        "dev:app-react": "turbo dev:app --filter=*-react",
+        "dev:app-solid": "turbo dev:app --filter=*-solid",
         "dev:react": "turbo dev --filter=*-react",
         "dev:solid": "turbo dev --filter=*-solid",
         "build:react": "turbo build --filter=*-react",

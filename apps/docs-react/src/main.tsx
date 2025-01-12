@@ -1,8 +1,10 @@
-import './main.css'
-import '@repo/core-ui/tailwind.css'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './app'
+
+// Import the Tailwind CSS styles.
+import '@repo/core-ui/tailwind.css'
+import './main.css'
 
 // The root element for the app.
 const rootElement = document.getElementById('app')
