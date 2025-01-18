@@ -1,0 +1,31 @@
+import { Canvas, Meta, Primary } from "@storybook/blocks";
+import * as Stories from "./tooltip.stories";
+
+<Meta of={Stories} />
+
+# Tooltip
+
+Tooltip component provides a mini popup window for information .
+
+# Example
+
+```tsx
+import { Tooltip } from "#/components/base-ui";
+
+// Basic Usage
+<TooltipComponents content='This is a tooltip!'>
+  <Button>Hover Me</Button>
+</TooltipComponents>;
+
+// Tooltip Placement
+<Tooltip
+  positioning={{
+    placement: 'right',
+  }}
+>
+  <Button>Hover Me</Button>
+</Tooltip>
+
+```
+
+<Primary />
