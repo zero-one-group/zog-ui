@@ -1,35 +1,33 @@
 import { Button } from "@repo/ui-react/button";
-import { Tooltip, type TooltipProps } from "@repo/ui-react/tooltip";
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipPotitioner,
+} from "@repo/ui-react/tooltip";
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
+import * as Lucide from "lucide-react";
 
-const meta: Meta<TooltipProps> = {
+const meta: Meta<typeof Tooltip> = {
   title: "Basic Components/Tooltip",
   component: Tooltip,
-  argTypes: {
-    openDelay: {
-      control: "number",
-      description: "the delay open of the mini window popup",
-    },
-    positioning: {
-      control: "select",
-      options: ["top", "bottom", "left", "right"],
-    },
-  },
 };
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {
-    content: "This is a tooltip!",
-  },
   render: (args) => (
-    <div className="flex min-h-screen items-center bg-gradient-to-br from-cyan-700 to-slate-800 text-white">
-      <div className="container mx-auto px-4 py-16">
+    <div className="flex min-h-screen ">
+      <div className="container mx-auto items-center gap-4 px-4 py-16">
         <Tooltip {...args}>
-          <Button>Hover Me</Button>
+          <TooltipTrigger>
+            <Button>Hover Me</Button>
+          </TooltipTrigger>
+          <TooltipPotitioner>
+            <TooltipContent>I am a tooltip!</TooltipContent>
+          </TooltipPotitioner>
         </Tooltip>
       </div>
     </div>
@@ -37,10 +35,6 @@ export const Default: Story = {
 };
 
 export const VariantPosition: Story = {
-  args: {
-    content: "This is a tooltip!",
-  },
-
   render: (args) => (
     <div className="flex min-h-screen ">
       <div className="container mx-auto items-center gap-4 px-4 py-16">
@@ -52,7 +46,12 @@ export const VariantPosition: Story = {
                 placement: "right",
               }}
             >
-              <Button>Hover Me</Button>
+              <TooltipTrigger>
+                <Button>Hover Me</Button>
+              </TooltipTrigger>
+              <TooltipPotitioner>
+                <TooltipContent>tooltip on right</TooltipContent>
+              </TooltipPotitioner>
             </Tooltip>
             <Tooltip
               {...args}
@@ -60,7 +59,12 @@ export const VariantPosition: Story = {
                 placement: "left",
               }}
             >
-              <Button>Hover Me</Button>
+              <TooltipTrigger>
+                <Button>Hover Me</Button>
+              </TooltipTrigger>
+              <TooltipPotitioner>
+                <TooltipContent>tooltip on left</TooltipContent>
+              </TooltipPotitioner>
             </Tooltip>
             <Tooltip
               {...args}
@@ -68,7 +72,12 @@ export const VariantPosition: Story = {
                 placement: "top",
               }}
             >
-              <Button>Hover Me</Button>
+              <TooltipTrigger>
+                <Button>Hover Me</Button>
+              </TooltipTrigger>
+              <TooltipPotitioner>
+                <TooltipContent>tooltip on top</TooltipContent>
+              </TooltipPotitioner>
             </Tooltip>
             <Tooltip
               {...args}
@@ -76,10 +85,37 @@ export const VariantPosition: Story = {
                 placement: "bottom",
               }}
             >
-              <Button>Hover Me</Button>
+              <TooltipTrigger>
+                <Button>Hover Me</Button>
+              </TooltipTrigger>
+              <TooltipPotitioner>
+                <TooltipContent>tooltip on bottom</TooltipContent>
+              </TooltipPotitioner>
             </Tooltip>
           </div>
         </div>
+      </div>
+    </div>
+  ),
+};
+
+export const WithContentIcon: Story = {
+  render: (args) => (
+    <div className="flex min-h-screen ">
+      <div className="container mx-auto items-center gap-4 px-4 py-16">
+        <Tooltip {...args}>
+          <TooltipTrigger>
+            <Button>Hover Me</Button>
+          </TooltipTrigger>
+          <TooltipPotitioner>
+            <TooltipContent>
+              <div className="flex flex-auto items-center gap-2">
+                <Lucide.Github size={16} />
+                tooltip on bottom
+              </div>
+            </TooltipContent>
+          </TooltipPotitioner>
+        </Tooltip>
       </div>
     </div>
   ),

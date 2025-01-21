@@ -10,22 +10,27 @@ Tooltip component provides a mini popup window for information .
 # Example
 
 ```tsx
-import { Tooltip } from "#/components/base-ui";
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipPotitioner,
+} from "@repo/ui-react/tooltip";
 
 // Basic Usage
-<TooltipComponents content='This is a tooltip!'>
-  <Button>Hover Me</Button>
-</TooltipComponents>;
-
-// Tooltip Placement
 <Tooltip
+  {...args}
   positioning={{
-    placement: 'right',
+    placement: "bottom",
   }}
 >
-  <Button>Hover Me</Button>
-</Tooltip>
-
+  <TooltipTrigger>
+    <Button>Hover Me</Button>
+  </TooltipTrigger>
+  <TooltipPotitioner>
+    <TooltipContent>tooltip on bottom</TooltipContent>
+  </TooltipPotitioner>
+</Tooltip>;
 ```
 
 <Primary />

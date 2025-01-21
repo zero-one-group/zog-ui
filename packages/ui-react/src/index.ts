@@ -1,3 +1,11 @@
 // components
 export { Button } from "./components/button";
-export { Tooltip, TooltipProvider } from "./components/tooltip";
+export {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+  TooltipPotitioner,
+  TooltipArrow,
+  TooltipArrowTip,
+} from "./components/tooltip";
