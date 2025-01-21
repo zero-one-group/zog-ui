@@ -1,21 +1,16 @@
-import { Button } from "@repo/ui-react/button";
-import {
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-  TooltipPotitioner,
-} from "@repo/ui-react/tooltip";
-import type { Meta, StoryObj } from "@storybook/react";
-import React from "react";
-import * as Lucide from "lucide-react";
+import { Button } from '@repo/ui-react/button'
+import { Tooltip, TooltipContent, TooltipPotitioner, TooltipTrigger } from '@repo/ui-react/tooltip'
+import type { Meta, StoryObj } from '@storybook/react'
+import * as Lucide from 'lucide-react'
+import React from 'react'
 
 const meta: Meta<typeof Tooltip> = {
-  title: "Basic Components/Tooltip",
+  title: 'Basic Components/Tooltip',
   component: Tooltip,
-};
-export default meta;
+}
+export default meta
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   render: (args) => (
@@ -32,7 +27,7 @@ export const Default: Story = {
       </div>
     </div>
   ),
-};
+}
 
 export const VariantPosition: Story = {
   render: (args) => (
@@ -43,7 +38,7 @@ export const VariantPosition: Story = {
             <Tooltip
               {...args}
               positioning={{
-                placement: "right",
+                placement: 'right',
               }}
             >
               <TooltipTrigger>
@@ -56,7 +51,7 @@ export const VariantPosition: Story = {
             <Tooltip
               {...args}
               positioning={{
-                placement: "left",
+                placement: 'left',
               }}
             >
               <TooltipTrigger>
@@ -69,7 +64,7 @@ export const VariantPosition: Story = {
             <Tooltip
               {...args}
               positioning={{
-                placement: "top",
+                placement: 'top',
               }}
             >
               <TooltipTrigger>
@@ -82,7 +77,7 @@ export const VariantPosition: Story = {
             <Tooltip
               {...args}
               positioning={{
-                placement: "bottom",
+                placement: 'bottom',
               }}
             >
               <TooltipTrigger>
@@ -97,7 +92,7 @@ export const VariantPosition: Story = {
       </div>
     </div>
   ),
-};
+}
 
 export const WithContentIcon: Story = {
   render: (args) => (
@@ -119,4 +114,4 @@ export const WithContentIcon: Story = {
       </div>
     </div>
   ),
-};
+}

@@ -1,8 +1,8 @@
-import { Button } from "@repo/ui-react/button";
-import { useState } from "react";
+import { Button } from '@repo/ui-react/button'
+import { useState } from 'react'
 
 export default function Page() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0)
 
   return (
     <div className="flex min-h-screen items-center bg-gradient-to-br from-cyan-700 to-slate-800 text-white">
@@ -43,10 +43,10 @@ export default function Page() {
             </Button>
 
             <p className="mt-6 text-slate-300">
-              Edit{" "}
+              Edit{' '}
               <code className="rounded bg-slate-700 px-2 py-1 text-sm">
                 apps/docs-react/src/app.tsx
-              </code>{" "}
+              </code>{' '}
               and save to test HMR
             </p>
           </div>
@@ -57,5 +57,5 @@ export default function Page() {
         </div>
       </div>
     </div>
-  );
+  )
 }
