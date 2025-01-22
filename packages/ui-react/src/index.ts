@@ -1,5 +1,6 @@
 // components
-export { Button } from './components/button'
+export { Alert, AlertTitle, AlertDescription } from "./components/alert";
+export { Button } from "./components/button";
 export {
   Tooltip,
   TooltipContent,
@@ -8,4 +9,4 @@ export {
   TooltipPotitioner,
   TooltipArrow,
   TooltipArrowTip,
-} from './components/tooltip'
+} from "./components/tooltip";

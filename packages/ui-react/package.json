@@ -1,34 +1,39 @@
 {
-    "name": "@repo/ui-react",
-    "version": "0.0.0",
-    "private": true,
-    "sideEffects": ["**/*.css"],
-    "files": ["dist"],
-    "scripts": {
-        "cleanup": "pnpm dlx rimraf dist node_modules pnpm-lock.yaml storybook-static",
-        "lint": "biome lint . --write",
-        "check": "biome check . --write",
-        "typecheck": "tsc --noEmit"
-    },
-    "exports": {
-        "./button": "./src/components/button.tsx",
-        "./tooltip": "./src/components/tooltip.tsx"
-    },
-    "peerDependencies": {
-        "react": "^19.0.0"
-    },
-    "devDependencies": {
-        "@ark-ui/react": "^4.8.0",
-        "@biomejs/biome": "catalog:",
-        "@repo/config-typescript": "workspace:*",
-        "@repo/core-ui": "workspace:*",
-        "@types/react": "^19.0.5",
-        "lucide-react": "^0.471.0",
-        "tailwind-variants": "^0.3.0",
-        "tailwindcss": "4.0.0-beta.8",
-        "typescript": "catalog:"
-    },
-    "publishConfig": {
-        "access": "public"
-    }
+  "name": "@repo/ui-react",
+  "version": "0.0.0",
+  "private": true,
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "cleanup": "pnpm dlx rimraf dist node_modules pnpm-lock.yaml storybook-static",
+    "lint": "biome lint . --write",
+    "check": "biome check . --write",
+    "typecheck": "tsc --noEmit"
+  },
+  "exports": {
+    "./alert": "./src/components/alert.tsx",
+    "./button": "./src/components/button.tsx",
+    "./tooltip": "./src/components/tooltip.tsx"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  },
+  "devDependencies": {
+    "@ark-ui/react": "^4.8.0",
+    "@biomejs/biome": "catalog:",
+    "@repo/config-typescript": "workspace:*",
+    "@repo/core-ui": "workspace:*",
+    "@types/react": "^19.0.5",
+    "lucide-react": "^0.471.0",
+    "tailwind-variants": "^0.3.0",
+    "tailwindcss": "4.0.0-beta.8",
+    "typescript": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }
