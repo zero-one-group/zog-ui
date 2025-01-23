@@ -1,5 +1,5 @@
-import { Canvas, Meta, Primary } from "@storybook/blocks";
-import * as Stories from "./alert.stories";
+import { Canvas, Meta, Primary } from '@storybook/blocks';
+import * as Stories from './alert.stories';
 
 <Meta of={Stories} />
 
@@ -10,12 +10,14 @@ Displays a callout for user attention with different severity levels.
 ## Example
 
 ```tsx
-import { Alert, AlertTitle, AlertDescription } from '#/components/base-ui'
+import { Alert, AlertTitle, AlertIcon, AlertDescription } from '#/components/base-ui'
 import * as Lucide from 'lucide-react'
 
 // Basic usage
 <Alert>
-  <Lucide.Info className="size-4" />
+  <AlertIcon asChild>
+    <Lucide.Info className="size-4" />
+  </AlertIcon>
   <AlertTitle>Heads up!</AlertTitle>
   <AlertDescription>
     This is an important message.
@@ -24,7 +26,9 @@ import * as Lucide from 'lucide-react'
 
 // Destructive variant
 <Alert variant="destructive">
-  <AlertCircle className="size-4" />
+  <AlertIcon asChild>
+    <Lucide.Info className="size-4" />
+  </AlertIcon>
   <AlertTitle>Error</AlertTitle>
   <AlertDescription>
     Something went wrong!

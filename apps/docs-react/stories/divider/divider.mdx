@@ -1,0 +1,28 @@
+import { Canvas, Meta, Primary } from '@storybook/blocks';
+import * as Stories from './divider.stories';
+
+<Meta of={Stories} />
+
+# Divider
+
+A versatile divider component used to create visual separation between content.
+
+## Example
+
+```tsx
+import { Divider } from '#/components/base-ui'
+
+// Horizontal separator
+<Divider className="my-4" />
+
+// Vertical separator
+<div className="flex h-5 items-center space-x-4">
+  <div>Blog</div>
+  <Divider orientation="vertical" />
+  <div>Docs</div>
+</div>
+```
+
+## Preview
+
+<Primary />

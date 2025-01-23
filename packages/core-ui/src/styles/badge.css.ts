@@ -6,12 +6,13 @@ export const badgeStyles = tv({
   },
   variants: {
     variant: {
-      default: 'border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80',
+      default:
+        'border-transparent bg-primary text-primary-foreground shadow-sm hover:bg-primary/80',
       secondary: 'border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80',
       success:
         'border-transparent bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300',
       destructive:
-        'border-transparent bg-destructive text-destructive-foreground shadow hover:bg-destructive/80',
+        'border-transparent bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/80',
       outline:
         'border-input bg-background text-foreground/80 hover:bg-accent/50 hover:text-accent-foreground',
       info: 'border-transparent bg-sky-100 text-sky-700 dark:bg-sky-500/20 dark:text-sky-300',

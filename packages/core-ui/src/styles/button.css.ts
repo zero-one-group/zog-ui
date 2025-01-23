@@ -1,22 +1,42 @@
 import { type VariantProps, tv } from 'tailwind-variants'
 
 export const buttonStyles = tv({
-  slots: {
-    base: [
-      'inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium text-sm transition-colors',
-      'focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',
-      '[&[data-loading=true]_svg:not(:first-child)]:hidden [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
-    ],
-  },
+  base: [
+    'inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium text-sm transition-all',
+    'focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',
+    '[&[data-loading=true]_svg:not(:first-child)]:hidden [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+    'select-none active:scale-[0.98]',
+  ],
   variants: {
     variant: {
-      default: 'bg-primary text-primary-foreground shadow hover:bg-primary/90',
-      destructive: 'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90',
-      outline:
-        'border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground',
-      secondary: 'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
-      ghost: 'hover:bg-accent hover:text-accent-foreground',
-      link: 'text-primary underline-offset-4 hover:underline',
+      default: [
+        'bg-gradient-to-b from-background to-muted text-foreground',
+        'shadow-sm hover:from-muted hover:to-accent active:from-accent active:to-muted',
+      ],
+      primary: [
+        'bg-gradient-to-b from-primary to-primary/90 text-white',
+        'shadow-sm hover:from-primary/90 hover:to-primary/80 active:from-primary/80 active:to-primary/90',
+      ],
+      secondary: [
+        'bg-gradient-to-b from-blue-500 to-blue-600 text-white',
+        'shadow-sm hover:from-blue-600 hover:to-blue-700 active:from-blue-700 active:to-blue-600',
+      ],
+      destructive: [
+        'bg-gradient-to-b from-destructive to-destructive/90 text-destructive-foreground',
+        'shadow-sm hover:from-destructive/90 hover:to-destructive/80 active:from-destructive/80 active:to-destructive/90',
+      ],
+      outline: [
+        'bg-gradient-to-b from-background to-background/95 text-foreground',
+        'shadow-xs hover:from-accent/50 hover:to-accent/40 active:from-accent/40 active:to-accent/50',
+      ],
+      ghost: [
+        'text-foreground hover:bg-accent/80 active:bg-accent',
+        'dark:text-foreground dark:active:bg-accent/80 dark:hover:bg-accent',
+      ],
+      link: [
+        'h-auto p-0 text-primary underline-offset-4',
+        'hover:text-primary/80 hover:underline active:text-primary/70',
+      ],
     },
     size: {
       default: 'h-9 px-4 py-2',
@@ -31,33 +51,18 @@ export const buttonStyles = tv({
   },
   compoundVariants: [
     {
-      isLoading: true,
-      className: '[&>svg]:-ml-1 [&>svg]:size-4 [&>svg]:animate-spin',
+      variant: ['default', 'primary', 'secondary', 'destructive', 'outline'],
+      className: 'inset-ring inset-ring-ring/10 inset-shadow-sm inset-shadow-white/5',
     },
     {
-      variant: ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'],
       isLoading: true,
-      className: 'text-white/70',
+      className:
+        '[&>svg]:-ml-1 [&>svg]:motion-preset-spin [&>svg]:motion-duration-1000 [&>svg]:size-4',
     },
     {
       size: ['icon'],
       isLoading: true,
       className: '[&>svg]:ml-0',
-    },
-    {
-      variant: 'outline',
-      size: ['icon', 'sm'],
-      className: 'border',
-    },
-    {
-      variant: ['ghost', 'link'],
-      size: ['lg'],
-      className: 'font-semibold tracking-wide',
-    },
-    {
-      variant: ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'],
-      size: ['lg'],
-      className: 'shadow-md',
     },
   ],
   defaultVariants: {

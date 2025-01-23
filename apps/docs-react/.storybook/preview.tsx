@@ -1,7 +1,10 @@
-import { withThemeByClassName } from '@storybook/addon-themes'
+import { withThemeByDataAttribute } from '@storybook/addon-themes'
 import type { Preview, ReactRenderer } from '@storybook/react'
 import { themes } from '@storybook/theming'
+import * as React from 'react'
+import { MemoryRouter } from 'react-router'
 import '@repo/core-ui/tailwind.css'
+import { Toaster } from '@repo/ui-react/toast'
 
 const preview: Preview = {
   // Optional parameter to center the component in the Canvas.
@@ -64,11 +67,17 @@ const preview: Preview = {
   //   },
   // },
   decorators: [
-    withThemeByClassName<ReactRenderer>({
+    withThemeByDataAttribute<ReactRenderer>({
       themes: { light: 'light', dark: 'dark' },
+      attributeName: 'data-theme',
       defaultTheme: 'light',
     }),
-    (Story) => Story(),
+    (Story) => (
+      <MemoryRouter>
+        <Story />
+        <Toaster />
+      </MemoryRouter>
+    ),
   ],
 }
 

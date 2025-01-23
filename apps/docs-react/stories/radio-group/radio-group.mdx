@@ -1,0 +1,38 @@
+import { Canvas, Meta, Primary } from '@storybook/blocks';
+import * as Stories from './radio-group.stories';
+
+<Meta of={Stories} />
+
+# Radio Group
+
+A set of checkable buttons where only one can be checked at a time.
+
+## Example
+
+```tsx
+import { RadioGroup, RadioGroupItem, RadioGroupLabel } from '#/components/base-ui'
+
+const options = [
+  { id: 'all', label: 'All new messages' },
+  { id: 'mentions', label: 'Direct messages and mentions' },
+  { id: 'billing', label: 'Billing notifications' },
+  { id: 'nothing', label: 'Nothing' },
+]
+
+return (
+  <RadioGroup defaultValue="react" onValueChange={(value) => console.info(value)}>
+    <RadioGroupLabel>Notify me about...</RadioGroupLabel>
+    <div className="flex flex-col space-y-3">
+      {options.map((option) => (
+        <RadioGroupItem key={option.id} value={option.id} disabled={option.id === 'billing'}>
+          {option.label}
+        </RadioGroupItem>
+      ))}
+    </div>
+  </RadioGroup>
+)
+```
+
+## Preview
+
+<Primary />

@@ -22,11 +22,12 @@ const Button: Component<ButtonProps> = (props) => {
     variant: local.variant,
     size: local.size,
     isLoading: local.isLoading,
+    class: local.class,
   })
 
   return (
     <ark.button
-      class={styles.base({ className: local.class })}
+      class={styles}
       data-loading={local.isLoading}
       disabled={isDisabled()}
       asChild={local.asChild}

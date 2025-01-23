@@ -26,8 +26,8 @@
     },
     "devDependencies": {
         "@biomejs/biome": "catalog:",
-        "npm-check-updates": "^17.1.13",
+        "npm-check-updates": "^17.1.14",
         "turbo": "^2.3.3"
     },
-    "packageManager": "pnpm@9.15.3"
+    "packageManager": "pnpm@9.15.4"
 }

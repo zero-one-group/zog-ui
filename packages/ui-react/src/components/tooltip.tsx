@@ -1,38 +1,28 @@
-import type { Assign, HTMLArkProps } from '@ark-ui/react'
-import { Tooltip as ArkTooltip } from '@ark-ui/react/tooltip'
-import { type TooltipVariants, tooltipStyles } from '@repo/core-ui/tooltip.css'
+import { Tooltip as TooltipPrimitive, useTooltip } from '@ark-ui/react/tooltip'
+import { tooltipStyles } from '@repo/core-ui/tooltip.css'
 import * as React from 'react'
 
-export interface TooltipProps
-  extends Assign<HTMLArkProps<'div'>, TooltipVariants>,
-    React.ComponentPropsWithoutRef<typeof ArkTooltip.Content> {}
+const Tooltip = TooltipPrimitive.Root
+const TooltipTrigger = TooltipPrimitive.Trigger
 
-const TooltipProvider = ArkTooltip.RootProvider
+const TooltipContent = React.forwardRef<
+  React.ComponentRef<typeof TooltipPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>
+>(({ className, ...props }, ref) => {
+  const styles = tooltipStyles()
 
-const Tooltip = ArkTooltip.Root
+  return (
+    <TooltipPrimitive.Positioner>
+      <TooltipPrimitive.Content ref={ref} className={styles.base({ className })} {...props}>
+        <TooltipPrimitive.Arrow>
+          <TooltipPrimitive.ArrowTip className={styles.arrowTip()} />
+        </TooltipPrimitive.Arrow>
+        {props.children}
+      </TooltipPrimitive.Content>
+    </TooltipPrimitive.Positioner>
+  )
+})
 
-const TooltipTrigger = ArkTooltip.Trigger
+TooltipContent.displayName = TooltipPrimitive.Content.displayName
 
-const TooltipPotitioner = ArkTooltip.Positioner
-
-const TooltipArrow = ArkTooltip.Arrow
-
-const TooltipArrowTip = ArkTooltip.ArrowTip
-
-const TooltipContent = React.forwardRef<HTMLDivElement, TooltipProps>(
-  ({ className, ...props }, ref) => {
-    const styles = tooltipStyles({})
-    return <ArkTooltip.Content ref={ref} className={styles.base()} {...props} />
-  }
-)
-TooltipContent.displayName = 'Tooltip'
-
-export {
-  Tooltip,
-  TooltipTrigger,
-  TooltipPotitioner,
-  TooltipContent,
-  TooltipProvider,
-  TooltipArrow,
-  TooltipArrowTip,
-}
+export { Tooltip, TooltipTrigger, TooltipContent, useTooltip }
