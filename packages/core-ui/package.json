@@ -28,6 +28,7 @@
         "./command.css": "./src/styles/command.css.ts",
         "./context-menu.css": "./src/styles/context-menu.css.ts",
         "./dialog.css": "./src/styles/dialog.css.ts",
+        "./divider.css": "./src/styles/divider.css.ts",
         "./drawer.css": "./src/styles/drawer.css.ts",
         "./dropdown-menu.css": "./src/styles/dropdown-menu.css.ts",
         "./form.css": "./src/styles/form.css.ts",
@@ -36,7 +37,6 @@
         "./input-otp.css": "./src/styles/input-otp.css.ts",
         "./input.css": "./src/styles/input.css.ts",
         "./label.css": "./src/styles/label.css.ts",
-        "./link.css": "./src/styles/link.css.ts",
         "./pagination.css": "./src/styles/pagination.css.ts",
         "./popover.css": "./src/styles/popover.css.ts",
         "./progress.css": "./src/styles/progress.css.ts",
@@ -64,14 +64,13 @@
     "dependencies": {
         "clsx": "^2.1.1",
         "tailwind-merge": "^2.6.0",
-        "tailwind-variants": "^0.3.0",
-        "tailwindcss-animate": "^1.0.7",
+        "tailwind-variants": "^0.3.1",
         "tailwindcss-motion": "^1.0.1"
     },
     "devDependencies": {
         "@biomejs/biome": "catalog:",
         "@repo/config-typescript": "workspace:*",
-        "@tailwindcss/cli": "4.0.0-beta.8",
+        "@tailwindcss/cli": "4.0.0",
         "tailwindcss": "4.0.0-beta.8",
         "typescript": "catalog:"
     },

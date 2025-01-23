@@ -70,7 +70,7 @@
                 "noCommentText": "off",
                 "noConsoleLog": {
                     "level": "info",
-                    "fix": "safe"
+                    "fix": "none"
                 },
                 "noDebugger": "off",
                 "noExplicitAny": "off",

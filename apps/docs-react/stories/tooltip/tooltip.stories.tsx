@@ -1,117 +1,106 @@
 import { Button } from '@repo/ui-react/button'
-import { Tooltip, TooltipContent, TooltipPotitioner, TooltipTrigger } from '@repo/ui-react/tooltip'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@repo/ui-react/tooltip'
 import type { Meta, StoryObj } from '@storybook/react'
 import * as Lucide from 'lucide-react'
-import React from 'react'
+import * as React from 'react'
 
-const meta: Meta<typeof Tooltip> = {
+const meta: Meta = {
   title: 'Basic Components/Tooltip',
   component: Tooltip,
+  parameters: {
+    layout: 'centered',
+  },
 }
-export default meta
 
+export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  render: (args) => (
-    <div className="flex min-h-screen ">
-      <div className="container mx-auto items-center gap-4 px-4 py-16">
-        <Tooltip {...args}>
-          <TooltipTrigger>
-            <Button>Hover Me</Button>
-          </TooltipTrigger>
-          <TooltipPotitioner>
-            <TooltipContent>I am a tooltip!</TooltipContent>
-          </TooltipPotitioner>
-        </Tooltip>
-      </div>
+  render: () => (
+    <Tooltip closeDelay={100} openDelay={100}>
+      <TooltipTrigger asChild>
+        <Button variant="outline" size="icon">
+          <Lucide.Plus className="size-4" />
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>Add to library</p>
+      </TooltipContent>
+    </Tooltip>
+  ),
+}
+
+export const TooltipShowcase: Story = {
+  render: () => (
+    <div className="flex items-center gap-8">
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button variant="outline">Hover me</Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>Basic tooltip</p>
+        </TooltipContent>
+      </Tooltip>
+
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button variant="outline" size="icon">
+            <Lucide.Settings className="size-4" />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>Settings</TooltipContent>
+      </Tooltip>
+
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button variant="outline" size="icon">
+            <Lucide.Bell className="size-4" />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>Notifications</TooltipContent>
+      </Tooltip>
     </div>
   ),
 }
 
-export const VariantPosition: Story = {
-  render: (args) => (
-    <div className="flex min-h-screen ">
-      <div className="container mx-auto items-center gap-4 px-4 py-16">
-        <div className="flex flex-wrap items-center">
-          <div className="grid grid-cols-2 gap-4">
-            <Tooltip
-              {...args}
-              positioning={{
-                placement: 'right',
-              }}
-            >
-              <TooltipTrigger>
-                <Button>Hover Me</Button>
-              </TooltipTrigger>
-              <TooltipPotitioner>
-                <TooltipContent>tooltip on right</TooltipContent>
-              </TooltipPotitioner>
-            </Tooltip>
-            <Tooltip
-              {...args}
-              positioning={{
-                placement: 'left',
-              }}
-            >
-              <TooltipTrigger>
-                <Button>Hover Me</Button>
-              </TooltipTrigger>
-              <TooltipPotitioner>
-                <TooltipContent>tooltip on left</TooltipContent>
-              </TooltipPotitioner>
-            </Tooltip>
-            <Tooltip
-              {...args}
-              positioning={{
-                placement: 'top',
-              }}
-            >
-              <TooltipTrigger>
-                <Button>Hover Me</Button>
-              </TooltipTrigger>
-              <TooltipPotitioner>
-                <TooltipContent>tooltip on top</TooltipContent>
-              </TooltipPotitioner>
-            </Tooltip>
-            <Tooltip
-              {...args}
-              positioning={{
-                placement: 'bottom',
-              }}
-            >
-              <TooltipTrigger>
-                <Button>Hover Me</Button>
-              </TooltipTrigger>
-              <TooltipPotitioner>
-                <TooltipContent>tooltip on bottom</TooltipContent>
-              </TooltipPotitioner>
-            </Tooltip>
-          </div>
-        </div>
-      </div>
-    </div>
-  ),
-}
+export const PositionShowcase: Story = {
+  render: () => (
+    <div className="flex h-[200px] items-center justify-center gap-8">
+      <Tooltip positioning={{ placement: 'top' }}>
+        <TooltipTrigger asChild>
+          <Button variant="outline">Top</Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>Top tooltip</p>
+        </TooltipContent>
+      </Tooltip>
 
-export const WithContentIcon: Story = {
-  render: (args) => (
-    <div className="flex min-h-screen ">
-      <div className="container mx-auto items-center gap-4 px-4 py-16">
-        <Tooltip {...args}>
-          <TooltipTrigger>
-            <Button>Hover Me</Button>
-          </TooltipTrigger>
-          <TooltipPotitioner>
-            <TooltipContent>
-              <div className="flex flex-auto items-center gap-2">
-                <Lucide.Github size={16} />
-                tooltip on bottom
-              </div>
-            </TooltipContent>
-          </TooltipPotitioner>
-        </Tooltip>
-      </div>
+      <Tooltip positioning={{ placement: 'right' }}>
+        <TooltipTrigger asChild>
+          <Button variant="outline">Right</Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>Right tooltip</p>
+        </TooltipContent>
+      </Tooltip>
+
+      <Tooltip positioning={{ placement: 'bottom' }}>
+        <TooltipTrigger asChild>
+          <Button variant="outline">Bottom</Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>Bottom tooltip</p>
+        </TooltipContent>
+      </Tooltip>
+
+      <Tooltip positioning={{ placement: 'left' }}>
+        <TooltipTrigger asChild>
+          <Button variant="outline">Left</Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>Left tooltip</p>
+        </TooltipContent>
+      </Tooltip>
     </div>
   ),
 }

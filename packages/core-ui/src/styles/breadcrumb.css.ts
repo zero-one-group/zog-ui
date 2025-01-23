@@ -8,7 +8,7 @@ export const breadcrumbStyles = tv({
     link: 'transition-colors hover:text-foreground',
     page: 'font-normal text-foreground',
     separator: '[&>svg]:h-3.5 [&>svg]:w-3.5',
-    ellipsis: 'flex h-9 w-9 items-center justify-center',
+    ellipsis: 'flex size-9 cursor-pointer items-center justify-center',
     ellipsisIcon: 'size-4',
   },
 })

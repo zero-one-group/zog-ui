@@ -9,21 +9,26 @@ export interface ButtonProps extends Assign<HTMLArkProps<'button'>, ButtonVarian
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant, size, className, isLoading, disabled, children, asChild = false, ...props }, ref) => {
-    const isDisabled = disabled || isLoading
-    const styles = buttonStyles({ variant, size, isLoading })
+  ({ variant, size, className, isLoading, disabled, children, ...props }, ref) => {
+    // Wrap children in fragment when loading to ensure single child
+    const content = isLoading ? (
+      <>
+        <Lucide.Loader2 strokeWidth={2} />
+        {children}
+      </>
+    ) : (
+      children
+    )
 
     return (
       <ark.button
         ref={ref}
-        className={styles.base({ className })}
+        className={buttonStyles({ variant, size, isLoading, className })}
+        disabled={disabled || isLoading}
         data-loading={isLoading}
-        disabled={isDisabled}
-        asChild={asChild}
         {...props}
       >
-        {isLoading && <Lucide.Loader2 strokeWidth={2} />}
-        {children}
+        {content}
       </ark.button>
     )
   }
