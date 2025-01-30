@@ -1,15 +1,15 @@
-import type { Meta, StoryObj } from '@storybook/react'
 import {
   Breadcrumb,
+  BreadcrumbEllipsis,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbSeparator,
   BreadcrumbPage,
-  BreadcrumbEllipsis,
+  BreadcrumbSeparator,
 } from '@repo/ui-react/breadcrumb'
-import React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
 import { Slash } from 'lucide-react'
+import React from 'react'
 
 const meta: Meta = {
   title: 'Basic Components/Breadcrumb',
@@ -21,15 +21,15 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  render: (args) => (
+  render: () => (
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink href='/'>Home</BreadcrumbLink>
+          <BreadcrumbLink href="/">Home</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href='/components'>Components</BreadcrumbLink>
+          <BreadcrumbLink href="/components">Components</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
@@ -41,17 +41,17 @@ export const Default: Story = {
 }
 
 export const CustomSeparatorShowcase: Story = {
-  render: (args) => (
-    <Breadcrumb {...args}>
+  render: () => (
+    <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink href='/'>Home</BreadcrumbLink>
+          <BreadcrumbLink href="/">Home</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator>
           <Slash />
         </BreadcrumbSeparator>
         <BreadcrumbItem>
-          <BreadcrumbLink href='/components'>Components</BreadcrumbLink>
+          <BreadcrumbLink href="/components">Components</BreadcrumbLink>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
@@ -59,11 +59,11 @@ export const CustomSeparatorShowcase: Story = {
 }
 
 export const CollapsedShowcase: Story = {
-  render: (args) => (
-    <Breadcrumb {...args}>
+  render: () => (
+    <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink href='/'>Home</BreadcrumbLink>
+          <BreadcrumbLink href="/">Home</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
@@ -71,7 +71,7 @@ export const CollapsedShowcase: Story = {
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href='/components'>Components</BreadcrumbLink>
+          <BreadcrumbLink href="/components">Components</BreadcrumbLink>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
@@ -79,17 +79,17 @@ export const CollapsedShowcase: Story = {
 }
 
 export const CustomLinkShowcase: Story = {
-  render: (args) => (
-    <Breadcrumb {...args}>
+  render: () => (
+    <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
-            <a href='/'>Home</a>
+            <a href="/">Home</a>
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href='/components'>Components</BreadcrumbLink>
+          <BreadcrumbLink href="/components">Components</BreadcrumbLink>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>

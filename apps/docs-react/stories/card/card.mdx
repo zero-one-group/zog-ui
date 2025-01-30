@@ -1,0 +1,43 @@
+import { Canvas, Meta, Primary, Stories } from '@storybook/blocks'
+import * as CardStories from './card.stories'
+
+<Meta of={CardStories} />
+
+# Button
+
+Card component
+
+## Example
+
+```tsx
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@repo/ui-react/card'
+
+<Card>
+  <CardHeader>
+    <CardTitle>Hello World</CardTitle>
+    <CardDescription>We start new project</CardDescription>
+  </CardHeader>
+  <CardContent>
+    This is the card content. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nec
+    odio vel dui euismod fermentum. Curabitur nec odio vel dui euismod fermentum.
+  </CardContent>
+  <CardFooter>
+    <Button>View</Button>
+    <Button>Accept</Button>
+  </CardFooter>
+</Card>
+```
+
+## Preview
+
+<Primary />
+
+<Stories />
+
