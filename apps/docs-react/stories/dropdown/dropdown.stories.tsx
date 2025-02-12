@@ -12,19 +12,19 @@ import {
   DropdownSeparator,
   DropdownSubTrigger,
   DropdownTrigger,
-} from "@repo/ui-react/dropdown-menu";
-import type { Meta, StoryObj } from "@storybook/react";
-import * as React from "react";
-import * as Lucide from "lucide-react";
+} from '@repo/ui-react/dropdown-menu'
+import type { Meta, StoryObj } from '@storybook/react'
+import * as Lucide from 'lucide-react'
+import * as React from 'react'
 
 const meta: Meta<typeof DropdownMenu> = {
-  title: "Basic Components/DropdownMenu",
+  title: 'Basic Components/DropdownMenu',
   component: DropdownMenu,
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   render: () => (
@@ -50,24 +50,22 @@ export const Default: Story = {
       </DropdownMenu>
     </div>
   ),
-};
+}
 
 export const CheckboxesShowcase: Story = {
   render: () => {
     const DropdownComponent = () => {
       const [items, setItems] = React.useState([
-        { id: "react", value: "React", checked: false },
-        { id: "solid", value: "Solid", checked: false },
-        { id: "vue", value: "Vue", checked: false },
-        { id: "angular", value: "Angular", checked: false },
-      ]);
+        { id: 'react', value: 'React', checked: false },
+        { id: 'solid', value: 'Solid', checked: false },
+        { id: 'vue', value: 'Vue', checked: false },
+        { id: 'angular', value: 'Angular', checked: false },
+      ])
       const handleCheckedChange = (id: string, checked: boolean) => {
         setItems((prevItems) =>
-          prevItems.map((item) =>
-            item.id === id ? { ...item, checked } : item
-          )
-        );
-      };
+          prevItems.map((item) => (item.id === id ? { ...item, checked } : item))
+        )
+      }
       return (
         <div className="flex h-[200px] items-center justify-center gap-8">
           <DropdownMenu>
@@ -79,9 +77,7 @@ export const CheckboxesShowcase: Story = {
                     key={item.id}
                     value={item.id}
                     checked={item.checked}
-                    onCheckedChange={(checked) =>
-                      handleCheckedChange(item.id, checked)
-                    }
+                    onCheckedChange={(checked) => handleCheckedChange(item.id, checked)}
                   >
                     {item.value}
                   </DropdownCheckboxItem>
@@ -90,32 +86,29 @@ export const CheckboxesShowcase: Story = {
             </DropdownPositioner>
           </DropdownMenu>
         </div>
-      );
-    };
-    return <DropdownComponent />;
+      )
+    }
+    return <DropdownComponent />
   },
-};
+}
 
 export const RadioGroupShowcase: Story = {
   render: () => {
     const DropdownRadioComponent = () => {
       const datas = [
-        { id: "react", value: "React" },
-        { id: "solid", value: "Solid" },
-        { id: "vue", value: "Vue" },
-        { id: "angular", value: "Angular" },
-      ];
-      const [value, setValue] = React.useState("React");
+        { id: 'react', value: 'React' },
+        { id: 'solid', value: 'Solid' },
+        { id: 'vue', value: 'Vue' },
+        { id: 'angular', value: 'Angular' },
+      ]
+      const [value, setValue] = React.useState('React')
       return (
         <div className="flex h-[200px] items-center justify-center gap-8">
           <DropdownMenu>
             <DropdownTrigger>Open Menu</DropdownTrigger>
             <DropdownPositioner>
               <DropdownContent>
-                <DropdownRadioGroup
-                  value={value}
-                  onValueChange={(e) => setValue(e.value)}
-                >
+                <DropdownRadioGroup value={value} onValueChange={(e) => setValue(e.value)}>
                   {datas.map((data) => (
                     <DropdownRadioItem key={data.id} value={data.value}>
                       {data.value}
@@ -126,11 +119,11 @@ export const RadioGroupShowcase: Story = {
             </DropdownPositioner>
           </DropdownMenu>
         </div>
-      );
-    };
-    return <DropdownRadioComponent />;
+      )
+    }
+    return <DropdownRadioComponent />
   },
-};
+}
 
 export const NestedShowcase: Story = {
   render: () => {
@@ -180,11 +173,11 @@ export const NestedShowcase: Story = {
             </DropdownPositioner>
           </DropdownMenu>
         </div>
-      );
-    };
-    return <DropdownComponent />;
+      )
+    }
+    return <DropdownComponent />
   },
-};
+}
 
 export const AdvancedShowcase: Story = {
   render: () => {
@@ -242,8 +235,8 @@ export const AdvancedShowcase: Story = {
             </DropdownPositioner>
           </DropdownMenu>
         </div>
-      );
-    };
-    return <DropdownComponent />;
+      )
+    }
+    return <DropdownComponent />
   },
-};
+}
