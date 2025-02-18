@@ -35,6 +35,7 @@
         "./radio-group": "./src/components/radio-group.tsx",
         "./separator": "./src/components/separator.tsx",
         "./sheet": "./src/components/sheet.tsx",
+        "./sidebar": "./src/components/sidebar.tsx",
         "./skeleton": "./src/components/skeleton.tsx",
         "./slider": "./src/components/slider.tsx",
         "./spinner": "./src/components/spinner.tsx",
