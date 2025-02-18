@@ -32,7 +32,7 @@ export const sidebarStyles = tv({
     input: [
       'h-8 w-full bg-background shadow-none focus:ring-0 focus-visible:ring-1 focus-visible:ring-primary/50',
     ],
-    header: 'flex flex-col gap-2 p-2',
+    header: 'flex gap-2 p-2',
     footer: 'flex flex-col gap-2 p-2',
     separator: 'mx-2 w-auto bg-sidebar-border',
     content: [
@@ -92,9 +92,12 @@ export const sidebarMenuButtonStyles = tv({
       '[&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0',
     ],
     subButton: [
-      '-translate-x-px flex h-7 min-w-0 items-center gap-2 overflow-hidden rounded-md px-2 text-sidebar-foreground outline-none ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus:ring-0 focus-visible:ring-1 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:text-sidebar-accent-foreground',
+      '-translate-x-px flex h-7 min-w-0 items-center gap-2 overflow-hidden rounded-md px-2 text-sidebar-foreground outline-none ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus:ring-0 focus-visible:ring-1 cursor-pointer',
+      'active:bg-sidebar-accent active:text-sidebar-accent-foreground',
       'data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground',
+      'disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50',
       'group-data-[collapsible=icon]:hidden',
+      '[&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:text-sidebar-accent-foreground',
     ],
   },
   variants: {

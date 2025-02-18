@@ -2,6 +2,7 @@ import { Tooltip as TooltipPrimitive, useTooltip } from '@ark-ui/react/tooltip'
 import { tooltipStyles } from '@repo/core-ui/tooltip.css'
 import * as React from 'react'
 
+const TooltipProvider = TooltipPrimitive.RootProvider
 const Tooltip = TooltipPrimitive.Root
 const TooltipTrigger = TooltipPrimitive.Trigger
 
@@ -25,4 +26,4 @@ const TooltipContent = React.forwardRef<
 
 TooltipContent.displayName = TooltipPrimitive.Content.displayName
 
-export { Tooltip, TooltipTrigger, TooltipContent, useTooltip }
+export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, useTooltip }

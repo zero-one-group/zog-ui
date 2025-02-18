@@ -1,0 +1,65 @@
+import { Canvas, Meta, Primary, Stories } from '@storybook/blocks';
+import * as SidebarStories from './sidebar.stories';
+
+<Meta of={SidebarStories} />
+
+# Sidebar
+
+A panel that slides in from the edge of the screen.
+
+## Example
+
+```tsx
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+  SidebarProvider,
+  SidebarRail,
+  SidebarTrigger,
+} from '@repo/ui-react/sidebar';
+
+<SidebarProvider>
+  <Sidebar>
+    <SidebarContent>
+      <SidebarGroup>
+        <SidebarHeader>
+          <SidebarGroupLabel className="text-lg">ZOG UI</SidebarGroupLabel>
+        </SidebarHeader>
+        <SidebarGroupContent>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton>
+                <Lucide.Home />
+                Home
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+    </SidebarContent>
+    <SidebarRail />
+  </Sidebar>
+  <SidebarInset>
+    <SidebarTrigger />
+  </SidebarInset>
+</SidebarProvider>;
+```
+
+## Preview
+
+<Primary />
+
+## Stories
+
+<Stories />
